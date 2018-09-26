@@ -201,12 +201,22 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public List<WebElement> getCoolDecrementElements() {
-		return MobileUtils.getMobElements(objectDefinition, testCase, "CoolDecrement");
+//		return MobileUtils.getMobElements(objectDefinition, testCase, "CoolDecrement");
+		if (testCase.getMobileDriver().getPlatformName().contains("Android")){
+			return MobileUtils.getMobElements(objectDefinition, testCase, "CoolIncrement");
+		} else{
+			return MobileUtils.getMobElements(testCase,"id", "temp stepper down");
+		}
 	}
 
 	public List<WebElement> getCoolIncrementElements() {
-		return MobileUtils.getMobElements(objectDefinition, testCase, "CoolIncrement");
+		if (testCase.getMobileDriver().getPlatformName().contains("Android")){
+			return MobileUtils.getMobElements(objectDefinition, testCase, "CoolIncrement");
+		} else{
+			return MobileUtils.getMobElements(testCase,"id", "temp stepper up");
+		}
 	}
+	
 
 	public String getCoolSetPointChooserSetPointsValue() {
 		String string;
@@ -351,23 +361,23 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public WebElement getHeatSetPointDownButton() {
-//		List<WebElement> HeatElement = MobileUtils.getMobElements(objectDefinition, testCase, "HeatDecrement");
-//		if (HeatElement.size() > 1) {
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				return MobileUtils.getMobElements(objectDefinition, testCase, "HeatDecrement").get(1);
-			} else {
-				return testCase.getMobileDriver().findElements(By.id("temp stepper down")).get(1);
-			}
-//		} else {
-//			return MobileUtils.getMobElement(objectDefinition, testCase, "HeatDecrement");
-//		}
+		//		List<WebElement> HeatElement = MobileUtils.getMobElements(objectDefinition, testCase, "HeatDecrement");
+		//		if (HeatElement.size() > 1) {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.getMobElements(objectDefinition, testCase, "HeatDecrement").get(1);
+		} else {
+			return testCase.getMobileDriver().findElements(By.id("temp stepper down")).get(1);
+		}
+		//		} else {
+		//			return MobileUtils.getMobElement(objectDefinition, testCase, "HeatDecrement");
+		//		}
 	}
 
 	public List<WebElement> getHeatSetPointsElements() {
-		 return MobileUtils.getMobElements(objectDefinition, testCase,"HeatSetPoints");
+		return MobileUtils.getMobElements(objectDefinition, testCase,"HeatSetPoints");
 	}
-	
-	
+
+
 
 	public List<MobileElement> getHeatOnlySetPointsElements() {
 		// return MobileUtils.getMobElements(objectDefinition, testCase,
@@ -396,16 +406,16 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public WebElement getHeatSetPointUpButton() {
-//		List<WebElement> HeatElement = MobileUtils.getMobElements(objectDefinition, testCase, "HeatIncrement");
-//		if (HeatElement.size() > 1) {
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				return MobileUtils.getMobElements(objectDefinition, testCase, "HeatIncrement").get(1);
-			} else {
-				return testCase.getMobileDriver().findElements(By.id("temp stepper up")).get(1);
-			}
-//		} else {
-//			return MobileUtils.getMobElement(objectDefinition, testCase, "HeatIncrement");
-//		}
+		//		List<WebElement> HeatElement = MobileUtils.getMobElements(objectDefinition, testCase, "HeatIncrement");
+		//		if (HeatElement.size() > 1) {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.getMobElements(objectDefinition, testCase, "HeatIncrement").get(1);
+		} else {
+			return testCase.getMobileDriver().findElements(By.id("temp stepper up")).get(1);
+		}
+		//		} else {
+		//			return MobileUtils.getMobElement(objectDefinition, testCase, "HeatIncrement");
+		//		}
 	}
 
 	public WebElement getHeatSetPointUpButton(int index) {
@@ -472,7 +482,7 @@ public class SchedulingScreen extends MobileScreens {
 	public String getTimeOfWeekendScheduleOfGivenPeriod(String periodName) {
 		return MobileUtils.getFieldValue(testCase, "xpath",
 				"//*[contains(@content-desc,'_Saturday - Sunday')]//android.widget.TextView[@text='" + periodName
-						+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView");
+				+ "']/parent::android.widget.LinearLayout/following-sibling::android.widget.TextView");
 	}
 
 	public String getTimeScheduleEndTimeValue() {
@@ -582,7 +592,7 @@ public class SchedulingScreen extends MobileScreens {
 		return MobileUtils
 				.getMobElement(testCase, "xpath",
 						"//android.widget.FrameLayout[" + index
-								+ "]//*[contains(@content-desc,'_Monday - Friday')]/android.widget.TextView[1]")
+						+ "]//*[contains(@content-desc,'_Monday - Friday')]/android.widget.TextView[1]")
 				.getText();
 	}
 
@@ -658,7 +668,7 @@ public class SchedulingScreen extends MobileScreens {
 		return MobileUtils
 				.getMobElement(testCase, "xpath",
 						"//android.widget.FrameLayout[" + (index)
-								+ "]//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.TextView[1]")
+						+ "]//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.TextView[1]")
 				.getText();
 	}
 
@@ -916,7 +926,7 @@ public class SchedulingScreen extends MobileScreens {
 	public boolean isWeekendPeriodTimeElementAtIndexVisible(int index, int timeOut) {
 		return MobileUtils.isMobElementExists("Xpath",
 				"//android.widget.FrameLayout[" + (index)
-						+ "]//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.TextView[1]",
+				+ "]//*[contains(@content-desc,'_Saturday - Sunday')]/android.widget.TextView[1]",
 				testCase, timeOut);
 	}
 

@@ -92,97 +92,97 @@ public class JasperSchedulingVerifyUtils {
 					} else {
 						if (ss.isGeofenceHomeCoolElementVisible(5)) {
 							coolSetPoint = ss.getGeofenceHomeCoolElement();
-							if (Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("°","")) <= maxHeat
-									&& Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("°","")) >= minHeat) {
+							if (Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚","")) <= maxHeat
+									&& Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚","")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
 										"Home Set Point value: "
-												+ Double.parseDouble(coolSetPoint.getAttribute("value"))
+												+ Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚",""))
 												+ " is set within or at the maximum and minimum range");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[TemperatureInMaxMinRange] Home Set Point value: "
-												+ Double.parseDouble(coolSetPoint.getAttribute("value"))
+												+ Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚",""))
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
 						if (ss.isGeofenceHomeHeatElementVisible(5)) {
 							heatSetPoint = ss.getGeofenceHomeHeatElement();
-							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("°","")) <= maxHeat
-									&& Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("°","")) >= minHeat) {
+							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) <= maxHeat
+									&& Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
 										"Home Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("°",""))
+												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚",""))
 												+ " is set within or at the maximum and minimum range");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[TemperatureInMaxMinRange] Home Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("°",""))
+												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚",""))
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
 						if (ss.isGeofenceSleepCoolElementVisible(5)) {
 							coolSetPoint = ss.getGeofenceSleepCoolElement();
-							if (Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("°","")) <= maxHeat
-									&& Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("°","")) >= minHeat) {
+							if (Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚","")) <= maxHeat
+									&& Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚","")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
 										"Sleep Set Point value: "
-												+ Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("°",""))
+												+ Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚",""))
 												+ " is set within or at the maximum and minimum range");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[TemperatureInMaxMinRange] Sleep Set Point value: "
-												+ Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("°",""))
+												+ Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚",""))
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
 						if (ss.isGeofenceSleepHeatElementVisible(5)) {
 							heatSetPoint = ss.getGeofenceSleepHeatElement();
-							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("°","")) <= maxHeat
-									&& Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("°","")) >= minHeat) {
+							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) <= maxHeat
+									&& Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
 										"Sleep Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("°",""))
+												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚",""))
 												+ " is set within or at the maximum and minimum range");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[TemperatureInMaxMinRange] Sleep Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("°",""))
+												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚",""))
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
 						if (ss.isGeofenceAwayCoolElementVisible(5)) {
 							coolSetPoint = ss.getGeofenceAwayCoolElement();
-							if (Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("°","")) <= maxHeat
-									&& Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("°","")) >= minHeat) {
+							if (Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚","")) <= maxHeat
+									&& Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚","")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
 										"Home Set Point value: "
-												+ Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("°",""))
+												+ Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚",""))
 												+ " is set within or at the maximum and minimum range");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[TemperatureInMaxMinRange] Home Set Point value: "
-												+ Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("°",""))
+												+ Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚",""))
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
 						if (ss.isGeofenceAwayHeatElementVisible(5)) {
 							heatSetPoint = ss.getGeofenceAwayHeatElement();
-							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("°","")) <= maxHeat
-									&& Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("°","")) >= minHeat) {
+							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) <= maxHeat
+									&& Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
 										"Home Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("°",""))
+												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚",""))
 												+ " is set within or at the maximum and minimum range");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[TemperatureInMaxMinRange] Home Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("°",""))
+												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚",""))
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
@@ -4198,7 +4198,7 @@ public class JasperSchedulingVerifyUtils {
 						tempCoolSetPointApp = tempCoolSetPointApp.split("\\.")[0];
 					}
 				}
-				if (Integer.valueOf(tempCoolSetPointApp) >= Integer.valueOf(tempHeatSetPointApp)) {
+				if (Integer.valueOf(tempCoolSetPointApp.replaceAll("˚","")) >= Integer.valueOf(tempHeatSetPointApp.replaceAll("˚",""))) {
 					Keyword.ReportStep_Pass(testCase,
 							"[HomeSettings] Home set points are following Auto changeover logic");
 				} else {
@@ -4220,7 +4220,7 @@ public class JasperSchedulingVerifyUtils {
 					if (tempCoolSetPointApp.contains(".0")) {
 						tempCoolSetPointApp = tempCoolSetPointApp.split("\\.")[0];
 					}
-					if (Integer.valueOf(tempCoolSetPointApp) >= Integer.valueOf(tempHeatSetPointApp)) {
+					if (Integer.valueOf(tempCoolSetPointApp.replaceAll("˚","")) >= Integer.valueOf(tempHeatSetPointApp.replaceAll("˚",""))) {
 						Keyword.ReportStep_Pass(testCase,
 								"[SleepSettings] Sleep set points are following Auto changeover logic");
 					} else {
@@ -4242,7 +4242,7 @@ public class JasperSchedulingVerifyUtils {
 				if (tempCoolSetPointApp.contains(".0")) {
 					tempCoolSetPointApp = tempCoolSetPointApp.split("\\.")[0];
 				}
-				if (Integer.valueOf(tempCoolSetPointApp) >= Integer.valueOf(tempHeatSetPointApp)) {
+				if (Integer.valueOf(tempCoolSetPointApp.replaceAll("˚","")) >= Integer.valueOf(tempHeatSetPointApp.replaceAll("˚",""))) {
 					Keyword.ReportStep_Pass(testCase,
 							"[AwaySettings] Away set points are following Auto changeover logic");
 				} else {
