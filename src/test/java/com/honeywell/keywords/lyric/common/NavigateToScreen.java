@@ -831,8 +831,13 @@ public class NavigateToScreen extends Keyword {
 					FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
 					flag = flag && fly.ClickOnSettingsIcon();
 					flag = flag && fly.ClickOnDeviceAndSensor();
-					flag = flag && MobileUtils.clickOnElement(testCase, "xpath",
+					if (testCase.getMobileDriver().getPlatformName().contains("Android")){
+						flag = flag && MobileUtils.clickOnElement(testCase, "xpath",
 							"//*[contains(@text,'" + inputs.getInputValue("SENSOR1") + "')]");
+						} else{
+							flag = flag && MobileUtils.clickOnElement(testCase, "id",
+									inputs.getInputValue("SENSOR1") + " Indoor Air Sensors");	
+						}
 					break;
 				}
 				case "WINDOW PROTECTION": {

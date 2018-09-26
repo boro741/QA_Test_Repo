@@ -241,7 +241,6 @@ public class LyricUtils {
 							in.close();
 
 							JSONObject jsonObj = new JSONObject(html.toString().trim());
-							Keyword.ReportStep_Pass(testCase,"user details  "+jsonObj.get("users").toString());
 							JSONArray array = (JSONArray) jsonObj.get("devices");
 
 							JSONObject tempJSONObject = null;

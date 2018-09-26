@@ -6,7 +6,6 @@ import java.net.HttpURLConnection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -5938,8 +5937,8 @@ public class JasperSchedulingUtils {
 				if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)
 						&& (size > 1)) {
 					coolSetPoint = ss.getCoolSetPointsElements().get(1).getAttribute("value");
-					coolUp = ss.getCoolIncrementElements().get(1);
-					coolDown = ss.getCoolDecrementElements().get(1);
+					coolUp = ss.getCoolSetPointUpButton();
+					coolDown = ss.getCoolSetPointDownButton();
 				} else {
 					coolSetPoint = ss.getCoolSetPointChooserSetPointsValue();
 					coolUp = ss.getCoolSetPointUpButton();
@@ -6024,8 +6023,8 @@ public class JasperSchedulingUtils {
 					if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)
 							&& (size > 1)) {
 						heatSetPoint = ss.getHeatSetPointsElements().get(1).getAttribute("value");
-						heatUp = ss.getHeatIncrementElements().get(1);
-						heatDown = ss.getHeatDecrementElements().get(1);
+						heatUp = ss.getHeatSetPointUpButton();
+						heatDown = ss.getHeatSetPointDownButton();
 					} else {
 						heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
 						heatUp = ss.getHeatSetPointUpButton();
