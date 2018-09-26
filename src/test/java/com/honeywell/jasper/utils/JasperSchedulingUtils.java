@@ -1112,10 +1112,10 @@ public class JasperSchedulingUtils {
 				}
 				// ================================================EMEA===========================================================
 				else {
+					DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
 					String[] modes = { "1", "2", "3", "4" };
 					for (String mode : modes) {
 						HashMap<String, String> periodTimeandSetPoint = new HashMap<String, String>();
-						DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
 						List<String> allowedModes = devInfo.getAllowedModes();
 						periodTimeandSetPoint.put("periodName", mode);
 						if (mode.equals("1")) {
@@ -1587,11 +1587,11 @@ public class JasperSchedulingUtils {
 								+ periodTimeandSetPoint.get("periodName") + " period ***************");
 					}
 				} else {
+					DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
 					String[] modes = { "Wake_Weekday", "Away_Weekday", "Home_Weekday", "Sleep_Weekday", "Wake_Weekend",
 							"Away_Weekend", "Home_Weekend", "Sleep_Weekend" };
 					for (String mode : modes) {
 						HashMap<String, String> periodTimeandSetPoint = new HashMap<String, String>();
-						DeviceInformation devInfo = new DeviceInformation(testCase, inputs);
 						List<String> allowedModes = devInfo.getAllowedModes();
 						periodTimeandSetPoint.put("periodName", mode);
 						if (mode.equals("Wake_Weekday")) {
@@ -6506,25 +6506,23 @@ public class JasperSchedulingUtils {
 				}
 			}
 		} else {
-			if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
-					.equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
 				if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 						.equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
 					List<WebElement> weekdayschedule_period_title = null, weekendschedule_period_title = null;
 
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
-					action.press(10, (int) (dimension.getHeight() * .5)).moveTo(0, (int) (dimension.getHeight() * .3))
+					action.press(10, (int) (dimension.getHeight() * .5)).moveTo(0, (int) (dimension.getHeight() * .4))
 					.release().perform();
 
 					if (ss.isWeekdaySchedulePeriodTitleVisible(5)) {
 						weekdayschedule_period_title = ss.getWeekdaySchedulePeriodTitleElements();
 					}
 
-					action.press(10, (int) (dimension.getHeight() * .5)).moveTo(0, (int) (dimension.getHeight() * -.3))
+					action.press(10, (int) (dimension.getHeight() * .5)).moveTo(0, (int) (dimension.getHeight() * -.4))
 					.release().perform();
-
-					if (ss.isWeekendSchedulePeriodTitleVisible(5)) {
+					if (ss.isWeekendSchedulePeriodTitleVisible(5));
+					{
 						weekendschedule_period_title = ss.getWeekendSchedulePeriodTitleElements();
 					}
 
@@ -6532,12 +6530,12 @@ public class JasperSchedulingUtils {
 					if (Integer.parseInt(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE)) <= 4) {
 
 						action.press(10, (int) (dimension.getHeight() * .5))
-						.moveTo(0, (int) (dimension.getHeight() * .3)).release().perform();
+						.moveTo(0, (int) (dimension.getHeight() * .4)).release().perform();
 
 						schedule_period_time = weekdayschedule_period_title;
 						expectedPeriod = "Monday - Friday_";
 						for (int i = 1; i <= schedule_period_time.size(); i++) {
-							String temp = ss.getPeriodName(expectedPeriod + i);
+							String temp = ss.getPeriodName(expectedPeriod + i + "_cell");
 							temp = temp.split("_")[1];
 							if (temp.equalsIgnoreCase(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE))) {
 								expectedPeriodTime = schedule_period_time.get(i - 1).getAttribute("value");
@@ -6559,7 +6557,7 @@ public class JasperSchedulingUtils {
 						schedule_period_time = weekendschedule_period_title;
 						expectedPeriod = "Saturday - Sunday_";
 						for (int i = 1; i <= schedule_period_time.size(); i++) {
-							String temp = ss.getPeriodName(expectedPeriod + i);
+							String temp = ss.getPeriodName(expectedPeriod + i + "_cell");
 							temp = temp.split("_")[1];
 							if (String.valueOf((Integer.parseInt(temp) + 4))
 									.equalsIgnoreCase(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE))) {
@@ -6577,25 +6575,6 @@ public class JasperSchedulingUtils {
 						}
 					}
 
-				} else {
-					schedule_period_time = ss.getEverydayTimeElements();
-					for (int i = 1; i <= schedule_period_time.size(); i++) {
-						String temp = ss.getPeriodName("Everyday_" + i);
-						temp = temp.split("_")[1];
-						if (temp.equalsIgnoreCase(inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE))) {
-							expectedPeriodTime = schedule_period_time.get(i - 1).getAttribute("value");
-							try {
-								schedule_period_time.get(i - 1).click();
-								break;
-							} catch (Exception e) {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Failed to click on Period-"
-												+ inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE)
-												+ " Error message: " + e.getMessage());
-							}
-						}
-					}
-				}
 			} else {
 				schedule_period_time = ss.getEverydayTimeElements();
 				for (int i = 1; i <= schedule_period_time.size(); i++) {
