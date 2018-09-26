@@ -233,10 +233,8 @@ public class SchedulingScreen extends MobileScreens {
 		}
 	}
 
-	public List<MobileElement> getCoolSetPointsElements() {
-		// return MobileUtils.getMobElements(objectDefinition, testCase,
-		// "CoolSetPoints");
-		return testCase.getMobileDriver().findElements(By.xpath("//XCUIElementTypeStaticText[@name='Dialer'][1]"));
+	public List<WebElement> getCoolSetPointsElements() {
+		return MobileUtils.getMobElements(objectDefinition, testCase, "CoolSetPoints");
 	}
 
 	public String getCoolSetPointsOfGivenEverydayPeriod(String periodName) {
@@ -353,23 +351,23 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public WebElement getHeatSetPointDownButton() {
-		List<WebElement> HeatElement = MobileUtils.getMobElements(objectDefinition, testCase, "HeatDecrement");
-		if (HeatElement.size() > 1) {
+//		List<WebElement> HeatElement = MobileUtils.getMobElements(objectDefinition, testCase, "HeatDecrement");
+//		if (HeatElement.size() > 1) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return MobileUtils.getMobElements(objectDefinition, testCase, "HeatDecrement").get(1);
 			} else {
-				return testCase.getMobileDriver().findElements(By.name("temp stepper down")).get(1);
+				return testCase.getMobileDriver().findElements(By.id("temp stepper down")).get(1);
 			}
-		} else {
-			return MobileUtils.getMobElement(objectDefinition, testCase, "HeatDecrement");
-		}
+//		} else {
+//			return MobileUtils.getMobElement(objectDefinition, testCase, "HeatDecrement");
+//		}
 	}
 
-	public List<MobileElement> getHeatSetPointsElements() {
-		// return MobileUtils.getMobElements(objectDefinition, testCase,
-		// "heatTemperatureLabel");
-		return testCase.getMobileDriver().findElements(By.xpath("(//XCUIElementTypeStaticText[@name='Dialer'])[2]"));
+	public List<WebElement> getHeatSetPointsElements() {
+		 return MobileUtils.getMobElements(objectDefinition, testCase,"HeatSetPoints");
 	}
+	
+	
 
 	public List<MobileElement> getHeatOnlySetPointsElements() {
 		// return MobileUtils.getMobElements(objectDefinition, testCase,
@@ -398,16 +396,16 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public WebElement getHeatSetPointUpButton() {
-		List<WebElement> HeatElement = MobileUtils.getMobElements(objectDefinition, testCase, "HeatIncrement");
-		if (HeatElement.size() > 1) {
+//		List<WebElement> HeatElement = MobileUtils.getMobElements(objectDefinition, testCase, "HeatIncrement");
+//		if (HeatElement.size() > 1) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return MobileUtils.getMobElements(objectDefinition, testCase, "HeatIncrement").get(1);
 			} else {
-				return testCase.getMobileDriver().findElements(By.name("temp stepper up")).get(1);
+				return testCase.getMobileDriver().findElements(By.id("temp stepper up")).get(1);
 			}
-		} else {
-			return MobileUtils.getMobElement(objectDefinition, testCase, "HeatIncrement");
-		}
+//		} else {
+//			return MobileUtils.getMobElement(objectDefinition, testCase, "HeatIncrement");
+//		}
 	}
 
 	public WebElement getHeatSetPointUpButton(int index) {
