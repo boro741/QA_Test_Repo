@@ -124,7 +124,7 @@ public class VerifyingAOption extends Keyword {
 			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "SHOULD BE DISPLAYED":
-				if (cs.isEmailNotificationCellVisibleAfterTurningOffAlerts(testCase)) {
+				if (cs.isEmailNotificationCellVisibleAfterTurningONAlerts(testCase)) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is  displayed");
 
 				} else {

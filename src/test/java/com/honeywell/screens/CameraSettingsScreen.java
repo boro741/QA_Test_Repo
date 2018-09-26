@@ -644,7 +644,7 @@ public class CameraSettingsScreen extends MobileScreens {
 		return flag;
 	}
 
-	public boolean isEmailNotificationCellVisibleAfterTurningOffAlerts(TestCases testCase) {
+	public boolean isEmailNotificationCellVisibleAfterTurningONAlerts(TestCases testCase) {
 		boolean flag = true;
 		List<WebElement> emailNotificationsCells = new ArrayList<WebElement>();
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -1651,12 +1651,9 @@ public class CameraSettingsScreen extends MobileScreens {
 	}
 	
 	public boolean isCameraMicrophoneTextEnabled(){
-		if (MobileUtils.getMobElement(objectDefinition, testCase, "CameraMicrophoneText").isEnabled()) {
-			System.out.println("Element Found");
-		}
-		return true;
-				
+		return MobileUtils.getMobElement(objectDefinition, testCase, "CameraMicrophoneText").isEnabled();			
 	}
+	
 	public boolean isVideoQualityAutoVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoQualityAuto");
 	}
