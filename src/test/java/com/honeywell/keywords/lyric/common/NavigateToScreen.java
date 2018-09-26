@@ -335,7 +335,6 @@ public class NavigateToScreen extends Keyword {
 				}
 				}
 			}
-
 			else if (screen.get(1).equalsIgnoreCase("WLD SOLUTION CARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "LEAK DETECTOR CONFIGURATION": {
@@ -343,6 +342,28 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & humi.navigateFromPrimaryCardToLeakDetectorConfigurationScreen();
 					if(flag) {
 						Keyword.ReportStep_Pass(testCase, "Navigated to from WLD Solution card to Config screen");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Not Navigated ");
+					}
+					break;
+				}
+				case "UPDATE FREQUENCY": {
+					WLDSolutionCard humi = new WLDSolutionCard(testCase);
+					flag = flag & humi.navigateFromSolutionCardToUpdateFrequencyScreen();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Navigated to from WLD Solution card to Update Frequency screen");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Not Navigated ");
+					}
+					break;
+				}
+				case "LEAK DETECTOR SETTINGS": {
+					WLDSolutionCard humi = new WLDSolutionCard(testCase);
+					flag = flag & humi.navigateFromSolutionCardToLeakDetectorSettingsScreen();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Navigated to from WLD Solution card to Update Frequency screen");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Not Navigated ");
@@ -357,12 +378,31 @@ public class NavigateToScreen extends Keyword {
 			}
 			//Amresh wld
 			else if (screen.get(1).equalsIgnoreCase("WLD SETTINGS")) {
+				WLDLeakDetectorSettings set = new WLDLeakDetectorSettings(testCase);
+
 				switch (screen.get(0).toUpperCase())
 				{
+				
 				case "DASHBOARD": 
 				{
-					WLDLeakDetectorSettings set = new WLDLeakDetectorSettings(testCase);
-					flag = flag & set.navigateFromWLDSettingsScreenToPrimaryCard();
+					flag = flag && set.navigateFromWLDSettingsScreenToPrimaryCard();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Navigated from Settings to Primary Card");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Unable to Navigate");
+					}
+					break;
+				}
+				case "UPDATE FREQUENCY": 
+				{
+					flag = flag && set.navigateFromWLDSettingsScreenToUpdateFrequencyCard();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Navigated from Settings to Update Frequency");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Unable to Navigate");
+					}
 					break;
 				}
 				default: {
@@ -655,6 +695,12 @@ public class NavigateToScreen extends Keyword {
 				// Amresh - Navigate from 'Dashboard' to 'WLD Settings'
 				case "WLD SETTINGS": {
 					flag = flag & WLDSolutionCard.navigateFromDashboardScreenToWLDSettingsScreen(testCase, inputs);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Navigated from Dashboard to Settings");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Unable to Navigate");
+					}
 					break;
 				}
 				case "UPDATE FREQUENCY": {
@@ -704,16 +750,39 @@ public class NavigateToScreen extends Keyword {
 				//Amresh  dashboard to wld manage alerts
 				case "WLD MANAGE ALERTS": { 
 					flag = flag & WLDManageAlerts.navigateFromDashboardScreenToWLDManageAlerts(testCase, inputs);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Navigated from Dashboard to Manage Alerts ");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Unable to Navigate");
+					}
 					break;
 				}
 				//Amresh  dashboard to Leak Detector Configuration
 				case "LEAK DETECTOR CONFIGURATION": { 
 					flag = flag & WLDConfigurationScreen.navigateFromDashboardToWLDConfigurationScreen(testCase, inputs);
-					break;
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Navigated from Dashboard to Configuration ");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Unable to Navigate");
+					}break;
 				}
 				//Amresh  dashboard to Leak Detector Configuration
-				case "WLD SOLUTION CARD": { 
+				case "WLD SOLUTION CARD": {
 //Later				//	flag = flag & WLDConfigurationScreen.navigateFromDashboardToWLDConfigurationScreen(testCase, inputs);
+					break;
+				}
+				// Navigate from 'Dashboard' to 'WLD Email Notifications' Screen //Amresh
+				case "EMAIL NOTIFICATIONS": {
+					flag = flag & WLDManageAlerts.navigateFromDashboardScreenToEmailNotificationsScreen(testCase,
+							inputs);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Navigated from Dashboard to EmailNotifications");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Unable to Navigate");
+					}
 					break;
 				}
 				// Navigate from 'Dashboard' to 'Thermostat Humidification Screen'

@@ -13,7 +13,9 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
+import com.honeywell.screens.WLDLeakDetectorSettings;
 import com.honeywell.screens.WLDManageAlerts;
+import com.honeywell.screens.WLDUpdateFrequency;
 
 public class VerifyValueOnAScreen extends Keyword {
 
@@ -300,32 +302,23 @@ public class VerifyValueOnAScreen extends Keyword {
 					&& parameters.get(2).equalsIgnoreCase("MANAGE ALERTS")) {
 				WLDManageAlerts ale = new WLDManageAlerts(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
-					
 					if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {//android code here
 						String status = ale.getIndoorTemperatureAlertsToggleValue();
-						System.out.println(parameters.get(0) + " value is updated to: "+status+" on " +parameters.get(2)+" screen");
+						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " value is updated to: "+status+" on " +parameters.get(2)+" screen");
 					}
-					else {
-						
-						//ios code here
+					else {//ios code here
 						String status = ale.getIndoorTemperatureAlertsToggleValue();
-						System.out.println(parameters.get(0) + " value is updated to: "+status+" on " +parameters.get(2)+" screen");
-						
+						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " value is updated to: "+status+" on " +parameters.get(2)+" screen");
 					}
 					}
-
 				 else if (parameters.get(1).equalsIgnoreCase("OFF")) {
-						
 						if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {//android code here
 							String status = ale.getIndoorTemperatureAlertsToggleValue();
-							System.out.println(parameters.get(0) + " value is updated to: "+status+" on" +parameters.get(2)+" screen");
+							Keyword.ReportStep_Pass(testCase, parameters.get(0) + " value is updated to: "+status+" on" +parameters.get(2)+" screen");
 						}
-						else {
-							
-							//ios code here
+						else {//ios code here
 							String status = ale.getIndoorTemperatureAlertsToggleValue();
-							System.out.println(parameters.get(0) + " value is updated to: "+status+" on" +parameters.get(2)+" screen");
-							
+							Keyword.ReportStep_Pass(testCase, parameters.get(0) + " value is updated to: "+status+" on" +parameters.get(2)+" screen");
 						}
 				} 
 				 else {
@@ -341,29 +334,21 @@ public class VerifyValueOnAScreen extends Keyword {
 					
 					if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {//android code here
 						String status = ale.getIndoorHumidityAlertsToggleValue();
-						System.out.println(parameters.get(0) + " value is updated to: "+status+" on " +parameters.get(2)+" screen");
+						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " value is updated to: "+status+" on " +parameters.get(2)+" screen");
 					}
-					else {
-						
-						//ios code here
+					else {//ios code here
 						String status = ale.getIndoorHumidityAlertsToggleValue();
-						System.out.println(parameters.get(0) + " value is updated to: "+status+" on " +parameters.get(2)+" screen");
-						
+						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " value is updated to: "+status+" on " +parameters.get(2)+" screen");
 					}
 					}
-
 				 else if (parameters.get(1).equalsIgnoreCase("OFF")) {
-						
 						if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {//android code here
 							String status = ale.getIndoorHumidityAlertsToggleValue();
-							System.out.println(parameters.get(0) + " value is updated to: "+status+" on" +parameters.get(2)+" screen");
+							Keyword.ReportStep_Pass(testCase, parameters.get(0) + " value is updated to: "+status+" on" +parameters.get(2)+" screen");
 						}
-						else {
-							
-							//ios code here
+						else {//ios code here
 							String status = ale.getIndoorHumidityAlertsToggleValue();
-							System.out.println(parameters.get(0) + " value is updated to: "+status+" on" +parameters.get(2)+" screen");
-							
+							Keyword.ReportStep_Pass(testCase, parameters.get(0) + " value is updated to: "+status+" on" +parameters.get(2)+" screen");
 						}
 				} 
 				 else {
@@ -371,8 +356,53 @@ public class VerifyValueOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Camera Sound detection status is not displayed");
 				}
-			}
-			//Amresh wld edit ends
+			}//Amresh wld edit ends
+			//Amresh wld edit starts
+			else if (parameters.get(0).equalsIgnoreCase("UPDATE FREQUENCY")
+					&& parameters.get(2).equalsIgnoreCase("LEAK DETECTOR SETTINGS")) {
+				WLDLeakDetectorSettings set = new WLDLeakDetectorSettings(testCase);
+				if (parameters.get(1).equalsIgnoreCase("DAILY")) 
+				{	
+					flag = flag && set.isUpdateFrequencyValueVisible();
+					String ufValue = set.displayUpdateFrequencyValue();
+					Keyword.ReportStep_Pass(testCase, ufValue);
+					if(ufValue.equals("Daily")) {
+						Keyword.ReportStep_Pass(testCase, ufValue+ " Frequency is Sucessfully updated");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not Updated");
+					}
+				}
+				 else if (parameters.get(1).equalsIgnoreCase("TWICE DAILY")) 
+				 {
+					 	flag = flag && set.isUpdateFrequencyValueVisible();
+						String ufValue = set.displayUpdateFrequencyValue();
+						Keyword.ReportStep_Pass(testCase, ufValue);
+						if(ufValue.equals("Twice Daily")) {
+							Keyword.ReportStep_Pass(testCase, ufValue+ " Daily Frequency is Sucessfully updated");
+						}
+						else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not Updated");
+						}
+				 } 
+				 else if (parameters.get(1).equalsIgnoreCase("THREE TIMES DAILY")) 
+				 {
+					 	flag = flag && set.isUpdateFrequencyValueVisible();
+						String ufValue = set.displayUpdateFrequencyValue();
+						Keyword.ReportStep_Pass(testCase, ufValue);
+						if(ufValue.equals("Three Times Daily")) {
+							Keyword.ReportStep_Pass(testCase, ufValue+ " Daily Frequency is Sucessfully updated");
+						}
+						else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not Updated");
+						}
+				 } 
+				 else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Camera Sound detection status is not displayed");
+				}
+			}//Amresh wld edit ends
 			else if ((parameters.get(0).equalsIgnoreCase("SOUND DETECTION")
 					|| parameters.get(0).equalsIgnoreCase("SOUND SENSITIVITY"))
 					&& parameters.get(2).equalsIgnoreCase("SOUND DETECTION SETTINGS")) {

@@ -1,5 +1,7 @@
 package com.honeywell.screens;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
@@ -28,21 +30,18 @@ public class WLDManageAlerts extends MobileScreens {
 	public  String getTemperatureAlertsHeaderTextValue() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "");	
 	}
-
 	public  boolean isIndoorTemperatureAlertsTextVissible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "");
 	}
 	public  String getIndoorTemperatureAlertsTextValue() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "NextUpdateTime");	
 	}
-
 	public  boolean isIndoorTemperatureAlertsToggleVissible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "IndoorTemperatureAlertsToggle");
-
 	}
 	public String getIndoorTemperatureAlertsToggleValue() {
 		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-		return MobileUtils.getFieldValue(objectDefinition, testCase, "IndoorTemperatureAlertsToggle");
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "IndoorTemperatureAlertsToggle");
 		}else {//for ios
 			WebElement toggleSwitch = testCase.getMobileDriver().findElement(By.xpath("(//*[@name='AbnormalTemperature_toggle'])[1]"));
 			if(toggleSwitch.getAttribute("value").equals("1")) {
@@ -51,15 +50,11 @@ public class WLDManageAlerts extends MobileScreens {
 				return "OFF";
 			}
 		}
-
 	}
-	
 	public  boolean isIndoorHumidityAlertsToggleVissible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "IndoorHumidityAlertsToggle");
 	}
 	public  String getIndoorHumidityAlertsToggleValue() {
-		
-
 		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.getFieldValue(objectDefinition, testCase, "IndoorHumidityAlertsToggle");	
 		}else {//for ios
@@ -70,21 +65,17 @@ public class WLDManageAlerts extends MobileScreens {
 				return "OFF";
 			}
 		}
-
 	}
-
 	public boolean clickIndoorTemperatureAlertsToggle() {
-			if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				flag = flag && MobileUtils.clickOnElement(objectDefinition, testCase, "IndoorTemperatureAlertsToggle");
-			}else {
-				WebElement toggleSwitch = testCase.getMobileDriver().findElement(By.xpath("(//*[@name='AbnormalTemperature_toggle'])[1]"));
-				toggleSwitch.click();
-				flag = true;
-			}
-			return flag;
+		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			flag = flag && MobileUtils.clickOnElement(objectDefinition, testCase, "IndoorTemperatureAlertsToggle");
+		}else {
+			WebElement toggleSwitch = testCase.getMobileDriver().findElement(By.xpath("(//*[@name='AbnormalTemperature_toggle'])[1]"));
+			toggleSwitch.click();
+			flag = true;
+		}
+		return flag;
 	}
-	
-	
 	public boolean clickIndoorHumidityAlertsToggle() {
 		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			flag = flag && MobileUtils.clickOnElement(objectDefinition, testCase, "IndoorHumidityAlertsToggle");
@@ -94,20 +85,12 @@ public class WLDManageAlerts extends MobileScreens {
 			flag = true;
 		}
 		return flag;
-}
-	
-	
-	
-	
-	
-	
+	}
 	public boolean isIndoorTemperatureAlertToggleEnabled() 
 	{
 		try{
-			//WebElement toggleSwitch = MobileUtils.getMobElement(objectDefinition, testCase, "IndoorTemperatureAlertsToggle");
 			WebElement toggleSwitch = testCase.getMobileDriver().findElement(By.xpath("(//*[@name='AbnormalTemperature_toggle'])[1]"));
 			if (toggleSwitch.getAttribute("value").equalsIgnoreCase("1")) {
-				System.out.println("Enabled");
 				flag = true;
 			}
 			else {
@@ -116,19 +99,14 @@ public class WLDManageAlerts extends MobileScreens {
 		}
 		catch (Exception e){
 			flag=false;
-			System.out.println("Exception found");
 		}
 		return flag;
 	}
-	
-	
 	public boolean isIndoorHumidityAlertToggleEnabled() 
 	{
 		try{
-			//WebElement toggleSwitch = MobileUtils.getMobElement(objectDefinition, testCase, "IndoorTemperatureAlertsToggle");
 			WebElement toggleSwitch = testCase.getMobileDriver().findElement(By.xpath("(//*[@name='AbnormalHumidity_toggle'])[1]"));
 			if (toggleSwitch.getAttribute("value").equalsIgnoreCase("1")) {
-				System.out.println("Enabled");
 				flag = true;
 			}
 			else {
@@ -137,13 +115,12 @@ public class WLDManageAlerts extends MobileScreens {
 		}
 		catch (Exception e){
 			flag = false;
-			System.out.println("Exception found");
 		}
 		return flag;
 	}
 	public  boolean isEmailNotificationsforTemperatureAlertsTextVissible() {
 		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {	
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EmailNotificationsforTemperatureAlertsText");
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "EmailNotificationsforTemperatureAlertsText");
 		}
 		else {
 			WebElement email = testCase.getMobileDriver().findElement(By.xpath("(//*[@name='AbnormalTemperature_subTitle'])[2]"));
@@ -156,53 +133,46 @@ public class WLDManageAlerts extends MobileScreens {
 	}
 	public  boolean isEmailNotificationsforTemperatureAlertsToggleVissible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EmailNotificationsforTemperatureAlertsToggle");
-		
 	}
 	public  String getEmailNotificationsforTemperatureAlertsToggleValue() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "EmailNotificationsforTemperatureAlertsToggle");	
 	}
-
 	public  boolean isAlertforthisRangeTemperatureTextVissible() {
 		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "AlertforthisRangeTemperatureText");
 		}
 		else {
-		WebElement range = testCase.getMobileDriver().findElement(By.xpath("(//*[@value='Alert for this range'])[1]"));
-		return range.isDisplayed();
+			WebElement range = testCase.getMobileDriver().findElement(By.xpath("(//*[@value='Alert for this range'])[1]"));
+			return range.isDisplayed();
 		}
 	}
 	public  String getAlertforthisRangeTemperatureTextValue() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "AlertforthisRangeTemperatureText");	
 	}
-
 	public  boolean isAlertforthisRangeTemperaturePercentageButtonVissible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AlertforthisRangeTemperaturePercentageButton");
 	}
 	public  String getAlertforthisRangeTemperaturePercentageButtonValue() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "AlertforthisRangeTemperaturePercentageButton");	
 	}
-
 	public  boolean isBelowTextinTemperatureVissible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BelowTextinTemperature");
 	}
 	public  String getBelowTextinTemperatureValue() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "BelowTextinTemperature");	
 	}
-
 	public  boolean isBelowTemperatureDropDownVissible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BelowTemperatureDropDown");
 	}
 	public  String getBelowTemperatureDropDownValue() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "BelowTemperatureDropDown");	
 	}
-
 	public  boolean isAboveTextinTemperatureVissible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AboveTextinTemperature");
 	}
 	public  String getAboveTextinTemperatureValue() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "AboveTextinTemperature");	
 	}
-
 	public  boolean isAboveTemperatureDropDownVissible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AboveTemperatureDropDown");
 	}
@@ -234,14 +204,13 @@ public class WLDManageAlerts extends MobileScreens {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "EmailNotificationsforHumidityAlertsToggle");	
 	}
 	public  boolean isAlertforthisRangeHumidityTextVissible() {
-	
 		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 		TouchAction action = new TouchAction(testCase.getMobileDriver());		
 		int i = 0;
 		while (!(MobileUtils.isMobElementExists(objectDefinition, testCase, "AlertforthisRangeHumidityText")) && i < 10)
 		{
 			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, (int) (dimension.getHeight() * -.7)).release().perform();
-		i++;					
+			i++;					
 		}
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AlertforthisRangeHumidityText");		
 	}
@@ -266,7 +235,7 @@ public class WLDManageAlerts extends MobileScreens {
 	public  String getBelowHumidityDropDownValue() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "BelowHumidityDropDown");	
 	}
-	public  boolean isAAboveTextinHumidityVissible() {
+	public  boolean isAboveTextinHumidityVissible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AboveTextinHumidity");
 	}
 	public  String getAboveTextinHumidityValue() {
@@ -324,18 +293,84 @@ public class WLDManageAlerts extends MobileScreens {
 		}
 		return flag;
 	}
-	
 	public boolean clickEmailContacts() {
 		TouchAction touchAction = new TouchAction(testCase.getMobileDriver());	
 		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 		int i = 0;
 		while ((!isEmailContactsTextVissible()) && i < 10)
 		{
-		touchAction.press(10, (int) (dimension.getHeight() * .5)).moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
-		i++;					
+			touchAction.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, (int) (dimension.getHeight() * -.7)).release().perform();
+			i++;					
 		}
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "EmailContactsText");
+	}
+	public boolean clickAlertforthisRangeTemperaturePercentageButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AlertforthisRangeTemperaturePercentageButton");
+	}
+	public  boolean clickAlertforthisRangeHumidityPercentageButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AlertforthisRangeHumidityPercentageButton");
+	}
+	public boolean clickBelowTemperatureDropDown() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BelowTemperatureDropDown");
+	}
+	public boolean clickAboveTemperatureDropDown() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AboveTemperatureDropDown");
+	}
+	public boolean clickBelowHumidityDropDown() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BelowHumidityDropDown");
 
 	}
-	
+	public boolean clickAboveHumidityDropDown() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AboveHumidityDropDown");
+	}
+	public boolean verifyAlertforThisBelowTemperatureRangeUpdated(String belowTemp) {
+		String str = MobileUtils.getFieldValue(objectDefinition, testCase, "AlertforthisRangeTemperaturePercentageButton");	
+		String newstr[] = str.split(" /");
+		if(newstr[0].equals(belowTemp)) {
+			flag = true;
+		}
+		else {
+			flag = false;
+		}
+		return flag;
+	}
+	public boolean verifyAlertforThisAboveTemperatureRangeUpdated(String aboveTemp) {
+		String str = MobileUtils.getFieldValue(objectDefinition, testCase, "AlertforthisRangeTemperaturePercentageButton");	
+		String newstr[] = str.split(" /");
+		if(newstr[1].equals(aboveTemp)) {
+			flag = true;
+		}
+		else {
+			flag = false;
+		}
+		return flag;
+	}
+	public String selectRandomValue() {
+		List<WebElement> element = MobileUtils.getMobElements(testCase, "id","list_item_lyric_spinner_drop_down_text");
+		String Selected = element.get(2).getText();
+		element.get(2).click();
+		return Selected;	
+	}
+	public boolean verifyAlertforThisAboveHumidityRangeUpdated(String aboveTemp) {
+		String str = MobileUtils.getFieldValue(objectDefinition, testCase, "AlertforthisRangeHumidityPercentageButton");	
+		String newstr[] = str.split(" /");
+		if(newstr[1].equals(aboveTemp)) {
+			flag = true;
+		}
+		else {
+			flag = false;
+		}
+		return flag;
+	}
+	public boolean verifyAlertforThisBelowHumidityRangeUpdated(String belowTemp) {
+		String str = MobileUtils.getFieldValue(objectDefinition, testCase, "AlertforthisRangeHumidityPercentageButton");	
+		String newstr[] = str.split(" /");
+		if(newstr[0].equals(belowTemp)) {
+			flag = true;
+		}
+		else {
+			flag = false;
+		}
+		return flag;
+	}
 }

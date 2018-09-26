@@ -27,7 +27,9 @@ import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.lyric.das.utils.VacationSettingsUtils;
 import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.screens.VacationHoldScreen;
+import com.honeywell.screens.WLDLeakDetectorSettings;
 import com.honeywell.screens.WLDManageAlerts;
+import com.honeywell.screens.WLDUpdateFrequency;
 
 public class ChangeBaseStationSettings extends Keyword {
 
@@ -131,19 +133,21 @@ public class ChangeBaseStationSettings extends Keyword {
 					if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {//Android
 						if(ale.getIndoorTemperatureAlertsToggleValue().equals("OFF")) {
 							status = ale.getIndoorTemperatureAlertsToggleValue();
-							System.out.println("Status: "+status);	
-							ale.clickIndoorTemperatureAlertsToggle();
+							Keyword.ReportStep_Pass(testCase, "Status: "+status);	
+							flag = flag && ale.clickIndoorTemperatureAlertsToggle();
 						} else{	
 							status = ale.getIndoorTemperatureAlertsToggleValue();
-							System.out.println("Status: "+status);
+							Keyword.ReportStep_Pass(testCase, "Status: "+status);
 						}
 					}
 					else{//ios
-						if(ale.isIndoorTemperatureAlertToggleEnabled()) {
-							System.out.println("Status: Enabled");
+						flag = flag && ale.isIndoorTemperatureAlertToggleEnabled();
+						if(flag) {
+							Keyword.ReportStep_Pass(testCase, "Status: Enabled");
 						} 
 						else{	
-							ale.clickIndoorTemperatureAlertsToggle();
+							flag = flag && ale.clickIndoorTemperatureAlertsToggle();
+							Keyword.ReportStep_Pass(testCase, "Status: Enabled: Clicked");
 						}
 					}
 				}
@@ -151,23 +155,50 @@ public class ChangeBaseStationSettings extends Keyword {
 				{if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {//Android
 					if(ale.getIndoorTemperatureAlertsToggleValue().equals("ON")) {
 						status = ale.getIndoorTemperatureAlertsToggleValue();
-						System.out.println("Status: "+status);	
+						Keyword.ReportStep_Pass(testCase, "Status: "+status);	
 						ale.clickIndoorTemperatureAlertsToggle();
 					} else{	
 						status = ale.getIndoorTemperatureAlertsToggleValue();
-						System.out.println("Status: "+status);
+						Keyword.ReportStep_Pass(testCase, "Status: "+status);
 					}
 				}else{//ios
-					if(ale.isIndoorTemperatureAlertToggleEnabled()){
+					flag = flag && ale.isIndoorTemperatureAlertToggleEnabled();
+					if(flag){
 						ale.clickIndoorTemperatureAlertsToggle();
+						Keyword.ReportStep_Pass(testCase, "Status: Enabled: Clicked");
 					} 
 					else {	
-						System.out.println("Status: Enabled");
+						Keyword.ReportStep_Pass(testCase, "Status: Enabled");
 					}
 				}
 				}
 			}//Amresh Edit Ends
-			
+			// Amresh wld edit starts
+			else if (parameters.get(0).equalsIgnoreCase("UPDATE FREQUENCY")) {
+				WLDLeakDetectorSettings set = new WLDLeakDetectorSettings(testCase);
+				WLDUpdateFrequency freq = new WLDUpdateFrequency(testCase);
+				if (parameters.get(1).equalsIgnoreCase("DAILY")) {
+					flag = flag & freq.clickOnDailyRadioButton();
+					Keyword.ReportStep_Pass(testCase, "Clicked Daily");
+					flag = flag & set.navigateFromUpdateFrequencyCardToPrimaryCard();
+					Keyword.ReportStep_Pass(testCase, "Navigated from Frequency Card to Primary Card");
+				}
+				if (parameters.get(1).equalsIgnoreCase("TWICE DAILY")) {
+					flag = flag & freq.clickOnTwiceDailyRadioButton();
+					Keyword.ReportStep_Pass(testCase, "Clicked Twice Daily");
+					flag = flag & set.navigateFromUpdateFrequencyCardToPrimaryCard();
+					Keyword.ReportStep_Pass(testCase, "Navigated from Frequency Card to Primary Card");
+
+				}
+				if (parameters.get(1).equalsIgnoreCase("THREE TIMES DAILY")) {
+					flag = flag & freq.clickOnThriceDailyRadioButton();
+					Keyword.ReportStep_Pass(testCase, "Clicked Three Times Daily");
+					flag = flag & set.navigateFromUpdateFrequencyCardToPrimaryCard();
+					Keyword.ReportStep_Pass(testCase, "Navigated from Frequency Card to Primary Card");
+
+				}
+			}
+			//Amresh Edit Ends
 			// Amresh wld edit starts
 						else if (parameters.get(0).equalsIgnoreCase("INDOOR HUMIDITY ALERT")) {
 							WLDManageAlerts ale = new WLDManageAlerts(testCase);
@@ -176,19 +207,21 @@ public class ChangeBaseStationSettings extends Keyword {
 								if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {//Android
 									if(ale.getIndoorHumidityAlertsToggleValue().equals("OFF")) {
 										status = ale.getIndoorHumidityAlertsToggleValue();
-										System.out.println("Status: "+status);	
-										ale.clickIndoorHumidityAlertsToggle();
+										Keyword.ReportStep_Pass(testCase, "Status: "+status);	
+										flag = flag && ale.clickIndoorHumidityAlertsToggle();
+										Keyword.ReportStep_Pass(testCase, "Clicked HumidityAlertsToggle Sucessfully");
 									} else{	
 										status = ale.getIndoorHumidityAlertsToggleValue();
-										System.out.println("Status: "+status);
+										Keyword.ReportStep_Pass(testCase, "Status: "+status);
 									}
 								}
 								else{//ios
 									if(ale.isIndoorHumidityAlertToggleEnabled()) {
-										System.out.println("Status: Enabled");
+										Keyword.ReportStep_Pass(testCase, "Status: Enabled");
 									} 
 									else{	
-										ale.clickIndoorHumidityAlertsToggle();
+										flag = flag && ale.clickIndoorHumidityAlertsToggle();
+										Keyword.ReportStep_Pass(testCase, "Clicked HumidityAlertsToggle Sucessfully");
 									}
 								}
 							}
@@ -196,18 +229,21 @@ public class ChangeBaseStationSettings extends Keyword {
 							{if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {//Android
 								if(ale.getIndoorHumidityAlertsToggleValue().equals("ON")) {
 									status = ale.getIndoorHumidityAlertsToggleValue();
-									System.out.println("Status: "+status);	
-									ale.clickIndoorHumidityAlertsToggle();
+									Keyword.ReportStep_Pass(testCase, "Status: "+status);	
+									flag = flag && ale.clickIndoorHumidityAlertsToggle();
+									Keyword.ReportStep_Pass(testCase, "Clicked HumidityAlertsToggle Sucessfully");
 								} else{	
 									status = ale.getIndoorHumidityAlertsToggleValue();
-									System.out.println("Status: "+status);
+									Keyword.ReportStep_Pass(testCase, "Status: "+status);
 								}
 							}else{//ios
 								if(ale.isIndoorHumidityAlertToggleEnabled()){
-									ale.clickIndoorHumidityAlertsToggle();
+									flag = flag && ale.clickIndoorHumidityAlertsToggle();
+									Keyword.ReportStep_Pass(testCase, "Clicked HumidityAlertsToggle Sucessfully");
+
 								} 
 								else {	
-									System.out.println("Status: Enabled");
+									Keyword.ReportStep_Pass(testCase, "Status: Enabled");
 								}
 							}
 							}
