@@ -703,8 +703,6 @@ public class JasperSchedulingVerifyUtils {
 					} else {
 						if (ss.isGeofenceHomeHeatElementVisible(5)) {
 							heatSetPoint = ss.getGeofenceHomeHeatElement();
-							System.out.println(heatSetPoint.getAttribute("value").replaceAll("˚",""));
-							System.out.println(Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")));
 							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) <= maxHeat
 									&& Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
