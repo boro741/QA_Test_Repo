@@ -6028,10 +6028,8 @@ public class JasperSchedulingUtils {
 						heatDown = ss.getHeatDecrementElements().get(1);
 					} else {
 						heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
-
 						heatUp = ss.getHeatSetPointUpButton();
 						heatDown = ss.getHeatSetPointDownButton();
-
 					}
 				}
 			}
@@ -12576,12 +12574,12 @@ public class JasperSchedulingUtils {
 					} else if (periodName.equals("Away")) {
 						size = ss.getCoolSetPointsElements().size();
 						if (size > 1) {
-							coolSetPoint = ss.getCoolSetPointsElements().get(1).getAttribute("value");
-							heatSetPoint = ss.getHeatSetPointsElements().get(1).getAttribute("value");
-							coolUp = ss.getCoolIncrementElements().get(1);
-							coolDown = ss.getCoolDecrementElements().get(1);
-							heatUp = ss.getHeatIncrementElements().get(1);
-							heatDown = ss.getHeatDecrementElements().get(1);
+							coolSetPoint = ss.getCoolSetPointsElements().get(0).getAttribute("value");
+						    heatSetPoint = ss.getHeatSetPointsElements().get(1).getAttribute("value");
+//							coolUp = ss.getCoolIncrementElements().get(0);
+//							coolDown = ss.getCoolDecrementElements().get(0);
+//							heatUp = ss.getHeatIncrementElements().get(1);
+//							heatDown = ss.getHeatDecrementElements().get(1);
 
 						} else {
 							coolSetPoint = ss.getCoolSetPointsElements().get(0).getAttribute("value");
@@ -12635,7 +12633,7 @@ public class JasperSchedulingUtils {
 					}
 					size = ss.getCoolSetPointsElements().size();
 					if (periodName.equals("Away") && (size > 1)) {
-						coolSetPoint = ss.getCoolSetPointsElements().get(1).getAttribute("value");
+						coolSetPoint = ss.getCoolSetPointsElements().get(0).getAttribute("value");
 					} else {
 						coolSetPoint = ss.getCoolSetPointsElements().get(0).getAttribute("value");
 					}
@@ -13734,7 +13732,7 @@ public class JasperSchedulingUtils {
 				int size = ss.getCoolSetPointsElements().size();
 				if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)
 						&& (size > 1)) {
-					coolSetPoint = ss.getCoolSetPointsElements().get(1).getAttribute("value");
+					coolSetPoint = ss.getCoolSetPointsElements().get(0).getAttribute("value");
 					
 				} else {
 					coolSetPoint = ss.getCoolSetPointChooserSetPointsValue();
@@ -13872,7 +13870,7 @@ public class JasperSchedulingUtils {
 						heatSetPoint = ss.getHeatOnlySetPointsElements().get(0).getAttribute("value");
 						
 					}else {
-						heatSetPoint = ss.getHeatSetPointsElements().get(0).getAttribute("value");
+						heatSetPoint = ss.getHeatSetPointsElements().get(1).getAttribute("value");
 					}
 				}
 			}
