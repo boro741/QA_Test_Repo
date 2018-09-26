@@ -34,6 +34,7 @@ public class VerifyIfSmartHomeSecurityIsDisplayed extends Keyword {
 	public boolean keywordSteps() {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		try {
+			
 			dasDIY.isSmartHomeSecurityOptionVisible(deviceList.get(0));
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -120,7 +120,23 @@ public class VerifyingAOption extends Keyword {
 				}
 				break;
 			}
-		} else if (expectedScreen.get(1).toUpperCase().equals("BLUE TICK MARK ON NEW SELECTED MODE")) {
+		} else if (expectedScreen.get(1).toUpperCase().equals("EMAIL NOTIFICATIONS")) {
+			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "SHOULD BE DISPLAYED":
+				if (cs.isEmailNotificationCellVisibleAfterTurningONAlerts(testCase)) {
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is  displayed");
+
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(1) + " is not displayed");
+				}
+				break;
+			}
+		}
+		
+		
+		else if (expectedScreen.get(1).toUpperCase().equals("BLUE TICK MARK ON NEW SELECTED MODE")) {
 			PrimaryCard card = new PrimaryCard(testCase);
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "SHOULD BE DISPLAYED":

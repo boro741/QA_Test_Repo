@@ -42,7 +42,7 @@ public class VerifyIfOptionIsNotDisplayedInASection extends Keyword {
 		CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 		switch (expectedOption.get(0).toUpperCase()) {
 		case "EMAIL NOTIFICATIONS": {
-			cs.isEmailNotificationCellVisibleAfterTurningOffAlerts(testCase);
+			cs.isEmailNotificationCellVisibleAfterTurningONAlerts(testCase);
 			break;
 		}
 		case "COVER TAMPER STATUS": {

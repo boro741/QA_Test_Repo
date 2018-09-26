@@ -63,7 +63,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 								"Camera Mode section is disabled");
 
 					}
-				} else if (fieldToBeVerified.equalsIgnoreCase("Manage Alerts")) {
+				} else if (fieldToBeVerified.equalsIgnoreCase("Manage alerts")) {
 					if (cs.isCameraSetingsOptionVisible(fieldToBeVerified)) {
 						Keyword.ReportStep_Pass(testCase, "Manage Alerts section is enabled");
 					} else {

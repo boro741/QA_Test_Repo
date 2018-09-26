@@ -16,11 +16,12 @@ When user navigates to "Camera Settings" screen from the "Camera Solution Card" 
 | Night Vision			| 
 | Video Quality			|
 | Camera LED				|
-| Camera Microphone		| 
+#| Camera Microphone		| 
+When user navigates back and forth in "Camera Settings" screen
  And the following "Camera Settings" options should be enabled:
  | Options				| 
- | Manage Alerts			|      
- | Camera Configuration	| 
+ | Manage alerts			|      
+ #| Camera Configuration	| 
 # Examples:
  		#|State  |
  		#|Offline|
@@ -40,12 +41,13 @@ Then the following "Camera Settings" options should be disabled:
 | Night Vision        | 
 | Video Quality       |
 | Camera LED          |
-| Camera Microphone   | 
+#| Camera Microphone   | 
+When user navigates back and forth in "Camera Settings" screen
 And the following "Camera Settings" options should be enabled:
 | Options             |
-| Camera mode         |
-| Manage Alerts       |
-| Camera Configuration| 
+| Camera Mode         |
+| Manage alerts       |
+#| Camera Configuration| 
       
       
 @CameraSettingsCameraOn   @P1        @UIAutomated
@@ -57,7 +59,7 @@ When user navigates to "Camera Settings" screen from the "Camera Solution Card" 
 Then the following "Camera Settings" options should be enabled:
 | Options             | 
 | Camera Mode         |
-| Manage Alerts       |
+| Manage alerts       |
 | Motion Detection    |
 | Sound Detection     |
 | Night Vision        | 
@@ -111,21 +113,18 @@ Then the following "Camera Settings" options should be enabled:
 Scenario Outline: As a user I should be able to disable alert of camera status, sound event and motion event on my demand to get alerts in app or in email on alerts detection 
 Given user launches and logs in to the Lyric application
 When user navigates to "Camera Solution Card" screen from the "Dashboard" screen
-And user camera is set to "ON"
+And user camera is set to <State>
 When user navigates to "Manage Alerts" screen from the "Camera Solution Card" screen
-And user disables "Camera Status ON/OFF Alerts"
 And user changes the "Camera Status Alerts" to "OFF"
 Then user should not be displayed with "email" option
 Then user should not be displayed with "Email Notifications" option
 When user navigates back and forth in "Manage Alerts" screen
 Then user should not be displayed with "Email Notifications" option
-And user disables "Motion Event Alerts"
 When user changes the "Sound Event Alerts" to "OFF"
 Then user should not be displayed with "email" option
 Then user should not be displayed with "Email Notifications" option
 When user navigates back and forth in "Manage Alerts" screen
 Then user should not be displayed with "Email Notifications" option
-When user disables "Sound Event Alerts"
 When user changes the "Motion Event Alerts" to "OFF"
 Then user should not be displayed with "email" option
 Then user should not be displayed with "Email Notifications" option
@@ -145,18 +144,18 @@ Examples:
 Scenario Outline: As a user I should be able to disable alert for email notification of camera status, sound event and motion event on alerts detection 
 Given user launches and logs in to the Lyric application
 When user navigates to "Camera Solution Card" screen from the "Dashboard" screen
-And user camera is set to "ON"
+And user camera is set to <State>
 When user navigates to "Manage Alerts" screen from the "Camera Solution Card" screen
-And user enables "Camera Status ON/OFF Alerts" 
-Then user should be displayed with "email" option
+And user changes the "Camera Status Alerts" to "ON"
+Then user "Should be displayed" with the "Email Notification" option
 When user changes the "Camera Status ON/OFF email" to "Off"
 Then "Camera Status ON/OFF email" value should be updated to "Off" on "Manage Alerts" screen
-When user enables "Motion Event Alerts" 
-Then user should be displayed with "email" option
-When user changes the "Motion Event email" to "Off"
-Then "Motion Event email" value should be updated to "Off" on "Manage Alerts" screen
-When user enables "Motion Event Alerts" 
-Then user should be displayed with "email" option
+When user changes the "Sound Event Alerts" to "ON"
+Then user "Should be displayed" with the "Email Notification" option
+When user changes the "Sound Event Alerts" to "Off"
+Then "Sound Event email" value should be updated to "Off" on "Manage Alerts" screen
+When user changes the "Motion Event Alerts" to "ON"
+Then user "Should be displayed" with the "Email Notification" option
 When user changes the "Motion Event email" to "Off"
 Then "Motion Event email" value should be updated to "Off" on "Manage Alerts" screen
 #login with different mobiles for the status of configured options to verify the settings as user account level
@@ -164,9 +163,8 @@ Examples:
 		|State  |
 		|On     |
 		|Off    |
-		|Offline|
-		|Upgrade| 
-      
+#		|Offline|
+#      
       
 @CameraSettingsEnableDisableMotionDetection        @P2         @UIAutomated 
 Scenario: As a user I should be able to enable or disable motion detection
