@@ -67,7 +67,7 @@ Examples:
 #|OFF| Window | Kitchen Window | open | Closed |
 
 
-@DASAccessSensorEnrollmentWithCustomSensorName
+@DASAccessSensorEnrollmentWithCustomSensorName_Old
 Scenario Outline: As a user I should be able to successfully enrol Access Sensor with custom sensor name and video should play for assistance in sensor enrolment
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> mode through CHIL

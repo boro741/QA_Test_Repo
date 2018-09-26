@@ -396,6 +396,13 @@ public class VerifyScreen extends Keyword {
 				if (dasDIY.isRegisterBaseStationHeaderTitleVisible()) {
 					Keyword.ReportStep_Pass(testCase,
 							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
+				} else if (dasDIY.isQRCodeScanningFailurePopupVisible()) {
+					System.out.println("$$$$$$$$$$$$$$");
+					dasDIY.clickOnOKButtonInQRCodeScanningFailurePopup();
+					if (dasDIY.isRegisterBaseStationHeaderTitleVisible()) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
+					}
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -521,6 +528,9 @@ public class VerifyScreen extends Keyword {
 			}
 			case "DASHBOARD": {
 				Dashboard d = new Dashboard(testCase);
+				if (d.isIncreaseSecurityPopupVisible()) {
+					d.clickOnDontUseButtonInIncreaseSecurityPopup();
+				}
 				if (d.isGlobalDrawerButtonVisible(20)
 						&& (d.isAddDeviceIconVisible(10) || d.isAddDeviceIconBelowExistingDASDeviceVisible(10))) {
 					Keyword.ReportStep_Pass(testCase,
@@ -560,7 +570,7 @@ public class VerifyScreen extends Keyword {
 				break;
 			}
 			case "CUSTOM NAME OSMV LOCATION":
-			case "CUSTOM NAME ISMV LOCATION":{
+			case "CUSTOM NAME ISMV LOCATION": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isCustomNameISMVOSMVLocationScreenVisible(10)) {
 					Keyword.ReportStep_Pass(testCase,
@@ -596,7 +606,7 @@ public class VerifyScreen extends Keyword {
 			}
 			case "LOCATE VIEWER": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-				if (dasDIY.isLocateViewerScreenTitleVisible()) {
+				if (dasDIY.isLocateViewerScreenTitleVisible(30)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
 				} else {
@@ -835,7 +845,7 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-			case "GEOFENCING SCHEDULE":{
+			case "GEOFENCING SCHEDULE": {
 				SchedulingScreen schl = new SchedulingScreen(testCase);
 				flag = flag & schl.isUseGeofencingTextVisible(5);
 				if (flag) {
@@ -843,7 +853,7 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-			case "TIME BASED SCHEDULE":{
+			case "TIME BASED SCHEDULE": {
 				SchedulingScreen schl = new SchedulingScreen(testCase);
 				flag = flag & schl.isEverydayScheduleButtonVisible(10);
 				if (flag) {
@@ -851,7 +861,7 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-			case "TAP ON RESUME":{
+			case "TAP ON RESUME": {
 				SchedulingScreen schl = new SchedulingScreen(testCase);
 				flag = flag & schl.clickOnScheduleOffOverlay();
 				if (flag) {
@@ -859,27 +869,27 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-			case "IDENTIFY SENSOR":{
+			case "IDENTIFY SENSOR": {
 				FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
 				flag = flag & fly.isIdentifySensorImageVisible();
 			}
-			case "COACH MARK":{
+			case "COACH MARK": {
 				flag = flag & CoachMarkUtils.verifySolutionCardCoachMarks(testCase, CoachMarkUtils.DASCAMERA);
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
 				}
 				break;
 			}
-			
-			case "ACCESS MORE INFORMATION":{
+
+			case "ACCESS MORE INFORMATION": {
 				flag = flag & CoachMarkUtils.verifySolutionCardCoachMarks(testCase, CoachMarkUtils.DASCAMERA);
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
 				}
 				break;
 			}
-			
-			case "HOME" :{
+
+			case "HOME": {
 				SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
 				flag = flag & ssc.verifystate("Home");
 				if (flag) {
@@ -887,7 +897,7 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-			case "AWAY":{
+			case "AWAY": {
 				SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
 				flag = flag & ssc.verifystate("Away");
 				if (flag) {
@@ -895,7 +905,7 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-			case "NIGHT":{
+			case "NIGHT": {
 				SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
 				flag = flag & ssc.verifystate("Night");
 				if (flag) {
@@ -903,56 +913,64 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-			case "DAS SECURITY SETTINGS":{
+			case "DAS SECURITY SETTINGS": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-				if(bs.isSecuritySettingHeaderVisible()){
+				if (bs.isSecuritySettingHeaderVisible()) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
-				}else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,expectedScreen.get(0) + " Screen not displayed");
-				}break;
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							expectedScreen.get(0) + " Screen not displayed");
+				}
+				break;
 			}
-			case "GEOFENCE THIS LOCATION":{
+			case "GEOFENCE THIS LOCATION": {
 				GeofenceSettings gs = new GeofenceSettings(testCase);
-				if(gs.isGeofencingthislocationTextvisible() && gs.isGeofencingthislocationDescriptionvisible()){
-					Keyword.ReportStep_Pass(testCase, "Screen navigates to " + expectedScreen.get(0) );
-				}else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to navigate to "+ expectedScreen.get(0));
-				}break;
+				if (gs.isGeofencingthislocationTextvisible() && gs.isGeofencingthislocationDescriptionvisible()) {
+					Keyword.ReportStep_Pass(testCase, "Screen navigates to " + expectedScreen.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
 			}
 			case "DOOR ACCESS SETTINGS": {
 				SensorSettingScreen ss = new SensorSettingScreen(testCase);
 				if (ss.isDoorAccessSettingsScreenTitleVisible(10)) {
-					Keyword.ReportStep_Pass(testCase, "Screen navigates to " + expectedScreen.get(0) );
-				}else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to navigate to "+ expectedScreen.get(0));
+					Keyword.ReportStep_Pass(testCase, "Screen navigates to " + expectedScreen.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
 				}
 				break;
 			}
 			case "WINDOW ACCESS SETTINGS": {
 				SensorSettingScreen ss = new SensorSettingScreen(testCase);
 				if (ss.isWindowAccessSettingsScreenTitleVisible(10)) {
-					Keyword.ReportStep_Pass(testCase, "Screen navigates to " + expectedScreen.get(0) );
-				}else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to navigate to "+ expectedScreen.get(0));
+					Keyword.ReportStep_Pass(testCase, "Screen navigates to " + expectedScreen.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
 				}
 				break;
 			}
 			case "MOTION SENSOR SETTINGS": {
 				SensorSettingScreen ss = new SensorSettingScreen(testCase);
 				if (ss.isMotionSensorSettingsScreenTitleVisible(10)) {
-					Keyword.ReportStep_Pass(testCase, "Screen navigates to " + expectedScreen.get(0) );
-				}else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to navigate to "+ expectedScreen.get(0));
+					Keyword.ReportStep_Pass(testCase, "Screen navigates to " + expectedScreen.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
 				}
 				break;
 			}
-			case "ISMV MOTION VIEWER SETTINGS":
-			case "OSMV MOTION VIEWER SETTINGS":{
+			case "ISMV SENSOR SETTINGS":
+			case "OSMV SENSOR SETTINGS": {
 				SensorSettingScreen ss = new SensorSettingScreen(testCase);
 				if (ss.isMotionViewerSettingsScreenTitleVisible(10)) {
-					Keyword.ReportStep_Pass(testCase, "Screen navigates to " + expectedScreen.get(0) );
-				}else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to navigate to "+ expectedScreen.get(0));
+					Keyword.ReportStep_Pass(testCase, "Screen navigates to " + expectedScreen.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
 				}
 				break;
 			}

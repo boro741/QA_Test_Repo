@@ -1,7 +1,7 @@
 @MotionSensorEnrollment
 Feature: Verify Motion Sensor Enrolment Functionally
 
-@DASMotionSensorEnrollmentWithDefaultSensorName
+@DASMotionSensorEnrollmentWithDefaultSensorName_Old
 Scenario Outline: As a user I should be able to successfully enrol Motion Sensor with default name
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> mode through CHIL
@@ -63,7 +63,7 @@ Examples:
 #|OFF | Living Room  |   Flat on a Wall     | Mount on the Wall |NO MOTION DETECTED |MOTION DETECTED |
 
 
-@DASMotionSensorEnrollmentWithCustomName
+@DASMotionSensorEnrollmentWithCustomName_Old
 Scenario Outline: As a user I should be able to successfully enroll Motion Sensor with custom sensor name
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> mode through CHIL

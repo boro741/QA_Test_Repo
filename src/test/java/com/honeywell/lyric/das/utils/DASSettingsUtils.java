@@ -31,7 +31,7 @@ public class DASSettingsUtils {
 		BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 		if (bs.isDeleteDASDevicePopUpTitleVisible()) {
 			Keyword.ReportStep_Pass(testCase, "Delete DAS Confirmation Pop Up Title is correctly displayed");
-			String message, locator = "";
+			String message, messageWithHoneywellMembership, locator = "";
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				locator = "xpath";
 				/*
@@ -41,6 +41,9 @@ public class DASSettingsUtils {
 				 */
 				message = "//android.widget.TextView[@text='This will delete " + "\""
 						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"" + " and all related accessories']";
+				messageWithHoneywellMembership = "//android.widget.TextView[@text='This will delete " + "\""
+						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\""
+						+ " and all related accessories. Please remember to edit or cancel this device from your Honeywell Membership']";
 			} else {
 				locator = "name";
 				/*
@@ -50,6 +53,9 @@ public class DASSettingsUtils {
 				 */
 				message = "  This will delete " + "\"" + inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\""
 						+ ", all related accessories and facial recognition.";
+				messageWithHoneywellMembership = "  This will delete " + "\""
+						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\""
+						+ ", all related accessories and facial recognition. Please remember to edit or cancel this device from your Honeywell Membership";
 			}
 
 			// message =" This will delete your Smart Home Security and all the connected
@@ -57,6 +63,9 @@ public class DASSettingsUtils {
 
 			if (MobileUtils.isMobElementExists(locator, message, testCase, 5)) {
 				Keyword.ReportStep_Pass(testCase, "Delete DAS Confirmation Pop Up message correctly displayed");
+			} else if (MobileUtils.isMobElementExists(locator, messageWithHoneywellMembership, testCase, 5)) {
+				Keyword.ReportStep_Pass(testCase,
+						"Delete DAS Confirmation Pop Up message with Honeywell Membership text is correctly displayed");
 			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -353,14 +362,15 @@ public class DASSettingsUtils {
 
 			if (geoScreen.selectOptionFromGeofenceSettings(GeofenceSettings.ENABLEGEOFENCETHISLOCATION)) {
 				Keyword.ReportStep_Pass(testCase, "Enabled geofence this location toggle option");
-			}else{
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not click on global geofence toggle");
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Could not click on global geofence toggle");
 			}
 			Thread.sleep(3000);
 
 			if (geoScreen.selectOptionFromGeofenceSettings(GeofenceSettings.ENABLEGEOFENCEALERT)) {
 				Keyword.ReportStep_Pass(testCase, "Enabled geofence this location Alert toggle option");
-			}else{
+			} else {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Could not click on global geofence alert toggle");
 			}
@@ -396,10 +406,11 @@ public class DASSettingsUtils {
 			}
 			Thread.sleep(3000);
 
-			if (geoScreen.selectOptionFromGeofenceSettings(GeofenceSettings.DISABLEGEOFENCETHISLOCATION) ) {
+			if (geoScreen.selectOptionFromGeofenceSettings(GeofenceSettings.DISABLEGEOFENCETHISLOCATION)) {
 				Keyword.ReportStep_Pass(testCase, "Disabled gefoence toggle option");
-				}else {
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not click on global geofence toggle");
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Could not click on global geofence toggle");
 			}
 
 			Thread.sleep(3000);
@@ -1526,7 +1537,7 @@ public class DASSettingsUtils {
 		}
 		return flag;
 	}
-	
+
 	/**
 	 * <h1>Wait for until progress bar to complete</h1>
 	 * <p>

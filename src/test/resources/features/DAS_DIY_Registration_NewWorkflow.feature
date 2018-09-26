@@ -2,7 +2,7 @@
 Feature: DAS DIY Registration
 As a user I want to register a DAS device using the Lyric application
 
-@DASDIYWhatToExpectScreen	@P2			@Automated
+@DASDIYWhatToExpectScreen	@P2			@NotAutomatable
 Scenario: User should be validate What To Expect and Watch How-To Video screens
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -345,7 +345,7 @@ Examples:
       | Home                                    | Living Room                     |
 
 
-@DIYWhenInvalidQRCodeIsScannedFirstAndThenScanAValidQRCode 	@P3				@Automated
+@DIYWhenInvalidQRCodeIsScannedFirstAndThenScanAValidQRCode 			@P3				@Automated
 Scenario Outline: As a user my DAS device should not be configured when invalid QR code is scanned
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -389,7 +389,7 @@ Examples:
       | Home                                    | Living Room                     |
       
 
-@DIYTapOnCancelMultipleTimesInRegisterBaseStationScreen		@P2			@CannotAutomate
+@DIYTapOnCancelMultipleTimesInRegisterBaseStationScreen			@P2			@CannotAutomate
 Scenario Outline: As a user I should be able to tap on Cancel multiple times in Register Base Station screen
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -868,7 +868,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples: 
       | location name                           | device name                     | Amazon username				| Amazon password		|
-      | Home                                    | Living Room                     | xyxyx@xyx.com					| xyxyxyx				|
+      | Home                                    | Living Room                     | xyxyxyx@xyx.com				| xyxyxyx				|
       
       
 @DIYRegistrationWhenFirmwareIsNotUpToDate		@FirmwareWithPreviousVersionRequired			@P2				@Automated
@@ -1409,7 +1409,7 @@ And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
 And user <Sensor Location> access sensor "enrolled"
-When user selects "Access Sensor SETUP Button" from "Set Up Accessories" screen
+When user selects <Sensor Type SETUP Button> from "Set Up Accessories" screen
 Then user should be displayed with the "Sensor Overview" Screen 
 When user selects "Watch The How To video" from "Sensor Overview" screen
 Then user should be displayed with the "Video clip" screen
@@ -1481,21 +1481,21 @@ Then user should not be displayed with "Security" device on the "dashboard" scre
 And user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples:
-| location name	| device name		| Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door				| Front Door				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
-| Home			| Living Room		| Window 			| Living Room Window 	| Open 			| Closed 				| Window Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
+| location name	| device name		| Sensor Location	| Sensor Type SETUP Button			| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
+| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	| Front Door				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
+| Home			| Living Room		| Window 			| Window Access Sensor SETUP Button	| Living Room Window 	| Open 			| Closed 				| Window Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
 #incaserequired
-#| Home			| Living Room		| Door				| Back Door				| Opened			| Closed					| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Door				| Side Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Window 			| Living Room Window 	| Opened 		| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Window				| Dining Room Window 	| Opened			| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Window				| Kitchen Window 		| Opened			| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Door				| Front Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Door				| Back Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Door				| Side Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Window				| Living Room Window 	| Opened			| Closed					| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Window				| Dining Room Window 	| Opened 		| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Window				| Kitchen Window 		| Opened 		| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Back Door				| Opened			| Closed					| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Side Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Window 			| Window Access Sensor SETUP Button	|  Living Room Window 	| Opened 		| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Dining Room Window 	| Opened			| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Kitchen Window 		| Opened			| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Front Door			| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Back Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Side Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Living Room Window 	| Opened			| Closed					| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Dining Room Window 	| Opened 		| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Kitchen Window 		| Opened 		| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
 
 
 @DIYRegistrationWithAccessSensorEnrollmentWithCustomName		@P4			@Automated
@@ -1517,7 +1517,7 @@ And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
 And user <Sensor Location> access sensor "enrolled"
-When user selects "Access Sensor SETUP Button" from "Set Up Accessories" screen
+When user selects <Sensor Type SETUP Button> from "Set Up Accessories" screen
 Then user should be displayed with the "Sensor Overview" Screen 
 When user selects "Get Started" from "Sensor Overview" screen
 Then user should be displayed with the "Locate Sensor" screen
@@ -1588,11 +1588,11 @@ Then user should not be displayed with "Security" device on the "dashboard" scre
 And user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples:
-| location name	| device name		| Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door				| Honeywell				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
-| Home			| Living Room		| Window 			| Honeywell1			 	| Open 			| Closed 				| Window Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
-| Home			| Living Room		| Door				| Honeywell2				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyx					|
-| Home			| Living Room		| Window 			| Honeywell1	3		 	| Open 			| Closed 				| Window Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
+| location name	| device name		| Sensor Location	| Sensor Type SETUP Button			| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
+| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	| Honeywell				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
+| Home			| Living Room		| Window 			| Window Access Sensor SETUP Button	| Honeywell1			 	| Open 			| Closed 				| Window Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
+| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Honeywell2			| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyx					|
+| Home			| Living Room		| Window 			| Window Access Sensor SETUP Button	| Honeywell1	3		 	| Open 			| Closed 				| Window Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
 
 
 #Improvement
@@ -1614,8 +1614,8 @@ When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
-#And user <Sensor Location> access sensor "enrolled"
-When user selects "Access Sensor SETUP Button" from "Set Up Accessories" screen
+And user <Sensor Location> access sensor "enrolled"
+When user selects <Sensor Type SETUP Button> from "Set Up Accessories" screen
 Then user should be displayed with the "Sensor Overview" Screen 
 When user selects "Watch The How To video" from "Sensor Overview" screen
 Then user should be displayed with the "Video clip" screen
@@ -1680,8 +1680,8 @@ Then user should not be displayed with "Security" device on the "dashboard" scre
 And user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples:
-| location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyx					|
+| location name	| device name		| Sensor Location	| Sensor Type SETUP Button			| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
+| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	| Front Door				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyx					|
 
 
 @DIYRegistrationByCancellingAccessSensorEnrollmentAndSkipGeofencingAndEnableAlexa		@P3			@Automated
@@ -1703,7 +1703,7 @@ And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
 And user <Sensor Location> access sensor "enrolled"
-When user selects "Access Sensor SETUP Button" from "Set Up Accessories" screen
+When user selects <Sensor Type SETUP Button> from "Set Up Accessories" screen
 Then user should be displayed with the "Sensor Overview" Screen
 When user "cancels sensor setup" by clicking on "cancel" button
 Then user should receive a "Cancel Sensor Setup" popup
@@ -1745,8 +1745,8 @@ Then user should not be displayed with "Security" device on the "dashboard" scre
 And user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples:
-| location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyx					|
+| location name	| device name		| Sensor Location	| Sensor Type SETUP Button			| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
+| Home			| Living Room		| Door				| Window Access Sensor SETUP Button	| Front Door				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyx					|
 
 
 #Covered in DIYRegistrationWhenFirmwareIsNotUpToDate scenario
@@ -1837,7 +1837,7 @@ When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
-#When user motion sensor "enrolled"
+When user motion sensor "enrolled"
 And  user selects "MOTION SENSOR SETUP button" from "Set Up Accessories" screen
 When user selects "Watch The How To video" from "Sensor Overview" screen
 Then user should be displayed with the "Video clip" screen
@@ -2090,7 +2090,7 @@ When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
-#When user indoor motion viewer "enrolled"
+When user indoor motion viewer "enrolled"
 And  user selects "ISMV SENSOR SETUP button" from "Set Up Accessories" screen
 Then user should be displayed with the "Locate Viewer" Screen 
 When user selects "Watch The How To video" from "Locate Viewer" screen
@@ -2102,13 +2102,13 @@ Then user should be displayed with the "Place viewer Select Mounting Option" scr
 When user selects <Place Viewer Area> from "Place viewer Select Mounting Option" screen
 Then user should be displayed with the "Place viewer Mount" screen
 And user navigates to "Test Motion Viewer" screen from the "Place viewer Mount" screen
-#When user indoor motion viewer "motion not detected"
+When user indoor motion viewer "motion not detected"
 Then user should see the "ISMV sensor" status as <Motion Status> on the "Test Motion Sensor"
 When user navigates to "Motion Viewer Help" screen from the "Test Motion Viewer" screen
 Then user navigates to "Signal Strength" screen from the "Motion Viewer Help" screen
 And user should see the "Signal to Base Station" status as "High" on the "Signal Strength"
 When user navigates to "Test Motion Viewer" screen from the "Signal Strength" screen
-#Then user indoor motion viewer "motion detected"
+Then user indoor motion viewer "motion detected"
 And user should see the "ISMV sensor" status as <Motion Status Update> on the "Test Motion Sensor"
 And user "should not be displayed" with the "Test sensor screen cancel" option 
 And user "should not be displayed" with the "Test sensor screen back" option 
@@ -2184,7 +2184,7 @@ When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
-#When user indoor motion viewer "enrolled"
+When user indoor motion viewer "enrolled"
 And  user selects "ISMV SENSOR SETUP button" from "Set Up Accessories" screen
 Then user should be displayed with the "Locate Viewer" Screen 
 When user selects "Watch The How To video" from "Locate Viewer" screen
@@ -2198,13 +2198,13 @@ Then user should be displayed with the "Place viewer Select Mounting Option" scr
 When user selects <Place Viewer Area> from "Place viewer Select Mounting Option" screen
 Then user should be displayed with the "Place viewer Mount" screen
 And user navigates to "Test Motion Viewer" screen from the "Place viewer Mount" screen
-#When user indoor motion viewer "motion not detected"
+When user indoor motion viewer "motion not detected"
 Then user should see the "ISMV sensor" status as <Motion Status> on the "Test Motion Sensor"
 When user navigates to "Motion Viewer Help" screen from the "Test Motion Viewer" screen
 Then user navigates to "Signal Strength" screen from the "Motion Viewer Help" screen
 And user should see the "Signal to Base Station" status as "High" on the "Signal Strength"
 When user navigates to "Test Motion Viewer" screen from the "Signal Strength" screen
-#When user indoor motion viewer "motion detected"
+When user indoor motion viewer "motion detected"
 Then user should see the "ISMV sensor" status as <Motion Status Update> on the "Test Motion Sensor"
 And user "should not be displayed" with the "Test sensor screen cancel" option 
 And user "should not be displayed" with the "Test sensor screen back" option 
@@ -2268,7 +2268,7 @@ When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
-#When user outdoor motion viewer "enrolled"
+When user outdoor motion viewer "enrolled"
 And  user selects "OSMV SENSOR SETUP button" from "Set Up Accessories" screen
 Then user should be displayed with the "Locate Viewer" Screen 
 When user selects "Watch The How To video" from "Locate Viewer" screen
@@ -2282,13 +2282,13 @@ Then user navigates to "Place viewer Arm" screen from the "Place viewer Wall" sc
 Then user navigates to "Place viewer motion viewer" screen from the "Place viewer Arm" screen
 Then user navigates to "Place viewer Adjust viewer" screen from the "Place viewer motion viewer" screen
 And user navigates to "Test Motion Viewer" screen from the "Place viewer Adjust viewer" screen
-#When user outdoor motion viewer "motion not detected"
+When user outdoor motion viewer "motion not detected"
 Then user should see the "OSMV sensor" status as <Motion Status> on the "Test Motion Sensor"
 When user navigates to "Motion Viewer Help" screen from the "Test Motion Viewer" screen
 Then user navigates to "Signal Strength" screen from the "Motion Viewer Help" screen
 And user should see the "Signal to Base Station" status as "High" on the "Signal Strength"
 When user navigates to "Test Motion Viewer" screen from the "Signal Strength" screen
-#When user outdoor motion viewer "motion detected"
+When user outdoor motion viewer "motion detected"
 Then user should see the "OSMV sensor" status as <Motion Status Update> on the "Test Motion Sensor"
 And user "should not be displayed" with the "Test sensor screen cancel" option 
 And user "should not be displayed" with the "Test sensor screen back" option 
@@ -2363,7 +2363,7 @@ When user selects "Lenovo VIBE X3" from "Connect to Network" screen
 And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
-#When user outdoor motion viewer "enrolled"
+When user outdoor motion viewer "enrolled"
 And  user selects "OSMV SENSOR SETUP button" from "Set Up Accessories" screen
 Then user should be displayed with the "Locate Viewer" Screen 
 When user selects "Watch The How To video" from "Locate Viewer" screen
@@ -2379,13 +2379,13 @@ Then user navigates to "Place viewer Arm" screen from the "Place viewer Wall" sc
 Then user navigates to "Place viewer motion viewer" screen from the "Place viewer Arm" screen
 Then user navigates to "Place viewer Adjust viewer" screen from the "Place viewer motion viewer" screen
 And user navigates to "Test Motion Viewer" screen from the "Place viewer Adjust viewer" screen
-#When user outdoor motion viewer "motion not detected"
+When user outdoor motion viewer "motion not detected"
 Then user should see the "OSMV sensor" status as <Motion Status> on the "Test Motion Sensor"
 When user navigates to "Motion Viewer Help" screen from the "Test Motion Viewer" screen
 Then user navigates to "Signal Strength" screen from the "Motion Viewer Help" screen
 And user should see the "Signal to Base Station" status as "High" on the "Signal Strength"
 When user navigates to "Test Motion Viewer" screen from the "Signal Strength" screen
-#When user outdoor motion viewer "motion detected"
+When user outdoor motion viewer "motion detected"
 Then user should see the "OSMV sensor" status as <Motion Status Update> on the "Test Motion Sensor"
 And user "should not be displayed" with the "Test sensor screen cancel" option 
 And user "should not be displayed" with the "Test sensor screen back" option 
@@ -2455,7 +2455,7 @@ And user inputs "vibex888" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
 And user <Sensor Location> access sensor "enrolled"
-When user selects "Access Sensor SETUP Button" from "Set Up Accessories" screen
+When user selects <Sensor Type SETUP Button> from "Set Up Accessories" screen
 Then user should be displayed with the "Sensor Overview" Screen 
 When user selects "Watch The How To video" from "Sensor Overview" screen
 Then user should be displayed with the "Video clip" screen
@@ -2647,8 +2647,9 @@ Then user should not be displayed with "Security" device on the "dashboard" scre
 And user should not be displayed with <device name> device on the "dashboard" screen
 
 Examples:
-| location name	| device name		|Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Custom name	| Sensor Name    	| Mount Sensor Name | Place Sensor      | Motion Status         | Motion Status Update | Viewer ISMV Location		| Place Viewer Area		| Viewer OSMV Location		|
-| Home			| Living Room		| Door			| Front Door				| Open			| Closed					| Door Access Settings		| Keyfob			|  Front Hall     	| In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | Front Hall				| On a Shelf				| Front Porch				|
+| location name	| device name		| Sensor Location	| Sensor Type SETUP Button			| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Custom name	| Sensor Name    	| Mount Sensor Name | Place Sensor      | Motion Status         | Motion Status Update | Viewer ISMV Location		| Place Viewer Area		| Viewer OSMV Location		|
+| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	| Front Door				| Open			| Closed					| Door Access Settings		| Keyfob			|  Front Hall     	| In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | Front Hall				| On a Shelf				| Front Porch				|
+
 
 @DASAccessSensorEnrollmentWithDefaultName		@P1			@Automated
 Scenario Outline: a- As a user I should be able to successfully enrol Access Sensor with default sensor name and video should play for assistance in sensor enrolment 
@@ -2656,7 +2657,7 @@ Given user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
 And user navigates to "Smart Home Security Sensor Accessories" screen from the "Dashboard" screen
 And user <Sensor Location> access sensor "enrolled"
-When user selects "Access Sensor SETUP Button" from "Set Up Accessories" screen
+When user selects <Sensor Type SETUP Button> from "Set Up Accessories" screen
 Then user should be displayed with the "Sensor Overview" Screen 
 When user selects "Watch The How To video" from "Sensor Overview" screen
 Then user should be displayed with the "Video clip" screen
@@ -2707,22 +2708,22 @@ And user "accepts" the "Delete Access Sensor Confirmation" popup
 Then user should not be displayed with <Sensor Location> device on the "sensor list" screen
 
 Examples:
-| Mode	| Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		|
-| Home	| Door				| Front Door				| Open			| Closed					| Door Access Settings		|
-#| Home	| Window 			| Living Room Window 	| Open 			| Closed 				| Window Access Settings		|
-#| Off	| Door				| Front Door				| Open			| Closed					| Door Access Settings		|
-#| Off	| Window 			| Living Room Window 	| Open 			| Closed 				| Window Access Settings		|
+| Mode	| Sensor Location	| Sensor Type SETUP Button			| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		|
+| Home	| Door				| Door Access Sensor SETUP Button	| Front Door				| Open			| Closed					| Door Access Settings		|
+| Home	| Window 			| Window Access Sensor SETUP Button	| Living Room Window 	| Open 			| Closed 				| Window Access Settings		|
+#| Off	| Door				| Door Access Sensor SETUP Button	| Front Door				| Open			| Closed					| Door Access Settings		|
+#| Off	| Window 			| Window Access Sensor SETUP Button	| Living Room Window 	| Open 			| Closed 				| Window Access Settings		|
 #incaserequired
-#| Home	| Door				| Back Door				| Opened			| Closed					| Door Access Settings		|
-#| Home	| Door				| Side Door				| Opened 		| Closed 				| Door Access Settings		|
-#| Home	| Window 			| Living Room Window 	| Opened 		| Closed 				| Window Access Settings		|
-#| Home	| Window				| Dining Room Window 	| Opened			| Closed 				| Window Access Settings		|
-#| Home	| Window				| Kitchen Window 		| Opened			| Closed 				| Window Access Settings		|
-#| Off	| Door				| Back Door				| Opened 		| Closed 				| Door Access Settings		|
-#| Off	| Door				| Side Door				| Opened 		| Closed 				| Door Access Settings		|
-#| Off	| Window				| Living Room Window 	| Opened			| Closed					| Window Access Settings		|
-#| Off	| Window				| Dining Room Window 	| Opened 		| Closed 				| Window Access Settings		|
-#| Off	| Window				| Kitchen Window 		| Opened 		| Closed 				| Window Access Settings		|
+#| Home	| Door				| Door Access Sensor SETUP Button	| Back Door				| Opened			| Closed					| Door Access Settings		|
+#| Home	| Door				| Door Access Sensor SETUP Button	| Side Door				| Opened 		| Closed 				| Door Access Settings		|
+#| Home	| Window 			| Window Access Sensor SETUP Button	| Living Room Window 	| Opened 		| Closed 				| Window Access Settings		|
+#| Home	| Window				| Window Access Sensor SETUP Button	| Dining Room Window 	| Opened			| Closed 				| Window Access Settings		|
+#| Home	| Window				| Window Access Sensor SETUP Button	| Kitchen Window 		| Opened			| Closed 				| Window Access Settings		|
+#| Off	| Door				| Door Access Sensor SETUP Button	| Back Door				| Opened 		| Closed 				| Door Access Settings		|
+#| Off	| Door				| Door Access Sensor SETUP Button	| Side Door				| Opened 		| Closed 				| Door Access Settings		|
+#| Off	| Window				| Window Access Sensor SETUP Button	| Living Room Window 	| Opened			| Closed					| Window Access Settings		|
+#| Off	| Window				| Window Access Sensor SETUP Button	| Dining Room Window 	| Opened 		| Closed 				| Window Access Settings		|
+#| Off	| Window				| Window Access Sensor SETUP Button	| Kitchen Window 		| Opened 		| Closed 				| Window Access Settings		|
 
 
 @DASAccessSensorEnrollmentWithCustomSensorName		@P1			@Automated
@@ -2731,7 +2732,7 @@ Given user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
 And user navigates to "Smart Home Security Sensor Accessories" screen from the "Dashboard" screen
 And user <Sensor Location> access sensor "enrolled"
-When user selects "Access Sensor SETUP Button" from "Set Up Accessories" screen
+When user selects <Sensor Type SETUP Button> from "Set Up Accessories" screen
 Then user should be displayed with the "Sensor Overview" Screen 
 When user selects "Watch The How To video" from "Sensor Overview" screen
 Then user should be displayed with the "Video clip" screen
@@ -2784,8 +2785,8 @@ And user "accepts" the "Delete Access Sensor Confirmation" popup
 Then user should not be displayed with <Sensor Location> device on the "sensor list" screen
 
 Examples:
-| Mode	| Sensor Location	| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		|
-| Home	| Door				| Honeywell				| Open			| Closed					| Door Access Settings		|
+| Mode	| Sensor Location	| Sensor Type SETUP Button			| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		|
+| Home	| Door				| Door Access Sensor SETUP Button	| Honeywell				| Open			| Closed					| Door Access Settings		|
 
 
 @DASMotionSensorEnrollmentWithDefaultSensorName		@P1			@Automated
@@ -3142,7 +3143,7 @@ Scenario Outline: As a user I should be able to successfully enroll Motion Senso
 Given user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
 And user navigates to "Smart Home Security Sensor Accessories" screen from the "Dashboard" screen
-#When user outdoor motion viewer "enrolled"
+When user outdoor motion viewer "enrolled"
 And  user selects "OSMV SENSOR SETUP button" from "Set Up Accessories" screen
 Then user should be displayed with the "Locate Viewer" Screen 
 When user selects "Watch The How To video" from "Locate Viewer" screen
@@ -3158,13 +3159,13 @@ Then user navigates to "Place viewer Arm" screen from the "Place viewer Wall" sc
 Then user navigates to "Place viewer motion viewer" screen from the "Place viewer Arm" screen
 Then user navigates to "Place viewer Adjust viewer" screen from the "Place viewer motion viewer" screen
 And user navigates to "Test Motion Viewer" screen from the "Place viewer Adjust viewer" screen
-#When user outdoor motion viewer "motion not detected"
+When user outdoor motion viewer "motion not detected"
 Then user should see the "OSMV sensor" status as <Motion Status> on the "Test Motion Sensor"
 When user navigates to "Motion Viewer Help" screen from the "Test Motion Viewer" screen
 Then user navigates to "Signal Strength" screen from the "Motion Viewer Help" screen
 And user should see the "Signal to Base Station" status as "High" on the "Signal Strength"
 When user navigates to "Test Motion Viewer" screen from the "Signal Strength" screen
-#When user outdoor motion viewer "motion detected"
+When user outdoor motion viewer "motion detected"
 Then user should see the "OSMV sensor" status as <Motion Status Update> on the "Test Motion Sensor"
 And user "should not be displayed" with the "Test sensor screen cancel" option 
 And user "should not be displayed" with the "Test sensor screen back" option 

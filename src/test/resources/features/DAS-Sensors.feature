@@ -6,39 +6,40 @@ Background:
 Given reset relay as precondition
 
 
-@DASSecuritySettingsSensorstatus			@P2			@Automatable
+@DASSecuritySettingsSensorStatus			@P2			@Automatable
 Scenario Outline: As a user i should be displayed with security accessories in Security Settings 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 2 Keyfob
-Given user launches and logs in to the Lyric Application
-And user is set to "Home" through CHIL
-When user navigates to "Security Settings" screen from "Dashboard" screen
+Given user is set to "Home" mode through CHIL
+When user launches and logs in to the Lyric application
+And user navigates to "Security Settings" screen from the "Dashboard" screen
 Then user should be displayed with Security Accessories:
-|Security Accessories|Accessories Count|Issue Count|
-|Key Fob|(2)|Null|
-|Sensors|(5)|Null|
-When user is set <Sensors> to <Sensor status>
+| Security Accessories	| Accessories Count	| Issue Count	|
+| Key Fob				| (2)				| Null			|
+| Sensors				| (5)				| Null			|
+#When user is set <Sensors> to <Sensor status>
+When user "Door" access sensor <Door Access Sensor Status>
+And user "Window" access sensor <Window Access Sensor Status>
+And user motion sensor <Motion Sensor Status>
+And user indoor motion viewer <ISMV Status>
+And user outdoor motion viewer <OSMV Status>
 Then user should be displayed with Security Accessories:
-|Security Accessories|Accessories Count|Issue Count|
-|Key Fob|(2)|Null|
-|Sensors|(5)|4 Issue(s)|
+| Security Accessories	| Accessories Count	| Issue Count	|
+| Key Fob				| (2)				| Null			|
+| Sensors				| (5)				|4 Issue(s)		|
 
 Examples:
-| Sensor Status |Sensors |
-| Cover Tampered|Motion sensor|
-| Low Battery   |ISMV sensor  | 
-| Offline       |OSMV sensor  | 
-| Open          |Door sensor  |
-| Closed        |Window sensor|
+| Door Access Sensor Status	| Window Access Sensor Status	| Motion Sensor Status	| ISMV Status	| OSMV Status	|
+| Open						| Cover Tampered					| Cover Tampered			| Low Battery	| Offline		|
 
 
 #Requirement :One DAS Panel and one Door Sensor should be configured
 @DASDoorSensorRenameVerification				@P2	 		@Automated
 Scenario Outline: As a user I want to rename my Door Sensor through the application
-#Given user is set to <Mode> mode through CHIL
+Given user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
 Then user navigates to "Door Access Settings" screen from the "Dashboard" screen
 #And user is set to <Sensor status>
-#When user "Door" access sensor <Sensor status>
+When user "Door" access sensor <Sensor status>
 Then user edits the "Access Sensor" name to "new name"
 #And user reverts back the "Access Sensor" Sensor name through CHIL
 
@@ -148,7 +149,7 @@ Given user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
 Then user navigates to "OSMV Sensor Settings" screen from the "Dashboard" screen
 #And user is set to <Sensor status>
-#When user outdoor motion viewer <Sensor status>
+When user outdoor motion viewer <Sensor status>
 Then user edits the "OSMV" name to "new name"
 #And user reverts back the "Motion Sensor" Sensor name through CHIL
 
@@ -330,15 +331,16 @@ Examples:
 Scenario Outline: As a user i should be displayed with low battery sensors status 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
- And user is set to <Mode> through CHIL
+And user is set to <Mode> through CHIL
 When user navigates to "Security Settings " screen from "Dashboard" screen
- And user navigates to "Sensor list" screen from "Security Settings" screen
- And user creates "Low Battery" at the <Sensor> 
+And user navigates to "Sensor list" screen from "Security Settings" screen
+And user creates "Low Battery" at the <Sensor> 
 Then user should be displayed with the "Low Battery status"
 When user selects the "Low Battery status"
 Then user should be displayed with the "Low Battery description" Screen
 When user navigates to "Sensor list" screen from "Low Battery description" Screen
 Then user should not be displayed with "Low Battery status"
+
 Examples:
 |Mode|Sensor| 
 |Away|Door Sensor|			
@@ -367,15 +369,16 @@ Examples:
 Scenario Outline: As a user i should be displayed with offline sensors status 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
- And user is set to <Mode> through CHIL
+And user is set to <Mode> through CHIL
 When user navigates to "Security Settings " screen from "Dashboard" screen
- And user navigates to "Sensor list" screen from "Security Settings" screen
- And user creates "Offline" at the <Sensor> 
+And user navigates to "Sensor list" screen from "Security Settings" screen
+And user creates "Offline" at the <Sensor> 
 Then user should be displayed with the "Offline status"
 When user selects the "Offline status"
 Then user should be displayed with the "Offline description" Screen
 When user navigates to "Sensor list" screen from "Offline description" Screen
 Then user should not be displayed with "Offline status"
+
 Examples:
 |Mode|Sensor| 
 |Away|Door Sensor|			
@@ -534,7 +537,7 @@ Scenario Outline: As a user I should be able to verify the signal strength and t
 Given user is set to <Mode> mode through CHIL
 And user launches and logs in to the Lyric application
 Then user navigates to "ISMV Sensor settings" screen from the "Dashboard" screen
-#And user indoor motion viewer <Sensor Status>
+And user indoor motion viewer <Sensor Status>
 Then user selects "Signal Strength and Test" from "ISMV Sensor settings" screen
 Then user should be displayed with the "Test Motion Viewer" screen
 Then user should see the "ISMV sensor" status as "No Motion Detected" on the "Test Motion Viewer"
@@ -565,7 +568,7 @@ Scenario Outline: As a user I should be able to verify the signal strength and t
 Given user is set to <Mode> mode through CHIL
 And user launches and logs in to the Lyric application
 Then user navigates to "OSMV Sensor settings" screen from the "Dashboard" screen
-#And user indoor motion viewer <Sensor Status>
+And user indoor motion viewer <Sensor Status>
 Then user selects "Signal Strength and Test" from "OSMV Sensor settings" screen
 Then user should be displayed with the "Test Motion Viewer" screen
 Then user should see the "OSMV sensor" status as "No Motion Detected" on the "Test Motion Viewer"
@@ -637,13 +640,14 @@ Scenario Outline: As a user I should be able to verify delete error pop up from 
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> through CHIL 
 When user navigates to <Sensor Settings> Settings screen from the "Dashboard" screen 
- And user selects the "Signal Strength and Test" button
+And user selects the "Signal Strength and Test" button
 #Deletion failed(Put panel to offline,server not responding ) 
 Then user should be displayed with "Signal Strength and Test " pop up 
 When user selects the "Retry" button
 Then user should be displayed with "Signal Strength and Test " pop up 
 When user selects the "Cancel" button
 Then user display with <Sensor Settings> Settings screen
+
 Examples:
 |Mode|Sensor Settings|
 |Home|Door Sensor  |
@@ -667,6 +671,7 @@ Then the following <Sensor Settings> Settings options should be disabled:
 |Options|
 |Signal Strength and test|
 #Then user should display the "you can perform this action only in Home or Off mode" pop up
+
 Examples:
 |Sensor Settings|Mode|
 |Door sensosr   |Night|
@@ -827,7 +832,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one ISMV Sensor should be configured
-@DASDeleteISMVSensor				@Automatable
+@DASDeleteISMVSensor				@P2				@Automated
 Scenario Outline: As a user I should be able to delete ISMV from my account through the Lyric application 
 Given user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
@@ -859,7 +864,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one OSMV Sensor should be configured
-@DASDeleteOSMVSensor				@Automatable
+@DASDeleteOSMVSensor					@P2				@Automated
 Scenario Outline: As a user I should be able to delete OSMV from my account through the Lyric application 
 Given user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application

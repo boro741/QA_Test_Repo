@@ -536,8 +536,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "RegisterBaseStationHeaderTitle");
 	}
 
-	public boolean isBaseStationNotFoundPopupVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BaseStationNotFoundPopupTitle");
+	public boolean isBaseStationNotFoundPopupVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BaseStationNotFoundPopupTitle", timeOut);
 	}
 
 	public boolean isOKButtonInBaseStationNotFoundPopupVisible() {
@@ -1032,8 +1032,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorSetUpButton");
 	}
 
-	public boolean isLocateViewerScreenTitleVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LocateViewerScreenTitle");
+	public boolean isLocateViewerScreenTitleVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LocateViewerScreenTitle", timeOut);
 	}
 
 	public boolean isOverviewScreenTitleVisible() {

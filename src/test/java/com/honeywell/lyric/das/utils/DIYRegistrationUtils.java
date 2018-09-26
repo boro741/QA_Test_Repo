@@ -79,13 +79,17 @@ public class DIYRegistrationUtils {
 			flag = flag & dasDIY.clickOnNextButton();
 		}
 		flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
-		if (dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible()) {
+		if (dasDIY.isBaseStationNotFoundPopupVisible(5) && dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible()) {
 			while (dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible() && counter < 5) {
 				flag = flag & dasDIY.clickOnRetryButtonInBaseStationNotFoundPopup();
 				counter++;
 				flag = flag
 						& DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
 			}
+		}
+		if (dasDIY.isQRCodeScanningFailurePopupVisible()) {
+			System.out.println("$$$$$$$$$$$$$$");
+			dasDIY.clickOnOKButtonInQRCodeScanningFailurePopup();
 		}
 		if (dasDIY.isRegisterBaseStationHeaderTitleVisible() && dasDIY.isQRCodeDisplayed()) {
 			Keyword.ReportStep_Pass(testCase, "Single base station with Scan QR Code image is displayed");
@@ -337,15 +341,23 @@ public class DIYRegistrationUtils {
 
 	public static boolean navigateFromPeopleDetectionToDashboard(TestCases testCase) {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		Dashboard d = new Dashboard(testCase);
 		boolean flag = true;
 		if (dasDIY.isPeopleDetectionHeaderTitleVisible() && dasDIY.isNotNowButtonInPeopleDetectionScreenVisible()) {
 			flag = flag & dasDIY.clickOnNotNowButtonInPeopleDetectionScreen();
+		}
+		if (dasDIY.isSkipButtonInHoneywellMembershipScreenVisible()) {
+			flag = flag & dasDIY.clickOnSkipButtonInHoneywellMembershipScreen();
 		}
 		if (dasDIY.isIncreaseSecurityPopupVisible()) {
 			// flag = flag & LyricUtils.closeCoachMarks(testCase);
 			if (dasDIY.isIncreaseSecurityPopupVisible()) {
 				flag = flag & dasDIY.clickOnDontUseButtonInIncreaseSecurityPopup();
+				flag = flag & LyricUtils.closeCoachMarks(testCase);
 			}
+		} else if (d.isIncreaseSecurityPopupVisible()) {
+			flag &= d.clickOnDontUseButtonInIncreaseSecurityPopup();
+			flag = flag & LyricUtils.closeCoachMarks(testCase);
 		} else {
 			flag = flag & LyricUtils.closeCoachMarks(testCase);
 		}
