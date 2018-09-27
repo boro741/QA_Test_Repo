@@ -329,7 +329,7 @@ public class DASSensorUtils {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 		} else if (sensor.equalsIgnoreCase("window") || sensor.equalsIgnoreCase("Window Sensor")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
-		} else if (sensor.equalsIgnoreCase("motion sensor")) {
+		} else if (sensor.equalsIgnoreCase("motion sensor") || sensor.equalsIgnoreCase("Motion")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
 		} else if (sensor.equalsIgnoreCase("ISMV") || sensor.equalsIgnoreCase("ISMV SENSOR")) {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1");

@@ -563,7 +563,7 @@ Then user should be displayed with the following "Camera Configuration" options:
 #login with different mobiles for the status of configured options to verify the settings as user account level
 
       
-@EditCameraName     @P2        @AutomatedOnAndroid
+@EditCameraName     @P2        @UIAutomated
 Scenario Outline: As a user I should be able to edit the camera name
 Given user launches and logs in to the Lyric application 
 When user navigates to "Camera Solution Card" screen from the "Dashboard" screen
@@ -579,7 +579,7 @@ Examples:
 		|Upgrade|
 
       
-@EditCameraName     @P2        @AutomatedOnAndroid 
+@EditCameraName     @P2        @UIAutomated
 Scenario: As a user I should be able to edit the camera name
 Given user launches and logs in to the Lyric application 
 When user navigates to "Camera Configuration" screen from the "Dashboard" screen

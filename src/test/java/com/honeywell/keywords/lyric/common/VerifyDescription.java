@@ -92,6 +92,9 @@ public class VerifyDescription extends Keyword {
 		}else if (expectedScreen.get(0).equalsIgnoreCase("SENSORSNOISSUE")) {
 			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
 		    flag = flag & sc.isSensorNoIssueVisible();
+		}else if (expectedScreen.get(0).equalsIgnoreCase("SENSORSISSUE")) {
+			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+		    flag = flag & sc.isSensorIssueVisible();
 		}else if (expectedScreen.get(0).equalsIgnoreCase("FRONT DOOR COVER TAMPERED") || expectedScreen.get(0).equalsIgnoreCase("LIVING ROOM COVER TAMPERED")) {
 		    SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
 		    flag = flag & sc.isCoverTamperedTextVisibleinSecuritySolutions();   
