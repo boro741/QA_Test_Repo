@@ -59,7 +59,7 @@ As user I should be able to control my DAS panel settings from the app
   Scenario Outline: As a user I want to verify that all DAS Settings options on away and night mode
     Given user is set to <Mode> mode through CHIL
      Then user launches and logs in to the Lyric application
-     When user navigates to "Security Settings" screen from the "Dashboard" screen 
+     When user navigates to "Security Settings" screen from the "Dashboard" screen
      Then the following "DAS Security Settings" options should be enabled:
       | Settings                   | 
       | Manage Alerts              | 
@@ -88,7 +88,7 @@ As user I should be able to control my DAS panel settings from the app
   Scenario Outline: As a user I want to verify that all DAS Settings options on away and night mode
     Given user is set to <Mode> mode through CHIL
      Then user launches and logs in to the Lyric application
-     When user navigates to "Security Settings" screen from the "Dashboard" screen 
+     When user navigates to "Security Settings" screen from the "Dashboard" screen
      Then the following "DAS Security Settings" options should be enabled:
       | Settings                   | 
       | Manage Alerts              | 
@@ -100,7 +100,7 @@ As user I should be able to control my DAS panel settings from the app
       | Z-Wave Devices             | 
       | Base Station Configuration | 
      When user navigates to "Dashboard" screen from the "DAS Security Settings" screen
-     Then user navigates to "Security Settings" screen from the "Dashboard" screen 
+     When user navigates to "Security Settings" screen from the "Dashboard" screen
      Then the following "DAS Security Settings" options should be disabled:
       | Settings                               | 
       | Geofencing                             | 
@@ -348,10 +348,10 @@ As user I should be able to control my DAS panel settings from the app
      Then user navigates to "Enable Amazon Alexa" screen from "Dashboard"
       And user Navigates to "Sign in to Amazon" screen from "Enable Amazon Alexa" screen
       And user enter the <amazon Email ID> and <amazon Password>
-     When user select the "Sign In" button 
+     When user select the "Sign In" button
      Then user should be displayed with "Alexa Voice Service T&C" screen
      When user "Allows Alexa T&C" by clicking on "Allow" button
-     Then user should  be displayed with the "Feature Setup Completed" screen 
+     Then user should  be displayed with the "Feature Setup Completed" screen
      When user completes "Alexa Configuration" by clicking on "Done" button
      Then user should navigates to "Security settings" screen
      Then user verifies that the DAS Panel "responds" to "Amazon Alexa Voice Commands"
@@ -380,8 +380,8 @@ As user I should be able to control my DAS panel settings from the app
      Then user navigates to "Amazon Alexa Voice commands" screen from "Dashboard" screen
       And user selects the "Sign Out" option
      Then user should receive a "Confirm Amazon Alexa Logout" pop up
-     When user "accepts" the "Confirm Amazon Alexa Logout" popup 
-     Then user should navigates to "Security settings" screen 
+     When user "accepts" the "Confirm Amazon Alexa Logout" popup
+     Then user should navigates to "Security settings" screen
      Then user verifies that the DAS Panel "does not respond" to "Amazon Alexa Voice Commands"
     Examples: 
       | Mode  | 
@@ -448,7 +448,7 @@ As user I should be able to control my DAS panel settings from the app
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
   @VerifyOKSecurityVoiceCommandsOfflineAway  @NotAutomatable
-  Scenario Outline: As a user I should be able to enable disable OK Security Voice Commands in offline and away mode 
+  Scenario Outline: As a user I should be able to enable disable OK Security Voice Commands in offline and away mode
     Given user launches and logs in to the Lyric application
      When user navigates to "Voice Commands" screen from the "Dashboard" screen
       And user is set to <Mode> through CHIL
@@ -551,56 +551,56 @@ As user I should be able to control my DAS panel settings from the app
   #Requirements: Single Location Single DAS Device, No Sensors Required
   @DASEntryExitDelaySettings @Automated
   Scenario Outline: As user I want to verify if entry exit delay time displayed on settings and user can update the value 
-    Given user is set to <Mode> mode through CHIL 
-     Then user launches and logs in to the Lyric application 
-     When user navigates to "Entry-Exit Delay" screen from the "Dashboard" screen 
-     Then user should be displayed with the following "Entry-Exit Delay" options: 
+    Given user is set to <Mode> mode through CHIL
+     Then user launches and logs in to the Lyric application
+     When user navigates to "Entry-Exit Delay" screen from the "Dashboard" screen
+     Then user should be displayed with the following "Entry-Exit Delay" options:
       | Delays | 
       | 15     | 
       | 30     | 
       | 45     | 
       | 60     | 
-     When user selects "15" from "Entry-Exit Delay" screen 
-     Then "Entry-Exit Delay" value should be updated to "15" on "Entry-Exit Delay" screen 
-     When user navigates to "Security Settings" screen from the "Entry-Exit Delay" screen 
-     Then "Entry-Exit Delay" value should be updated to "15" on "Security Settings" screen 
-     When user navigates to "Entry-Exit Delay" screen from the "Security Settings" screen 
-     Then "Entry-Exit Delay" value should be updated to "15" on "Entry-Exit Delay" screen 
-      And user should be displayed with the following "Entry-Exit Delay" options: 
+     When user selects "15" from "Entry-Exit Delay" screen
+     Then "Entry-Exit Delay" value should be updated to "15" on "Entry-Exit Delay" screen
+     When user navigates to "Security Settings" screen from the "Entry-Exit Delay" screen
+     Then "Entry-Exit Delay" value should be updated to "15" on "Security Settings" screen
+     When user navigates to "Entry-Exit Delay" screen from the "Security Settings" screen
+     Then "Entry-Exit Delay" value should be updated to "15" on "Entry-Exit Delay" screen
+      And user should be displayed with the following "Entry-Exit Delay" options:
       | Delays | 
       | 15     | 
       | 30     | 
       | 45     | 
       | 60     | 
-     When user selects "30" from "Entry-Exit Delay" screen 
-     Then "Entry-Exit Delay" value should be updated to "30" on "Entry-Exit Delay" screen 
-     When user navigates to "Security Settings" screen from the "Entry-Exit Delay" screen 
-     Then "Entry-Exit Delay" value should be updated to "30" on "Security Settings" screen 
-     When user navigates to "Entry-Exit Delay" screen from the "Security Settings" screen 
-     Then "Entry-Exit Delay" value should be updated to "30" on "Entry-Exit Delay" screen 
-      And user should be displayed with the following "Entry-Exit Delay" options: 
+     When user selects "30" from "Entry-Exit Delay" screen
+     Then "Entry-Exit Delay" value should be updated to "30" on "Entry-Exit Delay" screen
+     When user navigates to "Security Settings" screen from the "Entry-Exit Delay" screen
+     Then "Entry-Exit Delay" value should be updated to "30" on "Security Settings" screen
+     When user navigates to "Entry-Exit Delay" screen from the "Security Settings" screen
+     Then "Entry-Exit Delay" value should be updated to "30" on "Entry-Exit Delay" screen
+      And user should be displayed with the following "Entry-Exit Delay" options:
       | Delays | 
       | 15     | 
       | 30     | 
       | 45     | 
       | 60     | 
-     When user selects "45" from "Entry-Exit Delay" screen 
-     Then "Entry-Exit Delay" value should be updated to "45" on "Entry-Exit Delay" screen 
-     When user navigates to "Security Settings" screen from the "Entry-Exit Delay" screen 
-     Then "Entry-Exit Delay" value should be updated to "45" on "Security Settings" screen 
-     When user navigates to "Entry-Exit Delay" screen from the "Security Settings" screen 
-     Then "Entry-Exit Delay" value should be updated to "45" on "Entry-Exit Delay" screen 
-      And user should be displayed with the following "Entry-Exit Delay" options: 
+     When user selects "45" from "Entry-Exit Delay" screen
+     Then "Entry-Exit Delay" value should be updated to "45" on "Entry-Exit Delay" screen
+     When user navigates to "Security Settings" screen from the "Entry-Exit Delay" screen
+     Then "Entry-Exit Delay" value should be updated to "45" on "Security Settings" screen
+     When user navigates to "Entry-Exit Delay" screen from the "Security Settings" screen
+     Then "Entry-Exit Delay" value should be updated to "45" on "Entry-Exit Delay" screen
+      And user should be displayed with the following "Entry-Exit Delay" options:
       | Delays | 
       | 15     | 
       | 30     | 
       | 45     | 
       | 60     | 
-     When user selects "60" from "Entry-Exit Delay" screen 
-     Then "Entry-Exit Delay" value should be updated to "60" on "Entry-Exit Delay" screen 
-     When user navigates to "Security Settings" screen from the "Entry-Exit Delay" screen 
-     Then "Entry-Exit Delay" value should be updated to "30" on "Entry-Exit Delay" screen 
-    Examples: 
+     When user selects "60" from "Entry-Exit Delay" screen
+     Then "Entry-Exit Delay" value should be updated to "60" on "Entry-Exit Delay" screen
+     When user navigates to "Security Settings" screen from the "Entry-Exit Delay" screen
+     Then "Entry-Exit Delay" value should be updated to "30" on "Entry-Exit Delay" screen
+    Examples:
       | Mode | 
       | home | 
       | Off  | 
@@ -800,9 +800,9 @@ As user I should be able to control my DAS panel settings from the app
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
   @VerifyDASPanelModelAndFirmwareDetails @Automated
-  Scenario Outline: As a user I want to view that all model, firmware and panel details 
+  Scenario Outline: As a user I want to view that all model, firmware and panel details
     Given user is set to <Mode> through CHIL
-     Then user launches and logs in to the Lyric application 
+     Then user launches and logs in to the Lyric application
      When user navigates to "Base Station Configuration" screen from the "Dashboard" screen
      Then user should be displayed with the following "Base Station Configuration" options:
       | Settings                   | 
@@ -810,11 +810,11 @@ As user I should be able to control my DAS panel settings from the app
       | Battery                    | 
       | Model and Firmware Details | 
      When user navigates to "Model and Firmware Details" screen from the "Base Station Configuration" screen
-     Then user should be displayed with the following "Panel Model and Firmware Details" options: 
+     Then user should be displayed with the following "Panel Model and Firmware Details" options:
       | Settings         | 
       | Model Details    | 
       | Firmware Details | 
-    Examples: 
+    Examples:
       | Mode  | 
       | Home  | 
       | Away  | 
@@ -823,7 +823,7 @@ As user I should be able to control my DAS panel settings from the app
   #|Offline|
   
   @DeleteDASBaseStationAwayNightOffline @Automated
-  Scenario Outline: As a user I want to rename my Base station through the application 
+  Scenario Outline: As a user I want to rename my Base station through the application
     Given user is set to <Mode> through CHIL
      Then user launches and logs in to the Lyric application
      When And user navigates to "Base Station Configuration" screen from the "Dashboard" screen
@@ -839,8 +839,8 @@ As user I should be able to control my DAS panel settings from the app
   @DeleteBaseStation @Automated
   Scenario Outline: As a user I should be able to delete my DAS panel from my account through the Lyric application 
     Given user is set to <Mode> mode through CHIL
-      And user launches and logs in to the Lyric application 
-     When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
+      And user launches and logs in to the Lyric application
+     When user navigates to "Base Station Configuration" screen from the "Dashboard" screen
       And user "deletes DAS device" by clicking on "delete" button
      Then user should receive a "Delete DAS Confirmation" popup
       And user "dismisses" the "Delete DAS Confirmation" popup
@@ -855,7 +855,7 @@ As user I should be able to control my DAS panel settings from the app
   Scenario Outline: As a user I should be able to delete my DAS panel from my account through the Lyric application 
     Given user is set to <Mode> mode through CHIL
       And user launches and logs in to the Lyric application 
-     When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
+     When user navigates to "Base Station Configuration" screen from the "Dashboard" screen
       And user "deletes DAS device" by clicking on "delete base station" button
      Then user should receive a "Delete DAS Confirmation" popup
       And user "dismisses" the "Delete DAS Confirmation" popup

@@ -1,6 +1,7 @@
 package com.honeywell.keywords.lyric.das.settings;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Dimension;
 
@@ -212,22 +213,7 @@ public class ChangeBaseStationSettings extends Keyword {
 							}
 							}
 						}//Amresh Edit Ends
-			else if (parameters.get(0).equalsIgnoreCase("Camera ON in Home Mode")) {
-				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-				if (parameters.get(1).equalsIgnoreCase("ON")) {
-					if(DASSettingsUtils.EnableGlobalGeofence(testCase)){
-						Keyword.ReportStep_Pass(testCase, "Succesfully turn on the " + parameters.get(0));
-					}else{
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed turn on the " + parameters.get(0) );
-					}
-				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
-					if(DASSettingsUtils.DisableGlobalGeofence(testCase)){
-						Keyword.ReportStep_Pass(testCase, "Succesfully turn OFF the " + parameters.get(0));
-					}else{
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed turn OFF the " + parameters.get(0) );
-					}
-				}
-			}else if (parameters.get(0).equalsIgnoreCase("Geofence this locaiton toggle")){
+			else if (parameters.get(0).equalsIgnoreCase("Geofence this locaiton toggle")){
 				GeofenceSettings gs = new GeofenceSettings(testCase);
 				if(parameters.get(1).equalsIgnoreCase("ON")){
 					if(gs.selectOptionFromGeofenceSettings(GeofenceSettings.ENABLEGEOFENCETHISLOCATION)){

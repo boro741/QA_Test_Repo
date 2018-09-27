@@ -39,8 +39,8 @@ As user I should be able to configure camera settings from the app
       | Options              | 
       | Manage Alerts        | 
       | People detection     | 
-      | Camera On Home mode  | 
-      | Camera On Night mode | 
+      | Camera On in Home mode  | 
+      | Camera On in Night mode | 
   
   @DAS_CameraSettingsCameraOn @P1 @Automated
   Scenario: As a user I should be able to configure camera settings when my camera is in on state 
@@ -406,11 +406,12 @@ As user I should be able to configure camera settings from the app
   @VerifyCameraOnInHomeMode @Automated
   Scenario: As a user I should be able to enable Camera Settings in Home Mode
     Given user is set to "Home" mode through CHIL
-      And user DAS camera is set to "off" through CHIL
-      And user launches and logs in to the Lyric application 
-     When user navigates to "Camera Settings" screen from the "Dashboard" screen
-      And user changes the "Camera ON in Home Mode" to "ON"
-     Then "Camera ON in Home Mode" value should be updated to "ON" on "Camera Settings" screen
+      When user launches and logs in to the Lyric application 
+     Then user navigates to "DAS Camera Solution Card" screen from the "Dashboard" screen
+     And user camera is set to "off"
+     When user navigates to "Camera Settings" screen from the "Camera Solution Card" screen
+      Then user changes the "Camera ON in Home Mode" to "ON"
+     And "Camera ON in Home Mode" value should be updated to "ON" on "Camera Settings" screen
      When user navigates to "Camera Solution Card" screen from the "Camera Settings" screen
      Then user camera is "live streaming"
   
@@ -418,9 +419,10 @@ As user I should be able to configure camera settings from the app
   @VerifyCameraOffInHomeMode @Automated
   Scenario: As a user I should be able to disable Camera Settings in Home Mode
     Given user is set to "Home" mode through CHIL
-      And user DAS camera is set to "on" through CHIL
-      And user launches and logs in to the Lyric application 
-     When user navigates to "Camera Settings" screen from the "Dashboard" screen
+      When user launches and logs in to the Lyric application 
+      Then user navigates to "DAS Camera Solution Card" screen from the "Dashboard" screen
+     And user camera is set to "ON"
+     When user navigates to "Camera Settings" screen from the "Camera Solution Card" screen
       And user changes the "Camera ON in Home Mode" to "Off"
      Then "Camera ON in Home Mode" value should be updated to "Off" on "Camera Settings" screen
      When user navigates to "Camera Solution Card" screen from the "Camera Settings" screen
@@ -431,7 +433,9 @@ As user I should be able to configure camera settings from the app
   Scenario: As a user I should be able to enable disable Camera Settings in Home Mode
     Given user is set to "Home" mode through CHIL
       And user launches and logs in to the Lyric application 
-     When user navigates to "Camera Settings" screen from the "Dashboard" screen
+     Then user navigates to "DAS Camera Solution Card" screen from the "Dashboard" screen
+     And user camera is set to "Off"
+     When user navigates to "Camera Settings" screen from the "Camera Solution Card" screen
       And user changes the "Camera ON in Night Mode" to "ON"
      Then "Camera ON in Night Mode" value should be updated to "ON" on "Camera Settings" screen
      When user navigates to "Security Solution Card" screen from the "Camera Settings" screen
@@ -444,7 +448,9 @@ As user I should be able to configure camera settings from the app
   Scenario: As a user I should be able to enable disable Camera Settings in Home Mode
     Given user is set to "Home" mode through CHIL
       And user launches and logs in to the Lyric application 
-     When user navigates to "Camera Settings" screen from the "Dashboard" screen
+      Then user navigates to "DAS Camera Solution Card" screen from the "Dashboard" screen
+     And user camera is set to "ON"
+     When user navigates to "Camera Settings" screen from the "Camera Solution Card" screen
       And user changes the "Camera ON in Night Mode" to "Off"
      Then "Camera ON in Night Mode" value should be updated to "Off" on "Camera Settings" screen
      When user navigates to "Security Solution Card" screen from the "Camera Settings" screen
