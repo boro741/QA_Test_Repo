@@ -172,7 +172,7 @@ public class VerifyStatusOnScreen extends Keyword {
 			}
 			case "WINDOW SENSOR":
 			case "WINDOW": {
-				switch (expectedScreen.get(1).toUpperCase()) {
+			switch (expectedScreen.get(1).toUpperCase()) {
 				case "OPEN": {
 					DASSensorUtils sensorUtils = new DASSensorUtils();
 					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
