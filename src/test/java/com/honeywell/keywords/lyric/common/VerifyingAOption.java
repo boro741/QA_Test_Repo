@@ -17,6 +17,7 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.DR.utils.DRUtils;
+import com.honeywell.lyric.das.utils.CameraUtils;
 import com.honeywell.lyric.das.utils.DASSolutionCardUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.das.utils.FRUtils;
@@ -29,6 +30,7 @@ import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecondaryCardSettings;
 import com.honeywell.screens.SensorSettingScreen;
+import com.honeywell.screens.ThermostatSettingsScreen;
 
 import io.appium.java_client.MobileElement;
 
@@ -53,7 +55,7 @@ public class VerifyingAOption extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^user \"(.*)\" with the \"(.*)\" option$")
 	public boolean keywordSteps() throws KeywordException {
-		
+
 		if (expectedScreen.get(1).toUpperCase().equals("FR")) {
 			JSONObject tempJSON = (JSONObject) LyricUtils.getLocationInformation(testCase, inputs);
 			long locationID = tempJSON.getLong("locationID");
@@ -94,7 +96,7 @@ public class VerifyingAOption extends Keyword {
 				} finally {
 					// Update to the location where FR will permit
 					FRUtils.updateLocationThroughCHIL(testCase, inputs,
-							 "{\"city\":\"Chicago Ridge\",\"state\":\"NY\",\"country\":\"US\",\"zipcode\":\"11747\"}",
+							"{\"city\":\"Chicago Ridge\",\"state\":\"NY\",\"country\":\"US\",\"zipcode\":\"11747\"}",
 							locationID);
 				}
 				break;
@@ -134,8 +136,7 @@ public class VerifyingAOption extends Keyword {
 				break;
 			}
 		}
-		
-		
+
 		else if (expectedScreen.get(1).toUpperCase().equals("BLUE TICK MARK ON NEW SELECTED MODE")) {
 			PrimaryCard card = new PrimaryCard(testCase);
 			switch (expectedScreen.get(0).toUpperCase()) {
@@ -260,7 +261,7 @@ public class VerifyingAOption extends Keyword {
 				break;
 			}
 			}
-		}else if (expectedScreen.get(1).toUpperCase().equals("BLUE TICK MARK ON SELECTED FAN")) {
+		} else if (expectedScreen.get(1).toUpperCase().equals("BLUE TICK MARK ON SELECTED FAN")) {
 
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "SHOULD BE DISPLAYED": {
@@ -277,7 +278,7 @@ public class VerifyingAOption extends Keyword {
 					flag = flag & thermo.isONFanElementSelected();
 				}
 			}
-			break;
+				break;
 			}
 			if (flag) {
 				Keyword.ReportStep_Pass(testCase,
@@ -691,26 +692,40 @@ public class VerifyingAOption extends Keyword {
 		} else if (expectedScreen.get(1).equalsIgnoreCase("Thermostat settings")) {
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "DISABLES AUTO CHANGE OVER": {
-				PrimaryCard thermo = new PrimaryCard(testCase);
-				flag = flag & thermo.disableAutoChangeOver(inputs);
-				if (flag) {
-					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + " is performed");
+				ThermostatSettingsScreen Settingscreen = new ThermostatSettingsScreen(testCase);
+				try{
+				if (!Settingscreen.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
+					Keyword.ReportStep_Pass(testCase,
+							"AUTO CHANGE OVER is already disabled in the Thermostat Settings Screen");
 				} else {
+					flag = flag & Settingscreen.toggleThermostatAutoChangeOverSwitch(testCase);
+					flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+					if (!Settingscreen.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "AUTO CHANGE OVER Toggle is turned OFF");
+					}
+				}
+				} catch (Exception e) {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							expectedScreen.get(0) + " is not performed");
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 				}
 				break;
 			}
 			case "ENABLES AUTO CHANGE OVER": {
-				PrimaryCard thermo = new PrimaryCard(testCase);
-				flag = flag & thermo.enableAutoChangeOver(inputs);
-				if (flag) {
-					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + " is performed");
-				} else {
+				ThermostatSettingsScreen Settingscreen = new ThermostatSettingsScreen(testCase);
+				try {
+					if (Settingscreen.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"AUTO CHANGE OVER is already enabled in Thermostat Settings Screen");
+					} else {
+						flag = flag & Settingscreen.toggleThermostatAutoChangeOverSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (Settingscreen.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "AUTO CHANGE OVER Switch is turned ON");
+						}
+					}
+				} catch (Exception e) {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							expectedScreen.get(0) + " is not performed");
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 				}
 				break;
 			}
@@ -806,16 +821,14 @@ public class VerifyingAOption extends Keyword {
 			}
 			}
 
-		}
-		else if (expectedScreen.get(1).equalsIgnoreCase("Heating on dashboard")) {
+		} else if (expectedScreen.get(1).equalsIgnoreCase("Heating on dashboard")) {
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "SHOULD NOT BE DISPLAYED": {
 				Dashboard dr = new Dashboard(testCase);
 				flag = flag & DashboardUtils.waitForOptionOnScreen(testCase, "HEATING TEXT TO DISAPPEAR", 2);
 				if (!dr.isHeatingTextVisible()) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is displayed");
-				}
-				else {
+				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							expectedScreen.get(1) + " is displayed");
@@ -834,16 +847,15 @@ public class VerifyingAOption extends Keyword {
 				break;
 			}
 			}
-		}
-		else if (expectedScreen.get(1).equalsIgnoreCase("Heating on primary card")) {
+		} else if (expectedScreen.get(1).equalsIgnoreCase("Heating on primary card")) {
 			PrimaryCard pc = new PrimaryCard(testCase);
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "SHOULD NOT BE DISPLAYED": {
-				flag = flag & DashboardUtils.waitForOptionOnScreen(testCase, "HEATING TEXT TO DISSAPEAR IN PRIMARY CARD", 4);
+				flag = flag & DashboardUtils.waitForOptionOnScreen(testCase,
+						"HEATING TEXT TO DISSAPEAR IN PRIMARY CARD", 4);
 				if (!pc.isHeatingTextVisible()) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is not displayed");
-				}
-				else {
+				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							expectedScreen.get(1) + " is displayed");
@@ -852,7 +864,8 @@ public class VerifyingAOption extends Keyword {
 			}
 			case "SHOULD BE DISPLAYED": {
 				PrimaryCard pc1 = new PrimaryCard(testCase);
-				flag = flag & DashboardUtils.waitForOptionOnScreen(testCase, "HEATING TEXT TO APPEAR IN PRIMARY CARD", 4);
+				flag = flag
+						& DashboardUtils.waitForOptionOnScreen(testCase, "HEATING TEXT TO APPEAR IN PRIMARY CARD", 4);
 				if (pc1.isHeatingTextVisible()) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is displayed");
 				} else {
@@ -862,16 +875,14 @@ public class VerifyingAOption extends Keyword {
 				break;
 			}
 			}
-		}
-		else if (expectedScreen.get(1).equalsIgnoreCase("Cooling on dashboard")) {
+		} else if (expectedScreen.get(1).equalsIgnoreCase("Cooling on dashboard")) {
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "SHOULD NOT BE DISPLAYED": {
 				Dashboard dr = new Dashboard(testCase);
 				flag = flag & DashboardUtils.waitForOptionOnScreen(testCase, "COOLING TEXT TO DISAPPEAR", 4);
 				if (!dr.isCoolingTextVisible()) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is displayed");
-				}
-				else {
+				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							expectedScreen.get(1) + " is displayed");
@@ -889,48 +900,48 @@ public class VerifyingAOption extends Keyword {
 				}
 				break;
 			}
-		}
-		}else {
+			}
+		} else {
 
 			if (expectedScreen.get(0).equalsIgnoreCase("SHOULD BE DISPLAYED")) {
 				switch (expectedScreen.get(1)) {
 				case "Unable to connect, please try again": {
-					if(testCase.getPlatform().contains("IOS"))
-					{
+					if (testCase.getPlatform().contains("IOS")) {
 						MobileElement element = testCase.getMobileDriver().findElement(By.name(expectedScreen.get(1)));
-					    if(element!=null) {
-					    	if (element.getAttribute("label").equalsIgnoreCase(expectedScreen.get(1))) {
+						if (element != null) {
+							if (element.getAttribute("label").equalsIgnoreCase(expectedScreen.get(1))) {
 								Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " exists");
 							} else {
 
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Expected :" + expectedScreen.get(1) + "Actual :" +element.getAttribute("label"));
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Expected :"
+										+ expectedScreen.get(1) + "Actual :" + element.getAttribute("label"));
 								flag = false;
 							}
-					    } else {
+						} else {
 
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(1) + " does not exists");
 							flag = false;
 						}
-					}else {
-					CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
-					if (cs.isRetryTextExists()) {
-						if (cs.getRetryText().equalsIgnoreCase(expectedScreen.get(1))) {
-							Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " exists");
+					} else {
+						CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
+						if (cs.isRetryTextExists()) {
+							if (cs.getRetryText().equalsIgnoreCase(expectedScreen.get(1))) {
+								Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " exists");
+							} else {
+
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Expected :" + expectedScreen.get(1) + "Actual :" + cs.getRetryText());
+								flag = false;
+							}
+
 						} else {
 
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Expected :" + expectedScreen.get(1) + "Actual :" + cs.getRetryText());
+									expectedScreen.get(1) + " does not exists");
 							flag = false;
 						}
-
-					} else {
-
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								expectedScreen.get(1) + " does not exists");
-						flag = false;
-					}}
+					}
 					break;
 				}
 
@@ -947,53 +958,53 @@ public class VerifyingAOption extends Keyword {
 					break;
 				}
 				case "Tap to continue live feed": {
-					if(testCase.getPlatform().contains("IOS"))
-					{
+					if (testCase.getPlatform().contains("IOS")) {
 						MobileElement element = testCase.getMobileDriver().findElement(By.name(expectedScreen.get(1)));
-					    if(element!=null) {
-					    	if (element.getAttribute("label").equalsIgnoreCase(expectedScreen.get(1))) {
+						if (element != null) {
+							if (element.getAttribute("label").equalsIgnoreCase(expectedScreen.get(1))) {
 								Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " exists");
 							} else {
 
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Expected :" + expectedScreen.get(1) + "Actual :" +element.getAttribute("label"));
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Expected :"
+										+ expectedScreen.get(1) + "Actual :" + element.getAttribute("label"));
 								flag = false;
 							}
-					    } else {
+						} else {
 
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(1) + " does not exists");
 							flag = false;
 						}
-					}else {
-					CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
-					if (cs.isRetryTextExists()) {
-						if (cs.getRetryText().equalsIgnoreCase(expectedScreen.get(1))) {
-							Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " exists");
+					} else {
+						CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
+						if (cs.isRetryTextExists()) {
+							if (cs.getRetryText().equalsIgnoreCase(expectedScreen.get(1))) {
+								Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " exists");
+							} else {
+
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Expected :" + expectedScreen.get(1) + "Actual :" + cs.getRetryText());
+								flag = false;
+							}
+
 						} else {
 
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Expected :" + expectedScreen.get(1) + "Actual :" + cs.getRetryText());
+									expectedScreen.get(1) + " does not exists");
 							flag = false;
 						}
-
-					} else {
-
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								expectedScreen.get(1) + " does not exists");
-						flag = false;
+						break;
 					}
-					break;
-				}}
 				}
-			}else 	if (expectedScreen.get(0).equalsIgnoreCase("SHOULD NOT BE DISPLAYED")) {
+				}
+			} else if (expectedScreen.get(0).equalsIgnoreCase("SHOULD NOT BE DISPLAYED")) {
 				switch (expectedScreen.get(1)) {
 				case "XXX": {
-					
+
 					break;
 				}
 				case "YYY": {
-					
+
 					break;
 				}
 				default: {
@@ -1003,107 +1014,107 @@ public class VerifyingAOption extends Keyword {
 					break;
 				}
 				}
-			}
-		else if (expectedScreen.get(1).equalsIgnoreCase("Cooling on primary card")) {
-			PrimaryCard pc = new PrimaryCard(testCase);
-			switch (expectedScreen.get(0).toUpperCase()) {
-			case "SHOULD NOT BE DISPLAYED": {
-				flag = flag & DashboardUtils.waitForOptionOnScreen(testCase, "COOLING TEXT TO DISSAPEAR IN PRIMARY CARD", 4);
-				if (!pc.isCoolingTextVisible()) {
-					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is not displayed");
-				}
-				else {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							expectedScreen.get(1) + " is displayed");
-				}
-				break;
-			}
-			case "SHOULD BE DISPLAYED": {
-				PrimaryCard pc1 = new PrimaryCard(testCase);
-				flag = flag & DashboardUtils.waitForOptionOnScreen(testCase, "COOLING TEXT TO APPEAR IN PRIMARY CARD", 4);
-				if (pc1.isCoolingTextVisible()) {
-					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is displayed");
-				} else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							expectedScreen.get(1) + " is not displayed");
-				}
-				break;
-			}
-			
-			}
-		}else if (expectedScreen.get(1).toUpperCase().equals("MOTION EVENT EMAIL ALERTS EMAIL")){
-			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
-			switch (expectedScreen.get(0).toUpperCase()) {
-			case "SHOULD BE DISPLAYED" : {
-				if(cs.isMotionEmailNotificationVisible(testCase)){
-					Keyword.ReportStep_Pass(testCase,expectedScreen.get(1) + " option displayed");
-				}else{
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  expectedScreen.get(1) + " option not displayed");
-				}break;
-			}
-			case "SHOULD NOT BE DISPLAYED": {
-				if(!cs.isMotionEmailNotificationVisible(testCase)){
-					Keyword.ReportStep_Pass(testCase,expectedScreen.get(1) + " option not displayed");
-				}
-				else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  expectedScreen.get(1) + " option displayed");
-				}break;
-			}
-			}
-		}else if (expectedScreen.get(1).toUpperCase().equals("DOORS AND WINDOWS")){
-			BaseStationSettingsScreen cs = new BaseStationSettingsScreen(testCase);
-			switch (expectedScreen.get(0).toUpperCase()) {
-			case "SHOULD NOT BE DISPLAYED": {
-				if(!cs.isSecurityModeDoorAndWindowVisible()){
-					Keyword.ReportStep_Pass(testCase,expectedScreen.get(1) + " option not displayed");
-				}
-				else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,  expectedScreen.get(1) + " option displayed");
-				}
-				break;
-		}
-			}
-		}
-		else if (expectedScreen.get(1).toUpperCase().equals("COACH MARK")) {
-			CoachMarks cm = new CoachMarks(testCase);
-			switch (expectedScreen.get(0).toUpperCase()) {
-			case "SHOULD BE DISPLAYED" : {
-				 String getHeader = cm.getCoachMarkHeaderText();
-					if (getHeader.equalsIgnoreCase("Access More Information")){
-						Keyword.ReportStep_Pass(testCase, "Access More Information coachmark is displayed");
-					}else {
+			} else if (expectedScreen.get(1).equalsIgnoreCase("Cooling on primary card")) {
+				PrimaryCard pc = new PrimaryCard(testCase);
+				switch (expectedScreen.get(0).toUpperCase()) {
+				case "SHOULD NOT BE DISPLAYED": {
+					flag = flag & DashboardUtils.waitForOptionOnScreen(testCase,
+							"COOLING TEXT TO DISSAPEAR IN PRIMARY CARD", 4);
+					if (!pc.isCoolingTextVisible()) {
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is not displayed");
+					} else {
+						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Invalid Input");
+								expectedScreen.get(1) + " is displayed");
 					}
 					break;
-			}
-			case "SHOULD NOT BE DISPLAYED" :{
-				String getHeader = cm.getCoachMarkHeaderText();
-				if (!getHeader.equalsIgnoreCase("Access More Information")){
-					Keyword.ReportStep_Pass(testCase, "Access More Information coachmark is not displayed");
-				}else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Invalid Input");
 				}
-				
-			}break;
-			}
-		}
-		else if (expectedScreen.get(1).equalsIgnoreCase("Vacation")) {
-			PrimaryCard pc = new PrimaryCard(testCase);
-			switch (expectedScreen.get(0).toUpperCase()) {
-			case "SHOULD BE DISPLAYED": {
-				PrimaryCard pc1 = new PrimaryCard(testCase);
-				if (!pc1.isVacationStatusVisible(30)) {
-					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is displayed");
-				} else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							expectedScreen.get(1) + " is not displayed");
+				case "SHOULD BE DISPLAYED": {
+					PrimaryCard pc1 = new PrimaryCard(testCase);
+					flag = flag & DashboardUtils.waitForOptionOnScreen(testCase,
+							"COOLING TEXT TO APPEAR IN PRIMARY CARD", 4);
+					if (pc1.isCoolingTextVisible()) {
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(1) + " is not displayed");
+					}
+					break;
 				}
-				break;
-			}
-			}
+
+				}
+			} else if (expectedScreen.get(1).toUpperCase().equals("MOTION EVENT EMAIL ALERTS EMAIL")) {
+				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
+				switch (expectedScreen.get(0).toUpperCase()) {
+				case "SHOULD BE DISPLAYED": {
+					if (cs.isMotionEmailNotificationVisible(testCase)) {
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " option displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(1) + " option not displayed");
+					}
+					break;
+				}
+				case "SHOULD NOT BE DISPLAYED": {
+					if (!cs.isMotionEmailNotificationVisible(testCase)) {
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " option not displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(1) + " option displayed");
+					}
+					break;
+				}
+				}
+			} else if (expectedScreen.get(1).toUpperCase().equals("DOORS AND WINDOWS")) {
+				BaseStationSettingsScreen cs = new BaseStationSettingsScreen(testCase);
+				switch (expectedScreen.get(0).toUpperCase()) {
+				case "SHOULD NOT BE DISPLAYED": {
+					if (!cs.isSecurityModeDoorAndWindowVisible()) {
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " option not displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(1) + " option displayed");
+					}
+					break;
+				}
+				}
+			} else if (expectedScreen.get(1).toUpperCase().equals("COACH MARK")) {
+				CoachMarks cm = new CoachMarks(testCase);
+				switch (expectedScreen.get(0).toUpperCase()) {
+				case "SHOULD BE DISPLAYED": {
+					String getHeader = cm.getCoachMarkHeaderText();
+					if (getHeader.equalsIgnoreCase("Access More Information")) {
+						Keyword.ReportStep_Pass(testCase, "Access More Information coachmark is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input");
+					}
+					break;
+				}
+				case "SHOULD NOT BE DISPLAYED": {
+					String getHeader = cm.getCoachMarkHeaderText();
+					if (!getHeader.equalsIgnoreCase("Access More Information")) {
+						Keyword.ReportStep_Pass(testCase, "Access More Information coachmark is not displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input");
+					}
+
+				}
+					break;
+				}
+			} else if (expectedScreen.get(1).equalsIgnoreCase("Vacation")) {
+				PrimaryCard pc = new PrimaryCard(testCase);
+				switch (expectedScreen.get(0).toUpperCase()) {
+				case "SHOULD BE DISPLAYED": {
+					PrimaryCard pc1 = new PrimaryCard(testCase);
+					if (!pc1.isVacationStatusVisible(30)) {
+						Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								expectedScreen.get(1) + " is not displayed");
+					}
+					break;
+				}
+				}
 			}
 		}
 		return flag;

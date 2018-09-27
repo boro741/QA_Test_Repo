@@ -1078,16 +1078,7 @@ public class ChangeBaseStationSettings extends Keyword {
 					if (ts.isThermostatEmergencyHeatSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Emergency Heat is already enabled in Thermostat Settings Screen");
-						flag = flag & ts.toggleThermostatEmergencyHeatSwitch(testCase);
-						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-						if (!ts.isThermostatEmergencyHeatSwitchEnabled(testCase)) {
-							Keyword.ReportStep_Pass(testCase, "Emergency Heat Switch is turned OFF");
-							flag = flag & ts.toggleThermostatEmergencyHeatSwitch(testCase);
-							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-							if (ts.isThermostatEmergencyHeatSwitchEnabled(testCase)) {
-								Keyword.ReportStep_Pass(testCase, "Emergency Heat Switch is enabled");
-							}
-						}
+						
 					} else {
 						flag = flag & ts.toggleThermostatEmergencyHeatSwitch(testCase);
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
@@ -1099,16 +1090,6 @@ public class ChangeBaseStationSettings extends Keyword {
 					if (!ts.isThermostatEmergencyHeatSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Emergency Heat Switch is already disabled in the Thermostat Settings Screen");
-						flag = flag & ts.toggleThermostatEmergencyHeatSwitch(testCase);
-						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-						if (ts.isThermostatEmergencyHeatSwitchEnabled(testCase)) {
-							Keyword.ReportStep_Pass(testCase, "Emergency Heat Switch is turned ON");
-							flag = flag & ts.toggleThermostatEmergencyHeatSwitch(testCase);
-							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-							if (!ts.isThermostatEmergencyHeatSwitchEnabled(testCase)) {
-								Keyword.ReportStep_Pass(testCase, "Emergency Heat Switch is disabled");
-							}
-						}
 					} else {
 						flag = flag & ts.toggleThermostatEmergencyHeatSwitch(testCase);
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
@@ -1306,16 +1287,6 @@ public class ChangeBaseStationSettings extends Keyword {
 					if (ts.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Auto Changeover is already enabled in Thermostat Settings Screen");
-						flag = flag & ts.toggleThermostatAutoChangeOverSwitch(testCase);
-						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-						if (!ts.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
-							Keyword.ReportStep_Pass(testCase, "Auto Changeover Switch is turned OFF");
-							flag = flag & ts.toggleThermostatAutoChangeOverSwitch(testCase);
-							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-							if (ts.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
-								Keyword.ReportStep_Pass(testCase, "Auto Changeover Switch is enabled");
-							}
-						}
 					} else {
 						flag = flag & ts.toggleThermostatAutoChangeOverSwitch(testCase);
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
@@ -1327,16 +1298,6 @@ public class ChangeBaseStationSettings extends Keyword {
 					if (!ts.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Auto Changeover Switch is already disabled in the Thermostat Settings Screen");
-						flag = flag & ts.toggleThermostatAutoChangeOverSwitch(testCase);
-						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-						if (ts.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
-							Keyword.ReportStep_Pass(testCase, "Auto Changeover Switch is turned ON");
-							flag = flag & ts.toggleThermostatAutoChangeOverSwitch(testCase);
-							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-							if (!ts.isThermostatAutoChangeOverSwitchEnabled(testCase)) {
-								Keyword.ReportStep_Pass(testCase, "Auto Changeover Switch is disabled");
-							}
-						}
 					} else {
 						flag = flag & ts.toggleThermostatAutoChangeOverSwitch(testCase);
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
