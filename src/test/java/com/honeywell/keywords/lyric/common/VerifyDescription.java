@@ -95,9 +95,21 @@ public class VerifyDescription extends Keyword {
 		}else if (expectedScreen.get(0).equalsIgnoreCase("SENSORSISSUE")) {
 			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
 		    flag = flag & sc.isSensorIssueVisible();
-		}else if (expectedScreen.get(0).equalsIgnoreCase("FRONT DOOR COVER TAMPERED") || expectedScreen.get(0).equalsIgnoreCase("LIVING ROOM COVER TAMPERED")) {
+		}else if (expectedScreen.get(0).equalsIgnoreCase("FRONT DOOR COVER TAMPERED")) {
 		    SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
-		    flag = flag & sc.isCoverTamperedTextVisibleinSecuritySolutions();   
+		    flag = flag & sc.isDoorCoverTamperedTextVisibleinSecuritySolutions();   
+		}else if(expectedScreen.get(0).equalsIgnoreCase("WINDOW COVER TAMPERED")){
+			 SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+			    flag = flag & sc.isWindowCoverTamperedTextVisibleinSecuritySolutions();
+		}else if(expectedScreen.get(0).equalsIgnoreCase("LIVING ROOM COVER TAMPERED")){
+			 SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+			    flag = flag & sc.isMotionSensorCoverTamperedTextVisibleinSecuritySolutions();
+		}else if(expectedScreen.get(0).equalsIgnoreCase("FRONT HALL COVER TAMPERED")){
+			 SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+			    flag = flag & sc.isFrontHallCoverTamperedTextVisibleinSecuritySolutions();
+		}else if(expectedScreen.get(0).equalsIgnoreCase("FRONT PORCH COVER TAMPERED")){
+			 SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+			    flag = flag & sc.isFrontPorchCoverTamperedTextVisibleinSecuritySolutions();
 		}else if (expectedScreen.get(0).equalsIgnoreCase("COVER TAMPERED")) {
 		    SensorStatusScreen ssc = new SensorStatusScreen(testCase);
 		    flag = flag & ssc.isCoverTamperedTextVisibleinSensorStatusScreen(testCase, inputs);
@@ -112,8 +124,11 @@ public class VerifyDescription extends Keyword {
 		    flag = flag & ssc.isSensorOfflineInStatus();
 		}else if (expectedScreen.get(0).equalsIgnoreCase("FRONT DOOR OPEN")) {
 			SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
-		    flag = flag & ssc.isDoorOpenTextVisible();
-		} else if (expectedScreen.get(0).equalsIgnoreCase("LOW BATTERY")) {
+		    flag = flag & ssc.isFrontDoorOpenTextVisible();
+		}else if (expectedScreen.get(0).equalsIgnoreCase("WINDOW OPEN")) {
+			SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
+		    flag = flag & ssc.isKitchenWindowOpenTextVisible();
+		}else if (expectedScreen.get(0).equalsIgnoreCase("LOW BATTERY")) {
 			SensorStatusScreen ssc = new SensorStatusScreen(testCase);
 		    flag = flag & ssc.isLowbatteryVisible();
 		} 

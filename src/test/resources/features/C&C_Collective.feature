@@ -310,7 +310,7 @@ And user is set to <Mode> mode through CHIL
 When user <Sensor> access sensor "tampered"
 Given user launches and logs in to the Lyric Application
 When user navigates to "Security Solution card" screen from the "Dashboard" screen
-Then user should be displayed with the "Front Door Cover Tampered" description
+Then user should be displayed with the <SensorStatusOnSolutionCard> description
 When user navigates to "SENSOR STATUS" screen from the "SECURITY SOLUTION CARD" screen
 Then user should be displayed with the "Cover Tampered" description
 When user select <Sensor> that is "Tampered" from "Sensor Status" screen
@@ -319,35 +319,31 @@ When user <Sensor> access sensor "Tamper Restored"
 And user selects "Clear Tamper" from "Sensor Cover Tamper" screen
 Then user navigates to "Security Solution card" screen from the "Sensor Status" screen
 And user "opens" activity log
-Then verify the following activity log:
-      |Elements|
-      |DOOR SENSOR TAMPERED AT HOME MODE| 
-      |DOOR SENSOR TAMPER CLEARED AT HOME MODE|
-      |WINDOW SENSOR TAMPERED AT HOME MODE|
-      |WINDOW SENSOR TAMPER CLEARED AT HOME MODE|
+Then user receives a <ActivitySensorTamper> activity log
+Then user receives a <ActivitySensorTamperClear> activity log
 And user "closes" activity log
 Examples:
-|Mode|Sensor|
-|Home|Door Sensor|
-|Home|Window Sensor|		
-#|Home|Motion Sensor|
-#|Away|ISMV Sensor|
-#|Away|OSMV Sensor|
-#|Home|Door Sensor|			
-#|Home|Window Sensor|		
-#|Home|Motion Sensor|
-#|Night|ISMV Sensor|
-#|Night|OSMV Sensor|
-#|Home|Door Sensor|			
-#|Home|Window Sensor|		
-#|Home|Motion Sensor|
-#|Home|ISMV Sensor|
-#|Home|OSMV Sensor|
-#|Off |Door Sensor|			
-#|Off |Window Sensor|		
-#|Off |Motion Sensor|
-#|Off |ISMV Sensor|
-#|Off |OSMV Sensor|
+|Mode|Sensor|ActivitySensorTamper|ActivitySensorTamperClear|SensorStatusOnSolutionCard|
+|Home|Door Sensor|DOOR SENSOR TAMPERED AT HOME MODE|DOOR SENSOR TAMPER CLEARED AT HOME MODE|FRONT DOOR COVER TAMPERED|
+|Home|Window Sensor|WINDOW SENSOR TAMPERED AT HOME MODE|WINDOW SENSOR TAMPER CLEARED AT HOME MODE|WINDOW COVER TAMPERED|	
+|Home|Motion Sensor|MOTION SENSOR TAMPERED AT HOME MODE|MOTION SENSOR TAMPER CLEARED AT HOME MODE|LIVING ROOM COVER TAMPERED|
+|Home|ISMV Sensor|ISMV SENSOR TAMPERED AT HOME MODE|ISMV SENSOR TAMPER CLEARED AT HOME MODE|FRONT HALL COVER TAMPERED|
+|Home|OSMV Sensor|OSMV SENSOR TAMPERED AT HOME MODE|OSMV SENSOR TAMPER CLEARED AT HOME MODE|FRONT PORCH COVER TAMPERED|
+|Away|Door Sensor|DOOR SENSOR TAMPERED AT AWAY MODE|DOOR SENSOR TAMPER CLEARED AT AWAY MODE|FRONT DOOR COVER TAMPERED|
+|Away|Window Sensor|WINDOW SENSOR TAMPERED AT AWAY MODE|WINDOW SENSOR TAMPER CLEARED AT AWAY MODE|WINDOW COVER TAMPERED|	
+|Away|Motion Sensor|MOTION SENSOR TAMPERED AT AWAY MODE|MOTION SENSOR TAMPER CLEARED AT AWAY MODE|LIVING ROOM COVER TAMPERED|
+|Away|ISMV Sensor|ISMV SENSOR TAMPERED AT AWAY MODE|ISMV SENSOR TAMPER CLEARED AT AWAY MODE|FRONT HALL COVER TAMPERED|
+|Away|OSMV Sensor|OSMV SENSOR TAMPERED AT AWAY MODE|OSMV SENSOR TAMPER CLEARED AT AWAY MODE|FRONT PORCH COVER TAMPERED|
+|Night|Door Sensor|DOOR SENSOR TAMPERED AT NIGHT MODE|DOOR SENSOR TAMPER CLEARED AT NIGHT MODE|FRONT DOOR COVER TAMPERED|
+|Night|Window Sensor|WINDOW SENSOR TAMPERED AT NIGHT MODE|WINDOW SENSOR TAMPER CLEARED AT NIGHT MODE|WINDOW COVER TAMPERED|	
+|Night|Motion Sensor|MOTION SENSOR TAMPERED AT NIGHT MODE|MOTION SENSOR TAMPER CLEARED AT NIGHT MODE|LIVING ROOM COVER TAMPERED|
+|Night|ISMV Sensor|ISMV SENSOR TAMPERED AT NIGHT MODE|ISMV SENSOR TAMPER CLEARED AT NIGHT MODE|FRONT HALL COVER TAMPERED|
+|Night|OSMV Sensor|OSMV SENSOR TAMPERED AT NIGHT MODE|OSMV SENSOR TAMPER CLEARED AT NIGHT MODE|FRONT PORCH COVER TAMPERED|
+|Off|Door Sensor|DOOR SENSOR TAMPERED AT NIGHT MODE|DOOR SENSOR TAMPER CLEARED AT NIGHT MODE|FRONT DOOR COVER TAMPERED|
+|Off|Window Sensor|WINDOW SENSOR TAMPERED AT OFF MODE|WINDOW SENSOR TAMPER CLEARED AT OFF MODE|WINDOW COVER TAMPERED|	
+|Off|Motion Sensor|MOTION SENSOR TAMPERED AT OFF MODE|MOTION SENSOR TAMPER CLEARED AT OFF MODE|LIVING ROOM COVER TAMPERED|
+|Off|ISMV Sensor|ISMV SENSOR TAMPERED AT OFF MODE|ISMV SENSOR TAMPER CLEARED AT OFF MODE|FRONT HALL COVER TAMPERED|
+|Off|OSMV Sensor|OSMV SENSOR TAMPERED AT OFF MODE|OSMV SENSOR TAMPER CLEARED AT OFF MODE|FRONT PORCH COVER TAMPERED|
 
 
 @OfflineSensorstatus @P2      @UIAutomated
@@ -398,22 +394,21 @@ When user launches and logs in to the Lyric Application
 And user is set to <Mode> mode through CHIL
 And user minimizes the app
 When user <Sensor> access sensor "opened"
-Then user selects the "Door Opened" push notification
-And user should be displayed with the "Front Door Open" description  
-When user navigates to "Sensor Status" screen from the "Dashboard" screen
+Then user selects the <SensorOpenNotification> push notification
+And user should be displayed with the <SensorStatusOnSolutionCard> description 
+When user navigates to "Security Solution Card" screen from the "Dashboard" screen
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
 Then user should see the "door" status as "open" on the "Sensor Status"
 When user navigates to "Security Solution Card" screen from the "Sensor Status" screen
 When user <Sensor> access sensor "closed"
 And user "opens" activity log
-Then verify the following activity log:
-      |Elements|
-      |DOOR OPENED AT HOME MODE|
-      |DOOR CLOSED AT HOME MODE|
+Then user receives a <ActivitySensorOpen> activity log
+Then user receives a <ActivitySensorClosed> activity log
 And user "closes" activity log
 Examples:
-|Mode|Sensor|
-|Home|Door Sensor|
-|Home|Window Sensor|
+|Mode|Sensor|SensorOpenNotification|SensorStatusOnSolutionCard|ActivitySensorOpen|ActivitySensorClosed|
+|Home|Door Sensor|Door Opened|Front Door Open|DOOR OPENED AT HOME MODE|DOOR CLOSED AT HOME MODE|
+|Home|Window Sensor|Window Opened|Window Open|WINDOW OPENED AT HOME MODE|WINDOW CLOSED AT HOME MODE|
 
 @OpenSensorstatusOff @P2  @UIAutomated
 Scenario Outline: As a user i want to get open sensors status 
@@ -423,20 +418,18 @@ And user is set to <Mode> mode through CHIL
 When user is set to "Sensor Alert Enabled" mode through CHIL
 And user minimizes the app
 When user <Sensor> access sensor "opened"
-Then user selects the "Door Opened" push notification
-Then user should be displayed with the "Front Door Open" description 
-When user "door" access sensor "closed"
+Then user selects the <SensorOpenNotification> push notification
+Then user should be displayed with the <SensorStatusOnSolutionCard> description 
+When user <Sensor> access sensor "closed"
 Then user should be displayed with the "SensorsNoIssue" description
 And user "opens" activity log
-Then verify the following activity log:
-      |Elements|
-      |DOOR OPENED AT HOME MODE|
-      |DOOR CLOSED AT HOME MODE|
+Then user receives a <ActivitySensorOpen> activity log
+Then user receives a <ActivitySensorClosed> activity log
 And user "closes" activity log
 Examples:
-|Mode|Sensor|
-|Off|Door Sensor|
-|Off|Window Sensor| 
+|Mode|Sensor|SensorOpenNotification|SensorStatusOnSolutionCard|ActivitySensorOpen|ActivitySensorClosed|
+|Off|Door Sensor|Door Opened|Front Door Open|DOOR OPENED AT OFF MODE|DOOR CLOSED AT OFF MODE|
+|Off|Window Sensor|Window Opened|Window Open|WINDOW OPENED AT OFF MODE|WINDOW CLOSED AT OFF MODE|
 
 
 @ContactSensorstatusPriority @P2    @UIAutomated
@@ -449,8 +442,7 @@ When user <Sensor> access sensor "tampered"
 #And user creates "Offline" at the <Sensor>
 When user is set to "Sensor Alert Enabled" mode through CHIL 
 When user navigates to "Security Solution card" screen from the "Dashboard" screen
-Then user should be displayed with the "SensorsNoIssue" description
-When user <Sensor> access sensor "opened"
+Then user should be displayed with the <SensorTamperStatusOnSolutionCard> description
 When user navigates to "Sensor Status" screen from the "Security Solution card" screen
 #Then user should be displayed with the "Offline Status" description
 #When user clears "Offline" at the <Sensor>
@@ -461,43 +453,70 @@ When user <Sensor> access sensor "Tamper Restored"
 And user selects "Clear Tamper" from "Sensor Cover Tamper" screen
 Then user navigates to "Security Solution card" screen from the "Sensor Status" screen
 When user <Sensor> access sensor "opened"
-And user should be displayed with the "FRONT DOOR OPEN" description
+And user should be displayed with the <SensorOpenStatusOnSolutionCard> description
 When user <Sensor> access sensor "closed"
 Then user should be displayed with the "SensorNoIssue" description 
-#And user should be displayed with the "Low battery" description
-#When user navigates to "Sensor List" screen from "Security card" screen
+#And user should be displayed with the| "Low battery" description
+#When user navigates to "Sensor Status" screen from "Security card" screen
 #Then user should be displayed with the "Low battery" description
 #When user clears "Low battery" at the <Sensor>
 And user "opens" activity log
-Then verify the following activity log:
-      |Elements|
-      |DOOR SENSOR TAMPERED AT HOME MODE| 
-      |DOOR SENSOR TAMPER CLEARED AT HOME MODE|
-      |WINDOW SENSOR TAMPERED AT HOME MODE|
-      |WINDOW SENSOR TAMPER CLEARED AT HOME MODE|
-      |DOOR OPENED AT HOME MODE|
-      |DOOR CLOSED AT HOME MODE|
-      |WINDOW OPENED AT HOME MODE|
-      |WINDOW CLOSED AT HOME MODE
+Then user receives a <ActivitySensorTamper> activity log
+Then user receives a <ActivitySensorTamperRestore> activity log
+Then user receives a <ActivitySensorOpen> activity log
+Then user receives a <ActivitySensorClosed> activity log
 And user "closes" activity log
 Examples:
-|Mode|Sensor| 
-|Home|Door Sensor| 
-|Home|Window Sensor| 
+|Mode|Sensor|SensorTamperStatusOnSolutionCard|SensorOpenStatusOnSolutionCard|ActivitySensorTamper|ActivitySensorTamperRestore|ActivitySensorOpen|ActivitySensorClosed|
+|Home|Door Sensor|FRONT DOOR COVER TAMPERED|FRONT DOOR OPEN|DOOR SENSOR TAMPERED AT HOME MODE|DOOR SENSOR TAMPER CLEARED AT HOME MODE|DOOR OPENED AT HOME MODE|DOOR CLOSED AT HOME MODE|
+|Home|Window Sensor|WINDOW COVER TAMPERED|WINDOW OPEN|WINDOW SENSOR TAMPERED AT HOME MODE|WINDOW SENSOR TAMPER CLEARED AT HOME MODE|WINDOW OPENED AT HOME MODE|WINDOW CLOSED AT HOME MODE|
 
 @MotionSensorstatusMotionSensorPriority @P2   @UIAutomated
 Scenario Outline: As a user i want to shown with sensors status based on priority when sensor with multiple status
-#DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
+Given user launches and logs in to the Lyric Application
+And user is set to <Mode> mode through CHIL
+#And user creates "Low battery" at the <Sensor>
+When user <Sensor> access sensor "tampered"
+#And user creates "Offline" at the <Sensor>
+When user is set to "Sensor Alert Enabled" mode through CHIL 
+When user navigates to "Security Solution card" screen from the "Dashboard" screen
+Then user should be displayed with the <SensorTamperStatusOnSolutionCard> description
+When user navigates to "Sensor Status" screen from the "Security Solution card" screen
+#Then user should be displayed with the "Offline Status" description
+#When user clears "Offline" at the <Sensor>
+Then user should be displayed with the "Cover Tampered" description
+When user select <Sensor> that is "Tampered" from "Sensor Status" screen
+Then user should be displayed with the "Sensor Cover Tamper" screen
+When user <Sensor> access sensor "Tamper Restored"
+And user selects "Clear Tamper" from "Sensor Cover Tamper" screen
+Then user navigates to "Security Solution card" screen from the "Sensor Status" screen
+Then user should be displayed with the "SensorNoIssue" description 
+#And user should be displayed with the| "Low battery" description
+#When user navigates to "Sensor Status" screen from "Security card" screen
+#Then user should be displayed with the "Low battery" description
+#When user clears "Low battery" at the <Sensor>
+And user "opens" activity log
+Then user receives a <ActivitySensorTamper> activity log
+Then user receives a <ActivitySensorTamperRestore> activity log
+And user "closes" activity log
+Examples:
+|Mode|Sensor|SensorTamperStatusOnSolutionCard||ActivitySensorTamper|ActivitySensorTamperRestore|
+|Home|Motion Sensor|LIVING ROOM COVER TAMPERED|MOTION SENSOR TAMPERED AT HOME MODE|MOTION SENSOR TAMPER CLEARED AT HOME MODE|
+
+
+
+
+@MotionSensorstatusISMVandOSMVSensorPriority   @P2 @UIAutomated
+Scenario Outline: As a user i want to shown with sensors status based on priority when sensor with multiple status
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
 And user is set to <Mode> mode through CHIL
 #And user creates "Low battery" at the <Sensor>
 When user <Sensor> access sensor "tampered"
 #And user creates "Offline" at the <Sensor>
-When user is set to "Sensor Alert Enabled" mode through CHIL
+When user is set to "Sensor Alert Enabled" mode through CHIL 
 When user navigates to "Security Solution card" screen from the "Dashboard" screen
-Then user should be displayed with the "SensorsIssue" description
-When user <Sensor> access sensor "opened"
+Then user should be displayed with the <SensorTamperStatusOnSolutionCard> description
 When user navigates to "Sensor Status" screen from the "Security Solution card" screen
 #Then user should be displayed with the "Offline Status" description
 #When user clears "Offline" at the <Sensor>
@@ -507,64 +526,19 @@ Then user should be displayed with the "Sensor Cover Tamper" screen
 When user <Sensor> access sensor "Tamper Restored"
 And user selects "Clear Tamper" from "Sensor Cover Tamper" screen
 Then user navigates to "Security Solution card" screen from the "Sensor Status" screen
-#And user should be displayed with the "Low battery" description
-#When user navigates to "Sensor List" screen from "Security card" screen
+Then user should be displayed with the "SensorNoIssue" description 
+#And user should be displayed with the| "Low battery" description
+#When user navigates to "Sensor Status" screen from "Security card" screen
 #Then user should be displayed with the "Low battery" description
 #When user clears "Low battery" at the <Sensor>
-Then user should be displayed with the "SensorNoIssue" description 
 And user "opens" activity log
-Then verify the following activity log:
-      |Elements|
-      |DOOR SENSOR TAMPERED AT HOME MODE| 
-      |DOOR SENSOR TAMPER CLEARED AT HOME MODE|
+Then user receives a <ActivitySensorTamper> activity log
+Then user receives a <ActivitySensorTamperRestore> activity log
 And user "closes" activity log
 Examples:
-|Mode|Sensor|
-|Home|Motion Sensor|
-
-
-@MotionSensorstatusISMVandOSMVSensorPriority   @P2 @UIAutomated
-Scenario Outline: As a user i want to shown with sensors status based on priority when sensor with multiple status
-#DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
-#DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
-Given user launches and logs in to the Lyric Application
-And user is set to <Mode> mode through CHIL
-And user creates "Low battery" at the <Sensor>
-And user creates "Cover tamper" at the <Sensor> 
-And user creates "Offline" at the <Sensor>
-When user is set to "Sensor Alert Enabled" mode through CHIL
-When user navigates to "Security Solution card" screen from the "Dashboard" screen
-Then user should be displayed with the "SensorsNoIssue" description
-When user <Sensor> access sensor "opened"
-When user navigates to "Sensor Status" screen from "Security Solution card" screen
-Then user should be displayed with the "Offline Status" description
-When user clears "Offline" at the <Sensor>
-Then user should be displayed with the "Cover Tampered" description
-When user navigates to "Sensor List" screen from "Security Solution card" screen
-When user navigates to "Sensor Status" screen from the "Security Solution card" screen
-Then user should be displayed with the "Cover Tampered" description
-When user selects tampered <Sensor> "Sensors Status" screen
-Then user should be displayed with the "Sensor Cover Tamper" screen
-And user selects "Clear Tamper" from "Sensor Cover Tamper" screen
-#Then user should be displayed with the "SENSOR COVER TAMPER" description
-#When user taps on "Clear Tamper"
-Then user navigates to  "Security Solution card" screen from "Sensor List" screen
-And user should be displayed with the "Low battery" description
-When user navigates to "Sensor List" screen from "Security card" screen
-Then user should be displayed with the "Low battery" description
-When user clears "Low battery" at the <Sensor>
-Then user should be displayed with the "Open status" description
-When user navigates to  "Security Solution card" screen from the "Sensor List" screen 
-Then user should be displayed with the "Open status" description
-When user clears "Open status" at the <Sensor>
-Then user should be displayed with the "SensorNoIssue" description 
-And user "opens" activity log
-Then user receives a "ActivityOpen" activity log
-And user "closes" activity log
-Examples:
-|Mode|Sensor| ActivityOpen|
-|Home|ISMV Sensor|ISMV Sensor Low battery at Home mode|
-|Home|OSMV Sensor|OSMV Sensor cover tampered at Home mode|
+|Mode|Sensor|SensorTamperStatusOnSolutionCard||ActivitySensorTamper|ActivitySensorTamperRestore|
+|Home|ISMV Sensor|FRONT HALL COVER TAMPERED|ISMV SENSOR TAMPERED AT HOME MODE|ISMV SENSOR TAMPER CLEARED AT HOME MODE|
+|Home|OSMV Sensor|FRONT PORCH COVER TAMPERED|OSMV SENSOR TAMPERED AT HOME MODE|OSMV SENSOR TAMPER CLEARED AT HOME MODE|
 
 
 
@@ -602,8 +576,8 @@ And user press "away" key from keyfob
 When user navigates to "Security Solution card" screen from the "Dashboard" screen
 Then user should be displayed with the <Mode> screen
 When user is set to <Mode> mode through CHIL
-When user <Sensor> access sensor "opened"
-When user launches and logs in to the Lyric application
+#When user <Sensor> access sensor "opened"
+#When user launches and logs in to the Lyric application
 And user press "night" key from keyfob
 Then user should be displayed with the <Mode> screen
 Examples:
@@ -622,9 +596,8 @@ When user launches and logs in to the Lyric application
 And user press "away" key from keyfob
 When user navigates to "Security Solution card" screen from the "Dashboard" screen
 Then user should be displayed with the <Mode> screen
-When user is set to <Mode> through CHIL
+When user is set to <Mode> mode through CHIL
 When user <Sensor> access sensor "tampered"
-When user launches and logs in to the Lyric application
 And user press "night" key from keyfob
 When user navigates to "Security Solution card" screen from the "Dashboard" screen
 Then user should be displayed with the <Mode> screen
@@ -638,18 +611,17 @@ Examples:
  
  
 @CommandControlfromkeyfobwhenMotionsensortrouble   @UIAutomated
-Scenario Outline: As a user I should not be allowed to switch to Away/Night mode through keyfob when sensor is trouble
+Scenario Outline: As a user I should not be allowed to switch to Away or Night mode through keyfob when sensor is trouble
 Given user sets the entry/exit timer to "60" seconds
-And user is set to <Mode> through CHIL
-And user "Cover Tamper" the <Sensor type>
+And user is set to <Mode> mode through CHIL
+When user <Sensor> access sensor "tampered"
 When user launches and logs in to the Lyric application
-And user "Activates Away mode" from keyfob
-Then user should not be displayed with the "Away Status"
-When user is set to <Mode> through CHIL
-And user "Cover Tamper" the <Sensor type>
-When user launches and logs in to the Lyric application
-And user "Activates Night mode" from keyfob
-Then user should be displayed with the "Night Status"
+And user press "away" key from keyfob
+Then user should be displayed with the "Away" screen
+When user is set to <Mode> mode through CHIL
+When user <Sensor> access sensor "tampered"
+And user press "Night" key from keyfob
+Then user should be displayed with the "Night" screen
 Examples:
 |Status|Sensor type|
 |Home|Motion Sensor|
@@ -968,8 +940,8 @@ Examples:
 Scenario: As a user i should get all the sensors status in security solution card with all status scrolling 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
- And user is set to "Home" mode through CHIL
- And user is "Enabled" Doors and Windows alert through CHIL 
+And user is set to "Home" mode through CHIL
+And user is "Enabled" Doors and Windows alert through CHIL 
 When user navigates to "Security card" screen from the "Dashboard" screen
 Then user should be displayed with the "SensorsNoIssue" description
 And user "Door Sennsor" access sensor "Opened"
@@ -1091,11 +1063,11 @@ Examples:
 @SwitchingSystemModeAwaySensorstatus   @UIAutomated
 Scenario Outline: As a user i want to switch Away mode with different sensor status
 Given user launches and logs in to the Lyric Application
-And user is set to <Mode> through CHIL
+And user is set to <Mode> mode through CHIL
 And user "Door Sennsor" access sensor "Opened"
-And user "Window Sennsor" access sensor "Low battery"
+#And user "Window Sennsor" access sensor "Low battery"
 And user "Motion Sennsor" access sensor "Cover Tamper"
-And user "ISMV Sennsor" access sensor "Offline"
+#And user "ISMV Sennsor" access sensor "Offline"
 When user switches from <Mode> to "Away"
 And user "Dismiss" the "Switch to Away" popup
 Then user should be displayed with the <Mode> screen
