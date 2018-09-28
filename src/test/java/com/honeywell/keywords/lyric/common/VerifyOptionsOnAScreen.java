@@ -1319,14 +1319,182 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-		//Amresh(H297378)	
+		//Amresh(H297378)
+		case "GRAPH":
+		{
+			WLDSolutionCard sol = new WLDSolutionCard(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "Graph Options");
+				switch (parameter.toUpperCase()) {
+				
+				case "NO OF DAYS TEMPERATURE TREND": 
+				{
+					if(testCase.getPlatform().toUpperCase().contains("ANDROID")) 
+					{
+						Keyword.ReportStep_Fail(testCase, FailType.NO_FAILURE, "In Android No of Days Temperature Trend is: Not Vissible");
+
+					}
+					else {
+					flag = flag & sol.isNoOfDaysTempTrendVisible();
+					if(flag) {
+						String str = sol.getNoOfDaysTempTrendText();
+						Keyword.ReportStep_Pass(testCase, "No of Days Trend is: "+ str);
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not Vissible");
+					}
+					}
+					break;
+				}
+				case "NO OF DAYS HUMIDITY TREND": 
+				{
+					if(testCase.getPlatform().toUpperCase().contains("ANDROID")) 
+					{
+						Keyword.ReportStep_Fail(testCase, FailType.NO_FAILURE, "In Android No of Days Humidity Trend is: Not Vissible");
+
+					}
+					else
+					{
+					flag = flag & sol.isNoOfDaysHumidTrendVisible();
+					if(flag) {
+						String str = sol.getNoOfDaysHumidTrendText();
+						Keyword.ReportStep_Pass(testCase, "No of Days Trend is: "+ str);
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not Vissible");
+					}
+					}
+					break;
+				}
+				case "MAXIMUM AND MINIMUM TEMPERATURE TREND": 
+				{
+					if(testCase.getPlatform().toUpperCase().contains("ANDROID")) 
+					{
+						Keyword.ReportStep_Fail(testCase, FailType.NO_FAILURE, "In Android Maximum and Minimum Temperature trend is: Not Vissible");
+
+					}
+					else
+					{
+					flag = flag & sol.isMaximumTempGraphValueVisible();
+					flag = flag & sol.isMinimumTempGraphValueVisible();
+
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Maximum Temperature Vissible is: "+sol.getMaximumTempGraphValueText());
+						Keyword.ReportStep_Pass(testCase, "Minimum Temperature Vissible is: "+sol.getMinimumTempGraphValueText());
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not Vissible");
+					}
+					}
+					break;
+				}
+				case "MAXIMUM AND MINIMUM HUMIDITY TREND": 
+				{
+					if(testCase.getPlatform().toUpperCase().contains("ANDROID")) 
+					{
+						Keyword.ReportStep_Fail(testCase, FailType.NO_FAILURE, "In Android Maximum and Minimum Humidity trend is: Not Vissible");
+
+					}
+					else
+					{
+					flag = flag & sol.isMaximumHumidGraphValueVisible();
+					flag = flag & sol.isMinimumHumidGraphValueVisible();
+
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Maximum Humidity Vissible is: "+sol.getMaximumHumidGraphValueText());
+						Keyword.ReportStep_Pass(testCase, "Minimum Humidity Vissible is: "+sol.getMinimumHumidGraphValueText());
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Humidity Graph Max Min Trend Not Vissible");
+					}
+					}
+					break;
+				}
+				case "MAXIMUM 5 DATES": 
+				{
+					break;
+				}
+				}
+
+			}
+			break;
+		
+			
+		}
+		//Amresh Starts again
+		case "ALERT FOR THIS TEMPERATURE RANGE": {
+		WLDManageAlerts ale = new WLDManageAlerts(testCase);
+		for (int i = 0; i < data.getSize(); i++) {
+			String parameter = data.getData(i, "Temperature Alert Range Options");
+			switch (parameter.toUpperCase()) {
+			case "BELOW": 
+			{
+				flag = flag && ale.isBelowTextinTemperatureVissible();
+				if(flag) {
+					Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ale.getBelowTextinTemperatureValue());
+					Keyword.ReportStep_Pass(testCase, "Below Text is Vissible");
+				}
+				else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Below Text not found");
+				}
+				break;
+			}
+			case "ABOVE": 
+			{
+				flag = flag && ale.isAboveTextinTemperatureVissible();
+				if(flag) {
+					Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ale.getAboveTextinTemperatureValue());
+					Keyword.ReportStep_Pass(testCase, "Above  Text is Vissible");
+				}
+				else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Above  Text not found");
+				}
+				break;
+			}
+			}
+		}
+		break;
+		}
+		case "ALERT FOR THIS HUMIDITY RANGE":{
+			WLDManageAlerts ale = new WLDManageAlerts(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "Temperature Alert Range Options");
+				switch (parameter.toUpperCase()) {
+				case "BELOW": 
+				{
+					flag = flag && ale.isBelowTextinHumidityVissible();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ale.getBelowTextinHumidityValue());
+						Keyword.ReportStep_Pass(testCase, "Below Text is Vissible");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Below Text not found");
+					}
+					break;
+				}
+				case "ABOVE": 
+				{
+					flag = flag && ale.isAboveTextinHumidityVissible();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ale.getAboveTextinHumidityValue());
+						Keyword.ReportStep_Pass(testCase, "Above  Text is Vissible");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Above  Text not found");
+					}
+					break;
+				}
+				}
+			}
+			break;
+		}
+		//Amresh ends Again
 		case "WLDSOLUTIONTEMPERATURE": {
 			WLDSolutionCard ActionSheet = new WLDSolutionCard(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String parameter = data.getData(i, "WLD Solution options");
 				switch (parameter.toUpperCase()) {
 				case "CURRENT TEMPERATURE": {
-
 					flag = flag & ActionSheet.isCurrentTemperatureTitleVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, parameter + " is Vissibe");
@@ -1336,7 +1504,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not vissible");
 					}
 					break;
-
 				}
 				case "LAST UPDATED TIME": {
 					flag = flag & ActionSheet.isLastUpdatedTimeTitleVisible();
@@ -1347,7 +1514,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not vissible");
 					}
 					break;
-
 				}
 				case "TEMPERATURE GRAPH": {
 					flag = flag & ActionSheet.isTemperatureGraphTitleVisible();
@@ -1357,7 +1523,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not vissible");
 					}
 					break;
-
 				}
 				case "BATTERY PERCENTAGE": {
 					flag = flag & ActionSheet.isBatterypercentageTitleVisible();
@@ -1365,12 +1530,10 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						Keyword.ReportStep_Pass(testCase, parameter + "is Vissibe");
 						Keyword.ReportStep_Pass(testCase,
 								"Displayed Text: " + ActionSheet.getRemainingBatteryTitleText());
-
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not vissible");
 					}
 					break;
-
 				}
 				case "NEXT UPDATE TIME": {
 					flag = flag & ActionSheet.isNextUpdateTimeTitleVisible();
@@ -1378,15 +1541,12 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						Keyword.ReportStep_Pass(testCase, parameter + " is Vissibe");
 						Keyword.ReportStep_Pass(testCase,
 								"Displayed Text: " + ActionSheet.getNextUpdateTimeTitleText());
-				
-
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not vissible");
 					}
 					break;
 				}
 				}
-
 			}
 			break;
 		}
@@ -1405,7 +1565,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"The Text: " + parameter + " is not vissible");
-
 					}
 					break;
 				}
@@ -1437,25 +1596,20 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"The Text: " + parameter + " is not vissible");
-
 					}
 					break;
 				}
 				case "UPDATE FREQUENCY": {
-
 					flag = flag & ActionSheet.isUpdateFrequencyTitleTextVisible();
-
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "The Text: " + parameter + " is Vissibe");
 						Keyword.ReportStep_Pass(testCase,
 								"Displayed Text: " + ActionSheet.displayUpdateFrequencyTitleText());
 						Keyword.ReportStep_Pass(testCase,
 								"Displayed Text: " + ActionSheet.displayUpdateFrequencyValue());
-
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"The Text: " + parameter + " is not vissible");
-
 					}
 					break;
 
@@ -1472,16 +1626,13 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"The Text: " + parameter + " is not vissible");
-
 					}
 					break;
-
 				}
 
 				}
 			}
 			break;
-
 		}
 		//Amresh wld starts
 		case "WLD INDOOR TEMPERATURE ALERT": {
@@ -1518,8 +1669,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			break;
 		}
 		//Amresh wld ends
-		
-		
 		case "WLD INDOOR HUMIDITY ALERT": {
 			WLDManageAlerts ActionSheet=new WLDManageAlerts(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
@@ -1553,14 +1702,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-		
-		
-		
-		
-		
-		
-		
-		
 		case "WLD DASHBOARD": {
 			Dashboard das = new Dashboard(testCase);
 			for (int i = 0; i < data.getSize(); i++) {

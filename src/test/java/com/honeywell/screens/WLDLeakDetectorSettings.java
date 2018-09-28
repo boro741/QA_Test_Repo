@@ -2,9 +2,7 @@ package com.honeywell.screens;
 
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.FluentWait;
-
 import com.google.common.base.Function;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
@@ -110,7 +108,6 @@ public class WLDLeakDetectorSettings extends MobileScreens {
 	//Frequency Updated pop up
 	public boolean isFrequencyUpdatedPopupVisible()
 	{
-
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "Frequency_Updated_Popup");
 	}
 	public boolean clickonFrequencyUpdatedPopup()
@@ -119,7 +116,7 @@ public class WLDLeakDetectorSettings extends MobileScreens {
 			FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
 			fWait.pollingEvery(5, TimeUnit.SECONDS);
 			fWait.withTimeout(10, TimeUnit.SECONDS);
-			fWait.until(new Function<CustomDriver, Boolean>() {
+			boolean status = fWait.until(new Function<CustomDriver, Boolean>() {
 				public Boolean apply(CustomDriver driver) {
 					if(isFrequencyUpdatedPopupVisible()) {
 						return  MobileUtils.clickOnElement(objectDefinition, testCase, "Frequency_Updated_Popup");
@@ -128,12 +125,15 @@ public class WLDLeakDetectorSettings extends MobileScreens {
 						return  false;		
 				}
 			});
+			if(!status)
+			{
+				flag = false;
+			}
 		}catch(Exception e)
 		{
 			flag = false;
-			//System.out.println("Exception : " + e.getMessage());
 		}
-		return true;
+		return flag;
 	}
 	//WLD settings to Primary card
 	public boolean navigateFromWLDSettingsScreenToPrimaryCard() {
@@ -175,5 +175,10 @@ public class WLDLeakDetectorSettings extends MobileScreens {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 		}
 		return flag;
+	}
+	public boolean navigateFromWLDSettingsScreenToUpdateFrequencyCard() {
+		WLDLeakDetectorSettings set = new WLDLeakDetectorSettings(testCase);
+		set.clickonUpdateFrequencyTitleText();
+		return false;
 	}
 }

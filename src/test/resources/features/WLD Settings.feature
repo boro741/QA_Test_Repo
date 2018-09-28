@@ -28,8 +28,8 @@ And user should be displayed with the following "WLD Indoor Temperature Alert" o
 | Alert for this range     |
 When user changes the "Indoor Temperature Alerts" to "OFF"
 Then "WLD Indoor Temperature Alert" value should be updated to "OFF" on "Manage Alerts" screen
-  
-@EnableDisableEmailNotifications @AutomateLast
+
+@EnableDisableEmailNotifications @NotAutomatable
 Scenario: As a user I should be able to enable or disable EmailForEnabledAlerts on my WLD
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
@@ -42,26 +42,25 @@ When user changes the "Email Notifications" to "OFF"
 Then "Email Notifications" value should be updated to "OFF" on "Manage Alerts" screen
 When user creates "Alerts"
 Then user should not receive "Email Alert"
-  
-@WLDChangeAlertForThisRangeforTemperature @Automating
+
+@WLDChangeAlertForThisRangeforTemperature @AutomatedforAndroidOnly
 Scenario: As a user I should be able to change Alert For This Range on my WLD
 Given user launches and logs in to the Lyric application
-When user navigates to "Manage Alerts" screen from the "Dashboard" screen
-And user changes the "Indoor Temperature Alert" to "ON"
-And user clicks on " Alert for this Range" option
-Then user should be displayed with Following Options
-| Options	| 
+When user navigates to "WLD Manage Alerts" screen from the "Dashboard" screen
+And user changes the "Indoor Temperature Alerts" to "ON"
+And user selects "Alert for this Temperature Range" from "WLD Manage Alerts" screen
+Then user should be displayed with the following "Alert for this Temperature Range" options: 
+| Temperature Alert Range Options	| 
 | Below 	| 
 | Above		|
-And when user Clicks on "Below Range"
-Then user should be able to select "Below temperature Range"
-
-And user should be able to receive push notification for below range
-And when user Clicks on "Above Range"
-Then user should be able to select "Above temperature Range"
-And user should be able to receive push notification for Above range
-When user selects the "Push notification"
-Then user should be navigates to "SolutionCard"
+When user clicks on "Below Range" in "Temperature" Alerts
+Then user should be able to see updated values in "Alert for this Temperature Range" when user changes "Below" values in Alert Range
+#And user should be able to receive push notification for below range
+When user clicks on "Above Range" in "Temperature" Alerts
+Then user should be able to see updated values in "Alert for this Temperature Range" when user changes "Above" values in Alert Range
+#And user should be able to receive push notification for Above range
+#When user selects the "Push notification"
+#Then user should be navigates to "SolutionCard"
 
 @EnableDisableIndoorHumidityAlert  @Automated
 Scenario: As a user I should be able to enable or disable Indoor Humidity Alert on my WLD
@@ -76,13 +75,12 @@ And user should be displayed with the following "WLD Indoor Humidity Alert" opti
 When user changes the "Indoor Humidity Alert" to "OFF"
 Then "WLD Indoor Humidity Alert" value should be updated to "OFF" on "Manage Alerts" screen
 
-@EnableDisableEmailForEnabledAlertsforHumidity @AutomateLast
+@EnableDisableEmailForEnabledAlertsforHumidity @NotAutomatable
 Scenario: As a user I should be able to enable or disable EmailForEnabledAlerts for Humidity on my WLD
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
 And user changes the "Indoor Humidity Alert" to "ON"
 And user changes the "Email Notifications" to "ON"
-#navigation back
 When user creates "Alerts"
 Then user should receive "Email Alert"
 Then "Email Notifications" value should be updated to "ON" on "Manage Alerts" screen
@@ -91,66 +89,58 @@ Then "Email Notifications" value should be updated to "OFF" on "Manage Alerts" s
 When user creates "Alerts"
 Then user should not receive "Email Alert"
 
-@ChangeAlertForThisRangeforHumididty @Automatable
+@ChangeAlertForThisRangeforHumididty @AutomatedforAndroidOnly
 Scenario: As a user I should be able to change Alert For This Range on my WLD
 Given user launches and logs in to the Lyric application
-When user navigates to "Manage Alerts" screen from the "Dashboard" screen
+When user navigates to "WLD Manage Alerts" screen from the "Dashboard" screen
 And user changes the "Indoor Humidity Alert" to "ON"
-And user clicks on " Alert for this Range" option
-Then user should be displayed with Following Options
-| Options	| 
+When user selects "Alert for this Humidity Range" from "WLD Manage Alerts" screen
+Then user should be displayed with the following "Alert for this Humidity Range" options: 
+| Humidity Alert Range Options	| 
 | Below 	| 
 | Above		|
-And when user Clicks on "Below Range"
-Then user should be able to select "Below Humidity Range"
-And user should be able to receive push notification for below range
-And when user Clicks on "Above Range"
-Then user should be able to select "Above Humidity Range"
-And user should be able to receive push notification for Above range
-When user selects the "Push notification"
-Then user should be navigates to "SolutionCard"
+When user clicks on "Below Range" in "Humidity" Alerts
+Then user should be able to see updated values in "Alert for this Humidity Range" when user changes "Below" values in Alert Range
+#And user should be able to receive push notification for below range
+When user clicks on "Above Range" in "Humidity" Alerts
+Then user should be able to see updated values in "Alert for this Humidity Range" when user changes "Above" values in Alert Range
+#And user should be able to receive push notification for Above range
+#When user selects the "Push notification"
+#Then user should be navigates to "SolutionCard"
 
-@SetEmailContacts @Automatable
-Scenario Outline: As a user I should be able set email contacts on my WLD
+@SetEmailContacts @Automated
+Scenario: As a user I should be able set email contacts on my WLD
 Given user launches and logs in to the Lyric application
-When user navigates to "Email Contacts" screen from the "Dashboard" screen
-And user inputs<Email Id>
-And user clicks on " Done " option
-Then user should be displayed with <Email Id> in the List
-When user clicks on "Add" Icon
-Then user should be able to add email id from contact list
-Examples:
- 		| Email ID	 |
-      	| Test@grr.la|
+When user navigates to "Email Notifications" screen from the "Dashboard" screen
+Then verify if user is able to see enterred "Email ID" in the Email display part:
+|Email|
+|Valid Email ID|
+|Invalid Email ID|
 
-#First time when user selects (+) option, should receive "Permission" pop up on android 
-#Status of accept "Pending accept" 
-#add remove email ID with select option 
-
-@ChangeTemperatureUnit @Automatable
-Scenario: As a user I should be able to set Temperture Unit contacts on my WLD
+@ChangeTemperatureUnit @Automated
+Scenario: As a user I should be able to set Temperture Unit on my WLD
 Given user launches and logs in to the Lyric application
-When user navigates to "Leak Detector  Settings" screen from the "Dashboard" screen 
-And temperature unit is set to "F"
-And user taps on "Temperature Unit"
-Then user should be displayed with "C" in "Leak Detector  Settings" screen
-When temperature unit is set to "C"
-And user taps on "Temperature Unit"
-Then user should be displayed with "F" in "Leak Detector  Settings" screen
+When user selects "WLD device" from the dashboard 
+Then verify Temperature Unit is changed as per the "Temperature Unit" selected below:
+|Options|
+|Fahrenheit|
+|celsius|
 
-#please add steps solution card and dashboard (Tempr and humidity )
-
-@SetUpdateFrequency @Automatable
+@SetUpdateFrequency @Automated
 Scenario: As a user I should be able to set Update frequency on my WLD
 Given user launches and logs in to the Lyric application
-When user navigates to "Update Frequency " screen from the "Dashboard" screen
+When user navigates to "Update Frequency" screen from the "Dashboard" screen
 And user changes the "Update Frequency" to "Daily"
-Then "Update Frequency" value should be updated to "Daily" on "Leak Detector  Settings" screen
+And user navigates to "Leak Detector Settings" screen from the "WLD Solution Card" screen
+Then "Update Frequency" value should be updated to "Daily" on "WLD Settings" screen
+And user navigates to "Update Frequency" screen from the "WLD Settings" screen
 When user changes the "Update Frequency" to "Twice Daily"
-Then "Update Frequency" value should be updated to "Twice Daily" on "Leak Detector  Settings" screen
+And user navigates to "Leak Detector Settings" screen from the "WLD Solution Card" screen
+Then "Update Frequency" value should be updated to "Twice Daily" on "Leak Detector Settings" screen
+And user navigates to "Update Frequency" screen from the "WLD Settings" screen
 When user changes the "Update Frequency" to "Three Times Daily"
-Then "Update Frequency" value should be updated to "Three Times" on "Leak Detector  Settings" screen
-
+And user navigates to "Leak Detector Settings" screen from the "WLD Solution Card" screen
+Then "Update Frequency" value should be updated to "Three Times Daily" on "Leak Detector Settings" screen
 #Please add after update and selects back button > pop up validation  " Changes may take up to 24 hours to effect"
 
 #Leak Detector Configuration 
@@ -170,7 +160,7 @@ When user edits the "Water Leak Detector" name to "Original Name"
 And user navigates to "Dashboard" screen from the "Leak Detector Configuration" screen 
 Then verify the Edited name on "WLD Dashboard" screen
 
-@RenameWLDWithDuplicatename @Automated
+@RenameWLDWithDuplicatename @Automatedwithtwowlds
 #Account should have two WLDs with one named as "Test WLD Name" and other named as "Test"
 Scenario: As a user I want to get a error message when i enter a duplicate name for my wld
 Given user launches and logs in to the Lyric application

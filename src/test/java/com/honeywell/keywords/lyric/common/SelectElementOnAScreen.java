@@ -38,6 +38,7 @@ import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.screens.WLDLeakDetectorSettings;
+import com.honeywell.screens.WLDManageAlerts;
 import com.honeywell.screens.ZwaveScreen;
 
 import io.appium.java_client.TouchAction;
@@ -1371,6 +1372,34 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"Temp unit Not clicked");
+					}
+					break;
+				}
+				}
+			}
+			else if (parameters.get(1).equalsIgnoreCase("WLD Manage Alerts")) {//Amresh wld 
+				switch (parameters.get(0).toUpperCase()) {
+				case "ALERT FOR THIS TEMPERATURE RANGE": {
+					WLDManageAlerts ale = new WLDManageAlerts(testCase);
+					flag = flag && ale.isAlertforthisRangeTemperaturePercentageButtonVissible();
+					flag = flag &&  ale.clickAlertforthisRangeTemperaturePercentageButton();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on  Temperature Alert Percentage");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"Temperature Alert Percentage Not clicked");
+					}
+					break;
+				}
+				case "ALERT FOR THIS HUMIDITY RANGE": {
+					WLDManageAlerts ale = new WLDManageAlerts(testCase);
+					flag = flag && ale.isAlertforthisRangeHumidityPercentageButtonVissible();
+					flag = flag &&  ale.clickAlertforthisRangeHumidityPercentageButton();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on  Humidity Alert Percentage");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"Temperature Alert Percentage Not clicked");
 					}
 					break;
 				}
