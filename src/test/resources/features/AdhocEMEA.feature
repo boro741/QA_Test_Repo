@@ -143,7 +143,7 @@ When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
 And user creates "Same Every Day" schedule with default schedule value
 Then verify the "Following schedule" on the "PRIMARY CARD" screen
 And user "should be updated" with the <Mode> option 
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 
 Examples:
 | Mode		| CurrentSchedule	| NEWSchedule 			|
@@ -216,7 +216,7 @@ And user creates "Geofence based" scheduling with default values <Sleep period> 
 And user changes system mode to <Mode>
 Then verify the <Schedule status> on the "PRIMARY CARD" screen
 And user "should be updated" with the <Mode> option 
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 
 Examples:
 | Mode	| Period		| Geofence		| Schedule status		| Sleep period | 
@@ -244,7 +244,7 @@ When user has "Temporary" status
 Then verify the "Temporary" on the "PRIMARY CARD" screen
 When verify next schedule period activated
 Then verify the "Following Schedule" on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 
 Examples:
 | CPeriod | NPeriod |
@@ -360,7 +360,7 @@ Then verify the "ADHOCOVERRIDE NOT DISPLAYED" on the "PRIMARY CARD" screen
 When user changes system mode to "HEAT"
 And  user has "Temporary" status
 Then verify the "Temporary" on the "PRIMARY CARD" screen
-And user should be displayed with "OVERRIDE SETPOINT" setpoint value
+And the user should be displayed with "OVERRIDE SETPOINT" setpoint value
 
 Examples:
 | Period		| 
@@ -378,7 +378,7 @@ When user launches and logs in to the Lyric application
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 When user has "Temporary" status
 Then verify the "Temporary" on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 
 Examples:
 | Period| scheduling 					| Geofence 		|
@@ -400,7 +400,7 @@ Then verify the "ADHOCOVERRIDE NO"T DISPLAYED" on the "PRIMARY CARD" screen
 When user changes system mode to "Heat"
 When user has "Temporary" status
 #And user should be displayed with adhocoverride <Period> setpoint value
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 
 Examples:
 | Period| scheduling 					| Geofence		|
@@ -499,7 +499,7 @@ When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
 And user creates "Same Every Day" schedule with default schedule value
 Then verify the "Following schedule" on the "PRIMARY CARD" screen
 And user "should be updated" with the <Mode> option 
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 
 Examples:
 | Mode		| CurrentSchedule	| NEWSchedule 			|
@@ -522,7 +522,7 @@ And user creates "Same Every Day" schedule with default schedule value
 Then verify the "Following schedule NOT DISPLAYED" on the "PRIMARY CARD" screen
 When user changes system mode to <Mode>
 Then verify the "Following schedule" on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 
 Examples:
 | Mode		| CurrentSchedule	| NEWSchedule 			|
@@ -542,7 +542,7 @@ When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
 Then user thermostat set <Period> with <Geofence>
 And user creates "Geofence based" scheduling with default values <Sleep> sleep settings
 And verify the <Schedule status> on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 
 Examples:
 | Mode	| Period		| Geofence			| NEW Schedule				| Schedule status		| Sleep 		|
@@ -586,7 +586,7 @@ When user changes system mode to "Off"
 Then verify the "ADHOCOVERRIDE NOT DISPLAYED" on the "PRIMARY CARD" screen
 When user changes system mode to <Mode>
 Then verify the "Temporary" on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 
 Examples:
 | Mode	| Period 	|
@@ -613,7 +613,7 @@ And user creates "Geofence based" scheduling with default values <Sleep Period> 
 And user changes system mode to "Heat"
 Then verify the <Schedule status> on the "PRIMARY CARD" screen
 And user "should be updated" with the <Mode> option 
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 Examples:
 | Mode	| Period		| Geofence		| Schedule status		| Sleep Period | 
 | HEAT	| Home		| UserArrived		| Using Home Settings	| Without |
@@ -634,7 +634,7 @@ And user creates "Geofence based" scheduling with default values "Without" sleep
 And user thermostat set <Period> with <Geofence>
 Then verify the <Schedule status> on the "PRIMARY CARD" screen
 And user "should be updated" with the "Heat" option 
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 
 Examples:
 | Period		| Geofence		| Schedule status		| Sleep period | 
@@ -659,7 +659,7 @@ Then user creates "Same Every Day" schedule following specific <Period> time
 And user changes system mode to "Heat"
 Then verify the "Following schedule" on the "PRIMARY CARD" screen
 And user "should be updated" with the "Heat" option 
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 Examples:
 |Current schedule |Period|
 | time based |P1|
@@ -681,7 +681,7 @@ When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
 Then user creates "Same Every Day" schedule following specific <Period> time
 Then verify the "Following schedule" on the "PRIMARY CARD" screen
 And user "should be updated" with the <Mode> option 
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 Examples:
 |Current schedule |Period|
 | time based |P1|
@@ -702,7 +702,7 @@ When user navigates to "thermostat solution card" screen from the "thermostat Da
 And user holds the schedule until time "lesser than 12 hours" from current time
 And user selects "Remove hold" from adhoc
 Then verify the "Following Schedule" on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 Examples:
 |Period|
 |P1|
@@ -718,7 +718,7 @@ And user holds the schedule until time "lesser than 12 hours" from current time
 And user selects "Permanent hold" from adhoc
 Then user has "PERMANENT" adhoc status 
 And verify the "PERMANENT" on the "PRIMARY CARD" screen
-And user should be displayed with "OVERRIDE SETPOINT" setpoint value
+And the user should be displayed with "OVERRIDE SETPOINT" setpoint value
 
 @AdhocOverrideScheduletemperatureTimeschedulingChangemodeHeatcoolAutoOFFAspcifictimeEMEA		@Automated
 Scenario Outline:  To verify switching modes Heat and off system with auto changeover enabled
@@ -734,7 +734,7 @@ Then verify the "ADHOCOVERRIDE NOT DISPLAYED" on the "PRIMARY CARD" screen
 Then user has "no" adhoc status 
 When user changes system mode to "Heat"
 Then user has "temporary" adhoc status 
-And user should be displayed with "OVERRIDE SETPOINT" setpoint value
+And the user should be displayed with "OVERRIDE SETPOINT" setpoint value
 
 Examples:
 | Period |
@@ -753,7 +753,7 @@ Then user edits set point from "Primary card"
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 And user holds the schedule until time "lesser than 12 hours" from current time
 Then verify the "TEMPORARY" on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 Examples:
 | Period |
 #| P1 |
@@ -773,7 +773,7 @@ When user navigates to "thermostat Dashboard" screen from the "thermostat soluti
 And user has "Temporary Dashboard" status
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 Then verify the "TEMPORARY" on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 
 
 
@@ -791,7 +791,7 @@ When user navigates to "thermostat Dashboard" screen from the "thermostat soluti
 And user edits set point from "Primary card"
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 Then verify the "TEMPORARY" on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 
 #Permanent hold (Time base Schedule)
 
@@ -847,7 +847,7 @@ When user has "PERMANENT" status
 Then verify the "PERMANENT" on the "PRIMARY CARD" screen
 When user taps on "UP STEPPER"
 Then verify the "PERMANENT" on the "PRIMARY CARD" screen
-And user should be displayed with "OVERRIDE SETPOINT" setpoint value
+And the user should be displayed with "OVERRIDE SETPOINT" setpoint value
 
 @AdhocOverrideTimebaseSchedulePermanentHoldDashboardsetpointchangeEMEA  @Automated
 Scenario: I want to verify setpoint change dashboard for systems Heat with temperature scale celcius fahrenheit and with time format 12 24hr 
@@ -861,7 +861,7 @@ And user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTIO
 When user taps on "UP STEPPER"
 Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
 And verify the "PERMANENT" on the "PRIMARY CARD" screen
-And user should be displayed with "OVERRIDE SETPOINT" setpoint value
+And the user should be displayed with "OVERRIDE SETPOINT" setpoint value
 
 
 @AdhocOverrideTimebaseSchedulespecifictimeSolutionCardPermanentHoldEMEA	@Automated
@@ -880,7 +880,7 @@ And user holds the schedule until time "default" from current time
 #Then user should be displayed with "HOLD XX UNTIL XX:XX" adhoc override on "SolutionCard"
 Then verify next schedule period activated
 And verify the "Following schedule" on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 
 
 @AdhocOverrideScheduletemperatureTimeschedulingChangemodeHeatcoolAutoOFFPermanentHoldEMEA			@Automated
@@ -895,7 +895,7 @@ Then verify the "PERMANENT" on the "PRIMARY CARD" screen
 When user changes system mode to "OFF"
 Then verify the "ADHOCOVERRIDE NOT DISPLAYED" on the "PRIMARY CARD" screen
 When user changes system mode to "Heat"
-And user should be displayed with "OVERRIDE SETPOINT" setpoint value
+And the user should be displayed with "OVERRIDE SETPOINT" setpoint value
 Examples:
 |Period|
 #|P1|
@@ -1009,7 +1009,7 @@ And user creates "Geofence based" scheduling with default values <Sleep Period> 
 And user changes system mode to <Mode>
 Then verify the <Schedule status> on the "PRIMARY CARD" screen
 And user "should be updated" with the <Mode> option 
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 
 Examples:
 | Period		| Geofence		| Schedule status		| Sleep Period | 

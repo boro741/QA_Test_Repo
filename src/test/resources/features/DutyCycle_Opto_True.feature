@@ -81,7 +81,7 @@ Scenario: Verify Saving Event Cancel By User Message
 	Then "cancel saving event message with a Yes and No" message pop up is displayed on the primary card 
 	When user "DISMISSES" the "DR CANCEL" popup 
 	Then user "SHOULD BE DIPLAYED" with the "DR event label on primary card" option 
-	And user should be displayed with "DR" setpoint value
+	And the user should be displayed with "DR" setpoint value
 	When user selects "DR Event Label" from "Primary Card" screen 
 	Then "cancel saving event message with a Yes and No" message pop up is displayed on the primary card 
 	When user "ACCEPTS" the "DR CANCEL" popup 

@@ -350,7 +350,7 @@ And user creates "Geofence based" scheduling with default values <Sleep Period> 
 And user changes system mode to <Mode>
 Then verify the <Schedule status> on the "PRIMARY CARD" screen
 And user "should be updated" with the <Mode> option 
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 
 Examples:
 | Mode	| Period		| Geofence		| Schedule status		| Sleep Period | 
@@ -591,7 +591,7 @@ Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DA
 Then verify the "Temporary" on the "PRIMARY CARD" screen
 Then user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
 And user thermostat set <NPeriod> with <NGeofence>
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
 And verify respective <NPeriod> period setpoint values
 
@@ -713,7 +713,7 @@ Then verify the "ADHOCOVERRIDE NOT DISPLAYED" on the "PRIMARY CARD" screen
 When user changes system mode to <Mode>
 And  user has "Temporary" status
 Then verify the "Temporary" on the "PRIMARY CARD" screen
-And user should be displayed with "OVERRIDE SETPOINT" setpoint value
+And the user should be displayed with "OVERRIDE SETPOINT" setpoint value
 
 Examples:
 | Mode			| Period		| 
@@ -752,7 +752,7 @@ Then verify the "Temporary" on the "PRIMARY CARD" screen
 When user changes system mode to <UMode>
 When user has "Temporary" status
 When user changes system mode to <Mode>
-And user should be displayed with "OVERRIDE SETPOINT" setpoint value
+And the user should be displayed with "OVERRIDE SETPOINT" setpoint value
 
 Examples:
 | Mode	| UMode	| Period	| scheduling 					| Geofence 		|
@@ -791,7 +791,7 @@ When user changes system mode to "OFF"
 Then verify the "ADHOCOVERRIDE NOT DISPLAYED" on the "PRIMARY CARD" screen
 When user changes system mode to <Mode>
 When user has "Temporary" status
-And user should be displayed with "OVERRIDE SETPOINT" setpoint value
+And the user should be displayed with "OVERRIDE SETPOINT" setpoint value
 
 Examples:
 | Mode	| Period| scheduling 					| Geofence		|
@@ -829,7 +829,7 @@ Then verify the "Temporary" on the "PRIMARY CARD" screen
 When user changes system mode to "OFF"
 Then verify the "ADHOCOVERRIDE NOT DISPLAYED" on the "PRIMARY CARD" screen
 When user changes system mode to <UMode>
-And user should be displayed with "OVERRIDE SETPOINT" setpoint value
+And the user should be displayed with "OVERRIDE SETPOINT" setpoint value
 When user has "Temporary" status
 
 Examples:
@@ -1117,7 +1117,7 @@ And user creates "Geofence based" scheduling with default values <Sleep Period> 
 And user changes system mode to <Mode>
 Then verify the <Schedule status> on the "PRIMARY CARD" screen
 And user "should be updated" with the <Mode> option 
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 
 Examples:
 | Mode	| Period		| Geofence		| Schedule status		| Sleep Period | 
@@ -1154,7 +1154,7 @@ Then verify the "Temporary" on the "PRIMARY CARD" screen
 And user selects "Grouped days" view
 When user edit Time schedule by deleting "All 4 Periods" on confirming the period deletion
 Then verify "No Schedule" screen is shown in view schedule screen
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 
 Examples:
 |Mode| Period | 
@@ -1198,7 +1198,7 @@ And user creates "Geofence based" scheduling with default values <Sleep Period> 
 And user changes system mode to <Mode>
 Then verify the <Schedule status> on the "PRIMARY CARD" screen
 And user "should be updated" with the <Mode> option 
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 
 Examples:
 | Mode	| Period		| Geofence		| Schedule status		| Sleep Period | 
@@ -1359,7 +1359,7 @@ And user navigates to "Scheduling" screen from the "Primary card" screen
 And user selects "Grouped days" view
 When user edit Time schedule by deleting "All 4 Periods" on confirming the period deletion
 Then verify "No Schedule" screen is shown in view schedule screen
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 #Last schedule period setpoint validation
 
 Examples:
@@ -1419,7 +1419,7 @@ And user holds the schedule until time "lesser than 12 hours" from current time
 And user selects "Permanent hold" from adhoc
 Then user has "PERMANENT" adhoc status 
 And verify the "PERMANENT" on the "PRIMARY CARD" screen
-And user should be displayed with "OVERRIDE SETPOINT" setpoint value
+And the user should be displayed with "OVERRIDE SETPOINT" setpoint value
 
 Examples:
 |Mode | 
@@ -1511,7 +1511,7 @@ Then verify the "TEMPORARY" on the "PRIMARY CARD" screen
 And verify respective <Period> period setpoint values
 When user changes system mode to <Mode>
 Then verify the "TEMPORARY" on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 
 Examples:
 |Mode|UMode	  |   Period |
@@ -1566,7 +1566,7 @@ When user navigates to "thermostat Dashboard" screen from the "thermostat soluti
 And user has "Temporary Dashboard" status
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 Then verify the "TEMPORARY" on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 Examples:
 |Mode | 
 |Cool | 
@@ -1589,7 +1589,7 @@ When user navigates to "thermostat Dashboard" screen from the "thermostat soluti
 And user edits set point from "Primary card"
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 Then verify the "TEMPORARY" on the "PRIMARY CARD" screen
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 Examples:
 |Mode | 
 |Cool | 
@@ -1675,7 +1675,7 @@ When user has "PERMANENT" status
 Then verify the "PERMANENT" on the "PRIMARY CARD" screen
 When user taps on "UP STEPPER"
 Then verify the "PERMANENT" on the "PRIMARY CARD" screen
-And user should be displayed with "OVERRIDE SETPOINT" setpoint value
+And the user should be displayed with "OVERRIDE SETPOINT" setpoint value
 Examples:
 |Mode | 
 |Cool | 
@@ -1696,7 +1696,7 @@ And user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTIO
 When user taps on "UP STEPPER"
 Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
 And verify the "PERMANENT" on the "PRIMARY CARD" screen
-And user should be displayed with "OVERRIDE SETPOINT" setpoint value
+And the user should be displayed with "OVERRIDE SETPOINT" setpoint value
 
 Examples:
 |Mode | 
@@ -1750,7 +1750,7 @@ Then verify the "PERMANENT" on the "PRIMARY CARD" screen
 And verify respective <Period> period setpoint values
 When user changes system mode to <Mode>
 Then verify the "PERMANENT" on the "PRIMARY CARD" screen
-And user should be displayed with "OVERRIDE SETPOINT" setpoint value
+And the user should be displayed with "OVERRIDE SETPOINT" setpoint value
 
 Examples:
 |Mode|UMode	  |   Period |
@@ -1794,7 +1794,7 @@ When user changes system mode to <UMode>
 Then verify the "PERMANENT" on the "PRIMARY CARD" screen
 And verify respective <Period> period setpoint values
 When user changes system mode to <Mode>
-And user should be displayed with "OVERRIDE SETPOINT" setpoint value
+And the user should be displayed with "OVERRIDE SETPOINT" setpoint value
 
 Examples:
 |Mode|UMode	  |   Period |
@@ -2029,7 +2029,7 @@ And user creates "Geofence based" scheduling with default values <Sleep Period> 
 And user changes system mode to <Mode>
 Then verify the <Schedule status> on the "PRIMARY CARD" screen
 And user "should be updated" with the <Mode> option 
-And user should be displayed with "respective period" setpoint value
+And the user should be displayed with "respective period" setpoint value
 
 Examples:
 | Mode	| Period		| Geofence		| Schedule status		| Sleep Period | 
