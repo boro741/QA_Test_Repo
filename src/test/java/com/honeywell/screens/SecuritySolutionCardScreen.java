@@ -48,17 +48,42 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorButton");
 	}
 	
-	public boolean isCoverTamperedTextVisibleinSecuritySolutions() {
+
+	public boolean isFrontPorchCoverTamperedTextVisibleinSecuritySolutions() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FrontPorchCoverTamperedText");
+	}
+	
+	public boolean isFrontHallCoverTamperedTextVisibleinSecuritySolutions() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FrontHallCoverTamperedText");
+	}
+
+	public boolean isWindowCoverTamperedTextVisibleinSecuritySolutions() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WindowCoverTamperedText");
+	}
+	
+	public boolean isDoorCoverTamperedTextVisibleinSecuritySolutions() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FrontDoorCoverTamperedText");
 	}
+	
+	public boolean isMotionSensorCoverTamperedTextVisibleinSecuritySolutions() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionSensorCoverTamperedText");
+	}
+	
+	public boolean isFrontDoorOpenTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DoorSensorOpen");
+	}
+	
+	public boolean isKitchenWindowOpenTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WindowSensorOpen");
+	}
+
+
 
 	public boolean isSensorOffline() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorisOfflineText");
 	}
 	
-	public boolean isDoorOpenTextVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DoorSensorOpen");
-	}
+	
 
 	public boolean isSecurityStateVisible(String securityState) {
 		boolean flag = true;
