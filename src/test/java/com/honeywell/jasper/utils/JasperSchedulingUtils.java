@@ -1977,7 +1977,12 @@ public class JasperSchedulingUtils {
 				}
 
 				if (ss.isNoScheduleTextVisible(10)){
+					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+						flag = flag && ss.clickOnCloseButton();
+					}
+					else{
 					flag = flag && ss.clickOnBackButton();
+					}
 					Keyword.ReportStep_Pass(testCase, "Successfully deleted all the periods");
 					return flag;
 				}
@@ -6323,13 +6328,12 @@ public class JasperSchedulingUtils {
 					
 					String content = ss.getDeleteMessageContent();
 					String content2 = inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE);
-					
-					if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equalsIgnoreCase("NA")) {
+					if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
+							.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
 					content2 = content2.replace("1", "Wake");
 					content2 = content2.replace("2", "Away");
 					content2 = content2.replace("3", "Home");
 					content2 = content2.replace("4", "Sleep");
-					}
 					System.out.println(content2);
 					if (content.contains(content2)){
 						Keyword.ReportStep_Pass(testCase,
@@ -6339,6 +6343,7 @@ public class JasperSchedulingUtils {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Failed to find Period name on delete pop up "
 										+ inputs.getInputValue(InputVariables.PERIOD_NUMBER_TO_DELETE));
+					}
 					}
 					if (!ss.clickOnConfirmDeleteButton()) {
 						flag = false;
@@ -6817,10 +6822,7 @@ public class JasperSchedulingUtils {
 		if (ss.isTimeScheduleButtonVisible(10)){
 			ss.clickOnTimeScheduleButton();
 		}
-		
-		if(ss.isTimeScheduleButtonVisible()){
-			ss.clickOnTimeScheduleButton();
-		} else if (ss.isMoreButtonVisible()){
+	 else if (ss.isMoreButtonVisible()){
 			ss.ClickOnMoreButton();
 			ss.clickOnTimeScheduleButton();
 		}
