@@ -1113,7 +1113,7 @@ Then user launches and logs in to the Lyric application
 And user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 When user "increase" the setpoint value "above" room temperature in "Primary Card"
 Then user "should be displayed" with the "Heating on Primary card" option
-And user should be displayed with "Heating To" setpoint value
+And the user should be displayed with "Heating To" setpoint value
 And user navigates to "Dashboard" screen from the "thermostat solution card" screen
 Then user "should be displayed" with the "Heating on dashboard" option
 When user "decrease without wait" the setpoint value "below" room temperature in "dashboard" 
@@ -1128,7 +1128,7 @@ Then user launches and logs in to the Lyric application
 And user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 When user "decrease" the setpoint value "below" room temperature in "Primary Card" 
 And user "should be displayed" with the "Cooling on Primary card" option
-Then user should be displayed with "Cooling To" setpoint value
+Then the user should be displayed with "Cooling To" setpoint value
 And user navigates to "Dashboard" screen from the "thermostat solution card" screen
 Then user "should be displayed" with the "Cooling on dashboard" option
 When user "increase" the setpoint value "above" room temperature in "dashboard"
@@ -1143,7 +1143,7 @@ Then user launches and logs in to the Lyric application
 When user "increase" the setpoint value "above" room temperature in "dashboard"
 Then user "should be displayed" with the "Heating on dashboard" option
 And user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
-Then user should be displayed with "Heating To" setpoint value
+Then the user should be displayed with "Heating To" setpoint value
 When user "decrease" the setpoint value "below" room temperature in "Primary Card"
 Then user "should not be displayed" with the "Heating on Primary card" option
 And user navigates to "Dashboard" screen from the "thermostat solution card" screen
@@ -1156,7 +1156,7 @@ Then user launches and logs in to the Lyric application
 When user "decrease" the setpoint value "below" room temperature in "dashboard"
 Then user "should be displayed" with the "Cooling on dashboard" option
 And user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
-Then user should be displayed with "Cooling To" setpoint value
+Then the user should be displayed with "Cooling To" setpoint value
 When user "increase" the setpoint value "above" room temperature in "Primary Card"
 Then user "should not be displayed" with the "Cooling on Primary card" option
 And user navigates to "Dashboard" screen from the "thermostat solution card" screen

@@ -36,7 +36,7 @@ public class VerifyScheduleSetpointFollowedAfterChangingMode extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user should be displayed with \"(.+)\" setpoint value$")
+	@KeywordStep(gherkins = "^the user should be displayed with (.*) setpoint value$")
 	public boolean keywordSteps() throws KeywordException {
 		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 		flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
