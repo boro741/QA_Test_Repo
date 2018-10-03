@@ -25,7 +25,7 @@ And user should see <Sensor Devices> with count as <Sensor Devices Count> and <I
 
 Examples:
 | Key Fob Devices	| Key Fob Devices Count	| Sensor Devices	| Sensor Devices Count	| Without Issues	| Issues Count	| Door Access Sensor Status	| Window Access Sensor Status	| Motion Sensor Status	| ISMV Status	| OSMV Status	|
-| Key Fob			| 2						| Sensors		| 5						| No issues		| 1				| Opened						| Tampered						| Cover Tampered			| Low Battery	| Offline		|
+| Key Fob			| 2						| Sensors		| 5						| No issues		| 4				| Opened						| Tampered						| Cover Tampered			| Low Battery	| Offline		|
 
 
 #Requirement :One DAS Panel and one Door Sensor should be configured

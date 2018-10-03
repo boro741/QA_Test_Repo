@@ -714,7 +714,7 @@ public class LyricUtils {
 			boolean... closeCoachMarks) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
-		/*flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
 		if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 			flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);	
 		}
@@ -723,7 +723,7 @@ public class LyricUtils {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
 		} else {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
-		}*/
+		}
 		return flag;
 	}
 
