@@ -856,7 +856,7 @@ Examples:
 
 
 #JasperNA
-@AdhocOverridetimebaseschedulingdeletecurrentperiodTemporaryHold  @AutomatedOnAndroid
+@AdhocOverridetimebaseschedulingdeletecurrentperiodTemporaryHold  @Automated
 Scenario Outline:  To verify delete current period and remove hold  when mode is changed for Heat , auto ,cool system with auto changeover enabled
 Given user has <Mode> system mode 
 Then user thermostat is set to "time based" schedule 

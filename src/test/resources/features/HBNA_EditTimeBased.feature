@@ -4,7 +4,7 @@ As an user
 I want to Edit Time schedule
 so that i can change Time and Set points of individual periods and Days 
 
-@NA_GroupEditedDays @automated
+@NA_GroupEditedDays @Automated
   Scenario Outline: As a User i want to Edit my Individual days so that those days are grouped
     Given user thermostat is set to "Time Based" schedule
       And user launches and logs in to the Lyric application
@@ -23,7 +23,7 @@ so that i can change Time and Set points of individual periods and Days
    #   | Five days  | 
   #    | Six days   | 
   
-  @NA_EditTempratureInSchedule @automated
+  @NA_EditTempratureInSchedule @Automated
   Scenario Outline: As a User i want to Edit Temperature value for period and those days are grouped
     Given user thermostat is set to "Time Based" schedule
       And user launches and logs in to the Lyric application
@@ -44,7 +44,7 @@ so that i can change Time and Set points of individual periods and Days
     #  | Different On Weekdays | At Minimum    | 
    #   | Different On Weekdays | within range  | 
   
-  @NA_EditSetpointsWhenAutoChnageOverEnabled @automated
+  @NA_EditSetpointsWhenAutoChnageOverEnabled @Automated
   Scenario Outline: As a User i want to Edit set point when Auto chnage over is enabled so that my 
   cool set point is always greater than or equal to heat set point
     Given user thermostat is set to "Time Based" schedule
@@ -59,7 +59,7 @@ so that i can change Time and Set points of individual periods and Days
       | Same Every Day        | 
    #   | Different On Weekdays |  
       
-  @NA_PeriodTimeShouldNotOverlap @automated
+  @NA_PeriodTimeShouldNotOverlap @Automated
   Scenario: As a User i want to edit my period so that each period is independent,On overlap Schule period is removed
     Given user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
@@ -69,7 +69,7 @@ so that i can change Time and Set points of individual periods and Days
       And user edit "Away" period by changing time value to "06 00 AM"
      Then user should be displayed "Wake" time as "Tap to set"
   
-  @NA_DeletePerioConfirmdAlert @automated
+  @NA_DeletePerioConfirmdAlert @Automated
   Scenario: As a User i want be shown with confirm pop so that i will be alerted of deleting period 
     Given user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
@@ -119,7 +119,7 @@ so that i can change Time and Set points of individual periods and Days
      When user selects "Tap On Resume" from Scheduling screen
      Then "Same Every Day" scheduling is retained
   
-  @NA_DeletingCurrentPeriodDifferentOnWeekdays @Automatable
+  @NA_DeletingCurrentPeriodDifferentOnWeekdays @Automated
   Scenario: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
     Given user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
@@ -129,7 +129,7 @@ so that i can change Time and Set points of individual periods and Days
      Then user is displayed with "Tap to Set" on deleted period
      
      
-@NA_EditAway/HomeSettingsGeofence @Automatable
+@NA_EditAway/HomeSettingsGeofence @Automated
 Scenario Outline: As a user i want to edit away/home settings in Geofence Schedule
 Given user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
@@ -143,7 +143,7 @@ Examples:
 #|Away|
 #|Sleep|
  
-  @NA_DeletingDefaultPeriodDifferentOnEveryday @Newscenario
+  @NA_DeletingDefaultPeriodDifferentOnEveryday @Automated
   Scenario Outline: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
     Given user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
@@ -185,7 +185,7 @@ Examples:
       #| Atleast 3 period | Tap to set   | Six days|
       #| Atleast 4 period | Tap to set   | Six days|
   
-@NA_DeletingDefaultPeriodDifferentOnWeekdays @automated
+@NA_DeletingDefaultPeriodDifferentOnWeekdays @Automated
   Scenario Outline: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
     Given user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
@@ -227,7 +227,7 @@ Examples:
       #| Atleast 4 period | Tap to set   | Six days|
       
       
-  @NA_DeletingDefaultPeriodDifferentOnSingleday @Newscenario
+  @NA_DeletingDefaultPeriodDifferentOnSingleday @Newscenario @Automated
   Scenario Outline: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
     Given user launches and logs in to the Lyric application
      And user navigates to "Scheduling" screen from the "Dashboard" screen
@@ -268,7 +268,7 @@ Examples:
 	| Sunday |Sleep |Delete Sleep Period for |
 #	| Sunday |Wake |Delete Wake Period for |
 
-@NA_VerifySleepSettings @automated
+@NA_VerifySleepSettings @Automated
 Scenario: To Verify create geofence schedule in off mode when permanentHold
 Given user has "Heat" system mode
 And user thermostat is set to "Geofence based" schedule
@@ -278,7 +278,7 @@ And user sets sleep start time to "11:00AM" and end time to "11:00AM"
 And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
 Then Verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
 
-@NA_DeletingDefaultPeriodDifferentOnEverydaygrouped @Newscenario
+@NA_DeletingDefaultPeriodDifferentOnEverydaygrouped @Newscenario @Automated
   Scenario Outline: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
     Given user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
@@ -295,7 +295,7 @@ Then Verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
 #	|Sleep |Delete Sleep Period for |Everyday|
 #	|Wake |Delete Wake Period for |Everyday|
 
-@NA_DeletingDefaultPeriodDifferentOnWeekendWeekdays @Newscenario
+@NA_DeletingDefaultPeriodDifferentOnWeekendWeekdays @Newscenario @Automated
   Scenario Outline: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
     Given user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen

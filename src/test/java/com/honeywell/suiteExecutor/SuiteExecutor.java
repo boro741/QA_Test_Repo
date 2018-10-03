@@ -233,6 +233,9 @@ public class SuiteExecutor {
 					"EMEA_ViewTimescheduleIndividualdaysEMEA", 
 					"EMEA_ScheduleOptions",
 					"EMEA_ResumeSchedule",
+					"EMEA_DeletingDefaultPeriodDifferentOnEveryday",
+					"EMEA_DeletingDefaultPeriodDifferentOnEverydaygroupview",
+					"EMEA_DeletingDefaultPeriodDifferentOnWeekendWeekdays",
 
 
 					/** EMEA Schedule ON/OFF**/
@@ -560,7 +563,9 @@ public class SuiteExecutor {
 					"EMEA_ViewTimescheduleIndividualdaysEMEA", 
 					"EMEA_ScheduleOptions",
 					"EMEA_ResumeSchedule",
-
+					"EMEA_DeletingDefaultPeriodDifferentOnEveryday",
+					"EMEA_DeletingDefaultPeriodDifferentOnEverydaygroupview",
+					"EMEA_DeletingDefaultPeriodDifferentOnWeekendWeekdays",
 
 //					/** EMEA Schedule ON/OFF**/
 //					"ScheduleOFFONEMEA",

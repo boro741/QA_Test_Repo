@@ -82,7 +82,7 @@ Scenario Outline:Verify User should not be allowed to edit end time of last peri
    #   | Five days  | 
    #   | Six days   | 
       
-@EMEA_ViewTimescheduleIndividualdaysEMEA @AutomatedAndroid
+@EMEA_ViewTimescheduleIndividualdaysEMEA @Automated
   Scenario: To view the Time schedule for EMEA stat
     Given user thermostat is set to "time based" schedule
      And user launches and logs in to the Lyric application
@@ -116,7 +116,7 @@ Scenario Outline:Verify User should not be allowed to edit end time of last peri
      Then "Same Every Day" scheduling is retained
   
 
-@EMEA_VerifySleepSettings @automated
+@EMEA_VerifySleepSettings @Automated
 Scenario: To Verify create geofence schedule in off mode when permanentHold
 Given user has "Heat" system mode
 And user thermostat is set to "Geofence based" schedule
@@ -126,7 +126,7 @@ And user sets sleep start time to "11:00AM" and end time to "11:00AM"
 And user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
 Then Verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
 
- @EMEA_DeletingDefaultPeriodDifferentOnEveryday @Newscenario
+ @EMEA_DeletingDefaultPeriodDifferentOnEveryday @Automated
   Scenario Outline: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
     Given user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
@@ -143,7 +143,7 @@ Then Verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
      # | Atleast 3 period | 
     #  | Atleast 4 period | 
 
-@EMEA_DeletingDefaultPeriodDifferentOnEverydaygroupview @Newscenario
+@EMEA_DeletingDefaultPeriodDifferentOnEverydaygroupview @Automated
   Scenario Outline: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
     Given user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
@@ -220,7 +220,7 @@ Then Verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
 	#| Sunday |P3 |Delete 3 Period for |
 	#| Sunday |P4 |Delete 4 Period for |
 	
-@EMEA_DeletingDefaultPeriodDifferentOnWeekendWeekdays @Newscenario
+@EMEA_DeletingDefaultPeriodDifferentOnWeekendWeekdays @Automated
   Scenario Outline: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
     Given user launches and logs in to the Lyric application
      And user navigates to "Scheduling" screen from the "Dashboard" screen

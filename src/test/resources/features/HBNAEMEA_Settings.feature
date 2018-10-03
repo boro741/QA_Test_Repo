@@ -77,7 +77,7 @@ Then "Indoor Temperature Alert" value should be updated to "OFF" on "Manage Aler
     
 
 #JasperNA, JasperEMEA, HB_Spruce   
-@ChangeAlertForThisRangeforTemperature		@P1		@AutomatedOnAndroid		@--xrayid:ATER-44520
+@ChangeAlertForThisRangeforTemperature		@P1		@Automated		@--xrayid:ATER-44520
 Scenario: As a user I should be able to change Alert For This Range on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
@@ -125,7 +125,7 @@ Then "Indoor Humidity Alert" value should be updated to "OFF" on "Manage Alerts"
 
 
 #HB_Srpuce
-@ChangeAlertForThisRangeforHumidity		@P1		@AutomatedOnAndroid		@--xrayid:ATER-44521
+@ChangeAlertForThisRangeforHumidity		@P1		@AutomatedOnAndroid	@--xrayid:ATER-44521 @Automated
 Scenario: As a user I should be able to change Alert For This Range on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
@@ -190,7 +190,7 @@ Then the following "Set Filter Reminder" options should be disabled:
 
 
 #JasperNA, HB-Spruce
-@ChangeReplacefilterandFilterLastReplacedOptions		@P2		@NotAutomatable
+@ChangeReplacefilterandFilterLastReplacedOptions		@P2		@Automated
 Scenario: As a user I should be able to set options Replace filter and Filter Last Replaced
 Given user launches and logs in to the Lyric application
 When user navigates to "Set Filter Reminder" screen from the "Dashboard" screen
@@ -424,7 +424,7 @@ Examples:
 
 
 #HB_Spruce
-@HBBSpruceEnableFrostProtectionMode		@P2		@AutomatedOnAndroid
+@HBBSpruceEnableFrostProtectionMode		@P2		@Automated @AutomatedOnAndroid
 Scenario Outline: As a user I should be able to enable or disable Frost Protection Mode on my thermostat
 #Given user launches and logs in to the Lyric application
 #When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
@@ -493,7 +493,7 @@ Then "Dehumidification" value should be updated to "OFF" on "Thermostat Settings
 
 
 #HB_Spruce
-@HBBIncreaseDecreaseSleepBrightnessMode 		@P2		@AutomatedOnAndroid
+@HBBIncreaseDecreaseSleepBrightnessMode 		@P2		@Automated @AutomatedOnAndroid
 Scenario: As a user I should be able to increase or decrease Sleep Brightness Mode option on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Sleep Brightness Mode" screen from the "Dashboard" screen

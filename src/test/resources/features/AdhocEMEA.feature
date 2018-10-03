@@ -132,7 +132,7 @@ Examples:
 | Mode	| scheduling			| Schedule status		| Geofence     | Period		|
 | Heat | geofence based		| Using Sleep Settings	| UserArrived  | Sleep		|
 
-@AdhocOverrideCreateTimebasescheduleFollowingscheduleEMEA			@Rework
+@AdhocOverrideCreateTimebasescheduleFollowingscheduleEMEA			@Automated
 Scenario Outline:  To verify create time base schedule when mode is changed for Heat system with auto changeover enabled
 Given user has <Mode> system mode
 And user thermostat is set to <CurrentSchedule> schedule
@@ -152,7 +152,7 @@ Examples:
 #| HEAT		| geofence based  	| Time base schedule 	|
 #| Heat only	| geofence based  	| Time base schedule 	|
 
-@AdhocOverrideCreateTimebasescheduleOFFModeNormalflowEMEA		@Rework 
+@AdhocOverrideCreateTimebasescheduleOFFModeNormalflowEMEA		@Automated 
 Scenario Outline: To Verify create time base schedule in off mode  
 Given user has <Mode> system mode
 And user thermostat is set to <CurrentSchedule> schedule
@@ -408,7 +408,7 @@ Examples:
 | Away 	| geofence based					| UserDeparted 	|
 #| Sleep | Without sleep geofence based 	| UserArrived 	|
 
-@AdhocOverridetimebaseschedulingdeletecurrentperiodTemporaryHold_EMEA  @AutomatedOnAndroid
+@AdhocOverridetimebaseschedulingdeletecurrentperiodTemporaryHold_EMEA  @Automated
 Scenario Outline:  To verify delete current period and remove hold  when mode is changed for Heat system with auto changeover enabled
 Given user has <Mode> system mode 
 Then user thermostat is set to "time based" schedule 

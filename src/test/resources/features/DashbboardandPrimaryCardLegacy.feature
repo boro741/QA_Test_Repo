@@ -1106,7 +1106,7 @@ Examples:
 
 
 
-@SolutioncardHeatingTovalidation @automated
+@SolutioncardHeatingTovalidation @Automated
 Scenario: As an user I want to verify the Heating to on solution card 
 Given user has "Heat" system mode
 Then user launches and logs in to the Lyric application
@@ -1121,7 +1121,7 @@ Then user "should not be displayed" with the "Heating on dashboard" option
 And user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 Then user "should not be displayed" with the "Heating on Primary card" option
 
-@SolutioncardCoolingTovalidation @automated
+@SolutioncardCoolingTovalidation @Automated
 Scenario: As an user I want to verify the Heating to on solution card 
 Given user has "Cool" system mode
 Then user launches and logs in to the Lyric application
@@ -1136,7 +1136,7 @@ Then user "should not be displayed" with the "Cooling on dashboard" option
 And user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 Then user "should not be displayed" with the "Cooling on Primary card" option
 
-@DashboardHeatingTovalidation @automated
+@DashboardHeatingTovalidation @Automated
 Scenario: As an user I want to verify the Heating to on solution card 
 Given user has "Heat" system mode
 Then user launches and logs in to the Lyric application
@@ -1149,7 +1149,7 @@ Then user "should not be displayed" with the "Heating on Primary card" option
 And user navigates to "Dashboard" screen from the "thermostat solution card" screen
 Then user "should not be displayed" with the "Heating on dashboard" option
 
-@DashboardCoolingTovalidation @automated
+@DashboardCoolingTovalidation @Automated
 Scenario: As an user I want to verify the Heating to on solution card 
 Given user has "Cool" system mode
 Then user launches and logs in to the Lyric application

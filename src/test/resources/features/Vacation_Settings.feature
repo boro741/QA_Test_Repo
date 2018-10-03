@@ -87,7 +87,7 @@ And HBB device should not be listed under the review vacation settings section i
   
 
 
-@Vacations_MinimumBandwidthTimer	@Reworkrequired
+@Vacations_MinimumBandwidthTimer	@Automated
 Scenario: As a user I want to verify the minimum Bandwidth Limit for vacation from and To 
 Given vacation mode is "inactive"
 When vacation mode is "active"
@@ -337,7 +337,7 @@ Examples:
 
 
 #JasperNA
-@VacationGeofenceSolutionCardTemporaryHoldAfterVacationEndsNA			@@Automated
+@VacationGeofenceSolutionCardTemporaryHoldAfterVacationEndsNA			@Automated
 Scenario Outline:   I want to verify Temporary hold status when vacation ends
 Given user has <Mode> system mode
 And user thermostat is set to <Scheduling> schedule
@@ -365,7 +365,7 @@ Examples:
 
 
 #JasperNA
-@VacationGeofenceSolutionCardAfterVacationEndsEMEA			@@Automated
+@VacationGeofenceSolutionCardAfterVacationEndsEMEA			@Automated
 Scenario Outline: I want to verify EMEA AdhocOVerride status when vacation ends
 Given user has <Mode> system mode
 And user thermostat is set to <Scheduling> schedule
@@ -442,7 +442,7 @@ And user navigates back and forth in "Vacation stat" screen
 Then user should be displayed with default set point value
 
 
-@Vacations_VerifyVacationMaxSetPoints	@automated
+@Vacations_VerifyVacationMaxSetPoints	@Automated
 Scenario: As a user I want to set the vacation set value to maximum so that I can put my home with desired temperature on my vacation  
 Given vacation mode is "inactive"
 And user launches and logs in to the Lyric application
@@ -462,7 +462,7 @@ And user navigates back and forth in "Vacation" screen
 And user turns "Temperature to" the "Minimum" through the "Vacation Card"
 Then user should be displayed with Updated setpoint in "VACATION CARD TO MINIMUM"
 
-@VacationCreateTimebaseschedule @Newscenario
+@VacationCreateTimebaseschedule @Newscenario @Automated
 Scenario Outline: To Verify create time base schedule in off mode
 Given user has <Mode> system mode
 And user thermostat is set to <Currentschedule> schedule
@@ -561,7 +561,7 @@ Examples:
 #|Cool	| Sleep		| UserArrived		| With |
 #|Cool	| Sleep		| UserArrived		| With |
 
-@VacationCreateGeofencebasescheduleOFF @automated
+@VacationCreateGeofencebasescheduleOFF @Automated
 Scenario Outline: To Verify create geofence schedule in off mode when permanentHold
 Given user has <Mode> system mode
 And user thermostat is set to "time based" schedule

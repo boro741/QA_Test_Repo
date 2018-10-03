@@ -179,7 +179,7 @@ Examples:
 #|Home|
 #|Away|
 
-@NA_EditGeofenceScheduleSettingsAndBackNavigation @Automatable
+@NA_EditGeofenceScheduleSettingsAndBackNavigation @Automated
   Scenario Outline: As a user i want to create an Geofence schdeule with Editing Home,Sleep and Away setpoint in Geofence and Verify if Values are saved navigating Back 
     Given user thermostat is set to "No" schedule
       And user launches and logs in to the Lyric application
