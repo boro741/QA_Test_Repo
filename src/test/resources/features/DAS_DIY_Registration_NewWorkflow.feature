@@ -2710,7 +2710,7 @@ Then user should not be displayed with <Sensor Location> device on the "sensor l
 Examples:
 | Mode	| Sensor Location	| Sensor Type SETUP Button			| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		|
 | Home	| Door				| Door Access Sensor SETUP Button	| Front Door				| Open			| Closed					| Door Access Settings		|
-| Home	| Window 			| Window Access Sensor SETUP Button	| Living Room Window 	| Open 			| Closed 				| Window Access Settings		|
+#| Home	| Window 			| Window Access Sensor SETUP Button	| Living Room Window 	| Open 			| Closed 				| Window Access Settings		|
 #| Off	| Door				| Door Access Sensor SETUP Button	| Front Door				| Open			| Closed					| Door Access Settings		|
 #| Off	| Window 			| Window Access Sensor SETUP Button	| Living Room Window 	| Open 			| Closed 				| Window Access Settings		|
 #incaserequired
@@ -2954,7 +2954,7 @@ Examples:
 
 
 @DASISMVEnrollmentWithDefaultSensorName		@P1			@Automated
-Scenario Outline: As a user I should be able to successfully enrol Motion Sensor with default name
+Scenario Outline: As a user I should be able to successfully enrol ISMV with default name
 Given user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
 And user navigates to "Smart Home Security Sensor Accessories" screen from the "Dashboard" screen
@@ -3019,7 +3019,7 @@ Examples:
 
 
 @DASISMVEnrollmentWithCustomName			@P1				@Automated
-Scenario Outline: As a user I should be able to successfully enroll Motion Sensor with custom sensor name
+Scenario Outline: As a user I should be able to successfully enroll ISMV with custom sensor name
 Given user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
 And user navigates to "Smart Home Security Sensor Accessories" screen from the "Dashboard" screen
@@ -3076,7 +3076,7 @@ Examples:
 
 
 @DASOSMVEnrollmentWithDefaultSensorName		@P1			@Automated
-Scenario Outline: As a user I should be able to successfully enrol Motion Sensor with default name
+Scenario Outline: As a user I should be able to successfully enrol OSMV with default name
 Given user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
 And user navigates to "Smart Home Security Sensor Accessories" screen from the "Dashboard" screen
@@ -3139,7 +3139,7 @@ Examples:
 
 
 @DASOSMVEnrollmentWithCustomName		@P1				@Automated
-Scenario Outline: As a user I should be able to successfully enroll Motion Sensor with custom sensor name
+Scenario Outline: As a user I should be able to successfully enroll OSMV with custom sensor name
 Given user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
 And user navigates to "Smart Home Security Sensor Accessories" screen from the "Dashboard" screen

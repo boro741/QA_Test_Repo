@@ -6,30 +6,26 @@ Background:
 Given reset relay as precondition
 
 
-@DASSecuritySettingsSensorStatus			@P2			@Automatable
+@DASSecuritySettingsSensorStatus			@P2			@Automated
 Scenario Outline: As a user i should be displayed with security accessories in Security Settings 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 2 Keyfob
 Given user is set to "Home" mode through CHIL
 When user launches and logs in to the Lyric application
 And user navigates to "Security Settings" screen from the "Dashboard" screen
-Then user should be displayed with Security Accessories:
-| Security Accessories	| Accessories Count	| Issue Count	|
-| Key Fob				| (2)				| Null			|
-| Sensors				| (5)				| Null			|
+Then user should see <Key Fob Devices> with count as <Key Fob Devices Count> and <Without Issues>
+And user should see <Sensor Devices> with count as <Sensor Devices Count> and <Without Issues>
 #When user is set <Sensors> to <Sensor status>
 When user "Door" access sensor <Door Access Sensor Status>
 And user "Window" access sensor <Window Access Sensor Status>
 And user motion sensor <Motion Sensor Status>
 And user indoor motion viewer <ISMV Status>
 And user outdoor motion viewer <OSMV Status>
-Then user should be displayed with Security Accessories:
-| Security Accessories	| Accessories Count	| Issue Count	|
-| Key Fob				| (2)				| Null			|
-| Sensors				| (5)				|4 Issue(s)		|
+Then user should see <Key Fob Devices> with count as <Key Fob Devices Count> and <Without Issues>
+And user should see <Sensor Devices> with count as <Sensor Devices Count> and <Issues Count>
 
 Examples:
-| Door Access Sensor Status	| Window Access Sensor Status	| Motion Sensor Status	| ISMV Status	| OSMV Status	|
-| Open						| Cover Tampered					| Cover Tampered			| Low Battery	| Offline		|
+| Key Fob Devices	| Key Fob Devices Count	| Sensor Devices	| Sensor Devices Count	| Without Issues	| Issues Count	| Door Access Sensor Status	| Window Access Sensor Status	| Motion Sensor Status	| ISMV Status	| OSMV Status	|
+| Key Fob			| 2						| Sensors		| 5						| No issues		| 1				| Opened						| Tampered						| Cover Tampered			| Low Battery	| Offline		|
 
 
 #Requirement :One DAS Panel and one Door Sensor should be configured
@@ -939,3 +935,12 @@ Examples:
 |Off |Motion Sensor|Motion Sensor|
 |Off |ISMV Sensor|ISMV Sensor|
 |Off |OSMV Sensor|OSMV Sensor|
+
+@DASUpdateSensorNameToExistingName		@P2			@AutomatedForIOSOnly
+Scenario: As a user I should see error popup when I update sensor name and enter existing sensor name
+Given user is set to "Home" mode through CHIL
+When user launches and logs in to the Lyric application
+When user navigates to "Window Access Settings" screen from the "Dashboard" screen
+Then user edits the "Window Sensor" name to "existing door sensor name"
+And user should receive a "Sensor name already assigned error" popup
+And user "clicks on OK in" the "Sensor name already assigned error" popup

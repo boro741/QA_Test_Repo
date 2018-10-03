@@ -184,6 +184,12 @@ public class EditDeviceName extends Keyword {
 					flag = flag & bs.RenameSensorName(givenSensorName);
 					break;
 				}
+				case "EXISTING DOOR SENSOR NAME": {
+					String givenSensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
+					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+					flag = flag & bs.enterExistingSensorName(givenSensorName);
+					break;
+				}
 				}
 			} else if (parameters.get(0).equalsIgnoreCase("Motion Sensor")) {
 				String check = parameters.get(1);

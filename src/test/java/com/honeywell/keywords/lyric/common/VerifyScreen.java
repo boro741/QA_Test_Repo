@@ -397,7 +397,6 @@ public class VerifyScreen extends Keyword {
 					Keyword.ReportStep_Pass(testCase,
 							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
 				} else if (dasDIY.isQRCodeScanningFailurePopupVisible()) {
-					System.out.println("$$$$$$$$$$$$$$");
 					dasDIY.clickOnOKButtonInQRCodeScanningFailurePopup();
 					if (dasDIY.isRegisterBaseStationHeaderTitleVisible()) {
 						Keyword.ReportStep_Pass(testCase,

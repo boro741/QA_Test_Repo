@@ -1063,6 +1063,22 @@ public class SensorSettingScreen extends MobileScreens {
 	public boolean isMotionViewerSettingsScreenTitleVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionViewerSettingsScreenTitle", timeOut);
 	}
+	
+	public boolean isSensorNameAlreadyAssignedErrorPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorNameAlreadyAssignedErrorPopup");
+	}
+	
+	public boolean isSensorNameAlreadyAssignedMsgVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorNameAlreadyAssignedMsg");
+	}
+	
+	public boolean isOKButtonInSensorNameAlreadyAssignedPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInSensorNameAlreadyAssignedPopup");
+	}
+	
+	public boolean clickOnOKButtonInSensorNameAlreadyAssignedPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInSensorNameAlreadyAssignedPopup");
+	}
 
 	/*
 	 * public boolean isSensorConfigured(String SensorName) {
