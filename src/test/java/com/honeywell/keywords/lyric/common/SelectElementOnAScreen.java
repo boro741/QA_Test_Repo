@@ -20,6 +20,7 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASAlarmUtils;
 import com.honeywell.lyric.das.utils.DASCameraUtils;
+import com.honeywell.lyric.das.utils.DASSolutionCardUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
@@ -124,7 +125,7 @@ public class SelectElementOnAScreen extends Keyword {
 				case "SWITCH TO HOME": {
 					DASAlarmUtils.clickOnSwitchToHome(testCase, inputs);
 					int i = 0;
-					while (i < 3 && DASAlarmUtils.verifyProgressDisplayed(testCase)) {
+					while (i < 3 &&  DASAlarmUtils.verifyProgressDisplayed(testCase)) {
 						System.out.println("Waiting for dismiss alarm request to complete");
 					}
 					break;
@@ -393,7 +394,7 @@ public class SelectElementOnAScreen extends Keyword {
 					int i = 0;
 
 					while (i < 3 && (DASAlarmUtils.verifyProgressDisplayed(testCase)
-							|| alarmScreen.isAlarmDismissButtonDisplayed())) {
+							|| alarmScreen.isAlarmDismissButtonDisplayed()||DASSolutionCardUtils.waitForDismissProcessRequest(testCase))) {
 						System.out.println("Waiting for dismiss alarm request to complete");
 						i++;
 					}

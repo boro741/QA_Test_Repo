@@ -94,8 +94,8 @@ public class GuerrillaMailUtils {
 			notificationMailFrom = "lyric@honeywell.com";
 		} else if (environment.equalsIgnoreCase("Jasper QA")) {
 			notificationMailFrom = "";
-		} else if (environment.equalsIgnoreCase("CHIL Stage (Azure)")) {
-			notificationMailFrom = "lyricstage@honeywell.com";
+		} else if (environment.equalsIgnoreCase("CHILStage(Azure)")) {
+			notificationMailFrom = "honeywellhomessupport@honeywell.com";
 		} else if (environment.equalsIgnoreCase("CHIL DAS(Test)")) {
 			notificationMailFrom = "lyric@honeywell.com";
 		} else if(environment.equalsIgnoreCase("Chil Das(QA)")||environment.equalsIgnoreCase("ChilDas(QA)")){
@@ -228,8 +228,8 @@ public class GuerrillaMailUtils {
 			notificationMailFrom = "lyric@honeywell.com";
 		} else if (environment.equalsIgnoreCase("Jasper QA")) {
 			notificationMailFrom = "";
-		} else if (environment.equalsIgnoreCase("CHIL Stage (Azure)")) {
-			notificationMailFrom = "lyricstage@honeywell.com";
+		} else if (environment.equalsIgnoreCase("CHILStage(Azure)")) {
+			notificationMailFrom = "honeywellhomessupport@honeywell.com";
 		} else if (environment.equalsIgnoreCase("CHIL DAS(Test)")) {
 			notificationMailFrom = "lyric@honeywell.com";
 		} else if(environment.equalsIgnoreCase("Chil Das(QA)")||environment.equalsIgnoreCase("ChilDas(QA)")){

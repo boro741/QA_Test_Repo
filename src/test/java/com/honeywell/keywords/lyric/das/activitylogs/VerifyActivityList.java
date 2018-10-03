@@ -62,6 +62,12 @@ public class VerifyActivityList extends Keyword {
 					inputs.setInputValue("USERID", inputs.getInputValue("INVITEDUSER"));
 				}
 				switch (dataTable.getData(i, "Elements").trim().toUpperCase()) {
+				case "ISMV MOTION DETECTED AT AWAY MODE":{
+					expectedActivityHeader =  "Motion Detected";
+					expectedActivitySubHeader = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1");
+					deviceLocationTime = inputs.getInputValue("INDOORMOTION_DETECTED_TIME");
+					break;
+				}
 				case "INDOOR MOTION VIEWER TAMPERED AT AWAY MODE":{
 					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1") + " tamper";
 					expectedActivitySubHeader = "AWAY MODE";
