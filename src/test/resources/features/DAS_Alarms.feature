@@ -3,6 +3,7 @@ Feature: DAS Alarms
 As a user I want to be notified when my sensors and system are intruded
 
 Background:
+ Given user sets the entry/exit timer to "60" seconds
 Given reset relay as precondition
 Given user is set to "Home" mode through CHIL
 #Given "ENABLE MODE PUSH NOTIFICATION" as precondition
@@ -60,6 +61,7 @@ Given user is set to "Home" mode through CHIL
       And user should see the "sensor" status as "no issue" on the "Security Solution Card"
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      Then user should see the "door" status as "closed" on the "Sensor Status"
+     And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
  
 @Doorsensor_ArmedAway_OpenDoor_SwitchingToHomeFromPushNotification_DoorNotClosedInEntryDelay @P1 @DAS_DoorSensor @Automated
     Scenario: As a user when I open the door and left open in armed away state on my arrival to home I should be able to switch to home from push notification and should be shown with current door status
@@ -74,6 +76,7 @@ Given user is set to "Home" mode through CHIL
       And user should see the "sensor" status as "issue" on the "Security Solution Card"
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      Then user should see the "door" status as "open" on the "Sensor Status"
+     And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
       And user "opens" activity log
      Then verify the following activity log:
        | Elements                 |
@@ -96,6 +99,7 @@ Given user is set to "Home" mode through CHIL
       And user should see the "sensor" status as "issue" on the "Security Solution Card"
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      Then user should see the "door" status as "open" on the "Sensor Status"
+     And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
       And user "opens" activity log
      Then verify the following activity log:
        | Elements                 |
@@ -118,6 +122,7 @@ Given user is set to "Home" mode through CHIL
       And user should see the "sensor" status as "no issue" on the "Security Solution Card"
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      Then user should see the "door" status as "closed" on the "Sensor Status"
+     And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
       And user "opens" activity log
      Then verify the following activity log:
        | Elements                 |
@@ -141,6 +146,7 @@ Given user is set to "Home" mode through CHIL
       And user should see the "sensor" status as "no issue" on the "Security Solution Card"
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      Then user should see the "door" status as "closed" on the "Sensor Status"
+     And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
       And user "opens" activity log
      Then verify the following activity log:
        | Elements                 |
@@ -179,8 +185,8 @@ Given user is set to "Home" mode through CHIL
         And user "door" access sensor "closed"
         And user selects the "Door opened" push notification
         And user selects "Switch to Night" from "Entry delay" screen 
-        And timer ends on user device
        Then user status should be set to "Night"
+       And timer ends on user device
        When user "opens" activity log
        Then verify the following activity log:
        | Elements                 |
@@ -246,6 +252,7 @@ Given user is set to "Home" mode through CHIL
       And user clears all push notifications
      When user navigates to "Security Solution card" screen from the "Dashboard" screen
       And user switches from "Home" to "Away" 
+       When timer ends on user device
       And user minimizes the app
       And user "door" access sensor "opened"
       And user selects the "Switch to Night from Door open" push notification
@@ -306,6 +313,7 @@ Given user is set to "Home" mode through CHIL
       And user should see the "sensor" status as "issue" on the "Security Solution Card"
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      Then user should see the "door" status as "opened" on the "Sensor Status"
+     And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
      When user "opens" activity log
      Then verify the following activity log:
        | Elements                 |
@@ -353,6 +361,7 @@ Given user is set to "Home" mode through CHIL
      Then user should see the "sensor" status as "no issue" on the "Security Solution Card"
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      Then user should see the "door" status as "closed" on the "Sensor Status"
+     And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
       And user "opens" activity log
      Then verify the following activity log:
        | Elements                 |
@@ -371,7 +380,7 @@ Given user is set to "Home" mode through CHIL
      When user navigates to "Security Solution card" screen from the "Dashboard" screen
       And user switches from "Home" to "Away"
       And  user "door" access sensor "opened"
-      And timer lapse "60" seconds
+      And timer ends on user device
      #verify the entry delay status on dashboard
       And user selects "Switch to Night" from "Entry delay" screen
      Then user should be displayed with the "Waiting to close" screen
@@ -488,6 +497,7 @@ Given user is set to "Home" mode through CHIL
       And user should see the "sensor" status as "no issue" on the "Security Solution Card"
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      Then user should see the "door" status as "closed" on the "Sensor Status"
+     And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
  
 @Doorsensor_ArmedNight_OpenDoor_SwitchingToHomeFromPushNotification_DoorNotClosedInEntryDelay @P2 @DAS_DoorSensor @Automated
     Scenario: As a user when I open the door and left open in armed night state I should be able to switch to home from push notification and should be shown with current door status
@@ -502,6 +512,7 @@ Given user is set to "Home" mode through CHIL
       And user should see the "sensor" status as "issue" on the "Security Solution Card"
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      Then user should see the "door" status as "open" on the "Sensor Status"
+     And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
       And user "opens" activity log
      Then verify the following activity log:
        | Elements                 |
@@ -524,6 +535,7 @@ Given user is set to "Home" mode through CHIL
       And user should see the "sensor" status as "issue" on the "Security Solution Card"
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      Then user should see the "door" status as "open" on the "Sensor Status"
+     And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
       And user "opens" activity log
      Then verify the following activity log:
        | Elements                 |
@@ -546,6 +558,7 @@ Given user is set to "Home" mode through CHIL
       And user should see the "sensor" status as "no issue" on the "Security Solution Card"
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      Then user should see the "door" status as "closed" on the "Sensor Status"
+     And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
       And user "opens" activity log
      Then verify the following activity log:
        | Elements                 |
@@ -569,6 +582,7 @@ Given user is set to "Home" mode through CHIL
       And user should see the "sensor" status as "no issue" on the "Security Solution Card"
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      Then user should see the "door" status as "closed" on the "Sensor Status"
+     And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
       And user "opens" activity log
      Then verify the following activity log:
        | Elements                 |
@@ -724,7 +738,6 @@ Given user is set to "Home" mode through CHIL
        And user navigates to "Alarm history" screen from the "Alarm" screen
       Then verify the following alarm history:
        | Elements                    |
-       | SIREN SOUNDED BY ACTUAL USER|
        | ALARM AT Night MODE          |
      Then user receives a "Alarm" email
      When user selects "dismiss alarm" from "alarm" screen
@@ -732,7 +745,8 @@ Given user is set to "Home" mode through CHIL
      Then user status should be set to "Home"
       And user should see the "sensor" status as "issue" on the "Security Solution Card"
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
-     Then user should see the "door" status as "opened" on the "Sensor Status"
+     Then user should see the "door" status as "open" on the "Sensor Status"
+     And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
      When user "opens" activity log
      Then verify the following activity log:
        | Elements                 |
@@ -781,6 +795,7 @@ Given user is set to "Home" mode through CHIL
      Then user should see the "sensor" status as "no issue" on the "Security Solution Card"
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      Then user should see the "door" status as "closed" on the "Sensor Status"
+     And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
       And user "opens" activity log
      Then verify the following activity log:
        | Elements                 |
@@ -1033,10 +1048,10 @@ Given user is set to "Home" mode through CHIL
       
       @WindowSensor_OpenAfterAwayModeExitDelay @P1 @DAS_WindowSensor @Automated
       Scenario: 32 As a user when intruder breaches the premises through window after away exit delay I should be notified with alarm
+      And user is set to "Away" mode through CHIL
       And user launches and logs in to the Lyric application
       And user clears all push notifications
       And user navigates to "Security Solution card" screen from the "Dashboard" screen
-      And user switches from "Home" to "Away"
       And timer ends on user device
        And user "opens window with app" in background
       When user selects the "Alarm" push notification
@@ -1900,6 +1915,7 @@ Given user is set to "Home" mode through CHIL
        Then user should see the "sensor" status as "no issue" on the "Security Solution Card"
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      Then user should see the "ISMV" status as "Standby" on the "Sensor Status"
+     And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
       
       @MotionViewer_AwayMode_SwitchingToNightFromEntryDelayThroughPushNotification @P2 @DAS_MotionViewer @Automated
       Scenario: As a user when motion detected after exit delay I should be able to switch to night from entry delay screen  (check clip in activity log)
@@ -1923,6 +1939,7 @@ Given user is set to "Home" mode through CHIL
         Then user should see the "sensor" status as "no issue" on the "Security Solution Card"
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      Then user should see the "ISMV" status as "Standby" on the "Sensor Status"
+     And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
        
         
       
@@ -2011,6 +2028,7 @@ Given user is set to "Home" mode through CHIL
      Then user should see the "sensor" status as "no issue" on the "Security Solution Card"
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      Then user should see the "ISMV" status as "" on the "Sensor Status"
+     And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
      When user "opens" activity log
      Then verify the following activity log:
        | Elements                 | 
@@ -2052,22 +2070,23 @@ Given user is set to "Home" mode through CHIL
     
        
        
-      @AwayMode_MotiondetectedByOSMV_DoorOpened_MotiondetectedByMotionSensor_MotiondetectedByISMV_WindowOpened @P1
+      @AwayMode_MotiondetectedByOSMV_DoorOpened_MotiondetectedByMotionSensor_MotiondetectedByISMV_WindowOpened @P1 @Automated
       Scenario: As a user when the MotionViewer is tampered in Night exit delay I should be notified with alarm
-      Given user is set to "Night" mode through CHIL
+      Given user is set to "Away" mode through CHIL
       And user launches and logs in to the Lyric application
       And user clears all push notifications
        When user navigates to "Security Solution card" screen from the "Dashboard" screen
-      And user switches from "Home" to "Away"
        And timer ends on user device
-       And user "osmv" detects "motion"
+       When user "OSMV sensor" detects the "Motion"
        And user "door" access sensor "opened"
-       Entry delay
+      Then user should be displayed with the "Entry delay" screen
         And user "motion sensor" detects "motion"
-        And user "ismv" detects "motion"
+        When user "ISMV sensor" detects the "Motion"
       And user "window" access sensor "opened"
-      Alarm
-      dismiss alarm
+      Then user should be displayed with the "Alarm" screen
+      When user selects "dismiss alarm" from "alarm" screen
+      And user navigates to "Security Solution card" screen from the "Dashboard" screen
+       When user "opens" activity log
       Then verify the following activity log:
        | Elements                 |
        | Window opened at Away mode|
@@ -2086,13 +2105,13 @@ Given user is set to "Home" mode through CHIL
       When user navigates to "Security Solution card" screen from the "Dashboard" screen
       And user switches from "Home" to "Away"
        And user "door" access sensor "opened"
-       Entry delay
+        And verify Entry delay
         And user "ismv" detects "motion"
        And user "osmv" detects "motion"
         And user "motion sensor" detects "motion"
       And user "window" access sensor "opened"
-      Alarm
-      dismiss alarm
+        And verify Alarm
+      And dismiss alarm
       Then verify the following activity log:
        | Elements                 |
        | Window opened at Away mode|
@@ -2109,12 +2128,12 @@ Given user is set to "Home" mode through CHIL
       When user navigates to "Security Solution card" screen from the "Dashboard" screen
       And user switches from "Home" to "Away"
       And user "window" access sensor "opened"
-      Alarm
+       And verify Alarm
       And user "ismv" detects "motion"
       And user "motion sensor" detects "motion"
       And user "door" access sensor "opened"
       And user "osmv" detects "motion"
-      dismiss alarm
+      And dismiss alarm
       Then verify the following activity log:
        | Elements                 |
        | Window opened at Away mode|

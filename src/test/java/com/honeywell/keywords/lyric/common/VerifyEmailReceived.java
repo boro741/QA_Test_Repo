@@ -44,7 +44,7 @@ public class VerifyEmailReceived extends Keyword {
 
 			if (link.get(0).equalsIgnoreCase("Alarm")) {
 				subject ="Security Alarm in progress";
-				expectedContent="Security Alarm in progress at "+inputs.getInputValue("LOCATION1_NAME")+" at "+timeConversion(inputs.getInputValue("ALARM_TIME"))+".";
+				expectedContent="Security Alarm in progress at"+inputs.getInputValue("LOCATION1_NAME")+" at "+timeConversion(inputs.getInputValue("ALARM_TIME"))+".";
 
 				expectedContent1="Check the app for details";
 			}else if(link.get(0).equalsIgnoreCase("Alarm cancelled")){
@@ -57,20 +57,63 @@ public class VerifyEmailReceived extends Keyword {
 				String mailContent= GuerrillaMailUtils.FetchMailContent(testCase, subject, inputs.getInputValue("USERID"), 0,inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT));
 				if(link.get(0).equalsIgnoreCase("Alarm")){
 					System.out.println(mailContent.contains(expectedContent));
-					if(mailContent.contains(expectedContent)&& mailContent.contains(expectedContent1)){
-						Keyword.ReportStep_Pass(testCase, mailContent + " -  valid");
+					if(mailContent.contains("Security Alarm in progress at")){
+						Keyword.ReportStep_Pass(testCase, expectedContent + " -  found");
 					}else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Mail content mismatched"+ " Expected -"+expectedContent+" and "+expectedContent1+" but found -"+mailContent );
+								"Mail content mismatched"+ expectedContent + " - not found");
+					}
+					if( mailContent.contains(inputs.getInputValue("LOCATION1_NAME"))){
+						Keyword.ReportStep_Pass(testCase, inputs.getInputValue("LOCATION1_NAME") + " -  found");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Mail content mismatched"+ inputs.getInputValue("LOCATION1_NAME") + " - not found");
+					}
+					int startMail=mailContent.indexOf(timeConversion(inputs.getInputValue("ALARM_TIME")).split(":")[0]);
+					System.out.println(startMail);
+					Keyword.ReportStep_Pass(testCase,mailContent.substring(startMail));
+					if( mailContent.contains(timeConversion(inputs.getInputValue("ALARM_TIME")))){
+						Keyword.ReportStep_Pass(testCase, timeConversion(inputs.getInputValue("ALARM_TIME")) + " -  found");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Mail content mismatched"+ timeConversion(inputs.getInputValue("ALARM_TIME"))  + " - not found");
+					}
+					if( mailContent.contains(expectedContent1)){
+						Keyword.ReportStep_Pass(testCase, expectedContent1 + " -  found");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Mail content mismatched"+ " Expected "+expectedContent1+" but found -"+mailContent );
 					}
 				}
 				else if(link.get(0).equalsIgnoreCase("Alarm cancelled")){
-					if(mailContent.contains(expectedContent)){
-						Keyword.ReportStep_Pass(testCase, mailContent + " -  valid");
+					if( mailContent.contains(locInfo.getUserFirstName())){
+						Keyword.ReportStep_Pass(testCase, locInfo.getUserFirstName() + " -  found");
+					}
+					else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Mail content mismatched"+ " Expected "+locInfo.getUserFirstName()+" but found -"+mailContent );
+					}
+					if(mailContent.contains("cancelled Security Alarm at")){
+						Keyword.ReportStep_Pass(testCase, "cancelled Security Alarm at" + " -  found");
 					}else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Mail content mismatched"+ " Expected -"+expectedContent+" but found -"+mailContent);
+								"Mail content mismatched"+ " Expected - cancelled Security Alarm at - but found -"+mailContent);
 					}
+					if(mailContent.contains(inputs.getInputValue("LOCATION1_NAME"))){
+						Keyword.ReportStep_Pass(testCase, inputs.getInputValue("LOCATION1_NAME")+ " -  found");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Mail content mismatched"+ " Expected -"+inputs.getInputValue("LOCATION1_NAME") +"- but found -"+mailContent);
+					}
+					if(mailContent.contains(timeConversion(inputs.getInputValue("ALARM_DISMISSED_TIME")))){
+						Keyword.ReportStep_Pass(testCase,timeConversion(inputs.getInputValue("ALARM_DISMISSED_TIME"))+ " -  found");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Mail content mismatched"+ " Expected -"+timeConversion(inputs.getInputValue("ALARM_DISMISSED_TIME"))+"- but found -"+mailContent);
+					}
+					
 				}else{
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"INPUT NOT HANDLED");
 				}
@@ -86,10 +129,9 @@ public class VerifyEmailReceived extends Keyword {
 	}
 
 	private String timeConversion(String time) throws ParseException {
-		System.out.println(time);
 		SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd'T'h:mm a");
 		SimpleDateFormat hour12Format = new SimpleDateFormat("hh:mm a");
-		//SimpleDateFormat hour24Format = new SimpleDateFormat("HH:mm");
+		System.out.println(hour12Format.format(timeFormat.parse(time)));
 		return hour12Format.format(timeFormat.parse(time));
 	}
 
