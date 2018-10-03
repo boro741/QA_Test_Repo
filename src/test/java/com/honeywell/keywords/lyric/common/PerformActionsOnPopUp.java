@@ -555,7 +555,8 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		} else if (expectedPopUp.get(1).equalsIgnoreCase("SWITCH TO AWAY") || expectedPopUp.get(1).equalsIgnoreCase("SWITCH TO AWAY WITH THE MULTIPLE SENSOR FAULT") ) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("SWITCH TO AWAY")
+				|| expectedPopUp.get(1).equalsIgnoreCase("SWITCH TO AWAY WITH THE MULTIPLE SENSOR FAULT")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
@@ -589,7 +590,8 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		} else if (expectedPopUp.get(1).equalsIgnoreCase("SWITCH TO NIGHT") || expectedPopUp.get(1).equalsIgnoreCase("SWITCH TO NIGHT WITH MULTILPLE SENSOR FAULT")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("SWITCH TO NIGHT")
+				|| expectedPopUp.get(1).equalsIgnoreCase("SWITCH TO NIGHT WITH MULTILPLE SENSOR FAULT")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
@@ -775,33 +777,39 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		} else if (expectedPopUp.get(1).equalsIgnoreCase("GEOFENCING")){
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("GEOFENCING")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-				if (bs.isGeofencePopUpVisible() && bs.isCancelButtonInGeofenceSettingsPopupVisible() && bs.clickOnCancelButtonInGeofenceSettingsPopup()) {
-					if(!bs.isGeofencePopUpVisible()) {
+				if (bs.isGeofencePopUpVisible() && bs.isCancelButtonInGeofenceSettingsPopupVisible()
+						&& bs.clickOnCancelButtonInGeofenceSettingsPopup()) {
+					if (!bs.isGeofencePopUpVisible()) {
 						Keyword.ReportStep_Pass(testCase, "Sucessfully Dismissed the Geofencing pop up");
-					}else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to Dismiss the Geofencing pop up");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to Dismiss the Geofencing pop up");
 					}
-				}else {
+				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Geofencing pop up not displayed");
-				}break;
+				}
+				break;
 			}
 			case "ACCEPTS": {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				GeofenceSettings gs = new GeofenceSettings(testCase);
-				if (bs.isGeofencePopUpVisible() && bs.isCancelButtonInGeofenceSettingsPopupVisible() && bs.clickOnOKButtonInGeofenceSettingsPopup()) {
-					if(gs.isGeofencingthislocationTextvisible() && gs.isGeofencingthislocationDescriptionvisible()){
+				if (bs.isGeofencePopUpVisible() && bs.isCancelButtonInGeofenceSettingsPopupVisible()
+						&& bs.clickOnOKButtonInGeofenceSettingsPopup()) {
+					if (gs.isGeofencingthislocationTextvisible() && gs.isGeofencingthislocationDescriptionvisible()) {
 						Keyword.ReportStep_Pass(testCase, "Sucessfully accepted the Geofencing pop up");
-					}else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to accept the Geofencing pop up");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to accept the Geofencing pop up");
 					}
-					
-				}else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"Geofencing pop up not displayed");
-				}break;
+
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Geofencing pop up not displayed");
+				}
+				break;
 			}
 			default: {
 				flag = false;
@@ -809,7 +817,21 @@ public class PerformActionsOnPopUp extends Keyword {
 				return flag;
 			}
 			}
-		}else {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("SENSOR NAME ALREADY ASSIGNED ERROR")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CLICKS ON OK IN": {
+				SensorSettingScreen ss = new SensorSettingScreen(testCase);
+				if (ss.isOKButtonInSensorNameAlreadyAssignedPopupVisible()) {
+					flag = flag & ss.clickOnOKButtonInSensorNameAlreadyAssignedPopup();
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"OK button is not displayed in: " + expectedPopUp.get(0));
+				}
+				break;
+			}
+			}
+		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(1));
 		}

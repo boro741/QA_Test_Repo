@@ -2,10 +2,11 @@ package com.honeywell.lyric.relayutils;
 
 public class RelayConstants {
 	public static final String RelayBoardCOMPort = "COM29";
-	public static final String RelayBoardTTYPort = "/dev/tty.usbmodem14411";
+	public static final String RelayBoardTTYPort = "/dev/tty.usbmodem1441";
 	
 	//public static String RSI_Contact_Sensor_1_SerialNO= "3508142677";//window
 	public static String RSI_Contact_Sensor_1_SerialNO= "289407302";//window
+	//public static String RSI_Contact_Sensor_1_SerialNO= "289407736";//window
 	public static String RSI_Contact_Sesor_1_Enroll_ON = "0:1";  // Window
 	public static String RSI_Contact_Sesor_1_Enroll_OFF = "0:0";	// Window
 	public static String RSI_Contact_Sesor_1_Tamper_ON = "1:1";  // Window
@@ -22,8 +23,8 @@ public class RelayConstants {
 	public static String RSI_Contact_Sesor_2_Trip_ON = "5:1";    // Door
 	public static String RSI_Contact_Sesor_2_Trip_OFF = "5:0";   // Door
 	
+	public static String RSI_Motion_Sensor_1_SerialNO= "289407367";//motion
 	//public static String RSI_Motion_Sensor_1_SerialNO= "289408348";//motion
-	public static String RSI_Motion_Sensor_1_SerialNO= "289408348";//motion
 	public static String RSI_Motion_Sensor_1_Enroll_ON = "6:1";  // Motion
 	public static String RSI_Motion_Sensor_1_Enroll_OFF = "6:0";  // Motion
 	public static String RSI_Motion_Sensor_1_Tamper_ON = "7:1";  // Motion

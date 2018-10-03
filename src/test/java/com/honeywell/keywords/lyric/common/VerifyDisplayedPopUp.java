@@ -253,23 +253,21 @@ public class VerifyDisplayedPopUp extends Keyword {
 			flag = flag & sc.isUnableToConnectToBaseStationAlertVisible();
 			break;
 		}
-		//Amresh wld edit starts
+		// Amresh wld edit starts
 		case "DUPLICATE NAME ERROR": {
 			flag = true;
 			WLDConfigurationScreen sc = new WLDConfigurationScreen(testCase);
-				if(testCase.getPlatform().toUpperCase().contains("ANDROID")) 
-				{
-				//flag = flag & sc.clickOnBackButton();
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				// flag = flag & sc.clickOnBackButton();
 				flag = flag & sc.isPopUpOkButtonVisible();
-				}
-				else {
-					flag = flag & sc.isPopUpOkButtonVisible();
-				}
+			} else {
+				flag = flag & sc.isPopUpOkButtonVisible();
+			}
 			if (flag) {
 				Keyword.ReportStep_Pass(testCase, expectedPopUp.get(0) + "' is displayed");
-				Keyword.ReportStep_Pass(testCase, "Error Header"+sc.getHomeNameAlreadyExistTextValue());
-				Keyword.ReportStep_Pass(testCase, "Error Body"+sc.getHomeNameExistsBodyValue());
-				//sc.clickonPopUpOkButton();
+				Keyword.ReportStep_Pass(testCase, "Error Header" + sc.getHomeNameAlreadyExistTextValue());
+				Keyword.ReportStep_Pass(testCase, "Error Body" + sc.getHomeNameExistsBodyValue());
+				// sc.clickonPopUpOkButton();
 			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -277,7 +275,7 @@ public class VerifyDisplayedPopUp extends Keyword {
 			}
 			break;
 		}
-		//Amresh wld edit ends
+		// Amresh wld edit ends
 		case "SENSOR TAMPER": {
 			SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
 			flag = flag & settingScreen.isSensorTamperClearPopupDisplayed(60);
@@ -329,9 +327,9 @@ public class VerifyDisplayedPopUp extends Keyword {
 		}
 		case "GEOFENCING": {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-			if(bs.isGeofencePopUpVisible()){
+			if (bs.isGeofencePopUpVisible()) {
 				Keyword.ReportStep_Pass(testCase, "Geofencing pop up displayed");
-			}else {
+			} else {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Geofencing pop up not displayed");
 			}
 			break;
@@ -366,6 +364,18 @@ public class VerifyDisplayedPopUp extends Keyword {
 			SchedulingScreen schl = new SchedulingScreen(testCase);
 			flag = flag & fly.isDeleteSensorPopUpVisible();
 			flag = flag & schl.clickOnOkButton();
+			break;
+		}
+		case "SENSOR NAME ALREADY ASSIGNED ERROR": {
+			SensorSettingScreen ss = new SensorSettingScreen(testCase);
+			if (ss.isSensorNameAlreadyAssignedErrorPopupVisible() && ss.isSensorNameAlreadyAssignedMsgVisible()
+					&& ss.isOKButtonInSensorNameAlreadyAssignedPopupVisible()) {
+				flag &= ss.isOKButtonInSensorNameAlreadyAssignedPopupVisible();
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Sensor name already assigned error popup");
+			}
 			break;
 		}
 		default: {
