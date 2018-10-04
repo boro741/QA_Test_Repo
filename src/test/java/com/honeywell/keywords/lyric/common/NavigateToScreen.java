@@ -748,7 +748,7 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				//Amresh  dashboard to wld manage alerts
-				case "WLD MANAGE ALERTS": { 
+				case "WLD MANAGE ALERTS": {
 					flag = flag & WLDManageAlerts.navigateFromDashboardScreenToWLDManageAlerts(testCase, inputs);
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Navigated from Dashboard to Manage Alerts ");
@@ -759,7 +759,9 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				//Amresh  dashboard to Leak Detector Configuration
-				case "LEAK DETECTOR CONFIGURATION": { 
+				case "LEAK DETECTOR CONFIGURATION": {
+					WLDSolutionCard sol = new WLDSolutionCard(testCase);
+					flag = flag && sol.checkAndDismissControlState();
 					flag = flag & WLDConfigurationScreen.navigateFromDashboardToWLDConfigurationScreen(testCase, inputs);
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Navigated from Dashboard to Configuration ");
@@ -768,13 +770,10 @@ public class NavigateToScreen extends Keyword {
 								"Unable to Navigate");
 					}break;
 				}
-				//Amresh  dashboard to Leak Detector Configuration
-				case "WLD SOLUTION CARD": {
-//Later				//	flag = flag & WLDConfigurationScreen.navigateFromDashboardToWLDConfigurationScreen(testCase, inputs);
-					break;
-				}
 				// Navigate from 'Dashboard' to 'WLD Email Notifications' Screen //Amresh
 				case "EMAIL NOTIFICATIONS": {
+					WLDSolutionCard sol = new WLDSolutionCard(testCase);
+					flag = flag && sol.checkAndDismissControlState();
 					flag = flag & WLDManageAlerts.navigateFromDashboardScreenToEmailNotificationsScreen(testCase,
 							inputs);
 					if (flag) {

@@ -66,13 +66,13 @@ Then user should be able to see updated values in "Alert for this Temperature Ra
 Scenario: As a user I should be able to enable or disable Indoor Humidity Alert on my WLD
 Given user launches and logs in to the Lyric application
 When user navigates to "WLD Manage Alerts" screen from the "Dashboard" screen
-And user changes the "Indoor Humidity Alert" to "ON"
+And user changes the "WLD Indoor Humidity Alert" to "ON"
 Then "WLD Indoor Humidity Alert" value should be updated to "ON" on "Manage Alerts" screen
 And user should be displayed with the following "WLD Indoor Humidity Alert" options: 
 | WLD Manage Alerts Options| 
 | Email for enabled alerts | 
 | Alert for this range     |
-When user changes the "Indoor Humidity Alert" to "OFF"
+When user changes the "WLD Indoor Humidity Alert" to "OFF"
 Then "WLD Indoor Humidity Alert" value should be updated to "OFF" on "Manage Alerts" screen
 
 @EnableDisableEmailForEnabledAlertsforHumidity @NotAutomatable
@@ -132,7 +132,7 @@ Given user launches and logs in to the Lyric application
 When user navigates to "Update Frequency" screen from the "Dashboard" screen
 And user changes the "Update Frequency" to "Daily"
 And user navigates to "Leak Detector Settings" screen from the "WLD Solution Card" screen
-Then "Update Frequency" value should be updated to "Daily" on "WLD Settings" screen
+Then "Update Frequency" value should be updated to "Daily" on "Leak Detector Settings" screen
 And user navigates to "Update Frequency" screen from the "WLD Settings" screen
 When user changes the "Update Frequency" to "Twice Daily"
 And user navigates to "Leak Detector Settings" screen from the "WLD Solution Card" screen
@@ -193,3 +193,18 @@ And user should receive a "Delete Device Confirmation" popup
 And user "Accepts" the "Delete Device Confirmation" popup
 Then WLD should be deleted
 And user should be displayed with "Dashboard" With "Add new Device" Option
+
+@DeleteLeakDetectorwhenDeviceOffline @NotAutomatable @CogIconNotVissible
+Scenario: As a user I should be able to delete my WLD device from my account through the Homes application 
+Given user launches and logs in to the Homes application 
+When user navigates to "Leak Detector Configuration" screen from the "Dashboard" screen
+And user "Deletes Leak Detector" by clicking on "Delete" button
+And user should receive a "Delete Device Confirmation" popup
+Then user "Dismisses" the "Delete Device Confirmation" popup
+When user "Deletes Leak Detector" by clicking on "Delete" button
+And user should receive a "Delete Device Confirmation" popup
+And user "Accepts" the "Delete Device Confirmation" popup
+Then WLD should be deleted
+And user should be displayed with "Dashboard" With "Add new Device" Option
+
+

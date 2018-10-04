@@ -20,3 +20,5 @@ MaximumTempGraphValue	id	mpa_chart	id	mpa_chart	id	mpa_chart	xPATH	(//*[@type='X
 MinimumTempGraphValue	id	mpa_chart	id	mpa_chart	id	mpa_chart	xPATH	(//*[@type='XCUIElementTypeStaticText'])[6]	xPATH	(//*[@type='XCUIElementTypeStaticText'])[6]	xPATH	(//*[@type='XCUIElementTypeStaticText'])[6]
 MaximumHumidGraphValue	id	mpa_chart	id	mpa_chart	id	mpa_chart	xPATH	(//*[@type='XCUIElementTypeStaticText'])[8]	xPATH	(//*[@type='XCUIElementTypeStaticText'])[8]	xPATH	(//*[@type='XCUIElementTypeStaticText'])[8]
 MinimumHumidGraphValue	id	mpa_chart	id	mpa_chart	id	mpa_chart	xPATH	(//*[@type='XCUIElementTypeStaticText'])[9]	xPATH	(//*[@type='XCUIElementTypeStaticText'])[9]	xPATH	(//*[@type='XCUIElementTypeStaticText'])[9]
+Control_State	id	device_mode_status_view	id	device_mode_status_view	id	device_mode_status_view	xPATH	//*[@name='Control_State']	xPATH	//*[@name='Control_State']	xPATH	//*[@name='Control_State']
+Navigate_Up	xPATH	//*[@content-desc='Navigate Up']	xPATH	//*[@content-desc='Navigate Up']	xPATH	//*[@content-desc='Navigate Up']	xPATH	//*[@name='Back']	xPATH	//*[@name='Back']	xPATH	//*[@name='Back']

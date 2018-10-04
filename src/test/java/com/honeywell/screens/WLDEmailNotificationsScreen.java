@@ -120,7 +120,7 @@ public class WLDEmailNotificationsScreen extends MobileScreens {
 		}
 		return flag;
 	}
-
+	
 	public boolean incorrectEmailPopup() {
 		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			flag=true;
@@ -133,5 +133,13 @@ public class WLDEmailNotificationsScreen extends MobileScreens {
 			}
 		}
 		return flag;
+	}
+
+	public boolean navigateBackAndForth() {
+		WLDManageAlerts wld = new WLDManageAlerts(testCase);
+		flag = flag && MobileUtils.clickOnElement(objectDefinition, testCase, "NavigateBackButton");	
+		flag = flag && wld.clickEmailContacts();
+		return flag;
+		
 	}
 }

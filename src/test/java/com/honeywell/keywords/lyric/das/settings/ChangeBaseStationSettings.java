@@ -191,7 +191,7 @@ public class ChangeBaseStationSettings extends Keyword {
 					Keyword.ReportStep_Pass(testCase, "Navigated from Frequency Card to Primary Card");
 
 				}
-				if (parameters.get(1).equalsIgnoreCase("THREE TIMES DAILY")) {
+			if (parameters.get(1).equalsIgnoreCase("THREE TIMES DAILY")) {
 					flag = flag & freq.clickOnThriceDailyRadioButton();
 					Keyword.ReportStep_Pass(testCase, "Clicked Three Times Daily");
 					flag = flag & set.navigateFromUpdateFrequencyCardToPrimaryCard();
@@ -201,7 +201,7 @@ public class ChangeBaseStationSettings extends Keyword {
 			}
 			//Amresh Edit Ends
 			// Amresh wld edit starts
-						else if (parameters.get(0).equalsIgnoreCase("INDOOR HUMIDITY ALERT")) {
+						else if (parameters.get(0).equalsIgnoreCase("WLD INDOOR HUMIDITY ALERT")) {
 							WLDManageAlerts ale = new WLDManageAlerts(testCase);
 							String status ="";
 							if (parameters.get(1).equalsIgnoreCase("ON")) {
@@ -217,6 +217,7 @@ public class ChangeBaseStationSettings extends Keyword {
 									}
 								}
 								else{//ios
+									Thread.sleep(5000);
 									if(ale.isIndoorHumidityAlertToggleEnabled()) {
 										Keyword.ReportStep_Pass(testCase, "Status: Enabled");
 									} 

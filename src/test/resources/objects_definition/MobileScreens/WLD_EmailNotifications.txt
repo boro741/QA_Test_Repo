@@ -9,3 +9,4 @@ Email_Ids	id	list_item_lyric_horizontal_text_view_primary_text	id	list_item_lyri
 Pending_Accepts	xPATH	//*[@text='Pending Accept']	xPATH	//*[@text='Pending Accept']	xPATH	//*[@text='Pending Accept']						
 DoneButtonOnKeyboard	name	Done	name	Done	name	Done	name	Done	name	Done	name	Done
 validEmailText	xPATH	//*[@text='Please enter a valid email.']	xPATH	//*[@text='Please enter a valid email.']	xPATH	//*[@text='Please enter a valid email.']	xPATH	(//*[@type='XCUIElementTypeStaticText'])[4]	xPATH	(//*[@type='XCUIElementTypeStaticText'])[4]	xPATH	(//*[@type='XCUIElementTypeStaticText'])[4]
+NavigateBackButton	xPATH	//*[@content-desc='Navigate Up']	xPATH	//*[@content-desc='Navigate Up']	xPATH	//*[@content-desc='Navigate Up']	NAME	Back	NAME	Back	NAME	Back

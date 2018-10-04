@@ -1326,13 +1326,11 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			for (int i = 0; i < data.getSize(); i++) {
 				String parameter = data.getData(i, "Graph Options");
 				switch (parameter.toUpperCase()) {
-				
 				case "NO OF DAYS TEMPERATURE TREND": 
 				{
 					if(testCase.getPlatform().toUpperCase().contains("ANDROID")) 
 					{
 						Keyword.ReportStep_Fail(testCase, FailType.NO_FAILURE, "In Android No of Days Temperature Trend is: Not Vissible");
-
 					}
 					else {
 					flag = flag & sol.isNoOfDaysTempTrendVisible();
@@ -1351,7 +1349,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					if(testCase.getPlatform().toUpperCase().contains("ANDROID")) 
 					{
 						Keyword.ReportStep_Fail(testCase, FailType.NO_FAILURE, "In Android No of Days Humidity Trend is: Not Vissible");
-
 					}
 					else
 					{
@@ -1371,7 +1368,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					if(testCase.getPlatform().toUpperCase().contains("ANDROID")) 
 					{
 						Keyword.ReportStep_Fail(testCase, FailType.NO_FAILURE, "In Android Maximum and Minimum Temperature trend is: Not Vissible");
-
 					}
 					else
 					{
@@ -1393,13 +1389,11 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					if(testCase.getPlatform().toUpperCase().contains("ANDROID")) 
 					{
 						Keyword.ReportStep_Fail(testCase, FailType.NO_FAILURE, "In Android Maximum and Minimum Humidity trend is: Not Vissible");
-
 					}
 					else
 					{
 					flag = flag & sol.isMaximumHumidGraphValueVisible();
 					flag = flag & sol.isMinimumHumidGraphValueVisible();
-
 					if(flag) {
 						Keyword.ReportStep_Pass(testCase, "Maximum Humidity Vissible is: "+sol.getMaximumHumidGraphValueText());
 						Keyword.ReportStep_Pass(testCase, "Minimum Humidity Vissible is: "+sol.getMinimumHumidGraphValueText());
@@ -1415,11 +1409,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					break;
 				}
 				}
-
 			}
 			break;
-		
-			
 		}
 		//Amresh Starts again
 		case "ALERT FOR THIS TEMPERATURE RANGE": {
@@ -1495,6 +1486,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				String parameter = data.getData(i, "WLD Solution options");
 				switch (parameter.toUpperCase()) {
 				case "CURRENT TEMPERATURE": {
+					flag = flag & ActionSheet.checkAndDismissControlState();
 					flag = flag & ActionSheet.isCurrentTemperatureTitleVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, parameter + " is Vissibe");
@@ -1506,6 +1498,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					break;
 				}
 				case "LAST UPDATED TIME": {
+					flag = flag & ActionSheet.checkAndDismissControlState();
 					flag = flag & ActionSheet.isLastUpdatedTimeTitleVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "The " + parameter + " is Vissibe");
@@ -1516,6 +1509,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					break;
 				}
 				case "TEMPERATURE GRAPH": {
+					flag = flag & ActionSheet.checkAndDismissControlState();
 					flag = flag & ActionSheet.isTemperatureGraphTitleVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, parameter + " is Vissibe");
@@ -1525,6 +1519,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					break;
 				}
 				case "BATTERY PERCENTAGE": {
+					flag = flag & ActionSheet.checkAndDismissControlState();
 					flag = flag & ActionSheet.isBatterypercentageTitleVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, parameter + "is Vissibe");
@@ -1536,6 +1531,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					break;
 				}
 				case "NEXT UPDATE TIME": {
+					flag = flag & ActionSheet.checkAndDismissControlState();
 					flag = flag & ActionSheet.isNextUpdateTimeTitleVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, parameter + " is Vissibe");
@@ -1612,7 +1608,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 								"The Text: " + parameter + " is not vissible");
 					}
 					break;
-
 				}
 				case "LEAK DETECTOR CONFIGURATION": {
 
@@ -1629,7 +1624,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-
 				}
 			}
 			break;
@@ -1642,11 +1636,11 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				switch (parameter.toUpperCase()) {
 				case "EMAIL FOR ENABLED ALERTS": {
 					flag = flag & ActionSheet.isEmailNotificationsforTemperatureAlertsTextVissible();
-					flag = flag & ActionSheet.isEmailNotificationsforTemperatureAlertsToggleVissible();
+					flag = flag & ActionSheet.isEmailNotificationsforTemperatureAlertsToggleEnabled();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
 						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getEmailNotificationsforTemperatureAlertsTextValue());
-						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getEmailNotificationsforTemperatureAlertsToggleValue());
+						Keyword.ReportStep_Pass(testCase, "Email Notifiction Toggle is Enabled.");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,parameter+" is not vissible");
 					}
@@ -1654,11 +1648,9 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 				case "ALERT FOR THIS RANGE": {
 					flag = flag & ActionSheet.isAlertforthisRangeTemperatureTextVissible();
-					//flag = flag & ActionSheet.isAlertforthisRangeTemperaturePercentageButtonVissible();
 					if (flag) {
-						Keyword.ReportStep_Pass(testCase, "The " +parameter+ " is Vissibe");
+						Keyword.ReportStep_Pass(testCase, "The " +parameter+ " text is Vissibe");
 						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getAlertforthisRangeTemperatureTextValue());
-					//	Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getAlertforthisRangeTemperaturePercentageButtonValue());
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,parameter+" is not vissible");
 					}
@@ -1676,11 +1668,11 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				switch (parameter.toUpperCase()) {
 				case "EMAIL FOR ENABLED ALERTS": {
 					flag = flag & ActionSheet.isEmailNotificationsforHumidityAlertsTextVissible();
-					flag = flag & ActionSheet.isEmailNotificationsforHumidityAlertsToggleVissible();
+					flag = flag & ActionSheet.isEmailNotificationsforHumidityAlertsToggleEnabled();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
 						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getEmailNotificationsforHumidityAlertsTextValue());
-						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getEmailNotificationsforHumidityAlertsToggleValue());
+						Keyword.ReportStep_Pass(testCase, "Email for Humidity Toggle is Enabled");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,parameter+" is not vissible");
 					}
@@ -1688,11 +1680,9 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 				case "ALERT FOR THIS RANGE": {
 					flag = flag & ActionSheet.isAlertforthisRangeHumidityTextVissible();
-					//flag = flag & ActionSheet.isAlertforthisRangeTemperaturePercentageButtonVissible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "The " +parameter+ " is Vissibe");
 						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getAlertforthisRangeHumidityTextValue());
-					//	Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getAlertforthisRangeHumidityPercentageButtonValue());
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,parameter+" is not vissible");
 					}
@@ -1707,6 +1697,21 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			for (int i = 0; i < data.getSize(); i++) {
 				String parameter = data.getData(i, "Options");
 				switch (parameter.toUpperCase()) {
+				case "CONTROL STATE": {
+					WLDSolutionCard sol = new WLDSolutionCard(testCase);
+					flag = flag & sol.isControlStateVissible();
+					if(flag) {
+						String ControlText = sol.getControlStateTextValue();
+						flag = flag & sol.clickOnControlText();
+						flag = flag && sol.clickOnDismissButton();
+						sol.navigateFromPrimaryCardToDashboard();
+						Keyword.ReportStep_Pass(testCase, parameter + ControlText+ " is Vissibe");
+					}
+					else {
+						Keyword.ReportStep_Pass(testCase, parameter + " is Not Vissibe at this moment");
+						flag=true;
+					}
+				}
 				case "WLD DEVICE NAME": {
 					flag = flag & das.areDevicesVisibleOnDashboard(300);
 					if (flag) {
@@ -1747,7 +1752,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-
 				}
 			}
 			break;
@@ -1923,6 +1927,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 		}
 		case "LEAK DETECTOR CONFIGURATION":{
+			flag=true;
 			WLDConfigurationScreen config=new WLDConfigurationScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String parameter = data.getData(i, "Configuration");
@@ -1931,7 +1936,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					flag = flag & config.isConfigurationNameTextVisible();
 					String wld_name = config.getConfigurationWLDNameValue();
 					Keyword.ReportStep_Pass(testCase, "Vissible Text: "+wld_name);
-
 					break;	
 				}
 				case "FIRMWARE DETAILS": {
@@ -1944,13 +1948,24 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					flag = flag & config.isConfigurationDeleteLeakDetectorLinkVisible();
 					String delete_link = config.getConfigurationDeleteLeakDetectorLinkValue();
 					Keyword.ReportStep_Pass(testCase, "Vissible Text: "+delete_link);
-
 					break;	
 				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
 				}
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "The " + parameter + " has found");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"The " + parameter + " has not found");
+				}
+				flag = true;
 			}
 			break;
-		}
+			}
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + expectedScreen.get(0));

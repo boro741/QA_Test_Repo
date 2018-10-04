@@ -52,13 +52,14 @@ public class VerifyTemperatureUnit extends Keyword {
 				String parameter = data.getData(i, "Options");
 				switch (parameter.toUpperCase()) {
 				case "FAHRENHEIT": {
+					flag = flag & wld.checkAndDismissControlState();
 					flag = flag & wld.isCurrentTemperatureTitleVisible();
 					String temp_unit_before = wld.getCurrentTemperatureTitleText();
 					if(temp_unit_before.contains(".")) 
 					{ temp_unit1 = "Celsius";}
 					else 
 					{ temp_unit1 = "Fahrenheit";}
-					System.out.println("Temperature Unit Before: "+temp_unit1);
+					Keyword.ReportStep_Pass(testCase, "Temperature Unit Before: "+temp_unit1);
 					flag = flag & wld.navigateFromPrimaryCardToWLDSettingsScreen();
 					set.clickonTemperatureUnit();
 					flag = flag & set.navigateFromWLDSettingsScreenToPrimaryCard();
@@ -68,7 +69,7 @@ public class VerifyTemperatureUnit extends Keyword {
 					{ temp_unit2 = "Celsius";}
 					else 
 					{ temp_unit2 = "Fahrenheit";}
-					System.out.println("Temperature Unit After: "+temp_unit2);
+					Keyword.ReportStep_Pass(testCase, "Temperature Unit After: "+temp_unit2);
 					if (!temp_unit1.equals(temp_unit2)) {
 						Keyword.ReportStep_Pass(testCase, "The " + parameter + " unit was sucessfully changed");	
 					} else {
@@ -78,6 +79,7 @@ public class VerifyTemperatureUnit extends Keyword {
 					break;
 				}
 				case "CELSIUS": {
+					flag = flag & wld.checkAndDismissControlState();
 					flag = flag & wld.isCurrentTemperatureTitleVisible();
 					String temp_unit_before = wld.getCurrentTemperatureTitleText();
 					if(temp_unit_before.contains(".")) 
@@ -85,7 +87,7 @@ public class VerifyTemperatureUnit extends Keyword {
 					else 
 					{ temp_unit1 = "Fahrenheit";
 					}
-					System.out.println("Temperature Unit Before: "+temp_unit1);
+					Keyword.ReportStep_Pass(testCase, "Temperature Unit Before: "+temp_unit1);
 					flag = flag & wld.navigateFromPrimaryCardToWLDSettingsScreen();
 					set.clickonTemperatureUnit();
 					flag = flag & set.navigateFromWLDSettingsScreenToPrimaryCard();
@@ -95,7 +97,7 @@ public class VerifyTemperatureUnit extends Keyword {
 					{ temp_unit2 = "Celsius";}
 					else 
 					{ temp_unit2 = "Fahrenheit";}
-					System.out.println("Temperature Unit After: "+temp_unit2);
+					Keyword.ReportStep_Pass(testCase, "Temperature Unit After: "+temp_unit2);
 
 					if (!temp_unit1.equals(temp_unit2)) {
 						Keyword.ReportStep_Pass(testCase, "The " + parameter + " unit was sucessfully changed");	
