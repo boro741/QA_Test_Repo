@@ -34,7 +34,7 @@ public class IndoorMotionViewerActions extends Keyword {
 	@KeywordStep(gherkins = "^user indoor motion viewer \"(.+)\"$")
 	public boolean keywordSteps() {
 		try {
-			if (states.get(0).equalsIgnoreCase("Tampered")) {
+			if (states.get(0).equalsIgnoreCase("Tampered") || states.get(0).equalsIgnoreCase("Cover Tampered")) {
 				DASSensorUtils.tamperISMV(testCase, inputs);
 			} else if (states.get(0).equalsIgnoreCase("Tamper cleared")) {
 				DASSensorUtils.tamperClearISMV(testCase, inputs);
@@ -50,6 +50,10 @@ public class IndoorMotionViewerActions extends Keyword {
 				System.out.println("Move the object in front of motion sensor");
 			} else if (states.get(0).equalsIgnoreCase("Motion not detected")) {
 				System.out.println("Do not move any object in front of ISMV sensor");
+			} else if (states.get(1).equalsIgnoreCase("opened") || states.get(1).equalsIgnoreCase("open")) {
+				DASSensorUtils.openISMV(testCase, inputs);
+			} else if (states.get(1).equalsIgnoreCase("closed")) {
+				DASSensorUtils.closeISMV(testCase, inputs);
 			} else {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Input not handled");
 			}

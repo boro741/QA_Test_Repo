@@ -32,6 +32,7 @@ public class DASSettingsUtils {
 		if (bs.isDeleteDASDevicePopUpTitleVisible()) {
 			Keyword.ReportStep_Pass(testCase, "Delete DAS Confirmation Pop Up Title is correctly displayed");
 			String message, messageWithHoneywellMembership, locator = "";
+			String messageWithMembership = "";
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				locator = "xpath";
 				/*
@@ -41,9 +42,12 @@ public class DASSettingsUtils {
 				 */
 				message = "//android.widget.TextView[@text='This will delete " + "\""
 						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"" + " and all related accessories']";
+				messageWithMembership = "//android.widget.TextView[@text='This will delete " + "\""
+						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\""
+						+ ", all related accessories and facial recognition. Please remember to edit or cancel this device from your Membership']";
 				messageWithHoneywellMembership = "//android.widget.TextView[@text='This will delete " + "\""
 						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\""
-						+ " and all related accessories. Please remember to edit or cancel this device from your Honeywell Membership']";
+						+ ", all related accessories and facial recognition. Please remember to edit or cancel this device from your Honeywell Membership']";
 			} else {
 				locator = "name";
 				/*
@@ -63,6 +67,9 @@ public class DASSettingsUtils {
 
 			if (MobileUtils.isMobElementExists(locator, message, testCase, 5)) {
 				Keyword.ReportStep_Pass(testCase, "Delete DAS Confirmation Pop Up message correctly displayed");
+			} else if (MobileUtils.isMobElementExists(locator, messageWithMembership, testCase, 5)) {
+				Keyword.ReportStep_Pass(testCase,
+						"Delete DAS Confirmation Pop Up message with Honeywell Membership text is correctly displayed");
 			} else if (MobileUtils.isMobElementExists(locator, messageWithHoneywellMembership, testCase, 5)) {
 				Keyword.ReportStep_Pass(testCase,
 						"Delete DAS Confirmation Pop Up message with Honeywell Membership text is correctly displayed");

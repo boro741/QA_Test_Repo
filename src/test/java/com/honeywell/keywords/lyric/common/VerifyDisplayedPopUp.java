@@ -46,7 +46,7 @@ public class VerifyDisplayedPopUp extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user should receive a (.*) popup$")
+	@KeywordStep(gherkins = "^user should receive a \"(.+)\" popup$")
 	public boolean keywordSteps() {
 
 		switch (expectedPopUp.get(0).toUpperCase()) {

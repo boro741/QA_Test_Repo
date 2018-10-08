@@ -2291,6 +2291,11 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "DASHBOARD": {
 					SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+					SensorStatusScreen sensorStatusScreen = new SensorStatusScreen(testCase);
+					if (sensorStatusScreen.isSensorStatusVisible()
+							&& sensorStatusScreen.isAddButtonNotVisibleInSensorStatusScreen()) {
+						flag = flag & sensorStatusScreen.clickOnSensorStatusScreenBack(testCase);
+					}
 					if (sc.isBackButtonVisible()) {
 						flag = flag & sc.clickOnBackButton();
 					}

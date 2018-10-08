@@ -34,14 +34,14 @@ public class OutdoorMotionViewerActions extends Keyword {
 	@KeywordStep(gherkins = "^user outdoor motion viewer \"(.+)\"$")
 	public boolean keywordSteps() {
 		try {
-			if (states.get(0).equalsIgnoreCase("Tampered")) {
+			if (states.get(0).equalsIgnoreCase("Tampered") || states.get(0).equalsIgnoreCase("Cover Tampered")) {
 				DASSensorUtils.tamperOSMV(testCase, inputs);
 			} else if (states.get(0).equalsIgnoreCase("Tamper cleared")) {
 				DASSensorUtils.tamperClearOSMV(testCase, inputs);
 			} else if (states.get(0).equalsIgnoreCase("Tamper Restored")) {
 				DASSensorUtils.tamperClearOSMV(testCase, inputs);
 				DASSensorUtils sensorUtils = new DASSensorUtils();
-				sensorUtils.verifySensorState(testCase, inputs, "ISMV", "tamper cleared");
+				sensorUtils.verifySensorState(testCase, inputs, "OSMV", "tamper cleared");
 			} else if (states.get(0).equalsIgnoreCase("enrolled")) {
 				// DASSensorUtils.enrollMotionSensor(testCase, inputs);
 			} else if (states.get(0).equalsIgnoreCase("Motion detected")) {
@@ -50,6 +50,10 @@ public class OutdoorMotionViewerActions extends Keyword {
 				System.out.println("Move the object in front of motion sensor");
 			} else if (states.get(0).equalsIgnoreCase("Motion not detected")) {
 				System.out.println("Do not move any object in front of OSMV sensor");
+			} else if (states.get(1).equalsIgnoreCase("opened") || states.get(1).equalsIgnoreCase("open")) {
+				DASSensorUtils.openOSMV(testCase, inputs);
+			} else if (states.get(1).equalsIgnoreCase("closed")) {
+				DASSensorUtils.closeOSMV(testCase, inputs);
 			} else {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Input not handled");
 			}

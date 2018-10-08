@@ -35,7 +35,7 @@ public class VerifyDeviceNameDisplayedOnDevicesScreen extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user should be displayed with \"(.*)\" device on the \"(.*)\" screen$")
+	@KeywordStep(gherkins = "^user should be displayed with \"(.+)\" device on the \"(.+)\" screen$")
 	public boolean keywordSteps() {
 		try {
 			if (expectedDevice.get(1).equalsIgnoreCase("Dashboard")) {
