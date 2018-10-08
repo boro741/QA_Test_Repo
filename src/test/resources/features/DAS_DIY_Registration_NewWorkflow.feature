@@ -187,7 +187,7 @@ Then user "deletes location details" by clicking on "delete" button
 Examples: 
       | new location name           | new device name       | invalid zip code             | valid zip code        |
       | California                  | Scrum Room            | 555555                       | 90001                 |
-      | Texas                       | War Room              | 555555                       | 73301                 |
+#      | Texas                       | War Room              | 555555                       | 73301                 |
 #     | Texas#$%                    | Ball Room             | 555555                       | 73301                 |
 
 
@@ -236,12 +236,12 @@ Then user "deletes default location details" by clicking on "delete" button
 
 Examples: 
       | Default Location		| Default Device Name		| invalid zip code             | valid zip code        |
-      | Home					| Living Room				| 555555                       | 90001                 |		
+#      | Home					| Living Room				| 555555                       | 90001                 |		
       | Vacation Home		| Kitchen					| 555555                       | 90001                 |
-      | Office				| Entry Way					| 555555                       | 90001                 |
-      | Lake House			| Dining Room				| 555555                       | 90001                 |
-      | Cabin				| Bedroom					| 555555                       | 90001                 |
-      | Pool House			| First Floor				| 555555                       | 90001                 |
+#      | Office				| Entry Way					| 555555                       | 90001                 |
+#      | Lake House			| Dining Room				| 555555                       | 90001                 |
+#      | Cabin				| Bedroom					| 555555                       | 90001                 |
+#      | Pool House			| First Floor				| 555555                       | 90001                 |
 
 
 @DIYDenyAppAccessToLocationServices		@P2				@CannotAutomate
@@ -771,7 +771,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 Examples: 
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
-      | Home                                    | Kitchen                         |
+#      | Home                                    | Kitchen                         |
       
       
 @DIYRegistrationWithSkipGeoFenceAndSetUpAlexa	 @P2			@Automated
@@ -823,7 +823,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples: 
       | location name                           | device name                     | Amazon username				| Amazon password		|
-      | Home                                    | Living Room                     | xyxyx@xyx.com					| xyxyxyx				|
+      | Home                                    | Living Room                     | midhun.gollapalli@gmail.com					| vibex888				|
 
 
 @DIYRegistrationWithGeoFenceEnabledAndSetUpAlexa	 	@P1			@Automated
@@ -868,7 +868,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples: 
       | location name                           | device name                     | Amazon username				| Amazon password		|
-      | Home                                    | Living Room                     | xyxyxyx@xyx.com				| xyxyxyx				|
+      | Home                                    | Living Room                     | midhun.gollapalli@gmail.com				| vibex888				|
       
       
 @DIYRegistrationWhenFirmwareIsNotUpToDate		@FirmwareWithPreviousVersionRequired			@P2				@Automated
@@ -1482,20 +1482,20 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		| Sensor Location	| Sensor Type SETUP Button			| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	| Front Door				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
-| Home			| Living Room		| Window 			| Window Access Sensor SETUP Button	| Living Room Window 	| Open 			| Closed 				| Window Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
+| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com					| vibex888				|
+#| Home			| Living Room		| Window 			| Window Access Sensor SETUP Button	| Living Room Window 	| Open 			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com					| vibex888				|
 #incaserequired
-#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Back Door				| Opened			| Closed					| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Side Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Window 			| Window Access Sensor SETUP Button	|  Living Room Window 	| Opened 		| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Dining Room Window 	| Opened			| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Kitchen Window 		| Opened			| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Front Door			| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Back Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Side Door				| Opened 		| Closed 				| Door Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Living Room Window 	| Opened			| Closed					| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Dining Room Window 	| Opened 		| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
-#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Kitchen Window 		| Opened 		| Closed 				| Window Access Settings		| xyx.xyx@xyx.com				| xyxyxxyx				|
+#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Back Door				| Opened			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Side Door				| Opened 		| Closed 				| Door Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Window 			| Window Access Sensor SETUP Button	|  Living Room Window 	| Opened 		| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Dining Room Window 	| Opened			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Kitchen Window 		| Opened			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Front Door			| Opened 		| Closed 				| Door Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Back Door				| Opened 		| Closed 				| Door Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Side Door				| Opened 		| Closed 				| Door Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Living Room Window 	| Opened			| Closed					| Window Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Dining Room Window 	| Opened 		| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Kitchen Window 		| Opened 		| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
 
 
 @DIYRegistrationWithAccessSensorEnrollmentWithCustomName		@P4			@Automated
@@ -1589,10 +1589,10 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		| Sensor Location	| Sensor Type SETUP Button			| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	| Honeywell				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
-| Home			| Living Room		| Window 			| Window Access Sensor SETUP Button	| Honeywell1			 	| Open 			| Closed 				| Window Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
-| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Honeywell2			| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyx					|
-| Home			| Living Room		| Window 			| Window Access Sensor SETUP Button	| Honeywell1	3		 	| Open 			| Closed 				| Window Access Settings		| xyxyx@xyx.com					| xyxyxxyx				|
+| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	| Honeywell				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com					| vibex888				|
+| Home			| Living Room		| Window 			| Window Access Sensor SETUP Button	| Honeywell1			 	| Open 			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com					| vibex888				|
+| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Honeywell2			| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com					| vibex888					|
+| Home			| Living Room		| Window 			| Window Access Sensor SETUP Button	| Honeywell1	3		 	| Open 			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com					| vibex888				|
 
 
 #Improvement
@@ -1681,7 +1681,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		| Sensor Location	| Sensor Type SETUP Button			| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	| Front Door				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyx					|
+| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com					| vibex888				|
 
 
 @DIYRegistrationByCancellingAccessSensorEnrollmentAndSkipGeofencingAndEnableAlexa		@P3			@Automated
@@ -1746,7 +1746,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		| Sensor Location	| Sensor Type SETUP Button			| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door				| Window Access Sensor SETUP Button	| Front Door				| Open			| Closed					| Door Access Settings		| xyxyx@xyx.com					| xyxyx					|
+| Home			| Living Room		| Door				| Window Access Sensor SETUP Button	| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com					| vibex888					|
 
 
 #Covered in DIYRegistrationWhenFirmwareIsNotUpToDate scenario
@@ -1901,19 +1901,19 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		| Sensor Name    | Mount Sensor Name | Place Sensor      | Motion Status         | Motion Status Update | Amazon username				| Amazon password		|
-| Home			| Living Room		| Front Hall     | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
-#| Home			| Living Room		| Front Hall     | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
+| Home			| Living Room		| Front Hall     | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Front Hall     | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
 #incaserequired
-#| Home			| Living Room		| Back Hall      | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
-#| Home			| Living Room		| Back Hall      | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
-#| Home			| Living Room		| Living Room    | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
-#| Home			| Living Room		| Living Room    | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
-#| Home			| Living Room		| Front Hall     | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
-#| Home			| Living Room		| Front Hall     | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
-#| Home			| Living Room		| Back Hall      | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
-#| Home			| Living Room		| Back Hall      | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
-#| Home			| Living Room		| Living Room    | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
-#| Home			| Living Room		| Living Room    | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
+#| Home			| Living Room		| Back Hall      | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Back Hall      | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Living Room    | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Living Room    | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Front Hall     | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Front Hall     | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Back Hall      | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Back Hall      | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Living Room    | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Living Room    | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
 
 
 @DIYRegistrationWithMotionViewerEnrollmentWithCustomSensorName		@P4			@Automated
@@ -2000,8 +2000,8 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		| Custom name    | Mount Sensor Name | Place Sensor      | Motion Status         | Motion Status Update | Amazon username				| Amazon password		|
-| Home			| Living Room		| Honeywell      | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
-#| Home			| Living Room		| Honeywell1     | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
+| Home			| Living Room		| Honeywell      | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Honeywell1     | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
 
 
 @DIYRegistrationWithKeyFobEnrollment		@P3			@Automated
@@ -2069,7 +2069,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name		| device name		| Custom name	| Amazon username				| Amazon password		|
-| Home				| Living Room		| Keyfob			| xyxyxyx@xyx.com				| xyxyxyx				|
+| Home				| Living Room		| Keyfob			| midhun.gollapalli@gmail.com				| vibex888				|
 
 
 @DIYRegistrationWithISMVEnrollmentWithDefaultSensorName		@P3			@Automated
@@ -2151,19 +2151,19 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		| Viewer Location	| Place Viewer Area             | Motion Status         | Motion Status Update  | Amazon username				| Amazon password		|
-| Home			| Living Room		| Front Hall			| On a Shelf                    | NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
-#| Home			| Living Room		| Front Hall			| In a Corner                   | NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
-#| Home			| Living Room		| Front Hall			| Flat on a Wall with Adhesive  | NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
-#| Home			| Living Room		| Front Hall			| Flat on a Wall with Screws    | NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
+| Home			| Living Room		| Front Hall			| On a Shelf                    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Front Hall			| In a Corner                   | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Front Hall			| Flat on a Wall with Adhesive  | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Front Hall			| Flat on a Wall with Screws    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
 #Incaserequired
-#| Home			| Living Room		| Kitchen			| On a Shelf                    | NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
-#| Home			| Living Room		| Kitchen			| In a Corner                   | NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
-#| Home			| Living Room		| Kitchen			| Flat on a Wall with Adhesive  | NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
-#| Home			| Living Room		| Kitchen			| Flat on a Wall with Screws    | NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
-#| Home			| Living Room		| Living Room		| On a Shelf                    | NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
-#| Home			| Living Room		| Living Room		| In a Corner                   | NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
-#| Home			| Living Room		| Living Room		| Flat on a Wall with Adhesive  | NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
-#| Home			| Living Room		| Living Room		| Flat on a Wall with Screws    | NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
+#| Home			| Living Room		| Kitchen			| On a Shelf                    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Kitchen			| In a Corner                   | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Kitchen			| Flat on a Wall with Adhesive  | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Kitchen			| Flat on a Wall with Screws    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Living Room		| On a Shelf                    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Living Room		| In a Corner                   | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Living Room		| Flat on a Wall with Adhesive  | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Living Room		| Flat on a Wall with Screws    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
 
 
 @DIYRegistrationWithISMVEnrollmentWithCustomSensorName		@P4			@Automated
@@ -2247,7 +2247,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		| Custom name	| Place Viewer Area 		| Motion Status         | Motion Status Update  | Amazon username				| Amazon password		|
-| Home			| Living Room		| Honeywell		| On a Shelf				| NO MOTION DETECTED    | MOTION DETECTED       | xyxyxyx@xyx.com				| xyxyxyx				|
+| Home			| Living Room		| Honeywell		| On a Shelf				| NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
 
 
 @DIYRegistrationWithOSMVEnrollmentWithDefaultSensorName		@P3			@Automated
@@ -2337,12 +2337,12 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		| Viewer Location    | Motion Status         | Motion Status Update | Amazon username				| Amazon password		|
-| Home			| Living Room		| Front Porch        | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
-#| Home			| Living Room		| Back Porch         | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
+| Home			| Living Room		| Front Porch        | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Back Porch         | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
 #incaserequired
-#| Home			| Living Room		| Driveway           | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
-#| Home			| Living Room		| Garage             | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
-#| Home			| Living Room		| Patio              | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
+#| Home			| Living Room		| Driveway           | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Garage             | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+#| Home			| Living Room		| Patio              | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
 
 
 @DIYRegistrationWithOSMVEnrollmentWithCustomSensorName		@P4			@Automated
@@ -2433,7 +2433,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		| Custom name    | Motion Status         | Motion Status Update | Amazon username				| Amazon password		|
-| Home			| Living Room		| Honeywell      | NO MOTION DETECTED    | MOTION DETECTED      | xyxyxyx@xyx.com				| xyxyxyx				|
+| Home			| Living Room		| Honeywell      | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
 
 
 @DIYRegistrationWithSensorBulkEnrollment    @P1			@Automated

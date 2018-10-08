@@ -56,7 +56,7 @@ public class VerifyScreen extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user should be displayed with the (.*) screen$")
+	@KeywordStep(gherkins = "^user should be displayed with the \"(.+)\" screen$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			switch (expectedScreen.get(0).toUpperCase()) {
