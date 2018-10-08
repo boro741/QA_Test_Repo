@@ -33,6 +33,7 @@ import io.appium.java_client.TouchAction;
 
 public class JasperSchedulingVerifyUtils {
 
+
 	public static boolean verifyTemperatureWithInRange(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		try {
@@ -226,7 +227,7 @@ public class JasperSchedulingVerifyUtils {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"[TemperatureInMaxMinRange] Set Point value: "
-															+ Double.parseDouble(schedule_coolsetpoints.get(i).getText())
+															+ Double.parseDouble(schedule_coolsetpoints.get(i).getText().replaceAll("°",""))
 															+ " is not set within or at the maximum and minimum range");
 										}
 									}
@@ -243,35 +244,35 @@ public class JasperSchedulingVerifyUtils {
 							}
 							for (int i = 0; i < schedule_period_time.size(); i++) {
 								if (Double.parseDouble(
-										ss.getCoolSetPointsOfGivenEverydayPeriod(schedulePeriods[i])) <= maxCool
+										ss.getCoolSetPointsOfGivenEverydayPeriod(schedulePeriods[i]).replace("˚","")) <= maxCool
 										&& Double.parseDouble(ss.getCoolSetPointsOfGivenEverydayPeriod(
-												schedulePeriods[i])) >= minCool) {
+												schedulePeriods[i]).replace("˚", "")) >= minCool) {
 									Keyword.ReportStep_Pass(testCase, "Set Point value: "
 											+ Double.parseDouble(
-													ss.getCoolSetPointsOfGivenEverydayPeriod(schedulePeriods[i]))
+													ss.getCoolSetPointsOfGivenEverydayPeriod(schedulePeriods[i]).replace("˚",""))
 											+ " is set within or at the maximum and minimum range");
 								} else {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[TemperatureInMaxMinRange] Set Point value: "
 													+ Double.parseDouble(ss
-															.getCoolSetPointsOfGivenEverydayPeriod(schedulePeriods[i]))
+															.getCoolSetPointsOfGivenEverydayPeriod(schedulePeriods[i]).replace("˚",""))
 													+ " is not set within or at the maximum and minimum range");
 								}
 								if (Double.parseDouble(
-										ss.getHeatSetPointsOfGivenEverydayPeriod(schedulePeriods[i])) <= maxHeat
+										ss.getHeatSetPointsOfGivenEverydayPeriod(schedulePeriods[i]).replace("˚", "")) <= maxHeat
 										&& Double.parseDouble(ss.getHeatSetPointsOfGivenEverydayPeriod(
-												schedulePeriods[i])) >= minHeat) {
+												schedulePeriods[i]).replace("˚", "")) >= minHeat) {
 									Keyword.ReportStep_Pass(testCase, "Set Point value: "
 											+ Double.parseDouble(
-													ss.getHeatSetPointsOfGivenEverydayPeriod(schedulePeriods[i]))
+													ss.getHeatSetPointsOfGivenEverydayPeriod(schedulePeriods[i]).replace("˚",""))
 											+ " is set within or at the maximum and minimum range");
 								} else {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[TemperatureInMaxMinRange] Set Point value: "
 													+ Double.parseDouble(ss
-															.getHeatSetPointsOfGivenEverydayPeriod(schedulePeriods[i]))
+															.getHeatSetPointsOfGivenEverydayPeriod(schedulePeriods[i]).replace("˚",""))
 													+ " is not set within or at the maximum and minimum range");
 								}
 							}
@@ -330,12 +331,12 @@ public class JasperSchedulingVerifyUtils {
 							for (int i = 0; i < schedule_period_time.size(); i++) {
 								if (Double
 										.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
-												schedulePeriods[i])) <= maxHeat
+												schedulePeriods[i]).replace("˚","")) <= maxHeat
 												&& Double.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
-														schedulePeriods[i])) >= minHeat) {
+														schedulePeriods[i]).replace("˚","")) >= minHeat) {
 									Keyword.ReportStep_Pass(testCase, "[Monday - Friday] Heat Set Point value: "
 											+ Double.parseDouble(ss
-													.getValueOfWeekdayHeatTemperatureElementAtIndex(schedulePeriods[i]))
+													.getValueOfWeekdayHeatTemperatureElementAtIndex(schedulePeriods[i]).replace("˚",""))
 											+ " is set within or at the maximum and minimum range");
 								} else {
 									flag = false;
@@ -343,18 +344,18 @@ public class JasperSchedulingVerifyUtils {
 											"[Monday - Friday] Heat Set Point value: "
 													+ Double.parseDouble(
 															ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
-																	schedulePeriods[i]))
+																	schedulePeriods[i]).replace("˚",""))
 
 													+ " is not set within or at the maximum and minimum range");
 								}
 								if (Double
 										.parseDouble(ss.getValueOfWeekdayCoolTemperatureElementAtIndex(
-												schedulePeriods[i])) <= maxHeat
+												schedulePeriods[i]).replace("˚","")) <= maxHeat
 												&& Double.parseDouble(ss.getValueOfWeekdayCoolTemperatureElementAtIndex(
-														schedulePeriods[i])) >= minHeat) {
+														schedulePeriods[i]).replace("˚","")) >= minHeat) {
 									Keyword.ReportStep_Pass(testCase, "[Monday - Friday]Cool Set Point value: "
 											+ Double.parseDouble(ss
-													.getValueOfWeekdayCoolTemperatureElementAtIndex(schedulePeriods[i]))
+													.getValueOfWeekdayCoolTemperatureElementAtIndex(schedulePeriods[i]).replace("˚",""))
 											+ " is set within or at the maximum and minimum range");
 								} else {
 									flag = false;
@@ -362,7 +363,7 @@ public class JasperSchedulingVerifyUtils {
 											"[Monday - Friday]Cool Set Point value: "
 													+ Double.parseDouble(
 															ss.getValueOfWeekdayCoolTemperatureElementAtIndex(
-																	schedulePeriods[i]))
+																	schedulePeriods[i]).replace("˚",""))
 													+ " is not set within or at the maximum and minimum range");
 								}
 							}
@@ -377,12 +378,12 @@ public class JasperSchedulingVerifyUtils {
 							for (int i = 0; i < schedule_period_time.size(); i++) {
 								if (Double
 										.parseDouble(ss.getValueOfWeekendHeatTemperatureElementAtIndex(
-												schedulePeriods[i])) <= maxHeat
+												schedulePeriods[i]).replace("˚","")) <= maxHeat
 												&& Double.parseDouble(ss.getValueOfWeekendHeatTemperatureElementAtIndex(
-														schedulePeriods[i])) >= minHeat) {
+														schedulePeriods[i]).replace("˚","")) >= minHeat) {
 									Keyword.ReportStep_Pass(testCase, "[Saturday - Sunday]Heat Set Point value: "
 											+ Double.parseDouble(ss
-													.getValueOfWeekendHeatTemperatureElementAtIndex(schedulePeriods[i]))
+													.getValueOfWeekendHeatTemperatureElementAtIndex(schedulePeriods[i]).replace("˚",""))
 											+ " is set within or at the maximum and minimum range");
 								} else {
 									flag = false;
@@ -390,17 +391,17 @@ public class JasperSchedulingVerifyUtils {
 											"[Saturday - Sunday]Heat Set Point value: "
 													+ Double.parseDouble(
 															ss.getValueOfWeekendHeatTemperatureElementAtIndex(
-																	schedulePeriods[i]))
+																	schedulePeriods[i]).replace("˚",""))
 													+ " is not set within or at the maximum and minimum range");
 								}
 								if (Double
 										.parseDouble(ss.getValueOfWeekendCoolTemperatureElementAtIndex(
-												schedulePeriods[i])) <= maxHeat
+												schedulePeriods[i]).replace("˚","")) <= maxHeat
 												&& Double.parseDouble(ss.getValueOfWeekendCoolTemperatureElementAtIndex(
-														schedulePeriods[i])) >= minHeat) {
+														schedulePeriods[i]).replace("˚","")) >= minHeat) {
 									Keyword.ReportStep_Pass(testCase, "[Saturday - Sunday]Cool Set Point value: "
 											+ Double.parseDouble(ss
-													.getValueOfWeekendCoolTemperatureElementAtIndex(schedulePeriods[i]))
+													.getValueOfWeekendCoolTemperatureElementAtIndex(schedulePeriods[i]).replace("˚",""))
 											+ " is set within or at the maximum and minimum range");
 								} else {
 									flag = false;
@@ -408,7 +409,7 @@ public class JasperSchedulingVerifyUtils {
 											"[Saturday - Sunday]Cool Set Point value: "
 													+ Double.parseDouble(
 															ss.getValueOfWeekendCoolTemperatureElementAtIndex(
-																	schedulePeriods[i]))
+																	schedulePeriods[i]).replace("˚",""))
 													+ " is not set within or at the maximum and minimum range");
 								}
 							}
@@ -1211,14 +1212,26 @@ public class JasperSchedulingVerifyUtils {
 										+ " minutes");
 							}
 						}
-						if (MobileUtils.isMobElementExists("name", "Navigation_Left_Bar_Item", testCase, 5)) {
-							if (!MobileUtils.clickOnElement(testCase, "name", "Navigation_Left_Bar_Item")) {
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							if (ss.isBackButtonVisible(5)) {
+								if (!ss.clickOnBackButton()) {
+									flag = false;
+								}
+							} else {
 								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to locate the Back button in Edit Period screen");
 							}
 						} else {
-							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Failed to locate the CANCEL button in Edit Period screen");
+							if (ss.isCancelChangeButtonVisible(5)) {
+								if (!ss.clickOnCancelChangeButton()) {
+									flag = false;
+								}
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to locate the CANCEL button in Edit Period screen");
+							}
 						}
 					}
 				} else {
@@ -1297,8 +1310,8 @@ public class JasperSchedulingVerifyUtils {
 										"Failed to locate the Back button in Edit Period screen");
 							}
 						} else {
-							if (ss.isNavigationLeftBarItemVisible(5)) {
-								if (!ss.clickOnNavigationLeftBarItem()) {
+							if (ss.isCancelChangeButtonVisible(5)) {
+								if (!ss.clickOnCancelChangeButton()) {
 									flag = false;
 								}
 							} else {
