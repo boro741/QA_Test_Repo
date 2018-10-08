@@ -34,27 +34,23 @@ public class MotionSensorActions extends Keyword {
 	@KeywordStep(gherkins = "^user motion sensor \"(.+)\"$")
 	public boolean keywordSteps() {
 		try {
-			if (states.get(0).equalsIgnoreCase("Tampered")) {
+			if (states.get(0).equalsIgnoreCase("Tampered") || states.get(0).equalsIgnoreCase("Cover Tampered")) {
 				DASSensorUtils.tamperMotionSensor(testCase, inputs);
-			} 
-			else if (states.get(0).equalsIgnoreCase("Tamper cleared")) {
+			} else if (states.get(0).equalsIgnoreCase("Tamper cleared")) {
 				DASSensorUtils.tamperClearMotionSensor(testCase, inputs);
-			}
-			else if (states.get(0).equalsIgnoreCase("Tamper Restored")) {
+			} else if (states.get(0).equalsIgnoreCase("Tamper Restored")) {
 				DASSensorUtils.tamperClearMotionSensor(testCase, inputs);
 				DASSensorUtils sensorUtils = new DASSensorUtils();
 				sensorUtils.verifySensorState(testCase, inputs, "door", "tamper cleared");
-			} 
-			else if (states.get(0).equalsIgnoreCase("enrolled")) {
+			} else if (states.get(0).equalsIgnoreCase("enrolled")) {
 				DASSensorUtils.enrollMotionSensor(testCase, inputs);
-			}
-			else if (states.get(0).equalsIgnoreCase("Motion detected")) {
-				inputs.setInputValue("MOTION_DETECTED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+			} else if (states.get(0).equalsIgnoreCase("Motion detected")) {
+				inputs.setInputValue("MOTION_DETECTED_TIME",
+						LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 				System.out.println("Move the object in front of motion sensor");
-			}else if (states.get(0).equalsIgnoreCase("Motion not detected")) {
+			} else if (states.get(0).equalsIgnoreCase("Motion not detected")) {
 				System.out.println("Do not move any object in front of motion sensor");
-			}
-			else {
+			} else {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Input not handled");
 			}
 		} catch (Throwable e) {
