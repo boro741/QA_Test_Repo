@@ -234,6 +234,32 @@ public class DASSensorUtils {
 		}
 		return flag;
 	}
+	
+	public static boolean openISMV(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue("DOOR_OPENED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		inputs.setInputValue("ISMV_OPENED_TIME",
+				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		try {
+			// TODO
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	
+	public static boolean closeISMV(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue("DOOR_OPENED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		inputs.setInputValue("ISMV_CLOSED_TIME",
+				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		try {
+			// TODO
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
 
 	public static boolean tamperOSMV(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
@@ -250,7 +276,33 @@ public class DASSensorUtils {
 
 	public static boolean tamperClearOSMV(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-		inputs.setInputValue(")SMV_TAMPER_CLEARED_TIME",
+		inputs.setInputValue("OSMV_TAMPER_CLEARED_TIME",
+				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		try {
+			// TODO
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	
+	public static boolean openOSMV(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue("DOOR_OPENED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		inputs.setInputValue("OSMV_OPENED_TIME",
+				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		try {
+			// TODO
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	
+	public static boolean closeOSMV(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue("DOOR_OPENED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		inputs.setInputValue("OSMV_CLOSED_TIME",
 				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
 			// TODO
@@ -322,7 +374,7 @@ public class DASSensorUtils {
 	}
 
 	public boolean verifySensorState(TestCases testCase, TestCaseInputs inputs, String sensor, String states) {
-		SensorStatusScreen sensorStatusScreen = new SensorStatusScreen(testCase);
+		//SensorStatusScreen sensorStatusScreen = new SensorStatusScreen(testCase);
 		String sensorName = "";
 		String sensorState = "";
 		if (sensor.equalsIgnoreCase("Door") || sensor.equalsIgnoreCase("Door Sensor")) {
