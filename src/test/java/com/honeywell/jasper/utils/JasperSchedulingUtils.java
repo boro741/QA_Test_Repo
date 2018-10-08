@@ -12566,13 +12566,13 @@ public class JasperSchedulingUtils {
 									&& inputs.getInputValue(InputVariables.EDIT_GEOFENCE_SCHEDULE) != null) {
 								coolUp = ss.getCoolIncrementElements().get(0);
 								coolDown = ss.getCoolDecrementElements().get(0);
-								heatUp = ss.getHeatIncrementElements().get(0);
-								heatDown = ss.getHeatDecrementElements().get(0);
+								heatUp = ss.getHeatIncrementElements();
+								heatDown = ss.getHeatDecrementElements();
 							} else {
 								coolUp = ss.getCoolIncrementElements().get(1);
 								coolDown = ss.getCoolDecrementElements().get(0);
-								heatUp = ss.getHeatIncrementElements().get(1);
-								heatDown = ss.getHeatDecrementElements().get(0);
+								heatUp = ss.getHeatIncrementElements();
+								heatDown = ss.getHeatDecrementElements();
 							}
 						}
 					}
@@ -12644,15 +12644,11 @@ public class JasperSchedulingUtils {
 						heatSetPoint = ss.getHeatSetPointsElements().get(0).getAttribute("value");
 						if (!inputs.getInputValue(InputVariables.EDIT_GEOFENCE_SCHEDULE).isEmpty()
 								&& inputs.getInputValue(InputVariables.EDIT_GEOFENCE_SCHEDULE) != null) {
-							heatUp = ss.getHeatIncrementElements().get(0);
-						} else if(ss.getHeatIncrementElements().size()>1){
-							heatUp = ss.getHeatIncrementElements().get(1);
-						}else{
-							heatUp = ss.getHeatIncrementElements().get(0);
+							heatUp = ss.getHeatIncrementElements();
 						}
 					} else {
 						heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
-						heatUp = ss.getHeatIncrementElements().get(0);
+						heatUp = ss.getHeatIncrementElements();
 					}
 					heatDown = ss.getHeatSetPointDownButton();
 
