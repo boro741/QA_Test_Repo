@@ -8,6 +8,7 @@ Scenario: As a user I should be able view dashboard of WLD through the Lyric app
 Given user launches and logs in to the Lyric application
 Then user should be displayed with the following "WLD Dashboard" options:
 |Options|
+|Control State|
 |WLD device Name|
 |Last updated time|
 |Current temperature percentage|

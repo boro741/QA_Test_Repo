@@ -70,7 +70,9 @@ public class VerifyEmailIdNotification extends Keyword {
 					break;
 				}
 				case "INVALID EMAIL ID": {
-					flag = flag && notify.isEnterEmailEditTextBoxVissible();
+					if(!notify.isEnterEmailEditTextBoxVissible()) {
+						flag = flag && notify.navigateBackAndForth();
+					}
 					String randomEmail = "IncorrectEmailID";
 					if(testCase.getPlatform().toUpperCase().contains("ANDROID") && flag) 
 					{

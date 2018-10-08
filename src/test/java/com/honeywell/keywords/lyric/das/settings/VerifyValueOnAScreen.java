@@ -390,7 +390,7 @@ public class VerifyValueOnAScreen extends Keyword {
 					 	flag = flag && set.isUpdateFrequencyValueVisible();
 						String ufValue = set.displayUpdateFrequencyValue();
 						Keyword.ReportStep_Pass(testCase, ufValue);
-						if(ufValue.equals("Three Times Daily")) {
+						if(ufValue.equalsIgnoreCase("Three Times Daily")) {
 							Keyword.ReportStep_Pass(testCase, ufValue+ " Daily Frequency is Sucessfully updated");
 						}
 						else {

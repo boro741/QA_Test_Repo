@@ -1,14 +1,18 @@
 package com.honeywell.screens;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.FluentWait;
 
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
@@ -88,17 +92,36 @@ public class WLDManageAlerts extends MobileScreens {
 	}
 	public boolean isIndoorTemperatureAlertToggleEnabled() 
 	{
-		try{
-			WebElement toggleSwitch = testCase.getMobileDriver().findElement(By.xpath("(//*[@name='AbnormalTemperature_toggle'])[1]"));
-			if (toggleSwitch.getAttribute("value").equalsIgnoreCase("1")) {
-				flag = true;
+		try {
+			FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
+			fWait.pollingEvery(2, TimeUnit.SECONDS);
+			fWait.withTimeout(10, TimeUnit.SECONDS);
+			boolean isEventReceived =  fWait.until(new Function<CustomDriver, Boolean>() {
+				public Boolean apply(CustomDriver driver) {
+					if(!MobileUtils.isMobElementExists(objectDefinition, testCase, "IndoorTemperatureAlertsToggle")) {
+						return  true;
+					}
+					else 
+						return  false;		
+				}
+			});
+			if(isEventReceived) {
+				try{
+					WebElement toggleSwitch = testCase.getMobileDriver().findElement(By.xpath("(//*[@name='AbnormalTemperature_toggle'])[1]"));
+					if (toggleSwitch.getAttribute("value").equalsIgnoreCase("1")) {
+						flag = true;
+					}
+					else {
+						flag =false;
+					}
+				}
+				catch (Exception e){
+					flag=false;
+				}			}
 			}
-			else {
-				flag =false;
-			}
-		}
-		catch (Exception e){
-			flag=false;
+		catch(Exception e)
+		{
+			flag = true;
 		}
 		return flag;
 	}
@@ -119,13 +142,11 @@ public class WLDManageAlerts extends MobileScreens {
 		return flag;
 	}
 	public  boolean isEmailNotificationsforTemperatureAlertsTextVissible() {
-		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {	
+		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "EmailNotificationsforTemperatureAlertsText");
 		}
-		else {
-			WebElement email = testCase.getMobileDriver().findElement(By.xpath("(//*[@name='AbnormalTemperature_subTitle'])[2]"));
-
-			return email.isDisplayed();
+		else {			
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "EmailNotificationsforTemperatureAlertsText");
 		}
 	}
 	public  String getEmailNotificationsforTemperatureAlertsTextValue() {
@@ -257,10 +278,12 @@ public class WLDManageAlerts extends MobileScreens {
 	public static boolean navigateFromDashboardScreenToWLDManageAlerts(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag=true;
 		PrimaryCard pc = new PrimaryCard(testCase);
+		WLDSolutionCard sol = new WLDSolutionCard(testCase);
 		WLDLeakDetectorSettings set = new WLDLeakDetectorSettings(testCase);
 		try {
 			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
 					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+			flag = flag & sol.checkAndDismissControlState();
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
@@ -369,6 +392,36 @@ public class WLDManageAlerts extends MobileScreens {
 			flag = true;
 		}
 		else {
+			flag = false;
+		}
+		return flag;
+	}
+	public boolean isEmailNotificationsforTemperatureAlertsToggleEnabled() {
+		try{
+			WebElement toggleSwitch = testCase.getMobileDriver().findElement(By.xpath("(//*[@name='AbnormalTemperature_toggle'])[2]"));
+			if (toggleSwitch.getAttribute("value").equalsIgnoreCase("1")) {
+				flag = true;
+			}
+			else {
+				flag = false;
+			}
+		}
+		catch (Exception e){
+			flag = false;
+		}
+		return flag;
+	}
+	public boolean isEmailNotificationsforHumidityAlertsToggleEnabled() {
+		try{
+			WebElement toggleSwitch = testCase.getMobileDriver().findElement(By.xpath("(//*[@name='AbnormalHumidity_toggle'])[2]"));
+			if (toggleSwitch.getAttribute("value").equalsIgnoreCase("1")) {
+				flag = true;
+			}
+			else {
+				flag = false;
+			}
+		}
+		catch (Exception e){
 			flag = false;
 		}
 		return flag;

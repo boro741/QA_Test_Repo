@@ -124,19 +124,28 @@ public class WLDConfigurationScreen extends MobileScreens {
 	}
 	public boolean isConfigurationDeleteLeakDetectorLinkVisible()
 	{
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "Configuration_DeleteLink");
+		 String str1 = testCase.getMobileDriver().findElement(By.xpath("//*[@name='Delete Leak Detector']")).getText();
+		
+		if(str1.equalsIgnoreCase("Delete Leak Detector")) {
+			flag = true;
+		}
+		return flag;
 	}
 	public String getConfigurationDeleteLeakDetectorLinkValue() {
-		return MobileUtils.getMobElement(objectDefinition, testCase, "Configuration_DeleteLink").getText();		
+		
+		return testCase.getMobileDriver().findElement(By.xpath("//*[@name='Delete Leak Detector']")).getText();
+		
 	}
 	public static boolean navigateFromDashboardToWLDConfigurationScreen(TestCases testCase, TestCaseInputs inputs) 
 	{
 		boolean flag = true;
 		PrimaryCard pc = new PrimaryCard(testCase);
+		WLDSolutionCard sol = new WLDSolutionCard(testCase);
 		WLDLeakDetectorSettings set = new WLDLeakDetectorSettings(testCase);
 		try {
 			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
 					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+			sol.checkAndDismissControlState();
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
@@ -178,9 +187,9 @@ public class WLDConfigurationScreen extends MobileScreens {
 			this.clickOnBackButton();
 			this.clickOnBackButton();
 			} else {
-				MobileUtils.hideKeyboard(testCase.getMobileDriver());
 				this.clickOnBackButton();
-				this.clickOnBackButton();
+				Thread.sleep(1000);this.clickOnBackButton();
+				Thread.sleep(1000);this.clickOnBackButton();
 			}
 			
 		} catch (Exception e) {

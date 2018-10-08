@@ -223,6 +223,10 @@ public class WLDSolutionCard extends MobileScreens {
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "HumidityTab");
 	}
+	public boolean clickOnTemperatureGraphTitle()
+	{
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "TemperatureTab");
+	}
 	public boolean isDismissButtonVisible()
 	{
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DismissButton");
@@ -244,6 +248,7 @@ public class WLDSolutionCard extends MobileScreens {
 		try {
 			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
 					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+			flag = flag & wld.checkAndDismissControlState();
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();			
@@ -261,6 +266,7 @@ public class WLDSolutionCard extends MobileScreens {
 		WLDSolutionCard wld = new WLDSolutionCard(testCase);
 		PrimaryCard pc = new PrimaryCard(testCase);
 		try {
+			flag = flag && wld.checkAndDismissControlState();
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();			
@@ -279,7 +285,9 @@ public class WLDSolutionCard extends MobileScreens {
 		WLDSolutionCard wld = new WLDSolutionCard(testCase);
 		WLDLeakDetectorSettings set = new WLDLeakDetectorSettings(testCase);
 		PrimaryCard pc = new PrimaryCard(testCase);
+		WLDSolutionCard sol = new WLDSolutionCard(testCase);
 		try {
+			flag = flag && sol.checkAndDismissControlState();
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
@@ -299,6 +307,7 @@ public class WLDSolutionCard extends MobileScreens {
 		WLDLeakDetectorSettings set = new WLDLeakDetectorSettings(testCase);
 		PrimaryCard pc = new PrimaryCard(testCase);
 		try {
+			flag = flag && wld.checkAndDismissControlState();
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
@@ -317,6 +326,7 @@ public class WLDSolutionCard extends MobileScreens {
 		WLDSolutionCard wld = new WLDSolutionCard(testCase);
 		PrimaryCard pc = new PrimaryCard(testCase);
 		try {
+			flag = flag && wld.checkAndDismissControlState();
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
@@ -372,6 +382,37 @@ public class WLDSolutionCard extends MobileScreens {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		return flag;
+	}
+	public boolean clickOnControlText() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "Control_State");
+	}
+	public boolean isControlStateVissible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "Control_State");
+	}
+	public String getControlStateTextValue() {
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "Control_State");
+	}
+	public boolean navigateFromPrimaryCardToDashboard() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "Navigate_Up");
+	}
+	public boolean checkAndDismissControlState() {
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		flag = flag && isDismissButtonVisible();
+		if(flag) {
+			Keyword.ReportStep_Pass(testCase, "Control State is Vissible");
+			clickOnDismissButton();
+			clickOnTemperatureGraphTitle();
+			Keyword.ReportStep_Pass(testCase, "Successfully clicked on Dismiss Button");
+		}
+		else {
+			Keyword.ReportStep_Pass(testCase, "Control State is not Vissible, so no Changes");
+			flag=true;
 		}
 		return flag;
 	}

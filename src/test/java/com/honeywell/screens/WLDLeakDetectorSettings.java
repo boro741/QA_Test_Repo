@@ -148,8 +148,9 @@ public class WLDLeakDetectorSettings extends MobileScreens {
 	public boolean navigateFromUpdateFrequencyCardToPrimaryCard(){
 		WLDLeakDetectorSettings set = new WLDLeakDetectorSettings(testCase);
 		if(testCase.getPlatform().toUpperCase().contains("ANDROID")){
-			flag = flag & MobileUtils.pressBackButton(testCase);
-			return MobileUtils.pressBackButton(testCase);
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "Navigate_Back");
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "Navigate_Back");
+			return flag;
 		}
 		else {
 			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "Settings_NavigateBack");
@@ -161,10 +162,12 @@ public class WLDLeakDetectorSettings extends MobileScreens {
 	public static boolean navigateFromDashboardScreenToWLDSettingsUpdateFrequencyScreen(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		PrimaryCard pc = new PrimaryCard(testCase);
+		WLDSolutionCard sol = new WLDSolutionCard(testCase);
 		WLDLeakDetectorSettings set = new WLDLeakDetectorSettings(testCase);
 		try {
 			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
 					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+			flag = flag && sol.checkAndDismissControlState();
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
@@ -178,7 +181,7 @@ public class WLDLeakDetectorSettings extends MobileScreens {
 	}
 	public boolean navigateFromWLDSettingsScreenToUpdateFrequencyCard() {
 		WLDLeakDetectorSettings set = new WLDLeakDetectorSettings(testCase);
-		set.clickonUpdateFrequencyTitleText();
-		return false;
+		flag = flag && set.clickonUpdateFrequencyTitleText();
+		return flag;
 	}
 }
