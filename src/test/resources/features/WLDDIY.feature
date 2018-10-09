@@ -3,7 +3,7 @@ Feature: WLD DIY Registration
 As a user I want to register a WLD device using the Lyric application
 
 
-@WLDDIYRegistrationWhenExistingLocationAndWLDNamesAreEntered @NotAutomatable
+@WLDDIYRegistrationWhenExistingLocationAndWLDNamesAreEntered @NotAutomatable  @ATER-53864
 Scenario Outline: As a user I want to verify if error popup displays when existing location and WLD names are entered again
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -27,7 +27,7 @@ Examples:
       | Existing location name      | Existing device name  |
       | Home                        | Living Room           |
       
-@WLDDIYWhenUserEntersMaxCharactersInCustomLocationAndDetectorName @NotAutomatable
+@WLDDIYWhenUserEntersMaxCharactersInCustomLocationAndDetectorName @NotAutomatable @ATER-53865
 Scenario Outline: As a user I want to enter max characters in new location and Detector name
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -43,11 +43,11 @@ And user inputs <max characters> in the "Create Custom Name" screen
 Then user should not be allowed to enter more than "20" characters
 
 Examples: 
-      | max characters                                                               |
-      | This is to test max characters in custom location name and base station     |
+      | max characters                                                              |	location name|
+      | This is to test max characters in custom location name and base station     | Home |
 
-@WLDDIYRegistrationWithNewCustomLocationAndWLDName		@P1 @NotAutomatable
-Scenario Outline: As a user I want to register a DAS device with new location and base station name using the Lyric application
+@WLDDIYRegistrationWithNewCustomLocationAndWLDName		@P1 @NotAutomatable @ATER-53866
+Scenario Outline: As a user I want to register a WLD device with new location and new name using the Home application
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 And user navigates to "WiFi Water Leak and Freeze Detector" screen from the "Add New Device Dashboard" screen
@@ -84,8 +84,8 @@ Examples:
       | Texas#$%                    | Ball Room             | 55555                       | 73301                 |
 
 
-@WLDDIYRegistrationWithAvailableDefaultLocationAndDetectorName @NotAutomatable
-Scenario Outline: As a user I want to verify default location name and default base station name 
+@WLDDIYRegistrationWithAvailableDefaultLocationAndDetectorName @NotAutomatable @ATER-53867
+Scenario Outline: As a user I want to verify default location name and default wld name 
 Given  user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 And user navigates to "WiFi Water Leak and Freeze Detector" screen from the "Add New Device Dashboard" screen
@@ -127,7 +127,7 @@ Examples:
       | Pool House          | First Floor           | 55555                       | 90001                 |
 
 
-@WLDDIYRegistrationWhenAlreadyWLDisRegistered @NotAutomatable
+@WLDDIYRegistrationWhenAlreadyWLDisRegistered @NotAutomatable @ATER-53871
 Scenario Outline: As a user I want to verify error message when already my WLD is registered and i am adding it to different location
 Given  user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -151,8 +151,8 @@ Examples:
       | Default Location      | Default Device Name  |
       | Home                                                          | Living room                         |
 
-@WLDDIYDenyAppAccessToLocationServices	 @NotAutomatable
-Scenario Outline: As a user I should be prompted with Location services popup when location services access is denied after installation
+@WLDDIYDenyAppAccessToLocationServices	 @NotAutomatable @ATER-53873
+Scenario: As a user I should be prompted with Location services popup when location services access is denied after installation
 Given user denies location services access while launching the Lyric app after installation 
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -167,8 +167,8 @@ When user "allows access" in "Location services" popup
 Then user should be displayed with the "Looking for detector" spinner
 
 
-@WLDDIYWhenNoWLDAreAvailable @NotAutomatable
-Scenario Outline: As a user I should be prompted with Base Station Not Found popup when there are no base stations available
+@WLDDIYWhenNoWLDAreAvailable @NotAutomatable @ATER-53874
+Scenario: As a user I should be prompted with Base Station Not Found popup when there are no base stations available
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 And user navigates to "WiFi Water Leak and Freeze Detector" screen from the "Add New Device Dashboard" screen
@@ -185,8 +185,8 @@ And user "clicks on OK in" the "Detector Not Found" popup
 And user should be displayed with the "Power Your Water Leak Detector" screen
 
 
-@WLDDIYCanncelInRegisterWLD	  @NotAutomatable
-Scenario Outline: As a user I should be able to Cancel the setup in Register Base Station screen
+@WLDDIYCanncelInRegisterWLD	  @NotAutomatable @ATER-53875
+Scenario Outline: As a user I should be able to Cancel the setup in Register wld screen
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 And user navigates to "WiFi Water Leak and Freeze Detector" screen from the "Add New Device Dashboard" screen
@@ -210,7 +210,7 @@ Examples:
       | Home                                    | Living Room                     |
       
 
-@WLDDIYDisconnectWLD @NotAutomatable
+@WLDDIYDisconnectWLD @NotAutomatable @ATER-53878
 Scenario Outline: As a user I should be prompted with Bluetooth disconnected popup when WLD device is disconnected
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -225,7 +225,7 @@ When user disconnects the WLD device
 Then user should receive a "Detector Pairing Failed" popup
 When user clicks on "OK" button
 Then user navigates to "Connecting to Honeywell" screen from the "Connect" screen
-When user disconnects the DAS device
+When user disconnects the WLD  device
 Then user should receive a "Detector Pairing Failed" popup
 When user clicks on "Restart Bluetooth" button
 Then user should be displayed with the "Power Your Water Leak Detector" screen
@@ -236,7 +236,7 @@ Examples:
       | Home                                    | Living Room                     |
 
 
-@WLDDIYTurnOffMobileDeviceBluetooth @NotAutomatable
+@WLDDIYTurnOffMobileDeviceBluetooth @NotAutomatable @ATER-53881
 Scenario: As a user I should be prompted with Bluetooth is off popup when mobile device Bluetooth is off
 Given user launches and logs in to the Lyric application
 When user turns "off" mobile device Bluetooth
@@ -261,7 +261,7 @@ When user clicks on "Next" button
 Then user should be displayed with the "Pairing with Detector" screen
 
 
-@WLDDIYRegistrationWithInvalidNetworkPwdAndTryReconnectingWithValidPwd	 	@P2 @NotAutomatable
+@WLDDIYRegistrationWithInvalidNetworkPwdAndTryReconnectingWithValidPwd	 	@P2 @NotAutomatable @ATER-53885
 Scenario Outline: As a user I want to register a WLD device by connecting to available network after trying connecting to a invalid Wi-Fi network 
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -286,7 +286,7 @@ Examples:
       | location name | device name  | 
       | Home          | Living Room  |
 
-@WLDDIYRegistrationByConnectingToOpenWiFiNetwork @NotAutomatable
+@WLDDIYRegistrationByConnectingToOpenWiFiNetwork @NotAutomatable @ATER-53887
 Scenario Outline: As a user I should not be able to connect to a open Wi-Fi network and able to perform WLD registration
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -308,8 +308,8 @@ Examples:
       | Home          | Living Room  |
       
 
-@WLDDIYAddAWiFiNetworkWithInvalidPwdAndTryReconnectingWithAvailableNetwork	 	@P2 @NotAutomatable
-Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting to a invalid Wi-Fi network 
+@WLDDIYAddAWiFiNetworkWithInvalidPwdAndTryReconnectingWithAvailableNetwork	 	@P2 @NotAutomatable @ATER-53888
+Scenario Outline: As a user I want to register a WLD device by connecting to available network after trying connecting to a invalid Wi-Fi network 
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 And user navigates to "WiFi Water Leak and Freeze Detector" screen from the "Add New Device Dashboard" screen
@@ -339,7 +339,7 @@ Examples:
 
 
 
-@WLDDIYMultipleWLDRegistrationsForTheSameAccount		@P2 @NotAutomatable
+@WLDDIYMultipleWLDRegistrationsForTheSameAccount		@P2 @NotAutomatable @ATER-53889
 Scenario Outline: As a user I want to register multiple WLD devices for a single account using the Lyric application
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -386,8 +386,8 @@ Examples:
       |	Home			|	Living Room			|	Kitchen				|
 
 
-@WLDDIYTimeoutInWLDDevice @NotAutomatable
-Scenario Outline: As a user I should be prompted with Bluetooth disconnected popup when timeout happens in DAS device
+@WLDDIYTimeoutInWLDDevice @NotAutomatable @ATER-53891
+Scenario Outline: As a user I should be prompted with Bluetooth disconnected popup when timeout happens in WLD device
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 And user navigates to "WiFi Water Leak and Freeze Detector" screen from the "Add New Device Dashboard" screen
@@ -407,8 +407,8 @@ Examples:
       | Home                                    | Living Room                     |
       
       
-@WLDDIYRegistrationByMinimizingAndMaximizingTheApp		@P3 @NotAutomatable
-Scenario Outline: As a user I want to register a DAS device using the Lyric application by navigating to other apps intermittently
+@WLDDIYRegistrationByMinimizingAndMaximizingTheApp		@P3 @NotAutomatable @ATER-53892
+Scenario Outline: As a user I want to register a WLD device using the Lyric application by navigating to other apps intermittently
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 And user navigates to "WiFi Water Leak and Freeze Detector" screen from the "Add New Device Dashboard" screen
@@ -433,7 +433,7 @@ Examples:
       | Home                                    | Living Room                     |
      
 
-@WLDDIYConfigurationVerifyBackArrowFunctionality                    @P2 @NotAutomatable
+@WLDDIYConfigurationVerifyBackArrowFunctionality    @P2 @NotAutomatable @ATER-53893
 Scenario Outline: Verify Back arrow functionality while registering WLD
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen

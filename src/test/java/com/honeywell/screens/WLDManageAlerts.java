@@ -397,21 +397,40 @@ public class WLDManageAlerts extends MobileScreens {
 		return flag;
 	}
 	public boolean isEmailNotificationsforTemperatureAlertsToggleEnabled() {
-		try{
-			WebElement toggleSwitch = testCase.getMobileDriver().findElement(By.xpath("(//*[@name='AbnormalTemperature_toggle'])[2]"));
-			if (toggleSwitch.getAttribute("value").equalsIgnoreCase("1")) {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if(MobileUtils.getFieldValue(objectDefinition, testCase, "EmailNotificationsforTemperatureAlertsToggle").equals("ON")){
 				flag = true;
 			}
 			else {
 				flag = false;
 			}
 		}
-		catch (Exception e){
-			flag = false;
+		else {
+			try{
+				WebElement toggleSwitch = testCase.getMobileDriver().findElement(By.xpath("(//*[@name='AbnormalTemperature_toggle'])[2]"));
+				if (toggleSwitch.getAttribute("value").equalsIgnoreCase("1")) {
+					flag = true;
+				}
+				else {
+					flag = false;
+				}
+			}
+			catch (Exception e){
+				flag = false;
+			}
 		}
 		return flag;
 	}
 	public boolean isEmailNotificationsforHumidityAlertsToggleEnabled() {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if(MobileUtils.getFieldValue(objectDefinition, testCase, "EmailNotificationsforHumidityAlertsToggle").equals("ON")){
+				flag = true;
+			}
+			else {
+				flag=false;
+			}
+		}
+		else {
 		try{
 			WebElement toggleSwitch = testCase.getMobileDriver().findElement(By.xpath("(//*[@name='AbnormalHumidity_toggle'])[2]"));
 			if (toggleSwitch.getAttribute("value").equalsIgnoreCase("1")) {
@@ -423,6 +442,7 @@ public class WLDManageAlerts extends MobileScreens {
 		}
 		catch (Exception e){
 			flag = false;
+		}
 		}
 		return flag;
 	}
