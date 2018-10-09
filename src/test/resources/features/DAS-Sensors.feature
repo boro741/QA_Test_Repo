@@ -110,6 +110,7 @@ Then user navigates to "Keyfob Settings" screen from the "Dashboard" screen
 Then user edits the "KeyFob" name to "new name"
 Then user should be displayed with "KeyFob" device on the "Keyfob list" screen
 And user reverts back the "KeyFob name" through CHIL
+
 Examples:
 | Mode				|
 #| Home				|
@@ -119,7 +120,7 @@ Examples:
 
 #Requirement :One DAS Panel and one ISMV Sensor should be configured
 @DASISMVSensorRenameVerification			@P2	 		@Automated
-Scenario Outline: As a user I want to rename my Window Sensor sensor through the application
+Scenario Outline: As a user I want to rename my ISMV through the application
 Given user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
 Then user navigates to "ISMV Sensor Settings" screen from the "Dashboard" screen
@@ -130,7 +131,7 @@ Then user edits the "ISMV" name to "new name"
 
 Examples:
 | Mode				| Sensor status		|
-#| Home				| Open				|
+| Home				| Open				|
 #| Home				| Low battery		|
 #| Off				| Open				|
 #| Off				| Low battery		|
@@ -140,7 +141,7 @@ Examples:
 
 #Requirement :One DAS Panel and one ISMV Sensor should be configured
 @DASOSMVSensorRenameVerification			@P2	 		@Automated
-Scenario Outline: As a user I want to rename my OSMV Sensor sensor through the application
+Scenario Outline: As a user I want to rename my OSMV through the application
 Given user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
 Then user navigates to "OSMV Sensor Settings" screen from the "Dashboard" screen
@@ -151,7 +152,7 @@ Then user edits the "OSMV" name to "new name"
 
 Examples:
 | Mode				| Sensor status		|
-#| Home				| Open				|
+| Home				| Open				|
 #| Home				| Low battery		|
 #| Off				| Open				|
 #| Off				| Low battery		|
@@ -188,7 +189,8 @@ Then user navigates to "Keyfob Settings" screen from the "Dashboard" screen
 Then the following "KeyFob Settings" options should be disabled:
 | Options		|
 | Name field		|
-#Then user should display the "you can perform this action only in Home or Off mode" pop up 
+#Then user should display the "you can perform this action only in Home or Off mode" pop up
+
 Examples:
 | Mode		|
 | Night		|
@@ -200,7 +202,7 @@ Examples:
 
 #Requirement :One DAS Panel and all sensor type should be configured
 @DASSensorStatusOFFWithAwayMode			@P2			@Automated	
-Scenario Outline: As a user I want to switch to different states in my DAS device when multiple sensors are in fault condition
+Scenario Outline: As a user I want to switch to different states in my DAS device when multiple sensors are in fault condition in Away mode
 Given user sets the entry/exit timer to "45" seconds
 And user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
@@ -216,8 +218,8 @@ Then user should receive a "Switch to Away" popup
 When user "accepts" the "Switch to Away" popup
 #When "Switching timer" ends on user device
 #Then user should be displayed with the "Away Status"
-And user should be displayed with a switching to "Away" text
-And user should be displayed with a switching timer
+Then user should be displayed with a switching to "Away" text
+And user should be displayed with switching timer
 And timer ends on user device
 And user status should be set to "Away"
 When user navigates to "Sensor List" screen from the "Security Solution Card" screen
@@ -228,6 +230,7 @@ And user should see the "Motion Sensor" status as "OFF" on the "Sensor List"
 #| Door Sensor   | OFF       		|
 #| Window Sensor | OFF       		|
 #| Motion Sensor | OFF       		|
+
 Examples:
 |Mode|
 #|Home|
@@ -235,7 +238,7 @@ Examples:
 
 
 @DASSensorStatusOFFWithNightMode		@P2			@Automated
-Scenario Outline: As a user I want to switch to different states in my DAS device when multiple sensors are in fault condition
+Scenario Outline: As a user I want to switch to different states in my DAS device when multiple sensors are in fault condition in Night mode
 Given user sets the entry/exit timer to "45" seconds
 And user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
@@ -252,7 +255,7 @@ When user "accepts" the "Switch to Night" popup
 #When "Switching timer" ends on user device
 #Then user should be displayed with the "Away Status"
 And user should be displayed with a switching to "Night" text
-And user should be displayed with a switching timer
+And user should be displayed with switching timer
 And timer ends on user device
 And user status should be set to "Night"
 When user navigates to "Sensor List" screen from the "Security Solution Card" screen
@@ -263,6 +266,7 @@ And user should see the "Motion Sensor" status as "COVER TAMPERED" on the "Senso
 #| Door Sensor   | OFF       		|
 #| Window Sensor | OFF       		|
 #| Motion Sensor | ACTIVE       		|
+
 Examples:
 |Mode|
 #|Home|
@@ -274,9 +278,9 @@ Scenario Outline: As a user i should be displayed with Cover Tamper for Door and
 #DAS with sensors Door Contact Window Contact
 Given user is set to <Mode> mode through CHIL
 And user launches and logs in to the Lyric application
-When user navigates to <SensorList> screen from the "Dashboard" screen
 #And user creates "Cover Tamper" at the <Sensor>
-#And user <SensorType> access sensor "Cover Tampered"
+When user <SensorType> access sensor "Cover Tampered"
+Then user navigates to <SensorList> screen from the "Dashboard" screen
 And user selects "Sensor Cover Tampered" from <SensorList> screen
 Then user should be displayed with the "Sensor Cover Tamper" screen
 And user selects "Clear Tamper" from "Sensor Cover Tamper" screen
@@ -286,9 +290,10 @@ Then user should be displayed with the "Sensor Cover Tamper" screen
 When user selects "Clear Tamper" from "Sensor Cover Tamper" screen
 And user should receive a "Sensor Tamper" popup 
 When user "RETRY" the "Sensor Tamper" popup
-#When user <SensorType> access sensor "tamper cleared"
+When user <SensorType> access sensor "tamper cleared"
 When user "RETRY" the "Sensor Tamper" popup
 And user should see the <SensorType> status as "Closed" on the "Access sensor Settings"
+
 Examples:
 | Mode	| SensorList					| SensorType		|
 | Home	| Door Access Settings		| Door			|
@@ -317,6 +322,7 @@ When user "RETRY" the "Sensor Tamper" popup
 #When user motion sensor "tamper cleared"
 When user "RETRY" the "Sensor Tamper" popup
 And user should see the <SensorType> status as "Standby" on the "Motion sensor Settings"
+
 Examples:
 | Mode	| SensorList					| SensorType		|	
 | Home	| Motion Sensor Settings		| Motion			|		
@@ -544,7 +550,6 @@ And user should see the "Signal to Base Station" status as "High" on the "Signal
 When user navigates to "Test Motion Viewer" screen from the "Signal Strength" screen
 Then user navigates to "Motion Viewer Settings" screen from the "Test Motion Viewer" screen
 
-
 Examples:
 | Mode				| Sensor Status		|
 #| Home				| Cover Tampered		|
@@ -575,7 +580,6 @@ And user should see the "Signal to Base Station" status as "High" on the "Signal
 When user navigates to "Test Motion Viewer" screen from the "Signal Strength" screen
 Then user navigates to "Motion Viewer Settings" screen from the "Test Motion Viewer" screen
 
-
 Examples:
 | Mode				| Sensor Status		|
 #| Home				| Cover Tampered		|
@@ -591,7 +595,7 @@ Examples:
 
 #Requirement :One DAS Panel and one Door Access Sensor should be configured
 @DASDoorSensorSignalStrengthWithSensorNotWorkingAndIsOutOfRange			@NotAutomatable
-Scenario Outline: As a user I should be able to verify the signal strength and test Door Sensor in Home and OFF mode
+Scenario Outline: As a user I should be able to verify the signal strength and test Door Sensor is not working in Home and OFF mode
 Given user launches and logs in to the Lyric application 
 And user is set to <Mode> through CHIL
 Then user navigates to "Door Access settings" settings screen from the "Dashboard"
@@ -607,6 +611,7 @@ Then user should receive a "Out Of Range" pop up
 And user "taps on OK in" the "Out Of Range" popup
 Then user should be displayed with the "Access Sensor Help" screen
 And user navigates to "Test Sensor" screen from the "Test Signal Strength" screen
+
 Examples:
 |Mode|Sensor status|
 |Home|Cover Tampered|
@@ -622,6 +627,7 @@ And user is set to <Mode> through CHIL
 Then user navigates to <Sensor Settings> settings screen from the "Dashboard"
 When user selects the "Signal Strength and Test" button
 Then user should be displayed with "Sensor is offline" pop up
+
 Examples:
 |Sensor Settings|Status|
 |Door sensosr   |Offline|
@@ -791,6 +797,7 @@ When user selects the "OK" button
 Then user display with "Motion Sensor settings" screen
 When user navigates to "Sensor list" screen from the "Motion Sensor settings" screen 
 Then user should not be displayed with "Motion Sensor" in the "Sensor list" screen
+
 Examples:
 |Mode|Sensor status|
 |Home|Cover Tampered|
@@ -900,6 +907,7 @@ Then the following <Sensor Settings> Settings options should be disabled:
 |Options|
 |Delete field|
 #Then user should display the "you can perform this action only in Home or Off mode" pop up
+
 Examples:
 |Sensor Settings|Mode|
 |Door sensosr   |Night|
@@ -922,7 +930,8 @@ When user "ok" the "Delete Sensor Confirmation" popup
 Then user should be displayed with "Unable to delete sensor" pop up 
 When user selects the "OK" button
 Then user display with <Sensor Settings> Settings screen
- And user should be displayed with <Sensor> in the "Sensor list" screen
+And user should be displayed with <Sensor> in the "Sensor list" screen
+
 Examples:
 |Mode|Sensor Settings|Sensor|
 |Home|Door Sensor  |Door Sensor|

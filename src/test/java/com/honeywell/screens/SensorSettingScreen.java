@@ -33,7 +33,7 @@ public class SensorSettingScreen extends MobileScreens {
 	public boolean isSensorsScreenTitleVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorsScreenTitle");
 	}
-	
+
 	public boolean isLoadingSpinnerVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LoadingSpinner");
 	}
@@ -41,11 +41,13 @@ public class SensorSettingScreen extends MobileScreens {
 	public boolean clickOnUserGivenSensorName(String givenSensorName) {
 		String actualSensorName = null;
 		List<WebElement> sensorList;
-		if (testCase.getPlatform().contains("IOS")) {
-			sensorList = MobileUtils.getMobElements(testCase, "xpath", "//XCUIElementTypeStaticText");
-		} else {
-			sensorList = MobileUtils.getMobElements(objectDefinition, testCase, "SensorName");
-		}
+		/*
+		 * if (testCase.getPlatform().contains("IOS")) { sensorList =
+		 * MobileUtils.getMobElements(testCase, "xpath", "//XCUIElementTypeStaticText");
+		 * } else {
+		 */
+		sensorList = MobileUtils.getMobElements(objectDefinition, testCase, "SensorName");
+		// }
 
 		for (WebElement sensor : sensorList) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -137,7 +139,7 @@ public class SensorSettingScreen extends MobileScreens {
 		}
 		return false;
 	}
-	
+
 	public boolean isTestMotionSensorHeadingDisplayed() {
 		DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 2);
 		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
@@ -487,13 +489,13 @@ public class SensorSettingScreen extends MobileScreens {
 		} else if (SensorType.toLowerCase().contains("motion sensor")) {
 			SensorName = "Motion Sensor";
 			inputs.setInputValue(DASInputVariables.MOTIONSENSORTYPE, DASInputVariables.MOTIONSENSOR);
-		} /*else if (SensorType.toLowerCase().contains("access sensor")) {
-			SensorName = "Access Sensor";
-			inputs.setInputValue(DASInputVariables.ACCESSSENSORTYPE, DASInputVariables.ACCESSSENSOR);
-			serialNo = RelayConstants.RSI_Contact_Sensor_1_SerialNO;
-			SensorName = "Access Sensor";
-			System.out.println("###########Access Sensor Serial No: " + serialNo);
-		}*/ else if (SensorType.toLowerCase().contains("ismv")) {
+		} /*
+			 * else if (SensorType.toLowerCase().contains("access sensor")) { SensorName =
+			 * "Access Sensor"; inputs.setInputValue(DASInputVariables.ACCESSSENSORTYPE,
+			 * DASInputVariables.ACCESSSENSOR); serialNo =
+			 * RelayConstants.RSI_Contact_Sensor_1_SerialNO; SensorName = "Access Sensor";
+			 * System.out.println("###########Access Sensor Serial No: " + serialNo); }
+			 */ else if (SensorType.toLowerCase().contains("ismv")) {
 			SensorName = "Indoor Motion Viewers";
 			inputs.setInputValue(DASInputVariables.ISMVMOTIONSENSORTYPE, DASInputVariables.ISMVMOTIONSENSOR);
 		} else if (SensorType.toLowerCase().contains("osmv")) {
@@ -810,8 +812,8 @@ public class SensorSettingScreen extends MobileScreens {
 						return false;
 				}
 				if (status.toUpperCase().contains("DETECTED")) {
-					if (MobileUtils.isMobElementExists(objectDefinition, testCase,
-							"MotionSensor_SensorStatus_Detected", 30)) {
+					if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionSensor_SensorStatus_Detected",
+							30)) {
 						return true;
 					} else
 						return false;
@@ -1047,35 +1049,35 @@ public class SensorSettingScreen extends MobileScreens {
 	public boolean clickOnSensorHelpButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorHelpButton");
 	}
-	
+
 	public boolean isDoorAccessSettingsScreenTitleVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DoorAccessSensorScreenTitle");
 	}
-	
+
 	public boolean isWindowAccessSettingsScreenTitleVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WindowAccessSensorScreenTitle", timeOut);
 	}
-	
+
 	public boolean isMotionSensorSettingsScreenTitleVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionSensorSettingsScreenTitle", timeOut);
 	}
-	
+
 	public boolean isMotionViewerSettingsScreenTitleVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionViewerSettingsScreenTitle", timeOut);
 	}
-	
+
 	public boolean isSensorNameAlreadyAssignedErrorPopupVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorNameAlreadyAssignedErrorPopup");
 	}
-	
+
 	public boolean isSensorNameAlreadyAssignedMsgVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorNameAlreadyAssignedMsg");
 	}
-	
+
 	public boolean isOKButtonInSensorNameAlreadyAssignedPopupVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInSensorNameAlreadyAssignedPopup");
 	}
-	
+
 	public boolean clickOnOKButtonInSensorNameAlreadyAssignedPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInSensorNameAlreadyAssignedPopup");
 	}

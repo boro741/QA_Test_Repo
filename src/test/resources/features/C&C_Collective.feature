@@ -26,7 +26,7 @@ And user is set to <Mode> mode through CHIL
 When user navigates to "Security Solution Card" screen from the "Dashboard" screen
 And user switches from <Mode> to <UMode>
 And user should be displayed with a switching to <UMode> text
-And user should be displayed with a switching timer
+And user should be displayed with switching timer
 And timer ends on user device
 And user status should be set to "<UMode>"
 Then user should be displayed with the correct time stamp
@@ -145,7 +145,7 @@ Then user is set to <Mode> mode through CHIL
 And user navigates to “Dashboard” screen 
 When user switches from <Mode> to <UMode>
 Then user should be displayed with a switching to <UMode> text
-Then user should be displayed with a switching timer
+Then user should be displayed with switching timer
 Then timer ends on user device
 And user status should be set to <UMode>
 Then user should be displayed with the correct time stamp
@@ -181,7 +181,7 @@ Examples:
 #|60| OFF| Night |
 
 @CommandControlDasboardOFFModeStatusAndPushNotificaiton  @UIAutomated
-Scenario Outline: As a user I want to verify OFF mode status in dashboard screen 
+Scenario: As a user I want to verify OFF mode status in dashboard screen 
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application
 Then user is set to “OFF” mode through CHIL
@@ -231,7 +231,7 @@ When user navigates to "Security Solution Card" screen from the "Dashboard" scre
 And user switches from <Mode> to <UMode>
 When user navigates to "Dashboard" Screen from the "Security Solution Card" screen
 Then  user should be displayed with a switching to <UMode> text in the "Dashboard" screen
-Then user should be displayed with a switching timer
+Then user should be displayed with switching timer
 Then timer ends on user device
 And user status should be set to <UMode>
 Then user should be displayed with the correct time stamp
@@ -811,7 +811,7 @@ Then user should be displayed with a "Switching to Away" text in the Dashboard s
 When user navigates to "Security Solution Card" screen from the "Dashboard" screen
 When user minimizes and maximizes the app
 Then user should be displayed with a "Switching to Away" text
-And user should be displayed with a switching timer
+And user should be displayed with switching timer
 Then timer ends on user device
 And user status should be set to "Away"
 
@@ -828,7 +828,7 @@ And user navigates to "Dashboard" screen from the "Security Solution Card" scree
 Then user should be displayed with a "Switching to Away" text in the Dashboard screen
 When user navigates to "Security Solution Card" screen from the "Dashboard" screen
 Then user should be displayed with a "Switching to Away" text
-And user should be displayed with a switching timer
+And user should be displayed with switching timer
 And user should be displayed with cancel icon
 When user taps on "Cancel"
 Then user should be displayed with the <Mode> screen
@@ -836,7 +836,7 @@ When user switches from <Mode> to "Away"
 Then user should be displayed with a "Switching to Away" text
 And user navigates to "Dashboard" screen from the "Security Solution Card" screen
 Then user should be displayed with a "Switching to Away" text in the Dashboard screen
-And user should be displayed with a switching timer
+And user should be displayed with switching timer
 And user should be displayed with cancel icon
 When user taps on "Cancel"
 Then user should be displayed with the <Mode> screen
@@ -858,7 +858,7 @@ And user navigates to "Dashboard" screen from the "Security Solution Card" scree
 Then user should be displayed with a "Switching to Night" text in the Dashboard screen
 When user navigates to "Security Solution Card" screen from the "Dashboard" screen
 Then user should be displayed with a "Switching to Night" text
-And user should be displayed with a switching timer
+And user should be displayed with switching timer
 And user should be displayed with cancel icon
 When user taps on "Cancel"
 Then user should be displayed with the <Mode> screen
@@ -866,7 +866,7 @@ When user switches from <Mode> to "Night"
 Then user should be displayed with a "Switching to Night" text
 And user navigates to "Dashboard" screen from the "Security Solution Card" screen
 Then user should be displayed with a "Switching to Night" text in the Dashboard screen
-And user should be displayed with a switching timer
+And user should be displayed with switching timer
 And user should be displayed with cancel icon
 When user taps on "Cancel"
 Then user should be displayed with the <Mode> screen
@@ -877,7 +877,7 @@ Examples:
 
 
 @OutdoorMotionViewer_VideoClip   @NotAutomatable
-Scenario Outline: As a user when motion detected after exit delay irrespective of exit timer, I should have clips generated for 30sec (landscape, download)
+Scenario: As a user when motion detected after exit delay irrespective of exit timer, I should have clips generated for 30sec (landscape, download)
 Given user sets the entry/exit timer to <timerValue> seconds
 And user is set to "Outdoor Motion Viewers On in Home Mode" through CHIL
 And user is set to <Mode> through CHIL

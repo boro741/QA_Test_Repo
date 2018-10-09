@@ -164,7 +164,7 @@ As user I should be able to control my DAS panel settings from the app
      When user navigates to "Security Solution Card" screen from the "Manage alerts" screen
      Then user switches from <Mode> to <UMode>
       And user should be displayed with a switching to <UMode> text
-      And user should be displayed with a switching timer
+      And user should be displayed with switching timer
       And timer ends on user device
       And user status should be set to <UMode>
       And user should not receive a <Push Notification> push notification
@@ -174,7 +174,7 @@ As user I should be able to control my DAS panel settings from the app
      When user navigates to "Security Solution Card" screen from the "Manage alerts" screen
      Then user switches from <UMode> to <Mode>
       And user should be displayed with a switching to <Mode> text
-      And user should be displayed with a switching timer
+      And user should be displayed with switching timer
       And timer ends on user device
       And user status should be set to <Mode>
       And user receives a <UPush Notification> push notification
@@ -279,7 +279,7 @@ As user I should be able to control my DAS panel settings from the app
       And user navigates to "Security Solution Card" screen from the "DAS Security Settings" screen
      Then user thermostat set <Period> with <Geofence>
       And user should be displayed with a switching to <UMode> text
-      And user should be displayed with a switching timer
+      And user should be displayed with switching timer
       And timer ends on user device
       And user status should be set to <Period>
       And user receives a <Push Notification> push notification
