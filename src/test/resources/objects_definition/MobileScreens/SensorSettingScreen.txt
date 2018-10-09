@@ -93,7 +93,7 @@ MountInaWall	xpath	//*[@text='Mount on the wall']					name	Mount on the wall
 SensorisOfflineText	xpath	"//*[contains(@text,'Sensor is offline')]"										
 SensorHelpButton	id	sensor_help_text										
 SensorPairingHelpScreenTitle	id	//*[@text='Sensor Pairing Help']										
-SensorsScreenTitle	XPATH	//*[@text='Sensors']	XPATH	//*[@text='Sensors']	XPATH	//*[@text='Sensors']	XPATH	//*[@value='Sensors']	XPATH	//*[@value='Sensors']	XPATH	//*[@value='Sensors']
+SensorsScreenTitle	XPATH	"//*[contains(@text,'Sensors')]"	XPATH	"//*[contains(@text,'Sensors')]"	XPATH	"//*[contains(@text,'Sensors')]"	XPATH	"//*[contains(@value,'Sensors')]"	XPATH	"//*[contains(@value,'Sensors')]"	XPATH	"//*[contains(@value,'Sensors')]"
 SensorName	ID	sensor_name	ID	sensor_name	ID	sensor_name	XPATH	"//XCUIElementTypeStaticText[contains(@name,'_subTitle')]"	XPATH	"//XCUIElementTypeStaticText[contains(@name,'_subTitle')]"	XPATH	"//XCUIElementTypeStaticText[contains(@name,'_subTitle')]"
 LoadingSpinner	ID	progress_bar	ID	progress_bar	ID	progress_bar	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View
 DoorAccessSensorScreenTitle	XPATH	//*[@text='Door Access Sensor']	XPATH	//*[@text='Door Access Sensor']	XPATH	//*[@text='Door Access Sensor']	XPATH	"//*[contains(@value,'Door Access Sensor')]"	XPATH	"//*[contains(@value,'Door Access Sensor')]"	XPATH	"//*[contains(@value,'Door Access Sensor')]"
