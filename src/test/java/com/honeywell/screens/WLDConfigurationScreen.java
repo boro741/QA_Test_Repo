@@ -124,17 +124,28 @@ public class WLDConfigurationScreen extends MobileScreens {
 	}
 	public boolean isConfigurationDeleteLeakDetectorLinkVisible()
 	{
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if(MobileUtils.getFieldValue(objectDefinition, testCase, "Configuration_DeleteLink").equalsIgnoreCase("Delete Leak Detector")) {
+				flag=true;
+			}
+			else {flag=false;}
+		}
+		else {
 		 String str1 = testCase.getMobileDriver().findElement(By.xpath("//*[@name='Delete Leak Detector']")).getText();
-		
 		if(str1.equalsIgnoreCase("Delete Leak Detector")) {
 			flag = true;
+		}
+		else flag=false;
 		}
 		return flag;
 	}
 	public String getConfigurationDeleteLeakDetectorLinkValue() {
-		
-		return testCase.getMobileDriver().findElement(By.xpath("//*[@name='Delete Leak Detector']")).getText();
-		
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "Configuration_DeleteLink");
+		}
+		else {
+			return testCase.getMobileDriver().findElement(By.xpath("//*[@name='Delete Leak Detector']")).getText();
+		}
 	}
 	public static boolean navigateFromDashboardToWLDConfigurationScreen(TestCases testCase, TestCaseInputs inputs) 
 	{

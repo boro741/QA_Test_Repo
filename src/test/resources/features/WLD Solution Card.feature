@@ -2,7 +2,7 @@
 Feature: WLD Solution Card
   As user I should be able to View Solution card of WLD from the app
 
-@viewwldSolutionCard @Automated
+@viewwldSolutionCard @Automated @ATER-53902
 Scenario: As a user I should be able view Contents of my WLD Solution card through the Lyric application 
 Given user launches and logs in to the Lyric application  
 When user selects "WLD device" from the dashboard
@@ -23,7 +23,7 @@ Then user should be displayed with the following "WLDSolutionHumidity" options:
 #|Humidity Graph| 
 #comment out |Humidity Graph| if account is 48 hours post DIY
 
-@ViewSolutionCardTemperatureunit @Automated
+@ViewSolutionCardTemperatureunit @Automated @ATER-53903
 Scenario: As a user i should be able to view the change in temperature unit on my Solution Card
 Given user launches and logs in to the Lyric application
 When user selects "WLD device" from the dashboard
@@ -32,7 +32,7 @@ Then verify Temperature Unit is changed as per the "Temperature Unit" selected b
 |Fahrenheit|
 |celsius|
 
-@ViewSolutionCardNextupdateTime @Automated
+@ViewSolutionCardNextupdateTime @Automated @ATER-53904
 Scenario: As a user i should be able to view the change in Update frequency on my Solution Card
 Given user launches and logs in to the Lyric application
 When user selects "WLD device" from the dashboard
@@ -42,7 +42,7 @@ Then verify Next Update Time in Solution Card after selecting "Update Frequency"
 |Twice Daily|
 |Thrice Daily|
 
-@TemperatureAndHumidityGrapghAfterDIY @AutomatedonlyafterfreshDIY 
+@TemperatureAndHumidityGrapghAfterDIY @AutomatedonlyafterfreshDIY  @ATER-53905
 Scenario: As a user i should be able to view a message on my temperature graph of solution card after DIY
 Given user launches and logs in to the Lyric application
 When user navigates to "Solution Card" screen from the "Dashboard" screen
@@ -50,7 +50,7 @@ Then user should be displayed with the "Setup Complete" description
 When user navigates to "humidity graph" screen from the "temperature graph" screen
 Then user should be displayed with the "Setup Complete" description
 
-@TemperatureAndHumidityGraphAftertwodaysDIY @AndroidMissingID @iOSAutomatedaftertwodaysofdiy
+@TemperatureAndHumidityGraphAftertwodaysDIY  @Automatedaftertwodaysofdiy @ATER-53906
 Scenario: As a user i should be able to view temperature and humidity temperature graph of my WLD after two days of DIY
 Given user launches and logs in to the Lyric application
 When user navigates to "Solution Card" screen from the "Dashboard" screen
@@ -64,7 +64,7 @@ Then user should be displayed with the following "Graph" options:
 |No of days humidity trend|
 |Maximum and minimum humidity trend|
 
-@TemperatureAndHumidityGraphAfterFivedaysDIY @NotAutomated
+@TemperatureAndHumidityGraphAfterFivedaysDIY @NotAutomated @ATER-53907
 Scenario: As a user i should be able to view temperature and humidity temperature graph of my WLD after 5 to 30 days
 Given user launches and logs in to the Lyric application
 When user navigates to "Solution Card" screen from the "Dashboard" screen

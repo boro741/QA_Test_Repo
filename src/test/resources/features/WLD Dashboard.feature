@@ -3,7 +3,7 @@ Feature: WLD Dashboard
   As user I should be able to View dashboard of WLD from the app
 
 
-@viewDashboard @Automated 
+@viewwldDashboard @Automated @ATER-53783
 Scenario: As a user I should be able view dashboard of WLD through the Lyric application 
 Given user launches and logs in to the Lyric application
 Then user should be displayed with the following "WLD Dashboard" options:
@@ -16,7 +16,7 @@ Then user should be displayed with the following "WLD Dashboard" options:
 
 
 
-@ViewDashboardTemperatureunit @Automated
+@ViewDashboardTemperatureunit @Automated @ATER-53784 
 Scenario: As a user i should be able to view the change in temperature unit on my dashboard
 Given user launches and logs in to the Lyric application
 When user selects "WLD device" from the dashboard
@@ -29,7 +29,7 @@ Then verify Temperature Unit is changed as per the "Temperature Unit" selected b
 
 
 
-@landingToSolutionCard @Automated
+@landingToSolutionCard @Automated @ATER-53785
 Scenario: As a user i should be able to land on solution card from dashboard
 Given user launches and logs in to the Lyric application
 When user selects "WLD device" from the dashboard
