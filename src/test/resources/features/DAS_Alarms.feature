@@ -1542,7 +1542,7 @@ Given user is set to "Home" mode through CHIL
     #   |ID event triggered|
        
        
-    @Alarm_Navigation_Otherscreen_Settings 					@P3					@Pending
+    @Alarm_Navigation_Otherscreen_Settings 					@P3					@NotAutomatable
     Scenario Outline: 64 As an user I should be not allowed to edit settings during panel in alarm state
       Given user is set to "Away" mode through CHIL
         And user launches and logs in to the Lyric application
@@ -1575,7 +1575,8 @@ Given user is set to "Home" mode through CHIL
      #  |Manage user|Zwave settings|
       
    
-    @Entrydelay_Navigation_Otherscreen 				@P4					@Pending
+   #Covered in @EntryDelayScreenValidation Scenario
+    @Entrydelay_Navigation_Otherscreen 				@P4					@Automated
     Scenario: 63 As an user I should not be navigated to any screen in lyric app from entry delay screen  
       Given user is set to "Away" mode through CHIL
         And user launches and logs in to the Lyric application
@@ -1763,26 +1764,26 @@ Given user is set to "Home" mode through CHIL
     |ZWAVE DEVICE THROUGH GENERAL Exclusion      |Exclusion Mode Active|
 
   
-    @AlarmDismissedViaKeyfobDiffModes 			@P2				@Pending
+    @AlarmDismissedViaKeyfobDiffModes 			@P2				@Automated
     Scenario Outline: 75 As a user I should be able to dismiss alarm through keyfob
      Given user is set to "Away" mode through CHIL
-     And user launches and logs in to the Lyric application
+     Given user launches and logs in to the Lyric application
      And user clears all push notifications
      When  user "window" access sensor "opened"
-     When user selects <Mode> from keyfob
+     When user press <Mode> key from keyfob
      #validate email content
-     And user navigates to "Security Solution card" screen from the "Dashboard" screen
+   	 And user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to <Mode>
-     When user "opens" activity log
+   	 When user "opens" activity log
      Then verify the following activity log:
        | Elements  | 
-       | Alarm Dismissed |
+       | Alarm Dismissed by Keyfob|
        | Switched to Home by Keyfob|
      And user "closes" activity log
      Examples:
      |Mode|
      |Home|
-     |Off |
+     #|Off |
      
       
      @Alarm_MultiLocation  			@P3 				@NotAutomatable
@@ -1849,6 +1850,7 @@ Given user is set to "Home" mode through CHIL
       |  entry delay switch to home            | 
       |  entry delay switch to night           |
       |  entry delay attention                 |
+      |  without back button					  |
     And user is set to "home" mode through CHIL
 
 
@@ -2017,7 +2019,7 @@ Given user is set to "Home" mode through CHIL
        |Indoor motion viewer TAMPER CLEARED AT NIGHT MODE|
        
       
-     @MotionViewer_VideoClip 				@P2 				@Pending
+     @MotionViewer_VideoClip 				@P2 				@NotAutomatable
      Scenario: As a user when motion detected after exit delay irrespective of exit timer , I should have clips generated for 30sec (landscape, download)
      Given user sets the entry/exit timer to <timerValue> seconds
       And user is set to "Away" mode through CHIL
@@ -2109,51 +2111,64 @@ Given user is set to "Home" mode through CHIL
        | OSMV motion detected at Away mode |
       
        
-       
-      @AwayMode_DoorOpened_MotiondetectedByISMV_MotiondetectedByMotionSensor_WindowOpened 			@P3					@Pending
+      @AwayMode_DoorOpened_MotiondetectedByISMV_MotiondetectedByMotionSensor_WindowOpened 			@P3					@Automated
        Scenario: As a user I should be able to know the activities taking place at location when system is in alarm
       Given user is set to "Home" mode through CHIL
       And user launches and logs in to the Lyric application
       #And user clears all push notifications
       When user navigates to "Security Solution card" screen from the "Dashboard" screen
-      And user switches from "Home" to "Away"
+      Then user switches from "Home" to "Away"
+      And timer ends on user device
+      Then user status should be set to "Away"
        And user "door" access sensor "opened"
-        And verify Entry delay
-        And user "ismv" detects "motion"
-       And user "osmv" detects "motion"
-        And user "motion sensor" detects "motion"
-      And user "window" access sensor "opened"
-        And verify Alarm
-      And dismiss alarm
+       Then user should be displayed with the "Entry Delay" screen
+       When user "window" access sensor "opened"
+       Then user motion sensor "motion detected"
+       And user indoor motion viewer "motion detected"
+       And user outdoor motion viewer "motion detected"
+       And user selects "Attention" from "Entry Delay" screen
+      Then user should be displayed with the "Alarm" screen
+      When user selects "dismiss alarm" from "alarm" screen
+      Then user navigates to "Security Solution card" screen from the "Dashboard" screen
+      And user "opens" activity log
       Then verify the following activity log:
-       | Elements                 |
-       | Window opened at Away mode|
-       | ISMV motion detected at Away mode|
-       | Motion sensor detected motion at Away mode|
-       | Door opened at Away mode|
-       | OSMV motion detected at Away mode |
+       | Elements                 				|
+       | Window opened at Away mode				|
+       | ISMV motion detected at Away mode		|
+       | Sensor Motion Detected at Away mode		|
+       | Door opened at Away mode				|
+       | OSMV motion detected at Away mode 		|
+       And user "closes" activity log
        
-      @AwayMode_WindowOpened_MotiondetectedByISMV_MotiondetectedByMotionSensor_DoorOpened_MotiondetectedByOSMV 				@P3					@Pending
+       
+      @AwayMode_WindowOpened_MotiondetectedByISMV_MotiondetectedByMotionSensor_DoorOpened_MotiondetectedByOSMV 				@P3					@Automated
        Scenario: As a user I should be able to know the activities taking place at location when system is in alarm
       Given user is set to "Home" mode through CHIL
       And user launches and logs in to the Lyric application
       #And user clears all push notifications
       When user navigates to "Security Solution card" screen from the "Dashboard" screen
-      And user switches from "Home" to "Away"
-      And user "window" access sensor "opened"
-       And verify Alarm
-      And user "ismv" detects "motion"
-      And user "motion sensor" detects "motion"
-      And user "door" access sensor "opened"
-      And user "osmv" detects "motion"
-      And dismiss alarm
+      Then user switches from "Home" to "Away"
+      And timer ends on user device
+      Then user status should be set to "Away"
+      When user "window" access sensor "opened"
+       Then user should be displayed with the "Entry Delay" screen
+       And user "door" access sensor "opened"
+       Then user motion sensor "motion detected"
+       And user indoor motion viewer "motion detected"
+       And user outdoor motion viewer "motion detected"
+       And user selects "Attention" from "Entry Delay" screen
+      Then user should be displayed with the "Alarm" screen
+      When user selects "dismiss alarm" from "alarm" screen
+      Then user navigates to "Security Solution card" screen from the "Dashboard" screen
+      And user "opens" activity log
       Then verify the following activity log:
-       | Elements                 |
-       | Window opened at Away mode|
-       | ISMV motion detected at Away mode|
-       | Motion sensor detected motion at Away mode|
-       | Door opened at Away mode|
-       | OSMV motion detected at Away mode |
+       | Elements                 				|
+       | Window opened at Away mode				|
+       | ISMV motion detected at Away mode		|
+       | Sensor Motion Detected at Away mode		|
+       | Door opened at Away mode				|
+       | OSMV motion detected at Away mode 		|
+       And user "closes" activity log
       
       @MultiDoorsensor_LeftOpenDuringAwayExitDelay_SwitchingToNightFromEntryDelay 				@P4 						@NotAutomatable
       Scenario: As a user when door1 and door2 sensor are opened in armed I should be able to switch to night from entry delay screen - waiting screen should be displayed to close the door1 and door2 sensors

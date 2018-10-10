@@ -58,7 +58,7 @@ public class NavigateFromEntryExitDelayInVariousScreen extends Keyword {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
 						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.GEOFENCE)) {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Could not click on Add new device menu from Global drawer");
+									"Could not click on " + screen.getData(i, "Elements").toUpperCase());
 						}
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -66,7 +66,7 @@ public class NavigateFromEntryExitDelayInVariousScreen extends Keyword {
 					}
 					break;
 				}
-				case "GEOFENCE RADIUS":{
+				case "GEOFENCE RADIUS": {
 					Dashboard dScreen = new Dashboard(testCase);
 					if (dScreen.clickOnGlobalDrawerButton()) {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
@@ -74,7 +74,7 @@ public class NavigateFromEntryExitDelayInVariousScreen extends Keyword {
 							GeofenceSettings geoScreen = new GeofenceSettings(testCase);
 							if (!geoScreen.selectOptionFromGeofenceSettings(GeofenceSettings.GEOFENCERADIUS)) {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Could not click on "+screen.getData(i, "Elements").toUpperCase());
+										"Could not click on " + screen.getData(i, "Elements").toUpperCase());
 							}
 						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -86,7 +86,7 @@ public class NavigateFromEntryExitDelayInVariousScreen extends Keyword {
 					}
 					break;
 				}
-				case "ADD USERS":{
+				case "ADD USERS": {
 					Dashboard dScreen = new Dashboard(testCase);
 					if (dScreen.clickOnGlobalDrawerButton()) {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
@@ -100,7 +100,7 @@ public class NavigateFromEntryExitDelayInVariousScreen extends Keyword {
 					}
 					break;
 				}
-				case "LOCATION DETAILS":{
+				case "LOCATION DETAILS": {
 					Dashboard dScreen = new Dashboard(testCase);
 					if (dScreen.clickOnGlobalDrawerButton()) {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
@@ -114,7 +114,7 @@ public class NavigateFromEntryExitDelayInVariousScreen extends Keyword {
 					}
 					break;
 				}
-				case "EDIT ACCOUNT":{
+				case "EDIT ACCOUNT": {
 					Dashboard dScreen = new Dashboard(testCase);
 					if (dScreen.clickOnGlobalDrawerButton()) {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
@@ -128,7 +128,7 @@ public class NavigateFromEntryExitDelayInVariousScreen extends Keyword {
 					}
 					break;
 				}
-				case "ABOUT THE APP":{
+				case "ABOUT THE APP": {
 					Dashboard dScreen = new Dashboard(testCase);
 					if (dScreen.clickOnGlobalDrawerButton()) {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
@@ -144,17 +144,17 @@ public class NavigateFromEntryExitDelayInVariousScreen extends Keyword {
 				}
 				default: {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.getData(i, "Elements").toUpperCase());
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input : " + screen.getData(i, "Elements").toUpperCase());
 				}
 				}
 
-				if(flag){
+				if (flag) {
 					flag = flag & DASSensorUtils.openDoor(testCase, inputs);
 					flag = flag & DASAlarmUtils.verifyEntryDelayScreenDisplayed(testCase);
 					flag = flag & DASAlarmUtils.timeOutForNoSensorAction(testCase, inputs);
-					if (DASAlarmUtils.verifyAlarmScreenDisplayed(testCase)){
-						Keyword.ReportStep_Pass(testCase,
-								"Successfully displayed with Alarm screen");
+					if (DASAlarmUtils.verifyAlarmScreenDisplayed(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "Successfully displayed with Alarm screen");
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -163,59 +163,45 @@ public class NavigateFromEntryExitDelayInVariousScreen extends Keyword {
 					flag = flag & DASAlarmUtils.clickOnAlarm_NavigateBack(testCase);
 					flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
 
-					/*switch (screen.getData(i, "Elements").toUpperCase()) {
-					case "GEOFENCE SETTING": {
-						flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
-						flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
-						break;
-					}
-					case "GEOFENCE RADIUS":{
-						flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
-						flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
-						flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
-						break;
-					}
-					case "ADD USERS":{
-						flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
-						flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
-						break;
-					}
-					case "LOCATION DETAILS":{
-						flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
-						flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
-						break;
-					}
-					case "EDIT ACCOUNT":{
-						flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
-						flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
-						break;
-					}
-					default: {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.getData(i, "Screen").toUpperCase());
-					}
-					
-					}*/
+					/*
+					 * switch (screen.getData(i, "Elements").toUpperCase()) { case
+					 * "GEOFENCE SETTING": { flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
+					 * flag = flag & DASZwaveUtils.clickNavigateUp(testCase); break; } case
+					 * "GEOFENCE RADIUS":{ flag = flag & DASZwaveUtils.clickNavigateUp(testCase);
+					 * flag = flag & DASZwaveUtils.clickNavigateUp(testCase); flag = flag &
+					 * DASZwaveUtils.clickNavigateUp(testCase); break; } case "ADD USERS":{ flag =
+					 * flag & DASZwaveUtils.clickNavigateUp(testCase); flag = flag &
+					 * DASZwaveUtils.clickNavigateUp(testCase); break; } case "LOCATION DETAILS":{
+					 * flag = flag & DASZwaveUtils.clickNavigateUp(testCase); flag = flag &
+					 * DASZwaveUtils.clickNavigateUp(testCase); break; } case "EDIT ACCOUNT":{ flag
+					 * = flag & DASZwaveUtils.clickNavigateUp(testCase); flag = flag &
+					 * DASZwaveUtils.clickNavigateUp(testCase); break; } default: { flag = false;
+					 * Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					 * "Invalid Input : " + screen.getData(i, "Screen").toUpperCase()); }
+					 * 
+					 * }
+					 */
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
-					
-					flag= flag & DASAlarmUtils.clickOnDismissAlarm(testCase, inputs);
+
+					flag = flag & DASAlarmUtils.clickOnDismissAlarm(testCase, inputs);
 					AlarmScreen alarmScreen = new AlarmScreen(testCase);
-					int j=0;
-					while(j<3 && DASAlarmUtils.verifyProgressDisplayed(testCase) && alarmScreen.isAlarmDismissButtonDisplayed() ){
+					int j = 0;
+					while (j < 3 && DASAlarmUtils.verifyProgressDisplayed(testCase)
+							&& alarmScreen.isAlarmDismissButtonDisplayed()) {
 						System.out.println("Waiting for dismiss alarm request to complete");
 						j++;
 					}
 					flag = flag & DASSensorUtils.closeWindow(testCase, inputs);
 					if (chUtil.getConnection()) {
 						flag = flag & (chUtil.setBaseStationMode(locInfo.getLocationID(), deviceInfo.getDeviceID(),
-								"Away", testCase)==202 ? true:false);
+								"Away", testCase) == 202 ? true : false);
 					}
 
 				}
 
 				testCase.getMobileDriver().closeApp();
 				testCase.getMobileDriver().launchApp();
-				flag=true;
+				flag = true;
 			}
 
 		} catch (Exception e) {

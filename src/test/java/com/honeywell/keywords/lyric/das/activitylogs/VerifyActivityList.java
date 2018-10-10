@@ -25,7 +25,7 @@ public class VerifyActivityList extends Keyword {
 	public boolean flag = true;
 	public String[][] eventsList;
 
-	public VerifyActivityList(TestCases testCase, TestCaseInputs inputs,  DataTable dataTable) {
+	public VerifyActivityList(TestCases testCase, TestCaseInputs inputs, DataTable dataTable) {
 		this.testCase = testCase;
 		this.dataTable = dataTable;
 		this.inputs = inputs;
@@ -34,17 +34,16 @@ public class VerifyActivityList extends Keyword {
 	@Override
 	@BeforeKeyword
 	public boolean preCondition() throws KeywordException {
-		eventsList =DASActivityLogsUtils.fetchActivityList(testCase);
+		eventsList = DASActivityLogsUtils.fetchActivityList(testCase);
 		return flag;
 	}
 
 	@Override
 	@KeywordStep(gherkins = "^verify the following activity log:$")
 	public boolean keywordSteps() throws KeywordException {
-/*
-		if(true){
-			return true;
-		}*/
+		/*
+		 * if(true){ return true; }
+		 */
 		// if(!inputs.getInputValue("VERIFY_ACTIVITYLOGS").equalsIgnoreCase("NO")){
 		try {
 			String expectedActivityHeader = "";
@@ -62,64 +61,108 @@ public class VerifyActivityList extends Keyword {
 					inputs.setInputValue("USERID", inputs.getInputValue("INVITEDUSER"));
 				}
 				switch (dataTable.getData(i, "Elements").trim().toUpperCase()) {
-				case "ISMV MOTION DETECTED AT AWAY MODE":{
-					expectedActivityHeader =  "Motion Detected";
+				case "ISMV MOTION DETECTED AT AWAY MODE": {
+					expectedActivityHeader = "Motion Detected";
 					expectedActivitySubHeader = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1");
 					deviceLocationTime = inputs.getInputValue("INDOORMOTION_DETECTED_TIME");
 					break;
 				}
-				case "INDOOR MOTION VIEWER TAMPERED AT AWAY MODE":{
+				case "INDOOR MOTION VIEWER TAMPERED AT AWAY MODE": {
 					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1") + " tamper";
 					expectedActivitySubHeader = "AWAY MODE";
-					deviceLocationTime = inputs.getInputValue(" _TAMPERED_TIME");
+					deviceLocationTime = inputs.getInputValue("ISMV_TAMPERED_TIME");
 					break;
 				}
-				case "INDOOR MOTION VIEWER TAMPER CLEARED AT AWAY MODE":{
-					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1") + " tamper cleared";
+				case "INDOOR MOTION VIEWER TAMPER CLEARED AT AWAY MODE": {
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1")
+							+ " tamper cleared";
 					expectedActivitySubHeader = "AWAY MODE";
 					deviceLocationTime = inputs.getInputValue("ISMV_TAMPER_CLEARED_TIME");
 					break;
 				}
-				case "INDOOR MOTION VIEWER TAMPERED AT NIGHT MODE":{
+				case "INDOOR MOTION VIEWER TAMPERED AT NIGHT MODE": {
 					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1") + " tamper";
 					expectedActivitySubHeader = "NIGHT MODE";
 					deviceLocationTime = inputs.getInputValue("ISMV_TAMPERED_TIME");
 					break;
 				}
-				case "INDOOR MOTION VIEWER TAMPER CLEARED AT NIGHT MODE":{
-					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1") + " tamper cleared";
+				case "INDOOR MOTION VIEWER TAMPER CLEARED AT NIGHT MODE": {
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1")
+							+ " tamper cleared";
 					expectedActivitySubHeader = "NIGHT MODE";
 					deviceLocationTime = inputs.getInputValue("ISMV_TAMPER_CLEARED_TIME");
 					break;
 				}
-				case "INDOOR MOTION VIEWER CLIP":{
+				case "INDOOR MOTION VIEWER CLIP": {
 					expectedActivityHeader = "Motion detected";
 					expectedActivitySubHeader = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1");
 					deviceLocationTime = inputs.getInputValue("INDOORMOTION_DETECTED_TIME");
 					AlarmScreen alarmScreen = new AlarmScreen(testCase);
-					flag= alarmScreen.isMotionDetectedVideoClipDisplayed();
+					flag = alarmScreen.isMotionDetectedVideoClipDisplayed();
 					break;
 				}
-				case "MOTION SENSOR TAMPERED AT AWAY MODE":{
+				case "OSMV MOTION DETECTED AT AWAY MODE": {
+					expectedActivityHeader = "Motion Detected";
+					expectedActivitySubHeader = inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1");
+					deviceLocationTime = inputs.getInputValue("OUTDOORMOTION_DETECTED_TIME");
+					break;
+				}
+				case "OUTDOOR MOTION VIEWER TAMPERED AT AWAY MODE": {
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1") + " tamper";
+					expectedActivitySubHeader = "AWAY MODE";
+					deviceLocationTime = inputs.getInputValue("OSMV_TAMPERED_TIME");
+					break;
+				}
+				case "OUTDOOR MOTION VIEWER TAMPER CLEARED AT AWAY MODE": {
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1")
+							+ " tamper cleared";
+					expectedActivitySubHeader = "AWAY MODE";
+					deviceLocationTime = inputs.getInputValue("OSMV_TAMPERED_TIME");
+					break;
+				}
+				case "OUTDOOR MOTION VIEWER TAMPERED AT NIGHT MODE": {
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1") + " tamper";
+					expectedActivitySubHeader = "NIGHT MODE";
+					deviceLocationTime = inputs.getInputValue("OSMV_TAMPERED_TIME");
+					break;
+				}
+				case "OUTDOOR MOTION VIEWER TAMPER CLEARED AT NIGHT MODE": {
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1")
+							+ " tamper cleared";
+					expectedActivitySubHeader = "NIGHT MODE";
+					deviceLocationTime = inputs.getInputValue("OSMV_TAMPER_CLEARED_TIME");
+					break;
+				}
+				case "OUTDOOR MOTION VIEWER CLIP": {
+					expectedActivityHeader = "Motion detected";
+					expectedActivitySubHeader = inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1");
+					deviceLocationTime = inputs.getInputValue("OUTDOORMOTION_DETECTED_TIME");
+					AlarmScreen alarmScreen = new AlarmScreen(testCase);
+					flag = alarmScreen.isMotionDetectedVideoClipDisplayed();
+					break;
+				}
+				case "MOTION SENSOR TAMPERED AT AWAY MODE": {
 					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " tamper";
 					expectedActivitySubHeader = "AWAY MODE";
 					deviceLocationTime = inputs.getInputValue("MOTION_SENSOR_TAMPERED_TIME");
 					break;
 				}
-				case "MOTION SENSOR TAMPER CLEARED AT AWAY MODE":{
-					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " tamper cleared";
+				case "MOTION SENSOR TAMPER CLEARED AT AWAY MODE": {
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1")
+							+ " tamper cleared";
 					expectedActivitySubHeader = "AWAY MODE";
 					deviceLocationTime = inputs.getInputValue("MOTION_SENSOR_TAMPER_CLEARED_TIME");
 					break;
 				}
-				case "SENSOR MOTION DETECTED AT AWAY MODE":{
-					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " detected motion";
+				case "SENSOR MOTION DETECTED AT AWAY MODE": {
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1")
+							+ " detected motion";
 					expectedActivitySubHeader = "AWAY MODE";
 					deviceLocationTime = inputs.getInputValue("MOTION_DETECTED_TIME");
 					break;
 				}
 
-				case "CAMERA MOTION DETECTED AT AWAY MODE":{
+				case "CAMERA MOTION DETECTED AT AWAY MODE": {
 					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1") + " Detected";
 					expectedActivitySubHeader = "AWAY MODE";
 					deviceLocationTime = inputs.getInputValue("MOTION_DETECTED_TIME");
@@ -150,7 +193,7 @@ public class VerifyActivityList extends Keyword {
 					deviceLocationTime = inputs.getInputValue("DOOR_OPENED_TIME");
 					break;
 				}
-				
+
 				case "WINDOW OPENED AT HOME MODE": {
 					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " opened";
 					expectedActivitySubHeader = "HOME MODE";
@@ -169,14 +212,14 @@ public class VerifyActivityList extends Keyword {
 					deviceLocationTime = inputs.getInputValue("WINDOW_OPENED_TIME");
 					break;
 				}
-				
+
 				case "WINDOW OPENED AT OFF MODE": {
 					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " opened";
 					expectedActivitySubHeader = "OFF MODE";
 					deviceLocationTime = inputs.getInputValue("WINDOW_OPENED_TIME");
 					break;
 				}
-				
+
 				// closed activities
 				case "DOOR CLOSED AT HOME MODE": {
 					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " closed";
@@ -227,35 +270,40 @@ public class VerifyActivityList extends Keyword {
 					break;
 				}
 
-
 				// troubled activities
 				case "DOOR SENSOR TROUBLE AT HOME MODE": {
-					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " is malfunctioning";
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1")
+							+ " is malfunctioning";
 					expectedActivitySubHeader = "HOME MODE";
 					break;
 				}
 				case "WINDOW SENSOR TROUBLE AT HOME MODE": {
-					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " is malfunctioning";
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1")
+							+ " is malfunctioning";
 					expectedActivitySubHeader = "HOME MODE";
 					break;
 				}
 				case "DOOR SENSOR TROUBLE AT AWAY MODE": {
-					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " is malfunctioning";
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1")
+							+ " is malfunctioning";
 					expectedActivitySubHeader = "AWAY MODE";
 					break;
 				}
 				case "WINDOW SENSOR TROUBLE AT AWAY MODE": {
-					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " is malfunctioning";
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1")
+							+ " is malfunctioning";
 					expectedActivitySubHeader = "AWAY MODE";
 					break;
 				}
 				case "DOOR SENSOR TROUBLE AT NIGHT": {
-					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " is malfunctioning";
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1")
+							+ " is malfunctioning";
 					expectedActivitySubHeader = "NIGHT MODE";
 					break;
 				}
 				case "WINDOW SENSOR TROUBLE AT NIGHT": {
-					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " is malfunctioning";
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1")
+							+ " is malfunctioning";
 					expectedActivitySubHeader = "NIGHT MODE";
 					break;
 				}
@@ -300,16 +348,18 @@ public class VerifyActivityList extends Keyword {
 
 				// Alarm activities
 
-				case "WINDOW ALARM AT AWAY MODE":{
-					//expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1")+" Alarm";
+				case "WINDOW ALARM AT AWAY MODE": {
+					// expectedActivityHeader =
+					// inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1")+" Alarm";
 					expectedActivityHeader = "Security Alarm";
 					expectedActivitySubHeader = "AWAY MODE";
 					deviceLocationTime = inputs.getInputValue("WINDOW_OPENED_TIME");
 					break;
 				}
 
-				case "WINDOW ALARM AT NIGHT MODE":{
-					//expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1")+" Alarm";
+				case "WINDOW ALARM AT NIGHT MODE": {
+					// expectedActivityHeader =
+					// inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1")+" Alarm";
 					expectedActivityHeader = "Security Alarm";
 					expectedActivitySubHeader = "NIGHT MODE";
 					deviceLocationTime = inputs.getInputValue("WINDOW_OPENED_TIME");
@@ -324,7 +374,8 @@ public class VerifyActivityList extends Keyword {
 				case "SIREN SOUNDED BY INVITED USER":
 				case "SIREN SOUNDED BY ACTUAL USER": {
 					LocationInformation locInfo = new LocationInformation(testCase, inputs);
-					//expectedActivityHeader = "Attention Siren sounded by " + locInfo.getUserFirstName();
+					// expectedActivityHeader = "Attention Siren sounded by " +
+					// locInfo.getUserFirstName();
 					expectedActivityHeader = "Siren sounded by " + locInfo.getUserFirstName();
 					expectedActivitySubHeader = "BY APP";
 					deviceLocationTime = inputs.getInputValue("ALARM_TIME");
@@ -337,28 +388,32 @@ public class VerifyActivityList extends Keyword {
 					break;
 				}
 				case "DOOR SENSOR ALARM AT AWAY MODE": {
-					//expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Alarm";
+					// expectedActivityHeader =
+					// inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Alarm";
 					expectedActivityHeader = "Security Alarm";
 					expectedActivitySubHeader = "AWAY MODE";
 					deviceLocationTime = inputs.getInputValue("ALARM_TIME");
 					break;
 				}
 				case "DOOR SENSOR ALARM AT NIGHT MODE": {
-					//expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Alarm";
+					// expectedActivityHeader =
+					// inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Alarm";
 					expectedActivityHeader = "Security Alarm";
 					expectedActivitySubHeader = "NIGHT MODE";
 					deviceLocationTime = inputs.getInputValue("ALARM_TIME");
 					break;
 				}
 				case "WINDOW SENSOR ALARM AT NIGHT MODE": {
-					//expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Alarm";
+					// expectedActivityHeader =
+					// inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Alarm";
 					expectedActivityHeader = "Security Alarm";
 					expectedActivitySubHeader = "NIGHT MODE";
 					deviceLocationTime = inputs.getInputValue("ALARM_TIME");
 					break;
 				}
 				case "WINDOW SENSOR ALARM AT AWAY MODE": {
-					//expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Alarm";
+					// expectedActivityHeader =
+					// inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Alarm";
 					expectedActivityHeader = "Security Alarm";
 					expectedActivitySubHeader = "AWAY MODE";
 					deviceLocationTime = inputs.getInputValue("ALARM_TIME");
@@ -367,8 +422,15 @@ public class VerifyActivityList extends Keyword {
 				case "ALARM DISMISSED BY INVITED USER":
 				case "ALARM DISMISSED": {
 					LocationInformation locInfo = new LocationInformation(testCase, inputs);
-					expectedActivityHeader = "Alarm cancelled by "+locInfo.getUserFirstName();
+					expectedActivityHeader = "Alarm cancelled by " + locInfo.getUserFirstName();
 					expectedActivitySubHeader = "BY APP";
+					deviceLocationTime = inputs.getInputValue("ALARM_DISMISSED_TIME");
+					break;
+				}
+				case "ALARM DISMISSED BY KEYFOB": {
+					LocationInformation locInfo = new LocationInformation(testCase, inputs);
+					expectedActivityHeader = "Alarm cancelled by " + inputs.getInputValue("LOCATION1_DEVICE1_KEYFOB1");
+					expectedActivitySubHeader = "BY KEYFOB";
 					deviceLocationTime = inputs.getInputValue("ALARM_DISMISSED_TIME");
 					break;
 				}
@@ -395,7 +457,8 @@ public class VerifyActivityList extends Keyword {
 					break;
 				}
 				case "WINDOW SENSOR BYPASS CLEARED": {
-					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Bypass cleared";
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1")
+							+ " Bypass cleared";
 					expectedActivitySubHeader = "HOME MODE";
 					deviceLocationTime = inputs.getInputValue("WINDOW_BYPASS_CLEARED_TIME");
 					break;
@@ -438,7 +501,7 @@ public class VerifyActivityList extends Keyword {
 					deviceLocationTime = inputs.getInputValue("WINDOW_TAMPERED_TIME");
 					break;
 				}
-	
+
 				case "DOOR SENSOR TAMPERED AT OFF MODE": {
 					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " tamper";
 					expectedActivitySubHeader = "OFF MODE";
@@ -460,7 +523,8 @@ public class VerifyActivityList extends Keyword {
 					break;
 				}
 				case "WINDOW SENSOR TAMPER CLEARED AT HOME MODE": {
-					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Tamper cleared";
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1")
+							+ " Tamper cleared";
 					expectedActivitySubHeader = "HOME MODE";
 					deviceLocationTime = inputs.getInputValue("WINDOW_TAMPER_CLEARED_TIME");
 					break;
@@ -472,7 +536,8 @@ public class VerifyActivityList extends Keyword {
 					break;
 				}
 				case "WINDOW SENSOR TAMPER CLEARED AT AWAY MODE": {
-					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Tamper cleared";
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1")
+							+ " Tamper cleared";
 					expectedActivitySubHeader = "AWAY MODE";
 					deviceLocationTime = inputs.getInputValue("WINDOW_TAMPER_CLEARED_TIME");
 					break;
@@ -484,7 +549,8 @@ public class VerifyActivityList extends Keyword {
 					break;
 				}
 				case "WINDOW SENSOR TAMPER CLEARED AT NIGHT MODE": {
-					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1") + " Tamper cleared";
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1")
+							+ " Tamper cleared";
 					expectedActivitySubHeader = "NIGHT MODE";
 					deviceLocationTime = inputs.getInputValue("WINDOW_TAMPER_CLEARED_TIME");
 					break;
@@ -504,7 +570,7 @@ public class VerifyActivityList extends Keyword {
 				case "SWITCHED TO HOME BY KEYFOB": {
 					LocationInformation locInfo = new LocationInformation(testCase, inputs);
 					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Home by "
-							+ locInfo.getUserFirstName();
+							+ inputs.getInputValue("LOCATION1_DEVICE1_KEYFOB1");
 					expectedActivitySubHeader = "BY KEYFOB";
 					deviceLocationTime = inputs.getInputValue("HOME_TIME");
 					break;
@@ -561,7 +627,8 @@ public class VerifyActivityList extends Keyword {
 
 				default: {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + dataTable.getData(i, "Elements").trim().toUpperCase());
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input : " + dataTable.getData(i, "Elements").trim().toUpperCase());
 					return flag;
 				}
 				}
@@ -632,8 +699,7 @@ public class VerifyActivityList extends Keyword {
 							+ " Expected Sub Header: " + expectedActivitySubHeader);
 				}
 			}
-			
-			
+
 			// flag = flag & DASNotificationUtils.closeActivityLogs(testCase);
 		} catch (Exception e) {
 			flag = false;
