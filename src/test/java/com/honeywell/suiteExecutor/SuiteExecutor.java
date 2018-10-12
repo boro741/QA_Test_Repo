@@ -352,7 +352,7 @@ public class SuiteExecutor {
 			commandLineArguments = new String[] { "--deviceCloudProviderCredentials","SauceLabs::GraniteCI:46479bde-6cfd-4de0-96b9-9a331359b3e8,Perfecto::surendar.subramani@honeywell.com:Password1",
 					"--publishResult",
 					"--useXCUITest", "true",
-					"--requirementFileName","Requirement_file_ComfortSettings_iOS_Perfecto",
+					"--requirementFileName","Requirement_file_ComfortSettings_iOS",
 					"--testrunname","DLS-"+appName+"",
 					"--appToInstall","IOS:"+appName+",Android:1",
 					"--groups",
@@ -424,25 +424,25 @@ public class SuiteExecutor {
 					"NA_ScheduleOptions",
 					"NA_ResumeSchedule",
 
-//					/**Jasper NA - Settings**/
-//					"VerifyJasperNASettings",
-//					//"VerifyJasperNAEMEASpruceSettings",
-//					//"VerifyHBBSettings",
-//					"EnableDisableIndoorTemperatureAlert",
+					/**Jasper NA - Settings**/
+					"VerifyJasperNASettings",
+					//"VerifyJasperNAEMEASpruceSettings",
+					//"VerifyHBBSettings",
+					"EnableDisableIndoorTemperatureAlert",
 
-//					/** NA Schedule ON/OFF**/
-//					"ScheduleOFFONNA",
-//					"ScheduleOFFONNAtimebase",
-//					"ScheduleONOFFNAgeofencebase",
-//					"ScheduleOFFAdhocOverrideNAtimebaseGeofence", 
-//					"ScheduleONOFFNNAadhocoverrideTimebase", 
-//					"ScheduleONOFFNAadhocoverrideGeofence",
+					/** NA Schedule ON/OFF**/
+					"ScheduleOFFONNA",
+					"ScheduleOFFONNAtimebase",
+					"ScheduleONOFFNAgeofencebase",
+					"ScheduleOFFAdhocOverrideNAtimebaseGeofence", 
+					"ScheduleONOFFNNAadhocoverrideTimebase", 
+					"ScheduleONOFFNAadhocoverrideGeofence",
 					"ScheduleOFFVacationNA",
 					"ScheduleONOFFNAVacationNA",
 					"ScheduleONOFFNAswitchingmodes",
-//					"ScheduleONOFFNAgeofencebasefencecross",
-//					"ScheduleONMultistatNA",
-//					"ScheduleOFFMultistatNA",
+					"ScheduleONOFFNAgeofencebasefencecross",
+					"ScheduleONMultistatNA",
+					"ScheduleOFFMultistatNA",
 					
 					/**Adhoc-NA**/
 					"AdhocOverrideTimebaseSchedulefollowingfromsolutioncard",
@@ -518,17 +518,17 @@ public class SuiteExecutor {
 					"VacationGeofenceSolutionCardAfterVacationEndsNA",
 					"Vacations_VactionStatusOnDashabord",
 					
-//					/**Jasper EMEA-Dashboard&Solutioncard**/
-//					"ViewDashboardEMEA",
-//					"ViewSolutionCardEMEA",
-//					"SystemModeInfoscreenwithHeatOnlyEMEA",
-//					"SystemModeswitchSystemmodescreenwithheatonlyCancelfunctionalityEMEA",
-//					"SystemModeswitchSAVEfunctionEMEA",
-//					"FanModeOptionONEMEA",
-//					"SetTemperatureSolutionCardMAXEMEA",
-//					"SetTemperatureSolutionCardMINEMEA",
-//					"SolutionCardCoachmarkverificationEMEA",
-//					"SolutionCardEmergencyHeatHeatonlyEMEA",
+					/**Jasper EMEA-Dashboard&Solutioncard**/
+					"ViewDashboardEMEA",
+					"ViewSolutionCardEMEA",
+					"SystemModeInfoscreenwithHeatOnlyEMEA",
+					"SystemModeswitchSystemmodescreenwithheatonlyCancelfunctionalityEMEA",
+					"SystemModeswitchSAVEfunctionEMEA",
+					"FanModeOptionONEMEA",
+					"SetTemperatureSolutionCardMAXEMEA",
+					"SetTemperatureSolutionCardMINEMEA",
+					"SolutionCardCoachmarkverificationEMEA",
+					"SolutionCardEmergencyHeatHeatonlyEMEA",
 
 					/**Jasper EMEA-Scheduling**/
 					/**EMEATimeBasedScheduling**/
@@ -567,19 +567,19 @@ public class SuiteExecutor {
 					"EMEA_DeletingDefaultPeriodDifferentOnEverydaygroupview",
 					"EMEA_DeletingDefaultPeriodDifferentOnWeekendWeekdays",
 
-//					/** EMEA Schedule ON/OFF**/
-//					"ScheduleOFFONEMEA",
-//					"ScheduleOFFONEMEAtimebase",
-//					"ScheduleONOFFEMEAgeofencebase",
-//					"ScheduleOFFEMEAtimebasegeofencebase", 
-//					"ScheduleONFFAdhocOverrideEMEAtimebase",
-//					"ScheduleOFFONAadhocoverrideEMEAgeofence", 
-//					"ScheduleOFFVacationEMEA",
-//					"ScheduleOFFONVacationEMEA",
-//					"ScheduleONOFFEMEAswitchingmodes",
-//					"ScheduleONOFFEMEAgeofencebasefencecross", 
-//					"ScheduleONMultistatEMEA",
-//					"ScheduleOFFMultistatEMEA",
+					/** EMEA Schedule ON/OFF**/
+					"ScheduleOFFONEMEA",
+					"ScheduleOFFONEMEAtimebase",
+					"ScheduleONOFFEMEAgeofencebase",
+					"ScheduleOFFEMEAtimebasegeofencebase", 
+					"ScheduleONFFAdhocOverrideEMEAtimebase",
+					"ScheduleOFFONAadhocoverrideEMEAgeofence", 
+					"ScheduleOFFVacationEMEA",
+					"ScheduleOFFONVacationEMEA",
+					"ScheduleONOFFEMEAswitchingmodes",
+					"ScheduleONOFFEMEAgeofencebasefencecross", 
+					"ScheduleONMultistatEMEA",
+					"ScheduleOFFMultistatEMEA",
 					
 					/** Adhoc-EMEA**/
 					"AdhocOverrideTimebaseSchedulefollowingfromsolutioncardEMEA",
@@ -633,24 +633,24 @@ public class SuiteExecutor {
 					"AdhocOverrideScheduletemperatureTimeschedulingChangemodeHeatcoolAutoOFFPermanentHoldEMEA",
 					"AdhocOverrideTimebaseSchedulePermanentRemoveHoldEMEA",
 					
-//					/**Vacation-Settings-EMEA**/
-//					"Vacations_VerifyTimeAndDateBoundaryConditionsForEMEA",
-//					"Vacation_TimerValueIncreamentOf10EMEA",
-//					"VacationActiveSwitchingModesEMEA",
-//					//"VacationTimebaseSolutionCardAfterVacationEndsEMEA",
-//					"VacationGeofenceSolutionCardAfterVacationEndsEMEA",
+					/**Vacation-Settings-EMEA**/
+					"Vacations_VerifyTimeAndDateBoundaryConditionsForEMEA",
+					"Vacation_TimerValueIncreamentOf10EMEA",
+					"VacationActiveSwitchingModesEMEA",
+					//"VacationTimebaseSolutionCardAfterVacationEndsEMEA",
+					"VacationGeofenceSolutionCardAfterVacationEndsEMEA",
 					
 					/**HBB-Dashboard&Solutioncard**/
 					"SetTemperatiureOFFModeHB",
 
 					/** HBB Schedule ON/OFF**/
 					"ScheduleONOFFHB",
-//					"ScheduleONOFFHBtimebase",
-//					"ScheduleONOFFHBgeofencebase",
+					"ScheduleONOFFHBtimebase",
+					"ScheduleONOFFHBgeofencebase",
 					"ScheduleONOFFHBswitchingmodes",
-//					"ScheduleONOFFHBgeofencebasefencecross",
-//					"ScheduleONMultistatHB", 
-//					//"ScheduleOFFMultistatHB",
+					"ScheduleONOFFHBgeofencebasefencecross",
+					"ScheduleONMultistatHB", 
+					//"ScheduleOFFMultistatHB",
 					
 					/**Vacation-Settings-HBB**/
 					//"Vacations_VerifyHBBStatsNotPresentOnComfortSettings",
