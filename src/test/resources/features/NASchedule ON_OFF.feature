@@ -2,7 +2,7 @@
 Feature: As an user I want to turn schedule OFF or ON so that I can run schedule whenever I want to apply set points automatically 
 
 
-@ScheduleOFFONNA @Automated @LYR-29388
+@ScheduleOFFONNA @Automated @LYR-29388 @--xrayid:ATER-54541
 Scenario Outline: As an user I want to turn schedule OFF So that I will be able to turned off schedule whenever I don't want to run schedule 
 #Schedule OFF ON the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr
 Given user has <Mode> system mode
@@ -35,7 +35,7 @@ Examples:
 
 
 
-@ScheduleOFFONNAtimebase  @Automated @LYR-29389
+@ScheduleOFFONNAtimebase  @Automated @LYR-29389 @--xrayid:ATER-54542
 Scenario Outline:As an user I want to turn schedule ON while running time base schedule   
 #Schedule OFF the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr 
 Given user has <Mode> system mode
@@ -63,7 +63,7 @@ Examples:
 #|Heat only|time based  | following schedule |
 #|Cool only|time based  | following schedule |
 
-@ScheduleONOFFNAgeofencebase @Automated @LYR-29390
+@ScheduleONOFFNAgeofencebase @Automated @LYR-29390 @--xrayid:ATER-54543
 Scenario Outline:As an user I want to turn schedule ON from OFF So that schedule will be turned back to geofence based 
 #Schedule ON the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr
 Given user has <Mode> system mode
@@ -104,7 +104,7 @@ Examples:
 #|Cool only|geofence based|Using Sleep Settings |UserArrived |Sleep|
 
 
-@ScheduleOFFAdhocOverrideNAtimebaseGeofence @Automated @LYR-29397
+@ScheduleOFFAdhocOverrideNAtimebaseGeofence @Automated @LYR-29397  @--xrayid:ATER-54544
 Scenario Outline:As an user I want to turn schedule OFF So that I will be able to turned off schedule whenever I don't want to run schedule  
 #Schedule OFF the stat  with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr  
 Given user has <Mode> system mode
@@ -142,7 +142,7 @@ Examples:
 #|Cool only|geofence based| Temporary |
 #|Heat only|geofence based| Temporary |
 
-@ScheduleONOFFNNAadhocoverrideTimebase @Automated @LYR-29392
+@ScheduleONOFFNNAadhocoverrideTimebase @Automated @LYR-29392  @--xrayid:ATER-54545
 Scenario Outline: As an user I want to turn schedule ON from OFFSo that schedule will be turned back to follow schedule 
 #Schedule ON the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr
 Given user has <Mode> system mode
@@ -179,7 +179,7 @@ Examples:
 #|Heat only| time based| Temporary |following schedule |
 
 
-@ScheduleONOFFNAadhocoverrideGeofence @Automated @LYR-29391
+@ScheduleONOFFNAadhocoverrideGeofence @Automated @LYR-29391 @--xrayid:ATER-54546
 Scenario Outline:As an user I want to turn schedule ON from OFF So that schedule will be turned back to geofence schedule 
 #Schedule ON the stat   with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr
 Given user has <Mode> system mode
@@ -223,7 +223,7 @@ Examples:
 #|Heat only|geofence based| Temporary |Using Sleep Settings|Sleep|
 
 
-@ScheduleOFFVacationNA @Automated @LYR-29393
+@ScheduleOFFVacationNA @Automated @LYR-29393  @--xrayid:ATER-54547
 Scenario Outline: As an user  I want to turn schedule OFF while vacation is active  So that I will be able to turned off schedule whenever I don't want to run schedule
 #Schedule OFF for stat  with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr     
 Given user has <Mode> system mode
@@ -257,7 +257,7 @@ Examples:
 
 
 
-@ScheduleONOFFNAVacationNA @Automated @LYR-29394
+@ScheduleONOFFNAVacationNA @Automated @LYR-29394  @--xrayid:ATER-54548
 Scenario Outline:As an user I want to turn schedule ON So that my vaction will be back  
 #Schedule ON the stat  with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr 
 Given user has <Mode> system mode
@@ -293,7 +293,7 @@ Examples:
 #|Heat Only| geofence based |
 
 
-@ScheduleOFFVacationStatusNA @Automated @LYR-29393
+@ScheduleOFFVacationStatusNA @Automated @LYR-29393 @--xrayid:ATER-54549
 Scenario Outline: As an user  I want to turn schedule OFF while vacation is active  So that I will be able to turned off schedule whenever I don't want to run schedule
 #Schedule OFF for stat  with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr     
 Given user has <Mode> system mode
@@ -331,7 +331,7 @@ Examples:
 
 
 
-@ScheduleONOFFNAVacationStatusNA @Automated @LYR-29394
+@ScheduleONOFFNAVacationStatusNA @Automated @LYR-29394 @--xrayid:ATER-54550
 Scenario Outline:As an user I want to turn schedule ON So that my vaction will be back  
 #Schedule ON the stat  with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr 
 Given user has <Mode> system mode
@@ -368,7 +368,7 @@ Examples:
 #|Heat Only| geofence based |
 
 
-@ScheduleONOFFNAswitchingmodes @Automated
+@ScheduleONOFFNAswitchingmodes @Automated  @--xrayid:ATER-54551
 Scenario Outline: Schedule ON OFF status while switching modes to off and from off for Temperture scale Celsius Fahrenheit and for time format 24 12hr
 Given user has <Mode> system mode
 Then user thermostat is set to <scheduling> schedule 
@@ -425,7 +425,7 @@ Examples:
 #|Auto| geofence based |Temporary| Auto |
 
 
-@ScheduleONOFFNAgeofencebasefencecross @Automated
+@ScheduleONOFFNAgeofencebasefencecross @Automated @--xrayid:ATER-54552
 Scenario Outline:As a user want to verify schedule off status when geofence crossed
 #Schedule ON the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr
 Given user has <Mode> system mode
@@ -473,7 +473,7 @@ Examples:
 #|Cool Only|geofence based			  |UserDeparted |Away| Sleep | UserArrived |Using Away Settings| Using Sleep Settings |
 
 #Negative scenario
-@ScheduleON/OFFEMEANA  @NotAutomatable
+@ScheduleON/OFFEMEANA  @NotAutomatable @--xrayid:ATER-54553
 Scenario Outline:Schedule ON/OFF when there is no schedule for stat   with systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr
 Given Stat with <Condition>
 Then Verify there is no option to Schedule ON/OFF
@@ -485,7 +485,7 @@ Examples:
 
 
 
-@ScheduleONMultistatNA @Automated
+@ScheduleONMultistatNA @Automated @--xrayid:ATER-54554
 Scenario Outline: As an user I want to turn schedule OFF and verify in thermostat2
 #Schedule ON in the stat1 doesnot affect other stats schedule OFF status in the location with Multi stat(Jasper EMEA) or with Multi stat(Jasper NA,HBB) for time format 24/12hr  
 Given user has <Mode> system mode
@@ -530,7 +530,7 @@ Examples:
 #|Heat Only|time based | time based  | pause |
 
 
-@ScheduleOFFMultistatNA  @Automated
+@ScheduleOFFMultistatNA  @Automated @--xrayid:ATER-54555
 Scenario Outline: As an user I want to turn schedule ON and verify in thermostat2   
 #Schedule OFF in the stat1 doesnot affect other stats schedule ON status in the location with Multi stat(Jasper EMEA) or with Multi stat(HBB,Jasper NA) for systems Heat cool,Cool,Heat for Temperture scale Celsius OR Fahrenheit and for time format 24 OR 12hr
 Given user has <Mode> system mode
@@ -574,7 +574,7 @@ Examples:
 #|Heat Only|time based | time based  | pause |
 
 
-@ErrormessageScheduleON/OFFEMEANA @NotAutomatable
+@ErrormessageScheduleON/OFFEMEANA @NotAutomatable @--xrayid:ATER-54555
 Scenario Outline:To get error messages on Schedule ON/OFF for stat   with systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr
 As an user
 I want to get error message while attempt to Schedule ON/OFF  

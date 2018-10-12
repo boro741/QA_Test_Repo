@@ -1,7 +1,7 @@
 @VacationSettings @Comfort
 Feature: As an user I want to set the vacation period for my home so that my thermostat will follow vacation setting on my absence from my home during the vacation days  
 
-@Vacations_VerifyStartAndEndDate			@Automated
+@Vacations_VerifyStartAndEndDate			@Automated @--xrayid:ATER-54557
  Scenario Outline: Verify Start and End Date
  Given vacation mode is <settings>
  And user launches and logs in to the Lyric application
@@ -15,7 +15,8 @@ Feature: As an user I want to set the vacation period for my home so that my the
  #     | inactive		| 
  
   
-@Vacations_VerifyGuideMessage			@Automated
+@Vacations_VerifyGuideMessage			@Automated @--xrayid:ATER-54558
+ Scenario Outline: Verify Start and End Date
 Scenario Outline: Verify guide Message when vacation is either turned off or on
 Given vacation mode is "active"
 And user launches and logs in to the Lyric application
@@ -39,7 +40,7 @@ Examples:
 	#	| solution card			| Vacation Until		|
 		
 
-@Vacations_DefaultVacationTimeForNA			@Automated
+@Vacations_DefaultVacationTimeForNA			@Automated @--xrayid:ATER-54559
 Scenario: As a user I want to verify the date inputs
 Given vacation mode is "inactive"
 And user launches and logs in to the Lyric application
@@ -50,7 +51,7 @@ Then user is displayed with "From" date as "Current Time" nearest to "15"
 And user is displayed with "To" date as "Week from Current Time" nearest to "15"
 
   
-@Vacations_VerifyTimeAndDateBoundaryConditionsForEMEA			@Automated
+@Vacations_VerifyTimeAndDateBoundaryConditionsForEMEA			@Automated @--xrayid:ATER-54560
 Scenario: As a user I want to verify the time and date boundary conditions
 Given vacation mode is "inactive"
 And user launches and logs in to the Lyric application
@@ -61,7 +62,7 @@ And user is displayed with "To" date as "Week from Current Time" nearest to "10"
 
 
   
-@Vacations_VerifyVacationDefaultSetPoints			@Automated
+@Vacations_VerifyVacationDefaultSetPoints			@Automated @--xrayid:ATER-54561
 Scenario: As a user I want to set the vacation set value so that I can put my home with desired temperature on my vacation  
 Given vacation mode is "inactive"
 And user launches and logs in to the Lyric application
@@ -73,7 +74,7 @@ Then user should be displayed with default set point value
 And user should be displayed with temperature values within maximum minimum limit
 
 
-@Vacations_VerifyHBBStatsNotPresentOnComfortSettings			@Automated
+@Vacations_VerifyHBBStatsNotPresentOnComfortSettings			@Automated @--xrayid:ATER-54563
 Scenario: As a user I want to verify that HBB stats are not present in vacation comfort settings 
 When vacation mode is "inactive"
 And user launches and logs in to the Lyric application
@@ -87,7 +88,7 @@ And HBB device should not be listed under the review vacation settings section i
   
 
 
-@Vacations_MinimumBandwidthTimer	@Automated
+@Vacations_MinimumBandwidthTimer	@Automated  @--xrayid:ATER-54564
 Scenario: As a user I want to verify the minimum Bandwidth Limit for vacation from and To 
 Given vacation mode is "inactive"
 When vacation mode is "active"
@@ -99,7 +100,7 @@ And user verifies vacation is "on" in "solution card"
 And user should be displayed with "Vacation" setpoint value in the solution card screen
   
 
-@Vacation_TimerValueIncreamentOf10EMEA			@Automated
+@Vacation_TimerValueIncreamentOf10EMEA			@Automated  @--xrayid:ATER-54567
 Scenario: As a user I want to verify the minimum Bandwidth Limit for vacation from and To 
 Given vacation mode is "inactive"
 And user launches and logs in to the Lyric application
@@ -110,7 +111,7 @@ Then user is displayed with "From" date as "Current Time" nearest to "10"
 #Then user should be displayed from and to timer field incremental of "10" minutes
 
 
-@Vacation_TimerValueIncreamentOf15NA				@Automated
+@Vacation_TimerValueIncreamentOf15NA				@Automated @--xrayid:ATER-54568
 Scenario: As a user I want to verify the minimum Bandwidth Limit for vacation from and To 
 Given vacation mode is "inactive"
 And user launches and logs in to the Lyric application
@@ -121,7 +122,7 @@ Then user is displayed with "From" date as "Current Time" nearest to "15"
 #Then user should be displayed from and to timer field incremental of "15" minutes
   
   
-@Vacation_EditSetPoints			@Automated
+@Vacation_EditSetPoints			@Automated @--xrayid:ATER-54569
 Scenario: As a user I want to edit set points for individual stat in Stats screen
 When vacation mode is "active"
 And user launches and logs in to the Lyric application
@@ -130,7 +131,7 @@ When user selects the stat to edit
 Then user should be able to edit set points in Stats screen
 
 
-@Vacation_EnableDisableIndividualStat			@Automated
+@Vacation_EnableDisableIndividualStat			@Automated @--xrayid:ATER-54570
 Scenario Outline: As a user I want to enable or disable stat vacation individually
 #Given: User has multiple stats
 When vacation mode is "inactive"
@@ -148,7 +149,7 @@ Examples:
    #   | Off			| No Settings				| 
       
       
-@Vacation_Enable_DisableMultiStat			@Automated
+@Vacation_Enable_DisableMultiStat			@Automated @--xrayid:ATER-54571
 Scenario Outline: As a user I want to enable disable multi stat vacation
 Given vacation mode is "inactive for multistat"
 And user launches and logs in to the Lyric application
@@ -165,7 +166,7 @@ Examples:
       | Disable   | Inactive			|
 
 
-@Vacation_WhenScheduleEnables			@Automated
+@Vacation_WhenScheduleEnables			@Automated @--xrayid:ATER-54572
 Scenario Outline: As a user I want to activate an Vacation settings when Scheduling is active 
 Given user thermostat is set to <Schedule Type> schedule
 And user launches and logs in to the Lyric application
@@ -180,7 +181,7 @@ Examples:
   #    | No					| 
   
 
-@Vacation_EditSetPointsFromPrimaryCard			@Automated
+@Vacation_EditSetPointsFromPrimaryCard			@Automated  @--xrayid:ATER-54573
 Scenario Outline: As a user I want to edit set points for individual stat from primary card screen
 When vacation mode is "active"
 And user launches and logs in to the Lyric application
@@ -194,7 +195,7 @@ Examples:
 
 
 #JasperNA
-@VacationActiveSwitchingModesNA			@Automated
+@VacationActiveSwitchingModesNA			@Automated @--xrayid:ATER-54574
 Scenario Outline:  To verify when vacation active switching modes is changed for Heat, auto, cool and off system with auto changeover enabled
 Given user has <Mode> system mode
 And vacation mode is "active"
@@ -219,7 +220,7 @@ Examples:
 
 
 #JasperEMEA
-@VacationActiveSwitchingModesEMEA			@Automated
+@VacationActiveSwitchingModesEMEA			@Automated @--xrayid:ATER-54575
 Scenario:  To verify geofence schedule switching modes is changed for Heat Cool and Off system with auto changeover enabled
 Given user has "Heat" system mode
 And vacation mode is "active"
@@ -233,7 +234,7 @@ And user verifies vacation is "off" in "solution card"
 
 
 #JasperNA
-@VacationTimebaseSolutionCardAfterVacationEndsNA			@NotAutomatable
+@VacationTimebaseSolutionCardAfterVacationEndsNA			@NotAutomatable @--xrayid:ATER-54578
 Scenario Outline:   I want to verify AdhocOVerride status when vacation ends
 Given user launches and logs in to the Lyric application
 Then user is set to <Mode> through CHIL
@@ -284,7 +285,7 @@ Examples:
 #		| Heat only			| Permanent					| Following schedule			|
 
 #JasperEMEA
-@VacationTimebaseSolutionCardAfterVacationEndsEMEA			@NotAutomatable
+@VacationTimebaseSolutionCardAfterVacationEndsEMEA			@NotAutomatable @--xrayid:ATER-54580
 Scenario Outline:   I want to verify AdhocOVerride status when vacation ends
 Given user launches and logs in to the Lyric application
 Then user is set to "Heat" through CHIL
@@ -307,7 +308,7 @@ Examples:
 
 
 #JasperNA
-@VacationGeofenceSolutionCardAfterVacationEndsNA			@Automated
+@VacationGeofenceSolutionCardAfterVacationEndsNA			@Automated  @--xrayid:ATER-54582
 Scenario Outline: I want to verify NA AdhocOVerride status when vacation ends
 Given user has <Mode> system mode
 And user thermostat is set to <Scheduling> schedule
@@ -337,7 +338,7 @@ Examples:
 
 
 #JasperNA
-@VacationGeofenceSolutionCardTemporaryHoldAfterVacationEndsNA			@Automated
+@VacationGeofenceSolutionCardTemporaryHoldAfterVacationEndsNA			@Automated @--xrayid:ATER-54583
 Scenario Outline:   I want to verify Temporary hold status when vacation ends
 Given user has <Mode> system mode
 And user thermostat is set to <Scheduling> schedule
@@ -365,7 +366,7 @@ Examples:
 
 
 #JasperNA
-@VacationGeofenceSolutionCardAfterVacationEndsEMEA			@Automated
+@VacationGeofenceSolutionCardAfterVacationEndsEMEA			@Automated @--xrayid:ATER-54585
 Scenario Outline: I want to verify EMEA AdhocOVerride status when vacation ends
 Given user has <Mode> system mode
 And user thermostat is set to <Scheduling> schedule
@@ -388,14 +389,14 @@ Examples:
 #| Heat		| with out sleep geofence based		| Using Away Settings	| Away 		| UserArrived 	| Home 		| UserArrived 	| Using Home Settings 	|
 
   
-@Vacations_VactionStatusOnDashabord			@Automated
+@Vacations_VactionStatusOnDashabord			@Automated @--xrayid:ATER-54586
 Scenario: Verify if vacation is active when user is in Dashboard
 Given vacation mode is "active"
 When user launches and logs in to the Lyric application
 #Then user should be displayed "Vacation Active" on Dashboard header
 Then user verifies vacation is "on" in "dashboard"
 
-@VacationCreateTimebaseschedule @Automated
+@VacationCreateTimebaseschedule @Automated @--xrayid:ATER-54588
 Scenario Outline: To Verify create time base schedule in off mode  
 Given user has <Mode> system mode
 And user thermostat is set to <Currentschedule> schedule
@@ -425,7 +426,7 @@ Examples:
 #|Heat Only| time based | Sleep | 
 #|Heat Only| time based | Wake | 
 
-@Vacations_VerifyVacationdefaultsetpointwhenonandoff			@Automated
+@Vacations_VerifyVacationdefaultsetpointwhenonandoff			@Automated @--xrayid:ATER-54590
 Scenario: As a user I want to set the vacation set value to minimum so that I can put my home with desired temperature on my vacation  
 #Given vacation mode is "inactive"
 And user launches and logs in to the Lyric application
@@ -442,7 +443,7 @@ And user navigates back and forth in "Vacation stat" screen
 Then user should be displayed with default set point value
 
 
-@Vacations_VerifyVacationMaxSetPoints	@Automated
+@Vacations_VerifyVacationMaxSetPoints	@Automated @--xrayid:ATER-54593
 Scenario: As a user I want to set the vacation set value to maximum so that I can put my home with desired temperature on my vacation  
 Given vacation mode is "inactive"
 And user launches and logs in to the Lyric application
@@ -452,7 +453,7 @@ And user navigates back and forth in "Vacation" screen
 And user turns "Temperature to" the "Maximum" through the "Vacation Card"
 Then user should be displayed with Updated setpoint in "VACATION CARD TO MAXIMUM"
 
-@Vacations_VerifyVacationMinSetPoints			@Automated
+@Vacations_VerifyVacationMinSetPoints			@Automated @--xrayid:ATER-54595
 Scenario: As a user I want to set the vacation set value to minimum so that I can put my home with desired temperature on my vacation  
 Given vacation mode is "inactive"
 And user launches and logs in to the Lyric application
@@ -462,7 +463,7 @@ And user navigates back and forth in "Vacation" screen
 And user turns "Temperature to" the "Minimum" through the "Vacation Card"
 Then user should be displayed with Updated setpoint in "VACATION CARD TO MINIMUM"
 
-@VacationCreateTimebaseschedule @Newscenario @Automated
+@VacationCreateTimebaseschedule @Newscenario @Automated @--xrayid:ATER-54596
 Scenario Outline: To Verify create time base schedule in off mode
 Given user has <Mode> system mode
 And user thermostat is set to <Currentschedule> schedule
@@ -492,7 +493,7 @@ Examples:
 #|Heat Only| time based | Sleep |
 #|Heat Only| time based | Wake |
 
-@VacationCreateTimebasescheduleOFFMode @Automated 
+@VacationCreateTimebasescheduleOFFMode @Automated @--xrayid:ATER-54598
 Scenario Outline: To Verify create time base schedule in off mode when PermanentHold
 Given user has <Mode> system mode
 And user thermostat is set to <Currentschedule> schedule
@@ -527,7 +528,7 @@ Examples:
 #|Heat Only| time based | Sleep | 
 #|Heat Only| time based | Wake | 
 
-@VacationCreateGeofencebaseschedule @Automated
+@VacationCreateGeofencebaseschedule @Automated @--xrayid:ATER-54599
 Scenario Outline: To Verify create geofence schedule when permanentHold
 Given user has <Mode> system mode
 And user thermostat is set to "time based" schedule
@@ -561,7 +562,7 @@ Examples:
 #|Cool	| Sleep		| UserArrived		| With |
 #|Cool	| Sleep		| UserArrived		| With |
 
-@VacationCreateGeofencebasescheduleOFF @Automated
+@VacationCreateGeofencebasescheduleOFF @Automated @--xrayid:ATER-54601
 Scenario Outline: To Verify create geofence schedule in off mode when permanentHold
 Given user has <Mode> system mode
 And user thermostat is set to "time based" schedule

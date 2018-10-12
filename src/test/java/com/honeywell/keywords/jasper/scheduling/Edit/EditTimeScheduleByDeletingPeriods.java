@@ -38,7 +38,7 @@ public class EditTimeScheduleByDeletingPeriods extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user edit Time schedule by deleting \"(.+)\" on confirming the period deletion$")
+	@KeywordStep(gherkins = "^the user edit Time schedule by deleting \"(.+)\" on confirming the period deletion$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
 		if (exampleData.get(0).equalsIgnoreCase("Atleast 1 period")) {

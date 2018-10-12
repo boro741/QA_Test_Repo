@@ -3,7 +3,7 @@ Feature: Edit Geofence based scheduling
 As an user i want to Create and Edit Geofence Schedule 
 so that my home temperature will get set automatically based on geofence settings
 
-@NA_CreateGeofenceSchedule @Automated
+@NA_CreateGeofenceSchedule @Automated @--xrayid:ATER-54419
   Scenario: As a user i want to create an Geofence schdeule with Defualt values Home_Away settings
     Given user thermostat is set to "No" schedule
       And user launches and logs in to the Lyric application
@@ -13,7 +13,7 @@ so that my home temperature will get set automatically based on geofence setting
 #      And user navigates to "Primary card" screen from the "Scheduling" screen
 #      And user is displayed with "Using Away/Home settings"
   
-  @NA_SleepSettings @Automated
+  @NA_SleepSettings @Automated @--xrayid:ATER-54420
   Scenario: As a user i want to Add_Edit Geofence Sleep Settings 
     Given user thermostat is set to "No" schedule
       And user launches and logs in to the Lyric application
@@ -21,7 +21,7 @@ so that my home temperature will get set automatically based on geofence setting
      When user creates "Geofence based" scheduling with default values "Without" sleep settings
      Then "Geofence based" scheduling gets activated
 
-  @NA_EditGeofenceWithTemperature @Automated
+  @NA_EditGeofenceWithTemperature @Automated  @--xrayid:ATER-54422
   Scenario Outline: As a user i want to verify Tempreture bandwidth limit for  Home,Sleep and Away settings
   Above Maximum: Above 90, Below Minimum : below 50,At Maximum : max 90, At Minimum : min 50 ,within range : between 50-90
     Given user thermostat is set to "No" schedule
@@ -38,7 +38,7 @@ so that my home temperature will get set automatically based on geofence setting
 #      | At Minimum    | 
 #      | within range  | 
   
-  @NA_EditGeofenceSetpointsWhenAutoChnageOverEnabled @Automated
+  @NA_EditGeofenceSetpointsWhenAutoChnageOverEnabled @Automated @--xrayid:ATER-54423
   Scenario Outline: As a User i want to Edit set point when Auto change over is enabled so that my 
   cool set point is always greater than or equal to heat set point
     Given user thermostat is set to "Geofence based" schedule
@@ -52,7 +52,7 @@ so that my home temperature will get set automatically based on geofence setting
 #      |Sleep|
 #      |Away| 
   
-  @JasperNA_GeofenceTimerClockIsInCrementalOf15mins @Automated
+  @JasperNA_GeofenceTimerClockIsInCrementalOf15mins @Automated @--xrayid:ATER-54425
   Scenario: As a user i want to verify if Sleep settings timer is incremental of 15mins
     Given user thermostat is set to "Time based" schedule
       And user launches and logs in to the Lyric application
@@ -61,7 +61,7 @@ so that my home temperature will get set automatically based on geofence setting
      Then user should be displayed sleep setting timer with increments of "15 minutes"
 
   
-  @GuidemessagToTurnONLocationservicesNA @NotAutomatable
+  @GuidemessagToTurnONLocationservicesNA @NotAutomatable @--xrayid:ATER-54425
   Scenario Outline:To get guide message to turn ON location services to edit geofence schedule by editing home settings 
   or by editing sleep settings or by editing away settings   
   I want to get guide message to turn ON location services   
@@ -76,7 +76,7 @@ so that my home temperature will get set automatically based on geofence setting
       | Location services is disabled in mobile device  | Without   | 
       | Location services is disabled for the lyric app | Without   | 
   
-  @NA_GeofenceScheduleOptions @Automated
+  @NA_GeofenceScheduleOptions @Automated @--xrayid:ATER-54427
   Scenario Outline: As a user i want an Options to Pause_Off and Switch Geofence Schdeule
     Given user thermostat is set to "Geofence based" schedule
     And user launches and logs in to the Lyric application
@@ -89,7 +89,7 @@ so that my home temperature will get set automatically based on geofence setting
 #      | Switch to Time based| Time based schedule | 
       |Turn Schedule Off| Tap on Resume       | 
 
-@NA_CreateGeofenceScheduleInOffMode @Automated
+@NA_CreateGeofenceScheduleInOffMode @Automated @--xrayid:ATER-54429
 Scenario Outline: As a user I want to create an Geofence schedule with default schedule value when System is in Off Mode 
 Given user thermostat is set to "time based" schedule
 And  user has "Off" system mode
@@ -106,7 +106,7 @@ Then <scheduling> scheduling gets activated
       | Geofence based |
 #      |No|
 
-@NA_CreateGeonceScheduleInLearnMode @Automated
+@NA_CreateGeonceScheduleInLearnMode @Automated @--xrayid:ATER-54430
 Scenario: As a user i want to create an Geofence schdeule from Learn More
     Given user thermostat is set to "No" schedule
       And user launches and logs in to the Lyric application
@@ -116,7 +116,7 @@ Scenario: As a user i want to create an Geofence schdeule from Learn More
 # And user navigates to "Primary card" screen from the "Scheduling" screen
 #      And user is displayed with "Using Away/Home settings"
       
-      @NA_CreateGeonceScheduleInLearnModeWhenUserSkipsGeofence @NotAutomatable
+      @NA_CreateGeonceScheduleInLearnModeWhenUserSkipsGeofence @NotAutomatable @--xrayid:ATER-54432
 Scenario: As a user i want to create an Geofence schdeule from Learn More
     Given user Skips Geofence while DIY and Configures a stat
       And user launches and logs in to the Lyric application
@@ -127,7 +127,7 @@ Scenario: As a user i want to create an Geofence schdeule from Learn More
 #      And user is displayed with "Using Away/Home settings"
      
      
-@NA_CopyScheduleToMulitpleStat @Automated
+@NA_CopyScheduleToMulitpleStat @Automated @--xrayid:ATER-54434
 # Given Account has a Location with Multiple Stats
 Scenario Outline: As a user i want to copy my New schedule to other stats as well
 Given user thermostat is set to "time based" schedule
@@ -141,7 +141,7 @@ Then verify <ScheduleType> schedule is <VerifyCopyStats> stats
 |Geofence based     | by copying schedule to all|copied to all other|
 #|Geofence based    | by copying schedule to selected|copied to selected|
 
-@NA_CopyScheduleWhenStatOffline @NotAutomatable
+@NA_CopyScheduleWhenStatOffline @NotAutomatable @--xrayid:ATER-54435
 # Given Account has a Location with Multiple Stats and Offline stats
 Scenario: As a user i want to verify that offline Stats are not displayed in the Copystat pop ups
 Given user launches and logs in to the Lyric application
@@ -149,7 +149,7 @@ And user navigates to "Scheduling" screen from the "Dashboard" screen
 When user selects "CopyStatst" stats while creating "Geofence" schedule with default schedule value
 Then Offline Stat should't be displayed
 
-@NA_WhenHeat_CoolOnly @Automated
+@NA_WhenHeat_CoolOnly @Automated @--xrayid:ATER-54438
 Scenario Outline: As a user I want to create an Goefence schedule with Heat OR Cold only modes
 #Given user thermostat is configures with "Modes" system mode
 Given user thermostat is set to "time based" schedule
@@ -164,7 +164,7 @@ Examples:
 #|Heat Only|
 |Cool Only|
 
-@NA_CreateGeofenceWithEditingHome_Sleep_AwaySettings @Automated
+@NA_CreateGeofenceWithEditingHome_Sleep_AwaySettings @Automated @--xrayid:ATER-54439
   Scenario Outline: As a user i want to create an Geofence schdeule with Editing Home,Sleep and Away setpoint in Geofence
     Given user thermostat is set to "No" schedule
       And user launches and logs in to the Lyric application
@@ -179,7 +179,7 @@ Examples:
 #|Home|
 #|Away|
 
-@NA_EditGeofenceScheduleSettingsAndBackNavigation @Automated
+@NA_EditGeofenceScheduleSettingsAndBackNavigation @Automated @--xrayid:ATER-54441
   Scenario Outline: As a user i want to create an Geofence schdeule with Editing Home,Sleep and Away setpoint in Geofence and Verify if Values are saved navigating Back 
     Given user thermostat is set to "No" schedule
       And user launches and logs in to the Lyric application

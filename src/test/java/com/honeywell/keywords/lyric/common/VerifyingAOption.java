@@ -53,7 +53,7 @@ public class VerifyingAOption extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user \"(.*)\" with the \"(.*)\" option$")
+	@KeywordStep(gherkins = "^user \"(.+)\" with the \"(.+)\" option$")
 	public boolean keywordSteps() throws KeywordException {
 
 		if (expectedScreen.get(1).toUpperCase().equals("FR")) {

@@ -1,7 +1,7 @@
 @ScheduleON_OFF @Comfort 
 Feature: As an user I want to turn schedule OFF or ON So that I can run schedule whenever I want to apply set points automatically 
 
-@ScheduleONOFFHB @Automated @LYR-29410
+@ScheduleONOFFHB @Automated @LYR-29410  @--xrayid:ATER-54407
 Scenario Outline:Schedule OFF the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr  
 Given user has <Mode> system mode
 Then user thermostat is set to <scheduling> schedule 
@@ -27,7 +27,7 @@ Examples:
 #|Heat only|time based    |
 #|Cool only|time based    |
 
-@ScheduleONOFFHBtimebase @Automated @LYR-29409
+@ScheduleONOFFHBtimebase @Automated @LYR-29409  @--xrayid:ATER-54412
 Scenario Outline:Schedule OFF the stat with systems Heat cool,Cool,Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr time base schedule
 Given user has <Mode> system mode
 Then user thermostat is set to <scheduling> schedule 
@@ -55,7 +55,7 @@ Examples:
 
 
 
-@ScheduleONOFFHBgeofencebase @Automated @LYR-29388
+@ScheduleONOFFHBgeofencebase @Automated @LYR-29388 @--xrayid:ATER-54413
 Scenario Outline: Schedule ON the stat   with systems Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr
 Given user has <Mode> system mode
 Then user thermostat is set to <scheduling> schedule 
@@ -96,7 +96,7 @@ Examples:
 
 
 
-@ScheduleONOFFHBswitchingmodes @Automated
+@ScheduleONOFFHBswitchingmodes @Automated @--xrayid:ATER-54414
 Scenario Outline:Schedule ON OFF status while switching modes to off and from off for Temperture scale Celsius Fahrenheit and for time format 24 12hr
 Given user has <Mode> system mode
 Then user thermostat is set to <scheduling> schedule 
@@ -141,7 +141,7 @@ Examples:
 #|Auto|geofence based | Cool |
 #|Auto| geofence based| Auto |
 
-@ScheduleONOFFHBgeofencebasefencecross @Automated
+@ScheduleONOFFHBgeofencebasefencecross @Automated @--xrayid:ATER-54415
 Scenario Outline: As a user want to verify schedule off status when geofence crossed
 #Schedule ON the stat   with systems Heat for Temperture scale Celsius Fahrenheit and for time format 24 12hr
 Given user has <Mode> system mode
@@ -186,7 +186,7 @@ Examples:
 #|Cool Only|geofence based			  |UserDeparted |Away| Sleep | UserArrived |
 
 
-@ScheduleONMultistatHB @Automated
+@ScheduleONMultistatHB @Automated @--xrayid:ATER-54417
 Scenario Outline:As an user I want to turn schedule OFF and verify in thermostat2
 #Schedule ON in the stat1 doesnot affect other stats schedule OFF status in the location with Multi stat(Jasper EMEA) or with Multi stat(Jasper NA,HBB) for time format 24/12hr  
 Given user has <Mode> system mode
@@ -231,7 +231,7 @@ Examples:
 #|Heat Only|time based | time based  | pause |
 
 
-@ScheduleOFFMultistatHB  @Automated
+@ScheduleOFFMultistatHB  @Automated  @--xrayid:ATER-54418
 Scenario Outline: As an user I want to turn schedule ON and verify in thermostat2   
 #Schedule OFF in the stat1 doesnot affect other stats schedule ON status in the location with Multi stat(Jasper EMEA) or with Multi stat(HBB,Jasper NA) for systems Heat cool,Cool,Heat for Temperture scale Celsius/Fahrenheit and for time format 24/12hr
 Given user has <Mode> system mode

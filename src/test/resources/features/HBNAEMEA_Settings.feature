@@ -111,7 +111,7 @@ Then user should be displayed with the following "Temperature Alert" options:
 
 
 #HB_Srpuce
-@HBBEnableDisableIndoorHumidityAlert		@P2		@Automated
+@HBBEnableDisableIndoorHumidityAlert		@P2		@Automated @--xrayid:ATER-54487
 Scenario: As a user I should be able to enable or disable Indoor Humidity Alert on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Manage Alerts" screen from the "Dashboard" screen
@@ -161,7 +161,7 @@ Then user should be displayed with the following "Humidity Alert" options:
 #Set Filter Reminder 
 
 #JasperNA, HB-Spruce
-@EnableDisableSetFilterReminder		@P2		@Automated
+@EnableDisableSetFilterReminder		@P2		@Automated @--xrayid:ATER-54490
 Scenario: As a user I should be able to enable or disable Set Filter Reminder option on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Set Filter Reminder" screen from the "Dashboard" screen
@@ -171,7 +171,7 @@ When user changes the "Set Filter Reminder Switch" to "OFF"
 Then "Set Filter Reminder Switch" value should be updated to "OFF" on "Set Filter Reminder" screen
      
      
-@VerifySetFilterReminderOptions		@P2		@Automated
+@VerifySetFilterReminderOptions		@P2		@Automated @--xrayid:ATER-54491
 Scenario: As a user I should be able to view options for Set Filter Reminder
 Given user launches and logs in to the Lyric application
 When user navigates to "Set Filter Reminder" screen from the "Dashboard" screen
@@ -190,7 +190,7 @@ Then the following "Set Filter Reminder" options should be disabled:
 
 
 #JasperNA, HB-Spruce
-@ChangeReplacefilterandFilterLastReplacedOptions		@P2		@Automated
+@ChangeReplacefilterandFilterLastReplacedOptions		@P2		@Automated  @--xrayid:ATER-54493
 Scenario: As a user I should be able to set options Replace filter and Filter Last Replaced
 Given user launches and logs in to the Lyric application
 When user navigates to "Set Filter Reminder" screen from the "Dashboard" screen
@@ -210,7 +210,7 @@ And user should be able to receive push notification for filter reminder once
 
 #Homekit -- only for iOS , spruce , NA, EMEA
 
-@SetupHomekitHB		@P2		@Automated
+@SetupHomekitHB		@P2		@Automated  @--xrayid:ATER-54494
 Scenario: As a user i should verify Homekit option should not display for HB
 Given user launches and logs in to the Lyric application
 When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
@@ -218,7 +218,7 @@ Then user should not be displayed with "Set up HomeKit and Siri" device on the "
 
 
 #JasperNA, JasperEMEA, HB_Spruce
-@SetupHomekitAndSiriiOS		@P2		@NotAutomatable
+@SetupHomekitAndSiriiOS		@P2		@NotAutomatable  @--xrayid:ATER-54497
  Scenario Outline: As a user i should be able to set homekit and siri using Custom location.
  Given user launches and logs in to the Lyric application 
  When user navigates to "Setup Homekit & Siri" screen from the "Dashboard" screen 
@@ -239,7 +239,7 @@ Then user should not be displayed with "Set up HomeKit and Siri" device on the "
       	| My Room			|
         
  #JasperNA, JasperEMEA, HB_Spruce
- @SetupHomekitAndSiriiOS		@P1		@NotAutomatable
+ @SetupHomekitAndSiriiOS		@P1		@NotAutomatable @--xrayid:ATER-54499
  Scenario Outline: As a user i should be able to set homekit and siri using default location.
  Given user launches and logs in to the Lyric application 
  When user navigates to "Setup Homekit & Siri" screen from the "Dashboard" screen 
@@ -260,7 +260,7 @@ Then user should not be displayed with "Set up HomeKit and Siri" device on the "
       	| Living Room 		|
 
 #Add HomeKit error pop up 
-@Homekitpopupverification		@P2		@NotAutomatable
+@Homekitpopupverification		@P2		@NotAutomatable @--xrayid:ATER-54505
  Scenario: As a user i should be able to get homekit error pop up when my device is unavailable.
  Given user launches and logs in to the Lyric application 
  When user navigates to "Setup Homekit & Siri" screen from the "Dashboard" screen 
@@ -289,7 +289,7 @@ When user taps on "Learn how to setup homekit"
 # Comfort settings 
 
 #HB_Spruce
-@HBBEnableDisableFineTune		@P2		@Automated
+@HBBEnableDisableFineTune		@P2		@Automated @--xrayid:ATER-54507
 Scenario: As a user I should be able to enable or disable Fine Tune option on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
@@ -300,7 +300,7 @@ Then "Fine Tune" value should be updated to "OFF" on "Thermostat Settings" scree
 
 
 #HB_Spruce, JasperNA
-@EnableDisableAdaptiveRecovery		@P2		@Automated
+@EnableDisableAdaptiveRecovery		@P2		@Automated @--xrayid:ATER-54508
 Scenario: As a user I should be able to enable or disable Adaptive recovery on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
@@ -311,7 +311,7 @@ Then "Adaptive Recovery" value should be updated to "OFF" on "Thermostat Setting
 
 
 #JasperEMEA—optimise
-@EnableDisableAOptimiseValue		@P2		@Automated
+@EnableDisableAOptimiseValue		@P2		@Automated @--xrayid:ATER-54510
 Scenario: As a user I should be able to enable or disable optimise value on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
@@ -322,7 +322,7 @@ Then "Optimise" value should be updated to "OFF" on "Thermostat Settings" screen
 
 
 #JasperNA, HB_Spruce
-@EnableDisableEmergencyHeat		@P2		@Automated
+@EnableDisableEmergencyHeat		@P2		@Automated @--xrayid:ATER-54512
 Scenario: As a user I should be able to enable or disable Emergency Heat on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
@@ -332,7 +332,7 @@ When user changes the "Emergency Heat" to "OFF"
 Then "Emergency Heat" value should be updated to "OFF" on "Thermostat Settings" screen
 
 
-@AutoChangeOverWhenHeatOnlyOrCoolOnlyIsEnabled	@P2		@Automated
+@AutoChangeOverWhenHeatOnlyOrCoolOnlyIsEnabled	@P2		@Automated @--xrayid:ATER-54513
 Scenario Outline: As a user I should not be able view Auto changeover when heatonly or coolonly enabled on my thermostat
 Given user launches and logs in to the Lyric application
 And user should be displayed with the "thermostat Dashboard" Screen
@@ -363,7 +363,7 @@ Examples:
 
 
 #JasperNA, HB_Spruce
-@EmergencyHeatWhenCoolOnlyIsEnabled		@P2		@Automated
+@EmergencyHeatWhenCoolOnlyIsEnabled		@P2		@Automated @--xrayid:ATER-54514
 Scenario Outline: As a user I should not be able view Auto changeover when cool only enabled on my thermostat
 Given user launches and logs in to the Lyric application
 And user should be displayed with the "thermostat Dashboard" Screen
@@ -394,7 +394,7 @@ Examples:
 
 
 #JasperNA, HB_Spruce
-@EmergencyHeatWhenHeatOnlyIsEnabled		@P2		@Automated
+@EmergencyHeatWhenHeatOnlyIsEnabled		@P2		@Automated @--xrayid:ATER-54516
 Scenario Outline: As a user I should not be able view Auto changeover when Heat only enabled on my thermostat
 Given user launches and logs in to the Lyric application
 And user should be displayed with the "thermostat Dashboard" Screen
@@ -424,7 +424,7 @@ Examples:
 
 
 #HB_Spruce
-@HBBSpruceEnableFrostProtectionMode		@P2		@Automated @AutomatedOnAndroid
+@HBBSpruceEnableFrostProtectionMode		@P2		@Automated @AutomatedOnAndroid @--xrayid:ATER-54517
 Scenario Outline: As a user I should be able to enable or disable Frost Protection Mode on my thermostat
 #Given user launches and logs in to the Lyric application
 #When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
@@ -461,7 +461,7 @@ Examples:
 
 
 #HB_Spruce
-@HBBSpruceEnableHumidification		@P2		@Automated
+@HBBSpruceEnableHumidification		@P2		@Automated @--xrayid:ATER-54519
 Scenario: As a user I should be able to enable or disable Humidification on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Thermostat Humidification" screen from the "Dashboard" screen
@@ -477,7 +477,7 @@ Then "Humidification" value should be updated to "OFF" on "Thermostat Settings" 
 
 
 #HB_Spruce
-@HBBSpruceEnableDeHumidification		@P2		@Automated
+@HBBSpruceEnableDeHumidification		@P2		@Automated @--xrayid:ATER-54520
 Scenario: As a user I should be able to enable or disable DeHumidification on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Thermostat Dehumidification" screen from the "Dashboard" screen
@@ -493,7 +493,7 @@ Then "Dehumidification" value should be updated to "OFF" on "Thermostat Settings
 
 
 #HB_Spruce
-@HBBIncreaseDecreaseSleepBrightnessMode 		@P2		@Automated @AutomatedOnAndroid
+@HBBIncreaseDecreaseSleepBrightnessMode 		@P2		@Automated @AutomatedOnAndroid  @--xrayid:ATER-54521
 Scenario: As a user I should be able to increase or decrease Sleep Brightness Mode option on my thermostat
 Given user launches and logs in to the Lyric application
 When user navigates to "Sleep Brightness Mode" screen from the "Dashboard" screen
@@ -509,7 +509,7 @@ Then "Sleep Brightness" value should be updated to "Off" on "Thermostat Settings
 
 
 #HB_Spruce
-@HBBverifySoundOptions		@P2		@Automated
+@HBBverifySoundOptions		@P2		@Automated @--xrayid:ATER-54522
 Scenario: As a user I should be able to view options for Sound
 Given user launches and logs in to the Lyric application
 When user navigates to "Sound" screen from the "Dashboard" screen
@@ -521,7 +521,7 @@ Then user should be displayed with the following "Sound" options:
 
 
 #HB_Spruce	  
-@HBBchangeSoundSettings		@P2		@Automated
+@HBBchangeSoundSettings		@P2		@Automated  @--xrayid:ATER-54523
 Scenario: As a user I should be able to set options for Sound
 Given user launches and logs in to the Lyric application
 When user navigates to "Sound" screen from the "Dashboard" screen
@@ -539,7 +539,7 @@ Then "Sound" value should be updated to "Normal" on "Thermostat Settings" screen
 
 
 #HB_Spruce
-@HBBChangeVentilationSettings		@P2		@Automated
+@HBBChangeVentilationSettings		@P2		@Automated  @--xrayid:ATER-54524
 Scenario: As a user I should be able to view options for Ventilation
 Given user launches and logs in to the Lyric application
 When user navigates to "Ventilation" screen from the "Dashboard" screen
@@ -564,7 +564,7 @@ Then "Ventilation" value should be updated to "Auto" on "Thermostat Settings" sc
 
 
 #JasperNA, JAsperEMEA
-@ResetWiFiNAEMEA		@P2		@NotAutomatable
+@ResetWiFiNAEMEA		@P2		@NotAutomatable  @--xrayid:ATER-54525
 Scenario: As a user I want to reset my DAS Panel WiFi 
 Given user launches and logs in to the Lyric application 
 And user navigates to "Base Station WiFi" screen from the "Dashboard" screen 
@@ -586,7 +586,7 @@ Then user should be displayed with" PIN Screen"
 
 
 #JasperNA, JAsperEMEA
-@ResetWiFiByAddingNetworkNAEMEA		@P2		@NotAutomatable
+@ResetWiFiByAddingNetworkNAEMEA		@P2		@NotAutomatable @--xrayid:ATER-54526
 Scenario Outline: As a user I want to reset my DAS Panel WiFi 
 Given user launches and logs in to the Lyric application 
 And user navigates to "Base Station WiFi" screen from the "Dashboard" screen 
@@ -608,7 +608,7 @@ Examples:
  
  
 #JasperNA, JAsperEMEA
-@ResetWiFiIncorrectPasswordNAEMEA	@P2		@NotAutomatable
+@ResetWiFiIncorrectPasswordNAEMEA	@P2		@NotAutomatable @--xrayid:ATER-54527
 Scenario Outline: As a user I want to reset my DAS Panel WiFi 
 Given user launches and logs in to the Lyric application 
 And user navigates to "Base Station WiFi" screen from the "Dashboard" screen 
@@ -630,7 +630,7 @@ Examples:
       | abcd      | abcd                    | 
 
 
-@ResetWiFiHB			@P2		@NotAutomatable
+@ResetWiFiHB			@P2		@NotAutomatable @--xrayid:ATER-54528
 Scenario: As a user I want to reset my DAS Panel WiFi 
 Given user launches and logs in to the Lyric application 
 And user navigates to "Base Station WiFi" screen from the "Dashboard" screen 
@@ -651,7 +651,7 @@ Then user should be displayed with "Select WiFi" screen
       | WPA2                | abcd      | abcd          | 
 
 
-@ResetWiFiByAddingNetworkHB			@P2		@NotAutomatable
+@ResetWiFiByAddingNetworkHB			@P2		@NotAutomatable @--xrayid:ATER-54529
 Scenario Outline: As a user I want to reset my DAS Panel WiFi 
 Given user launches and logs in to the Lyric application 
 And user navigates to "Base Station WiFi" screen from the "Dashboard" screen 
@@ -671,7 +671,7 @@ Examples:
       | abcd      | abcd          | 
 
 
-@ResetWiFiIncorrectPasswordHB		@P2		@NotAutomatable
+@ResetWiFiIncorrectPasswordHB		@P2		@NotAutomatable @--xrayid:ATER-54530
 Scenario Outline: As a user I want to reset my DAS Panel WiFi 
 Given user launches and logs in to the Lyric application 
 And user navigates to "Base Station WiFi" screen from the "Dashboard" screen 
@@ -691,7 +691,7 @@ Examples:
 #Thermostat Configuration 
 
 #JasperNA, JAsperEMEA, HB_Spruce
-@RenameJasperNAEMEAHBdevice			@P2			@Automated
+@RenameJasperNAEMEAHBdevice			@P2			@Automated @--xrayid:ATER-54531
 Scenario: As a user I want to rename my thermostat through the application 
 Given user launches and logs in to the Lyric application 
 And user navigates to "Thermostat Configuration" screen from the "Dashboard" screen 
@@ -702,7 +702,7 @@ And user reverts back the "Thermostat device name" through CHIL
 
 
 #JasperNA, JAsperEMEA, HB_Spruce
-@ViewThermostatconfigurationOptions			@P2			@Automated
+@ViewThermostatconfigurationOptions			@P2			@Automated @--xrayid:ATER-54532
 #Precondition: User has set Heating System, Heating Stages, Cooling Stages in Thermostat
 Scenario: As a user I want to View my thermostat Configuration details
 Given user launches and logs in to the Lyric application 
@@ -718,7 +718,7 @@ Then user should be displayed with the following "Thermostat Configuration" opti
 
 
 #JasperNA, JAsperEMEA, HB_Spruce
-@DismissDeletePopupJasperNAEMEAHB			@P4			@Automated
+@DismissDeletePopupJasperNAEMEAHB			@P4			@Automated @--xrayid:ATER-54533
 Scenario: As a user I should be able to dismiss the delete poup for my Japer NA device from my account through the Lyric application
 Given user launches and logs in to the Lyric application 
 When user navigates to "Thermostat Configuration" screen from the "Dashboard" screen
@@ -730,7 +730,7 @@ And user "dismisses" the "Delete Thermostat Device Confirmation" popup
 #Offline
 
 #JasperNA
-@JasperNASettingsDisabled			@P2		@NotAutomatable
+@JasperNASettingsDisabled			@P2		@NotAutomatable @--xrayid:ATER-54534
 Scenario: As a user I should not be allowed to change jasper settings when I am offline 
 Given user device is offline
 And user launches and logs in to the Lyric application 
@@ -744,7 +744,7 @@ Then the following "Thermostat Settings" options should be disabled:
 
 
 #HB_Spruce
-@HBBSettingsDisabled			@P2		@NotAutomatable
+@HBBSettingsDisabled			@P2		@NotAutomatable  @--xrayid:ATER-54536
 Scenario: As a user I should not be allowed to change HBB settings when I am offline 
 Given user device is offline
 And user launches and logs in to the Lyric application 
@@ -764,7 +764,7 @@ Then the following "Thermostat Settings" options should be disabled:
 
 
 #JasperEMEA
-@JasperEmeaSettingsDisabled			@P2		@NotAutomatable
+@JasperEmeaSettingsDisabled			@P2		@NotAutomatable @--xrayid:ATER-54538
 Scenario: As a user I should not be allowed to change Jasper EMEA settings when I am offline 
 Given user device is offline
 And user launches and logs in to the Lyric application 
@@ -776,7 +776,7 @@ Then the following "Thermostat Settings" options should be disabled:
      
 
 #JasperNA, JasperEMEA, HB_Spruce  
-@JasperSettingsEnabledwhenOffline 		@P2		@NotAutomatable
+@JasperSettingsEnabledwhenOffline 		@P2		@NotAutomatable @--xrayid:ATER-54539
 Scenario: As a user I should be allowed to change Thermostat common settings when I am offline 
 Given user device is offline
 And user launches and logs in to the Lyric application 
@@ -789,7 +789,7 @@ Then the following "Thermostat Settings" options should be Enabled:
 
 
 #JaseprNA, HB_Spruce
-@TogglebetweenEmergencyHeatAndAutoChangeOver			@P2			@Automated
+@TogglebetweenEmergencyHeatAndAutoChangeOver			@P2			@Automated @--xrayid:ATER-54540
 Scenario: As a user I should be able to Toggle between Emergency heat and Auto ChangeOver
 Given user launches and logs in to the Lyric application
 When user navigates to "Thermostat Settings" screen from the "Dashboard" screen
