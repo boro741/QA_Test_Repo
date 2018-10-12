@@ -113,6 +113,11 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					flag = flag & check.isSwitchToNightExists();
 					break;
 				}
+				case "WITHOUT BACK BUTTON": {
+					System.out.println("Checking if back button is displayed in Entry delay screen ");
+					flag = flag & !check.isAlarm_NavigatebackVisible();
+					break;
+				}
 				}
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, "The " + parameter + "has found");

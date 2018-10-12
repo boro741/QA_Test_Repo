@@ -10,7 +10,7 @@ Given user is set to "Home" mode through CHIL
 #And user dismisses all alerts and notification through CHIL
 
 
-  @Attention_FromCamera @P1 @DAS_CameraAlarm @Automated
+  @Attention_FromCamera 				@P1 					@DAS_CameraAlarm 				@Automated
   Scenario Outline:As a user when I see any mischief acts in the live streaming I should be able to initiate the alarm from camera card 
     Given user is set to <System> mode through CHIL
       And user DAS camera is set to "ON" through CHIL
@@ -45,7 +45,7 @@ Given user is set to "Home" mode through CHIL
   #   | Home   |
   #   | OFF    |
 
-@Doorsensor_InAwayExitDelay_OpenDoor_NoAlarm @P2 @DAS_DoorSensor @Automated
+@Doorsensor_InAwayExitDelay_OpenDoor_NoAlarm 				@P2 				@DAS_DoorSensor 					@Automated
   Scenario: As a user when I open the door during exit delay i should not get alarm  
     Given user launches and logs in to the Lyric application
       And user clears all push notifications
@@ -63,7 +63,8 @@ Given user is set to "Home" mode through CHIL
      Then user should see the "door" status as "closed" on the "Sensor Status"
      And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
  
-@Doorsensor_ArmedAway_OpenDoor_SwitchingToHomeFromPushNotification_DoorNotClosedInEntryDelay @P1 @DAS_DoorSensor @Automated
+ 
+@Doorsensor_ArmedAway_OpenDoor_SwitchingToHomeFromPushNotification_DoorNotClosedInEntryDelay			 @P1				 @DAS_DoorSensor			 @Automated
     Scenario: As a user when I open the door and left open in armed away state on my arrival to home I should be able to switch to home from push notification and should be shown with current door status
    Given user is set to "Away" mode through CHIL
     Given user launches and logs in to the Lyric application
@@ -85,7 +86,8 @@ Given user is set to "Home" mode through CHIL
       And user "closes" activity log
      When user "door" access sensor "closed"
      
-@Doorsensor_ArmedAway_OpenDoor_SwitchingToHomeFromEntryDelay_DoorNotClosedInEntryDelay @P3 #N  @P1 @DAS_DoorSensor @Automated
+     
+@Doorsensor_ArmedAway_OpenDoor_SwitchingToHomeFromEntryDelay_DoorNotClosedInEntryDelay			@P3 			@Automated			#N  			@P1			 @DAS_DoorSensor 			
     Scenario: As a user when I open the door and left open in armed away state on my arrival to home I should be able to switch to home from entry delay screen and should be shown with current door status
     Given user is set to "Away" mode through CHIL
     Given user launches and logs in to the Lyric application
@@ -108,7 +110,7 @@ Given user is set to "Home" mode through CHIL
       And user "closes" activity log
      When user "door" access sensor "closed"
      
-@Doorsensor_ArmedAway_OpenDoor_SwitchingToHomeFromPushNotification_DoorClosedInEntryDelay @P3 #N  @DAS_DoorSensor @Automated   
+@Doorsensor_ArmedAway_OpenDoor_SwitchingToHomeFromPushNotification_DoorClosedInEntryDelay				@P3			@Automated		 #N  		@DAS_DoorSensor 				   
     Scenario: As a user when I open the door in armed away on my arrival and I should be able to switch to home from pn 
     Given user is set to "Away" mode through CHIL
     Given user launches and logs in to the Lyric application
@@ -131,7 +133,7 @@ Given user is set to "Home" mode through CHIL
       And user "closes" activity log
      When user "door" access sensor "closed" 
     
-@Doorsensor_ArmedAway_OpenDoor_SwitchingToHomeFromEntryDelay_DoorClosedInEntryDelay @P1 @DAS_DoorSensor @Automated
+@Doorsensor_ArmedAway_OpenDoor_SwitchingToHomeFromEntryDelay_DoorClosedInEntryDelay				 @P1 					@DAS_DoorSensor 					@Automated
     Scenario: As a user when I open the door in armed away on my arrival and I should be able to switch to home from entry delay screen 
     Given user is set to "Away" mode through CHIL
     Given user launches and logs in to the Lyric application
@@ -155,7 +157,8 @@ Given user is set to "Home" mode through CHIL
       And user "closes" activity log
      When user "door" access sensor "closed"
  
-@Doorsensor_ArmedAway_OpenDoor_SwitchingToNightFromPushNotification_DoorClosedInEntryDelay_NoAlarm @P2 @DAS_DoorSensor @Automated
+ 
+@Doorsensor_ArmedAway_OpenDoor_SwitchingToNightFromPushNotification_DoorClosedInEntryDelay_NoAlarm 				@P2 				@DAS_DoorSensor 					@Automated
     Scenario: As a user when I open the door I should be able to switch to Night from door open push notification on my arrival to home after closing the door
       Given user launches and logs in to the Lyric application
       Given user is set to "Away" mode through CHIL
@@ -174,7 +177,7 @@ Given user is set to "Home" mode through CHIL
        | Door Closed at Away mode |
        | Switched to Night by app |
        
-@Doorsensor_ArmedAway_OpenDoor_SwitchingToNightFromEntryDelay_DoorClosedInEntryDelay_NoAlarm @P2 #N @DAS_DoorSensor @Automated
+@Doorsensor_ArmedAway_OpenDoor_SwitchingToNightFromEntryDelay_DoorClosedInEntryDelay_NoAlarm 					@P2			@Automated		 #N			 @DAS_DoorSensor 			
     Scenario: As a user when I open the door I should be able to switch to Night from entry delay screen on my arrival to home after closing the door
       Given user is set to "Away" mode through CHIL
       Given user launches and logs in to the Lyric application
@@ -194,7 +197,7 @@ Given user is set to "Home" mode through CHIL
        | Door Closed at Away mode |
        | Switched to Night by app |
 
-@Doorsensor_ArmedAway_OpenDoor_SwitchingToNightFromPushNotification_DoorNotClosedInEntryDelay_Alarm  @P3 #N @DAS_DoorSensor @Automated
+@Doorsensor_ArmedAway_OpenDoor_SwitchingToNightFromPushNotification_DoorNotClosedInEntryDelay_Alarm				  @P3			@Automated		 #N			 @DAS_DoorSensor 			
    Scenario: As a user when I open the door in away mode I should be able to switch to Night from push notification but failed to close the door in entry delay waiting should be taken to alarm
       Given user is set to "Away" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -207,7 +210,7 @@ Given user is set to "Home" mode through CHIL
      When user "door" access sensor "is not closed"
       And user should be displayed with the "Alarm" screen
       And user selects "dismiss alarm" from "alarm" screen
-     When user navigates to "Security Solution card" screen from the "Dashboard" screen
+     #When user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to "Home"
      When user "opens" activity log
      Then verify the following activity log:
@@ -219,14 +222,15 @@ Given user is set to "Home" mode through CHIL
      When user "closes" activity log
       And user "door" access sensor "closed"
 
-@Doorsensor_ArmedAway_OpenDoor_SwitchingToNightFromEntryDelay_DoorNotClosedInEntryDelay_Alarm  @P3 @DAS_DoorSensor @Automated
+
+@Doorsensor_ArmedAway_OpenDoor_SwitchingToNightFromEntryDelay_DoorNotClosedInEntryDelay_Alarm			  @P3 			@DAS_DoorSensor 			@Automated
     Scenario: As a user when I open the door in away mode I should be able to switch to Night from Entry Delay but failed to close the door in entry delay waiting should be taken to alarm
       Given user is set to "Away" mode through CHIL
       And user launches and logs in to the Lyric application
-      And user clears all push notifications
      When user navigates to "Security Solution card" screen from the "Dashboard" screen
       And timer ends on user device
-      And  user "door" access sensor "opened"
+      Then user clears all push notifications
+      When user "door" access sensor "opened"
      Then user selects the "Door Opened" push notification
      When user selects "Switch to Night" from "Entry delay" screen
      Then user should be displayed with the "Waiting to close" screen
@@ -244,8 +248,9 @@ Given user is set to "Home" mode through CHIL
        |Switched to Home by app|
      When user "closes" activity log
       And user "door" access sensor "closed"
+   
       
-@Doorsensor_ArmedAway_OpenDoor_SwitchingToNightFromPushNotification_DoorClosedInWaiting_NoAlarm @P1 @DAS_DoorSensor @Automated #Check
+@Doorsensor_ArmedAway_OpenDoor_SwitchingToNightFromPushNotification_DoorClosedInWaiting_NoAlarm 				@P1 				@DAS_DoorSensor 				@Automated
     Scenario: As a user when I open the door in away mode I should be able to switch to Night from door open push notification and close the door in entry delay waiting should be shown no alarm
     Given user is set to "Home" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -267,7 +272,7 @@ Given user is set to "Home" mode through CHIL
  #      | Door Closed at Away mode |
   #     | Switched to Night by app |
   
-@Doorsensor_ArmedAway_OpenDoor_SwitchingToNightFromEntryDelay_DoorClosedInEntryDelay_NoAlarm @P3 #N @DAS_DoorSensor @Automated
+@Doorsensor_ArmedAway_OpenDoor_SwitchingToNightFromEntryDelay_DoorOpenedInEntryDelay_NoAlarm 				@P3 			#N 		@DAS_DoorSensor 			@Automated
     Scenario: As a user when I open the door in away mode I should be able to switch to Night from entry delay screen and close the door in entry delay waiting should be shown no alarm
       Given user is set to "Away" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -288,7 +293,7 @@ Given user is set to "Home" mode through CHIL
  #      | Door Closed at Away mode |
   #     | Switched to Night by app |
  
-@Doorsensor_ArmedAway_OpenDoor_AttentionInEntryDelay @P2 @DAS_DoorSensor @Automated
+@Doorsensor_ArmedAway_OpenDoor_AttentionInEntryDelay 			@P2 				@DAS_DoorSensor 					@Automated
     Scenario: As a user when the door is opened in away mode I should be able to initiate attention alarm from entry delay screen on observing intruder in premises
      Given user sets the entry/exit timer to "60" seconds
      Given user is set to "Away" mode through CHIL
@@ -325,7 +330,7 @@ Given user is set to "Home" mode through CHIL
     When user "door" access sensor "closed"
    
        
-@Doorsensor_ArmedAway_OpenDoor_AlarmWhenNoActionInEntryDelay @P2 @DAS_DoorSensor @Automated
+@Doorsensor_ArmedAway_OpenDoor_AlarmWhenNoActionInEntryDelay 				@P2 				@DAS_DoorSensor 				@Automated
     Scenario: As a user when the door is opened in away mode and no commands issued from entry delay screen then system should go into alarm mode
      Given user is set to "Away" mode through CHIL
        And user launches and logs in to the Lyric application
@@ -347,7 +352,7 @@ Given user is set to "Home" mode through CHIL
        | Switched to Home by app|
       And user "closes" activity log
      
-   @Doorsensor_ArmingAway_ExitError_SwitchingToHomeInEntryDelay @P3 @DAS_DoorSensor @Automated
+   @Doorsensor_ArmingAway_ExitError_SwitchingToHomeInEntryDelay 			@P3 				@DAS_DoorSensor 				@Automated
     Scenario: As a user when i left my door open during away exit delay , I should be able to switch to home from entry delay screen to avoid the alarm
     Given user launches and logs in to the Lyric application
       And user clears all push notifications
@@ -371,7 +376,7 @@ Given user is set to "Home" mode through CHIL
       #When user "door" access sensor "closed"
  
  
-@Doorsensor_ArmingAway_ExitError_SwitchingToNightFromEntryDelay_DoorNotClosedInEntryDelay_Alarm @P3 @DAS_DoorSensor @Automated
+@Doorsensor_ArmingAway_ExitError_SwitchingToNightFromEntryDelay_DoorNotClosedInEntryDelay_Alarm 			@P3 				@DAS_DoorSensor 				@Automated
     Scenario: As a user when I left my door open in away mode exit delay , I should be able to select switch to Night from Entry delay screen
     # But if I didn’t not close the door on time, it should get into  alarm
     Given user is set to "Home" mode through CHIL
@@ -399,7 +404,7 @@ Given user is set to "Home" mode through CHIL
       When user "closes" activity log
       And user "door" access sensor "closed"
  
-@Doorsensor_ArmingAway_ExitError_SwitchingToNightFromEntryDelay_DoorClosedInEntryDelay_NoAlarm @P4 @DAS_DoorSensor @Automated
+@Doorsensor_ArmingAway_ExitError_SwitchingToNightFromEntryDelay_DoorClosedInEntryDelay_NoAlarm 			@P4 			@DAS_DoorSensor 				@Automated
     Scenario: As a user when I left my door open in away mode exit delay and left door open , I should be able to get Push notification of door open and on clicking it should take to Entry delay 
     #where i can select switch to Night and close the door in entry delay waiting on my arrival to home with no alarm
     Given user is set to "Home" mode through CHIL
@@ -421,7 +426,8 @@ Given user is set to "Home" mode through CHIL
        | Door Closed at Away mode |
        | Switched to Night by app |
  
-    @Doorsensor_ArmingAway_ExitError_AttentionInEntryDelay @P4 @DAS_DoorSensor @Automated
+ 
+    @Doorsensor_ArmingAway_ExitError_AttentionInEntryDelay 				@P4 					@DAS_DoorSensor 					@Automated
     Scenario: As a user when the door is opened in exit delay of away mode and failed to close door, then intruder entered, I should be able to initiate attention alarm from entry delay screen 
     #on observing intruder in premises
      Given user sets the entry/exit timer to "60" seconds
@@ -454,7 +460,8 @@ Given user is set to "Home" mode through CHIL
       And user "closes" activity log
      When user "door" access sensor "closed"
  
-@Doorsensor_ArmingAway_ExitError_AlarmWhenNoActionInEntryDelay @P3 @DAS_DoorSensor @Automated
+ 
+@Doorsensor_ArmingAway_ExitError_AlarmWhenNoActionInEntryDelay 			@P3 				@DAS_DoorSensor 				@Automated
     Scenario: As a user when the door is opened in exit delay and forgot to close in time then user should receive alarm event if user does not perform any action within entry delay
     # from entry delay screen then system should go into alarm mode
      Given user launches and logs in to the Lyric application
@@ -481,7 +488,7 @@ Given user is set to "Home" mode through CHIL
       And user "door" access sensor "closed"
      
   
-  @Doorsensor_InNightExitDelay_OpenDoor_NoAlarm @P2 @DAS_DoorSensor @Automated
+  @Doorsensor_InNightExitDelay_OpenDoor_NoAlarm 			@P2 				@DAS_DoorSensor 				@Automated
   Scenario: As a user when I open the door during exit delay then i should not get alarm  
     Given user launches and logs in to the Lyric application
       And user clears all push notifications
@@ -499,7 +506,8 @@ Given user is set to "Home" mode through CHIL
      Then user should see the "door" status as "closed" on the "Sensor Status"
      And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
  
-@Doorsensor_ArmedNight_OpenDoor_SwitchingToHomeFromPushNotification_DoorNotClosedInEntryDelay @P2 @DAS_DoorSensor @Automated
+ 
+@Doorsensor_ArmedNight_OpenDoor_SwitchingToHomeFromPushNotification_DoorNotClosedInEntryDelay 			@P2 				@DAS_DoorSensor 				@Automated
     Scenario: As a user when I open the door and left open in armed night state I should be able to switch to home from push notification and should be shown with current door status
     And user is set to "Night" mode through CHIL
     Given user launches and logs in to the Lyric application
@@ -521,7 +529,7 @@ Given user is set to "Home" mode through CHIL
       And user "closes" activity log
      When user "door" access sensor "closed"
      
-@Doorsensor_ArmedNight_OpenDoor_SwitchingToHomeFromEntryDelay_DoorNotClosedInEntryDelay @P3 #N @DAS_DoorSensor @Automated
+@Doorsensor_ArmedNight_OpenDoor_SwitchingToHomeFromEntryDelay_DoorNotClosedInEntryDelay 				@P3 				@Automated			#N @DAS_DoorSensor 
     Scenario: As a user when I open the door and left open in armed night state I should be able to switch to home from entry delay screen and should be shown with current door status
     Given user is set to "Night" mode through CHIL
     Given user launches and logs in to the Lyric application
@@ -544,8 +552,8 @@ Given user is set to "Home" mode through CHIL
       And user "closes" activity log
      When user "door" access sensor "closed"
      
-@Doorsensor_ArmedNight_OpenDoor_SwitchingToHomeFromPushNotification_DoorClosedInEntryDelay @P3 #N   @DAS_DoorSensor @Automated  
-    Scenario: As a user when I open the door in armed night and I should be able to switch to home from entry delay screen 
+@Doorsensor_ArmedNight_OpenDoor_SwitchingToHomeFromPushNotification_DoorClosedInEntryDelay 		@P3 				 @Automated  		#N   @DAS_DoorSensor
+    Scenario: As a user when I open the door in armed night and I should be able to switch to home from push notification
      Given user is set to "Night" mode through CHIL
      Given user launches and logs in to the Lyric application
       And user clears all push notifications
@@ -567,8 +575,8 @@ Given user is set to "Home" mode through CHIL
       And user "closes" activity log
      When user "door" access sensor "closed" 
     
-@Doorsensor_ArmedNight_OpenDoor_SwitchingToHomeFromEntryDelay_DoorClosedInEntryDelay @P2 @DAS_DoorSensor @Automated 
-    Scenario: As a user when I open the door in armed night and I should be able to switch to home from entry delay screen 
+@Doorsensor_ArmedNight_OpenDoor_SwitchingToHomeFromEntryDelay_DoorClosedInEntryDelay 		@P2 			@DAS_DoorSensor 				@Automated 
+    Scenario: As a user when I open the door in armed night and I should be able to switch to home from entry delay screen
      Given user is set to "Night" mode through CHIL
     Given user launches and logs in to the Lyric application
       And user clears all push notifications
@@ -591,7 +599,7 @@ Given user is set to "Home" mode through CHIL
       And user "closes" activity log
      When user "door" access sensor "closed"
  
-@Doorsensor_ArmedNight_OpenDoor_SwitchingToNightFromPushNotification_DoorClosedInEntryDelay_NoAlarm @P2 @DAS_DoorSensor @Automated 
+@Doorsensor_ArmedNight_OpenDoor_SwitchingToNightFromPushNotification_DoorClosedInEntryDelay_NoAlarm 			@P2 				@DAS_DoorSensor 				@Automated 
     Scenario: As a user when I open the door I should be able to switch to Night from door open push notification after closing the door
       Given user is set to "Night" mode through CHIL
       Given user launches and logs in to the Lyric application
@@ -610,7 +618,7 @@ Given user is set to "Home" mode through CHIL
        | Door Closed at Night mode|
        | Switched to Night by app |
        
-@Doorsensor_ArmedNight_OpenDoor_SwitchingToNightFromEntryDelay_DoorClosedInEntryDelay_NoAlarm @P2 #N @DAS_DoorSensor @Automated 
+@Doorsensor_ArmedNight_OpenDoor_SwitchingToNightFromEntryDelay_DoorClosedInEntryDelay_NoAlarm 				@P2 				@Automated 				#N @DAS_DoorSensor 
     Scenario: As a user when I open the door I should be able to switch to Night from entry delay screen after closing the door
       Given user is set to "Night" mode through CHIL
       Given user launches and logs in to the Lyric application
@@ -631,7 +639,7 @@ Given user is set to "Home" mode through CHIL
        | Door Closed at Night mode|
        | Switched to Night by app |
 
-@Doorsensor_ArmedNight_OpenDoor_SwitchingToNightFromPushNotification_DoorNotClosedInEntryDelay_Alarm  @P3 #N @DAS_DoorSensor @Automated 
+@Doorsensor_ArmedNight_OpenDoor_SwitchingToNightFromPushNotification_DoorNotClosedInEntryDelay_Alarm  			@P3 				@Automated 				#N @DAS_DoorSensor 
    Scenario: As a user when I open the door in night mode I should be able to switch to Night from push notification but failed to close the door in entry delay waiting should be taken to alarm
     Given user is set to "Night" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -644,7 +652,7 @@ Given user is set to "Home" mode through CHIL
      When user "door" access sensor "is not closed"
       And user should be displayed with the "Alarm" screen
       And user selects "dismiss alarm" from "alarm" screen
-     When user navigates to "Security Solution card" screen from the "Dashboard" screen
+     #When user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to "Home"
      When user "opens" activity log
      Then verify the following activity log:
@@ -656,7 +664,7 @@ Given user is set to "Home" mode through CHIL
      When user "closes" activity log
       And user "door" access sensor "closed"
 
-@Doorsensor_ArmedNight_OpenDoor_SwitchingToNightFromEntryDelay_DoorNotClosedInEntryDelay_Alarm  @P3 @DAS_DoorSensor @Automated 
+@Doorsensor_ArmedNight_OpenDoor_SwitchingToNightFromEntryDelay_DoorNotClosedInEntryDelay_Alarm  		@P3 				@DAS_DoorSensor 				@Automated 
     Scenario: As a user when I open the door in night mode I should be able to switch to Night from Entry Delay but failed to close the door in entry delay waiting should be taken to alarm
     Given user is set to "Night" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -682,7 +690,7 @@ Given user is set to "Home" mode through CHIL
      When user "closes" activity log
       And user "door" access sensor "closed"
       
-@Doorsensor_ArmedNight_OpenDoor_SwitchingToNightFromPushNotification_DoorClosedInEntryDelay_NoAlarm_Duplicate @P2 @DAS_DoorSensor @Automated
+@Doorsensor_ArmedNight_OpenDoor_SwitchingToNightFromPushNotification_DoorClosedInEntryDelay_NoAlarm_Duplicate 			@P2 			@DAS_DoorSensor 			@Automated
     Scenario: As a user when I open the door in night mode I should be able to switch to Night from door open push notification and close the door in entry delay waiting should be shown no alarm
       Given user is set to "Night" mode through CHIL
       Given user launches and logs in to the Lyric application
@@ -701,7 +709,9 @@ Given user is set to "Home" mode through CHIL
  #      | Door Closed at Night mode |
   #     | Switched to Night by app |
   
-@Doorsensor_ArmedNight_OpenDoor_SwitchingToNightFromEntryDelay_DoorClosedInEntryDelay_NoAlarm @P3 @DAS_DoorSensor @Automated
+  
+  
+@Doorsensor_ArmedNight_OpenDoor_SwitchingToNightFromEntryDelay_DoorOpenedInEntryDelay_NoAlarm 			@P3 				@DAS_DoorSensor 				@Automated
     Scenario: As a user when I open the door in night mode I should be able to switch to Night from entry delay screen and close the door in entry delay waiting should be shown no alarm
       Given user is set to "Night" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -723,7 +733,7 @@ Given user is set to "Home" mode through CHIL
  #      | Door Closed at Night mode|
   #     | Switched to Night by app |
  
-@Doorsensor_ArmedNight_OpenDoor_AttentionInEntryDelay @P1 @DAS_DoorSensor @Automated
+@Doorsensor_ArmedNight_OpenDoor_AttentionInEntryDelay 				@P1 					@DAS_DoorSensor 				@Automated
     Scenario: As a user when the door is opened in night mode I should be able to initiate attention alarm from entry delay screen on observing intruder in premises
      Given user sets the entry/exit timer to "60" seconds
      Given user is set to "Night" mode through CHIL
@@ -758,7 +768,7 @@ Given user is set to "Home" mode through CHIL
     When user "door" access sensor "closed"
    
        
-@Doorsensor_ArmedNight_OpenDoor_AlarmWhenNoActionInEntryDelay @P3 @DAS_DoorSensor @Automated
+@Doorsensor_ArmedNight_OpenDoor_AlarmWhenNoActionInEntryDelay 				@P3 				@DAS_DoorSensor 					@Automated
     Scenario: As a user when the door is opened in night mode and no commands issued from entry delay screen then system should go into alarm mode
      Given user is set to "Night" mode through CHIL
        And user launches and logs in to the Lyric application
@@ -780,7 +790,7 @@ Given user is set to "Home" mode through CHIL
       And user "closes" activity log
      
 
-   @Doorsensor_ArmingNight_ExitError_SwitchingToHomeInEntryDelay @P3 @DAS_DoorSensor @Automated
+   @Doorsensor_ArmingNight_ExitError_SwitchingToHomeInEntryDelay 				@P3 				@DAS_DoorSensor 			@Automated
     Scenario: As a user when i left my door open during exit delay , I should be able to switch to home from entry delay screen to avoid the alarm
     Given user launches and logs in to the Lyric application
       And user clears all push notifications
@@ -805,7 +815,7 @@ Given user is set to "Home" mode through CHIL
       #When user "door" access sensor "closed"
  
  
-@Doorsensor_ArmingNight_ExitError_SwitchingToNightFromEntryDelay_DoorNotClosedInEntryDelay_Alarm @P3 @DAS_DoorSensor @Automated
+@Doorsensor_ArmingNight_ExitError_SwitchingToNightFromEntryDelay_DoorNotClosedInEntryDelay_Alarm 				@P3 					@DAS_DoorSensor @Automated
     Scenario: As a user when I left my door open in exit delay , I should be able to select switch to Night from Entry delay screen
     # But if I didn’t not close the door on time, it should get into  alarm
       And user launches and logs in to the Lyric application
@@ -831,7 +841,7 @@ Given user is set to "Home" mode through CHIL
       When user "closes" activity log
       And user "door" access sensor "closed"
  
-@Doorsensor_ArmingNight_ExitError_SwitchingToNightFromEntryDelay_DoorClosedInEntryDelay_NoAlarm @P4 @DAS_DoorSensor @Automated
+@Doorsensor_ArmingNight_ExitError_SwitchingToNightFromEntryDelay_DoorClosedInEntryDelay_NoAlarm 				@P4 				@DAS_DoorSensor 				@Automated
     Scenario: As a user when I left my door open in exit delay , I should be able to get Push notification of door open and on clicking it should take to Entry delay 
     #where i can select switch to Night and close the door in entry delay waiting with no alarm
       And user launches and logs in to the Lyric application
@@ -851,7 +861,7 @@ Given user is set to "Home" mode through CHIL
        | Door Closed at Night mode|
        | Switched to Night by app |
  
-    @Doorsensor_ArmingNight_ExitError_AttentionInEntryDelay @P4 @DAS_DoorSensor @Automated
+    @Doorsensor_ArmingNight_ExitError_AttentionInEntryDelay 				@P4 				@DAS_DoorSensor 					@Automated
     Scenario: As a user when the door is opened in exit delay of night mode and failed to close door, then intruder entered, I should be able to initiate attention alarm from entry delay screen 
     #on observing intruder in premises
      Given user sets the entry/exit timer to "60" seconds
@@ -882,7 +892,7 @@ Given user is set to "Home" mode through CHIL
       And user "closes" activity log
      When user "door" access sensor "closed"
  
-@Doorsensor_ArmingNight_ExitError_AlarmWhenNoActionInEntryDelay @P3 @DAS_DoorSensor @Automated
+@Doorsensor_ArmingNight_ExitError_AlarmWhenNoActionInEntryDelay 				@P3 				@DAS_DoorSensor 					@Automated
     Scenario: As a user when the door is opened in exit delay and forgot to close in time then user should receive alarm event if user does not perform any action within entry delay
     # from entry delay screen then system should go into alarm mode
      Given user launches and logs in to the Lyric application
@@ -900,7 +910,7 @@ Given user is set to "Home" mode through CHIL
      Then user status should be set to "Home"
      
  
-   @Doorsensor_Armed_OpenDoor_ForeGround_SwitchingToHomeFromPushNotifications @P4 #N @NotAutomatable
+   @Doorsensor_Armed_OpenDoor_ForeGround_SwitchingToHomeFromPushNotifications 			@P4 				@NotAutomatable
     Scenario Outline: As a user when I get push notification while app in foreground I should be able to switch to home from push 
     Given user launches and logs in to the Lyric application
       And user clears all push notifications
@@ -916,7 +926,7 @@ Given user is set to "Home" mode through CHIL
  #    |Night  |
      
   
- @Doorsensor_Armed_OtherScreen_OpenDoor_ForeGround_SwitchingToHomeFromPushNotifications @P4 #N @NotAutomatable
+ @Doorsensor_Armed_OtherScreen_OpenDoor_ForeGround_SwitchingToHomeFromPushNotifications 			@P4 				@NotAutomatable
     Scenario Outline: As a user when I get push notification while app in foreground I should be able to switch to home from push 
     Given user launches and logs in to the Lyric application
       And user clears all push notifications
@@ -939,7 +949,7 @@ Given user is set to "Home" mode through CHIL
      |Night  |Same Location Camera(any) device screen|
      |Night  |Different Location                     |
      
-     @Doorsensor_Armed_OpenDoor_ForeGround_ClosedDoor_SwitchingToNight_FromPushNotifications @P4 #N @NotAutomatable
+     @Doorsensor_Armed_OpenDoor_ForeGround_ClosedDoor_SwitchingToNight_FromPushNotifications 			@P4 				@NotAutomatable
     Scenario Outline: As a user when I get push notification while app in foreground I should be able to switch to home from push 
     Given user launches and logs in to the Lyric application
       And user clears all push notifications
@@ -958,7 +968,7 @@ Given user is set to "Home" mode through CHIL
      |Night  |
      
   
- @Doorsensor_Armed_OtherScreen_OpenDoor_ForeGround_ClosedDoor_SwitchingToNightFromPushNotifications @P4 #N @NotAutomatable
+ @Doorsensor_Armed_OtherScreen_OpenDoor_ForeGround_ClosedDoor_SwitchingToNightFromPushNotifications 			@P4 				@NotAutomatable
     Scenario Outline: As a user when I get push notification while app in foreground I should be able to switch to night from push 
     Given user launches and logs in to the Lyric application
       And user clears all push notifications
@@ -983,7 +993,7 @@ Given user is set to "Home" mode through CHIL
      |Night  |Different Location                     |
      
      
-    @Doorsensor_Armed_OpenDoor_ForeGround_SwitchingToNight_FromPushNotifications_DoorClosed @P4 #N @NotAutomatable
+    @Doorsensor_Armed_OpenDoor_ForeGround_SwitchingToNight_FromPushNotifications_DoorClosed 			@P4 				@NotAutomatable
     Scenario Outline: As a user when I get push notification while app in foreground I should be able to switch to home from push 
     Given user launches and logs in to the Lyric application
       And user clears all push notifications
@@ -1003,7 +1013,7 @@ Given user is set to "Home" mode through CHIL
      |Night  |
      
   
- @Doorsensor_Armed_OtherScreen_OpenDoor_ForeGround_SwitchingToHomeFromPushNotifications_DoorClosed @P4 #N @NotAutomatable
+ @Doorsensor_Armed_OtherScreen_OpenDoor_ForeGround_SwitchingToHomeFromPushNotifications_DoorClosed 			@P4 				@NotAutomatable
     Scenario Outline: As a user when I get push notification while app in foreground I should be able to switch to home from push 
     Given user launches and logs in to the Lyric application
       And user clears all push notifications
@@ -1031,7 +1041,7 @@ Given user is set to "Home" mode through CHIL
      
        #END OF DURING NIGHT MODE
 	  
-    @WindowSensor_OpenDuringAwayModeExitDelay @P4 @DAS_WindowSensor @Automated
+    @WindowSensor_OpenDuringAwayModeExitDelay 			@P4 				@DAS_WindowSensor 				@Automated
       Scenario: 31 As a user when the window is opened in Away exit delay I should be notified with alarm 
       And user launches and logs in to the Lyric application
       And user clears all push notifications
@@ -1046,7 +1056,7 @@ Given user is set to "Home" mode through CHIL
       And user "window" access sensor "closed"
       
       
-      @WindowSensor_OpenAfterAwayModeExitDelay @P1 @DAS_WindowSensor @Automated
+      @WindowSensor_OpenAfterAwayModeExitDelay 			@P1 				@DAS_WindowSensor 				@Automated
       Scenario: 32 As a user when intruder breaches the premises through window after away exit delay I should be notified with alarm
       And user is set to "Away" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -1067,7 +1077,7 @@ Given user is set to "Home" mode through CHIL
      And user "closes" activity log
      And user "window" access sensor "closed"
      
-     @WindowSensor_OpenDuringNightModeExitDelay  @P4 @DAS_WindowSensor @Automated
+     @WindowSensor_OpenDuringNightModeExitDelay  				@P4 					@DAS_WindowSensor 				@Automated
      Scenario: 33 As a user when intruder breaches the premises through window during night mode exit delay I should be notified with alarm 
       And user launches and logs in to the Lyric application
       And user clears all push notifications
@@ -1080,7 +1090,8 @@ Given user is set to "Home" mode through CHIL
      Then user status should be set to "Home"
      And user "window" access sensor "closed"
      
-     @WindowSensor_OpenAfterNightModeExitDelay @P2 @DAS_WindowSensor @Automated
+     
+     @WindowSensor_OpenAfterNightModeExitDelay 				@P2 				@DAS_WindowSensor 					@Automated
      Scenario: 34 As a user when intruder breaches the premises through window after night mode exit delay I should be notified with alarm
       And user launches and logs in to the Lyric application
       And user clears all push notifications
@@ -1099,7 +1110,7 @@ Given user is set to "Home" mode through CHIL
       
      #Door Tampered scenarios
      
-     @DoorSensor_TamperDuringAwayModeExitDelay @P3 @DAS_DoorSensor @Automated
+     @DoorSensor_TamperDuringAwayModeExitDelay 				@P3 					@DAS_DoorSensor 					@Automated
       Scenario: 35 As a user when the DOOR is tampered in Away exit delay I should be notified with alarm 
     Given user sets the entry/exit timer to "60" seconds
       And user is set to "Away" mode through CHIL
@@ -1111,7 +1122,8 @@ Given user is set to "Home" mode through CHIL
       When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
       When user "door" access sensor "tamper restored"
      
-     @DoorSensor_TamperDuringNightModeExitDelay @P4 @DAS_DoorSensor @Automated
+     
+     @DoorSensor_TamperDuringNightModeExitDelay 				@P4 					@DAS_DoorSensor 					@Automated
       Scenario: 36 As a user when the door is tampered in Night exit delay I should be notified with alarm
     Given user sets the entry/exit timer to "60" seconds
       And user is set to "Night" mode through CHIL
@@ -1124,7 +1136,8 @@ Given user is set to "Home" mode through CHIL
    	 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
    	  When user "door" access sensor "tamper restored"
       
-       @DoorSensor_TamperAfterAwayModeExitDelay @P2 @DAS_DoorSensor @Automated
+      
+       @DoorSensor_TamperAfterAwayModeExitDelay 				@P2 				@DAS_DoorSensor 					@Automated
       Scenario: 37 As a user when the DOOR is tampered After Away exit delay I should be notified with alarm 
     Given user sets the entry/exit timer to "60" seconds
       And user is set to "Away" mode through CHIL
@@ -1145,7 +1158,7 @@ Given user is set to "Home" mode through CHIL
      And user "closes" activity log
      
      
-     @DoorSensor_TamperAfterNightModeExitDelay @P2 @DAS_DoorSensor @Automated
+     @DoorSensor_TamperAfterNightModeExitDelay 				@P2 					@DAS_DoorSensor 					@Automated
       Scenario: 38 As a user when the door is tampered after Night exit delay I should be notified with alarm
     Given user sets the entry/exit timer to "60" seconds
       And user is set to "Night" mode through CHIL
@@ -1163,7 +1176,7 @@ Given user is set to "Home" mode through CHIL
        |DOOR SENSOR ALARM AT NIGHT MODE |
        |DOOR SENSOR TAMPER CLEARED AT NIGHT MODE|
       
-       @WindowSensor_TamperDuringAwayModeExitDelay @P3 @DAS_WindowSensor @Automated
+       @WindowSensor_TamperDuringAwayModeExitDelay 					@P3 						@DAS_WindowSensor 					@Automated
       Scenario: 39 As a user when the window is tampered in Away exit delay I should be notified with alarm 
     Given user sets the entry/exit timer to "60" seconds
       And user is set to "Away" mode through CHIL
@@ -1177,7 +1190,8 @@ Given user is set to "Home" mode through CHIL
    	   When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
       When user "window" access sensor "Tamper Restored"
        
-        @WindowSensor_TamperDuringNightModeExitDelay @P4 @DAS_WindowSensor @Automated
+       
+        @WindowSensor_TamperDuringNightModeExitDelay 				@P4 					@DAS_WindowSensor 					@Automated
       Scenario: 40 As a user when the window is tampered in Night exit delay I should be notified with alarm 
       Given user is set to "Night" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -1189,7 +1203,7 @@ Given user is set to "Home" mode through CHIL
       When user "window" access sensor "Tamper Restored"
      
        
-      @WindowSensor_TamperAfterAwayModeExitDelay @P2 @DAS_WindowSensor @Automated
+      @WindowSensor_TamperAfterAwayModeExitDelay 					@P2 					@DAS_WindowSensor 					@Automated
       Scenario: 41 As a user when the window is tampered after Away exit delay I should be notified with alarm 
      Given user is set to "Away" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -1208,7 +1222,8 @@ Given user is set to "Home" mode through CHIL
        |WINDOW SENSOR TAMPER CLEARED AT AWAY MODE|
        And user "closes" activity log
        
-        @WindowSensor_TamperAfterNightModeExitDelay @P2 @DAS_WindowSensor @Automated
+       
+        @WindowSensor_TamperAfterNightModeExitDelay 					@P2 						@DAS_WindowSensor 				@Automated
       Scenario: 42 As a user when the window is tampered after Night exit delay I should be notified with alarm 
       Given user sets the entry/exit timer to "60" seconds
       And user is set to "Night" mode through CHIL
@@ -1228,9 +1243,8 @@ Given user is set to "Home" mode through CHIL
        |WINDOW SENSOR TAMPER CLEARED AT NIGHT MODE|
        And user "closes" activity log
       
-      
      
-      @Motionsensor_MotionDetectedAfterAwayExitDelay_SwitchingToHomeFromEntryDelay @P2 @DASMotionSensor @Automated
+      @Motionsensor_MotionDetectedAfterAwayExitDelay_SwitchingToHomeFromEntryDelay 				@P2 				@DASMotionSensor 			@Automated
     Scenario: 43 As a user when motion is detected in Away mode and switch to home is given by user from entry delay screen, system should go to home mode 
     Given user is set to "Away" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -1239,7 +1253,7 @@ Given user is set to "Home" mode through CHIL
      # And user minimizes the application
      # And user mobile screen is locked
      When user "sensor" detects the "Motion"
-     #When user selects the "Motion Detected" push notification
+     When user selects the "Motion Detected" push notification
      #Then user should be displayed with "Mobile Locked" screen
      #When user enters "Mobile Passcode"
      Then user should be displayed with the "Entry Delay" screen
@@ -1253,7 +1267,7 @@ Given user is set to "Home" mode through CHIL
      When user "closes" activity log
      
      
-     @Motionsensor_MotionDetectedAfterAwayExitDelay_SwitchingToNightFromEntryDelay @P3  @DASMotionSensor @Automated
+     @Motionsensor_MotionDetectedAfterAwayExitDelay_SwitchingToNightFromEntryDelay 			@P3  			@DASMotionSensor 			@Automated
     Scenario: 44 As a user when motion is detected in Away mode and switch to night is given by user from entry delay screen, system should go to night mode 
     Given user is set to "Away" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -1272,7 +1286,8 @@ Given user is set to "Home" mode through CHIL
        |Switched to Night by app |
      When user "closes" activity log
      
-     @Motionsensor_MotionDetectedAfterAwayExitDelay_AttentionFromEntryDelay @P2 @DASMotionSensor @Automated
+     
+     @Motionsensor_MotionDetectedAfterAwayExitDelay_AttentionFromEntryDelay 				@P2 				@DASMotionSensor 					@Automated
      Scenario: 45 As a user I should be able to initiate panic alarm from entry delay screen on seeing suspects in my motion sensor detection video
      Given user is set to "Away" mode through CHIL
      And user launches and logs in to the Lyric application
@@ -1291,7 +1306,8 @@ Given user is set to "Home" mode through CHIL
        |Alarm Dismissed|
      When user "closes" activity log
      
-     @Motionsensor_MotionDetectedAfterAwayExitDelay_AlarmWhenNoActionOnEntryDelay @P1 @DASMotionSensor @Automated
+     
+     @Motionsensor_MotionDetectedAfterAwayExitDelay_AlarmWhenNoActionOnEntryDelay 				@P1 					@DASMotionSensor 				@Automated
     Scenario: 46 As a user I should get alarm when no action taken from entry delay screen on seeing motion detection
      Given user is set to "Away" mode through CHIL
      And user launches and logs in to the Lyric application
@@ -1315,7 +1331,7 @@ Given user is set to "Home" mode through CHIL
      When user "closes" activity log
 	        
  
-     @MotionSensor_TamperedInAwayExitDelay @P2 @DASMotionSensor @Automated
+     @MotionSensor_TamperedInAwayExitDelay 						@P2 						@DASMotionSensor 					@Automated
       Scenario: 48 As a user when the Motion is tampered after Away exit delay I should be notified with alarm 
     Given user sets the entry/exit timer to "60" seconds
       And user is set to "Away" mode through CHIL
@@ -1338,7 +1354,8 @@ Given user is set to "Home" mode through CHIL
        |Motion SENSOR TAMPER CLEARED AT AWAY MODE|
        And user "closes" activity log
        
-       @MotionSensor_TamperedDuringAwayExitDelay @P3 @DASMotionSensor @Automated
+       
+       @MotionSensor_TamperedDuringAwayExitDelay 				@P3 				@DASMotionSensor 					@Automated
       Scenario: 49 As a user when the Motion is tampered in Away exit delay I should be notified with alarm 
     Given user sets the entry/exit timer to "60" seconds
       And user is set to "Away" mode through CHIL
@@ -1361,7 +1378,7 @@ Given user is set to "Home" mode through CHIL
        And user "closes" activity log
     
    # ************************
-     @DoorsensorOpenAfterAwayExitDelay_windowopen @P3 @DASDoorWindowSensor @Automated
+     @DoorsensorOpenAfterAwayExitDelay_windowopen 					@P3 					@DASDoorWindowSensor 				@Automated
     Scenario: 50 In away mode As an user I should get alarm immediately on window open by intruder while entry delay in progress  after intruder breaches the premises through door
     Given user is set to "Away" mode through CHIL
      And user launches and logs in to the Lyric application
@@ -1381,7 +1398,7 @@ Given user is set to "Home" mode through CHIL
        |ALARM AT AWAY MODE|
        
        
-    @DoorsensorOpenAfterNightExitDelay_windowopen @P3 @DASDoorWindowSensor @Automated
+    @DoorsensorOpenAfterNightExitDelay_windowopen 					@P3 					@DASDoorWindowSensor 					@Automated
     Scenario: 52 In Night mode As an user I should get alarm immediately on window open by intruder while entry delay in progress  after intruder breaches the premises through door
       Given user is set to "Night" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -1401,7 +1418,7 @@ Given user is set to "Home" mode through CHIL
        |ALARM AT Night MODE|
     
     
-    @AwayMode_MotionDetectedWindowOpenDoorOpen @P3 @Automated
+    @AwayMode_MotionDetectedWindowOpenDoorOpen 				@P3 				@Automated
     Scenario: 54 In away mode As an user I should get alarm immediately on window open by intruder while entry delay in progress  after intruder breaches the premises with motion detection
     Given user is set to "Away" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -1428,7 +1445,8 @@ Given user is set to "Home" mode through CHIL
       When user "window" access sensor "closed"
       When user "door" access sensor "closed"
       
-      @AwayMode_WindowOpenMotionDetectedDoorOpen @P2 @Automated
+      
+      @AwayMode_WindowOpenMotionDetectedDoorOpen 				@P2 				@Automated
     Scenario: 55 In away mode As an user I should get alarm immediately on window open by intruder while entry delay in progress  after intruder breaches the premises with motion detection
     Given user is set to "Away" mode through CHIL
        And user launches and logs in to the Lyric application
@@ -1448,7 +1466,7 @@ Given user is set to "Home" mode through CHIL
       And user "closes" activity log
       
       
-     @NightMode_Dooropen_MotionsensorAfterExitDelay_windowopen @P2 @Automated
+     @NightMode_Dooropen_MotionsensorAfterExitDelay_windowopen 			@P2 				@Automated
     Scenario: 56 In night mode As an user I should get alarm immediately on window open by intruder while entry delay in progress  after intruder breaches the premises with door open and motion detection
     Given user is set to "Night" mode through CHIL
      And user launches and logs in to the Lyric application
@@ -1468,7 +1486,7 @@ Given user is set to "Home" mode through CHIL
       And user "closes" activity log 
       
       
-	  @DismissAlarm_Navigation @P3 @Automated
+	  @DismissAlarm_Navigation 			@P3 				@Automated
       Scenario: 61 As an user I should be navigated to screen previous to alarm status on dismissing alarm
       Given user is set to "Away" mode through CHIL
         And user launches and logs in to the Lyric application
@@ -1496,7 +1514,8 @@ Given user is set to "Home" mode through CHIL
    #   |Zwave exclusion|
     #  |Camera Activity Log|
         	  
-        @Alarm_Navigation_Otherscreen @P2 @Automated
+        	  
+        @Alarm_Navigation_Otherscreen 				@P2 					@Automated
     Scenario: 62 As an user I should be navigated to any screen in lyric app from alarm screen during panel in alarm state
        Given user is set to "Away" mode through CHIL
         And user launches and logs in to the Lyric application
@@ -1528,11 +1547,11 @@ Given user is set to "Home" mode through CHIL
     #   |ID event triggered|
        
        
-    @Alarm_Navigation_Otherscreen_Settings @P3
+    @Alarm_Navigation_Otherscreen_Settings 					@P3					@NotAutomatable
     Scenario Outline: 64 As an user I should be not allowed to edit settings during panel in alarm state
       Given user is set to "Away" mode through CHIL
         And user launches and logs in to the Lyric application
-       When user "opens" the window
+      	When user "window" access sensor "opened"
    	   Then user should be displayed with the "Alarm" screen
        When user navigates to <Expected> screen from "Alarm" screen
       Then user should be displayed with "Grayed settings" screen
@@ -1561,7 +1580,8 @@ Given user is set to "Home" mode through CHIL
      #  |Manage user|Zwave settings|
       
    
-    @Entrydelay_Navigation_Otherscreen @P4
+   #Covered in @EntryDelayScreenValidation Scenario
+    @Entrydelay_Navigation_Otherscreen 				@P4					@Automated
     Scenario: 63 As an user I should not be navigated to any screen in lyric app from entry delay screen  
       Given user is set to "Away" mode through CHIL
         And user launches and logs in to the Lyric application
@@ -1579,7 +1599,7 @@ Given user is set to "Home" mode through CHIL
        
        
        
-    @Alarm_Call @P2  @Automated
+    @Alarm_Call 			@P2  				@Automated
     Scenario: 65 As an user I should be able to call police from alarm screen on confirming intruder in premises
       Given user is set to "Away" mode through CHIL
        And user launches and logs in to the Lyric application
@@ -1594,7 +1614,7 @@ Given user is set to "Home" mode through CHIL
       # Then user should be displayed with the “Phone” screen
        
        
-    @AlarmOnlogin @P3 @Automated
+    @AlarmOnlogin 			@P3 			@Automated
     Scenario: 66 As an user I should be shown with alarm screen on login to account when panel in Alarm state
      Given user is set to "Away" mode through CHIL
        When user "window" access sensor "Tampered"
@@ -1602,7 +1622,7 @@ Given user is set to "Home" mode through CHIL
        Then user should be displayed with the "Alarm" screen
       # Repeat for door motion ismviewer osmviewer
       
-    @EntrydelayOnlogin @P3 @Automated
+    @EntrydelayOnlogin 		@P3 			@Automated
     Scenario: 67 As an user I should be shown with entry delay screen on login to account when panel in exntry delay state
     Given user is set to "Away" mode through CHIL
        When user "door" access sensor "opened"
@@ -1610,7 +1630,7 @@ Given user is set to "Home" mode through CHIL
        Then user should be displayed with the "entry delay" screen
         
      
-    @Alarm_History @P2 @Automated
+    @Alarm_History 			@P2 			@Automated
     Scenario: 68 As a user I should get events in alarm history during alarm period
     Given user is set to "Night" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -1637,7 +1657,7 @@ Given user is set to "Home" mode through CHIL
       
 
       
-       @Basestation_DisplacedDuringExitDelayModes @P3 @NotAutomatable
+       @Basestation_DisplacedDuringExitDelayModes 			@P3 				@NotAutomatable
       Scenario: 70 As a user when someone tried to displace or tamper the basestation being in transition of away or night modes I should be notified with alarm 
        Given user is set to "Away" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -1675,7 +1695,7 @@ Given user is set to "Home" mode through CHIL
      Then user receives a "Switched to Night" alert
       And user "should not" receives a "Alarm Dismissed" alert
       
-      @Basestation_DisplacedAfterExitDelayModes @P2 @NotAutomatable
+      @Basestation_DisplacedAfterExitDelayModes 			@P2 				@NotAutomatable
       Scenario: 69 As a user when someone tried to displace or tamper the basestation being in away or night modes I should be notified with alarm 
        Given user is set to "Away" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -1714,7 +1734,7 @@ Given user is set to "Home" mode through CHIL
       And user "should not" receives a "Alarm Dismissed" alert
       
       
-     @Alarm_Offline @P2 @NotAutomatable
+     @Alarm_Offline 			@P2 				@NotAutomatable
  Scenario: 71 As a user I should be shown with help message after panel offline so that i will be guided to take necessary actions
     Given user is set to "Night" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -1732,7 +1752,7 @@ Given user is set to "Home" mode through CHIL
       #check the activity log for sensor alarm details  
     
      
-      @ZwaveOperations_Alarm @P2 @Automated
+      @ZwaveOperations_Alarm 			@P2 				@Automated
  Scenario Outline: 72 As a user I should get alarm when i am performing any Zwave operation
     And user is set to "Night" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -1749,29 +1769,29 @@ Given user is set to "Home" mode through CHIL
     |ZWAVE DEVICE THROUGH GENERAL Exclusion      |Exclusion Mode Active|
 
   
-    @AlarmDismissedViaKeyfobDiffModes @P2
+    @AlarmDismissedViaKeyfobDiffModes 			@P2				@Automated
     Scenario Outline: 75 As a user I should be able to dismiss alarm through keyfob
      Given user is set to "Away" mode through CHIL
-     And user launches and logs in to the Lyric application
+     Given user launches and logs in to the Lyric application
      And user clears all push notifications
      When  user "window" access sensor "opened"
-     When user selects <Mode> from keyfob
+     When user press <Mode> key from keyfob
      #validate email content
-     And user navigates to "Security Solution card" screen from the "Dashboard" screen
+   	 And user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to <Mode>
-     When user "opens" activity log
+   	 When user "opens" activity log
      Then verify the following activity log:
        | Elements  | 
-       | Alarm Dismissed |
+       | Alarm Dismissed by Keyfob|
        | Switched to Home by Keyfob|
      And user "closes" activity log
      Examples:
      |Mode|
      |Home|
-     |Off |
+     #|Off |
      
       
-     @Alarm_MultiLocation  @P3 @NotAutomatable
+     @Alarm_MultiLocation  			@P3 				@NotAutomatable
      Scenario:	76 As a user when a das is in alarm state in one location, I should be able to access other locations without any problem
      Given user is set to "Away" mode through CHIL
      When user "window" access sensor "opened"
@@ -1786,7 +1806,7 @@ Given user is set to "Home" mode through CHIL
     
      
       
-   @Livestreaming_Alarm  @P2  @Automated
+   @Livestreaming_Alarm  			@P2  			@Automated
     Scenario: 73 As an user I should be able to pause and resume streaming in alarm screen
       Given user is set to "Away" mode through CHIL
       When user "window" access sensor "opened"
@@ -1802,7 +1822,7 @@ Given user is set to "Home" mode through CHIL
        #close the shutter and open in mid of alarm or entry delay, check live stream
        #cover attention alarm
        
-       @Livestreaming_Entrydelay  @P3 @Automated
+       @Livestreaming_Entrydelay  		@P3 			@Automated
     Scenario: 74 As an user I should be able to pause and resume streaming in entry delay screen
       Given user is set to "Away" mode through CHIL
        When user "door" access sensor "opened"
@@ -1817,7 +1837,7 @@ Given user is set to "Home" mode through CHIL
        #cover attention alarm
          
      
-     @EntryDelayScreenValidation @P1 @Automated
+     @EntryDelayScreenValidation 		@P1 			@Automated
     Scenario: 77 As a user when entry delay is shown I should be able to view the details of entry delay screen.
       Given user is set to "Away" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -1835,9 +1855,11 @@ Given user is set to "Home" mode through CHIL
       |  entry delay switch to home            | 
       |  entry delay switch to night           |
       |  entry delay attention                 |
+      |  without back button					  |
     And user is set to "home" mode through CHIL
 
-    @AlarmScreenValidation  @P1 @Automated 
+
+    @AlarmScreenValidation  			@P1 			@Automated 
     Scenario: 78 As a user when alarm is shown I should be able to view the details of alarm screen
      Given user is set to "Away" mode through CHIL
      And user "window" access sensor "opened"
@@ -1856,7 +1878,8 @@ Given user is set to "Home" mode through CHIL
       #  And user force closes the application
      #   And user lyric app screen is locked
       
-      @MobileLocked_Doorsensor_OpenAfterAwayExitDelay_SwitchingToNightFromPushNotification_DoorClosedInEntryDelay_NoAlarm @P2 @NotAutomatable
+      
+      @MobileLocked_Doorsensor_OpenAfterAwayExitDelay_SwitchingToNightFromPushNotification_DoorClosedInEntryDelay_NoAlarm 				@P2 					@NotAutomatable
       Scenario: As a user with mobile locked when I open the door I should be able to switch to Night from door open push notification on my arrival to home after closing the door
        Given user launches and logs in to the Lyric application
       And user clears all push notifications
@@ -1874,7 +1897,8 @@ Given user is set to "Home" mode through CHIL
 	 Then user status should be set to "Night"
      When user "opens" activity log
      
-     @TokenExpired_Doorsensor_OpenAfterAwayExitDelay_PotraitLandscapeView_SwitchingToNightFromEntryDelay_DoorNotClosedInWaiting_Alarm  @P2  @NotAutomatable
+     
+     @TokenExpired_Doorsensor_OpenAfterAwayExitDelay_PotraitLandscapeView_SwitchingToNightFromEntryDelay_DoorNotClosedInWaiting_Alarm 				@P2 					@NotAutomatable
     Scenario: As a user with app not used for 24 hrs when I open the door in away mode I should be able to switch to Night from Entry Delay but failed to close the door in entry delay waiting should be taken to alarm
    Given user is set to "Home" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -1896,8 +1920,7 @@ Given user is set to "Home" mode through CHIL
      When user selects "dismiss alarm" from "alarm" screen
       
   
-   
-    @MotionViewer_AwayMode_SwitchingToHomeFromEntryDelay @P1 @DAS_MotionViewer @Automated
+    @MotionViewer_AwayMode_SwitchingToHomeFromEntryDelay 			@P1 			@DAS_MotionViewer 				@Automated
     Scenario: As a user when motion detected after exit delay I should be able to switch to home from entry delay screen (check clip in activity log)
    Given user is set to "Away" mode through CHIL
     Given user launches and logs in to the Lyric application
@@ -1917,7 +1940,7 @@ Given user is set to "Home" mode through CHIL
      Then user should see the "ISMV" status as "Standby" on the "Sensor Status"
      And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
       
-      @MotionViewer_AwayMode_SwitchingToNightFromEntryDelayThroughPushNotification @P2 @DAS_MotionViewer @Automated
+      @MotionViewer_AwayMode_SwitchingToNightFromEntryDelayThroughPushNotification 				@P2 				@DAS_MotionViewer 			@Automated
       Scenario: As a user when motion detected after exit delay I should be able to switch to night from entry delay screen  (check clip in activity log)
       Given user is set to "Away" mode through CHIL
      Given user launches and logs in to the Lyric application
@@ -1943,7 +1966,7 @@ Given user is set to "Home" mode through CHIL
        
         
       
-      @MotionViewer_OpenAfterAwayExitDelay_AttentionFromEntryDelay @P2 @Automated @DAS_MotionViewer
+      @MotionViewer_OpenAfterAwayExitDelay_AttentionFromEntryDelay 				@P2 				@Automated 				@DAS_MotionViewer
       Scenario: As a user when ISMV motion is detected in Away mode and attention from entry delay screen is selected on seeing mischeif activity, system should trigger alarm   (check clip in alarm history)
       Given user is set to "Away" mode through CHIL
      Given user launches and logs in to the Lyric application
@@ -1963,7 +1986,7 @@ Given user is set to "Home" mode through CHIL
        | Switched to Home by app |
        
        
-    @MotionViewer_OpenAfterAwayExitDelay_AlarmWhenNoActionOnEntryDelay @P1 @Automated @DAS_MotionViewer
+    @MotionViewer_OpenAfterAwayExitDelay_AlarmWhenNoActionOnEntryDelay 				@P1 						@Automated 				@DAS_MotionViewer
     Scenario: As a user when ISMV motion is detected in Away mode and no action taken from entry delay screen, system should alarm  
      Given user is set to "Away" mode through CHIL
      Given user launches and logs in to the Lyric application
@@ -1982,7 +2005,7 @@ Given user is set to "Home" mode through CHIL
      And user "closes" activity log
      
      
-     @MotionViewerSensor_TamperDuringNightModeExitDelay @P4 @DAS_MotionViewer @Automated
+     @MotionViewerSensor_TamperDuringNightModeExitDelay 					@P4 						@DAS_MotionViewer 				@Automated
     Scenario: As a user when the Indoor MotionViewer is tampered in Night exit delay I should be notified with alarm
     Given user sets the entry/exit timer to "60" seconds
       And user is set to "Night" mode through CHIL
@@ -2001,7 +2024,7 @@ Given user is set to "Home" mode through CHIL
        |Indoor motion viewer TAMPER CLEARED AT NIGHT MODE|
        
       
-     @MotionViewer_VideoClip @P2 @Pending
+     @MotionViewer_VideoClip 				@P2 				@NotAutomatable
      Scenario: As a user when motion detected after exit delay irrespective of exit timer , I should have clips generated for 30sec (landscape, download)
      Given user sets the entry/exit timer to <timerValue> seconds
       And user is set to "Away" mode through CHIL
@@ -2014,7 +2037,7 @@ Given user is set to "Home" mode through CHIL
       And user should be played with video of 5 seconds prealert
     
      
-     @MotionViewerAlarm_Clipgenerated_Offline  @P2 @notAutomatablePanelOffline
+     @MotionViewerAlarm_Clipgenerated_Offline  				@P2 					@notAutomatablePanelOffline
     Scenario: As a user I should be able to view the clip generated in indoor motion viewer during panel offline
      Given user is set to "Away" mode through CHIL
      And user launches and logs in to the Lyric application
@@ -2040,7 +2063,7 @@ Given user is set to "Home" mode through CHIL
      # verify alarm history events
      
      
-    @ISMV_OSMV_MotionDetectedInAwayModeAtSameTime @P4 @notusecase @NotAutomatable
+    @ISMV_OSMV_MotionDetectedInAwayModeAtSameTime 						@P4					@NotAUseCase 					@NotAutomatable
     Scenario: As a user when motion detected by ISMV and OSMV after exit delay at same time then user should be able to shown ISMV name in entry delay screen
    # Trigger 2 ISMV or OSMV sensor, entry delay screen should show 1st sensor only till entry delay completes
       Given user is set to "Away" mode through CHIL
@@ -2054,7 +2077,7 @@ Given user is set to "Home" mode through CHIL
       Given user is set to "Home" mode through CHIL
       
       
-    @MotionDetectedInAwayMode_ByMotionSensorAndMotionViewer_AtSameTime @P4 @NotAutomatable
+    @MotionDetectedInAwayMode_ByMotionSensorAndMotionViewer_AtSameTime 				@P4 					@NotAutomatable
     Scenario: As a user when motion detected by PIR and MV after exit delay at same time I should be able to switch to night from entry delay screen - waiting screen should not be displayed
     Given user is set to "Away" mode through CHIL
        And user launches and logs in to the Lyric application
@@ -2066,11 +2089,8 @@ Given user is set to "Home" mode through CHIL
       When user selects "Switch to Night" from "Entry delay" screen
       Then verify no waiting screen is displayed
       
-      
-    
        
-       
-      @AwayMode_MotiondetectedByOSMV_DoorOpened_MotiondetectedByMotionSensor_MotiondetectedByISMV_WindowOpened @P1 @Automated
+      @AwayMode_MotiondetectedByOSMV_DoorOpened_MotiondetectedByMotionSensor_MotiondetectedByISMV_WindowOpened 				@P1 				@Automated
       Scenario: As a user when the MotionViewer is tampered in Night exit delay I should be notified with alarm
       Given user is set to "Away" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -2096,53 +2116,66 @@ Given user is set to "Home" mode through CHIL
        | OSMV motion detected at Away mode |
       
        
-       
-      @AwayMode_DoorOpened_MotiondetectedByISMV_MotiondetectedByMotionSensor_WindowOpened @P3
+      @AwayMode_DoorOpened_MotiondetectedByISMV_MotiondetectedByMotionSensor_WindowOpened 			@P3					@Automated
        Scenario: As a user I should be able to know the activities taking place at location when system is in alarm
       Given user is set to "Home" mode through CHIL
       And user launches and logs in to the Lyric application
       #And user clears all push notifications
       When user navigates to "Security Solution card" screen from the "Dashboard" screen
-      And user switches from "Home" to "Away"
+      Then user switches from "Home" to "Away"
+      And timer ends on user device
+      Then user status should be set to "Away"
        And user "door" access sensor "opened"
-        And verify Entry delay
-        And user "ismv" detects "motion"
-       And user "osmv" detects "motion"
-        And user "motion sensor" detects "motion"
-      And user "window" access sensor "opened"
-        And verify Alarm
-      And dismiss alarm
+       Then user should be displayed with the "Entry Delay" screen
+       When user "window" access sensor "opened"
+       Then user motion sensor "motion detected"
+       And user indoor motion viewer "motion detected"
+       And user outdoor motion viewer "motion detected"
+       And user selects "Attention" from "Entry Delay" screen
+      Then user should be displayed with the "Alarm" screen
+      When user selects "dismiss alarm" from "alarm" screen
+      Then user navigates to "Security Solution card" screen from the "Dashboard" screen
+      And user "opens" activity log
       Then verify the following activity log:
-       | Elements                 |
-       | Window opened at Away mode|
-       | ISMV motion detected at Away mode|
-       | Motion sensor detected motion at Away mode|
-       | Door opened at Away mode|
-       | OSMV motion detected at Away mode |
+       | Elements                 				|
+       | Window opened at Away mode				|
+       | ISMV motion detected at Away mode		|
+       | Sensor Motion Detected at Away mode		|
+       | Door opened at Away mode				|
+       | OSMV motion detected at Away mode 		|
+       And user "closes" activity log
        
-      @AwayMode_WindowOpened_MotiondetectedByISMV_MotiondetectedByMotionSensor_DoorOpened_MotiondetectedByOSMV @P3
+       
+      @AwayMode_WindowOpened_MotiondetectedByISMV_MotiondetectedByMotionSensor_DoorOpened_MotiondetectedByOSMV 				@P3					@Automated
        Scenario: As a user I should be able to know the activities taking place at location when system is in alarm
       Given user is set to "Home" mode through CHIL
       And user launches and logs in to the Lyric application
       #And user clears all push notifications
       When user navigates to "Security Solution card" screen from the "Dashboard" screen
-      And user switches from "Home" to "Away"
-      And user "window" access sensor "opened"
-       And verify Alarm
-      And user "ismv" detects "motion"
-      And user "motion sensor" detects "motion"
-      And user "door" access sensor "opened"
-      And user "osmv" detects "motion"
-      And dismiss alarm
+      Then user switches from "Home" to "Away"
+      And timer ends on user device
+      Then user status should be set to "Away"
+      When user "window" access sensor "opened"
+       Then user should be displayed with the "Entry Delay" screen
+       And user "door" access sensor "opened"
+       Then user motion sensor "motion detected"
+       And user indoor motion viewer "motion detected"
+       And user outdoor motion viewer "motion detected"
+       And user selects "Attention" from "Entry Delay" screen
+      Then user should be displayed with the "Alarm" screen
+      When user selects "dismiss alarm" from "alarm" screen
+      Then user navigates to "Security Solution card" screen from the "Dashboard" screen
+      And user "opens" activity log
       Then verify the following activity log:
-       | Elements                 |
-       | Window opened at Away mode|
-       | ISMV motion detected at Away mode|
-       | Motion sensor detected motion at Away mode|
-       | Door opened at Away mode|
-       | OSMV motion detected at Away mode |
+       | Elements                 				|
+       | Window opened at Away mode				|
+       | ISMV motion detected at Away mode		|
+       | Sensor Motion Detected at Away mode		|
+       | Door opened at Away mode				|
+       | OSMV motion detected at Away mode 		|
+       And user "closes" activity log
       
-      @MultiDoorsensor_LeftOpenDuringAwayExitDelay_SwitchingToNightFromEntryDelay @P4 @NotAutomatable
+      @MultiDoorsensor_LeftOpenDuringAwayExitDelay_SwitchingToNightFromEntryDelay 				@P4 						@NotAutomatable
       Scenario: As a user when door1 and door2 sensor are opened in armed I should be able to switch to night from entry delay screen - waiting screen should be displayed to close the door1 and door2 sensors
       Given user is set to "Home" mode through CHIL
       And user launches and logs in to the Lyric application
@@ -2168,7 +2201,3 @@ Given user is set to "Home" mode through CHIL
        | Door1 Closed at Away mode|
        | Door2 Closed at Away mode|
        | Switched to Night by app |
-    
-     
-   
-     

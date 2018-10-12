@@ -49,10 +49,17 @@ public class DetectsAction extends Keyword {
 				}else {
 					flag=false;
 				}
-			}else if (parameters.get(0).equalsIgnoreCase("indoor motion viewer")) {
+			} else if (parameters.get(0).equalsIgnoreCase("indoor motion viewer")) {
 				if (parameters.get(1).equalsIgnoreCase("Motion")) {
 					inputs.setInputValue("INDOORMOTION_DETECTED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 					System.out.println("Move the object in front of indoor motion viewer");
+				}else {
+					flag=false;
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("outdoor motion viewer")) {
+				if (parameters.get(1).equalsIgnoreCase("Motion")) {
+					inputs.setInputValue("OUTDOORMOTION_DETECTED_TIME",LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+					System.out.println("Move the object in front of outdoor motion viewer");
 				}else {
 					flag=false;
 				}

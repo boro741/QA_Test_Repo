@@ -27,7 +27,7 @@ public class VerifyTimerIsDisplayed extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user should be displayed with a switching timer$")
+	@KeywordStep(gherkins = "^user should be displayed with switching timer$")
 	public boolean keywordSteps() {
 		SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
 		if (sc.isCountDownTimerVisible()) {
@@ -44,5 +44,4 @@ public class VerifyTimerIsDisplayed extends Keyword {
 	public boolean postCondition() {
 		return flag;
 	}
-
 }

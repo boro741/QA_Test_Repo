@@ -22,7 +22,6 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	public static final String NIGHTSECURITYSTATEINANDROID = "Sleep";
 	public static final String OFFSECURITYSTATEINANDROID = "OFF";
 
-
 	public SecuritySolutionCardScreen(TestCases testCase) {
 		super(testCase, screenName);
 	}
@@ -30,7 +29,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	public boolean isAppSettingsIconVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AppSettingsIcon", timeOut);
 	}
-	
+
 	public boolean isAltAppSettingsIconVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AltAppSettingsIcon", timeOut);
 	}
@@ -43,16 +42,14 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorListBack");
 	}
 
-	
 	public boolean isSensorsTextVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorButton");
 	}
-	
 
 	public boolean isFrontPorchCoverTamperedTextVisibleinSecuritySolutions() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FrontPorchCoverTamperedText");
 	}
-	
+
 	public boolean isFrontHallCoverTamperedTextVisibleinSecuritySolutions() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FrontHallCoverTamperedText");
 	}
@@ -60,30 +57,26 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	public boolean isWindowCoverTamperedTextVisibleinSecuritySolutions() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WindowCoverTamperedText");
 	}
-	
+
 	public boolean isDoorCoverTamperedTextVisibleinSecuritySolutions() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FrontDoorCoverTamperedText");
 	}
-	
+
 	public boolean isMotionSensorCoverTamperedTextVisibleinSecuritySolutions() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionSensorCoverTamperedText");
 	}
-	
+
 	public boolean isFrontDoorOpenTextVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DoorSensorOpen");
 	}
-	
+
 	public boolean isKitchenWindowOpenTextVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WindowSensorOpen");
 	}
 
-
-
 	public boolean isSensorOffline() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorisOfflineText");
 	}
-	
-	
 
 	public boolean isSecurityStateVisible(String securityState) {
 		boolean flag = true;
@@ -94,17 +87,19 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 			} else if (securityState.equalsIgnoreCase("OFF")) {
 				return MobileUtils.isMobElementExists("XPATH",
 						"//android.widget.LinearLayout[@content-desc='" + OFFSECURITYSTATEINANDROID + "']", testCase);
-			}else {
+			} else {
 				return MobileUtils.isMobElementExists("XPATH",
-						"//android.widget.LinearLayout[@content-desc='"+securityState+"']", testCase);
+						"//android.widget.LinearLayout[@content-desc='" + securityState + "']", testCase);
 			}
 		} else {
 			if (MobileUtils.isMobElementExists("NAME", securityState, testCase)) {
 				return MobileUtils.isMobElementExists("NAME", securityState, testCase);
 			} else {
 				System.out.println("//XCUIElementTypeCell[@value='" + securityState + "']");
-				if (MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeCell[@value='" + securityState + "']", testCase)) {
-					return MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeCell[@value='" + securityState + "']", testCase);
+				if (MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeCell[@value='" + securityState + "']",
+						testCase)) {
+					return MobileUtils.isMobElementExists("XPATH",
+							"//XCUIElementTypeCell[@value='" + securityState + "']", testCase);
 				} else {
 					flag = false;
 				}
@@ -432,11 +427,11 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	public boolean clickOnAppSettingsIcon() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AppSettingsIcon");
 	}
-	
+
 	public boolean clickOnAltAppSettingsIcon() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AltAppSettingsIcon");
 	}
-	
+
 	public boolean clickOnCancelButtonWhileSwitchingModes() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInSwitchingModes");
 	}
@@ -452,7 +447,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
 						"Base Station Configuration");
-			}else{
+			} else {
 				Keyword.ReportStep_Pass(testCase, "Located Sensor menu");
 			}
 		} catch (Exception e) {
@@ -471,32 +466,43 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 
 	public boolean clickOnUserGivenSensorName(String givenSensorName) {
 		List<WebElement> sensorList;
-		if (testCase.getPlatform().contains("IOS")) {
-			sensorList = MobileUtils.getMobElements(testCase, "xpath", "//XCUIElementTypeStaticText");
-		} else {
-			sensorList = MobileUtils.getMobElements(objectDefinition, testCase, "SensorName");
-		}
-		System.out.println("##########sensorList.size(): " + sensorList.size());
+		String actualSensorName = null;
+		/*
+		 * if (testCase.getPlatform().contains("IOS")) { sensorList =
+		 * MobileUtils.getMobElements(testCase, "xpath", "//XCUIElementTypeStaticText");
+		 * } else {
+		 */
+		sensorList = MobileUtils.getMobElements(objectDefinition, testCase, "SensorName");
+		// }
 		for (WebElement sensor : sensorList) {
-			String actualSensorName = sensor.getText();
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				actualSensorName = sensor.getText();
+			} else {
+				if (sensor.getAttribute("value") != null) {
+					actualSensorName = sensor.getAttribute("value");
+				}
+			}
 			if (givenSensorName.equalsIgnoreCase(actualSensorName)) {
 				sensor.click();
-				Keyword.ReportStep_Pass(testCase, "Clicked on "+givenSensorName);
+				Keyword.ReportStep_Pass(testCase, "Clicked on " + givenSensorName);
 				return true;
 			}
 		}
-		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate sensor named "+givenSensorName);
+		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+				"Failed to locate sensor named " + givenSensorName);
 		return false;
 
 	}
 
 	public boolean isSensorDisplayed(String givenSensorName) {
 		List<WebElement> sensorList;
-		if (testCase.getPlatform().contains("IOS")) {
-			sensorList = MobileUtils.getMobElements(testCase, "xpath", "//XCUIElementTypeStaticText");
-		} else {
-			sensorList = MobileUtils.getMobElements(objectDefinition, testCase, "SensorName");
-		}
+		/*
+		 * if (testCase.getPlatform().contains("IOS")) { sensorList =
+		 * MobileUtils.getMobElements(testCase, "xpath", "//XCUIElementTypeStaticText");
+		 * } else {
+		 */
+		sensorList = MobileUtils.getMobElements(objectDefinition, testCase, "SensorName");
+		// }
 
 		for (WebElement sensor : sensorList) {
 			String actualSensorName = sensor.getText();
