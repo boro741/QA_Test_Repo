@@ -40,7 +40,8 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public boolean clickOnCancelChangeButton() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelChangeButton");
+		return MobileUtils.clickOnElement(testCase, "NAME", "CANCEL");
+		//return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelChangeButton");
 	}
 
 	public boolean clickOnCloseButton() {
@@ -758,7 +759,9 @@ public class SchedulingScreen extends MobileScreens {
 	}
 
 	public boolean isCancelChangeButtonVisible(int timeOut) {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelChangeButton", timeOut);
+		
+		return MobileUtils.isMobElementExists("NAME", "CANCEL", testCase);
+		//return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelChangeButton", timeOut);
 	}
 
 	public boolean isCheckBoxVisible(int timeOut) {

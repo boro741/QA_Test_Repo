@@ -44,7 +44,7 @@ public class VerifyDescription extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user should be displayed with the (.*) description$")
+	@KeywordStep(gherkins = "^user should be displayed with the \"(.+)\" description$")
 	public boolean keywordSteps() throws KeywordException {
 		if (expectedScreen.get(0).equalsIgnoreCase("AUTO FAN")) {
 			PrimaryCard thermo = new PrimaryCard(testCase);

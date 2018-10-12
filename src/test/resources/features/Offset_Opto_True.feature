@@ -2,7 +2,7 @@
 Feature: Offset with Opt Out able true 
 	As a user, I want to opt out of DR when my offset is enabled
 
-@VerifySavingEventScheduleMessageOffset @Automated  
+@VerifySavingEventScheduleMessageOffset @Automated  @--xrayid:ATER-54607
 Scenario: Verify Saving Event Schedule Message with DR Event Offset 
 	As a user, I should receive a saving event schedule message on the primary card, alerts screen and messages screen
 	Given user thermostat is enrolled with DR 
@@ -15,7 +15,7 @@ Scenario: Verify Saving Event Schedule Message with DR Event Offset
 	And user receives and views a "saving event schedule" message on the "ACTIVITY HISTORY" screen 
 	#Then user logs out of the app
 	
-@VerifySavingEventStartMessageOffset @Automated  
+@VerifySavingEventStartMessageOffset @Automated   @--xrayid:ATER-54609
 Scenario: Verify Saving Event Start Message with DR Event Offset 
 	As a user, I should receive a saving event start message on the primary card, alerts screen and messages screen
 	Given user thermostat is enrolled with DR 
@@ -30,7 +30,7 @@ Scenario: Verify Saving Event Start Message with DR Event Offset
 	Then user receives and views a "saving event started" message on the "ACTIVITY HISTORY" screen 
 	#And user logs out of the app 
 	
-@VerifySavingEventEndMessageOffset  @Automated 
+@VerifySavingEventEndMessageOffset  @Automated  @--xrayid:ATER-54610
 Scenario: Verify Saving Event End Message Offset 
 	As a user, I should receive a saving event end message on alerts screen and messages screen for HBB and Jasper Devices
 	Given user thermostat is enrolled with DR 
@@ -47,7 +47,7 @@ Scenario: Verify Saving Event End Message Offset
 #	And user logs out of the app 
 	
 	
-@VerifySavingEventCancelByUtilityMessageOffset  @Automated 
+@VerifySavingEventCancelByUtilityMessageOffset  @Automated  @--xrayid:ATER-54612
 Scenario: Verify Saving Event Cancel By Utility Message Offset 
 	As a user, I should be able to cancel a DR Event and receive a saving event cancel message on alerts screen and messages screen for HBB and Jasper Devices
 	Given user thermostat is enrolled with DR 
@@ -64,7 +64,7 @@ Scenario: Verify Saving Event Cancel By Utility Message Offset
 	And user receives and views a "saving event canceled by utility" message on the "ACTIVITY HISTORY" screen 
 #	And user logs out of the app 
 	
-@VerifySavingEventCancelByUserMessageOffset  @Automated 
+@VerifySavingEventCancelByUserMessageOffset  @Automated @--xrayid:ATER-54613
 Scenario: Verify Saving Event Cancel By User Message Offset 
 	As a user, I should be able to cancel a DR Event and receive a saving event cancel message on alerts screen and messages screen for HBB and Jasper Devices
 	Given user thermostat is enrolled with DR 
@@ -89,7 +89,7 @@ Scenario: Verify Saving Event Cancel By User Message Offset
 	And user receives and views a "saving event canceled by user" message on the "ACTIVITY HISTORY" screen 
 	#And user logs out of the app 
 	
-	@VerifyAdHocStatusAfterDREventEndsNoScheduleOffset @Automated 
+	@VerifyAdHocStatusAfterDREventEndsNoScheduleOffset @Automated @--xrayid:ATER-54614
 		Scenario: Verify Ad Hoc Status After DR Event Ends No Schedule Offset 
 			As a user, I should receive a ad hoc message after DR Ends for Jasper Thermostats
 			Given user thermostat is enrolled with DR 
@@ -103,7 +103,7 @@ Scenario: Verify Saving Event Cancel By User Message Offset
 			Then user "SHOULD BE DISPLAYED" with the "NO SCHEDULE" option
 		#	And user logs out of the app 
 
-@VerifyAdHocStatusAfterDREventEndsGeofenceBasedSchedulingOffset  @Automated 
+@VerifyAdHocStatusAfterDREventEndsGeofenceBasedSchedulingOffset  @Automated  @--xrayid:ATER-54616
 		Scenario: Verify Ad Hoc Status After DR Event Ends Geofence Offset 
 			As a user, I should receive a ad hoc message after DR Ends for Jasper Thermostats
 			Given user thermostat is enrolled with DR
@@ -123,7 +123,7 @@ Scenario: Verify Saving Event Cancel By User Message Offset
 			Then verify the "Temporary" on the "PRIMARY CARD" screen 
 			#And user logs out of the app 
 	
-@VerifyAdHocStatusAfterDREventEndsTimeBassedSchedulingOffset @Automated  
+@VerifyAdHocStatusAfterDREventEndsTimeBassedSchedulingOffset @Automated  @--xrayid:ATER-54618
 Scenario Outline: Verify Ad Hoc Status After DR Event Ends Time Based Offset 
 	As a user, I should receive a ad hoc message after DR Ends for Jasper Thermostats
 	Given user thermostat is enrolled with DR 
@@ -145,7 +145,7 @@ Scenario Outline: Verify Ad Hoc Status After DR Event Ends Time Based Offset
 		| permanent | 
 		| temporary |
 		
-@VerifyVacationStatusAfterDREventEndsOffset  @Automated 
+@VerifyVacationStatusAfterDREventEndsOffset  @Automated @--xrayid:ATER-54621
 		Scenario: Verify Vacation Status After DR Event Ends Vacation Offset 
 			As a user, I should receive a vacation ad hoc message after DR Ends
 			Given user thermostat is enrolled with DR 
@@ -161,7 +161,7 @@ Scenario Outline: Verify Ad Hoc Status After DR Event Ends Time Based Offset
 		#	And user logs out of the app 
 			
 
-				@VerifyDRStatusWhenChangingSystemModeOffset  @Automated 
+				@VerifyDRStatusWhenChangingSystemModeOffset  @Automated @--xrayid:ATER-54622
 				Scenario: Verify DR Status When Changing System Mode 
 					As a user, I should receive a DR Label on Cool/Heat system mode and No Label should be present on OFF mode
 					Given user thermostat is enrolled with DR 
@@ -186,7 +186,7 @@ Scenario Outline: Verify Ad Hoc Status After DR Event Ends Time Based Offset
 					Then user "should be displayed" with the "DR event label on primary card" option 
 			#		And user logs out of the app
 				
-	@VerifyGeofenceScheduleAdHocStatusAfterDREndsOffset @Automated 
+	@VerifyGeofenceScheduleAdHocStatusAfterDREndsOffset @Automated @--xrayid:ATER-54624
 		Scenario Outline: Verify Geofence Schedule Ad Hoc Status After DR Ends Offset 
 			As a user, I should receive a geofence until schedule message after DR Ends in geofence crossed location
 			Given user thermostat is enrolled with DR 
@@ -208,7 +208,7 @@ Scenario Outline: Verify Ad Hoc Status After DR Event Ends Time Based Offset
 			#	| Away              | Home                      | using home settings ||UserArrived|	|UserDeparted|
 					
 				
-@VerifyTimeScheduleAdHocStatusAfterDREndsOffset  @UIAutomatable
+@VerifyTimeScheduleAdHocStatusAfterDREndsOffset  @UIAutomatable  @--xrayid:ATER-54625
 Scenario: 
 Verify Time Schedule Ad Hoc Status After DR Ends In The Next Time Period Offset 
 As a user, I should receive a following schedule message after DR Ends in next period of time schedule
@@ -224,7 +224,7 @@ And user should be displayed with a "following schedule" label on the primary ca
 #And user logs out of the app 
 
 
-@VerifyDRStatusAfterVacationStartsOffset @UIAutomatable 
+@VerifyDRStatusAfterVacationStartsOffset @UIAutomatable  @--xrayid:ATER-54626
 Scenario: 
 Verify DR Status After Vacation Starts for Jasper Thermostats Offset 
 As a user, I should receive a DR message after vacation starts

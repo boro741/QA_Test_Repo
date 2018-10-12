@@ -133,7 +133,7 @@ Then Verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
       And user creates "Everyday" schedule with default schedule value
       And user selects "SINGLE DAY" view
      When user edit Time schedule by deleting <Periods>
-     Then user should be displayed with confirm pop for period deletion
+     Then the user should be displayed with confirm pop for period deletion
       And Period is "not deleted" on "canceling" Dialog box
   
     Examples: 
@@ -150,7 +150,7 @@ Then Verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
       And user creates "Same Every Day" schedule with default schedule value
       And user selects "SINGLE DAY" view
      When user edit Time schedule by deleting <Periods>
-     Then user should be displayed with confirm pop for period deletion
+     Then the user should be displayed with confirm pop for period deletion
      And Period is "deleted" on "confirming" Dialog box
       And user navigates to "Thermostat Solution Card" screen from the "Thermostat Dashboard" screen 
       When user selects "SINGLE DAY" view
@@ -186,7 +186,7 @@ Then Verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
       And user creates "Same Every Day" schedule with default schedule value
       And user selects "SINGLE DAY" view
      When user edit Time schedule by deleting <Day> of <Periods>
-     Then user should be displayed with confirm pop for period deletion
+     Then the user should be displayed with confirm pop for period deletion
       And Verify the the schedule delete pop up <text> <Day>  
    
     Examples: 
@@ -227,7 +227,7 @@ Then Verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
     And user creates "Different On Weekdays" schedule with default schedule value
      And user selects "Grouped days" view
      When user edit Time schedule by deleting <Day> of <Periods>
-    Then user should be displayed with confirm pop for period deletion
+    Then the user should be displayed with confirm pop for period deletion
       And Verify the the schedule delete pop up <text> <Day> 
   
     Examples: 
