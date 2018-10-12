@@ -39,6 +39,7 @@ public class VerifyUserStatus extends Keyword {
 		flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
 		try {
 			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
+			flag = flag & DASCommandControlUtils.waitForProgressBarToComplete(testCase, "TIMER PROGRESS BAR", 2);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

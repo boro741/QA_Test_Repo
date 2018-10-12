@@ -63,6 +63,7 @@ Given user is set to "Home" mode through CHIL
      Then user should see the "door" status as "closed" on the "Sensor Status"
      And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
  
+ 
 @Doorsensor_ArmedAway_OpenDoor_SwitchingToHomeFromPushNotification_DoorNotClosedInEntryDelay			 @P1				 @DAS_DoorSensor			 @Automated
     Scenario: As a user when I open the door and left open in armed away state on my arrival to home I should be able to switch to home from push notification and should be shown with current door status
    Given user is set to "Away" mode through CHIL
@@ -84,6 +85,7 @@ Given user is set to "Home" mode through CHIL
        | Switched to Home by app |
       And user "closes" activity log
      When user "door" access sensor "closed"
+     
      
 @Doorsensor_ArmedAway_OpenDoor_SwitchingToHomeFromEntryDelay_DoorNotClosedInEntryDelay			@P3 			@Automated			#N  			@P1			 @DAS_DoorSensor 			
     Scenario: As a user when I open the door and left open in armed away state on my arrival to home I should be able to switch to home from entry delay screen and should be shown with current door status
@@ -155,6 +157,7 @@ Given user is set to "Home" mode through CHIL
       And user "closes" activity log
      When user "door" access sensor "closed"
  
+ 
 @Doorsensor_ArmedAway_OpenDoor_SwitchingToNightFromPushNotification_DoorClosedInEntryDelay_NoAlarm 				@P2 				@DAS_DoorSensor 					@Automated
     Scenario: As a user when I open the door I should be able to switch to Night from door open push notification on my arrival to home after closing the door
       Given user launches and logs in to the Lyric application
@@ -207,7 +210,7 @@ Given user is set to "Home" mode through CHIL
      When user "door" access sensor "is not closed"
       And user should be displayed with the "Alarm" screen
       And user selects "dismiss alarm" from "alarm" screen
-     When user navigates to "Security Solution card" screen from the "Dashboard" screen
+     #When user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to "Home"
      When user "opens" activity log
      Then verify the following activity log:
@@ -219,14 +222,15 @@ Given user is set to "Home" mode through CHIL
      When user "closes" activity log
       And user "door" access sensor "closed"
 
+
 @Doorsensor_ArmedAway_OpenDoor_SwitchingToNightFromEntryDelay_DoorNotClosedInEntryDelay_Alarm			  @P3 			@DAS_DoorSensor 			@Automated
     Scenario: As a user when I open the door in away mode I should be able to switch to Night from Entry Delay but failed to close the door in entry delay waiting should be taken to alarm
       Given user is set to "Away" mode through CHIL
       And user launches and logs in to the Lyric application
-      And user clears all push notifications
      When user navigates to "Security Solution card" screen from the "Dashboard" screen
       And timer ends on user device
-      And  user "door" access sensor "opened"
+      Then user clears all push notifications
+      When user "door" access sensor "opened"
      Then user selects the "Door Opened" push notification
      When user selects "Switch to Night" from "Entry delay" screen
      Then user should be displayed with the "Waiting to close" screen
@@ -244,6 +248,7 @@ Given user is set to "Home" mode through CHIL
        |Switched to Home by app|
      When user "closes" activity log
       And user "door" access sensor "closed"
+   
       
 @Doorsensor_ArmedAway_OpenDoor_SwitchingToNightFromPushNotification_DoorClosedInWaiting_NoAlarm 				@P1 				@DAS_DoorSensor 				@Automated
     Scenario: As a user when I open the door in away mode I should be able to switch to Night from door open push notification and close the door in entry delay waiting should be shown no alarm
