@@ -540,31 +540,11 @@ public class CameraSettingsScreen extends MobileScreens {
 
 	public boolean isCameraMotionDetectionStatusYES(TestCases testCase) {
 		boolean flag = true;
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionDetectionStatus")) {
-			System.out
-					.println("#####" + MobileUtils.getFieldValue(objectDefinition, testCase, "MotionDetectionStatus"));
 			if (MobileUtils.getFieldValue(objectDefinition, testCase, "MotionDetectionStatus").equalsIgnoreCase("ON")) {
 				return flag;
 			} else {
 				flag = false;
 			}
-		} else {
-			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-				if (MobileUtils.isMobElementExists("XPATH",
-						"//*[contains(@name,'_subTitle') and @value='Motion Detection']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]",
-						testCase)) {
-					if (MobileUtils.getMobElement(testCase, "XPATH",
-							"//*[contains(@name,'_subTitle') and @value='Motion Detection']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]")
-							.getAttribute("value").equalsIgnoreCase("ON")) {
-						return flag;
-					} else {
-						flag = false;
-					}
-				} else {
-					flag = false;
-				}
-			}
-		}
 		return flag;
 	}
 
@@ -1629,25 +1609,55 @@ public class CameraSettingsScreen extends MobileScreens {
 		return (MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraMicrophoneTurnOffOKButton"));
 	}
 	public boolean isManangeAlertsEnabled(){
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 		return MobileUtils.getMobElement(objectDefinition, testCase, "ManageAlertsLabel").isEnabled();	
 	}
+	else{
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "ManageAlertsLabel").equalsIgnoreCase("enabled");
+	}
+}
 	public boolean isMotionDetectionEnabled(){
-			return MobileUtils.getMobElement(objectDefinition, testCase, "MotionDetectionLabel").isEnabled();	
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.getMobElement(objectDefinition, testCase, "MotionDetectionLabel").isEnabled();
+		}
+		else{
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "MotionDetectionLabel").equalsIgnoreCase("enabled");
+		}
 		}
 	public boolean isPeopleDetectionEnabled(){
 			return MobileUtils.getMobElement(objectDefinition, testCase, "PeopleDetectionLable").isEnabled();	
 		}
 	public boolean isNightVisionEnabled(){
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "NightVisionLabel").isEnabled();	
 		}
+		else{
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "NightVisionLabel").equalsIgnoreCase("enabled");
+		}
+		}
 	public boolean isVideoQualityEnabled(){
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "VideoQualityLabel").isEnabled();	
 		}
+		else{
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "VideoQualityLabel").equalsIgnoreCase("enabled");	
+		}
+		}
 	public boolean isCameraOnInHomeModeEnabled(){
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInHomeMode").isEnabled();	
 		}
+	else{
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "CameraOnInHomeMode").equalsIgnoreCase("enabled");	
+	}
+	}
 	public boolean isCameraOnInNigtModeEnabled(){
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 		return MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInNightMode").isEnabled();	
+	}
+	else{
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "CameraOnInHomeMode").equalsIgnoreCase("enabled");	
+	}
 	}
 	
 	public boolean isCameraMicrophoneTextEnabled(){

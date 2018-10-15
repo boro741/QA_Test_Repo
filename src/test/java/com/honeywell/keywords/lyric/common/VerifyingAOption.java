@@ -997,24 +997,7 @@ public class VerifyingAOption extends Keyword {
 					}
 				}
 				}
-			} else if (expectedScreen.get(0).equalsIgnoreCase("SHOULD NOT BE DISPLAYED")) {
-				switch (expectedScreen.get(1)) {
-				case "XXX": {
-
-					break;
-				}
-				case "YYY": {
-
-					break;
-				}
-				default: {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							expectedScreen.get(1) + "Input does not match");
-					flag = false;
-					break;
-				}
-				}
-			} else if (expectedScreen.get(1).equalsIgnoreCase("Cooling on primary card")) {
+			}else if (expectedScreen.get(1).equalsIgnoreCase("Cooling on primary card")) {
 				PrimaryCard pc = new PrimaryCard(testCase);
 				switch (expectedScreen.get(0).toUpperCase()) {
 				case "SHOULD NOT BE DISPLAYED": {
