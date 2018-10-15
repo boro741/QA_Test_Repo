@@ -3,7 +3,7 @@ Feature: DAS DIY Registration
 As a user I want to register a DAS device using the Lyric application
 
 
-@DIYSmartHomeSecurityOptionInAddNewDevice	@WeDon'tHaveAddNewDeviceInGlobalDrawer
+@DIYSmartHomeSecurityOptionInAddNewDevice	@WeDon'tHaveAddNewDeviceInGlobalDrawer @--xrayid:ATER-54957
 Scenario: As a user I should be able to see Smart Home Security option in Add New Device screen
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -11,7 +11,7 @@ Then user should be displayed with "Smart Home Security" option
 When user navigates to "Add New Device in Global Drawer" screen from the "Dashboard" screen
 Then user should be displayed with "Smart Home Security" option
 
-@DIYCancelSetUp123	@UIAutomated
+@DIYCancelSetUp123	@UIAutomated @--xrayid:ATER-54960
 Scenario: User should be able to cancel the set up from choose location and name your base station screens
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -26,7 +26,7 @@ Then user should receive a "Cancel Setup" popup
 When user "accepts" the "Cancel Setup" popup
 Then user navigates to "Add New Device Dashboard" screen from the "Choose Location" screen
 
-@DIYDenyAppAccessToLocationServices
+@DIYDenyAppAccessToLocationServices @--xrayid:ATER-54969
 Scenario: As a user I should be prompted with Location services popup when location services access is denied after installation
 Given user denies location services access while launching the Lyric app after installation and then logs in to the Lyric app
 When user navigates to "Add New Device Dashboard" screen form the "Dashboard" screen
@@ -52,7 +52,7 @@ Then user should receive a "Location services" popup
 And user "allows access" in "Location services" popup
 Then user should be displayed with the "Looking for Base Station" screen 
 
-@DIYWhenNoBaseStationsAreAvailable123	@UIAutomated		@Doesn'tRequireAnyBaseStationsForExecution
+@DIYWhenNoBaseStationsAreAvailable123	@UIAutomated		@Doesn'tRequireAnyBaseStationsForExecution @--xrayid:ATER-54971
 Scenario Outline: As a user I should be prompted with Base Station Not Found popup when there are no base stations available
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -77,7 +77,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
-@DIYCancelSetUpInRegisterBaseStation		@UIAutomated
+@DIYCancelSetUpInRegisterBaseStation		@UIAutomated @--xrayid:ATER-54973
 Scenario Outline: As a user I should be able to cancel set up in Register Base Station screen
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -100,7 +100,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
-@DIYWhenQRCodeIsNotScanned	@UIAutomated
+@DIYWhenQRCodeIsNotScanned	@UIAutomated @--xrayid:ATER-54975
 Scenario Outline: As a user I should be prompted with Scanning Failure screen when QR code is not scanned
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -123,7 +123,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
-@DIYWhenInvalidQRCodeIsScanned	@UIAutomated
+@DIYWhenInvalidQRCodeIsScanned	@UIAutomated @--xrayid:ATER-54978
 Scenario Outline: As a user my DAS device should not be configured when invalid QR code is scanned
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -145,7 +145,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
-@DIYRefreshBaseStationsList123	@UIAutomated		@RequiresMultipleBaseStationsForExecution
+@DIYRefreshBaseStationsList123	@UIAutomated		@RequiresMultipleBaseStationsForExecution @--xrayid:ATER-54981
 Scenario Outline: As a user I should be able to refresh the base stations list when multiple base stations are displayed
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -163,7 +163,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
-@DIYDisconnectDASDevice
+@DIYDisconnectDASDevice @--xrayid:ATER-54995
 Scenario: As a user I should be prompted with Bluetooth disconnected popup when DAS device is disconnected
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -189,7 +189,7 @@ Then user should receive a "Bluetooth Disconnected" popup
 When user clicks on "OK" button
 Then user should be displayed with the "Power Base Station" screen
 
-@DIYTimeoutInDASDevice
+@DIYTimeoutInDASDevice @--xrayid:ATER-54997
 Scenario: As a user I should be prompted with Bluetooth disconnected popup when timeout happens in DAS device
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -206,7 +206,7 @@ Then user should receive a "Bluetooth Disconnected" popup
 When user clicks on "OK" button
 Then user should be displayed with the "Power Base Station" screen
 
-@DIYTurnOffMobileDeviceBluetooth
+@DIYTurnOffMobileDeviceBluetooth @--xrayid:ATER-54999
 Scenario: As a user I should be prompted with Bluetooth is off popup when mobile device Bluetooth is off
 Given user launches and logs in to the Lyric application
 When user turns "off" mobile device Bluetooth
@@ -252,8 +252,8 @@ Then user should receive a "Bluetooth Disconnected" popup
 And user taps on "OK" button
 Then user should be displayed with the "Power Base Station" screen
 
-@DIYCancelSetUpInConnectToNetworkScreen123	@UIAutomated
-Scenario Outline:: As a user I should be able to cancel set up in Connect to Network screen
+@DIYCancelSetUpInConnectToNetworkScreen123	@UIAutomated @--xrayid:ATER-55000
+Scenario Outline: As a user I should be able to cancel set up in Connect to Network screen
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -280,7 +280,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
-@DIYMoveAwayFromDASDeviceAfterScanningQRCode
+@DIYMoveAwayFromDASDeviceAfterScanningQRCode @--xrayid:ATER-55001
 Scenario: As a user I should be prompted with Bluetooth Disconnected popup when I move away from DAS device after scanning the QR code
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -306,7 +306,7 @@ Then user should receive a "Bluetooth Disconnected" popup
 And user taps on "OK" button
 Then user should be displayed with the "Power Base Station" screen
 
-@DIYAddAWiFiNetwork	@Setuprequired
+@DIYAddAWiFiNetwork	@Setuprequired @--xrayid:ATER-55002
 Scenario: As a user I should be able to add a new network
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -331,7 +331,7 @@ Then user should be displayed with the "Connect to Network" screen
 When user enters "valid" new network credentials and tries to join the network
 Then added network should be displayed in the list of networks in "Connect to Network" screen
 
-@DIYInvalidWiFiPassword	@UIAutomated
+@DIYInvalidWiFiPassword	@UIAutomated @--xrayid:ATER-55003
 Scenario Outline: As a user I should not be able to connect to a Wi-Fi network with invalid password
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -363,7 +363,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
-@DIYRegistrationWhenSingleBaseStationIsAvailable123	@UIAutomated
+@DIYRegistrationWhenSingleBaseStationIsAvailable123	@UIAutomated @--xrayid:ATER-55004
 Scenario Outline: As a user I want to register a DAS device using the Lyric application
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -401,7 +401,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
       
-@DIYRegistrationWithNewLocationAndBaseStationName		@UIAutomated
+@DIYRegistrationWithNewLocationAndBaseStationName		@UIAutomated @--xrayid:ATER-55005
 Scenario Outline: As a user I want to register a DAS device with new location and base station name using the Lyric application
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -442,7 +442,7 @@ Examples:
       | new location name		| new device name		| invalid zip code		| valid zip code		|
       | California				| Scrum Room				| 55555					| 90001				|
 
-@DIYRegistrationWithAddSensorAndEnableGeoFencing		@UIAutomated
+@DIYRegistrationWithAddSensorAndEnableGeoFencing		@UIAutomated @--xrayid:ATER-55006
 Scenario Outline: As a user I want to register a DAS device by adding sensor and enabling geofencing and alexa using the Lyric application
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -499,7 +499,7 @@ Examples:
       | location name	| device name		| sensor location		| sensor location area		|
       | Home				| Living Room		| Door					| Front Door					|
 
-@DIYMultipleDASRegistrationsForTheSameAccount123	@UIAutomated
+@DIYMultipleDASRegistrationsForTheSameAccount123	@UIAutomated @--xrayid:ATER-55007
 Scenario Outline: As a user I want to register multiple DAS devices for a single account using the Lyric application
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -560,7 +560,7 @@ Examples:
       |	location name	|	first device name	|	second device name	|	Base Station MAC ID		|
       |	Home				|	Living Room			|	Kitchen				|	B8:2C:A0:00:07:D8		|
 
-@DIYRegistrationByReceivingCallsAndMsgs
+@DIYRegistrationByReceivingCallsAndMsgs @--xrayid:ATER-55010
 Scenario Outline: As a user I want to register a DAS device using the Lyric application
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -599,7 +599,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
-@DIYAddAWiFiNetworkWithInvalidPwdAndTryReconnectingWithAvailableNetwork123	@UIAutomated
+@DIYAddAWiFiNetworkWithInvalidPwdAndTryReconnectingWithAvailableNetwork123	@UIAutomated @--xrayid:ATER-55011
 Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting to a invalid Wi-Fi network 
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -638,7 +638,7 @@ Examples:
       | location name | device name  | 
       | Home          | Living Room  |
 
-@DIYConnectingToOpenWiFiNetwork	@SetUpRequired
+@DIYConnectingToOpenWiFiNetwork	@SetUpRequired @--xrayid:ATER-55016
 Scenario Outline: As a user I should not be able to connect to a open Wi-Fi network and able to perform DAS registration
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -674,7 +674,7 @@ Examples:
       | location name | device name  | 
       | Home          | Living Room  |
 
-@DIYRegistrationByNavigatingToOtherApps		@UIAutomated
+@DIYRegistrationByNavigatingToOtherApps		@UIAutomated @--xrayid:ATER-55017
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by navigating to other apps intermittently
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -716,7 +716,7 @@ Examples:
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
 
-@DIYTryToReRegisterDAS123		@UIAutomated
+@DIYTryToReRegisterDAS123		@UIAutomated @--xrayid:ATER-55019
 Scenario Outline: As a user I should be prompted with base station not found popup when I try to reregister DAS using the Lyric application
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
@@ -764,7 +764,7 @@ Examples:
       | location name | first device name	| second device name		|
       | Home          | Living Room  		| Kitchen				|
 
-@DIYTryToReRegisterDASAfterPerformingFactorySettingsOnDAS
+@DIYTryToReRegisterDASAfterPerformingFactorySettingsOnDAS @--xrayid:ATER-55023
 Scenario Outline: As a user I should be prompted with device already registered popup when I try to reregister DAS after performing factory settings on the registered DAS
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -806,7 +806,7 @@ Examples:
       | location name | device name  | 
       | Home          | Living Room  |
 
-@DIYTryToReRegisterDASWhenDASIsOffline
+@DIYTryToReRegisterDASWhenDASIsOffline @--xrayid:ATER-55025
 Scenario Outline: As a user I should not see the DAS device in the list of base stations when I try to reregister DAS after turning off the DAS
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -839,7 +839,7 @@ Examples:
       | location name | device name  | 
       | Home          | Living Room  |
 
-@DIYDeleteExistingDASAndRegisterIt123	@UIAutomated
+@DIYDeleteExistingDASAndRegisterIt123	@UIAutomated @--xrayid:ATER-55028
 Scenario Outline: As a user I want to register a deleted DAS device using the Lyric application
 Given user DAS device with ADB ID "9c48da88" is deregistered and booted
 And user launches and logs in to the Lyric application
