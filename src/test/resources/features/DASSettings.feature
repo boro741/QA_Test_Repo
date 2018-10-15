@@ -3,7 +3,7 @@ Feature: DAS Settings
 As user I should be able to control my DAS panel settings from the app
 
 #Requirements: Single Location Single DAS Device, No Sensors Required
-@VerifyDASSettings @Automated
+@VerifyDASSettings @Automated @--xrayid:ATER-54562
   Scenario Outline: As a user I want to verify that all DAS Settings options are available to me 
     Given user is set to <Mode> mode through CHIL
      Then user launches and logs in to the Lyric application
@@ -28,7 +28,7 @@ As user I should be able to control my DAS panel settings from the app
   #|OFF|
   
   #Requirements: Single Location Single DAS Device, OSMV required
-  @VerifyDASSettingsOSMV @Automated
+  @VerifyDASSettingsOSMV @Automated @--xrayid:ATER-54566
   Scenario Outline: As a user I want to verify that all DAS Settings options are available to me when OSMV configured
     Given user is set to <Mode> mode through CHIL
      Then user launches and logs in to the Lyric application
@@ -55,7 +55,7 @@ As user I should be able to control my DAS panel settings from the app
   #|OFF|
   
   #Requirements: Single Location Single DAS Device OSMV required
-  @VerifyDASSettingswhenmodechange @Automated
+  @VerifyDASSettingswhenmodechange @Automated @--xrayid:ATER-54576
   Scenario Outline: As a user I want to verify that all DAS Settings options on away and night mode
     Given user is set to <Mode> mode through CHIL
      Then user launches and logs in to the Lyric application
@@ -84,7 +84,7 @@ As user I should be able to control my DAS panel settings from the app
       | Night | 
   
   #Requirements: Single Location Single DAS Device OSMV required
-  @VerifyDASSettingswhenmodechangeOSMV @Automated
+  @VerifyDASSettingswhenmodechangeOSMV @Automated @--xrayid:ATER-54577
   Scenario Outline: As a user I want to verify that all DAS Settings options on away and night mode
     Given user is set to <Mode> mode through CHIL
      Then user launches and logs in to the Lyric application
@@ -117,7 +117,7 @@ As user I should be able to control my DAS panel settings from the app
   #ManageAlert 
   
   #Requirements: DAS panel configured newly, No Sensors Required
-  @VerifyManageAlertsScreen @Automated
+  @VerifyManageAlertsScreen @Automated @--xrayid:ATER-54579
   Scenario Outline: As a user I should be verify default Manage Alerts Screen
     Given user is set to <Mode> mode through CHIL
      Then user launches and logs in to the Lyric application
@@ -135,7 +135,7 @@ As user I should be able to control my DAS panel settings from the app
       | OFF   | 
   
   #Requirements: DAS panel configured newly, Access sensor
-  @VerifyManageAlertsScreenwithAccessSensor @Automated
+  @VerifyManageAlertsScreenwithAccessSensor @Automated @--xrayid:ATER-54581
   Scenario Outline: As a user I should be verify default Manage Alerts Screen
     Given user is set to <Mode> mode through CHIL
      Then user launches and logs in to the Lyric application
@@ -153,7 +153,7 @@ As user I should be able to control my DAS panel settings from the app
       | OFF   | 
   
   #Requirements: DAS panel configured newly, No Sensors Required
-  @VerifyManageAlertsScreenEnableDisableSecurityModeChange @Automated
+  @VerifyManageAlertsScreenEnableDisableSecurityModeChange @Automated @--xrayid:ATER-54584
   Scenario Outline: As a user I should be verify security mode change enable and disable option in Manage alerts screen
     Given user is set to <Mode> mode through CHIL
      Then user sets the entry/exit timer to "15" seconds
@@ -194,7 +194,7 @@ As user I should be able to control my DAS panel settings from the app
   #|Away| Off|Set to Off | Set to Away |
   
   #Requirements: DAS panel configured newly, One access sensor
-  @VerifyManageAlertsScreenEnableDisableDoorsAndWindowsModeChangeHomeAwayNight @Automated
+  @VerifyManageAlertsScreenEnableDisableDoorsAndWindowsModeChangeHomeAwayNight @Automated @--xrayid:ATER-54587
   Scenario Outline: As a user I should be verify Doors and Windows change enable and disable option in Manage alerts screen
     Given user is set to <Mode> mode through CHIL
      Then user sets the entry/exit timer to "15" seconds
@@ -227,7 +227,7 @@ As user I should be able to control my DAS panel settings from the app
   #|Away|WINDOW |Closed | Opened |WINDOW CLOSED | WINDOW OPENED|
   
   #Requirements: DAS panel configured newly, One access sensor
-  @VerifyManageAlertsScreenEnableDisableDoorsAndWindowsModeChangeOff @Automated
+  @VerifyManageAlertsScreenEnableDisableDoorsAndWindowsModeChangeOff @Automated @--xrayid:ATER-54591
   Scenario Outline: As a user I should be verify Doors and Windows change enable and disable option in Manage alerts screen
     Given user is set to <Mode> mode through CHIL
      Then user sets the entry/exit timer to "15" seconds
@@ -255,7 +255,7 @@ As user I should be able to control my DAS panel settings from the app
   #Geofence
   
   #Requirements: DAS panel configured newly, No Sensors Required
-  @VerifySecuritySettingsGeofenceoptionAwayNightOffline @Automated
+  @VerifySecuritySettingsGeofenceoptionAwayNightOffline @Automated @--xrayid:ATER-54594
   Scenario Outline: As a user I should be verify geofence stgatus on home or off modeScreen
     Given user is set to <Mode> mode through CHIL
      Then user launches and logs in to the Lyric application
@@ -269,7 +269,7 @@ As user I should be able to control my DAS panel settings from the app
       | Night | 
   
   #Requirements: DAS panel configured , No Sensors Required
-  @VerifySecuritySettingsGeofenceoptionHomeOff @Automated
+  @VerifySecuritySettingsGeofenceoptionHomeOff @Automated @--xrayid:ATER-54603
   Scenario Outline: As a user I should be verify geofence status in home and off mode
     Given user is set to <Mode> mode through CHIL
      Then user launches and logs in to the Lyric application
@@ -296,7 +296,7 @@ As user I should be able to control my DAS panel settings from the app
       | Away | Home   | UserArrived  | Home              | Away    | UserDeparted | GEOFENCE AWAY      | 
   
   #Requirements: DAS panel configured, No Sensors Required and "geofence this location" should be disabled under global drawer
-  @VerifySecuritySettingsGeofenceoptionHomeOffDisbaledgeofencethislocation @Automated
+  @VerifySecuritySettingsGeofenceoptionHomeOffDisbaledgeofencethislocation @Automated @--xrayid:ATER-54604
   Scenario Outline: As a user I should be verify default Manage Alerts Screen on home and off mode 
     Given user is set to <Mode> through CHIL
      Then user launches and logs in to the Lyric application 
@@ -326,7 +326,7 @@ As user I should be able to control my DAS panel settings from the app
       | Home | 
       | Off  | 
       
-  @EnableDisableGeofencing @Automated
+  @EnableDisableGeofencing @Automated @--xrayid:ATER-54606
   Scenario: As a user I should be able to enable or disable geofencing on my DAS Panel account   
     Given "location" geofencing is "enabled" on the user account through CHIL
     And user is set to "Home" mode through CHIL
@@ -341,19 +341,19 @@ As user I should be able to control my DAS panel settings from the app
   #AmazonAlexad
   
   #Requirements: DAS panel configured with out Amazon Alexa
-  @VerifySetUpAmazonAlexa @NotAutomatable
+  @VerifySetUpAmazonAlexa @NotAutomatable @--xrayid:ATER-54611
   Scenario Outline: As a user I should be verify Amazon Alexa setup
     Given user launches and logs in to the Lyric application
       And user is set to <Mode> through CHIL
-     Then user navigates to "Enable Amazon Alexa" screen from "Dashboard"
+     When user navigates to "Enable Amazon Alexa" screen from "Dashboard"
       And user Navigates to "Sign in to Amazon" screen from "Enable Amazon Alexa" screen
       And user enter the <amazon Email ID> and <amazon Password>
-     When user select the "Sign In" button
+     And user select the "Sign In" button
      Then user should be displayed with "Alexa Voice Service T&C" screen
      When user "Allows Alexa T&C" by clicking on "Allow" button
      Then user should  be displayed with the "Feature Setup Completed" screen
      When user completes "Alexa Configuration" by clicking on "Done" button
-     Then user should navigates to "Security settings" screen
+     And user should navigates to "Security settings" screen
      Then user verifies that the DAS Panel "responds" to "Amazon Alexa Voice Commands"
     Examples: 
       | Mode  | amazon Email ID | amazon Password | 
@@ -363,7 +363,7 @@ As user I should be able to control my DAS panel settings from the app
       | Night | mdsdas@grr.la   | Honeywell@1234  | 
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @AmazonAlexaLogoff   @NotAutomatable
+  @AmazonAlexaLogoff   @NotAutomatable @--xrayid:ATER-54615
   Scenario: As a user I should be able to log off Amazon Alexa from my DAS account
     Given user launches and logs in to the Lyric application
      When user navigates to "Amazon Alexa Settings" screen from the "Dashboard" screen
@@ -373,15 +373,15 @@ As user I should be able to control my DAS panel settings from the app
      Then user verifies that the DAS Panel "does not respond" to "Amazon Alexa Voice Commands"
   
   #Requirements: DAS panel configured with Amazon Alexa
-  @VerifySignoutAmazonAlexa @NotAutomatable
+  @VerifySignoutAmazonAlexa @NotAutomatable @--xrayid:ATER-54620
   Scenario Outline: As a user I should be verify Amazon Alexa sign out
     Given user launches and logs in to the Lyric application
       And user is set to <Mode> through CHIL
-     Then user navigates to "Amazon Alexa Voice commands" screen from "Dashboard" screen
+     When user navigates to "Amazon Alexa Voice commands" screen from "Dashboard" screen
       And user selects the "Sign Out" option
      Then user should receive a "Confirm Amazon Alexa Logout" pop up
      When user "accepts" the "Confirm Amazon Alexa Logout" popup
-     Then user should navigates to "Security settings" screen
+     And user should navigates to "Security settings" screen
      Then user verifies that the DAS Panel "does not respond" to "Amazon Alexa Voice Commands"
     Examples: 
       | Mode  | 
@@ -392,14 +392,14 @@ As user I should be able to control my DAS panel settings from the app
   # Need to check the HUE Amazon Alexa flow for offline 
   
   #Requirements DAS panel configured, No Sensors Required and "geofence this location" should be disabled under global drawer and one sensor should be in <Error>
-  @VerifyGeofencecrossinsensorfault @NotAutomatable
+  @VerifyGeofencecrossinsensorfault @NotAutomatable @--xrayid:ATER-54623
   Scenario Outline: As a user I should be verify geofence cross when sensor has error
     Given user launches and logs in to the Lyric application
       And user is set to <Mode> through CHIL
      When user enables "Geofencing" option from the "Security Settings" screen
-     Then user DAS panel <Sensors> has <Error>
-     Then user cross the geofence <Gmode> to <GMode update>
-      And user DAS Panel and Camera should not update with <GMode update> status
+     And user DAS panel <Sensors> has <Error>
+     And user cross the geofence <Gmode> to <GMode update>
+      Then user DAS Panel and Camera should not update with <GMode update> status
   
     Examples: 
       | Mode | Sensors      | Error          | Gmode | Gmode update | 
@@ -420,21 +420,21 @@ As user I should be able to control my DAS panel settings from the app
   
   #LYDAS-6643
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @VerifyOKSecurityVoiceCommandsHomeOFFNight   #NotAutomatable
+  @VerifyOKSecurityVoiceCommandsHomeOFFNight   @NotAutomatable @--xrayid:ATER-54627
   Scenario Outline: As a user I should be able to enable disable OK Security Voice Commands in offline and away mode
     Given user launches and logs in to the Lyric application
       And user is set to <Mode> through CHIL
-     Then user Navigates to "Security settings" screen from "dashboard" screen
-     When user navigates to "Voice Commands" screen from "Security settings" screen
+     When user Navigates to "Security settings" screen from "dashboard" screen
+     And user navigates to "Voice Commands" screen from "Security settings" screen
      Then user should display with "OK security voice commands" and with the following "Voice commands" options
       | Commands          | 
       | Trigger Phrase    | 
       | Security Commands | 
       | Camera Commands   | 
-     Then user enables the "OK security Voice Commands" button
-      And user receive DAS Panel "Responds" to "OK security voice commands"
-     Then user disables the "OK security Voice Commands" button
-      And user should display with "OK security voice commands" and with the following "Voice commands" options
+     When user enables the "OK security Voice Commands" button
+      Then user receive DAS Panel "Responds" to "OK security voice commands"
+     When user disables the "OK security Voice Commands" button
+      Then user should display with "OK security voice commands" and with the following "Voice commands" options
       | Commands          | 
       | Trigger Phrase    | 
       | Security Commands | 
@@ -447,14 +447,14 @@ As user I should be able to control my DAS panel settings from the app
       | Night | 
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @VerifyOKSecurityVoiceCommandsOfflineAway  @NotAutomatable
+  @VerifyOKSecurityVoiceCommandsOfflineAway  @NotAutomatable @--xrayid:ATER-54629
   Scenario Outline: As a user I should be able to enable disable OK Security Voice Commands in offline and away mode
     Given user launches and logs in to the Lyric application
      When user navigates to "Voice Commands" screen from the "Dashboard" screen
       And user is set to <Mode> through CHIL
-     Then user navigates to "Security settings" screen from " dashboard" screen
+     And user navigates to "Security settings" screen from " dashboard" screen
       And user navigates to "Voice Commands" screen from "Security settings" screen
-      And user should display with disabled "OK Security voice commands" and with the following "Voice commands" options
+      Then user should display with disabled "OK Security voice commands" and with the following "Voice commands" options
       | Commands          | 
       | Trigger Phrase    | 
       | Security Commands | 
@@ -466,7 +466,7 @@ As user I should be able to control my DAS panel settings from the app
       | Offline | 
       | Away    | 
   
-  @VerifyEnhancedDeterrenceHomeOFFmode @Autiomated
+  @VerifyEnhancedDeterrenceHomeOFFmode @Autiomated @--xrayid:ATER-54632
   Scenario Outline: As a user i should able to enable, disable and change the deterrence music
     Given user is set to <Mode> through CHIL
      Then user launches and logs in to the Lyric application
@@ -505,7 +505,7 @@ As user I should be able to control my DAS panel settings from the app
       | Home | 
       | OFF  | 
   
-  @VerifyEnhancedDeterrenceAwayNightmode @Automated
+  @VerifyEnhancedDeterrenceAwayNightmode @Automated @--xrayid:ATER-54640
   Scenario Outline: As a user i should able to verify enable or disable in away or night mode
     Given user is set to <Mode> through CHIL
      Then user launches and logs in to the Lyric application
@@ -518,7 +518,7 @@ As user I should be able to control my DAS panel settings from the app
       | Away  | 
       | Night | 
   
-  @VerifyoutdorrmotionviewersoninhomemodeHomeOFFmode @Automated
+  @VerifyoutdorrmotionviewersoninhomemodeHomeOFFmode @Automated @--xrayid:ATER-54642
   Scenario Outline: As a user i should able to verify enable or disable in away or night mode
     Given user is set to <Mode> through CHIL
      Then user launches and logs in to the Lyric application
@@ -534,7 +534,7 @@ As user I should be able to control my DAS panel settings from the app
       | Home | 
       | Off  | 
   
-  @Verifyoutdorrmotionviewersoninhomemodenightawaymode @Automated
+  @Verifyoutdorrmotionviewersoninhomemodenightawaymode @Automated @--xrayid:ATER-54644
   Scenario Outline: As a user i should able to verify enable or disable in away or night mode
     Given user is set to <Mode> through CHIL
      Then user launches and logs in to the Lyric application
@@ -549,7 +549,7 @@ As user I should be able to control my DAS panel settings from the app
   #Entry exit delay 
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @DASEntryExitDelaySettings @Automated
+  @DASEntryExitDelaySettings @Automated @--xrayid:ATER-54645
   Scenario Outline: As user I want to verify if entry exit delay time displayed on settings and user can update the value 
     Given user is set to <Mode> mode through CHIL
      Then user launches and logs in to the Lyric application
@@ -606,7 +606,7 @@ As user I should be able to control my DAS panel settings from the app
       | Off  | 
   
   #Requirements Single Location Single DAS Device, No Sensors Required
-  @DASEntryExitDelaySettingsNightAway @Automated
+  @DASEntryExitDelaySettingsNightAway @Automated @--xrayid:ATER-54648
   Scenario Outline: As user I want to verify if entry exit delay time displayed on settings and user can update the value in home and off mode
     Given user is set to <Mode> through CHIL
      Then user launches and logs in to the Lyric application
@@ -620,7 +620,7 @@ As user I should be able to control my DAS panel settings from the app
   #|Offline|
   
   #Requirements Single Location Single DAS Device, No Sensors Required
-  @DASAboutSecurityModesVerification  @Automated
+  @DASAboutSecurityModesVerification  @Automated @--xrayid:ATER-54649
   Scenario Outline: As user I want to verify About Security modes screen
     Given user launches and logs in to the Lyric application
       And user is set to <Mode> Through CHIL
@@ -649,7 +649,7 @@ As user I should be able to control my DAS panel settings from the app
       #| Offline | 
   
   #Requirements Single Location Single DAS Device, No Sensors Required
-  @ChangeBaseStationVolumeHomeOff @Automated
+  @ChangeBaseStationVolumeHomeOff @Automated @--xrayid:ATER-54650
   Scenario Outline: As a user I should be able to change the base station volume in Home and off mode
     Given user launches and logs in to the Lyric application
       And User is set to <Mode> through CHIL
@@ -666,7 +666,7 @@ As user I should be able to control my DAS panel settings from the app
       | Off  | 
   
   #Requirements Single Location Single DAS Device, No Sensors Required
-  @ChangeBaseStationVolumeNightAwayOffline @Automated
+  @ChangeBaseStationVolumeNightAwayOffline @Automated @--xrayid:ATER-54651
   Scenario Outline: As a user I should be able to change the base station volume in away, night, offline mode
     Given user is set to <Mode> through CHIL
      Then user launches and logs in to the Lyric application
@@ -679,7 +679,7 @@ As user I should be able to control my DAS panel settings from the app
       | Off  | 
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @ResetWiFi   @NotAutomatable
+  @ResetWiFi   @NotAutomatable @--xrayid:ATER-54652
   Scenario Outline: As a user I want to reset my DAS Panel WiFi 
     Given user launches and logs in to the Lyric application 
       And user navigates to "Security Settings" screen from the "Dashboard" screen	
@@ -704,7 +704,7 @@ As user I should be able to control my DAS panel settings from the app
       | WPA2                | abcd      | abcd          | 
   
   #Requirements: Single Location Single DAS Device, No Sensors Required	  
-  @ResetWiFiByAddingNetwork  @NotAutomatable
+  @ResetWiFiByAddingNetwork  @NotAutomatable @--xrayid:ATER-54653
   Scenario Outline: As a user I want to reset my DAS Panel WiFi 
     Given user launches and logs in to the Lyric application 
       And user navigates to "Base Station WiFi" screen from the "Dashboard" screen 
@@ -722,7 +722,7 @@ As user I should be able to control my DAS panel settings from the app
   
   #Only for android OS above 6
   #Requirements: Single Location Single DAS Device, No Sensors Required, and location service should OFF on the Phone device
-  @VerifyLocationservicePopupWhenLocationServiceOFFonPhone @NotAutomatable
+  @VerifyLocationservicePopupWhenLocationServiceOFFonPhone @NotAutomatable @--xrayid:ATER-54654
   Scenario Outline: As a user I want to reset my DAS Panel WiFi 
     Given user launches and logs in to the Lyric application 
       And user navigates to "Base Station WiFi" screen from the "Dashboard" screen 
@@ -738,7 +738,7 @@ As user I should be able to control my DAS panel settings from the app
       And user enables the "location service" option  on "Location service" screen
       And user navigates to "Reset WiFi Instructions" screen
      When user selects the "NEXT" button
-     Then user navigates to "Select wifi" screen from the "Reset WiFi Instruction" screen
+     And user navigates to "Select wifi" screen from the "Reset WiFi Instruction" screen
       And user selects <WiFi SSID> from the available WiFi list
       And user inputs <WiFi Password> as the WiFi Password
      Then user "wifi name" should be updated to <WiFi SSID> in the "Base Station WiFi" screen.
@@ -747,7 +747,7 @@ As user I should be able to control my DAS panel settings from the app
       | abcd      | abcd          | 
   
   #Requirements Single Location Single DAS Device, No Sensors Required
-  @ResetWifiFailedPopupverification @NotAutomatable
+  @ResetWifiFailedPopupverification @NotAutomatable @--xrayid:ATER-54655
   Scenario: As a user I want to verify Reset wifi failed pop up 
     Given user launches and logs in to the Lyric application 
       And user navigates to "Base Station WiFi" screen from the "Dashboard" screen 
@@ -756,14 +756,14 @@ As user I should be able to control my DAS panel settings from the app
      When user selects the "NEXT" button on the "Reset Wifi Instructions" screen
   #none of the panel should not be in broadcast mode
      Then user received "Reset WiiFi Failed" pop up 
-      And user selects the "OK" option
-     When user selects the "NEXT" button on the "Reset Wifi Instructions" screen
+      When user selects the "OK" option
+     And user selects the "NEXT" button on the "Reset Wifi Instructions" screen
   #none of the panel should not be in broadcast mode
      Then user received "Reset WiiFi Failed" pop up 
-      And user selects the "Cancel" option
+      When user selects the "Cancel" option
      Then user Should navigates to "Base Station WiFi" screen
   
-  @ResetWiFiByAddingNetworkOpenNetwork  @NotAutomatable
+  @ResetWiFiByAddingNetworkOpenNetwork  @NotAutomatable  @--xrayid:ATER-54656
   #Requirements: Single Location Single DAS Device, No Sensors Required
   Scenario Outline: As a user I want to reset my DAS Panel WiFi with open network
     Given user launches and logs in to the Lyric application 
@@ -772,16 +772,16 @@ As user I should be able to control my DAS panel settings from the app
      Then user should be displayed with the "Reset WiFi Instructions" screen
      When user presses the context button for 5 seconds on the DAS Panel
      Then the DAS panel should start flashing blue
-      And user navigates to the "Select WiFi" screen from the "Reset WiFi Instruction" screen
-     When user selects "ADD Network" from "Select wifi" screen
-     Then user selects "None" option from "wifi connect" screen
+      When user navigates to the "Select WiFi" screen from the "Reset WiFi Instruction" screen
+     And user selects "ADD Network" from "Select wifi" screen
+     And user selects "None" option from "wifi connect" screen
       And user selects <None Open network> from the available WiFi list
      Then user "wifi name" should be updated to <WiFi SSID> in the "Base Station WiFi" screen.
     Examples: 
       | None Open network | 
       | Abcd              | 
   
-  @ResetWiFiIncorrectPassword  @NotAutomatable
+  @ResetWiFiIncorrectPassword  @NotAutomatable @--xrayid:ATER-54657
   #Requirements: Single Location Single DAS Device, No Sensors Required
   Scenario Outline: As a user I want to reset my DAS Panel WiFi 
     Given user launches and logs in to the Lyric application 
@@ -799,7 +799,7 @@ As user I should be able to control my DAS panel settings from the app
       | abcd      | abcd                    | 
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @VerifyDASPanelModelAndFirmwareDetails @Automated
+  @VerifyDASPanelModelAndFirmwareDetails @Automated @--xrayid:ATER-54658
   Scenario Outline: As a user I want to view that all model, firmware and panel details
     Given user is set to <Mode> through CHIL
      Then user launches and logs in to the Lyric application
@@ -822,7 +822,7 @@ As user I should be able to control my DAS panel settings from the app
       | Off   | 
   #|Offline|
   
-  @DeleteDASBaseStationAwayNightOffline @Automated
+  @DeleteDASBaseStationAwayNightOffline @Automated @--xrayid:ATER-54659
   Scenario Outline: As a user I want to rename my Base station through the application
     Given user is set to <Mode> through CHIL
      Then user launches and logs in to the Lyric application
@@ -836,7 +836,7 @@ As user I should be able to control my DAS panel settings from the app
   #|Offline|
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @DeleteBaseStation @Automated
+  @DeleteBaseStation @Automated @--xrayid:ATER-54660
   Scenario Outline: As a user I should be able to delete my DAS panel from my account through the Lyric application 
     Given user is set to <Mode> mode through CHIL
       And user launches and logs in to the Lyric application
@@ -851,7 +851,7 @@ As user I should be able to control my DAS panel settings from the app
   
   #LYDAS-7075,LYDAS-4088,LYDAS-4058,LYDAS-4011,LYDAS-3294,LYDAS-3271,LYDAS-3116,LYDAS-2982,LYDAS-2808,LYDAS-2610,LYDAS-2563,LYDAS-2497,LYDAS-2408,LYDAS-2404,LYDAS-2231,LYDAS-2167
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @DeleteBaseStation @NotAutomatable
+  @DeleteBaseStation @NotAutomatable @--xrayid:ATER-54661
   Scenario Outline: As a user I should be able to delete my DAS panel from my account through the Lyric application 
     Given user is set to <Mode> mode through CHIL
       And user launches and logs in to the Lyric application 

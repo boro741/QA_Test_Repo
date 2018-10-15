@@ -5,7 +5,7 @@ As a user I want to change the status of my DAS device
 Background:
 Given reset relay as precondition
 
-@SwitchingSystemModeOption	@UIAutomated
+@SwitchingSystemModeOption	@UIAutomated @--xrayid:ATER-54662
 Scenario: As a user I want to see all modes in my security solution card 
 Given user launches and logs in to the Lyric application
 When user is set to "Home" mode through CHIL
@@ -18,7 +18,7 @@ And user should be displayed with the following "SECURITY MODE" options:
 | Off				|
 
 
-@CommandControlSecuritycardModeFromHomeandOFFChangeActivitlyLogAndPushNotificaiton	@UIAutomated
+@CommandControlSecuritycardModeFromHomeandOFFChangeActivitlyLogAndPushNotificaiton	@UIAutomated @--xrayid:ATER-54663
 Scenario Outline: As a user I want to switch to different system modes from OFf and Home in my DAS device and verify activity log screen and push notification 
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application
@@ -26,7 +26,7 @@ And user is set to <Mode> mode through CHIL
 When user navigates to "Security Solution Card" screen from the "Dashboard" screen
 And user switches from <Mode> to <UMode>
 And user should be displayed with a switching to <UMode> text
-And user should be displayed with switching timer
+And user should be displayed with a switching timer
 And timer ends on user device
 And user status should be set to "<UMode>"
 Then user should be displayed with the correct time stamp
@@ -44,7 +44,6 @@ Examples:
 |15| Away | Night |SET TO NIGHT |switched to Night by app|
 |15| OFF | Away | SET TO AWAY |switched to Away by app|
 
-#Incaserequired
 #|30| Home | Away | SET TO AWAY |switched to Away by app|
 #|30| Night| Away | SET TO AWAY |switched to Away by app|
 #|30| Home | Night |SET TO NIGHT |switched to Night by app|
@@ -63,9 +62,10 @@ Examples:
 #|60| Away | Night |SET TO NIGHT |switched to Night by app|
 #|60| OFF | Away |SET TO AWAY |switched to Away by app|
 #|60| OFF| Night |SET TO NIGHT |switched to Night by app|
+#|30| Home | Away | SET TO AWAY |switched to Away by app|
 
-@CommandControlSecuritycardModetoOFFChangeActivitlyLogAndPushNotificaiton	 @UIAutomated  
-Scenario Outline: As a user I want to switch to different system modes to OFf in my DAS device and verify activity log screen and push notification 
+@CommandControlSecuritycardModetoOFFChangeActivitlyLogAndPushNotificaiton	 @UIAutomated  @--xrayid:ATER-54664
+Scenario Outline: As a user I want to switch to different system modes to OFF in my DAS device and verify activity log screen and push notification 
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application
 And user is set to <Mode> mode through CHIL
@@ -100,7 +100,7 @@ Examples:
 #|60| Away |switched to Night by app|
 
 
-@CommandControlSecuritycardModeToHomeChangeActivitlyLogAndPushNotificaiton	 @UIAutomated
+@CommandControlSecuritycardModeToHomeChangeActivitlyLogAndPushNotificaiton	 @UIAutomated @--xrayid:ATER-54665
 Scenario Outline: As a user I want to switch to different system modes To Home in my DAS device and verify activity log screen and push notification 
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application
@@ -137,7 +137,7 @@ Examples:
 #|60| Night | switched to Home by app|
 #|60| OFF | switched to Home by app|
 
-@CommandControlDasboardModetoHomeAwayAndNightChangePushNotificaiton @UIAutomated
+@CommandControlDasboardModetoHomeAwayAndNightChangePushNotificaiton @UIAutomated @--xrayid:ATER-54666
 Scenario Outline: As a user I want to verify Switching modes home , away, night on Dashboard 
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application
@@ -145,7 +145,7 @@ Then user is set to <Mode> mode through CHIL
 And user navigates to “Dashboard” screen 
 When user switches from <Mode> to <UMode>
 Then user should be displayed with a switching to <UMode> text
-Then user should be displayed with switching timer
+Then user should be displayed with a switching timer
 Then timer ends on user device
 And user status should be set to <UMode>
 Then user should be displayed with the correct time stamp
@@ -180,7 +180,7 @@ Examples:
 #|60| OFF| Away |
 #|60| OFF| Night |
 
-@CommandControlDasboardOFFModeStatusAndPushNotificaiton  @UIAutomated
+@CommandControlDasboardOFFModeStatusAndPushNotificaiton  @UIAutomated @--xrayid:ATER-54667
 Scenario: As a user I want to verify OFF mode status in dashboard screen 
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application
@@ -189,7 +189,7 @@ When user navigates to “Dashboard”
 Then user status should be set to "OFF" in the "Dashboard" Screen
 And user should be displayed with the correct time stamp
 
-@CommandControlDashbaordModeToHomeChangeActivitlyLogAndPushNotificaiton  @UIAutomated
+@CommandControlDashbaordModeToHomeChangeActivitlyLogAndPushNotificaiton  @UIAutomated @--xrayid:ATER-54668
 Scenario Outline: As a user I want to switch to different system modes To Home in my DAS device on dashbaord and verify activity log screen and push notification 
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application
@@ -222,7 +222,7 @@ Examples:
 #|60| Night |
 #|60| OFF | 
 
-@CommandControlDasboardModefromSolutionCardChangePushNotificaiton  @UIAutomated
+@CommandControlDasboardModefromSolutionCardChangePushNotificaiton  @UIAutomated @--xrayid:ATER-54669
 Scenario Outline: As a user I want to verify different states in dashboard screen by updating states in solutions card screen
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application
@@ -231,7 +231,7 @@ When user navigates to "Security Solution Card" screen from the "Dashboard" scre
 And user switches from <Mode> to <UMode>
 When user navigates to "Dashboard" Screen from the "Security Solution Card" screen
 Then  user should be displayed with a switching to <UMode> text in the "Dashboard" screen
-Then user should be displayed with switching timer
+Then user should be displayed with a switching timer
 Then timer ends on user device
 And user status should be set to <UMode>
 Then user should be displayed with the correct time stamp
@@ -267,7 +267,7 @@ Examples:
 #|60| OFF| Night |
 
 
-@SensorstatusHomemode @P3     @UIAutomated
+@SensorstatusHomemode @P3     @UIAutomated @--xrayid:ATER-54670
 Scenario Outline: As a user I want to have expected sensors status when my security panel is in Home mode and Off mode
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
@@ -284,7 +284,7 @@ Examples:
 | OSMV Sensor   | Standby      |Home|
 | ISMV Sensor   | Standby      |Home|
 
-@SensorstatusArmmode @P3   @UIAutomated
+@SensorstatusArmmode @P3   @UIAutomated @--xrayid:ATER-54671
 Scenario Outline: As a user i want to have expected sensors status when my security panel is in Away mode and Night mode
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor
 Given user launches and logs in to the Lyric Application
@@ -303,7 +303,7 @@ Examples:
 | ISMV Sensor   | Active       |Away|
 
  
-@CoverTamperSensorstatus @P2 @UIAutomated
+@CoverTamperSensorstatus @P2 @UIAutomated @--xrayid:ATER-54672
 Scenario Outline: As a user I want to get offline sensors status 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 And user is set to <Mode> mode through CHIL
@@ -346,7 +346,7 @@ Examples:
 |Off|OSMV Sensor|OSMV SENSOR TAMPERED AT OFF MODE|OSMV SENSOR TAMPER CLEARED AT OFF MODE|FRONT PORCH COVER TAMPERED|
 
 
-@OfflineSensorstatus @P2      @UIAutomated
+@OfflineSensorstatus @P2      @UIAutomated @--xrayid:ATER-54673
 Scenario Outline: As a user i want to get offline sensors status 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
@@ -386,7 +386,7 @@ Examples:
 |Off |OSMV Sensor|
 
  
-@OpenSensorstatusHome @P2  @UIAutomated
+@OpenSensorstatusHome @P2  @UIAutomated @--xrayid:ATER-54674
 Scenario Outline: As a user I want to get open sensors status 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user is set to "Sensor Alert Enabled" mode through CHIL
@@ -410,7 +410,7 @@ Examples:
 |Home|Door Sensor|Door Opened|Front Door Open|DOOR OPENED AT HOME MODE|DOOR CLOSED AT HOME MODE|
 |Home|Window Sensor|Window Opened|Window Open|WINDOW OPENED AT HOME MODE|WINDOW CLOSED AT HOME MODE|
 
-@OpenSensorstatusOff @P2  @UIAutomated
+@OpenSensorstatusOff @P2  @UIAutomated @--xrayid:ATER-54676
 Scenario Outline: As a user i want to get open sensors status 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
@@ -432,7 +432,7 @@ Examples:
 |Off|Window Sensor|Window Opened|Window Open|WINDOW OPENED AT OFF MODE|WINDOW CLOSED AT OFF MODE|
 
 
-@ContactSensorstatusPriority @P2    @UIAutomated
+@ContactSensorstatusPriority @P2    @UIAutomated @--xrayid:ATER-54940
 Scenario Outline: As a user I want to shown with sensors status based on priority when sensor with multiple status
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
@@ -471,7 +471,7 @@ Examples:
 |Home|Door Sensor|FRONT DOOR COVER TAMPERED|FRONT DOOR OPEN|DOOR SENSOR TAMPERED AT HOME MODE|DOOR SENSOR TAMPER CLEARED AT HOME MODE|DOOR OPENED AT HOME MODE|DOOR CLOSED AT HOME MODE|
 |Home|Window Sensor|WINDOW COVER TAMPERED|WINDOW OPEN|WINDOW SENSOR TAMPERED AT HOME MODE|WINDOW SENSOR TAMPER CLEARED AT HOME MODE|WINDOW OPENED AT HOME MODE|WINDOW CLOSED AT HOME MODE|
 
-@MotionSensorstatusMotionSensorPriority @P2   @UIAutomated
+@MotionSensorstatusMotionSensorPriority @P2   @UIAutomated @--xrayid:ATER-54942
 Scenario Outline: As a user i want to shown with sensors status based on priority when sensor with multiple status
 Given user launches and logs in to the Lyric Application
 And user is set to <Mode> mode through CHIL
@@ -506,7 +506,7 @@ Examples:
 
 
 
-@MotionSensorstatusISMVandOSMVSensorPriority   @P2 @UIAutomated
+@MotionSensorstatusISMVandOSMVSensorPriority   @P2 @UIAutomated @--xrayid:ATER-54945
 Scenario Outline: As a user i want to shown with sensors status based on priority when sensor with multiple status
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
@@ -542,7 +542,7 @@ Examples:
 
 
 
-@BasestationSensorenrollment @P3  @NotAutomatable
+@BasestationSensorenrollment @P3  @NotAutomatable @--xrayid:ATER-54946
 Scenario Outline: I should be shown with update in progress when panel in sensor enrollment state
 Given user panel in "Sensor enrollment state" enabled (write a code)
 And user launches and logs in to the Lyric Application
@@ -560,13 +560,13 @@ And user is set to <Mode> mode through CHIL
  |Off |
  
  
-@CloseandLaunchApp    @UIAutomated
+@CloseandLaunchApp    @UIAutomated @--xrayid:
 Scenario: As a user I want to close and relaunch the app
 Given user launches and logs in to the Lyric Application
 And user force close and launch the Lyric application
 
 
-@CommandControlfromkeyfobwhensensorfault   @UIAutomated
+@CommandControlfromkeyfobwhensensorfault   @UIAutomated @--xrayid:ATER-54947
 Scenario Outline: As a user I should not be allowed to switch to Away or Night mode through keyfob when sensor is fault
 Given user sets the entry/exit timer to "60" seconds
 And user is set to <Mode> mode through CHIL
@@ -587,7 +587,7 @@ Examples:
 |Off|Door|
 |Off|Window|
  
-@CommandControlfromkeyfobwhenContactsensortrouble    @UIAutomated
+@CommandControlfromkeyfobwhenContactsensortrouble    @UIAutomated @--xrayid:ATER-54950
 Scenario Outline: As a user I should not be allowed to switch to Away or Night mode through keyfob when sensor is trouble
 Given user sets the entry/exit timer to "60" seconds
 And user is set to <Mode> mode through CHIL
@@ -610,7 +610,7 @@ Examples:
 |OFF |OSMV Sensor|
  
  
-@CommandControlfromkeyfobwhenMotionsensortrouble   @UIAutomated
+@CommandControlfromkeyfobwhenMotionsensortrouble   @UIAutomated @--xrayid:
 Scenario Outline: As a user I should not be allowed to switch to Away or Night mode through keyfob when sensor is trouble
 Given user sets the entry/exit timer to "60" seconds
 And user is set to <Mode> mode through CHIL
@@ -631,8 +631,8 @@ Examples:
 |Off |ISMV Sensor|
 |Off |OSMV Sensor|
 
-
-@CommandControlfromvoicecommandsAwaymode  @NotAutomatable
+ 
+@CommandControlfromvoicecommandsAwaymode  @NotAutomatable @--xrayid:ATER-54951
 Scenario: As a user I should be able to switch to Away mode through voice commands
 Given user sets the entry/exit timer to "45" seconds
 And user is set to "Home" mode through CHIL
@@ -646,7 +646,7 @@ When user is set to "Home" mode through CHIL
 When user navigates to "activity log" screen from "security solution cards" screen
 And user should receive "switched to Away status via app with time stamp by actual user" in activity log
  
-@CommandControlfromvoicecommandsNightmode   @NotAutomatable
+@CommandControlfromvoicecommandsNightmode   @NotAutomatable @--xrayid:ATER-54952
 Scenario: As a user I should be able to switch to Night mode through voice commands
 Given user sets the entry/exit timer to "45" seconds
 And user is set to "Home" mode through CHIL
@@ -657,9 +657,9 @@ Then user should receive "Switched to Night" push notifications
 When user selects  the "Switched to Night" Push notification
 Then user should be displayed with the "Night Status"
 When user navigates to "activity log" screen from "security solution cards" screen
-And user should receive "switched to Night status via app with time stamp by actual user" in activity log
+Then user should receive "switched to Night status via app with time stamp by actual user" in activity log
  
-@CommandControlfromvoicecommandswhensensorfault   @NotAutomatable
+@CommandControlfromvoicecommandswhensensorfault   @NotAutomatable @--xrayid:
 Scenario Outline: As a user I shouldnot be allowed to switch to Away/Night mode through voice commands when contact sensor is fault
 Given user sets the entry/exit timer to "60" seconds
 And user is set to <status> mode through CHIL
@@ -669,8 +669,6 @@ And user "Activates Away mode" from Voice commands
 Then user should not be displayed with the "Away Status"
 When user is set to <status> mode through CHIL
 And user "opens" the <Sensor type>
-When user launches and logs in to the Lyric application
-And user "Activates Away mode" from Voice commands
 Then user should not be displayed with the "Away Status"
 Examples:
 |Status|Sensor type|
@@ -679,8 +677,9 @@ Examples:
 |Off|Door|
 |Off|Window|
  
-@CommandControlfromvoicecommandswhensensortrouble  @NotAutomatable
+@CommandControlfromvoicecommandswhensensortrouble  @NotAutomatable @--xrayid:
 Scenario Outline: As a user I shouldnot be allowed to switch to Away/Night mode through voice commands when sensor is trouble
+Given user sets the entry/exit timer to "60" seconds
 And user is set to <status> mode through CHIL
 And user "Cover Tamper" the <Sensor type>
 When user launches and logs in to the Lyric application
@@ -696,7 +695,7 @@ Examples:
 |Home|ISMV Sensor|
  
  
-@commandandcontrolmotionsensorfault    @UIAutomated
+@commandandcontrolmotionsensorfault    @UIAutomated @--xrayid:ATER-54958
 Scenario Outline: As a user i should not get alarm from motionsensor detection other than away mode
 Given user sets the entry/exit timer to "60" seconds
 And user is set to "Home" mode through CHIL
@@ -725,7 +724,7 @@ Examples:
 |Motion Sensor|
 |ISMV Sensor  |
  
-@commandandcontrolExitdelayFault   @UIAutomated
+@commandandcontrolExitdelayFault   @UIAutomated @--xrayid:ATER-54959
 Scenario Outline: As a user should not be get alarm during exit delay and my contact sensor is faulted
 Given user sets the entry/exit timer to "60" seconds
 And user is set to <Status> mode through CHIL
@@ -749,7 +748,7 @@ Examples:
 |Off|Door|
 |Off|Window|
  
-@commandandcontrolmultiplesensorwithfault   @UIAutomated
+@commandandcontrolmultiplesensorwithfault   @UIAutomated @--xrayid:ATER-54961
 Scenario: As a user I want to switch to different states in my DAS device when multiple sensors are in fault condition
 Given user sets the entry/exit timer to "45" seconds
 And user is set to <Mode> mode through CHIL
@@ -789,7 +788,7 @@ Then user should see the <Sensors> status as <Sensor Status> on the "Sensor List
  
  
 #Backoptionwhileswitchingmodes
-@UserpressesbackbuttonWhileSwitchingModes             @UIAutomated
+@UserpressesbackbuttonWhileSwitchingModes             @UIAutomated @--xrayid:ATER-54962
 Scenario: As a user I want to go back to dashboard when user press back button while switching modes
 Given user sets the entry/exit timer to "60" seconds
 When user launches and logs in to the Lyric application
@@ -811,12 +810,12 @@ Then user should be displayed with a "Switching to Away" text in the Dashboard s
 When user navigates to "Security Solution Card" screen from the "Dashboard" screen
 When user minimizes and maximizes the app
 Then user should be displayed with a "Switching to Away" text
-And user should be displayed with switching timer
+And user should be displayed with a switching timer
 Then timer ends on user device
 And user status should be set to "Away"
 
 
-@CancelSwitchingModeAway    @UIAutomated
+@CancelSwitchingModeAway    @UIAutomated @--xrayid:ATER-54963
 Scenario Outline: As a user I should be able to cancel the switching away request
 Given user sets the entry/exit timer to "60" seconds 
 When user launches and logs in to the Lyric application
@@ -828,7 +827,7 @@ And user navigates to "Dashboard" screen from the "Security Solution Card" scree
 Then user should be displayed with a "Switching to Away" text in the Dashboard screen
 When user navigates to "Security Solution Card" screen from the "Dashboard" screen
 Then user should be displayed with a "Switching to Away" text
-And user should be displayed with switching timer
+And user should be displayed with a switching timer
 And user should be displayed with cancel icon
 When user taps on "Cancel"
 Then user should be displayed with the <Mode> screen
@@ -836,7 +835,7 @@ When user switches from <Mode> to "Away"
 Then user should be displayed with a "Switching to Away" text
 And user navigates to "Dashboard" screen from the "Security Solution Card" screen
 Then user should be displayed with a "Switching to Away" text in the Dashboard screen
-And user should be displayed with switching timer
+And user should be displayed with a switching timer
 And user should be displayed with cancel icon
 When user taps on "Cancel"
 Then user should be displayed with the <Mode> screen
@@ -846,7 +845,7 @@ Examples:
 |Off |
 
 
-@CancelSwitchingModeNight   @UIAutomated
+@CancelSwitchingModeNight   @UIAutomated @--xrayid:ATER-54965
 Scenario Outline: As a user I should be able to cancel the switching away request
 Given user sets the entry/exit timer to "60" seconds 
 When user launches and logs in to the Lyric application
@@ -858,7 +857,7 @@ And user navigates to "Dashboard" screen from the "Security Solution Card" scree
 Then user should be displayed with a "Switching to Night" text in the Dashboard screen
 When user navigates to "Security Solution Card" screen from the "Dashboard" screen
 Then user should be displayed with a "Switching to Night" text
-And user should be displayed with switching timer
+And user should be displayed with a switching timer
 And user should be displayed with cancel icon
 When user taps on "Cancel"
 Then user should be displayed with the <Mode> screen
@@ -866,7 +865,7 @@ When user switches from <Mode> to "Night"
 Then user should be displayed with a "Switching to Night" text
 And user navigates to "Dashboard" screen from the "Security Solution Card" screen
 Then user should be displayed with a "Switching to Night" text in the Dashboard screen
-And user should be displayed with switching timer
+And user should be displayed with a switching timer
 And user should be displayed with cancel icon
 When user taps on "Cancel"
 Then user should be displayed with the <Mode> screen
@@ -876,7 +875,7 @@ Examples:
 |Off |
 
 
-@OutdoorMotionViewer_VideoClip   @NotAutomatable
+@OutdoorMotionViewer_VideoClip   @NotAutomatable @--xrayid:ATER-54966
 Scenario: As a user when motion detected after exit delay irrespective of exit timer, I should have clips generated for 30sec (landscape, download)
 Given user sets the entry/exit timer to <timerValue> seconds
 And user is set to "Outdoor Motion Viewers On in Home Mode" through CHIL
@@ -893,7 +892,7 @@ Then user should be played with video for 30 seconds
 And user should be played with video of 5 seconds prealert
  
 
-@LowBatterySensorstatus @P2    @UIAutomated
+@LowBatterySensorstatus @P2    @UIAutomated @--xrayid:ATER-54968
 Scenario Outline: As a user i should be displayed with low battery sensors status 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
@@ -935,8 +934,8 @@ Examples:
 |Off |ISMV Sensor|Low battery at Off mode|Low battery restored at Off Mode|
 |Off |OSMV Sensor|Low battery at Off mode|Low battery restored at Off Mode|
 
-
-@MultipleSensorwithstatusscrolling @P2     @UIAutomated
+ 
+@MultipleSensorwithstatusscrolling @P2     @UIAutomated @--xrayid:ATER-54977
 Scenario: As a user i should get all the sensors status in security solution card with all status scrolling 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
@@ -956,7 +955,7 @@ Then user receives a "ISMV Sensor Opened at Home Mode" activity log
 And user "closes" activity log
 
 
-@SwitchingSystemModeOffSensorstatus   @UIAutomated
+@SwitchingSystemModeOffSensorstatus   @UIAutomated @--xrayid:ATER-54980
 Scenario Outline: As a user i want to switch off mode with different sensor status
 Given user launches and logs in to the Lyric Application
 And user is set to <Mode> through CHIL
@@ -985,7 +984,7 @@ Examples:
 |Night| Low Battery | Door sensor |
 
 
-@SwitchingSystemModeHomeSensorstatus     @UIAutomated
+@SwitchingSystemModeHomeSensorstatus     @UIAutomated @--xrayid:ATER-54983
 Scenario Outline: As a user i want to switch Home mode with different sensor status
 Given user launches and logs in to the Lyric Application
 And user is set to <Mode> through CHIL
@@ -1009,8 +1008,9 @@ Examples:
 |Night| Low Battery | Door sensor |
 
 
-@SwitchingSystemModeNightMotionSensorstatus     @UIAutomated
+@SwitchingSystemModeNightMotionSensorstatus     @UIAutomated @--xrayid:ATER-54985
 Scenario Outline: As a user i want to switch Night mode with different sensor status
+Given user launches and logs in to the Lyric Application
 And user is set to <Mode> through CHIL
 And user "Door Sennsor" access sensor "Opened"
 And user "Window Sennsor" access sensor "Low battery"
@@ -1032,7 +1032,7 @@ Examples:
 |Night| Low Battery | Door sensor |
 
 
-@SwitchingSystemModeNightContactSensorstatus   @UIAutomated
+@SwitchingSystemModeNightContactSensorstatus   @UIAutomated @--xrayid:ATER-54988
 Scenario Outline: As a user i want to switch Night mode with different sensor status
 Given user launches and logs in to the Lyric Application
 And user is set to <Mode> through CHIL
@@ -1060,7 +1060,7 @@ Examples:
 |Night| Low Battery | Door sensor | 
 
 
-@SwitchingSystemModeAwaySensorstatus   @UIAutomated
+@SwitchingSystemModeAwaySensorstatus   @UIAutomated @--xrayid:ATER-54990
 Scenario Outline: As a user i want to switch Away mode with different sensor status
 Given user launches and logs in to the Lyric Application
 And user is set to <Mode> mode through CHIL
@@ -1088,13 +1088,13 @@ Examples:
 |Night| Low Battery | Door sensor |
 
 
-@CommandControlViewswitchingmodewhenDASPanelinstandbymode   @NotAutomatable
+@CommandControlViewswitchingmodewhenDASPanelinstandbymode   @NotAutomatable @--xrayid:ATER-54992
 Scenario Outline:As a user I want to see the error pop up on switch the mode when base station in stand by 
 Given user launches and logs in to the Lyric application
 And user is set to "Home" mode through CHIL
 When user set to "Stand-by" mode Base station
-Then user switch the mode to <Mode>
-And user should receive "Unable to switch" error pop up
+And user switch the mode to <Mode>
+Then user should receive "Unable to switch" error pop up
 Examples:
 |Mode|
 |Away|
@@ -1103,7 +1103,7 @@ Examples:
 
 
 #Requirements : Configured one DAS panel and user has to install new application and login or after enroll the DAS panel 
-@DASPanelDashboardandsecuritycardcoach-markverification   @UIAutomated
+@DASPanelDashboardandsecuritycardcoach-markverification   @UIAutomated @--xrayid:ATER-54993
 Scenario Outline: AS a user I want to verify Dashboard & Security card coach-mark
 Given user set to <Mode> through CHIL
 And user launches and logs in to the lyric application 

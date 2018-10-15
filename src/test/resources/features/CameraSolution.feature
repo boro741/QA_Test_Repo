@@ -448,7 +448,7 @@ As a user,i should be able to get live streaming of the camera and to get motion
      When user navigates to "Activity log" screen from "Camera card Solution" screen
 	 Then user should be played with clips
       And user should be played automatically one after one till last clip
-     When user delete basestation from other mobile during clip playing 
+     When user delete basestation from other mobile during clip playing
       
       
    @ActivitylogMaximumClip @P3 @NotAutomatable @--xrayid:ATER-53845
