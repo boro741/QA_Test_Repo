@@ -60,9 +60,9 @@ public class VerifyOptionsOnAScreen extends Keyword {
 		return flag;
 	}
 
-	@SuppressWarnings("resource")
+
 	@Override
-	@KeywordStep(gherkins = "^user should be displayed with the following (.+) options:$")
+	@KeywordStep(gherkins = "^user should be displayed with the following \"(.+)\" options:$")
 	public boolean keywordSteps() throws KeywordException {
 		CHILUtil chUtil = null;
 		DeviceInformation deviceInfo = null;
@@ -1881,39 +1881,39 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					break;
 				}
 				case "AWAY MODE ICON": {
-					flag &= bs.isSecurityModeHomeiConVisible();
+					flag &= bs.isSecurityModeAwayiConVisible();
 					break;
 				}
 				case "AWAY MODE TEXT": {
-					flag &= bs.isSecurityModeHomeModeVisible();
+					flag &= bs.isSecurityModeAwayModeVisible();
 					break;
 				}
 				case "AWAY MODE DESCRIPTION": {
-					flag &= bs.isSecurityModeHomeTextVisible();
+					flag &= bs.isSecurityModeAwayTextVisible();
 					break;
 				}
 				case "NIGHT MODE ICON": {
-					flag &= bs.isSecurityModeHomeiConVisible();
+					flag &= bs.isSecurityModeNightiConVisible();
 					break;
 				}
 				case "NIGHT MODE TEXT": {
-					flag &= bs.isSecurityModeHomeModeVisible();
+					flag &= bs.isSecurityModeNightModeVisible();
 					break;
 				}
 				case "NIGHT MODE DESCRIPTION": {
-					flag &= bs.isSecurityModeHomeTextVisible();
+					flag &= bs.isSecurityModeNightTextVisible();
 					break;
 				}
 				case "OFF MODE ICON": {
-					flag &= bs.isSecurityModeHomeiConVisible();
+					flag &= bs.isSecurityModeoffiConVisible();
 					break;
 				}
 				case "OFF MODE TEXT": {
-					flag &= bs.isSecurityModeHomeModeVisible();
+					flag &= bs.isSecurityModeoffModeVisible();
 					break;
 				}
 				case "OFF MODE DESCRIPTION": {
-					flag &= bs.isSecurityModeHomeTextVisible();
+					flag &= bs.isSecurityModeoffTextVisible();
 					break;
 				}
 				default: {
@@ -1930,6 +1930,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 				flag = true;
 			}
+			break;
 		}
 		case "LEAK DETECTOR CONFIGURATION":{
 			flag=true;

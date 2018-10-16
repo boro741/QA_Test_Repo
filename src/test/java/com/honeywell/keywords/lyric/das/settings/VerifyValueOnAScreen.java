@@ -15,7 +15,6 @@ import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.screens.WLDLeakDetectorSettings;
 import com.honeywell.screens.WLDManageAlerts;
-import com.honeywell.screens.WLDUpdateFrequency;
 
 public class VerifyValueOnAScreen extends Keyword {
 

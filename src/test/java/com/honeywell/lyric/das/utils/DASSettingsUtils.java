@@ -1576,6 +1576,14 @@ public class DASSettingsUtils {
 								return true;
 							}
 						}
+						case "LOADING PROGRESS BAR": {
+							if (bs.isLoadingProgressBarVisible()) {
+								System.out.println("Waiting for Verifying Progress bar to disappear");
+								return false;
+							} else {
+								return true;
+							}
+						}
 						default: {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Invalid argument passed : " + elementProgressBar);

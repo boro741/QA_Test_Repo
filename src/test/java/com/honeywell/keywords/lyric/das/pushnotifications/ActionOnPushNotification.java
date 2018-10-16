@@ -1,9 +1,8 @@
 package com.honeywell.keywords.lyric.das.pushnotifications;
 
-import java.awt.Desktop.Action;
-import java.time.Duration;
 import java.util.ArrayList;
 
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 
 import com.honeywell.account.information.LocationInformation;
@@ -15,15 +14,12 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.CustomDriver;
-import com.honeywell.commons.mobile.Mobile;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASNotificationUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AlarmScreen;
 
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.MultiTouchAction;
 import io.appium.java_client.TouchAction;
 
 public class ActionOnPushNotification extends Keyword {
@@ -50,19 +46,19 @@ public class ActionOnPushNotification extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		String notification = "";
 		String sensorName = "";
-		//LocationInformation locInfo = new LocationInformation(testCase, inputs);
+		// LocationInformation locInfo = new LocationInformation(testCase, inputs);
 		DASNotificationUtils.openNotifications(testCase);
-		switch(exampleData.get(0).toUpperCase()){
-		case "ISMV MOTION DETECTED":{
+		switch (exampleData.get(0).toUpperCase()) {
+		case "ISMV MOTION DETECTED": {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMTOIONVIEWER1");
-			notification = "Motion detected by Motion Viewer \""+ sensorName+"\"";
+			notification = "Motion detected by Motion Viewer \"" + sensorName + "\"";
 			break;
 		}
-		case "MOTION DETECTED":{
-			notification = "Motion Detected by Camera \""+ inputs.getInputValue("LOCATION1_DEVICE1_NAME")+"\".";
+		case "MOTION DETECTED": {
+			notification = "Motion Detected by Camera \"" + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + "\".";
 			break;
 		}
-		case "SWITCH TO NIGHT FROM DOOR OPEN":{
+		case "SWITCH TO NIGHT FROM DOOR OPEN": {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 			notification = sensorName + " opened at " + inputs.getInputValue("LOCATION1_NAME");
 			String locatorValue = "";
@@ -72,22 +68,20 @@ public class ActionOnPushNotification extends Keyword {
 				locatorValue = "//XCUIElementTypeCell[contains(@label,'" + notification + "')]";
 			}
 			AlarmScreen alarmScreen = new AlarmScreen(testCase);
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {	
-				if(alarmScreen.switchToNightOnNotificationExists()) {
-					flag=alarmScreen.clickswitchToNightOnNotification();
-				}
-				else {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (alarmScreen.switchToNightOnNotificationExists()) {
+					flag = alarmScreen.clickswitchToNightOnNotification();
+				} else {
 					alarmScreen.swipe(locatorValue);
-					flag=alarmScreen.clickswitchToNightOnNotification();
-				}	
-			}
-			else {
+					flag = alarmScreen.clickswitchToNightOnNotification();
+				}
+			} else {
 				alarmScreen.swipe(locatorValue);
-				flag=alarmScreen.clickswitchToNightOnNotification();
+				flag = alarmScreen.clickswitchToNightOnNotification();
 			}
 			return flag;
 		}
-		case "SWITCH TO HOME FROM DOOR OPEN":{
+		case "SWITCH TO HOME FROM DOOR OPEN": {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 			notification = sensorName + " opened at " + inputs.getInputValue("LOCATION1_NAME");
 			String locatorValue = "";
@@ -97,22 +91,20 @@ public class ActionOnPushNotification extends Keyword {
 				locatorValue = "//XCUIElementTypeCell[contains(@label,'" + notification + "')]";
 			}
 			AlarmScreen alarmScreen = new AlarmScreen(testCase);
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {	
-				if(alarmScreen.switchToHomeOnNotificationExists()) {
-					flag=alarmScreen.clickswitchToHomeOnNotification();
-				}
-				else {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (alarmScreen.switchToHomeOnNotificationExists()) {
+					flag = alarmScreen.clickswitchToHomeOnNotification();
+				} else {
 					alarmScreen.swipe(locatorValue);
-					flag=alarmScreen.clickswitchToHomeOnNotification();
+					flag = alarmScreen.clickswitchToHomeOnNotification();
 				}
-			}
-			else {
+			} else {
 				alarmScreen.swipe(locatorValue);
-				flag=alarmScreen.clickswitchToHomeOnNotification();
+				flag = alarmScreen.clickswitchToHomeOnNotification();
 			}
 			return flag;
 		}
-		case "DOOR OPENED":{
+		case "DOOR OPENED": {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 			notification = sensorName + " opened at " + inputs.getInputValue("LOCATION1_NAME");
 			break;
@@ -144,8 +136,10 @@ public class ActionOnPushNotification extends Keyword {
 			} else {
 				notification = locInfo.getUserFirstName() + " set Security "
 						+ inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " to HOME";
-				/*notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
-						+ locInfo.getUserFirstName();*/
+				/*
+				 * notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") +
+				 * " set to Away by " + locInfo.getUserFirstName();
+				 */
 			}
 			System.out.println("############notification: " + notification);
 			break;
@@ -162,8 +156,10 @@ public class ActionOnPushNotification extends Keyword {
 			} else {
 				notification = locInfo.getUserFirstName() + " set Security "
 						+ inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " to Away";
-				/*notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
-						+ locInfo.getUserFirstName();*/
+				/*
+				 * notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") +
+				 * " set to Away by " + locInfo.getUserFirstName();
+				 */
 			}
 			System.out.println("############notification: " + notification);
 			break;
@@ -180,8 +176,10 @@ public class ActionOnPushNotification extends Keyword {
 			} else {
 				notification = locInfo.getUserFirstName() + " set Security "
 						+ inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " to Night";
-				/*notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
-						+ locInfo.getUserFirstName();*/
+				/*
+				 * notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") +
+				 * " set to Away by " + locInfo.getUserFirstName();
+				 */
 			}
 			System.out.println("############notification: " + notification);
 			break;
@@ -198,8 +196,10 @@ public class ActionOnPushNotification extends Keyword {
 			} else {
 				notification = locInfo.getUserFirstName() + " set Security "
 						+ inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " to OFF";
-				/*notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") + " set to Away by "
-						+ locInfo.getUserFirstName();*/
+				/*
+				 * notification = "Security " + inputs.getInputValue("LOCATION1_DEVICE1_NAME") +
+				 * " set to Away by " + locInfo.getUserFirstName();
+				 */
 			}
 			System.out.println("############notification: " + notification);
 			break;
@@ -208,9 +208,10 @@ public class ActionOnPushNotification extends Keyword {
 			notification = "Security Alarm in progress at " + inputs.getInputValue("LOCATION1_NAME");
 			break;
 		}
-		case "ALARM DISMISSED":{
+		case "ALARM DISMISSED": {
 			LocationInformation locInfo = new LocationInformation(testCase, inputs);
-			notification = "Alarm at " + inputs.getInputValue("LOCATION1_NAME")+" Cancelled by "+locInfo.getUserFirstName();
+			notification = "Alarm at " + inputs.getInputValue("LOCATION1_NAME") + " Cancelled by "
+					+ locInfo.getUserFirstName();
 			break;
 		}
 		default: {
@@ -230,12 +231,28 @@ public class ActionOnPushNotification extends Keyword {
 		if (MobileUtils.isMobElementExists("xpath", locatorValue, testCase, 10)) {
 			Keyword.ReportStep_Pass(testCase, "'" + notification + "' Push Notification Present");
 			WebElement ele = MobileUtils.getMobElement(testCase, "xpath", locatorValue);
-			
+
 			int xAxix = ele.getLocation().getX();
 			int yAxix = ele.getLocation().getY();
-			MobileUtils.clickOnElement( testCase,"xpath", locatorValue);
-			
+			MobileUtils.clickOnElement(testCase, "xpath", locatorValue);
+
 			testCase.getMobileDriver().swipe(xAxix, yAxix, 300, 0, 1);
+
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.isMobElementExists("ID", "com.android.systemui:id/quick_settings_panel", testCase, 5)) {
+					Keyword.ReportStep_Pass(testCase, "Quick Settings Panel is displayed.");
+					CustomDriver driver = testCase.getMobileDriver();
+					Dimension dimension = driver.manage().window().getSize();
+					int height = dimension.getHeight();
+					int width = dimension.getWidth();
+					TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
+					touchAction.press(width / 2, height / 2).waitAction(MobileUtils.getDuration(2000))
+							.moveTo(width / 2, 82).release();
+					touchAction.perform();
+					touchAction.tap(width / 2, height / 2).perform();
+					touchAction.tap(width / 2, height / 2).perform();
+				}
+			}
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -244,9 +261,7 @@ public class ActionOnPushNotification extends Keyword {
 			testCase.getMobileDriver().launchApp();
 			LyricUtils.verifyLoginSuccessful(testCase, inputs, false);
 			Keyword.ReportStep_Pass(testCase, "Launching app to continue testing");
-			
 		}
-
 		return flag;
 	}
 

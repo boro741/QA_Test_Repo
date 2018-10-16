@@ -123,8 +123,10 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
 					flag = flag & DASZwaveUtils.navigateToDashboardFromPrimaryCard(testCase, inputs);
-					/*PrimaryCard sensorScreen = new PrimaryCard(testCase);
-					flag = flag & sensorScreen.clickOnBackButton();*/
+					/*
+					 * PrimaryCard sensorScreen = new PrimaryCard(testCase); flag = flag &
+					 * sensorScreen.clickOnBackButton();
+					 */
 					break;
 				}
 				default: {
@@ -334,39 +336,37 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
-			}
-			else if (screen.get(1).equalsIgnoreCase("WLD SOLUTION CARD")) {
+			} else if (screen.get(1).equalsIgnoreCase("WLD SOLUTION CARD")) {
 				switch (screen.get(0).toUpperCase()) {
 				case "LEAK DETECTOR CONFIGURATION": {
 					WLDSolutionCard humi = new WLDSolutionCard(testCase);
 					flag = flag & humi.navigateFromPrimaryCardToLeakDetectorConfigurationScreen();
-					if(flag) {
+					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Navigated to from WLD Solution card to Config screen");
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Not Navigated ");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not Navigated ");
 					}
 					break;
 				}
 				case "UPDATE FREQUENCY": {
 					WLDSolutionCard humi = new WLDSolutionCard(testCase);
 					flag = flag & humi.navigateFromSolutionCardToUpdateFrequencyScreen();
-					if(flag) {
-						Keyword.ReportStep_Pass(testCase, "Navigated to from WLD Solution card to Update Frequency screen");
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Navigated to from WLD Solution card to Update Frequency screen");
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Not Navigated ");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not Navigated ");
 					}
 					break;
 				}
 				case "LEAK DETECTOR SETTINGS": {
 					WLDSolutionCard humi = new WLDSolutionCard(testCase);
 					flag = flag & humi.navigateFromSolutionCardToLeakDetectorSettingsScreen();
-					if(flag) {
-						Keyword.ReportStep_Pass(testCase, "Navigated to from WLD Solution card to Update Frequency screen");
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Navigated to from WLD Solution card to Update Frequency screen");
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Not Navigated ");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not Navigated ");
 					}
 					break;
 				}
@@ -376,32 +376,27 @@ public class NavigateToScreen extends Keyword {
 				}
 				}
 			}
-			//Amresh wld
+			// Amresh wld
 			else if (screen.get(1).equalsIgnoreCase("WLD SETTINGS")) {
 				WLDLeakDetectorSettings set = new WLDLeakDetectorSettings(testCase);
 
-				switch (screen.get(0).toUpperCase())
-				{
-				
-				case "DASHBOARD": 
-				{
+				switch (screen.get(0).toUpperCase()) {
+
+				case "DASHBOARD": {
 					flag = flag && set.navigateFromWLDSettingsScreenToPrimaryCard();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Navigated from Settings to Primary Card");
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Unable to Navigate");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Unable to Navigate");
 					}
 					break;
 				}
-				case "UPDATE FREQUENCY": 
-				{
+				case "UPDATE FREQUENCY": {
 					flag = flag && set.navigateFromWLDSettingsScreenToUpdateFrequencyCard();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Navigated from Settings to Update Frequency");
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Unable to Navigate");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Unable to Navigate");
 					}
 					break;
 				}
@@ -410,18 +405,14 @@ public class NavigateToScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
 				}
-			}
-			else if (screen.get(1).equalsIgnoreCase("LEAK DETECTOR CONFIGURATION")) {
-				switch (screen.get(0).toUpperCase())
-				{
-				case "DASHBOARD": 
-				{
+			} else if (screen.get(1).equalsIgnoreCase("LEAK DETECTOR CONFIGURATION")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "DASHBOARD": {
 					WLDConfigurationScreen set = new WLDConfigurationScreen(testCase);
 					flag = flag & set.navigateFromWLDConfigurationScreenToDashboard(testCase);
 					break;
 				}
-				case "WLD SOLUTION CARD": 
-				{
+				case "WLD SOLUTION CARD": {
 					WLDConfigurationScreen set = new WLDConfigurationScreen(testCase);
 					flag = flag & set.navigateFromWLDConfigurationScreenToSolutionCard(testCase);
 					break;
@@ -698,8 +689,7 @@ public class NavigateToScreen extends Keyword {
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Navigated from Dashboard to Settings");
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Unable to Navigate");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Unable to Navigate");
 					}
 					break;
 				}
@@ -747,40 +737,39 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & DASSettingsUtils.navigateFromDashboardScreenToManageAlertsScreen(testCase, inputs);
 					break;
 				}
-				//Amresh  dashboard to wld manage alerts
+				// Amresh dashboard to wld manage alerts
 				case "WLD MANAGE ALERTS": {
 					flag = flag & WLDManageAlerts.navigateFromDashboardScreenToWLDManageAlerts(testCase, inputs);
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Navigated from Dashboard to Manage Alerts ");
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Unable to Navigate");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Unable to Navigate");
 					}
 					break;
 				}
-				//Amresh  dashboard to Leak Detector Configuration
+				// Amresh dashboard to Leak Detector Configuration
 				case "LEAK DETECTOR CONFIGURATION": {
 					WLDSolutionCard sol = new WLDSolutionCard(testCase);
 					flag = flag && sol.checkAndDismissControlState();
-					flag = flag & WLDConfigurationScreen.navigateFromDashboardToWLDConfigurationScreen(testCase, inputs);
+					flag = flag
+							& WLDConfigurationScreen.navigateFromDashboardToWLDConfigurationScreen(testCase, inputs);
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Navigated from Dashboard to Configuration ");
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Unable to Navigate");
-					}break;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Unable to Navigate");
+					}
+					break;
 				}
 				// Navigate from 'Dashboard' to 'WLD Email Notifications' Screen //Amresh
 				case "EMAIL NOTIFICATIONS": {
 					WLDSolutionCard sol = new WLDSolutionCard(testCase);
 					flag = flag && sol.checkAndDismissControlState();
-					flag = flag & WLDManageAlerts.navigateFromDashboardScreenToEmailNotificationsScreen(testCase,
-							inputs);
+					flag = flag
+							& WLDManageAlerts.navigateFromDashboardScreenToEmailNotificationsScreen(testCase, inputs);
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Navigated from Dashboard to EmailNotifications");
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Unable to Navigate");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Unable to Navigate");
 					}
 					break;
 				}
@@ -899,13 +888,13 @@ public class NavigateToScreen extends Keyword {
 					FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
 					flag = flag && fly.ClickOnSettingsIcon();
 					flag = flag && fly.ClickOnDeviceAndSensor();
-					if (testCase.getMobileDriver().getPlatformName().contains("Android")){
+					if (testCase.getMobileDriver().getPlatformName().contains("Android")) {
 						flag = flag && MobileUtils.clickOnElement(testCase, "xpath",
-							"//*[contains(@text,'" + inputs.getInputValue("SENSOR1") + "')]");
-						} else{
-							flag = flag && MobileUtils.clickOnElement(testCase, "id",
-									inputs.getInputValue("SENSOR1") + " Indoor Air Sensors");	
-						}
+								"//*[contains(@text,'" + inputs.getInputValue("SENSOR1") + "')]");
+					} else {
+						flag = flag && MobileUtils.clickOnElement(testCase, "id",
+								inputs.getInputValue("SENSOR1") + " Indoor Air Sensors");
+					}
 					break;
 				}
 				case "WINDOW PROTECTION": {
@@ -2309,8 +2298,26 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "DAS SECURITY SETTINGS": {
+					Dashboard d = new Dashboard(testCase);
 					PrimaryCard pc = new PrimaryCard(testCase);
-					flag &= pc.isCogIconVisible();
+					if (d.areDevicesVisibleOnDashboard(25)) {
+						try {
+							flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
+							flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+							Thread.sleep(2000);
+							if (pc.isCogIconVisible()) {
+								flag = flag & pc.clickOnCogIcon();
+							}
+						} catch (Exception e) {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Error Occured: " + e.getMessage());
+						}
+					} else {
+						if (pc.isCogIconVisible()) {
+							flag = flag & pc.clickOnCogIcon();
+						}
+					}
 					break;
 				}
 				default: {
@@ -3469,15 +3476,20 @@ public class NavigateToScreen extends Keyword {
 				TouchAction action = new TouchAction(testCase.getMobileDriver());
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
-					flag &= DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
+					if (DashboardUtils.navigateToDashboardFromAnyScreen(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "Successfully naviagates to " + screen.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to navigates to  " + screen.get(0));
+					}
 					break;
 				}
-				case "SECUIRTY SOLUTION CARD": {
+				case "SECURITY SOLUTION CARD": {
 					flag &= bs.clickOnBackButton();
 					break;
 				}
 				case "ENHANCED DETERRENCE": {
-					flag &= bs.ClickOnEnhancedDeterrenceOption();
+					flag &= bs.clickOnEnhancedDeterrenceOption(20);
 					flag &= bs.isEnhancedDeterrenceInsideDetererenceDescriptionvisible();
 					flag &= bs.isEnhancedDeterrenceheadervisible();
 					break;
@@ -3502,24 +3514,6 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
 				}
-				}
-			} else if (screen.get(1).equalsIgnoreCase("DAS SECURITY SETTINGS")) {
-				switch (screen.get(0).toUpperCase()) {
-				case "DASHBOARD": {
-					if (DashboardUtils.navigateToDashboardFromAnyScreen(testCase)) {
-						Keyword.ReportStep_Pass(testCase, "Successfully naviagates to " + screen.get(0));
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Failed to navigates to  " + screen.get(0));
-					}
-				}
-					if (flag) {
-						Keyword.ReportStep_Pass(testCase, "Successfully naviagates to " + screen.get(0));
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Failed to navigates to  " + screen.get(0));
-					}
-					break;
 				}
 			} else if (screen.get(1).equalsIgnoreCase("MANAGE ALERTS")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
