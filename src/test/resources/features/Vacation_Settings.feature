@@ -16,7 +16,6 @@ Feature: As an user I want to set the vacation period for my home so that my the
  
   
 @Vacations_VerifyGuideMessage			@Automated @--xrayid:ATER-54558
- Scenario Outline: Verify Start and End Date
 Scenario Outline: Verify guide Message when vacation is either turned off or on
 Given vacation mode is "active"
 And user launches and logs in to the Lyric application
@@ -35,9 +34,9 @@ When user "accepts" the "End Vacation Mode Confirmation" popup
 Then user verifies vacation is "off" in <Vacation Option>
 
 Examples:
-		| Vacation Option		| Option				|
-		| Vacation				| Vacation			|
-	#	| solution card			| Vacation Until		|
+		| Vacation Option		| Option		|
+		| Vacation				| Vacation		|
+	#	| solution card			| Vacation Until|
 		
 
 @Vacations_DefaultVacationTimeForNA			@Automated @--xrayid:ATER-54559
