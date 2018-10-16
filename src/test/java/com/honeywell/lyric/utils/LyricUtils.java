@@ -477,6 +477,9 @@ public class LyricUtils {
 							}
 							
 						}
+						if (os.isAllowButtonVisible(5)) {
+							os.clickOnAllowButton();
+						}
 						if (!d.isSplashScreenVisible(2) && !d.isProgressBarVisible(2)) {
 							if (closeCoachMarks.length > 0 && !closeCoachMarks[0]) {
 								return true;
