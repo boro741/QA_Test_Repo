@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import org.openqa.selenium.Dimension;
 
-import com.honeywell.CHIL.CHILUtil;
 import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.bddinterface.DataTable;
 import com.honeywell.commons.coreframework.AfterKeyword;
@@ -293,7 +292,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 							.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						}
 					}
-					flag &= cs.isKeyFobEnabled();
+					flag &= cs.isKeyFobOptionVisible();
 					break;
 				}
 				case "SENSORS": {
@@ -334,7 +333,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 					flag &= cs.isZwaveDevicesEnabled();
 					break;
 				}
-				case "BSAE STATION VOLUME": {
+				case "BASE STATION VOLUME": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if(!cs.isBaseStationVolumeValueVisible()){
@@ -399,10 +398,10 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 				}
 				}
 				if (flag) {
-					Keyword.ReportStep_Pass(testCase, "The " + parameter + " has Enabled");
+					Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is enabled");
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							" The " + parameter + " has not Enabled");
+							" Option " + parameter + " is not enabled");
 				}
 			}break;
 		}

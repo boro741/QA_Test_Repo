@@ -125,7 +125,7 @@ public class SelectElementOnAScreen extends Keyword {
 				case "SWITCH TO HOME": {
 					DASAlarmUtils.clickOnSwitchToHome(testCase, inputs);
 					int i = 0;
-					while (i < 3 &&  DASAlarmUtils.verifyProgressDisplayed(testCase)) {
+					while (i < 3 && DASAlarmUtils.verifyProgressDisplayed(testCase)) {
 						System.out.println("Waiting for dismiss alarm request to complete");
 					}
 					break;
@@ -232,7 +232,7 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				}
-			}  else if (parameters.get(1).equalsIgnoreCase("Camera Solution Card")
+			} else if (parameters.get(1).equalsIgnoreCase("Camera Solution Card")
 					|| parameters.get(1).equalsIgnoreCase("Activity Log")) {
 				CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
 				ActivityLogsScreen al = new ActivityLogsScreen(testCase);
@@ -254,7 +254,8 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					flag = flag & cs.clickSanpShotIcon();
 					if (cs.isAllowExists(5)) {
-						Keyword.ReportStep_Pass_With_ScreenShot(testCase, "user displayed with \"Need to enable Phone settings\" popup");
+						Keyword.ReportStep_Pass_With_ScreenShot(testCase,
+								"user displayed with \"Need to enable Phone settings\" popup");
 						cs.clickAllow();
 					}
 					flag = flag & cs.clickSanpShotIcon();
@@ -317,8 +318,7 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				case "DOWNLOAD CLIP": {
-					if(cs.isAllowExists(3))
-					{
+					if (cs.isAllowExists(3)) {
 						cs.clickAllow();
 					}
 					if (al.isDowloadIconExists()) {
@@ -327,12 +327,14 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				case "CANCEL DOWNLOAD": {
-					if(testCase.getPlatform().contains("IOS")) {
-						if(al.isDowloadCloseExists()){
+					if (testCase.getPlatform().contains("IOS")) {
+						if (al.isDowloadCloseExists()) {
 							al.clickDowloadClose();
 						}
-					}else {
-						flag = flag & MobileUtils.pressBackButton(testCase, "User tried to cancel the download of the clip");}
+					} else {
+						flag = flag & MobileUtils.pressBackButton(testCase,
+								"User tried to cancel the download of the clip");
+					}
 					break;
 				}
 				case "DO NOT CANCEL": {
@@ -394,7 +396,8 @@ public class SelectElementOnAScreen extends Keyword {
 					int i = 0;
 
 					while (i < 3 && (DASAlarmUtils.verifyProgressDisplayed(testCase)
-							|| alarmScreen.isAlarmDismissButtonDisplayed()||DASSolutionCardUtils.waitForDismissProcessRequest(testCase))) {
+							|| alarmScreen.isAlarmDismissButtonDisplayed()
+							|| DASSolutionCardUtils.waitForDismissProcessRequest(testCase))) {
 						System.out.println("Waiting for dismiss alarm request to complete");
 						i++;
 					}
@@ -427,7 +430,7 @@ public class SelectElementOnAScreen extends Keyword {
 							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
 				}
-			}else if (parameters.get(1).equalsIgnoreCase("Exclusion Mode Active")
+			} else if (parameters.get(1).equalsIgnoreCase("Exclusion Mode Active")
 					|| parameters.get(1).equalsIgnoreCase("Inclusion Mode Active")
 					|| parameters.get(1).equalsIgnoreCase("Activate ZWAVE Device")) {
 				switch (parameters.get(0).toUpperCase()) {
@@ -724,10 +727,10 @@ public class SelectElementOnAScreen extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimensions.getHeight() * .9)).moveTo(0, -(int) (dimensions.getHeight() * .6))
-								.release().perform();
-						action.press(10, (int) (dimensions.getHeight() * .9)).moveTo(0, -(int) (dimensions.getHeight() * .6))
-								.release().perform();
+						action.press(10, (int) (dimensions.getHeight() * .9))
+								.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
+						action.press(10, (int) (dimensions.getHeight() * .9))
+								.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
 					}
 					flag = flag & settingScreen.clickOnFirmwareDetailsOption();
 					break;
@@ -749,10 +752,10 @@ public class SelectElementOnAScreen extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimensions.getHeight() * .9)).moveTo(0, -(int) (dimensions.getHeight() * .6))
-								.release().perform();
-						action.press(10, (int) (dimensions.getHeight() * .9)).moveTo(0, -(int) (dimensions.getHeight() * .6))
-								.release().perform();
+						action.press(10, (int) (dimensions.getHeight() * .9))
+								.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
+						action.press(10, (int) (dimensions.getHeight() * .9))
+								.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
 					}
 					flag = flag & bs.clickOnSignalStrengthandTestOption();
 					break;
@@ -844,7 +847,7 @@ public class SelectElementOnAScreen extends Keyword {
 				case "MOTION SENSOR SETUP BUTTON":
 				case "DOOR ACCESS SENSOR SETUP BUTTON":
 				case "WINDOW ACCESS SENSOR SETUP BUTTON":
-				case "KEYFOB SETUP BUTTON": 
+				case "KEYFOB SETUP BUTTON":
 				case "ISMV SENSOR SETUP BUTTON":
 				case "OSMV SENSOR SETUP BUTTON": {
 					flag = flag & sensor.clickOnSetUpButton(inputs, parameters.get(0));
@@ -1348,86 +1351,81 @@ public class SelectElementOnAScreen extends Keyword {
 						}
 					}
 				}
-				break;
+					break;
 				}
 			}
-			//Amresh wld
+			// Amresh wld
 			else if (parameters.get(1).equalsIgnoreCase("WLD Settings")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "TEMPERATURE UNIT": {
 					WLDLeakDetectorSettings settings = new WLDLeakDetectorSettings(testCase);
 					flag = flag & settings.clickonTemperatureUnit();
-					if(flag) {
+					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully clicked on  Temp Unit");
-					}
-					else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"Temp unit Not clicked");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Temp unit Not clicked");
 					}
 					break;
 				}
 				case "TEMPERATURE UNIT IN FARENHEIT": {
 					WLDLeakDetectorSettings settings = new WLDLeakDetectorSettings(testCase);
 					flag = flag & settings.clickonTemperatureUnit();
-					if(flag) {
+					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully clicked on  Temp Unit");
-					}
-					else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"Temp unit Not clicked");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Temp unit Not clicked");
 					}
 					break;
 				}
 				}
-			}
-			else if (parameters.get(1).equalsIgnoreCase("WLD Manage Alerts")) {//Amresh wld 
+			} else if (parameters.get(1).equalsIgnoreCase("WLD Manage Alerts")) {// Amresh wld
 				switch (parameters.get(0).toUpperCase()) {
 				case "ALERT FOR THIS TEMPERATURE RANGE": {
 					WLDManageAlerts ale = new WLDManageAlerts(testCase);
 					flag = flag && ale.isAlertforthisRangeTemperaturePercentageButtonVissible();
-					flag = flag &&  ale.clickAlertforthisRangeTemperaturePercentageButton();
-					if(flag) {
+					flag = flag && ale.clickAlertforthisRangeTemperaturePercentageButton();
+					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully clicked on  Temperature Alert Percentage");
-					}
-					else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"Temperature Alert Percentage Not clicked");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Temperature Alert Percentage Not clicked");
 					}
 					break;
 				}
 				case "ALERT FOR THIS HUMIDITY RANGE": {
 					WLDManageAlerts ale = new WLDManageAlerts(testCase);
 					flag = flag && ale.isAlertforthisRangeHumidityPercentageButtonVissible();
-					flag = flag &&  ale.clickAlertforthisRangeHumidityPercentageButton();
-					if(flag) {
+					flag = flag && ale.clickAlertforthisRangeHumidityPercentageButton();
+					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully clicked on  Humidity Alert Percentage");
-					}
-					else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"Temperature Alert Percentage Not clicked");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Temperature Alert Percentage Not clicked");
 					}
 					break;
 				}
 				}
 			}
-			//Amresh wld
+			// Amresh wld
 			else if (parameters.get(1).equalsIgnoreCase("WLD Settings")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "TEMPERATURE UNIT": {
 					WLDLeakDetectorSettings settings = new WLDLeakDetectorSettings(testCase);
 					flag = flag & settings.clickonTemperatureUnit();
-					if(flag) {
+					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully clicked on  Temp Unit");
-					}
-					else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"Temp unit Not clicked");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Temp unit Not clicked");
 					}
 					break;
 				}
 				case "TEMPERATURE UNIT IN FARENHEIT": {
 					WLDLeakDetectorSettings settings = new WLDLeakDetectorSettings(testCase);
 					flag = flag & settings.clickonTemperatureUnit();
-					if(flag) {
+					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully clicked on  Temp Unit");
-					}
-					else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"Temp unit Not clicked");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Temp unit Not clicked");
 					}
 					break;
 				}
@@ -1468,23 +1466,22 @@ public class SelectElementOnAScreen extends Keyword {
 					flag = click.clickOnManageAlerts();
 					break;
 				}
-				case "GEOFENCING" :{
+				case "GEOFENCING": {
 					flag &= !click.isGeofencingEnabled();
 					flag &= click.toggleGeofencingSwitch(testCase);
 					break;
-					}
-				case "ENHANCED DETERRENCE" :{
+				}
+				case "ENHANCED DETERRENCE": {
 					flag &= !click.isEnhancedDeterrenceEnabled();
-					flag &=	click.ClickOnEnhancedDeterrenceOption();
+					flag &= click.clickOnEnhancedDeterrenceOption(20);
 					break;
-					}
-				case "OUTDOOR MOTION VIEWERS ON IN HOME MODE" :{
+				}
+				case "OUTDOOR MOTION VIEWERS ON IN HOME MODE": {
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						int startx = (dimension.width * 20) / 100;
 						int starty = (dimension.height * 62) / 100;
 						int endx = (dimension.width * 22) / 100;
 						int endy = (dimension.height * 35) / 100;
-						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
 						action.press(10, (int) (dimension.getHeight() * .9))
@@ -1493,24 +1490,23 @@ public class SelectElementOnAScreen extends Keyword {
 					flag &= !click.isOutdoorMotionViewerOnInHomeModeEnabled();
 					flag &= click.toggleOutdoorMotionViewersOnInHomeModeSwitch(testCase);
 					break;
-					}
-				case "ENTRY/EXIT DELAY" :{
+				}
+				case "ENTRY-EXIT DELAY": {
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						int startx = (dimension.width * 20) / 100;
 						int starty = (dimension.height * 62) / 100;
 						int endx = (dimension.width * 22) / 100;
 						int endy = (dimension.height * 35) / 100;
-						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
 						action.press(10, (int) (dimension.getHeight() * .9))
 								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 					}
-					flag &= !click.isEntryExitDelayEnabled();	
+					flag &= !click.isEntryExitDelayEnabled();
 					flag &= click.clickonEntryExistDelayoption();
 					break;
 				}
-				case "BASE STATION VOLUME" :{
+				case "BASE STATION VOLUME": {
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						int startx = (dimension.width * 20) / 100;
 						int starty = (dimension.height * 62) / 100;
@@ -1521,14 +1517,20 @@ public class SelectElementOnAScreen extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
-						action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						action.press(10, (int) (dimension.getHeight() * .9))
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						action.press(10, (int) (dimension.getHeight() * .9))
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						action.press(10, (int) (dimension.getHeight() * .9))
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						action.press(10, (int) (dimension.getHeight() * .9))
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 					}
 					flag &= !click.isBaseStationVolumeEnabled();
 					flag &= click.clickonbasestationvolumeoption();
 					break;
 				}
-				case "RESET WI-FI" :{
+				case "RESET WI-FI": {
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						int startx = (dimension.width * 20) / 100;
 						int starty = (dimension.height * 62) / 100;
@@ -1539,20 +1541,27 @@ public class SelectElementOnAScreen extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
-						action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						action.press(10, (int) (dimension.getHeight() * .9))
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						action.press(10, (int) (dimension.getHeight() * .9))
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 					}
 					flag &= !click.isBaseStationResetWifiEnabled();
 					flag &= click.clickonbasestationresetwifioption();
 					break;
 				}
+				case "DELETE": {
+					flag &= click.clickOnDeleteDASButton();
+					break;
 				}
-				if(flag){
-					Keyword.ReportStep_Pass(testCase, "Successfully click on " + parameters.get(0));
-				}else{
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "failed to click on " +parameters.get(0));
-				}	
-			}else if (parameters.get(1).equalsIgnoreCase("Video Quality Settings")) {
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"failed to click on " + parameters.get(0));
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("Video Quality Settings")) {
 				CameraSettingsScreen Video = new CameraSettingsScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "AUTO": {
@@ -1573,7 +1582,7 @@ public class SelectElementOnAScreen extends Keyword {
 							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
 				}
-			}else if (parameters.get(1).equalsIgnoreCase("Night Vision Settings")) {
+			} else if (parameters.get(1).equalsIgnoreCase("Night Vision Settings")) {
 				CameraSettingsScreen Video = new CameraSettingsScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "AUTO": {
@@ -1594,24 +1603,27 @@ public class SelectElementOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
-				if(flag){
-					Keyword.ReportStep_Pass(testCase, "Successfully click on "+ parameters.get(0));
-				}else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click on " + parameters.get(0));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully click on " + parameters.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
 				}
-				}
-			}else if (parameters.get(1).equalsIgnoreCase("GEOFENCE THIS LOCATION")){
+			} else if (parameters.get(1).equalsIgnoreCase("GEOFENCE THIS LOCATION")) {
 				GeofenceSettings gs = new GeofenceSettings(testCase);
 				switch (parameters.get(0).toUpperCase()) {
-				case "BACK" :{
-					if(gs.clickOnBackButton()){
-						Keyword.ReportStep_Pass(testCase, "Successfully click on "+ parameters.get(0));
-					}else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to click on " + parameters.get(0));
+				case "BACK": {
+					if (gs.clickOnBackButton()) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
 					}
-				}break;
 				}
-			}else if (parameters.get(1).equalsIgnoreCase("ENHANCED DETERRENCE")) {
+					break;
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("ENHANCED DETERRENCE")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "PLAY DOG BARK SOUND": {
@@ -1622,7 +1634,7 @@ public class SelectElementOnAScreen extends Keyword {
 					flag &= bs.clickonPartyIsOnoption();
 					break;
 				}
-				case "VACUMM": {
+				case "VACUUM": {
 					flag &= bs.clickonvacuumoption();
 					break;
 				}
@@ -1632,13 +1644,15 @@ public class SelectElementOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
-				if(flag){
-					Keyword.ReportStep_Pass(testCase, "Successfully selected on "+ parameters.get(0));
-				}else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to selected on " + parameters.get(0));
-				}break;
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully selected on " + parameters.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to selected on " + parameters.get(0));
+					}
+					break;
 				}
-			}else if (parameters.get(1).equalsIgnoreCase("CAMERA SETTINGS")) {
+			} else if (parameters.get(1).equalsIgnoreCase("CAMERA SETTINGS")) {
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "MOTION DETECTION": {
@@ -1658,11 +1672,13 @@ public class SelectElementOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
-				if(flag){
-					Keyword.ReportStep_Pass(testCase, "Successfully selected on "+ parameters.get(0));
-				}else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to selected on " + parameters.get(0));
-				}break;
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully selected on " + parameters.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to selected on " + parameters.get(0));
+					}
+					break;
 				}
 			}
 		} catch (Exception e) {

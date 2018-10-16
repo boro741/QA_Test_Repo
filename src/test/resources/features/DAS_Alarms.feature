@@ -226,10 +226,10 @@ Given user is set to "Home" mode through CHIL
 @Doorsensor_ArmedAway_OpenDoor_SwitchingToNightFromEntryDelay_DoorNotClosedInEntryDelay_Alarm			  @P3 			@DAS_DoorSensor 			@Automated
     Scenario: As a user when I open the door in away mode I should be able to switch to Night from Entry Delay but failed to close the door in entry delay waiting should be taken to alarm
       Given user is set to "Away" mode through CHIL
-      And user launches and logs in to the Lyric application
-     When user navigates to "Security Solution card" screen from the "Dashboard" screen
+      When user launches and logs in to the Lyric application
       And timer ends on user device
-      Then user clears all push notifications
+     Then user navigates to "Security Solution card" screen from the "Dashboard" screen
+      And user clears all push notifications
       When user "door" access sensor "opened"
      Then user selects the "Door Opened" push notification
      When user selects "Switch to Night" from "Entry delay" screen

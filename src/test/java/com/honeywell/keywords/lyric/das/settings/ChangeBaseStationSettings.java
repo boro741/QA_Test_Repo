@@ -1,7 +1,6 @@
 package com.honeywell.keywords.lyric.das.settings;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Dimension;
 
@@ -61,6 +60,7 @@ public class ChangeBaseStationSettings extends Keyword {
 				String value = parameters.get(1).split("%")[0].split("~")[1];
 				if (bs.setValueToVolumeSlider(value)) {
 					Keyword.ReportStep_Pass(testCase, "Successfully set the volume to " + parameters.get(1));
+					DASSettingsUtils.waitForProgressBarToComplete(testCase, "LOADING PROGRESS BAR", 2);
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -125,56 +125,67 @@ public class ChangeBaseStationSettings extends Keyword {
 
 				}
 			} else if (parameters.get(0).equalsIgnoreCase("Geofencing this location")) {
-			} 
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (DASSettingsUtils.EnableGlobalGeofence(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "Succesfully turn on the " + parameters.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed turn on the " + parameters.get(0));
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (DASSettingsUtils.DisableGlobalGeofence(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "Succesfully turn OFF the " + parameters.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed turn OFF the " + parameters.get(0));
+					}
+				}
+			}
 			// Amresh wld edit starts
 			else if (parameters.get(0).equalsIgnoreCase("INDOOR TEMPERATURE ALERTS")) {
 				WLDManageAlerts ale = new WLDManageAlerts(testCase);
-				String status ="";
+				String status = "";
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
-					if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {//Android
-						if(ale.getIndoorTemperatureAlertsToggleValue().equals("OFF")) {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {// Android
+						if (ale.getIndoorTemperatureAlertsToggleValue().equals("OFF")) {
 							status = ale.getIndoorTemperatureAlertsToggleValue();
-							Keyword.ReportStep_Pass(testCase, "Status: "+status);	
+							Keyword.ReportStep_Pass(testCase, "Status: " + status);
 							flag = flag && ale.clickIndoorTemperatureAlertsToggle();
-						} else{	
+						} else {
 							status = ale.getIndoorTemperatureAlertsToggleValue();
-							Keyword.ReportStep_Pass(testCase, "Status: "+status);
+							Keyword.ReportStep_Pass(testCase, "Status: " + status);
 						}
-					}
-					else{//ios
+					} else {// ios
 						flag = flag && ale.isIndoorTemperatureAlertToggleEnabled();
-						if(flag) {
+						if (flag) {
 							Keyword.ReportStep_Pass(testCase, "Status: Enabled");
-						} 
-						else{	
+						} else {
 							flag = flag && ale.clickIndoorTemperatureAlertsToggle();
 							Keyword.ReportStep_Pass(testCase, "Status: Enabled: Clicked");
 						}
 					}
-				}
-				else if(parameters.get(1).equalsIgnoreCase("OFF")) 
-				{if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {//Android
-					if(ale.getIndoorTemperatureAlertsToggleValue().equals("ON")) {
-						status = ale.getIndoorTemperatureAlertsToggleValue();
-						Keyword.ReportStep_Pass(testCase, "Status: "+status);	
-						ale.clickIndoorTemperatureAlertsToggle();
-					} else{	
-						status = ale.getIndoorTemperatureAlertsToggleValue();
-						Keyword.ReportStep_Pass(testCase, "Status: "+status);
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {// Android
+						if (ale.getIndoorTemperatureAlertsToggleValue().equals("ON")) {
+							status = ale.getIndoorTemperatureAlertsToggleValue();
+							Keyword.ReportStep_Pass(testCase, "Status: " + status);
+							ale.clickIndoorTemperatureAlertsToggle();
+						} else {
+							status = ale.getIndoorTemperatureAlertsToggleValue();
+							Keyword.ReportStep_Pass(testCase, "Status: " + status);
+						}
+					} else {// ios
+						flag = flag && ale.isIndoorTemperatureAlertToggleEnabled();
+						if (flag) {
+							ale.clickIndoorTemperatureAlertsToggle();
+							Keyword.ReportStep_Pass(testCase, "Status: Enabled: Clicked");
+						} else {
+							Keyword.ReportStep_Pass(testCase, "Status: Enabled");
+						}
 					}
-				}else{//ios
-					flag = flag && ale.isIndoorTemperatureAlertToggleEnabled();
-					if(flag){
-						ale.clickIndoorTemperatureAlertsToggle();
-						Keyword.ReportStep_Pass(testCase, "Status: Enabled: Clicked");
-					} 
-					else {	
-						Keyword.ReportStep_Pass(testCase, "Status: Enabled");
-					}
 				}
-				}
-			}//Amresh Edit Ends
-			// Amresh wld edit starts
+			} // Amresh Edit Ends
+				// Amresh wld edit starts
 			else if (parameters.get(0).equalsIgnoreCase("UPDATE FREQUENCY")) {
 				WLDLeakDetectorSettings set = new WLDLeakDetectorSettings(testCase);
 				WLDUpdateFrequency freq = new WLDUpdateFrequency(testCase);
@@ -191,7 +202,7 @@ public class ChangeBaseStationSettings extends Keyword {
 					Keyword.ReportStep_Pass(testCase, "Navigated from Frequency Card to Primary Card");
 
 				}
-			if (parameters.get(1).equalsIgnoreCase("THREE TIMES DAILY")) {
+				if (parameters.get(1).equalsIgnoreCase("THREE TIMES DAILY")) {
 					flag = flag & freq.clickOnThriceDailyRadioButton();
 					Keyword.ReportStep_Pass(testCase, "Clicked Three Times Daily");
 					flag = flag & set.navigateFromUpdateFrequencyCardToPrimaryCard();
@@ -199,74 +210,71 @@ public class ChangeBaseStationSettings extends Keyword {
 
 				}
 			}
-			//Amresh Edit Ends
+			// Amresh Edit Ends
 			// Amresh wld edit starts
-						else if (parameters.get(0).equalsIgnoreCase("WLD INDOOR HUMIDITY ALERT")) {
-							WLDManageAlerts ale = new WLDManageAlerts(testCase);
-							String status ="";
-							if (parameters.get(1).equalsIgnoreCase("ON")) {
-								if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {//Android
-									if(ale.getIndoorHumidityAlertsToggleValue().equals("OFF")) {
-										status = ale.getIndoorHumidityAlertsToggleValue();
-										Keyword.ReportStep_Pass(testCase, "Status: "+status);	
-										flag = flag && ale.clickIndoorHumidityAlertsToggle();
-										Keyword.ReportStep_Pass(testCase, "Clicked HumidityAlertsToggle Sucessfully");
-									} else{	
-										status = ale.getIndoorHumidityAlertsToggleValue();
-										Keyword.ReportStep_Pass(testCase, "Status: "+status);
-									}
-								}
-								else{//ios
-									Thread.sleep(5000);
-									if(ale.isIndoorHumidityAlertToggleEnabled()) {
-										Keyword.ReportStep_Pass(testCase, "Status: Enabled");
-									} 
-									else{	
-										flag = flag && ale.clickIndoorHumidityAlertsToggle();
-										Keyword.ReportStep_Pass(testCase, "Clicked HumidityAlertsToggle Sucessfully");
-									}
-								}
-							}
-							else if(parameters.get(1).equalsIgnoreCase("OFF")) 
-							{if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {//Android
-								if(ale.getIndoorHumidityAlertsToggleValue().equals("ON")) {
-									status = ale.getIndoorHumidityAlertsToggleValue();
-									Keyword.ReportStep_Pass(testCase, "Status: "+status);	
-									flag = flag && ale.clickIndoorHumidityAlertsToggle();
-									Keyword.ReportStep_Pass(testCase, "Clicked HumidityAlertsToggle Sucessfully");
-								} else{	
-									status = ale.getIndoorHumidityAlertsToggleValue();
-									Keyword.ReportStep_Pass(testCase, "Status: "+status);
-								}
-							}else{//ios
-								if(ale.isIndoorHumidityAlertToggleEnabled()){
-									flag = flag && ale.clickIndoorHumidityAlertsToggle();
-									Keyword.ReportStep_Pass(testCase, "Clicked HumidityAlertsToggle Sucessfully");
+			else if (parameters.get(0).equalsIgnoreCase("WLD INDOOR HUMIDITY ALERT")) {
+				WLDManageAlerts ale = new WLDManageAlerts(testCase);
+				String status = "";
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {// Android
+						if (ale.getIndoorHumidityAlertsToggleValue().equals("OFF")) {
+							status = ale.getIndoorHumidityAlertsToggleValue();
+							Keyword.ReportStep_Pass(testCase, "Status: " + status);
+							flag = flag && ale.clickIndoorHumidityAlertsToggle();
+							Keyword.ReportStep_Pass(testCase, "Clicked HumidityAlertsToggle Sucessfully");
+						} else {
+							status = ale.getIndoorHumidityAlertsToggleValue();
+							Keyword.ReportStep_Pass(testCase, "Status: " + status);
+						}
+					} else {// ios
+						Thread.sleep(5000);
+						if (ale.isIndoorHumidityAlertToggleEnabled()) {
+							Keyword.ReportStep_Pass(testCase, "Status: Enabled");
+						} else {
+							flag = flag && ale.clickIndoorHumidityAlertsToggle();
+							Keyword.ReportStep_Pass(testCase, "Clicked HumidityAlertsToggle Sucessfully");
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {// Android
+						if (ale.getIndoorHumidityAlertsToggleValue().equals("ON")) {
+							status = ale.getIndoorHumidityAlertsToggleValue();
+							Keyword.ReportStep_Pass(testCase, "Status: " + status);
+							flag = flag && ale.clickIndoorHumidityAlertsToggle();
+							Keyword.ReportStep_Pass(testCase, "Clicked HumidityAlertsToggle Sucessfully");
+						} else {
+							status = ale.getIndoorHumidityAlertsToggleValue();
+							Keyword.ReportStep_Pass(testCase, "Status: " + status);
+						}
+					} else {// ios
+						if (ale.isIndoorHumidityAlertToggleEnabled()) {
+							flag = flag && ale.clickIndoorHumidityAlertsToggle();
+							Keyword.ReportStep_Pass(testCase, "Clicked HumidityAlertsToggle Sucessfully");
 
-								} 
-								else {	
-									Keyword.ReportStep_Pass(testCase, "Status: Enabled");
-								}
-							}
-							}
-						}//Amresh Edit Ends
-			else if (parameters.get(0).equalsIgnoreCase("Geofence this locaiton toggle")){
+						} else {
+							Keyword.ReportStep_Pass(testCase, "Status: Enabled");
+						}
+					}
+				}
+			} // Amresh Edit Ends
+			else if (parameters.get(0).equalsIgnoreCase("Geofence this locaiton toggle")) {
 				GeofenceSettings gs = new GeofenceSettings(testCase);
-				if(parameters.get(1).equalsIgnoreCase("ON")){
-					if(gs.selectOptionFromGeofenceSettings(GeofenceSettings.ENABLEGEOFENCETHISLOCATION)){
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (gs.selectOptionFromGeofenceSettings(GeofenceSettings.ENABLEGEOFENCETHISLOCATION)) {
 						Keyword.ReportStep_Pass(testCase, "Enabled geofence this location toggle option");
-					}else{
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Could not click on global geofence toggle");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on global geofence toggle");
 					}
 					Thread.sleep(3000);
 					if (gs.selectOptionFromGeofenceSettings(GeofenceSettings.ENABLEGEOFENCEALERT)) {
 						Keyword.ReportStep_Pass(testCase, "Enabled geofence this location Alert toggle option");
-					}else{
+					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Could not click on global geofence alert toggle");
 					}
 				}
-			}else if (parameters.get(0).equalsIgnoreCase("Camera ON in Home Mode")) {
+			} else if (parameters.get(0).equalsIgnoreCase("Camera ON in Home Mode")) {
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
 					if (cs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
@@ -296,7 +304,7 @@ public class ChangeBaseStationSettings extends Keyword {
 										"camera ON in home mode is disabled in the Camera settings Screen");
 							}
 						}
-					}else {
+					} else {
 						flag = flag & cs.toggleCameraOnInHomeModeSwitch();
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 						if (!cs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
@@ -305,7 +313,7 @@ public class ChangeBaseStationSettings extends Keyword {
 						}
 					}
 				}
-			}else if (parameters.get(0).equalsIgnoreCase("Camera ON in Night Mode")) {
+			} else if (parameters.get(0).equalsIgnoreCase("Camera ON in Night Mode")) {
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 				TouchAction action = new TouchAction(testCase.getMobileDriver());
@@ -316,7 +324,8 @@ public class ChangeBaseStationSettings extends Keyword {
 					int endy = (dimension.height * 35) / 100;
 					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				} else {
-					action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+					action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+							.release().perform();
 				}
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
 					if (cs.isCameraOnInNightModeSwitchEnabled(testCase)) {
@@ -346,7 +355,7 @@ public class ChangeBaseStationSettings extends Keyword {
 										"camera ON in home mode is disabled in the Camera settings Screen");
 							}
 						}
-					}else {
+					} else {
 						flag = flag & cs.toggleCameraOnInNightModeSwitch();
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 						if (!cs.isCameraOnInNightModeSwitchEnabled(testCase)) {
@@ -433,7 +442,7 @@ public class ChangeBaseStationSettings extends Keyword {
 						}
 					}
 				}
-			}else if (parameters.get(0).equalsIgnoreCase("CAMERA FACE DETECTION ALERTS")) {
+			} else if (parameters.get(0).equalsIgnoreCase("CAMERA FACE DETECTION ALERTS")) {
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
 					if (cs.isCameraFaceDectiontAlertsSwitchEnabled(testCase)) {
@@ -449,8 +458,9 @@ public class ChangeBaseStationSettings extends Keyword {
 							if (!cs.isCameraFaceDectiontAlertsSwitchEnabled(testCase)) {
 								Keyword.ReportStep_Pass(testCase,
 										"Motion Event Alerts is enabled in the Camera settings Screen");
-							}else {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to turn "+  parameters.get(1) +" toggel option ");
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to turn " + parameters.get(1) + " toggel option ");
 							}
 						}
 					} else {
@@ -459,8 +469,9 @@ public class ChangeBaseStationSettings extends Keyword {
 						if (cs.isCameraFaceDectiontAlertsSwitchEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase,
 									"Motion Event Alerts is enabled in the Camera settings Screen");
-						}else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to turn "+  parameters.get(1) +" toggel option ");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to turn " + parameters.get(1) + " toggel option ");
 						}
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
@@ -477,8 +488,9 @@ public class ChangeBaseStationSettings extends Keyword {
 							if (!cs.isCameraFaceDectiontAlertsSwitchEnabled(testCase)) {
 								Keyword.ReportStep_Pass(testCase,
 										"Motion Event Alerts is disabled in the Camera settings Screen");
-							}else {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to turn "+  parameters.get(1) +" toggel option ");
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to turn " + parameters.get(1) + " toggel option ");
 							}
 						}
 					} else {
@@ -487,8 +499,9 @@ public class ChangeBaseStationSettings extends Keyword {
 						if (!cs.isCameraFaceDectiontAlertsSwitchEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase,
 									"Motion Event Alerts is disabled in the Camera settings Screen");
-						}else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to turn "+  parameters.get(1) +" toggel option ");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to turn " + parameters.get(1) + " toggel option ");
 						}
 					}
 				}
@@ -588,9 +601,9 @@ public class ChangeBaseStationSettings extends Keyword {
 					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				} else {
 					action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-					.release().perform();
+							.release().perform();
 					action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-					.release().perform();
+							.release().perform();
 				}
 				if (parameters.get(1).equalsIgnoreCase("OFF")) {
 					if (cs.isMotionSensitivityStatusSetToExpected(testCase, parameters.get(1))) {
@@ -627,11 +640,13 @@ public class ChangeBaseStationSettings extends Keyword {
 						Keyword.ReportStep_Pass(testCase,
 								"Motion Sensitivity Status is already set to: " + parameters.get(1));
 					} else {
-						if(cs.setMotionSensitivityStatusToExpected(testCase, parameters.get(1))){
-							Keyword.ReportStep_Pass(testCase, "Motion Sensitivity Status is set to: " + parameters.get(1));
+						if (cs.setMotionSensitivityStatusToExpected(testCase, parameters.get(1))) {
+							Keyword.ReportStep_Pass(testCase,
+									"Motion Sensitivity Status is set to: " + parameters.get(1));
 						} else {
 							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Motion Sensitivity Status is not set to: " + parameters.get(1));
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Motion Sensitivity Status is not set to: " + parameters.get(1));
 						}
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("MEDIUM")) {
@@ -1115,7 +1130,7 @@ public class ChangeBaseStationSettings extends Keyword {
 					if (ts.isThermostatEmergencyHeatSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase,
 								"Emergency Heat is already enabled in Thermostat Settings Screen");
-						
+
 					} else {
 						flag = flag & ts.toggleThermostatEmergencyHeatSwitch(testCase);
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
@@ -1161,7 +1176,7 @@ public class ChangeBaseStationSettings extends Keyword {
 							if (ts.isThermostatHumidificationSwitchEnabled(testCase)) {
 								Keyword.ReportStep_Pass(testCase, "Humidification Switch is enabled");
 								HBNAEMEASettingsUtils
-								.verifyThermostatHumidificationValueInHumidificationScreen(testCase, inputs);
+										.verifyThermostatHumidificationValueInHumidificationScreen(testCase, inputs);
 							}
 						}
 					} else {
@@ -1186,7 +1201,7 @@ public class ChangeBaseStationSettings extends Keyword {
 							if (!ts.isThermostatHumidificationSwitchEnabled(testCase)) {
 								Keyword.ReportStep_Pass(testCase, "Humidification Switch is disabled");
 								HBNAEMEASettingsUtils
-								.verifyThermostatHumidificationValueInHumidificationScreen(testCase, inputs);
+										.verifyThermostatHumidificationValueInHumidificationScreen(testCase, inputs);
 							}
 						}
 					} else {
@@ -1223,7 +1238,7 @@ public class ChangeBaseStationSettings extends Keyword {
 						if (ts.isThermostatDehumidificationSwitchEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase, "Dehumidification Switch is turned ON");
 							HBNAEMEASettingsUtils
-							.verifyThermostatDehumidificationValueInDehumidificationScreen(testCase, inputs);
+									.verifyThermostatDehumidificationValueInDehumidificationScreen(testCase, inputs);
 						}
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
@@ -1248,7 +1263,7 @@ public class ChangeBaseStationSettings extends Keyword {
 						if (!ts.isThermostatDehumidificationSwitchEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase, "Dehumidification Toggle is turned OFF");
 							HBNAEMEASettingsUtils
-							.verifyThermostatDehumidificationValueInDehumidificationScreen(testCase, inputs);
+									.verifyThermostatDehumidificationValueInDehumidificationScreen(testCase, inputs);
 						}
 					}
 				}
@@ -1263,7 +1278,8 @@ public class ChangeBaseStationSettings extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Failed to set the Sleep Brightness Mode to: " + parameters.get(1));
 				}
-			} else if (parameters.get(0).equalsIgnoreCase("SOUND")|| parameters.get(0).equalsIgnoreCase("SOUND SENSITIVITY	")) {
+			} else if (parameters.get(0).equalsIgnoreCase("SOUND")
+					|| parameters.get(0).equalsIgnoreCase("SOUND SENSITIVITY	")) {
 				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("OFF")) {
 					if (ts.isSoundStatusSetToExpected(testCase, parameters.get(1))) {
@@ -1304,7 +1320,7 @@ public class ChangeBaseStationSettings extends Keyword {
 									"Sound Status is not set to: " + parameters.get(1));
 						}
 					}
-				}else if (parameters.get(1).equalsIgnoreCase("HIGH")) {
+				} else if (parameters.get(1).equalsIgnoreCase("HIGH")) {
 					if (ts.isSoundStatusSetToExpected(testCase, parameters.get(1))) {
 						Keyword.ReportStep_Pass(testCase, "Sound Status is already set to: " + parameters.get(1));
 					} else {
@@ -1573,8 +1589,7 @@ public class ChangeBaseStationSettings extends Keyword {
 				VacationHoldScreen vhs = new VacationHoldScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("OFF")) {
 					if (!vhs.isVacationSwitchInStatScreenEnabled(testCase)) {
-						Keyword.ReportStep_Pass(testCase,
-								"Vacation Toggle is already disabled in the Stats Screen");
+						Keyword.ReportStep_Pass(testCase, "Vacation Toggle is already disabled in the Stats Screen");
 						flag = flag & vhs.toggleVacationDetectionSwitchInStatScreen(testCase);
 						flag = flag & VacationSettingsUtils.waitForProgressBarToComplete(testCase,
 								"LOADING SPINNER BAR", 2);
@@ -1587,13 +1602,12 @@ public class ChangeBaseStationSettings extends Keyword {
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("ON")) {
 					if (vhs.isVacationSwitchInStatScreenEnabled(testCase)) {
-						Keyword.ReportStep_Pass(testCase,
-								"Vacation Toggle is already enabled in the Stats Screen");
+						Keyword.ReportStep_Pass(testCase, "Vacation Toggle is already enabled in the Stats Screen");
 					} else {
 						flag = flag & vhs.toggleVacationDetectionSwitch(testCase);
 					}
 				}
-			}else if (parameters.get(0).equalsIgnoreCase("SECURITY MODE CHANGE")) {
+			} else if (parameters.get(0).equalsIgnoreCase("SECURITY MODE CHANGE")) {
 				BaseStationSettingsScreen mc = new BaseStationSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
 					if (mc.isSecurityModeChangeSwitchEnabled(testCase)) {
@@ -1639,7 +1653,7 @@ public class ChangeBaseStationSettings extends Keyword {
 						}
 					}
 				}
-			}else if (parameters.get(0).equalsIgnoreCase("ENHANCED DETERRENCE")) {
+			} else if (parameters.get(0).equalsIgnoreCase("ENHANCED DETERRENCE")) {
 				BaseStationSettingsScreen mc = new BaseStationSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
 					if (mc.isEnhancedDeterrenceSwitchEnabled(testCase)) {
@@ -1659,7 +1673,7 @@ public class ChangeBaseStationSettings extends Keyword {
 					} else {
 						flag = flag & mc.toggleEnhancedDeterrenceSwitch(testCase);
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-						if (mc.isSecurityModeChangeSwitchEnabled(testCase)) {
+						if (mc.isEnhancedDeterrenceSwitchEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase, "Enhanced Deterrence Toggle is turned ON");
 						}
 					}
@@ -1670,7 +1684,7 @@ public class ChangeBaseStationSettings extends Keyword {
 						flag = flag & mc.toggleEnhancedDeterrenceSwitch(testCase);
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 						if (mc.isEnhancedDeterrenceSwitchEnabled(testCase)) {
-							Keyword.ReportStep_Pass(testCase, "SEnhanced Deterrence Toggle is turned ON");
+							Keyword.ReportStep_Pass(testCase, "Enhanced Deterrence Toggle is turned ON");
 							flag = flag & mc.toggleEnhancedDeterrenceSwitch(testCase);
 							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 							if (!mc.isEnhancedDeterrenceSwitchEnabled(testCase)) {
@@ -1685,7 +1699,7 @@ public class ChangeBaseStationSettings extends Keyword {
 						}
 					}
 				}
-			}else if (parameters.get(0).equalsIgnoreCase("OUTDOOR MOTION VIEWERS ON IN HOME MODE")) {
+			} else if (parameters.get(0).equalsIgnoreCase("OUTDOOR MOTION VIEWERS ON IN HOME MODE")) {
 				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 				TouchAction action = new TouchAction(testCase.getMobileDriver());
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -1694,10 +1708,9 @@ public class ChangeBaseStationSettings extends Keyword {
 					int endx = (dimension.width * 22) / 100;
 					int endy = (dimension.height * 35) / 100;
 					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				} else {
-					action.press(10, (int) (dimension.getHeight() * .9))
-					.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+					action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+							.release().perform();
 				}
 
 				BaseStationSettingsScreen mc = new BaseStationSettingsScreen(testCase);
@@ -1746,7 +1759,7 @@ public class ChangeBaseStationSettings extends Keyword {
 					}
 				}
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 		}

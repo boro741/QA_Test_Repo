@@ -74,6 +74,10 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public boolean isLoadingSpinnerVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LoadingSpinner");
 	}
+	
+	public boolean isLoadingProgressBarVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LoadingProgressBar");
+	}
 
 	public boolean clickOn15SecondsEntryExitDelayOption() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "15SecondsOption");
@@ -822,6 +826,16 @@ public class BaseStationSettingsScreen extends MobileScreens {
 						BaseStationSettingsScreen.VOLUME);
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "VolumeOption");
 			}
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				int startx = (dimension.width * 20) / 100;
+				int starty = (dimension.height * 62) / 100;
+				int endx = (dimension.width * 22) / 100;
+				int endy = (dimension.height * 35) / 100;
+				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+			} else {
+				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+						.release().perform();
+			}
 			return flag;
 		}
 
@@ -861,7 +875,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 							testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
 							BaseStationSettingsScreen.ZWAVEDEVICES);
 				} else {
-					//int counter = 0;
+					// int counter = 0;
 					// while (!MobileUtils.isMobElementExists(objectDefinition, testCase,
 					// "ZwaveDevicesSettingsOption",10) && counter < 3) {
 					LyricUtils.scrollUpAList(testCase,
@@ -1029,7 +1043,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			}
 			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ModelMACID")) {
 				flag = flag & (MobileUtils.getMobElement(objectDefinition, testCase, "ModelMACID").getAttribute("text")
-						.toUpperCase().contains("MAC ID : "));
+						.toUpperCase().contains("MAC ID:"));
 			} else {
 				flag = false;
 			}
@@ -1643,7 +1657,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 	public boolean isManageAlertExist() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ManageAlerts");
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ManageAlerts", 20);
 	}
 
 	public boolean clickOnManageAlerts() {
@@ -1756,17 +1770,35 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.getMobElement(objectDefinition, testCase, "EnhancedDeterrenceDescription").isEnabled();
 	}
 
-	public boolean ClickOnEnhancedDeterrenceOption() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "EnhancedDeterrence");
+	public boolean isEnhancedDeterrenceOptionVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EnhancedDeterrence", timeOut);
+	}
+
+	public boolean clickOnEnhancedDeterrenceOption(int timeOut) {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "EnhancedDeterrence", timeOut)) {
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "EnhancedDeterrence");
+		}
+		return flag;
 	}
 
 	public boolean isEnhancedDeterrenceheadervisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EnhancedDeterrenceHeader");
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EnhancedDeterrenceHeader", 20);
 	}
 
 	public boolean isEnhancedDeterrenceInsideDetererenceDescriptionvisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase,
-				"EnhancedDeterrenceInsideDetererenceDescription");
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "EnhancedDeterrence", 20)) {
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "EnhancedDeterrence");
+			flag &= MobileUtils.isMobElementExists(objectDefinition, testCase,
+					"EnhancedDeterrenceInsideDetererenceDescription", 20);
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase,
+				"EnhancedDeterrenceInsideDetererenceDescription", 20)) {
+			return flag;
+		} else {
+			flag = false;
+		}
+		return flag;
 	}
 
 	public boolean isOutdoorMotionViewerOnInHomeModeVisible() {
@@ -1971,7 +2003,13 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 	public boolean clickonAboutSecurityModesoption() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "AboutSecurityModes");
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AboutSecurityModes", 20)) {
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "AboutSecurityModes");
+		} else {
+			flag = false;
+		}
+		return flag;
 	}
 
 	public boolean isSecurityModesHeader() {
@@ -2011,12 +2049,10 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			int endx = (dimension.width * 22) / 100;
 			int endy = (dimension.height * 35) / 100;
 			testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-			testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 		} else {
 			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
 					.release().perform();
 		}
-
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeNightiCon");
 	}
 
@@ -2031,7 +2067,13 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public boolean isSecurityModeoffiConVisible() {
 		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
-		if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			int startx = (dimension.width * 20) / 100;
+			int starty = (dimension.height * 62) / 100;
+			int endx = (dimension.width * 22) / 100;
+			int endy = (dimension.height * 35) / 100;
+			testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+		} else {
 			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
 					.release().perform();
 		}
@@ -2040,6 +2082,10 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 	public boolean isSecurityModeoffModeVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeoffMode");
+	}
+
+	public boolean isSecurityModeoffTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeoffText");
 	}
 
 	public String getTotalKeyFobsEnrolledCount() {

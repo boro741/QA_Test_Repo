@@ -81,11 +81,11 @@ As user I should be able to control my DAS panel settings from the app
     Examples: 
       | Mode  | 
       | Away  | 
-      | Night | 
+      #| Night | 
   
   #Requirements: Single Location Single DAS Device OSMV required
-  @VerifyDASSettingswhenmodechangeOSMV @Automated @--xrayid:ATER-54577
-  Scenario Outline: As a user I want to verify that all DAS Settings options on away and night mode
+  @VerifyDASSettingswhenmodechangeOSMV @Automated	@--xrayid:ATER-54577
+  Scenario Outline: As a user I want to verify that all DAS Settings options when OSMV is configured on away and night mode
     Given user is set to <Mode> mode through CHIL
      Then user launches and logs in to the Lyric application
      When user navigates to "Security Settings" screen from the "Dashboard" screen
@@ -111,7 +111,7 @@ As user I should be able to control my DAS panel settings from the app
       | Reset Wi-Fi                            | 
     Examples: 
       | Mode  | 
-      | Away  | 
+      #| Away  | 
       | Night | 
   
   #ManageAlert 
@@ -130,9 +130,9 @@ As user I should be able to control my DAS panel settings from the app
     Examples: 
       | Mode  | 
       | Home  | 
-      | Night | 
-      | Away  | 
-      | OFF   | 
+      #| Night | 
+      #| Away  | 
+      #| OFF   | 
   
   #Requirements: DAS panel configured newly, Access sensor
   @VerifyManageAlertsScreenwithAccessSensor @Automated @--xrayid:ATER-54581
@@ -178,6 +178,7 @@ As user I should be able to control my DAS panel settings from the app
       And timer ends on user device
       And user status should be set to <Mode>
       And user receives a <UPush Notification> push notification
+      
     Examples: 
       | Mode | UMode | Push Notification | UPush Notification | 
       | Home | Away  | Set to Away       | Set to Home        | 
@@ -261,7 +262,7 @@ As user I should be able to control my DAS panel settings from the app
      Then user launches and logs in to the Lyric application
      When user navigates to "Security Settings" screen from the "Dashboard" screen
      Then user selects "Geofencing" from "Security Settings" screen
-     Then user should be displayed with "You can perform this action only in home or off mode" pop up
+     Then user should be displayed with "You can perform this action only in home or off mode"
     Examples: 
       | Mode | 
       | Away | 
@@ -278,7 +279,7 @@ As user I should be able to control my DAS panel settings from the app
      Then user changes the "Geofencing Option" to "ON"
       And user navigates to "Security Solution Card" screen from the "DAS Security Settings" screen
      Then user thermostat set <Period> with <Geofence>
-      And user should be displayed with a switching to <UMode> text
+      And user should be displayed with a switching to <Period> text
       And user should be displayed with switching timer
       And timer ends on user device
       And user status should be set to <Period>
@@ -298,21 +299,21 @@ As user I should be able to control my DAS panel settings from the app
   #Requirements: DAS panel configured, No Sensors Required and "geofence this location" should be disabled under global drawer
   @VerifySecuritySettingsGeofenceoptionHomeOffDisbaledgeofencethislocation @Automated @--xrayid:ATER-54604
   Scenario Outline: As a user I should be verify default Manage Alerts Screen on home and off mode 
-    Given user is set to <Mode> through CHIL
-     Then user launches and logs in to the Lyric application 
+    Given user is set to <Mode> mode through CHIL
+     Then user launches and logs in to the Lyric application
       And user changes the "Geofence this location" to "off" 
-     When user navigates to "DAS Security Settings" screen from the "Dashboard" screen
+     When user navigates to "Security Settings" screen from the "Dashboard" screen
      Then user changes the "Geofencing Status" to "ON"
-      And user should receive a "Geofencing" pop up
+      And user should receive a "Geofencing" popup
      When user "DISMISSES" the "Geofencing" popup
      Then user should be displayed with the "DAS security settings" screen
      When user changes the "Geofencing Status" to "ON"
-     Then user "ACCEPTS" the "Geofencing" pop up
+     Then user "ACCEPTS" the "Geofencing" popup
       And user should be displayed with the "Geofence" screen
      When user selects "BACK" from "Geofence this location" screen
      Then user should be displayed with the "Geofence" screen
      When user changes the "Geofencing Status" to "ON"
-     Then user "ACCEPTS" the "Geofencing" pop up
+     Then user "ACCEPTS" the "Geofencing" popup
       And user should be displayed with the "Geofence" screen
      When user changes the "Geofence this location toggle" to "ON" 
      Then user selects "BACK" from "Geofence this location" screen
@@ -324,7 +325,7 @@ As user I should be able to control my DAS panel settings from the app
     Examples: 
       | Mode | 
       | Home | 
-      | Off  | 
+      #| Off  | 
       
   @EnableDisableGeofencing @Automated @--xrayid:ATER-54606
   Scenario: As a user I should be able to enable or disable geofencing on my DAS Panel account   
@@ -344,8 +345,8 @@ As user I should be able to control my DAS panel settings from the app
   @VerifySetUpAmazonAlexa @NotAutomatable @--xrayid:ATER-54611
   Scenario Outline: As a user I should be verify Amazon Alexa setup
     Given user launches and logs in to the Lyric application
-      And user is set to <Mode> through CHIL
-     When user navigates to "Enable Amazon Alexa" screen from "Dashboard"
+      And user is set to <Mode> mode through CHIL
+     Then user navigates to "Enable Amazon Alexa" screen from "Dashboard"
       And user Navigates to "Sign in to Amazon" screen from "Enable Amazon Alexa" screen
       And user enter the <amazon Email ID> and <amazon Password>
      And user select the "Sign In" button
@@ -376,8 +377,8 @@ As user I should be able to control my DAS panel settings from the app
   @VerifySignoutAmazonAlexa @NotAutomatable @--xrayid:ATER-54620
   Scenario Outline: As a user I should be verify Amazon Alexa sign out
     Given user launches and logs in to the Lyric application
-      And user is set to <Mode> through CHIL
-     When user navigates to "Amazon Alexa Voice commands" screen from "Dashboard" screen
+      And user is set to <Mode> mode through CHIL
+     Then user navigates to "Amazon Alexa Voice commands" screen from "Dashboard" screen
       And user selects the "Sign Out" option
      Then user should receive a "Confirm Amazon Alexa Logout" pop up
      When user "accepts" the "Confirm Amazon Alexa Logout" popup
@@ -395,7 +396,7 @@ As user I should be able to control my DAS panel settings from the app
   @VerifyGeofencecrossinsensorfault @NotAutomatable @--xrayid:ATER-54623
   Scenario Outline: As a user I should be verify geofence cross when sensor has error
     Given user launches and logs in to the Lyric application
-      And user is set to <Mode> through CHIL
+      And user is set to <Mode> mode through CHIL
      When user enables "Geofencing" option from the "Security Settings" screen
      And user DAS panel <Sensors> has <Error>
      And user cross the geofence <Gmode> to <GMode update>
@@ -423,9 +424,9 @@ As user I should be able to control my DAS panel settings from the app
   @VerifyOKSecurityVoiceCommandsHomeOFFNight   @NotAutomatable @--xrayid:ATER-54627
   Scenario Outline: As a user I should be able to enable disable OK Security Voice Commands in offline and away mode
     Given user launches and logs in to the Lyric application
-      And user is set to <Mode> through CHIL
-     When user Navigates to "Security settings" screen from "dashboard" screen
-     And user navigates to "Voice Commands" screen from "Security settings" screen
+      And user is set to <Mode> mode through CHIL
+     Then user Navigates to "Security settings" screen from "dashboard" screen
+     When user navigates to "Voice Commands" screen from "Security settings" screen
      Then user should display with "OK security voice commands" and with the following "Voice commands" options
       | Commands          | 
       | Trigger Phrase    | 
@@ -451,8 +452,8 @@ As user I should be able to control my DAS panel settings from the app
   Scenario Outline: As a user I should be able to enable disable OK Security Voice Commands in offline and away mode
     Given user launches and logs in to the Lyric application
      When user navigates to "Voice Commands" screen from the "Dashboard" screen
-      And user is set to <Mode> through CHIL
-     And user navigates to "Security settings" screen from " dashboard" screen
+      And user is set to <Mode> mode through CHIL
+     Then user navigates to "Security settings" screen from " dashboard" screen
       And user navigates to "Voice Commands" screen from "Security settings" screen
       Then user should display with disabled "OK Security voice commands" and with the following "Voice commands" options
       | Commands          | 
@@ -463,12 +464,13 @@ As user I should be able to control my DAS panel settings from the app
      Then user should display the "This Feature is not available in <Mode> mode" pop up
     Examples: 
       | Mode    | 
-      | Offline | 
+      #| Offline | 
       | Away    | 
   
-  @VerifyEnhancedDeterrenceHomeOFFmode @Autiomated @--xrayid:ATER-54632
+
+  @VerifyEnhancedDeterrenceHomeOFFmode @Automated
   Scenario Outline: As a user i should able to enable, disable and change the deterrence music
-    Given user is set to <Mode> through CHIL
+    Given user is set to <Mode> mode through CHIL
      Then user launches and logs in to the Lyric application
      When user navigates to "security settings" screen from the "Dashboard" screen
      Then user navigates to "Enhanced deterrence" screen from the "DAS security settings" screen
@@ -494,7 +496,7 @@ As user I should be able to control my DAS panel settings from the app
      When user changes the "Enhanced deterrence" to "OFF"
      Then user navigates back and forth in "Enhanced deterrence" screen
      Then "Enhanced deterrence" value should be updated to "OFF" on "Enhanced deterrence" screen
-     Then user should be not displayed with the following "Deterrence settings" options:
+     Then user should not be displayed with the following "Deterrence settings" options:
       | Settings            | 
       | Select Chime        | 
       | Play Dog bark sound | 
@@ -503,24 +505,24 @@ As user I should be able to control my DAS panel settings from the app
     Examples: 
       | Mode | 
       | Home | 
-      | OFF  | 
+      #| OFF  | 
   
   @VerifyEnhancedDeterrenceAwayNightmode @Automated @--xrayid:ATER-54640
   Scenario Outline: As a user i should able to verify enable or disable in away or night mode
-    Given user is set to <Mode> through CHIL
+    Given user is set to <Mode> mode through CHIL
      Then user launches and logs in to the Lyric application
      When user navigates to "security settings" screen from the "Dashboard" screen
-     Then user navigates to "Enhanced deterrence" screen from the "DAS security settings" screen
+     #Then user navigates to "Enhanced deterrence" screen from the "DAS security settings" screen
      When user selects "Enhanced deterrence" from "Security Settings" screen
-     Then user should be displayed with "You can perform this action only in home or off mode" pop up
+     Then user should be displayed with "You can perform this action only in home or off mode"
     Examples: 
       | Mode  | 
       | Away  | 
-      | Night | 
+      #| Night | 
   
   @VerifyoutdorrmotionviewersoninhomemodeHomeOFFmode @Automated @--xrayid:ATER-54642
   Scenario Outline: As a user i should able to verify enable or disable in away or night mode
-    Given user is set to <Mode> through CHIL
+    Given user is set to <Mode> mode through CHIL
      Then user launches and logs in to the Lyric application
      When user navigates to "security settings" screen from the "Dashboard" screen
      Then user changes the "Outdoor Motion viewers on in home mode" to "ON"
@@ -532,19 +534,19 @@ As user I should be able to control my DAS panel settings from the app
     Examples: 
       | Mode | 
       | Home | 
-      | Off  | 
+      #| Off  | 
   
   @Verifyoutdorrmotionviewersoninhomemodenightawaymode @Automated @--xrayid:ATER-54644
   Scenario Outline: As a user i should able to verify enable or disable in away or night mode
-    Given user is set to <Mode> through CHIL
+    Given user is set to <Mode> mode through CHIL
      Then user launches and logs in to the Lyric application
-     When user navigates to "DAS security settings" screen from the "Dashboard" screen
+     When user navigates to "security settings" screen from the "Dashboard" screen
      Then user selects "Outdoor Motion viewers on in home mode" from "Security Settings" screen
-      And user should be displayed with "You can perform this action only in home or off mode" pop up
+      And user should be displayed with "You can perform this action only in home or off mode"
     Examples: 
       | Mode  | 
       | Away  | 
-      | Night | 
+      #| Night | 
   
   #Entry exit delay 
   
@@ -599,33 +601,41 @@ As user I should be able to control my DAS panel settings from the app
      When user selects "60" from "Entry-Exit Delay" screen
      Then "Entry-Exit Delay" value should be updated to "60" on "Entry-Exit Delay" screen
      When user navigates to "Security Settings" screen from the "Entry-Exit Delay" screen
-     Then "Entry-Exit Delay" value should be updated to "30" on "Entry-Exit Delay" screen
+     Then "Entry-Exit Delay" value should be updated to "60" on "Security Settings" screen
+     When user navigates to "Entry-Exit Delay" screen from the "Security Settings" screen
+     Then "Entry-Exit Delay" value should be updated to "60" on "Entry-Exit Delay" screen
+      And user should be displayed with the following "Entry-Exit Delay" options:
+      | Delays | 
+      | 15     | 
+      | 30     | 
+      | 45     | 
+      | 60     | 
     Examples:
       | Mode | 
       | home | 
-      | Off  | 
+      #| Off  | 
   
   #Requirements Single Location Single DAS Device, No Sensors Required
   @DASEntryExitDelaySettingsNightAway @Automated @--xrayid:ATER-54648
   Scenario Outline: As user I want to verify if entry exit delay time displayed on settings and user can update the value in home and off mode
-    Given user is set to <Mode> through CHIL
+    Given user is set to <Mode> mode through CHIL
      Then user launches and logs in to the Lyric application
-     When user navigates to "DAS security settings" screen from the "Dashboard" screen
-     Then user selects "Entry/Exit Delay" from "Security Settings" screen
-      And user should be displayed with "You can perform this action only in home or off mode" pop up
+     When user navigates to "security settings" screen from the "Dashboard" screen
+     Then user selects "Entry-Exit Delay" from "Security Settings" screen
+      And user should be displayed with "You can perform this action only in home or off mode"
     Examples: 
       | Mode  | 
       | Away  | 
-      | Night | 
+      #| Night | 
   #|Offline|
   
   #Requirements Single Location Single DAS Device, No Sensors Required
   @DASAboutSecurityModesVerification  @Automated @--xrayid:ATER-54649
   Scenario Outline: As user I want to verify About Security modes screen
-    Given user launches and logs in to the Lyric application
-      And user is set to <Mode> Through CHIL
-     Then user navigates to "Security Settings" screen from the "Dashboard" screen
-     When user navigates to "About security modes" screen from "DAS security settings" screen
+    #Given user is set to <Mode> mode through CHIL
+     Given user launches and logs in to the Lyric application
+     When user navigates to "security settings" screen from the "Dashboard" screen
+     When user navigates to "About security modes" screen from the "DAS security settings" screen
      Then user should be displayed with the following "Security Modes" options:
       | Options                | 
       | Home Mode icon         | 
@@ -643,16 +653,16 @@ As user I should be able to control my DAS panel settings from the app
     Examples: 
       | Mode    | 
       | Home    | 
-      | Away    | 
-      | Night   | 
-      | Off     | 
+      #| Away    | 
+      #| Night   | 
+      #| Off     | 
       #| Offline | 
   
   #Requirements Single Location Single DAS Device, No Sensors Required
   @ChangeBaseStationVolumeHomeOff @Automated @--xrayid:ATER-54650
   Scenario Outline: As a user I should be able to change the base station volume in Home and off mode
     Given user launches and logs in to the Lyric application
-      And User is set to <Mode> through CHIL
+      And User is set to <Mode> mode through CHIL
      When user navigates to "Security Settings" screen from the "Dashboard" screen
       And user changes the "Base Station Volume" to "~0%"
      Then "Base Station Volume" value should be updated to "~0%" on "Security Settings" screen
@@ -663,20 +673,20 @@ As user I should be able to control my DAS panel settings from the app
     Examples: 
       | Mode | 
       | Home | 
-      | Off  | 
+      #| Off  | 
   
   #Requirements Single Location Single DAS Device, No Sensors Required
   @ChangeBaseStationVolumeNightAwayOffline @Automated @--xrayid:ATER-54651
   Scenario Outline: As a user I should be able to change the base station volume in away, night, offline mode
-    Given user is set to <Mode> through CHIL
-     Then user launches and logs in to the Lyric application
-     When user navigates to "DAS security settings" screen from the "Dashboard" screen
+   Given user launches and logs in to the Lyric application
+      And User is set to <Mode> mode through CHIL
+     When user navigates to "Security Settings" screen from the "Dashboard" screen
      Then user selects "Base Station Volume" from "Security Settings" screen
-      And user should be displayed with "You can perform this action only in home or off mode" pop up
+      And user should be displayed with "You can perform this action only in home or off mode"
     Examples: 
       | Mode | 
-      | Home | 
-      | Off  | 
+      | Away | 
+      #| Night  | 
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
   @ResetWiFi   @NotAutomatable @--xrayid:ATER-54652
@@ -801,7 +811,7 @@ As user I should be able to control my DAS panel settings from the app
   #Requirements: Single Location Single DAS Device, No Sensors Required
   @VerifyDASPanelModelAndFirmwareDetails @Automated @--xrayid:ATER-54658
   Scenario Outline: As a user I want to view that all model, firmware and panel details
-    Given user is set to <Mode> through CHIL
+    Given user is set to <Mode> mode through CHIL
      Then user launches and logs in to the Lyric application
      When user navigates to "Base Station Configuration" screen from the "Dashboard" screen
      Then user should be displayed with the following "Base Station Configuration" options:
@@ -817,22 +827,23 @@ As user I should be able to control my DAS panel settings from the app
     Examples:
       | Mode  | 
       | Home  | 
-      | Away  | 
-      | Night | 
-      | Off   | 
+      #| Away  | 
+      #| Night | 
+      #| Off   | 
   #|Offline|
   
+
   @DeleteDASBaseStationAwayNightOffline @Automated @--xrayid:ATER-54659
-  Scenario Outline: As a user I want to rename my Base station through the application
-    Given user is set to <Mode> through CHIL
-     Then user launches and logs in to the Lyric application
-     When And user navigates to "Base Station Configuration" screen from the "Dashboard" screen
+  Scenario Outline: DAS should not be deleted when user tries to delete the DAS panel which is in Away, Night or Offline status
+   Given user is set to <Mode> mode through CHIL
+     When user launches and logs in to the Lyric application
+     And user navigates to "Base Station Configuration" screen from the "Dashboard" screen
      Then user selects "Delete" from "Security Settings" screen
-      And user should be displayed with "You can perform this action only in home or off mode" pop up
+      And user should be displayed with "You can perform this action only in home or off mode"
     Examples: 
       | Mode  | 
       | Away  | 
-      | Night | 
+      #| Night | 
   #|Offline|
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
@@ -847,7 +858,7 @@ As user I should be able to control my DAS panel settings from the app
     Examples: 
       | Mode | 
       | Home | 
-      | Off  | 
+      #| Off  | 
   
   #LYDAS-7075,LYDAS-4088,LYDAS-4058,LYDAS-4011,LYDAS-3294,LYDAS-3271,LYDAS-3116,LYDAS-2982,LYDAS-2808,LYDAS-2610,LYDAS-2563,LYDAS-2497,LYDAS-2408,LYDAS-2404,LYDAS-2231,LYDAS-2167
   #Requirements: Single Location Single DAS Device, No Sensors Required

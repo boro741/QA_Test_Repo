@@ -2,11 +2,13 @@ package com.honeywell.lyric.relayutils;
 
 public class RelayConstants {
 	public static final String RelayBoardCOMPort = "COM29";
-	public static final String RelayBoardTTYPort = "/dev/tty.usbmodem1441";
+	//public static final String RelayBoardTTYPort = "/dev/tty.usbmodem1441";
+	public static final String RelayBoardTTYPort = "/dev/tty.usbmodem1461";
 	
 	//public static String RSI_Contact_Sensor_1_SerialNO= "3508142677";//window
-	public static String RSI_Contact_Sensor_1_SerialNO= "289407302";//window
+	//public static String RSI_Contact_Sensor_1_SerialNO= "289407302";//window
 	//public static String RSI_Contact_Sensor_1_SerialNO= "289407736";//window
+	public static String RSI_Contact_Sensor_1_SerialNO= "289407707";//window
 	public static String RSI_Contact_Sesor_1_Enroll_ON = "0:1";  // Window
 	public static String RSI_Contact_Sesor_1_Enroll_OFF = "0:0";	// Window
 	public static String RSI_Contact_Sesor_1_Tamper_ON = "1:1";  // Window
@@ -15,7 +17,8 @@ public class RelayConstants {
 	public static String RSI_Contact_Sesor_1_Close = "2:0";   // Window
 	
 	//public static String RSI_Contact_Sensor_2_SerialNO= "289407736";//Door
-	public static String RSI_Contact_Sensor_2_SerialNO= "3508142677";//Door
+	//public static String RSI_Contact_Sensor_2_SerialNO= "3508142677";//Door
+	public static String RSI_Contact_Sensor_2_SerialNO= "289407707";//window
 	public static String RSI_Contact_Sesor_2_Enroll_ON = "3:1";  // Door
 	public static String RSI_Contact_Sesor_2_Enroll_OFF = "3:0"; // Door
 	public static String RSI_Contact_Sesor_2_Tamper_ON = "4:1";  // Door
