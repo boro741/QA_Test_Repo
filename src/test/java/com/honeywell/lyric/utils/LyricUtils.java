@@ -1735,9 +1735,23 @@ public class LyricUtils {
 							}
 						}
 						
+					} else if (testCase.getPlatform().toUpperCase().contains("ANDROID")){
+						if (inputs.isRunningOn("SauceLabs")) {
+							if (os.isRootedDevicePopupVisible(1)) {
+								os.clickAcceptOnRootedDevicePopup();
+							}
+							
+						}
+						if (os.isAllowButtonVisible(5)) {
+							os.clickOnAllowButton();
+						}
+						if(cm.isNextButtonVisible(2)){
+							return true;
+						}
 					}	
-					return false;
-				}});
+							return false;
+				}
+			});
 			if (isEventReceived) {
 				Keyword.ReportStep_Pass(testCase, "Login to Lyric : Successfully navigated to HomeScreen");
 			} else {

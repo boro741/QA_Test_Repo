@@ -76,7 +76,7 @@ Examples:
 |Mode |
 |Cool| 
 #|Heat |
-#|Auto |
+##|Auto |
 #|Cool |
 #|Heat |
 
