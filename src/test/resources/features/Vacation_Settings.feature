@@ -69,7 +69,7 @@ And user navigates to "Vacation" screen from the "Dashboard" screen
 When user changes the "Vacation" to "On"
 And user navigates back and forth in "Vacation" screen
 When user selects the stat to edit
-Then user should be displayed with default set point value
+Then the user should be displayed with default set point value
 And user should be displayed with temperature values within maximum minimum limit
 
 

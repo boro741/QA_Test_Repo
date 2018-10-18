@@ -211,10 +211,13 @@ public class JasperVacation {
 				Keyword.ReportStep_Pass(testCase, "Vacation End time from CHIL device information is: " + endDate);
 				SimpleDateFormat adHocDateFormat = new SimpleDateFormat("MMM dd");
 				try {
+					
 					endDateToBeDisplayed = adHocDateFormat.format(vacationDateFormat.parse(endDate));
+					
 					Keyword.ReportStep_Pass(testCase,
 							"Vacation End date from CHIL device information to be displayed is: "
 									+ endDateToBeDisplayed);
+					
 				} catch (Exception e) {
 					flag = false;
 					Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -255,15 +258,33 @@ public class JasperVacation {
 							"Verify Vacation Status On Solutions Card : Vacation is on in the Solutions card and displayed end date is correct: "
 									+ adHocText);
 				} else {
-					if (adHocText.contains("Vacation")) {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Verify Vacation Status On Solutions Card : Vacation is on in the Solutions card but displayed end date is incorrect: "
-										+ adHocText);
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Verify Vacation Status On Solutions Card : Vacation is not on in the Solutions card");
+					try {
+						SimpleDateFormat date24Format = new SimpleDateFormat("HH:mm");
+	                    SimpleDateFormat date12Format = new SimpleDateFormat("hh:mm a");
+	                    SimpleDateFormat vacationDateFormat1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+	                   
+	                    String endTime = date24Format.format(vacationDateFormat1.parse(endDate));
+	                    String adhoctexttime = adhoc.getVacationStatusInSolutionsCardScreen().replace("Vacation Until ", "");
+	                    adhoctexttime = date24Format.format(date12Format.parse(adhoctexttime));
+	                    adhoctexttime = convertTimetoUTCTime(testCase, "2018-09-12T"+ adhoctexttime+":00");
+	                    if(adhoctexttime.contains(endTime))
+						{
+	                    	Keyword.ReportStep_Pass(testCase,
+	    							"Verify Vacation Status On Solutions Card : Vacation is on in the Solutions card and displayed end date is correct: "
+	    									+ adhoctexttime);
+						}
+	                    else if (adHocText.contains("Vacation")) {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Verify Vacation Status On Solutions Card : Vacation is on in the Solutions card but displayed end date is incorrect: "
+											+ adHocText);
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Verify Vacation Status On Solutions Card : Vacation is not on in the Solutions card");
+						}
+					}catch(Exception e) {
+						System.out.println("");
 					}
 				}
 			}
