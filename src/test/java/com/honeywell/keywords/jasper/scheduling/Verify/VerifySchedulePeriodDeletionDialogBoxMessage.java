@@ -31,7 +31,7 @@ public class VerifySchedulePeriodDeletionDialogBoxMessage extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user should be displayed with confirm pop for period deletion$")
+	@KeywordStep(gherkins = "^verify user should be displayed with confirm pop for period deletion$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");

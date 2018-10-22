@@ -76,7 +76,7 @@ so that i can change Time and Set points of individual periods and Days
       And user creates "Same Every Day" schedule with default schedule value
       And user selects "SINGLE DAY" view
      When user edit Time schedule by deleting "Atleast 1 period"
-     Then the user should be displayed with confirm pop for period deletion
+     Then verify user should be displayed with confirm pop for period deletion
       And Period is "not deleted" on "canceling" Dialog box
   
   
@@ -150,7 +150,7 @@ Examples:
       And user creates "Same Every Day" schedule with default schedule value
       And user selects "SINGLE DAY" view
      When user edit Time schedule by deleting <Periods>
-     Then the user should be displayed with confirm pop for period deletion
+     Then verify user should be displayed with confirm pop for period deletion
       And Period is "deleted" on "confirming" Dialog box
       And user navigates to "Thermostat Solution Card" screen from the "Thermostat Dashboard" screen 
      Then verify "Time" schedule successfully gets edited
@@ -192,7 +192,7 @@ Examples:
       And user creates "Different On Weekdays" schedule with default schedule value
       And user selects "SINGLE DAY" view
      When user edit Time schedule by deleting <Periods>
-     Then the user should be displayed with confirm pop for period deletion
+     Then verify user should be displayed with confirm pop for period deletion
       And Period is "deleted" on "confirming" Dialog box
       And user navigates to "Thermostat Solution Card" screen from the "Thermostat Dashboard" screen 
      Then verify "Time" schedule successfully gets edited
@@ -234,7 +234,7 @@ Examples:
       And user creates "Everyday" schedule with default schedule value
       And user selects "SINGLE DAY" view
     When user edit Time schedule by deleting <Day> of <Periods>
-   Then the user should be displayed with confirm pop for period deletion
+   Then verify user should be displayed with confirm pop for period deletion
     And Verify the the schedule delete pop up <text> <Day>
   
     Examples: 
@@ -285,7 +285,7 @@ Then Verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
       And user creates "Same Every Day" schedule with default schedule value
       And user selects "Grouped Days" view
      When user edit Time schedule by deleting <day> of <Periods>
-     Then the user should be displayed with confirm pop for period deletion
+     Then verify user should be displayed with confirm pop for period deletion
       And Verify the the schedule delete pop up <text> <day>
   
     Examples: 
@@ -302,7 +302,7 @@ Then Verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
       And user creates "Different On Weekdays" schedule with default schedule value
       And user selects "Grouped Days" view
      When user edit Time schedule by deleting <Day> of <Periods>
-     Then the user should be displayed with confirm pop for period deletion
+     Then verify user should be displayed with confirm pop for period deletion
       And Verify the the schedule delete pop up <text> <Day>
   
     Examples: 

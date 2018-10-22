@@ -495,7 +495,7 @@ When user has "Temporary" status
 Then verify the "Temporary" on the "PRIMARY CARD" screen
 When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
 And user creates "Same Every Day" schedule with default schedule value
-Then verify the "Following schedule" on the "PRIMARY CARD" screen
+#Then verify the "Following schedule" on the "PRIMARY CARD" screen
 And user "should be updated" with the <Mode> option 
 And the user should be displayed with "respective period" setpoint value
 
@@ -545,8 +545,8 @@ And the user should be displayed with "respective period" setpoint value
 Examples:
  | Mode	| Period | Geofence		| Schedule status		| Sleep 	|
 #| HEAT	| Home	 | UserArrived	| Using Home Settings	| Without	|
- | HEAT	| Sleep	 | UserArrived	| Using Sleep Settings	| With		| 
-#| Heat	| Away	 | UserDeparted	| Using Sleep Settings	| With		| 
+ | HEAT	| Sleep	 | UserArrived	| Using Home Settings	| With		| 
+#| Heat	| Away	 | UserDeparted	| Using Home Settings	| With		| 
 
 @AdhocOverrideCreateGeofencebasescheduleOFFTemporaryHoldEMEA @Automated @--xrayid:ATER-55312
 Scenario Outline: To Verify create geofence schedule in off mode
@@ -655,7 +655,7 @@ When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
 #And user creates "Same Every Day" schedule with default schedule value
 Then user creates "Same Every Day" schedule following specific <Period> time
 And user changes system mode to "Heat"
-Then verify the "Following schedule" on the "PRIMARY CARD" screen
+#Then verify the "Following schedule" on the "PRIMARY CARD" screen
 And user "should be updated" with the "Heat" option 
 And the user should be displayed with "respective period" setpoint value
 Examples:

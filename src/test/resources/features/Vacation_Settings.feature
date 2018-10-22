@@ -185,7 +185,7 @@ Scenario Outline: As a user I want to edit set points for individual stat from p
 When vacation mode is "active"
 And user launches and logs in to the Lyric application
 When user edits set point from <Card>
-Then user should be displayed with Updated setpoint in <Postcondition>
+Then verify user should be displayed with Updated setpoint in <Postcondition>
 
 Examples: 
 		| Card				| Postcondition	|

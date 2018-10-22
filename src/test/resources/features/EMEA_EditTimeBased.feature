@@ -130,10 +130,10 @@ Then Verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
   Scenario Outline: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
     Given user launches and logs in to the Lyric application
       And user navigates to "Scheduling" screen from the "Dashboard" screen
-      And user creates "Everyday" schedule with default schedule value
+      And user creates "Same Every Day" schedule with default schedule value
       And user selects "SINGLE DAY" view
      When user edit Time schedule by deleting <Periods>
-     Then the user should be displayed with confirm pop for period deletion
+     Then verify user should be displayed with confirm pop for period deletion
       And Period is "not deleted" on "canceling" Dialog box
   
     Examples: 
@@ -150,7 +150,7 @@ Then Verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
       And user creates "Same Every Day" schedule with default schedule value
       And user selects "SINGLE DAY" view
      When user edit Time schedule by deleting <Periods>
-     Then the user should be displayed with confirm pop for period deletion
+     Then verify user should be displayed with confirm pop for period deletion
      And Period is "deleted" on "confirming" Dialog box
       And user navigates to "Thermostat Solution Card" screen from the "Thermostat Dashboard" screen 
       When user selects "SINGLE DAY" view
@@ -186,58 +186,58 @@ Then Verify the "Using Sleep Settings" on the "PRIMARY CARD" screen
       And user creates "Same Every Day" schedule with default schedule value
       And user selects "SINGLE DAY" view
      When user edit Time schedule by deleting <Day> of <Periods>
-     Then the user should be displayed with confirm pop for period deletion
+     Then verify user should be displayed with confirm pop for period deletion
       And Verify the the schedule delete pop up <text> <Day>  
    
     Examples: 
        | Day | Periods          |  text |
-	#| Monday |P1 | Delete 1 Period for |
-	#| Monday |P2 | Delete 2 Period for |
-	#| Monday |P3 |Delete 3 Period for |
-	#| Monday |P4 |Delete 4 Period for |
-	#| Tuesday |P1 | Delete 1 Period for |
-	#| Tuesday |P2 | Delete 2 Period for |
-	#| Tuesday |P3 |Delete 3 Period for |
-	#| Tuesday |P4 |Delete 4 Period for |
-	#| Wednesday  |P1 | Delete 1 Period for |
-	#| Wednesday |P2 | Delete 2 Period for |
-	#| Wednesday |P3 |Delete 3 Period for |
-	#| Wednesday |P4 |Delete 4 Period for |
-	#| Thursday   |P1 | Delete 1 Period for |
-	#| Thursday |P2 | Delete 2 Period for |
-	#| Thursday |P3 |Delete 3 Period for |
-	#| Thursday |P4 |Delete 4 Period for |
-	#| Friday   |P1 | Delete 1 Period for |
-	#| Friday |P2 | Delete 2 Period for |
-	#| Friday |P3 |Delete 3 Period for |
-	#| Friday |P4 |Delete 4 Period for |
-	#| Saturday    |P1 | Delete 1 Period for |
-	#| Saturday |P2 | Delete 2 Period for |
-	| Saturday |P3 |Delete 3 Period for |
-	#| Saturday |P4 |Delete 4 Period for |
-	#| Sunday    |P1 | Delete 1 Period for |
-	#| Sunday |P2 | Delete 2 Period for |
-	#| Sunday |P3 |Delete 3 Period for |
-	#| Sunday |P4 |Delete 4 Period for |
+	#| Monday |P1 | Delete 1 period for |
+	#| Monday |P2 | Delete 2 period for |
+	#| Monday |P3 |Delete 3 period for |
+	#| Monday |P4 |Delete 4 period for |
+	#| Tuesday |P1 | Delete 1 period for |
+	#| Tuesday |P2 | Delete 2 period for |
+	#| Tuesday |P3 |Delete 3 period for |
+	#| Tuesday |P4 |Delete 4 period for |
+	#| Wednesday  |P1 | Delete 1 period for |
+	#| Wednesday |P2 | Delete 2 period for |
+	#| Wednesday |P3 |Delete 3 period for |
+	#| Wednesday |P4 |Delete 4 period for |
+	#| Thursday   |P1 | Delete 1 period for |
+	#| Thursday |P2 | Delete 2 period for |
+	#| Thursday |P3 |Delete 3 period for |
+	#| Thursday |P4 |Delete 4 period for |
+	#| Friday   |P1 | Delete 1 period for |
+	#| Friday |P2 | Delete 2 period for |
+	#| Friday |P3 |Delete 3 period for |
+	#| Friday |P4 |Delete 4 period for |
+	#| Saturday    |P1 | Delete 1 period for |
+	#| Saturday |P2 | Delete 2 period for |
+	| Saturday |P3 |Delete 3 period for |
+	#| Saturday |P4 |Delete 4 period for |
+	#| Sunday    |P1 | Delete 1 period for |
+	#| Sunday |P2 | Delete 2 period for |
+	#| Sunday |P3 |Delete 3 period for |
+	#| Sunday |P4 |Delete 4 period for |
 	
 @EMEA_DeletingDefaultPeriodDifferentOnWeekendWeekdays @Automated
   Scenario Outline: As a user i want to delete periods in Different On Weekdays schedule so that only those periods are deleted
     Given user launches and logs in to the Lyric application
      And user navigates to "Scheduling" screen from the "Dashboard" screen
-    And user creates "Different On Weekdays" schedule with default schedule value
+     And user creates "Different On Weekdays" schedule with default schedule value
      And user selects "Grouped days" view
      When user edit Time schedule by deleting <Day> of <Periods>
-    Then the user should be displayed with confirm pop for period deletion
+     Then verify user should be displayed with confirm pop for period deletion
       And Verify the the schedule delete pop up <text> <Day> 
   
     Examples: 
        | Day | Periods          |  text |
-	| Monday - Friday |P1 | Delete 1 Period for |
-	#| Monday - Friday |P2 | Delete 2 Period for |
-#	| Monday - Friday|P3 |Delete 3 Period for |
-#	| Monday - Friday|P4 |Delete 4 Period for |
-#| Saturday - Sunday  |P1 | Delete Home Period for  |
-#	| Saturday - Sunday  |P2 | Delete Away Period for |
-#	| Saturday - Sunday  |P3 |Delete Sleep Period for  |
-#	| Saturday - Sunday  |P4 |Delete Wake Period for  |
+	| Monday - Friday |P1 | Delete 1 period for |
+	#| Monday - Friday |P2 | Delete 2 period for |
+#	| Monday - Friday|P3 |Delete 3 period for |
+#	| Monday - Friday|P4 |Delete 4 period for |
+#| Saturday - Sunday  |P1 | Delete Home period for  |
+#	| Saturday - Sunday  |P2 | Delete Away period for |
+#	| Saturday - Sunday  |P3 |Delete Sleep period for  |
+#	| Saturday - Sunday  |P4 |Delete Wake period for  |
 

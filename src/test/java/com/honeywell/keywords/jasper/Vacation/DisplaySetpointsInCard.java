@@ -38,7 +38,7 @@ public class DisplaySetpointsInCard extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user should be displayed with Updated setpoint in (.*)$")
+	@KeywordStep(gherkins = "^verify user should be displayed with Updated setpoint in \"(.+)\"$")
 	public boolean keywordSteps() throws KeywordException {
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
 		CHILUtil chUtil;

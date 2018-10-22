@@ -40,8 +40,11 @@ public class VerifyScheduleDeletePopUp extends Keyword {
 		SchedulingScreen ss = new SchedulingScreen(testCase);
 		try {
 						String content = ss.getDeleteMessageContent();
+						//content = "Delete 1 Period for Monday - Friday?";
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-						if (content.equalsIgnoreCase(exampleData.get(0) + " " + exampleData.get(1)+"?")){
+							//System.out.println(exampleData.get(0) + " "+ exampleData.get(1)+"?");
+							//System.out.println(content);
+						if (content.equalsIgnoreCase(exampleData.get(0) + " "+ exampleData.get(1)+"?")){
 							
 							Keyword.ReportStep_Pass(testCase,
 									"Period name on pop up is matching with -" + content);

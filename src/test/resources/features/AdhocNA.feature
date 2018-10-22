@@ -84,9 +84,9 @@ And verify respective <Period> period setpoint values
 Examples:
  | Mode  | ChangeMode | Period | 
  | Heat  | Cool       | WAKE | 
- | Heat  | Cool       | AWAY |
- | Heat  | Cool       | HOME |
- | Heat  | Cool       | SLEEP|   
+ #| Heat  | Cool       | AWAY |
+ #| Heat  | Cool       | HOME |
+ #| Heat  | Cool       | SLEEP|   
 #| Cool  | Auto       | WAKE | 
 #| Cool  | Auto       | AWAY |
 #| Cool  | Auto       | HOME |
@@ -1272,7 +1272,7 @@ When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
 Then user creates "Same Every Day" schedule following specific <Period> time
 And verify the "Following schedule NOT DISPLAYED" on the "PRIMARY CARD" screen
 When user changes system mode to <Mode>
-And verify the "Following schedule" on the "PRIMARY CARD" screen
+#And verify the "Following schedule" on the "PRIMARY CARD" screen
 And verify respective <Period> period setpoint values
 
 Examples:
@@ -1949,8 +1949,8 @@ When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
 Then user creates "Same Every Day" schedule following specific <Period> time
 And verify the "Following schedule NOT DISPLAYED" on the "PRIMARY CARD" screen
 When user changes system mode to <Mode>
-And verify the "Following schedule" on the "PRIMARY CARD" screen
-And verify respective <Period> period setpoint values
+#And verify the "Following schedule" on the "PRIMARY CARD" screen
+#And verify respective <Period> period setpoint values
 
 Examples:
  |Mode		| Currentschedule 	|Period |

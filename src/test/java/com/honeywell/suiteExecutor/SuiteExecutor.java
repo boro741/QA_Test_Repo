@@ -320,7 +320,7 @@ public class SuiteExecutor {
 					"ScheduleONOFFHBgeofencebase",
 					"ScheduleONOFFHBswitchingmodes",
 					"ScheduleONOFFHBgeofencebasefencecross",
-					"ScheduleONMultistatHB", 
+					//"ScheduleONMultistatHB", 
 					//"ScheduleOFFMultistatHB",
 					
 					/**Vacation-Settings-HBB**/
@@ -649,7 +649,7 @@ public class SuiteExecutor {
 					"ScheduleONOFFHBgeofencebase",
 					"ScheduleONOFFHBswitchingmodes",
 					"ScheduleONOFFHBgeofencebasefencecross",
-					"ScheduleONMultistatHB", 
+					//"ScheduleONMultistatHB", 
 					//"ScheduleOFFMultistatHB",
 					
 					/**Vacation-Settings-HBB**/

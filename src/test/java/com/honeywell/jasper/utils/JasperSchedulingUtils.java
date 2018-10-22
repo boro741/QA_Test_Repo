@@ -15993,7 +15993,6 @@ public class JasperSchedulingUtils {
 			inputs.setInputValue(InputVariables.PERIOD_NAME_NA, periodToSelect);
 			inputs.setInputValue(InputVariables.PERIOD_NAME_NA, periodToSelect);
 		}
-		periodToSelect = "Wake";
 		List<WebElement> scheduleDayHeaders = null;
 		int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ScheduleScreen");
