@@ -728,9 +728,9 @@ public class SelectElementOnAScreen extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
 						action.press(10, (int) (dimensions.getHeight() * .9))
-								.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
+						.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
 						action.press(10, (int) (dimensions.getHeight() * .9))
-								.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
+						.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
 					}
 					flag = flag & settingScreen.clickOnFirmwareDetailsOption();
 					break;
@@ -753,9 +753,9 @@ public class SelectElementOnAScreen extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
 						action.press(10, (int) (dimensions.getHeight() * .9))
-								.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
+						.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
 						action.press(10, (int) (dimensions.getHeight() * .9))
-								.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
+						.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
 					}
 					flag = flag & bs.clickOnSignalStrengthandTestOption();
 					break;
@@ -1351,7 +1351,7 @@ public class SelectElementOnAScreen extends Keyword {
 						}
 					}
 				}
-					break;
+				break;
 				}
 			}
 			// Amresh wld
@@ -1485,7 +1485,7 @@ public class SelectElementOnAScreen extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
 						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 					}
 					flag &= !click.isOutdoorMotionViewerOnInHomeModeEnabled();
 					flag &= click.toggleOutdoorMotionViewersOnInHomeModeSwitch(testCase);
@@ -1500,7 +1500,7 @@ public class SelectElementOnAScreen extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
 						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 					}
 					flag &= !click.isEntryExitDelayEnabled();
 					flag &= click.clickonEntryExistDelayoption();
@@ -1518,13 +1518,13 @@ public class SelectElementOnAScreen extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
 						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 					}
 					flag &= !click.isBaseStationVolumeEnabled();
 					flag &= click.clickonbasestationvolumeoption();
@@ -1542,9 +1542,9 @@ public class SelectElementOnAScreen extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
 						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 					}
 					flag &= !click.isBaseStationResetWifiEnabled();
 					flag &= click.clickonbasestationresetwifioption();
@@ -1603,12 +1603,12 @@ public class SelectElementOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
-					if (flag) {
-						Keyword.ReportStep_Pass(testCase, "Successfully click on " + parameters.get(0));
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Failed to click on " + parameters.get(0));
-					}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Successfully click on " + parameters.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to click on " + parameters.get(0));
+				}
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("GEOFENCE THIS LOCATION")) {
 				GeofenceSettings gs = new GeofenceSettings(testCase);
@@ -1621,7 +1621,7 @@ public class SelectElementOnAScreen extends Keyword {
 								"Failed to click on " + parameters.get(0));
 					}
 				}
-					break;
+				break;
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("ENHANCED DETERRENCE")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
@@ -1644,53 +1644,59 @@ public class SelectElementOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
-					if (flag) {
-						Keyword.ReportStep_Pass(testCase, "Successfully selected on " + parameters.get(0));
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Failed to selected on " + parameters.get(0));
-					}
-					break;
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Successfully selected on " + parameters.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to selected on " + parameters.get(0));
+				}
+				break;
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("CAMERA SETTINGS")) {
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "MOTION DETECTION": {
-					flag &= cs.clickOnMotionDetectionLabel();
-					break;
+					if (cs.isMotionDetectionLabelVisible(testCase, 10)){
+						flag &= cs.clickOnMotionDetectionLabel();
+				 }
+				break;
 				}
-				case "NIGHT VISION": {
-					flag &= cs.clickOnNightVisionLabel();
-					break;
+			case "NIGHT VISION": {
+				if (cs.isNightVisionLabelVisible(10)){
+				flag &= cs.clickOnNightVisionLabel();
 				}
-				case "VIDEO QUALITY": {
-					flag &= cs.clickOnVideoQualityLabel();
-					break;
-				}
-				default: {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							parameters.get(0) + " - Input not handled in " + parameters.get(1));
-				}
-					if (flag) {
-						Keyword.ReportStep_Pass(testCase, "Successfully selected on " + parameters.get(0));
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Failed to selected on " + parameters.get(0));
-					}
-					break;
-				}
+				break;
 			}
-		} catch (Exception e) {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+			case "VIDEO QUALITY": {
+				if (cs.isVideoQualityLabelVisible(10)){
+				flag &= cs.clickOnVideoQualityLabel();
+				}
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						parameters.get(0) + " - Input not handled in " + parameters.get(1));
+			}
+			if (flag) {
+				Keyword.ReportStep_Pass(testCase, "Successfully selected on " + parameters.get(0));
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Failed to selected on " + parameters.get(0));
+			}
+			break;
+			}
 		}
-		return flag;
+	} catch (Exception e) {
+		flag = false;
+		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 	}
+	return flag;
+}
 
-	@Override
-	@AfterKeyword
-	public boolean postCondition() throws KeywordException {
-		return flag;
-	}
+@Override
+@AfterKeyword
+public boolean postCondition() throws KeywordException {
+	return flag;
+}
 }

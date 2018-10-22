@@ -3,7 +3,7 @@ package com.honeywell.lyric.relayutils;
 public class RelayConstants {
 	public static final String RelayBoardCOMPort = "COM29";
 	//public static final String RelayBoardTTYPort = "/dev/tty.usbmodem1441";
-	public static final String RelayBoardTTYPort = "/dev/tty.usbmodem1461";
+	public static final String RelayBoardTTYPort = "/dev/tty.usbmodem1411";
 	
 	//public static String RSI_Contact_Sensor_1_SerialNO= "3508142677";//window
 	//public static String RSI_Contact_Sensor_1_SerialNO= "289407302";//window

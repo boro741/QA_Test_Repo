@@ -169,9 +169,9 @@ As user I should be able to configure camera settings from the app
     Examples: 
       | State | 
       | On    | 
-     | Off   | 
-  |Offline|
-  |Upgrade|
+#     | Off   | 
+#  |Offline|
+#  |Upgrade|
   
   @DAS_CameraEnableDisableMotionDetection @P2  @Automated @--xrayid:ATER-54477
   Scenario: As a user I should be able to enable or disable motion detection 
@@ -270,9 +270,9 @@ As user I should be able to configure camera settings from the app
     Examples: 
       | Zone   | 
       | Zone 1 | 
-      | Zone 2 | 
-      | Zone 3 | 
-      | Zone 4 | 
+#      | Zone 2 | 
+#      | Zone 3 | 
+#      | Zone 4 | 
   
   @VerifyMultipleZonesOverlapError  @P3  @Notautomatable @--xrayid:ATER-54488
   Scenario: As a user I want to verify sensitivity area on my zones should not overlap
@@ -347,22 +347,22 @@ As user I should be able to configure camera settings from the app
       And user camera is set to "ON"
      When user navigates to "Camera Settings" screen from the "Camera Solution Card" screen
      Then user navigates to "Video Quality Settings" screen from the "Camera Settings" screen
-      And user should be displayed with the following "DAS Video Quality Settings" options: 
+     And user should be displayed with the following "DAS Video Quality Settings" options:
       | Settings | 
       | Auto     | 
       | Low      | 
-      | High     | 
-     When user selects "Auto" from "DAS Video Quality Settings" screen
+      | High     |
+     When user selects "Auto" from "Video Quality Settings" screen
      Then "Video Quality" value should be updated to "Auto" on "Video Quality Settings" screen 
      When user navigates to "Camera Settings" screen from the "Video Quality Settings" screen 
      Then "Video Quality" value should be updated to "Auto" on "Camera Settings" screen
      When user navigates to "Video Quality Settings" screen from the "Camera Settings" screen
-     Then user should be displayed with the following "DAS Video Quality Settings" options: 
+     Then user should be displayed with the following "DAS Video Quality Settings" options:
       | Settings | 
       | Auto     | 
       | Low      | 
       | High     | 
-     When user selects "Low" from "DAS Video Quality Settings" screen 
+     When user selects "Low" from "Video Quality Settings" screen 
      Then "Video Quality" value should be updated to "Low" on "Video Quality Settings" screen 
      When user navigates to "Camera Settings" screen from the "Video Quality Settings" screen 
      Then "Video Quality" value should be updated to "Low" on "Camera Settings" screen
@@ -372,8 +372,8 @@ As user I should be able to configure camera settings from the app
       | Auto     | 
       | Low      | 
       | High     | 
-     When user selects "High" from "DAS Video Quality Settings" screen 
-     Then "Video Quality" value should be updated to "High" on "Video Quality Settings" screen 
+     When user selects "High" from "Video Quality Settings" screen 
+     Then "Video Quality" value should be updated to "High" on "Video Quality Settings" screen
      When user navigates to "Camera Settings" screen from the "Video Quality Settings" screen 
      Then "Video Quality" value should be updated to "High" on "Camera Settings" screen
   
@@ -389,9 +389,9 @@ As user I should be able to configure camera settings from the app
     Examples: 
       | State | 
       | On    | 
-      | Off   | 
-  |Offline|
-  |Upgrade|
+#      | Off   | 
+#  |Offline|
+#  |Upgrade|
   
   @DAS_VerifyErrorMessagesCameraSettings @P4 @NotAutomable @--xrayid:ATER-54498
   Scenario: As a user I should be shown with error messages on failure to set any values in camera settings screen
@@ -470,7 +470,7 @@ As user I should be able to configure camera settings from the app
       | Mode | 
       | Away | 
   #|Offline|
-      | Night | 
+#      | Night | 
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
   @VerifyNightVisioncameraoff @Automated @--xrayid:ATER-54506
@@ -500,6 +500,6 @@ As user I should be able to configure camera settings from the app
       | Mode | 
       | Away | 
   #|Offline|
-      | Night | 
+#      | Night | 
   
   

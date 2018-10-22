@@ -44,7 +44,13 @@ public class CameraSolutionCardScreen extends MobileScreens {
 	}
 
 	public boolean clickOnCameraOnButton() {
+		if (testCase.getMobileDriver().getPlatformName().contains("Android")){
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraOnButton");
+		}
+		else{
+			testCase.getMobileDriver().findElementByXPath("//*[@value='Online']").click();
+			return true;
+		}
 	}
 
 	public boolean isCameraOffButtonVisible(int timeOut) {
@@ -52,7 +58,13 @@ public class CameraSolutionCardScreen extends MobileScreens {
 	}
 
 	public boolean clickOnCameraOffButton() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraOffButton");
+		if (testCase.getMobileDriver().getPlatformName().contains("Android")){
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraOffButton");
+			}
+			else{
+				testCase.getMobileDriver().findElementByXPath("//*[@value='Offline']").click();
+				return true;
+			}
 	}
 	
 	public boolean isLoadingSpinnerVisible() {

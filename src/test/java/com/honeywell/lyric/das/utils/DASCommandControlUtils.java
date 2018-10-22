@@ -17,7 +17,11 @@ public class DASCommandControlUtils {
 	public static boolean changeStatus(TestCases testCase, String statusToSelect, TestCaseInputs inputs) {
 		boolean flag = true;
 		SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+		if (testCase.getMobileDriver().getPlatformName().contains("Android")){
 		flag = flag & sc.clickOnState(statusToSelect, inputs);
+		} else{
+		testCase.getMobileDriver().findElementById(statusToSelect).click();
+		}
 		return flag;
 	}
 

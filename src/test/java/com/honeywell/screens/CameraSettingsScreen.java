@@ -40,9 +40,12 @@ public class CameraSettingsScreen extends MobileScreens {
 	}
 
 	public boolean clickOnMotionDetectionLabel() {
-		boolean flag = true;
-		flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "MotionDetectionLabel");
-		return flag;
+		if (testCase.getMobileDriver().getPlatformName().contains("Android")){
+		 return MobileUtils.clickOnElement(objectDefinition, testCase, "MotionDetectionLabel");
+		} else{
+			testCase.getMobileDriver().findElementByName("Camera_Settings_1_0_cell").click();
+			return true;
+		}
 	}
 
 	public boolean isBackButtonVisibleInMotionDetectionSettingsScreen() {
@@ -86,9 +89,12 @@ public class CameraSettingsScreen extends MobileScreens {
 	}
 
 	public boolean clickOnNightVisionLabel() {
-		boolean flag = true;
-		flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "NightVisionLabel");
-		return flag;
+		if (testCase.getMobileDriver().getPlatformName().contains("Android")){
+			 return MobileUtils.clickOnElement(objectDefinition, testCase, "NightVisionLabel");
+			} else{
+				testCase.getMobileDriver().findElementByName("Camera_Settings_1_2_cell").click();
+				return true;
+			}
 	}
 
 	public boolean isBackButtonVisibleInNightVisionSettingsScreen() {
@@ -104,9 +110,12 @@ public class CameraSettingsScreen extends MobileScreens {
 	}
 
 	public boolean clickOnVideoQualityLabel() {
-		boolean flag = true;
-		flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "VideoQualityLabel");
-		return flag;
+		if (testCase.getMobileDriver().getPlatformName().contains("Android")){
+			 return MobileUtils.clickOnElement(objectDefinition, testCase, "VideoQualityLabel");
+			} else{
+				testCase.getMobileDriver().findElementByName("Camera_Settings_1_3_cell").click();
+				return true;
+			}
 	}
 
 	public boolean isBackButtonVisibleInVideoQualitySettingsScreen() {
@@ -162,7 +171,7 @@ public class CameraSettingsScreen extends MobileScreens {
 	}
 
 	public boolean isMotionEventAlertsSwitchEnabled(TestCases testCase) throws Exception {
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionEventAlertsSwitch", 10)) {
+		Thread.sleep(5000);
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				if (MobileUtils.getMobElement(objectDefinition, testCase, "MotionEventAlertsSwitch").getText()
 						.equalsIgnoreCase("ON")) {
@@ -171,46 +180,48 @@ public class CameraSettingsScreen extends MobileScreens {
 					return false;
 				}
 			} else {
-				if (MobileUtils.getMobElement(objectDefinition, testCase, "MotionEventAlertsSwitch")
+				if (testCase.getMobileDriver().findElementByName("MOTIONDETECTED_toggle")
 						.getAttribute("value").equalsIgnoreCase("1")) {
 					return true;
 				} else {
 					return false;
 				}
-
 			}
-		} else {
-			throw new Exception("Could not find Motion Event Alert Switch");
-		}
 	}
 	public boolean toggleMotionEventAlertsSwitch(TestCases testCase) {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "MotionEventAlertsSwitch");
+		} else{
+			testCase.getMobileDriver().findElementByName("MOTIONDETECTED_toggle").click();
+			return true;
+		}
 	}
-	
-	public boolean isCameraFaceDectiontAlertsSwitchEnabled(TestCases testCase) throws Exception {
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraFaceDetectionAlertsSwitch", 10)) {
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (MobileUtils.getMobElement(objectDefinition, testCase, "CameraFaceDetectionAlertsSwitch").getText()
-						.equalsIgnoreCase("ON")) {
-					return true;
-				} else {
-					return false;
-				}
-			} else {
-				if (MobileUtils.getMobElement(objectDefinition, testCase, "CameraFaceDetectionAlertsSwitch")
-						.getAttribute("value").equalsIgnoreCase("1")) {
-					return true;
-				} else {
-					return false;
-				}
 
+	public boolean isCameraFaceDectiontAlertsSwitchEnabled(TestCases testCase) throws Exception {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.getMobElement(objectDefinition, testCase, "CameraFaceDetectionAlertsSwitch").getText()
+					.equalsIgnoreCase("ON")) {
+				return true;
+			} else {
+				return false;
 			}
 		} else {
-			throw new Exception("Could not find Motion Event Alert Switch");
+			if (testCase.getMobileDriver().findElementByXPath("//*[@label='FaceRecognization_toggle']")
+					.getAttribute("value").equalsIgnoreCase("1")) {
+				return true;
+			} else {
+				return false;
+			}
+
 		}
 	}
 	public boolean toggleCameraFaceDetectionAlertsSwitch(TestCases testCase) {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraFaceDetectionAlertsSwitch");
+		if (testCase.getMobileDriver().getPlatformName().contains("Android")){
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraFaceDetectionAlertsSwitch");
+		} else{
+			testCase.getMobileDriver().findElementByXPath("//*[@label='FaceRecognization_toggle']").click();
+			return true;
+		}
 	}
 	public boolean isCameraFaceDetectionAlertSwitchEnabled(TestCases testCase) throws Exception {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatIndoorTempAlertSwitch", 20)) {
@@ -233,7 +244,7 @@ public class CameraSettingsScreen extends MobileScreens {
 			throw new Exception("Could not find Thermostat Indoor Temperature Alert Switch");
 		}
 	}
-	
+
 
 	public boolean isSoundEventAlertsSwitchEnabled(TestCases testCase) throws Exception {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SoundEventAlertsSwitch", 10)) {
@@ -263,29 +274,30 @@ public class CameraSettingsScreen extends MobileScreens {
 	}
 
 	public boolean isCameraMotionDetectionSwitchEnabled(TestCases testCase) throws Exception {
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionDetectionSwitch", 20)) {
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (MobileUtils.getMobElement(objectDefinition, testCase, "MotionDetectionSwitch").getText()
-						.equalsIgnoreCase("ON")) {
-					return true;
-				} else {
-					return false;
-				}
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.getMobElement(objectDefinition, testCase, "MotionDetectionSwitch").getText()
+					.equalsIgnoreCase("ON")) {
+				return true;
 			} else {
-				if (MobileUtils.getMobElement(objectDefinition, testCase, "MotionDetectionSwitch").getAttribute("value")
-						.equalsIgnoreCase("1")) {
-					return true;
-				} else {
-					return false;
-				}
+				return false;
 			}
 		} else {
-			throw new Exception("Could not find the Camera Motion detection Switch");
+			if (testCase.getMobileDriver().findElementByName("Motion Detection_toggle").getAttribute("value")
+					.equalsIgnoreCase("1")) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 
 	public boolean toggleCameraMotionDetectionSwitch(TestCases testCase) {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "MotionDetectionSwitch");
+		if (testCase.getMobileDriver().getPlatformName().contains("Android")){
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "MotionDetectionSwitch");
+		} else{
+			testCase.getMobileDriver().findElementByName("Motion Detection_toggle").click();
+			return true;
+		}
 	}
 
 	public boolean isMotionDetectionZoneEnabled() {
@@ -360,10 +372,10 @@ public class CameraSettingsScreen extends MobileScreens {
 	public boolean isCameraEmailNotificationsTextVisible(String emailValue) {
 		System.out.println(MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraStatusEmailNotification")
 				&& MobileUtils.getFieldValue(objectDefinition, testCase, "CameraStatusEmailNotification")
-						.equalsIgnoreCase(emailValue));
+				.equalsIgnoreCase(emailValue));
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraStatusEmailNotification")
 				&& MobileUtils.getFieldValue(objectDefinition, testCase, "CameraStatusEmailNotification")
-						.equalsIgnoreCase(emailValue)) {
+				.equalsIgnoreCase(emailValue)) {
 			return true;
 		} else {
 			return false;
@@ -374,7 +386,7 @@ public class CameraSettingsScreen extends MobileScreens {
 	public boolean isSoundEmailNotificationTextVisible(String emailValue) {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SoundEventEmailNotification")
 				&& MobileUtils.getFieldValue(objectDefinition, testCase, "SoundEventEmailNotification")
-						.equalsIgnoreCase(emailValue)) {
+				.equalsIgnoreCase(emailValue)) {
 			return true;
 		} else {
 			return false;
@@ -394,7 +406,7 @@ public class CameraSettingsScreen extends MobileScreens {
 		} else {
 			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionEventEmailNotification")
 					&& MobileUtils.getFieldValue(objectDefinition, testCase, "MotionEventEmailNotification")
-							.equalsIgnoreCase(emailValue)) {
+					.equalsIgnoreCase(emailValue)) {
 				return true;
 			} else {
 				return false;
@@ -540,11 +552,11 @@ public class CameraSettingsScreen extends MobileScreens {
 
 	public boolean isCameraMotionDetectionStatusYES(TestCases testCase) {
 		boolean flag = true;
-			if (MobileUtils.getFieldValue(objectDefinition, testCase, "MotionDetectionStatus").equalsIgnoreCase("ON")) {
-				return flag;
-			} else {
-				flag = false;
-			}
+		if (MobileUtils.getFieldValue(objectDefinition, testCase, "MotionDetectionStatus").equalsIgnoreCase("ON")) {
+			return flag;
+		} else {
+			flag = false;
+		}
 		return flag;
 	}
 
@@ -557,7 +569,7 @@ public class CameraSettingsScreen extends MobileScreens {
 	}
 
 	public boolean clickOnNOButtonInAreasOutsideZonesWarningPopup() {
-			return MobileUtils.clickOnElement(objectDefinition, testCase, "NOButton");
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "NOButton");
 	}
 
 	public boolean clickOnYESButtonInAreasOutsideZonesWarningPopup() {
@@ -595,7 +607,7 @@ public class CameraSettingsScreen extends MobileScreens {
 		}
 		return flag;
 	}
-	
+
 	public boolean navigateBackAndForthInCameraSettingsScreen(TestCases testCase) {
 		PrimaryCard pc = new PrimaryCard(testCase);
 		boolean flag = true;
@@ -660,9 +672,9 @@ public class CameraSettingsScreen extends MobileScreens {
 			if (MobileUtils.isMobElementExists("XPATH", "//android.widget.TextView[@text= '" + zoneToBeSelected + "']",
 					testCase)
 					&& MobileUtils
-							.getMobElement(testCase, "XPATH",
-									"//android.widget.TextView[@text= '" + zoneToBeSelected + "']")
-							.getAttribute("checked").equalsIgnoreCase("true")) {
+					.getMobElement(testCase, "XPATH",
+							"//android.widget.TextView[@text= '" + zoneToBeSelected + "']")
+					.getAttribute("checked").equalsIgnoreCase("true")) {
 				Keyword.ReportStep_Pass(testCase, zoneToBeSelected + " is already selected");
 			} else {
 				Keyword.ReportStep_Pass(testCase, zoneToBeSelected + " is unselected");
@@ -675,15 +687,15 @@ public class CameraSettingsScreen extends MobileScreens {
 							.getAttribute("checked").equalsIgnoreCase("false")) {
 						Keyword.ReportStep_Pass(testCase,
 								"Enable Detection Zone button is: " + MobileUtils
-										.getMobElement(objectDefinition, testCase, "EnableOrDisableDetectionZone")
-										.getAttribute("checked"));
+								.getMobElement(objectDefinition, testCase, "EnableOrDisableDetectionZone")
+								.getAttribute("checked"));
 						MobileUtils.clickOnElement(objectDefinition, testCase, "EnableOrDisableDetectionZone");
 						if (MobileUtils.getMobElement(objectDefinition, testCase, "EnableOrDisableDetectionZone")
 								.getAttribute("checked").equalsIgnoreCase("true")) {
 							Keyword.ReportStep_Pass(testCase,
 									"Enable Detection Zone button is changed to: " + MobileUtils
-											.getMobElement(objectDefinition, testCase, "EnableOrDisableDetectionZone")
-											.getAttribute("checked"));
+									.getMobElement(objectDefinition, testCase, "EnableOrDisableDetectionZone")
+									.getAttribute("checked"));
 						}
 					}
 				}
@@ -692,14 +704,15 @@ public class CameraSettingsScreen extends MobileScreens {
 			if (MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeButton[@name = '" + zoneToBeSelected + "']",
 					testCase)
 					&& MobileUtils
-							.getMobElement(testCase, "XPATH",
-									"//XCUIElementTypeButton[@name= '" + zoneToBeSelected + "']")
-							.getAttribute("value") != null) {
+					.getMobElement(testCase, "XPATH",
+							"//XCUIElementTypeButton[@name= '" + zoneToBeSelected + "']")
+					.getAttribute("value") != null) {
 				Keyword.ReportStep_Pass(testCase, zoneToBeSelected + " is already selected");
 			} else {
 				Keyword.ReportStep_Pass(testCase, zoneToBeSelected + " is unselected");
-				MobileUtils.clickOnElement(testCase, "XPATH",
-						"//XCUIElementTypeButton[@name = '" + zoneToBeSelected + "']");
+//				MobileUtils.clickOnElement(testCase, "XPATH",
+//						"//XCUIElementTypeButton[@name = '" + zoneToBeSelected + "']");
+                testCase.getMobileDriver().findElementByXPath("//XCUIElementTypeButton[@name = '" + zoneToBeSelected.replaceAll("\\s","") + "']").click();
 				Keyword.ReportStep_Pass(testCase, "Clicked on the zone: " + zoneToBeSelected);
 				if (MobileUtils.isMobElementExists(objectDefinition, testCase, "EnableOrDisableDetectionZone")) {
 					Keyword.ReportStep_Pass(testCase, "Enable Detection Zone button is displayed");
@@ -712,7 +725,7 @@ public class CameraSettingsScreen extends MobileScreens {
 								.equalsIgnoreCase("enable")) {
 							Keyword.ReportStep_Pass(testCase,
 									"Enable Detection Zone button is changed to: " + MobileUtils
-											.getFieldValue(objectDefinition, testCase, "EnableOrDisableDetectionZone"));
+									.getFieldValue(objectDefinition, testCase, "EnableOrDisableDetectionZone"));
 						}
 					}
 				} else {
@@ -736,10 +749,10 @@ public class CameraSettingsScreen extends MobileScreens {
 					"//XCUIElementTypeStaticText[@name='" + motionSensitivityOption.toLowerCase() + "_subTitle" + "']",
 					testCase)
 					&& MobileUtils
-							.getMobElement(testCase, "XPATH",
-									"//XCUIElementTypeStaticText[@name='" + motionSensitivityOption.toLowerCase()
-											+ "_subTitle" + "']")
-							.getAttribute("value").equalsIgnoreCase(motionSensitivityOption.toLowerCase())) {
+					.getMobElement(testCase, "XPATH",
+							"//XCUIElementTypeStaticText[@name='" + motionSensitivityOption.toLowerCase()
+							+ "_subTitle" + "']")
+					.getAttribute("value").equalsIgnoreCase(motionSensitivityOption.toLowerCase())) {
 				return flag;
 			} else {
 				if (motionSensitivityOption.toLowerCase().equals("normal")) {
@@ -747,12 +760,12 @@ public class CameraSettingsScreen extends MobileScreens {
 					if (MobileUtils.isMobElementExists("XPATH",
 							"//XCUIElementTypeStaticText[@name='" + motionSensitivityOption.toLowerCase() + "_subTitle"
 									+ "']",
-							testCase)
+									testCase)
 							&& MobileUtils
-									.getMobElement(testCase, "XPATH",
-											"//XCUIElementTypeStaticText[@name='"
-													+ motionSensitivityOption.toLowerCase() + "_subTitle" + "']")
-									.getAttribute("value").equalsIgnoreCase("normal")) {
+							.getMobElement(testCase, "XPATH",
+									"//XCUIElementTypeStaticText[@name='"
+											+ motionSensitivityOption.toLowerCase() + "_subTitle" + "']")
+							.getAttribute("value").equalsIgnoreCase("normal")) {
 						return flag;
 					} else {
 						flag = false;
@@ -795,22 +808,20 @@ public class CameraSettingsScreen extends MobileScreens {
 				}
 			}
 		} else {
-			if (MobileUtils.isMobElementExists("XPATH",
-					"//XCUIElementTypeCell[@name='" + motionSensitivityStatus.toLowerCase() + "_cell"
-							+ "']/XCUIElementTypeImage[contains(@name, '" + motionSensitivityStatus.toLowerCase()
-							+ "_Image" + "')]",
-					testCase)) {
+			if (MobileUtils.isMobElementExists("XPATH","//XCUIElementTypeCell[@name='" + motionSensitivityStatus.toLowerCase() + "_cell"
+								+ "']/XCUIElementTypeImage[@name='" + motionSensitivityStatus.toLowerCase() + "_Image"
+								+ "']",testCase)){
 				return flag;
 			} else {
 				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-						.release().perform();
+				.release().perform();
 				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-						.release().perform();
+				.release().perform();
 				if (MobileUtils.isMobElementExists("XPATH",
 						"//XCUIElementTypeCell[@name='" + motionSensitivityStatus.toLowerCase() + "_cell"
-								+ "']/XCUIElementTypeImage[contains(@name, '" + motionSensitivityStatus.toLowerCase()
-								+ "_Image" + "')]",
-						testCase)) {
+								+ "']/XCUIElementTypeImage[@name='" + motionSensitivityStatus.toLowerCase() + "_Image"
+								+ "']",
+								testCase)) {
 					return flag;
 				} else {
 					if (motionSensitivityStatus.toLowerCase().equals("normal")) {
@@ -819,7 +830,7 @@ public class CameraSettingsScreen extends MobileScreens {
 								"//XCUIElementTypeCell[@name='" + motionSensitivityStatus.toLowerCase() + "_cell"
 										+ "']/XCUIElementTypeImage[contains(@name, '"
 										+ motionSensitivityStatus.toLowerCase() + "_Image" + "')]",
-								testCase)) {
+										testCase)) {
 							return flag;
 						} else {
 							flag = false;
@@ -848,7 +859,7 @@ public class CameraSettingsScreen extends MobileScreens {
 						.isMobElementExists("XPATH",
 								"//*[@resource-id=" + "\'" + "com.honeywell.android.lyric:id/"
 										+ motionSensitivityStatus.toLowerCase() + "\'" + "]",
-								testCase))
+										testCase))
 						&& counter < 5) {
 					flag = flag & MobileUtils.clickOnElement(testCase, "XPATH", "//*[@resource-id=" + "\'"
 							+ "com.honeywell.android.lyric:id/" + motionSensitivityStatus.toLowerCase() + "\'" + "]");
@@ -888,14 +899,14 @@ public class CameraSettingsScreen extends MobileScreens {
 							"//XCUIElementTypeCell[@name='" + motionSensitivityStatus.toLowerCase() + "_cell"
 									+ "']/XCUIElementTypeImage[contains(@name, '"
 									+ motionSensitivityStatus.toLowerCase() + "_Image" + "')]",
-							testCase)) {
+									testCase)) {
 						break;
 					} else {
 						System.out.println("%%%%%Scoll down again");
 						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 					}
 					counter++;
 				}
@@ -912,7 +923,7 @@ public class CameraSettingsScreen extends MobileScreens {
 			if (MobileUtils.isMobElementExists("XPATH",
 					"//android.widget.TextView[@resource-id='com.honeywell.android.lyric:id/list_item_lyric_horizontal_text_view_primary_text' and @text='"
 							+ indoorSoundOption + "']",
-					testCase)) {
+							testCase)) {
 				return flag;
 			} else {
 				flag = false;
@@ -951,7 +962,7 @@ public class CameraSettingsScreen extends MobileScreens {
 					testCase)
 					&& MobileUtils.getMobElement(testCase, "XPATH",
 							"//*[contains(@name, '_subTitle') and @value='Sound Detection']/parent::XCUIElementTypeCell")
-							.getAttribute("value").equalsIgnoreCase("enabled")) {
+					.getAttribute("value").equalsIgnoreCase("enabled")) {
 				return true;
 			} else {
 				return false;
@@ -963,7 +974,7 @@ public class CameraSettingsScreen extends MobileScreens {
 		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionDetectionLabel")
 				&& MobileUtils.getMobElement(objectDefinition, testCase, "MotionDetectionLabel").getAttribute("enabled")
-						.equals("true")) {
+				.equals("true")) {
 			return flag;
 		} else {
 			flag = false;
@@ -975,7 +986,7 @@ public class CameraSettingsScreen extends MobileScreens {
 		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SoundDetectionLabel")
 				&& MobileUtils.getMobElement(objectDefinition, testCase, "SoundDetectionLabel").getAttribute("enabled")
-						.equals("true")) {
+				.equals("true")) {
 			return flag;
 		} else {
 			flag = false;
@@ -1004,7 +1015,7 @@ public class CameraSettingsScreen extends MobileScreens {
 		testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoQualityLabel")
 				&& MobileUtils.getMobElement(objectDefinition, testCase, "VideoQualityLabel").getAttribute("enabled")
-						.equals("true")) {
+				.equals("true")) {
 			return flag;
 		} else {
 			flag = false;
@@ -1027,7 +1038,7 @@ public class CameraSettingsScreen extends MobileScreens {
 		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionDetectionLabel")
 				&& MobileUtils.getMobElement(objectDefinition, testCase, "MotionDetectionLabel").getAttribute("enabled")
-						.equals("true")) {
+				.equals("true")) {
 			return flag;
 		} else {
 			flag = false;
@@ -1148,18 +1159,18 @@ public class CameraSettingsScreen extends MobileScreens {
 					"//XCUIElementTypeCell[@name='" + motionSensitivityStatus.toLowerCase() + "_cell"
 							+ "']/XCUIElementTypeImage[contains(@name, '" + motionSensitivityStatus.toLowerCase()
 							+ "_Image" + "')]",
-					testCase)) {
+							testCase)) {
 				return flag;
 			} else {
 				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-						.release().perform();
+				.release().perform();
 				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-						.release().perform();
+				.release().perform();
 				if (MobileUtils.isMobElementExists("XPATH",
 						"//XCUIElementTypeCell[@name='" + motionSensitivityStatus.toLowerCase() + "_cell"
 								+ "']/XCUIElementTypeImage[contains(@name, '" + motionSensitivityStatus.toLowerCase()
 								+ "_Image" + "')]",
-						testCase)) {
+								testCase)) {
 					return flag;
 				} else {
 					if (motionSensitivityStatus.toLowerCase().equals("normal")) {
@@ -1168,7 +1179,7 @@ public class CameraSettingsScreen extends MobileScreens {
 								"//XCUIElementTypeCell[@name='" + motionSensitivityStatus.toLowerCase() + "_cell"
 										+ "']/XCUIElementTypeImage[contains(@name, '"
 										+ motionSensitivityStatus.toLowerCase() + "_Image" + "')]",
-								testCase)) {
+										testCase)) {
 							return flag;
 						} else {
 							flag = false;
@@ -1197,7 +1208,7 @@ public class CameraSettingsScreen extends MobileScreens {
 						.isMobElementExists("XPATH",
 								"//*[@resource-id=" + "\'" + "com.honeywell.android.lyric:id/"
 										+ motionSensitivityStatus.toLowerCase() + "\'" + "]",
-								testCase))
+										testCase))
 						&& counter < 5) {
 					flag = flag & MobileUtils.clickOnElement(testCase, "XPATH", "//*[@resource-id=" + "\'"
 							+ "com.honeywell.android.lyric:id/" + motionSensitivityStatus.toLowerCase() + "\'" + "]");
@@ -1237,14 +1248,14 @@ public class CameraSettingsScreen extends MobileScreens {
 							"//XCUIElementTypeCell[@name='" + motionSensitivityStatus.toLowerCase() + "_cell"
 									+ "']/XCUIElementTypeImage[contains(@name, '"
 									+ motionSensitivityStatus.toLowerCase() + "_Image" + "')]",
-							testCase)) {
+									testCase)) {
 						break;
 					} else {
 						System.out.println("%%%%%Scoll down again");
 						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 					}
 					counter++;
 				}
@@ -1260,13 +1271,13 @@ public class CameraSettingsScreen extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if (MobileUtils.isMobElementExists("XPATH",
 					"//*[starts-with(@content-desc,'" + nightVisionOption
-							+ "')]/android.widget.RelativeLayout/android.widget.TextView",
+					+ "')]/android.widget.RelativeLayout/android.widget.TextView",
 					testCase)
 					&& MobileUtils
-							.getFieldValue(testCase, "XPATH",
-									"//*[starts-with(@content-desc,'" + nightVisionOption
-											+ "')]/android.widget.RelativeLayout/android.widget.TextView")
-							.equalsIgnoreCase(nightVisionOption)) {
+					.getFieldValue(testCase, "XPATH",
+							"//*[starts-with(@content-desc,'" + nightVisionOption
+							+ "')]/android.widget.RelativeLayout/android.widget.TextView")
+					.equalsIgnoreCase(nightVisionOption)) {
 				return flag;
 			} else {
 				flag = false;
@@ -1276,10 +1287,10 @@ public class CameraSettingsScreen extends MobileScreens {
 					"//XCUIElementTypeStaticText[@name='" + nightVisionOption.toLowerCase() + "_subTitle" + "']",
 					testCase)
 					&& MobileUtils
-							.getMobElement(testCase, "XPATH",
-									"//XCUIElementTypeStaticText[@name='" + nightVisionOption.toLowerCase()
-											+ "_subTitle" + "']")
-							.getAttribute("value").equalsIgnoreCase(nightVisionOption.toLowerCase())) {
+					.getMobElement(testCase, "XPATH",
+							"//XCUIElementTypeStaticText[@name='" + nightVisionOption.toLowerCase()
+							+ "_subTitle" + "']")
+					.getAttribute("value").equalsIgnoreCase(nightVisionOption.toLowerCase())) {
 				return flag;
 			} else {
 				flag = false;
@@ -1298,7 +1309,7 @@ public class CameraSettingsScreen extends MobileScreens {
 					testCase)
 					&& MobileUtils.getFieldValue(testCase, "XPATH",
 							"//*[starts-with(@content-desc, 'Night Vision')]/android.widget.LinearLayout/android.widget.TextView")
-							.equalsIgnoreCase(nightVisionStatus)) {
+					.equalsIgnoreCase(nightVisionStatus)) {
 				return flag;
 			} else {
 				flag = false;
@@ -1309,7 +1320,7 @@ public class CameraSettingsScreen extends MobileScreens {
 					testCase)
 					&& MobileUtils.getMobElement(testCase, "XPATH",
 							"//*[contains(@name,'_subTitle') and @value='Night Vision']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]")
-							.getAttribute("value").equalsIgnoreCase(nightVisionStatus)) {
+					.getAttribute("value").equalsIgnoreCase(nightVisionStatus)) {
 				return flag;
 			} else {
 				flag = false;
@@ -1323,18 +1334,20 @@ public class CameraSettingsScreen extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if (MobileUtils.isMobElementExists("XPATH",
 					"//*[starts-with(@content-desc,'" + nightVisionStatus
-							+ "')]/android.widget.RelativeLayout/android.widget.ImageView[@content-desc='Select']",
+					+ "')]/android.widget.RelativeLayout/android.widget.ImageView[@content-desc='Select']",
 					testCase)) {
 				return flag;
 			} else {
 				flag = false;
 			}
 		} else {
-			if (MobileUtils.isMobElementExists("XPATH",
-					"//XCUIElementTypeCell[@name='" + nightVisionStatus.toLowerCase() + "_cell"
-							+ "']/XCUIElementTypeImage[contains(@name, '" + nightVisionStatus.toLowerCase() + "_Image"
-							+ "')]",
-					testCase)) {
+//			if (MobileUtils.isMobElementExists("XPATH",
+//					"//XCUIElementTypeCell[@name='" + nightVisionStatus.toLowerCase() + "_cell"
+//							+ "']/XCUIElementTypeImage[contains(@name, '" + nightVisionStatus.toLowerCase() + "_Image"
+//							+ "')]",
+//							testCase))
+			if (testCase.getMobileDriver().findElementByXPath("//XCUIElementTypeCell[@name='" + nightVisionStatus.toLowerCase() + "_cell"
+							+ "']/XCUIElementTypeImage[@name='" + nightVisionStatus.toLowerCase() + "_Image"+ "']") != null){
 				return flag;
 			} else {
 				flag = false;
@@ -1352,13 +1365,13 @@ public class CameraSettingsScreen extends MobileScreens {
 					testCase)) {
 				while ((MobileUtils.isMobElementExists("XPATH",
 						"//*[starts-with(@content-desc, '" + nightVisionStatus
-								+ "')]/android.widget.RelativeLayout/android.widget.TextView[@text= '"
-								+ nightVisionStatus + "']",
+						+ "')]/android.widget.RelativeLayout/android.widget.TextView[@text= '"
+						+ nightVisionStatus + "']",
 						testCase)) && counter < 5) {
 					flag = flag & MobileUtils.clickOnElement(testCase, "XPATH",
 							"//*[starts-with(@content-desc, '" + nightVisionStatus
-									+ "')]/android.widget.RelativeLayout/android.widget.TextView[@text= '"
-									+ nightVisionStatus + "']");
+							+ "')]/android.widget.RelativeLayout/android.widget.TextView[@text= '"
+							+ nightVisionStatus + "']");
 					System.out.println("########Click No: " + counter);
 					CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 					if (MobileUtils.isMobElementExists("XPATH", "//*[starts-with(@content-desc,'" + nightVisionStatus
@@ -1386,7 +1399,7 @@ public class CameraSettingsScreen extends MobileScreens {
 							"//XCUIElementTypeCell[@name='" + nightVisionStatus.toLowerCase() + "_cell"
 									+ "']/XCUIElementTypeImage[contains(@name, '" + nightVisionStatus.toLowerCase()
 									+ "_Image" + "')]",
-							testCase)) {
+									testCase)) {
 						break;
 					}
 					counter++;
@@ -1403,13 +1416,13 @@ public class CameraSettingsScreen extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if (MobileUtils.isMobElementExists("XPATH",
 					"//*[starts-with(@content-desc,'" + videoQualityOption
-							+ "')]/android.widget.RelativeLayout/android.widget.TextView",
+					+ "')]/android.widget.RelativeLayout/android.widget.TextView",
 					testCase)
 					&& MobileUtils
-							.getFieldValue(testCase, "XPATH",
-									"//*[starts-with(@content-desc,'" + videoQualityOption
-											+ "')]/android.widget.RelativeLayout/android.widget.TextView")
-							.equalsIgnoreCase(videoQualityOption)) {
+					.getFieldValue(testCase, "XPATH",
+							"//*[starts-with(@content-desc,'" + videoQualityOption
+							+ "')]/android.widget.RelativeLayout/android.widget.TextView")
+					.equalsIgnoreCase(videoQualityOption)) {
 				return flag;
 			} else {
 				flag = false;
@@ -1418,9 +1431,9 @@ public class CameraSettingsScreen extends MobileScreens {
 			if (MobileUtils.isMobElementExists("XPATH",
 					"//XCUIElementTypeStaticText[@name='" + videoQualityOption + "_subTitle" + "']", testCase)
 					&& MobileUtils
-							.getMobElement(testCase, "XPATH",
-									"//XCUIElementTypeStaticText[@name='" + videoQualityOption + "_subTitle" + "']")
-							.getAttribute("value").equalsIgnoreCase(videoQualityOption)) {
+					.getMobElement(testCase, "XPATH",
+							"//XCUIElementTypeStaticText[@name='" + videoQualityOption + "_subTitle" + "']")
+					.getAttribute("value").equalsIgnoreCase(videoQualityOption)) {
 				return flag;
 			} else {
 				flag = false;
@@ -1438,7 +1451,7 @@ public class CameraSettingsScreen extends MobileScreens {
 					testCase)
 					&& MobileUtils.getFieldValue(testCase, "XPATH",
 							"//*[starts-with(@content-desc, 'Video Quality')]/android.widget.LinearLayout/android.widget.TextView")
-							.equalsIgnoreCase(videoQualityOption)) {
+					.equalsIgnoreCase(videoQualityOption)) {
 				return flag;
 			} else {
 				flag = false;
@@ -1449,7 +1462,7 @@ public class CameraSettingsScreen extends MobileScreens {
 					testCase)
 					&& MobileUtils.getMobElement(testCase, "XPATH",
 							"//*[contains(@name,'_subTitle') and @value='Video Quality']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]")
-							.getAttribute("value").equalsIgnoreCase(videoQualityOption)) {
+					.getAttribute("value").equalsIgnoreCase(videoQualityOption)) {
 				return flag;
 			} else {
 				flag = false;
@@ -1464,7 +1477,7 @@ public class CameraSettingsScreen extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if (MobileUtils.isMobElementExists("XPATH",
 					"//*[starts-with(@content-desc,'" + videoQualityOption
-							+ "')]/android.widget.RelativeLayout/android.widget.ImageView[@content-desc='Select']",
+					+ "')]/android.widget.RelativeLayout/android.widget.ImageView[@content-desc='Select']",
 					testCase)) {
 				return flag;
 			} else {
@@ -1473,8 +1486,8 @@ public class CameraSettingsScreen extends MobileScreens {
 		} else {
 			if (MobileUtils.isMobElementExists("XPATH",
 					"//XCUIElementTypeCell[@name='" + videoQualityOption + "_cell"
-							+ "']/XCUIElementTypeImage[contains(@name, '" + videoQualityOption + "_Image" + "')]",
-					testCase)) {
+							+ "']/XCUIElementTypeImage[@name='" + videoQualityOption + "_Image" + "']",testCase)
+							) {
 				return flag;
 			} else {
 				flag = false;
@@ -1492,13 +1505,13 @@ public class CameraSettingsScreen extends MobileScreens {
 					testCase)) {
 				while ((MobileUtils.isMobElementExists("XPATH",
 						"//*[starts-with(@content-desc, '" + videoQualityOption
-								+ "')]/android.widget.RelativeLayout/android.widget.TextView[@text= '"
-								+ videoQualityOption + "']",
+						+ "')]/android.widget.RelativeLayout/android.widget.TextView[@text= '"
+						+ videoQualityOption + "']",
 						testCase)) && counter < 5) {
 					flag = flag & MobileUtils.clickOnElement(testCase, "XPATH",
 							"//*[starts-with(@content-desc, '" + videoQualityOption
-									+ "')]/android.widget.RelativeLayout/android.widget.TextView[@text= '"
-									+ videoQualityOption + "']");
+							+ "')]/android.widget.RelativeLayout/android.widget.TextView[@text= '"
+							+ videoQualityOption + "']");
 					System.out.println("########Click No: " + counter);
 					CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 					if (MobileUtils.isMobElementExists("XPATH", "//*[starts-with(@content-desc,'" + videoQualityOption
@@ -1526,7 +1539,7 @@ public class CameraSettingsScreen extends MobileScreens {
 							"//XCUIElementTypeCell[@name='" + videoQualityOption + "_cell"
 									+ "']/XCUIElementTypeImage[contains(@name, '" + videoQualityOption + "_Image"
 									+ "')]",
-							testCase)) {
+									testCase)) {
 						break;
 					}
 					counter++;
@@ -1593,7 +1606,7 @@ public class CameraSettingsScreen extends MobileScreens {
 		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraSoundSensitivityValueInSettingsScreen")
 				&& MobileUtils.getFieldValue(objectDefinition, testCase, "CameraSoundSensitivityValueInSettingsScreen")
-						.equalsIgnoreCase(soundStatus)) {
+				.equalsIgnoreCase(soundStatus)) {
 			return flag;
 		} else {
 			flag = false;
@@ -1610,12 +1623,12 @@ public class CameraSettingsScreen extends MobileScreens {
 	}
 	public boolean isManangeAlertsEnabled(){
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-		return MobileUtils.getMobElement(objectDefinition, testCase, "ManageAlertsLabel").isEnabled();	
+			return MobileUtils.getMobElement(objectDefinition, testCase, "ManageAlertsLabel").isEnabled();	
+		}
+		else{
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "ManageAlertsLabel").equalsIgnoreCase("enabled");
+		}
 	}
-	else{
-		return MobileUtils.getFieldValue(objectDefinition, testCase, "ManageAlertsLabel").equalsIgnoreCase("enabled");
-	}
-}
 	public boolean isMotionDetectionEnabled(){
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "MotionDetectionLabel").isEnabled();
@@ -1623,10 +1636,10 @@ public class CameraSettingsScreen extends MobileScreens {
 		else{
 			return MobileUtils.getFieldValue(objectDefinition, testCase, "MotionDetectionLabel").equalsIgnoreCase("enabled");
 		}
-		}
+	}
 	public boolean isPeopleDetectionEnabled(){
-			return MobileUtils.getMobElement(objectDefinition, testCase, "PeopleDetectionLable").isEnabled();	
-		}
+		return MobileUtils.getMobElement(objectDefinition, testCase, "PeopleDetectionLable").isEnabled();	
+	}
 	public boolean isNightVisionEnabled(){
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "NightVisionLabel").isEnabled();	
@@ -1634,7 +1647,7 @@ public class CameraSettingsScreen extends MobileScreens {
 		else{
 			return MobileUtils.getFieldValue(objectDefinition, testCase, "NightVisionLabel").equalsIgnoreCase("enabled");
 		}
-		}
+	}
 	public boolean isVideoQualityEnabled(){
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "VideoQualityLabel").isEnabled();	
@@ -1642,28 +1655,28 @@ public class CameraSettingsScreen extends MobileScreens {
 		else{
 			return MobileUtils.getFieldValue(objectDefinition, testCase, "VideoQualityLabel").equalsIgnoreCase("enabled");	
 		}
-		}
+	}
 	public boolean isCameraOnInHomeModeEnabled(){
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInHomeMode").isEnabled();	
 		}
-	else{
-		return MobileUtils.getFieldValue(objectDefinition, testCase, "CameraOnInHomeMode").equalsIgnoreCase("enabled");	
-	}
+		else{
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "CameraOnInHomeMode").equalsIgnoreCase("enabled");	
+		}
 	}
 	public boolean isCameraOnInNigtModeEnabled(){
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-		return MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInNightMode").isEnabled();	
+			return MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInNightMode").isEnabled();	
+		}
+		else{
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "CameraOnInHomeMode").equalsIgnoreCase("enabled");	
+		}
 	}
-	else{
-		return MobileUtils.getFieldValue(objectDefinition, testCase, "CameraOnInHomeMode").equalsIgnoreCase("enabled");	
-	}
-	}
-	
+
 	public boolean isCameraMicrophoneTextEnabled(){
 		return MobileUtils.getMobElement(objectDefinition, testCase, "CameraMicrophoneText").isEnabled();			
 	}
-	
+
 	public boolean isVideoQualityAutoVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoQualityAuto");
 	}
@@ -1682,7 +1695,7 @@ public class CameraSettingsScreen extends MobileScreens {
 	public boolean ClickOnVideoQualityLowOption() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "VideoQualityLow");
 	}
-	
+
 	public boolean isVideoQualityHighVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoQualityHigh");
 	}
@@ -1701,7 +1714,7 @@ public class CameraSettingsScreen extends MobileScreens {
 	public boolean isVideoQualityHighSelectedVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoQualityHighSelected");
 	}
-	
+
 	public boolean isNightVisionAutoVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NightVisionAuto");
 	}
@@ -1720,7 +1733,7 @@ public class CameraSettingsScreen extends MobileScreens {
 	public boolean ClickOnNightVisionONOption() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "NightVisionON");
 	}
-	
+
 	public boolean isNightVisionOFFVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NightVisionOFF");
 	}
@@ -1731,52 +1744,59 @@ public class CameraSettingsScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "NightVisionOFF");
 	}
 	public boolean isCameraOnInHomeModeSwitchEnabled(TestCases testCase) throws Exception {
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraOnInHomeModeSwitch", 10)) {
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getText()
-						.equalsIgnoreCase("ON")) {
-					return true;
-				} else {
-					return false;
-				}
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getText()
+					.equalsIgnoreCase("ON")) {
+				return true;
 			} else {
-				return Boolean.parseBoolean(MobileUtils
-						.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getAttribute("value"));
+				return false;
 			}
 		} else {
-			return false;
+			System.out.println(testCase.getMobileDriver().findElementByXPath("//XCUIElementTypeSwitch[@name='Camera_Settings_2_0_toggle']").getAttribute("value"));
+			return (testCase.getMobileDriver().findElementByXPath("//XCUIElementTypeSwitch[@name='Camera_Settings_2_0_toggle']").getAttribute("value").equals("1"));
 		}
 	}
 	public boolean toggleCameraOnInHomeModeSwitch(){
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch");
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch");		
+		} else {
+			 testCase.getMobileDriver().findElementByXPath("//XCUIElementTypeSwitch[@name='Camera_Settings_2_0_toggle']").click();
+			 return true;
+		}
 	}
 	public boolean isCameraOnInNightModeSwitchEnabled(TestCases testCase) throws Exception {
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraOnInNightModeSwitch", 10)) {
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInNightModeSwitch").getText()
-						.equalsIgnoreCase("ON")) {
-					return true;
-				} else {
-					return false;
-				}
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInNightModeSwitch").getText()
+					.equalsIgnoreCase("ON")) {
+				return true;
 			} else {
-				return Boolean.parseBoolean(MobileUtils
-						.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getAttribute("value"));
+				return false;
 			}
 		} else {
-			return false;
+			System.out.println(testCase.getMobileDriver().findElementByXPath("//XCUIElementTypeSwitch[@name='Camera_Settings_2_1_toggle']").getAttribute("value"));
+			return (testCase.getMobileDriver().findElementByXPath("//XCUIElementTypeSwitch[@name='Camera_Settings_2_1_toggle']").getAttribute("value").equals("1"));
 		}
 	}
 	public boolean toggleCameraOnInNightModeSwitch(){
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraOnInNightModeSwitchs");
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraOnInNightModeSwitchs");		
+		} else {
+			 testCase.getMobileDriver().findElementByXPath("//XCUIElementTypeSwitch[@name='Camera_Settings_2_1_toggle']").click();
+			 return true;
+		}
 	}
 	public boolean clickonbackoption(){
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackCameraSettings");
 	}
-	public boolean isEnsureTheCameraisturnedonandtheprivacyringisopenvisible(){
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EnsureTheCameraisturnedonandtheprivacyringisopen");
+	public boolean isEnsureTheCameraisturnedonandtheprivacyringisopenvisible(int timeout){
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EnsureTheCameraisturnedonandtheprivacyringisopen",timeout);
 	}
 	public boolean clickonEnsureTheCameraisOKoption(){
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "EnsureTheCameraisOKoption");
+		} else{
+			testCase.getMobileDriver().findElementById("Ok").click();
+			return true;
+		}
 	}
 }

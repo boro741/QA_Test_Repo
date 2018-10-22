@@ -458,7 +458,7 @@ public class DASSettingsUtils {
 		PrimaryCard pc = new PrimaryCard(testCase);
 		try {
 			flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
-					inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+					inputs.getInputValue("LOCATION1_CAMERA1_NAME"));
 			flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 			if (pc.isCogIconVisible()) {
 				flag = flag & pc.clickOnCogIcon();
