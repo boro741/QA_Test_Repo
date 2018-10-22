@@ -230,29 +230,61 @@ public class VerifyingAOption extends Keyword {
 
 		} else if (expectedScreen.get(1).toUpperCase().equals("RESPECTIVE SETPOINT VALUE")) {
 			switch (expectedScreen.get(0).toUpperCase()) {
-			case "SHOULD BE DISPLAYED": {
+			case "SHOULD NOT BE DISPLAYED": {
 				Dashboard thermo = new Dashboard(testCase);
-				if (thermo.isUserExpectedTemperatureDisplayed()) {
-					Keyword.ReportStep_Pass(testCase, "User Expected Temperature is Displayed");
+				if (!thermo.isUserExpectedTemperatureDisplayed()) {
+					Keyword.ReportStep_Pass(testCase, "Temperature is not Displayed");
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"User Expected Temperature is not Displayed");
+							"Temperature Displayed");
 				}
 
 				break;
 
 			}
 			}
-		} else if (expectedScreen.get(1).toUpperCase().equals("--")) {
+		}else if (expectedScreen.get(1).toUpperCase().equals("RESPECTIVE SETPOINT VALUE IN DASHBOARD")) {
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "SHOULD BE DISPLAYED": {
+				Dashboard thermo = new Dashboard(testCase);
+				if (thermo.isUserExpectedTemperatureDisplayed()) {
+					Keyword.ReportStep_Pass(testCase, "Temperature is Displayed");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Temperature Not Displayed");
+				}
+
+				break;
+
+			}
+			}
+		}
+		else if (expectedScreen.get(1).toUpperCase().equals("RESPECTIVE SETPOINT VALUE IN SOLUTION CARD")) {
+			switch (expectedScreen.get(0).toUpperCase()) {
+			case "SHOULD BE DISPLAYED": {
+				PrimaryCard thermo = new PrimaryCard(testCase);
+				if (thermo.isUserExpectedTemperatureDisplayed()) {
+					Keyword.ReportStep_Pass(testCase, "Temperature is Displayed");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Temperature Not Displayed");
+				}
+
+				break;
+
+			}
+			}
+		}
+		else if (expectedScreen.get(1).toUpperCase().equals("--")) {
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "SHOULD BE DISPLAYED": {
 				Dashboard dash = new Dashboard(testCase);
 				if (dash.isTemperatureNotDisplayed()) {
-					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is not displayed");
+					Keyword.ReportStep_Pass(testCase, expectedScreen.get(1) + " is displayed");
 				} else {
 
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							expectedScreen.get(1) + " is displayed");
+							expectedScreen.get(1) + " is not displayed");
 				}
 				break;
 			}
