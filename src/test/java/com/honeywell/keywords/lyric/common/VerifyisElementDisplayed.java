@@ -287,7 +287,7 @@ public class VerifyisElementDisplayed extends Keyword {
 				if(testCase.getPlatform().toUpperCase().contains("ANDROID")){
 					Keyword.ReportStep_Pass(testCase, "Ensure the camera is turned on and the privacy ring is open");
 				}else{
-					if(cs.isEnsureTheCameraisturnedonandtheprivacyringisopenvisible()){
+					if(cs.isEnsureTheCameraisturnedonandtheprivacyringisopenvisible(10)){
 						cs.clickonEnsureTheCameraisOKoption();
 						Keyword.ReportStep_Pass(testCase, "Ensure the camera is turned on and the privacy ring is open");
 					}else {

@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 import com.google.common.base.Function;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
@@ -87,7 +88,9 @@ public class DashboardUtils {
 						flag = flag & sch.clickOnCloseButton();
 					} else if (bs.isBackButtonVisible(2)) {
 						flag = flag & bs.clickOnBackButton();
-					} else if (bs.isBackButtonVisible(2)) {
+					} else if (MobileUtils.isMobElementExists("id", "BACK", testCase)){
+						flag = flag & MobileUtils.clickOnElement(testCase, "id", "BACK");
+					}else if (bs.isBackButtonVisible(2)) {
 						flag = flag & bs.clickOnBackButton();
 					} else if (camScr.isBackButtonVisible(2)) {
 						flag = flag & camScr.clickOnBackButton();
