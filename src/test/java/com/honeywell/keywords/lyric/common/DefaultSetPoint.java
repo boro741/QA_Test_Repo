@@ -32,7 +32,7 @@ public class DefaultSetPoint extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user should be displayed with default set point value$")
+	@KeywordStep(gherkins = "^verify user should be displayed with default set point value$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			VacationHoldScreen vhs = new VacationHoldScreen(testCase);

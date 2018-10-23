@@ -51,8 +51,8 @@ Scenario Outline: As a user i want to verify Tempreture bandwidth limit for each
 Above Maximum: Above 90, Below Minimum : below 50,At Maximum : max 90, At Minimum : min 50 ,within range : between 50-90
 Given user thermostat is set to "time based" schedule
 And user launches and logs in to the Lyric application
-#And user navigates to "Scheduling" screen from the "Dashboard" screen
-#When user creates <ScheduleType> schedule by setting temperature value to <Temperature>
+And user navigates to "Scheduling" screen from the "Dashboard" screen
+When user creates <ScheduleType> schedule by setting temperature value to <Temperature>
 Then user displayed temperature within the maximum and minimum range
 
 Examples: 

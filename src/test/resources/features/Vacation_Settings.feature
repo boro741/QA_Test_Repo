@@ -69,7 +69,7 @@ And user navigates to "Vacation" screen from the "Dashboard" screen
 When user changes the "Vacation" to "On"
 And user navigates back and forth in "Vacation" screen
 When user selects the stat to edit
-Then the user should be displayed with default set point value
+Then verify user should be displayed with default set point value
 And user should be displayed with temperature values within maximum minimum limit
 
 
@@ -88,15 +88,24 @@ And HBB device should not be listed under the review vacation settings section i
 
 
 @Vacations_MinimumBandwidthTimer	@Automated  @--xrayid:ATER-54564
-Scenario: As a user I want to verify the minimum Bandwidth Limit for vacation from and To 
+Scenario Outline: As a user I want to verify the minimum Bandwidth Limit for vacation from and To 
 Given vacation mode is "inactive"
+And user has <Mode> system mode
 When vacation mode is "active"
 And user launches and logs in to the Lyric application
 And user navigates to "Vacation" screen from the "Dashboard" screen
 When user edits Vacation Timer 
 Then Minimum bandwidth timer between from and to is "1" hour
 And user verifies vacation is "on" in "solution card"
-And user should be displayed with "Vacation" setpoint value in the solution card screen
+And verify user should be displayed with "Vacation" setpoint value in the solution card screen
+Examples: 
+		| Mode	| 
+#		| Auto	|  
+#		| Auto	| 
+#		| Heat	| 
+#		| Heat	|  
+		| Cool	| 
+#		| Cool	|
   
 
 @Vacation_TimerValueIncreamentOf10EMEA			@Automated  @--xrayid:ATER-54567
@@ -206,7 +215,7 @@ Then user should be displayed with "SYSTEM IS OFF" status on "solution card"
 And user verifies vacation is "off" in "solution card"
 When user change the <UMode> from "OFF" 
 Then user verifies vacation is "on" in "solution card"
-And user should be displayed with "Vacation" setpoint value in the solution card screen
+And verify user should be displayed with "Vacation" setpoint value in the solution card screen
 
 Examples:
 		| Mode	| UMode		| 
@@ -439,7 +448,7 @@ And user changes the "Vacation Hold Switch In Stat Screen" to "off"
 And user navigates back and forth in "Vacation stat" screen
 When user changes the "Vacation Hold Switch In Stat Screen" to "on"
 And user navigates back and forth in "Vacation stat" screen
-Then user should be displayed with default set point value
+Then verify user should be displayed with default set point value
 
 
 @Vacations_VerifyVacationMaxSetPoints	@Automated @--xrayid:ATER-54593
