@@ -352,7 +352,7 @@ public class SuiteExecutor {
 			commandLineArguments = new String[] { "--deviceCloudProviderCredentials","SauceLabs::GraniteCI:46479bde-6cfd-4de0-96b9-9a331359b3e8,Perfecto::surendar.subramani@honeywell.com:Password1",
 					"--publishResult",
 					"--useXCUITest", "true",
-					"--requirementFileName","Requirement_file_ComfortSettings_iOS",
+					"--requirementFileName","Requirement_file_ComfortSettings_iOS_Perfecto",
 					"--testrunname","DLS-"+appName+"",
 					"--appToInstall","IOS:"+appName+",Android:1",
 					"--groups",
