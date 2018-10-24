@@ -240,8 +240,8 @@ When user launches and logs in to the Lyric application
 Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
 When user has "Temporary" status
 Then verify the "Temporary" on the "PRIMARY CARD" screen
-When verify next schedule period activated
-Then verify the "Following Schedule" on the "PRIMARY CARD" screen
+#When verify next schedule period activated
+#Then verify the "Following Schedule" on the "PRIMARY CARD" screen
 And the user should be displayed with "respective period" setpoint value
 
 Examples:
@@ -419,7 +419,7 @@ When user deletes the <CPeriod> time period
 Then verify the "Temporary" on the "PRIMARY CARD" screen
 And user selects "Remove hold" from adhoc
 Then verify the "Following schedule" on the "PRIMARY CARD" screen
-And verify respective <PPeriod> period setpoint values
+And the user should be displayed with "respective period" setpoint value
 Examples:
 |Mode | PPeriod | CPeriod | NPeriod |
 |Heat | P1      | P2      | P3      |
@@ -867,15 +867,15 @@ Given user has "Heat" system mode
 When user launches and logs in to the Lyric application
 And user edits set point from "Primary card"
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
-And user holds the schedule until time "lesser than 12 hours" from current time
+#And user holds the schedule until time "lesser than 12 hours" from current time
 And user selects "Permanent hold" from adhoc
 Then user has "PERMANENT" adhoc status
 And user holds the schedule until time "greater than 12 hours" from current time
 #And user should be displayed with time reverted back to 12hours gap from present time
 And user holds the schedule until time "default" from current time
 #Then user should be displayed with "HOLD XX UNTIL XX:XX" adhoc override on "SolutionCard"
-Then verify next schedule period activated
-And verify the "Following schedule" on the "PRIMARY CARD" screen
+#Then verify next schedule period activated
+#And verify the "Following schedule" on the "PRIMARY CARD" screen
 And the user should be displayed with "respective period" setpoint value
 
 

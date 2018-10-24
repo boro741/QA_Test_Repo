@@ -480,11 +480,11 @@ When user launches and logs in to the Lyric application
 And user has "Temporary Dashboard" status
 Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
 Then verify the "Temporary" on the "PRIMARY CARD" screen
-When verify next schedule period activated
-Then verify the "Following Schedule" on the "PRIMARY CARD" screen
-And verify respective <NPeriod> period setpoint values
-Then user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
-And verify respective <NPeriod> period setpoint values
+#When verify next schedule period activated
+#Then verify the "Following Schedule" on the "PRIMARY CARD" screen
+#And verify respective <NPeriod> period setpoint values
+#Then user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
+#And verify respective <NPeriod> period setpoint values
 
 Examples:
  |Mode 		| CPeriod | NPeriod |
@@ -1023,8 +1023,8 @@ When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
 Then user creates "Same Every Day" schedule following specific <Period> time
 And verify the "Following schedule NOT DISPLAYED" on the "PRIMARY CARD" screen
 When user changes system mode to <Mode>
-And verify the "Following schedule" on the "PRIMARY CARD" screen
-And verify respective <Period> period setpoint values
+#And verify the "Following schedule" on the "PRIMARY CARD" screen
+And the user should be displayed with "respective period" setpoint value
 
 Examples:
  |Mode		| CurrentSchedule |Period |
@@ -1721,16 +1721,16 @@ And user holds the schedule until time "greater than 12 hours" from current time
 #And user should be displayed with time reverted back to 12hours gap from present time
 And user holds the schedule until time "default" from current time
 #Then user should be displayed with "HOLD XX UNTIL XX:XX" adhoc override on "SolutionCard"
-Then verify next schedule period activated
-And verify the "Following schedule" on the "PRIMARY CARD" screen
-And verify respective <Period> period setpoint values
+#Then verify next schedule period activated
+#And verify the "Following schedule" on the "PRIMARY CARD" screen
+And the user should be displayed with "respective period" setpoint value
 Examples:
- |Mode 		| Period|
-#|Cool 		| AWAY  |
- |Heat 		| HOME  |
-#|Auto 		| HOME  |
-#|Cool only | AWAY  | 
-#|Heat only | HOME  |
+ |Mode 		| 
+#|Cool 		| 
+ |Heat 		| 
+#|Auto 		| 
+#|Cool only |  
+#|Heat only |
 
 
 @AdhocOverrideScheduletemperatureTimeschedulingChangemodeHeatcoolAutoPermanentHold @Automated @--xrayid:ATER-55384
@@ -1910,8 +1910,8 @@ When user has "PERMANENT" status
 Then verify the "PERMANENT" on the "PRIMARY CARD" screen
 When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
 Then user creates "Same Every Day" schedule following specific <Period> time
-And verify the "Following schedule" on the "PRIMARY CARD" screen
-And verify respective <Period> period setpoint values
+#And verify the "Following schedule" on the "PRIMARY CARD" screen
+#And verify respective <Period> period setpoint values
 
 Examples:
  |Mode		| Currentschedule |Period 	|
