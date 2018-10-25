@@ -39,7 +39,7 @@ public class PrimaryCard extends MobileScreens {
 		if (testCase.getMobileDriver().getPlatformName().contains("Android")){
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
 		} else{
-			testCase.getMobileDriver().findElementByName("BACK").click();
+			testCase.getMobileDriver().findElementByName("Back").click();
 			return true;
 		}
 	}

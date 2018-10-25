@@ -446,6 +446,11 @@ public class LyricUtils {
 				public Boolean apply(CustomDriver driver) {
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 						try {
+							if (os.isAlwaysAllowButtonVisible(3)) {
+								os.clickOnAlwaysAllowButton();
+								System.out.println("Clicked On Alway allow");
+								return false;
+							}
 							((CustomIOSDriver) testCase.getMobileDriver()).switchTo().alert().accept();
 							return false;
 						} catch (Exception e) {
@@ -1727,6 +1732,11 @@ public class LyricUtils {
 				public Boolean apply(CustomDriver driver) {
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 						try {
+							if (os.isAlwaysAllowButtonVisible(3)) {
+								os.clickOnAlwaysAllowButton();
+								System.out.println("Clicked On Alway allow");
+								return false;
+							}
 							((CustomIOSDriver) testCase.getMobileDriver()).switchTo().alert().accept();
 							return false;
 						} catch (Exception e) {
