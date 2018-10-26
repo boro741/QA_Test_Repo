@@ -280,14 +280,8 @@ public class PrimaryCard extends MobileScreens {
 		}
 		} else {
 			if (mode.equals("Cool")) {
-				if (MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='COOL']",
-								testCase)) {
-					return true;
-				} else if (testCase.getMobileDriver().findElement(By.xpath(
-						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='COOL']"))
-						.isEnabled()) {
-					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
+				
+				if(MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeCell[@name='COOL Selected']", testCase, false)){
 					return true;
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Mode: " + mode + " is unselected");
@@ -295,31 +289,15 @@ public class PrimaryCard extends MobileScreens {
 				}
 			}
 			if (mode.equals("Heat")) {
-				if (MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='HEAT']",
-								testCase)) {
-					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
+				if(MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeCell[@name='HEAT Selected']", testCase, false)){
 					return true;
-				} else if (testCase.getMobileDriver().findElement(By.xpath(
-						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='HEAT']"))
-						.isEnabled()) {
-					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
-					return true;
-				} else {
+				}else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Mode: " + mode + " is unselected");
 					return false;
 				}
 			}
 			if (mode.equals("Off")) {
-				if (MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='OFF']",
-								testCase)) {
-					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
-					return true;
-				} else if (testCase.getMobileDriver().findElement(By.xpath(
-						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='OFF']"))
-						.isEnabled()) {
-					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
+				if(MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeCell[@name='OFF Selected']", testCase, false)){
 					return true;
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Mode: " + mode + " is unselected");
@@ -327,15 +305,7 @@ public class PrimaryCard extends MobileScreens {
 				}
 			}
 			if (mode.equals("Auto")) {
-				if (MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='AUTO']",
-								testCase)) {
-					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
-					return true;
-				} else if (testCase.getMobileDriver().findElement(By.xpath(
-						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='AUTO']"))
-						.isEnabled()) {
-					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
+				if(MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeCell[@name='AUTO Selected']", testCase, false)){
 					return true;
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Mode: " + mode + " is unselected");
@@ -668,7 +638,6 @@ public class PrimaryCard extends MobileScreens {
 
 	public boolean isAutoFanElementSelected() {
 
-		String value = "AUTO";
 		if (testCase.getPlatform().toUpperCase().contains("IOS") == false) {
 			WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "AutoFanButton");
 			if (element.isSelected()) {
@@ -676,10 +645,7 @@ public class PrimaryCard extends MobileScreens {
 
 			}
 		} else {
-			if (testCase.getMobileDriver().findElement(By.xpath(
-					"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
-							+ value + "']"))
-					.isEnabled()) {
+			if(MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeCell[@name='AUTO Selected']", testCase, false)){
 				return true;
 			}
 		}
@@ -694,12 +660,6 @@ public class PrimaryCard extends MobileScreens {
 				testCase.getMobileDriver().findElement(By.xpath("//*[@name='CIRCULATE']")).click();
 				return true;
 			}
-//			WebElement element = testCase.getMobileDriver().findElement(By.xpath("//*[@name='CIRCULATE']"));
-//			if (element != null) {
-//				element.click();
-//				return true;
-//			}
-
 			return false;
 		}
 	}
@@ -713,17 +673,11 @@ public class PrimaryCard extends MobileScreens {
 				testCase.getMobileDriver().findElement(By.xpath("//*[@name='ON']")).click();
 				return true;
 			}
-//			WebElement element = testCase.getMobileDriver().findElement(By.xpath("//*[@name='ON']"));
-//			if (element != null) {
-//				element.click();
-//				return true;
-//			}
 			return false;
 		}
 	}
 
 	public boolean isCirculateFanElementSelected() {
-		String value = "CIRCULATE";
 		if (testCase.getPlatform().toUpperCase().contains("IOS") == false) {
 			WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "CirculateFanButton");
 			if (element.isSelected()) {
@@ -731,10 +685,7 @@ public class PrimaryCard extends MobileScreens {
 
 			}
 		} else {
-			if (testCase.getMobileDriver().findElement(By.xpath(
-					"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
-							+ value + "']"))
-					.isEnabled()) {
+			if(MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeCell[@name='CIRCULATE Selected']", testCase, false)){
 				return true;
 			}
 		}
@@ -742,7 +693,6 @@ public class PrimaryCard extends MobileScreens {
 	}
 
 	public boolean isONFanElementSelected() {
-		String value = "ON";
 		if (testCase.getPlatform().toUpperCase().contains("IOS") == false) {
 			WebElement element = MobileUtils.getMobElement(objectDefinition, testCase, "OnFanButton");
 			if (element.isSelected()) {
@@ -750,10 +700,7 @@ public class PrimaryCard extends MobileScreens {
 
 			}
 		} else {
-			if (testCase.getMobileDriver().findElement(By.xpath(
-					"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
-							+ value + "']"))
-					.isEnabled()) {
+			if(MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeCell[@name='ON Selected']", testCase, false)){
 				return true;
 			}
 		}
