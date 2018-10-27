@@ -20,6 +20,8 @@ import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
+import com.honeywell.screens.GeofenceSettings;
+import com.honeywell.screens.GlobalDrawerScreen;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
@@ -59,7 +61,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 	public boolean preCondition() throws KeywordException {
 		return flag;
 	}
-
 
 	@Override
 	@KeywordStep(gherkins = "^user should be displayed with the following \"(.+)\" options:$")
@@ -1324,158 +1325,109 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-		//Amresh(H297378)
-		case "GRAPH":
-		{
+		// Amresh(H297378)
+		case "GRAPH": {
 			WLDSolutionCard sol = new WLDSolutionCard(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String parameter = data.getData(i, "Graph Options");
 				switch (parameter.toUpperCase()) {
-				case "NO OF DAYS TEMPERATURE TREND": 
-				{
-					if(testCase.getPlatform().toUpperCase().contains("ANDROID")) 
-					{
-						Keyword.ReportStep_Fail(testCase, FailType.NO_FAILURE, "In Android No of Days Temperature Trend is: Not Vissible");
-					}
-					else {
-					flag = flag & sol.isNoOfDaysTempTrendVisible();
-					if(flag) {
-						String str = sol.getNoOfDaysTempTrendText();
-						Keyword.ReportStep_Pass(testCase, "No of Days Trend is: "+ str);
-					}
-					else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not Vissible");
-					}
+				case "NO OF DAYS TEMPERATURE TREND": {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						Keyword.ReportStep_Fail(testCase, FailType.NO_FAILURE,
+								"In Android No of Days Temperature Trend is: Not Vissible");
+					} else {
+						flag = flag & sol.isNoOfDaysTempTrendVisible();
+						if (flag) {
+							String str = sol.getNoOfDaysTempTrendText();
+							Keyword.ReportStep_Pass(testCase, "No of Days Trend is: " + str);
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not Vissible");
+						}
 					}
 					break;
 				}
-				case "NO OF DAYS HUMIDITY TREND": 
-				{
-					if(testCase.getPlatform().toUpperCase().contains("ANDROID")) 
-					{
-						Keyword.ReportStep_Fail(testCase, FailType.NO_FAILURE, "In Android No of Days Humidity Trend is: Not Vissible");
-					}
-					else
-					{
-					flag = flag & sol.isNoOfDaysHumidTrendVisible();
-					if(flag) {
-						String str = sol.getNoOfDaysHumidTrendText();
-						Keyword.ReportStep_Pass(testCase, "No of Days Trend is: "+ str);
-					}
-					else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not Vissible");
-					}
+				case "NO OF DAYS HUMIDITY TREND": {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						Keyword.ReportStep_Fail(testCase, FailType.NO_FAILURE,
+								"In Android No of Days Humidity Trend is: Not Vissible");
+					} else {
+						flag = flag & sol.isNoOfDaysHumidTrendVisible();
+						if (flag) {
+							String str = sol.getNoOfDaysHumidTrendText();
+							Keyword.ReportStep_Pass(testCase, "No of Days Trend is: " + str);
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not Vissible");
+						}
 					}
 					break;
 				}
-				case "MAXIMUM AND MINIMUM TEMPERATURE TREND": 
-				{
-					if(testCase.getPlatform().toUpperCase().contains("ANDROID")) 
-					{
-						Keyword.ReportStep_Fail(testCase, FailType.NO_FAILURE, "In Android Maximum and Minimum Temperature trend is: Not Vissible");
-					}
-					else
-					{
-					flag = flag & sol.isMaximumTempGraphValueVisible();
-					flag = flag & sol.isMinimumTempGraphValueVisible();
+				case "MAXIMUM AND MINIMUM TEMPERATURE TREND": {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						Keyword.ReportStep_Fail(testCase, FailType.NO_FAILURE,
+								"In Android Maximum and Minimum Temperature trend is: Not Vissible");
+					} else {
+						flag = flag & sol.isMaximumTempGraphValueVisible();
+						flag = flag & sol.isMinimumTempGraphValueVisible();
 
-					if(flag) {
-						Keyword.ReportStep_Pass(testCase, "Maximum Temperature Vissible is: "+sol.getMaximumTempGraphValueText());
-						Keyword.ReportStep_Pass(testCase, "Minimum Temperature Vissible is: "+sol.getMinimumTempGraphValueText());
-					}
-					else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not Vissible");
-					}
-					}
-					break;
-				}
-				case "MAXIMUM AND MINIMUM HUMIDITY TREND": 
-				{
-					if(testCase.getPlatform().toUpperCase().contains("ANDROID")) 
-					{
-						Keyword.ReportStep_Fail(testCase, FailType.NO_FAILURE, "In Android Maximum and Minimum Humidity trend is: Not Vissible");
-					}
-					else
-					{
-					flag = flag & sol.isMaximumHumidGraphValueVisible();
-					flag = flag & sol.isMinimumHumidGraphValueVisible();
-					if(flag) {
-						Keyword.ReportStep_Pass(testCase, "Maximum Humidity Vissible is: "+sol.getMaximumHumidGraphValueText());
-						Keyword.ReportStep_Pass(testCase, "Minimum Humidity Vissible is: "+sol.getMinimumHumidGraphValueText());
-					}
-					else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Humidity Graph Max Min Trend Not Vissible");
-					}
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase,
+									"Maximum Temperature Vissible is: " + sol.getMaximumTempGraphValueText());
+							Keyword.ReportStep_Pass(testCase,
+									"Minimum Temperature Vissible is: " + sol.getMinimumTempGraphValueText());
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not Vissible");
+						}
 					}
 					break;
 				}
-				case "MAXIMUM 5 DATES": 
-				{
+				case "MAXIMUM AND MINIMUM HUMIDITY TREND": {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						Keyword.ReportStep_Fail(testCase, FailType.NO_FAILURE,
+								"In Android Maximum and Minimum Humidity trend is: Not Vissible");
+					} else {
+						flag = flag & sol.isMaximumHumidGraphValueVisible();
+						flag = flag & sol.isMinimumHumidGraphValueVisible();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase,
+									"Maximum Humidity Vissible is: " + sol.getMaximumHumidGraphValueText());
+							Keyword.ReportStep_Pass(testCase,
+									"Minimum Humidity Vissible is: " + sol.getMinimumHumidGraphValueText());
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Humidity Graph Max Min Trend Not Vissible");
+						}
+					}
+					break;
+				}
+				case "MAXIMUM 5 DATES": {
 					break;
 				}
 				}
 			}
 			break;
 		}
-		//Amresh Starts again
+		// Amresh Starts again
 		case "ALERT FOR THIS TEMPERATURE RANGE": {
-		WLDManageAlerts ale = new WLDManageAlerts(testCase);
-		for (int i = 0; i < data.getSize(); i++) {
-			String parameter = data.getData(i, "Temperature Alert Range Options");
-			switch (parameter.toUpperCase()) {
-			case "BELOW": 
-			{
-				flag = flag && ale.isBelowTextinTemperatureVissible();
-				if(flag) {
-					Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ale.getBelowTextinTemperatureValue());
-					Keyword.ReportStep_Pass(testCase, "Below Text is Vissible");
-				}
-				else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Below Text not found");
-				}
-				break;
-			}
-			case "ABOVE": 
-			{
-				flag = flag && ale.isAboveTextinTemperatureVissible();
-				if(flag) {
-					Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ale.getAboveTextinTemperatureValue());
-					Keyword.ReportStep_Pass(testCase, "Above  Text is Vissible");
-				}
-				else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Above  Text not found");
-				}
-				break;
-			}
-			}
-		}
-		break;
-		}
-		case "ALERT FOR THIS HUMIDITY RANGE":{
 			WLDManageAlerts ale = new WLDManageAlerts(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String parameter = data.getData(i, "Temperature Alert Range Options");
 				switch (parameter.toUpperCase()) {
-				case "BELOW": 
-				{
-					flag = flag && ale.isBelowTextinHumidityVissible();
-					if(flag) {
-						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ale.getBelowTextinHumidityValue());
+				case "BELOW": {
+					flag = flag && ale.isBelowTextinTemperatureVissible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Displayed Text: " + ale.getBelowTextinTemperatureValue());
 						Keyword.ReportStep_Pass(testCase, "Below Text is Vissible");
-					}
-					else {
+					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Below Text not found");
 					}
 					break;
 				}
-				case "ABOVE": 
-				{
-					flag = flag && ale.isAboveTextinHumidityVissible();
-					if(flag) {
-						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ale.getAboveTextinHumidityValue());
+				case "ABOVE": {
+					flag = flag && ale.isAboveTextinTemperatureVissible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Displayed Text: " + ale.getAboveTextinTemperatureValue());
 						Keyword.ReportStep_Pass(testCase, "Above  Text is Vissible");
-					}
-					else {
+					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Above  Text not found");
 					}
 					break;
@@ -1484,7 +1436,36 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-		//Amresh ends Again
+		case "ALERT FOR THIS HUMIDITY RANGE": {
+			WLDManageAlerts ale = new WLDManageAlerts(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "Temperature Alert Range Options");
+				switch (parameter.toUpperCase()) {
+				case "BELOW": {
+					flag = flag && ale.isBelowTextinHumidityVissible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Displayed Text: " + ale.getBelowTextinHumidityValue());
+						Keyword.ReportStep_Pass(testCase, "Below Text is Vissible");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Below Text not found");
+					}
+					break;
+				}
+				case "ABOVE": {
+					flag = flag && ale.isAboveTextinHumidityVissible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Displayed Text: " + ale.getAboveTextinHumidityValue());
+						Keyword.ReportStep_Pass(testCase, "Above  Text is Vissible");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Above  Text not found");
+					}
+					break;
+				}
+				}
+			}
+			break;
+		}
+		// Amresh ends Again
 		case "WLDSOLUTIONTEMPERATURE": {
 			WLDSolutionCard ActionSheet = new WLDSolutionCard(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
@@ -1633,9 +1614,9 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-		//Amresh wld starts
+		// Amresh wld starts
 		case "WLD INDOOR TEMPERATURE ALERT": {
-			WLDManageAlerts ActionSheet=new WLDManageAlerts(testCase);
+			WLDManageAlerts ActionSheet = new WLDManageAlerts(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String parameter = data.getData(i, "WLD Manage Alerts Options");
 				switch (parameter.toUpperCase()) {
@@ -1643,21 +1624,23 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					flag = flag & ActionSheet.isEmailNotificationsforTemperatureAlertsTextVissible();
 					flag = flag & ActionSheet.isEmailNotificationsforTemperatureAlertsToggleEnabled();
 					if (flag) {
-						Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
-						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getEmailNotificationsforTemperatureAlertsTextValue());
+						Keyword.ReportStep_Pass(testCase, parameter + " is Vissibe");
+						Keyword.ReportStep_Pass(testCase,
+								"Displayed Text: " + ActionSheet.getEmailNotificationsforTemperatureAlertsTextValue());
 						Keyword.ReportStep_Pass(testCase, "Email Notifiction Toggle is Enabled.");
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,parameter+" is not vissible");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not vissible");
 					}
 					break;
 				}
 				case "ALERT FOR THIS RANGE": {
 					flag = flag & ActionSheet.isAlertforthisRangeTemperatureTextVissible();
 					if (flag) {
-						Keyword.ReportStep_Pass(testCase, "The " +parameter+ " text is Vissibe");
-						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getAlertforthisRangeTemperatureTextValue());
+						Keyword.ReportStep_Pass(testCase, "The " + parameter + " text is Vissibe");
+						Keyword.ReportStep_Pass(testCase,
+								"Displayed Text: " + ActionSheet.getAlertforthisRangeTemperatureTextValue());
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,parameter+" is not vissible");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not vissible");
 					}
 					break;
 				}
@@ -1665,9 +1648,9 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-		//Amresh wld ends
+		// Amresh wld ends
 		case "WLD INDOOR HUMIDITY ALERT": {
-			WLDManageAlerts ActionSheet=new WLDManageAlerts(testCase);
+			WLDManageAlerts ActionSheet = new WLDManageAlerts(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String parameter = data.getData(i, "WLD Manage Alerts Options");
 				switch (parameter.toUpperCase()) {
@@ -1675,21 +1658,23 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					flag = flag & ActionSheet.isEmailNotificationsforHumidityAlertsTextVissible();
 					flag = flag & ActionSheet.isEmailNotificationsforHumidityAlertsToggleEnabled();
 					if (flag) {
-						Keyword.ReportStep_Pass(testCase, parameter+ " is Vissibe");
-						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getEmailNotificationsforHumidityAlertsTextValue());
+						Keyword.ReportStep_Pass(testCase, parameter + " is Vissibe");
+						Keyword.ReportStep_Pass(testCase,
+								"Displayed Text: " + ActionSheet.getEmailNotificationsforHumidityAlertsTextValue());
 						Keyword.ReportStep_Pass(testCase, "Email for Humidity Toggle is Enabled");
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,parameter+" is not vissible");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not vissible");
 					}
 					break;
 				}
 				case "ALERT FOR THIS RANGE": {
 					flag = flag & ActionSheet.isAlertforthisRangeHumidityTextVissible();
 					if (flag) {
-						Keyword.ReportStep_Pass(testCase, "The " +parameter+ " is Vissibe");
-						Keyword.ReportStep_Pass(testCase, "Displayed Text: "+ ActionSheet.getAlertforthisRangeHumidityTextValue());
+						Keyword.ReportStep_Pass(testCase, "The " + parameter + " is Vissibe");
+						Keyword.ReportStep_Pass(testCase,
+								"Displayed Text: " + ActionSheet.getAlertforthisRangeHumidityTextValue());
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,parameter+" is not vissible");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not vissible");
 					}
 					break;
 				}
@@ -1705,16 +1690,15 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				case "CONTROL STATE": {
 					WLDSolutionCard sol = new WLDSolutionCard(testCase);
 					flag = flag & sol.isControlStateVissible();
-					if(flag) {
+					if (flag) {
 						String ControlText = sol.getControlStateTextValue();
 						flag = flag & sol.clickOnControlText();
 						flag = flag && sol.clickOnDismissButton();
 						sol.navigateFromPrimaryCardToDashboard();
-						Keyword.ReportStep_Pass(testCase, parameter + ControlText+ " is Vissibe");
-					}
-					else {
+						Keyword.ReportStep_Pass(testCase, parameter + ControlText + " is Vissibe");
+					} else {
 						Keyword.ReportStep_Pass(testCase, parameter + " is Not Vissibe at this moment");
-						flag=true;
+						flag = true;
 					}
 				}
 				case "WLD DEVICE NAME": {
@@ -1932,29 +1916,29 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-		case "LEAK DETECTOR CONFIGURATION":{
-			flag=true;
-			WLDConfigurationScreen config=new WLDConfigurationScreen(testCase);
+		case "LEAK DETECTOR CONFIGURATION": {
+			flag = true;
+			WLDConfigurationScreen config = new WLDConfigurationScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String parameter = data.getData(i, "Configuration");
 				switch (parameter.toUpperCase()) {
 				case "LEAK DETECTOR NAME": {
 					flag = flag & config.isConfigurationNameTextVisible();
 					String wld_name = config.getConfigurationWLDNameValue();
-					Keyword.ReportStep_Pass(testCase, "Vissible Text: "+wld_name);
-					break;	
+					Keyword.ReportStep_Pass(testCase, "Vissible Text: " + wld_name);
+					break;
 				}
 				case "FIRMWARE DETAILS": {
 					flag = flag & config.isConfigurationFirmwareVersionTextVisible();
-					String firmware_details=config.getConfigurationFirmwareVersionValueValue();
-					Keyword.ReportStep_Pass(testCase, "Vissible Text: "+firmware_details);
-					break;	
+					String firmware_details = config.getConfigurationFirmwareVersionValueValue();
+					Keyword.ReportStep_Pass(testCase, "Vissible Text: " + firmware_details);
+					break;
 				}
 				case "DELETE LEAK DETECTOR": {
 					flag = flag & config.isConfigurationDeleteLeakDetectorLinkVisible();
 					String delete_link = config.getConfigurationDeleteLeakDetectorLinkValue();
-					Keyword.ReportStep_Pass(testCase, "Vissible Text: "+delete_link);
-					break;	
+					Keyword.ReportStep_Pass(testCase, "Vissible Text: " + delete_link);
+					break;
 				}
 				default: {
 					flag = false;
@@ -1971,7 +1955,940 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				flag = true;
 			}
 			break;
+		}
+		case "GLOBAL DRAWER WITHOUT SOLUTION FOR UK LOCATION":
+		case "GLOBAL DRAWER WITH WLD SOLUTION FOR UK LOCATION": {
+			boolean flag = true;
+			GlobalDrawerScreen gd = new GlobalDrawerScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "GlobalDrawerWithoutSolutionORWithWLDSolutionForUKLocation");
+				switch (parameter.toUpperCase()) {
+				case "WITHOUT AUTOMATION HEADER": {
+					flag &= gd.isAutomationHeaderTitleVisible();
+					if (flag) {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "WITHOUT GEOFENCE OPTION": {
+					flag &= gd.isGeofenceOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "HOME HEADER": {
+					flag &= gd.isHomeHeaderTitleVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ACTIVITY HISTORY": {
+					flag &= gd.isActivityHistoryOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ADD USERS": {
+					flag &= gd.isAddUsersOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "HOME ADDRESS": {
+					flag &= gd.isHomeAddressOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ACCOUNT HEADER": {
+					flag &= gd.isAccountHeaderTitleVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "EDIT ACCOUNT": {
+					flag &= gd.isEditAccountOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ABOUT THE APP": {
+					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					TouchAction action = new TouchAction(testCase.getMobileDriver());
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						int startx = (dimension.width * 20) / 100;
+						int starty = (dimension.height * 62) / 100;
+						int endx = (dimension.width * 22) / 100;
+						int endy = (dimension.height * 35) / 100;
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+					} else {
+						action.press(10, (int) (dimension.getHeight() * .9))
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+					}
+					flag &= gd.isAboutTheAppOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "FAQS": {
+					flag &= gd.isFAQsOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "LOGOUT": {
+					flag &= gd.isLogoutOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
 			}
+			break;
+		}
+		case "GLOBAL DRAWER WITHOUT SOLUTION FOR US LOCATION":
+		case "GLOBAL DRAWER WITH WLD SOLUTION FOR US LOCATION": {
+			boolean flag = true;
+			GlobalDrawerScreen gd = new GlobalDrawerScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "GlobalDrawerWithoutSolutionORWithWLDSolutionForUSLocation");
+				switch (parameter.toUpperCase()) {
+				case "WITHOUT AUTOMATION HEADER": {
+					flag &= gd.isAutomationHeaderTitleVisible();
+					if (flag) {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "WITHOUT GEOFENCE OPTION": {
+					flag &= gd.isGeofenceOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "HOME HEADER": {
+					flag &= gd.isHomeHeaderTitleVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ACTIVITY HISTORY": {
+					flag &= gd.isActivityHistoryOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ADD USERS": {
+					flag &= gd.isAddUsersOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "HOME ADDRESS": {
+					flag &= gd.isHomeAddressOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ACCOUNT HEADER": {
+					flag &= gd.isAccountHeaderTitleVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "EDIT ACCOUNT": {
+					flag &= gd.isEditAccountOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ABOUT THE APP": {
+					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					TouchAction action = new TouchAction(testCase.getMobileDriver());
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						int startx = (dimension.width * 20) / 100;
+						int starty = (dimension.height * 62) / 100;
+						int endx = (dimension.width * 22) / 100;
+						int endy = (dimension.height * 35) / 100;
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+					} else {
+						action.press(10, (int) (dimension.getHeight() * .9))
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+					}
+					flag &= gd.isAboutTheAppOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "NO FAQS FOR US LOCATION": {
+					flag &= gd.isFAQsOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option FAQs is displayed");
+					} else {
+						Keyword.ReportStep_Pass(testCase, "Option FAQs is not displayed");
+					}
+					break;
+				}
+				case "LOGOUT": {
+					flag &= gd.isLogoutOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "GLOBAL DRAWER WITH DAS C1 C2 SOLUTION FOR UK LOCATION": {
+			boolean flag = true;
+			GlobalDrawerScreen gd = new GlobalDrawerScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "GlobalDrawerWithDASC1C2SolutionForUKLocation");
+				switch (parameter.toUpperCase()) {
+				case "AUTOMATION HEADER": {
+					flag &= gd.isAutomationHeaderTitleVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "GEOFENCE": {
+					flag &= gd.isGeofenceOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "HOME HEADER": {
+					flag &= gd.isHomeHeaderTitleVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ACTIVITY HISTORY": {
+					flag &= gd.isActivityHistoryOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ADD USERS": {
+					flag &= gd.isAddUsersOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "HOME ADDRESS": {
+					flag &= gd.isHomeAddressOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ACCOUNT HEADER": {
+					flag &= gd.isAccountHeaderTitleVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "HONEYWELL MEMBERSHIP FOR ANDROID": {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						flag &= gd.isHoneywellMembershipOptionVisible();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Option " + parameter + " is not displayed");
+						}
+					} else {
+						flag &= gd.isHoneywellMembershipOptionVisible();
+						if (!flag) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is not displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Option " + parameter + " is displayed");
+						}
+					}
+					break;
+				}
+				case "EDIT ACCOUNT": {
+					flag &= gd.isEditAccountOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ABOUT THE APP": {
+					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					TouchAction action = new TouchAction(testCase.getMobileDriver());
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						int startx = (dimension.width * 20) / 100;
+						int starty = (dimension.height * 62) / 100;
+						int endx = (dimension.width * 22) / 100;
+						int endy = (dimension.height * 35) / 100;
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+					} else {
+						action.press(10, (int) (dimension.getHeight() * .9))
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+					}
+					flag &= gd.isAboutTheAppOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "FAQS": {
+					flag &= gd.isFAQsOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "LOGOUT": {
+					flag &= gd.isLogoutOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "GLOBAL DRAWER WITH DAS C1 C2 SOLUTION FOR US LOCATION": {
+			boolean flag = true;
+			GlobalDrawerScreen gd = new GlobalDrawerScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "GlobalDrawerWithDASC1C2SolutionForUSLocation");
+				switch (parameter.toUpperCase()) {
+				case "AUTOMATION HEADER": {
+					flag &= gd.isAutomationHeaderTitleVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "GEOFENCE": {
+					flag &= gd.isGeofenceOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "HOME HEADER": {
+					flag &= gd.isHomeHeaderTitleVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ACTIVITY HISTORY": {
+					flag &= gd.isActivityHistoryOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ADD USERS": {
+					flag &= gd.isAddUsersOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "HOME ADDRESS": {
+					flag &= gd.isHomeAddressOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ACCOUNT HEADER": {
+					flag &= gd.isAccountHeaderTitleVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "HONEYWELL MEMBERSHIP FOR ANDROID": {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						flag &= gd.isHoneywellMembershipOptionVisible();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Option " + parameter + " is not displayed");
+						}
+					} else {
+						flag &= gd.isHoneywellMembershipOptionVisible();
+						if (!flag) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is not displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Option " + parameter + " is displayed");
+						}
+					}
+					break;
+				}
+				case "EDIT ACCOUNT": {
+					flag &= gd.isEditAccountOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ABOUT THE APP": {
+					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					TouchAction action = new TouchAction(testCase.getMobileDriver());
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						int startx = (dimension.width * 20) / 100;
+						int starty = (dimension.height * 62) / 100;
+						int endx = (dimension.width * 22) / 100;
+						int endy = (dimension.height * 35) / 100;
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+					} else {
+						action.press(10, (int) (dimension.getHeight() * .9))
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+					}
+					flag &= gd.isAboutTheAppOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "NO FAQS FOR US LOCATION": {
+					flag &= gd.isFAQsOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option FAQs is displayed");
+					} else {
+						Keyword.ReportStep_Pass(testCase, "Option FAQs is not displayed");
+					}
+					break;
+				}
+				case "LOGOUT": {
+					flag &= gd.isLogoutOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "GLOBAL DRAWER WITH JASPER EMEA SOLUTION FOR UK LOCATION": {
+			boolean flag = true;
+			GlobalDrawerScreen gd = new GlobalDrawerScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "GlobalDrawerWithJasperEMEASolutionForUKLocation");
+				switch (parameter.toUpperCase()) {
+				case "AUTOMATION HEADER": {
+					flag &= gd.isAutomationHeaderTitleVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "GEOFENCE": {
+					flag &= gd.isGeofenceOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "VACATION": {
+					flag &= gd.isVacationOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "HOME HEADER": {
+					flag &= gd.isHomeHeaderTitleVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ACTIVITY HISTORY": {
+					flag &= gd.isActivityHistoryOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ADD USERS": {
+					flag &= gd.isAddUsersOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "HOME ADDRESS": {
+					flag &= gd.isHomeAddressOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ACCOUNT HEADER": {
+					flag &= gd.isAccountHeaderTitleVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "EDIT ACCOUNT": {
+					flag &= gd.isEditAccountOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ABOUT THE APP": {
+					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					TouchAction action = new TouchAction(testCase.getMobileDriver());
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						int startx = (dimension.width * 20) / 100;
+						int starty = (dimension.height * 62) / 100;
+						int endx = (dimension.width * 22) / 100;
+						int endy = (dimension.height * 35) / 100;
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+					} else {
+						action.press(10, (int) (dimension.getHeight() * .9))
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+					}
+					flag &= gd.isAboutTheAppOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "FAQS": {
+					flag &= gd.isFAQsOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "LOGOUT": {
+					flag &= gd.isLogoutOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "GLOBAL DRAWER WITH JASPER NA SOLUTION FOR US LOCATION": {
+			boolean flag = true;
+			GlobalDrawerScreen gd = new GlobalDrawerScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "GlobalDrawerWithJasperNASolutionForUSLocation");
+				switch (parameter.toUpperCase()) {
+				case "AUTOMATION HEADER": {
+					flag &= gd.isAutomationHeaderTitleVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "GEOFENCE": {
+					flag &= gd.isGeofenceOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "VACATION": {
+					flag &= gd.isVacationOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "HOME HEADER": {
+					flag &= gd.isHomeHeaderTitleVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ACTIVITY HISTORY": {
+					flag &= gd.isActivityHistoryOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ADD USERS": {
+					flag &= gd.isAddUsersOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "HOME ADDRESS": {
+					flag &= gd.isHomeAddressOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ACCOUNT HEADER": {
+					flag &= gd.isAccountHeaderTitleVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "EDIT ACCOUNT": {
+					flag &= gd.isEditAccountOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ABOUT THE APP": {
+					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					TouchAction action = new TouchAction(testCase.getMobileDriver());
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						int startx = (dimension.width * 20) / 100;
+						int starty = (dimension.height * 62) / 100;
+						int endx = (dimension.width * 22) / 100;
+						int endy = (dimension.height * 35) / 100;
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+					} else {
+						action.press(10, (int) (dimension.getHeight() * .9))
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+					}
+					flag &= gd.isAboutTheAppOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "NO FAQS FOR US LOCATION": {
+					flag &= gd.isFAQsOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option FAQs is displayed");
+					} else {
+						Keyword.ReportStep_Pass(testCase, "Option FAQs is not displayed");
+					}
+					break;
+				}
+				case "LOGOUT": {
+					flag &= gd.isLogoutOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "GEOFENCE THIS LOCATION": {
+			boolean flag = true;
+			GeofenceSettings gs = new GeofenceSettings(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "GeofenceThisLocation");
+				switch (parameter.toUpperCase()) {
+				case "GEOFENCE RADIUS": {
+					flag &= gs.isGeofenceRadiusOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "LOCATION STATUS": {
+					flag &= gs.isLocationStatusOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "GEOFENCE ALERT": {
+					flag &= gs.isGeofenceAlertOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + expectedScreen.get(0));

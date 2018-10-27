@@ -21,6 +21,10 @@ public class GeofenceSettings extends MobileScreens {
 		super(testCase, screenName);
 	}
 
+	public boolean isGeofenceSettingsScreenTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceSettingsScreenTitle");
+	}
+
 	public boolean selectOptionFromGeofenceSettings(String option) {
 		switch (option) {
 		case GeofenceSettings.ENABLEGEOFENCETHISLOCATION: {
@@ -74,6 +78,18 @@ public class GeofenceSettings extends MobileScreens {
 		}
 	}
 
+	public boolean isGeofenceRadiusOptionVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceRadius");
+	}
+
+	public boolean isLocationStatusOptionVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LocationStatus");
+	}
+
+	public boolean isGeofenceAlertOptionVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceAlert");
+	}
+
 	public boolean clickOnGeofenceRadiusSetting() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SecondaryCardSettings");
 	}
@@ -92,6 +108,27 @@ public class GeofenceSettings extends MobileScreens {
 
 	public boolean clickOnBackButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+	}
+
+	public boolean isGeofenceThisLocationSectionEnabled(TestCases testCase) {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceThisLocationToggle") && MobileUtils
+					.getFieldValue(objectDefinition, testCase, "GeofenceThisLocationToggle").equals("ON")) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		} else {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceThisLocationToggle")
+					&& MobileUtils.getMobElement(objectDefinition, testCase, "GeofenceThisLocationToggle")
+							.getAttribute("value").equals("1")) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		}
+		return flag;
 	}
 
 }

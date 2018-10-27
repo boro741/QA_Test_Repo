@@ -351,7 +351,7 @@ public class AlarmScreen extends MobileScreens {
 					"Failed to click on SWITCH TO HOME button in PUSH NOTIFICATION. Hence clicking on SWITCH TO HOME button in Entry Delay screen");
 			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchToHomeButton");
 		}
-		flag &= DASAlarmUtils.waitForProgressBarToComplete(testCase, "PROGRESS BAR", 2);
+		//flag &= DASAlarmUtils.waitForProgressBarToComplete(testCase, "PROGRESS BAR", 2);
 		return flag;
 	}
 

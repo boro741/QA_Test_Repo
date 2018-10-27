@@ -17,6 +17,7 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.screens.ActivityHistoryScreen;
 import com.honeywell.screens.ActivityLogsScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
@@ -25,15 +26,15 @@ import com.honeywell.screens.CameraSolutionCardScreen;
 public class VerifyisElementDisplayed extends Keyword {
 
 	private TestCases testCase;
-	// private TestCaseInputs inputs;
+	private TestCaseInputs inputs;
 	public ArrayList<String> parameters;
 	public boolean flag = true;
 	public DataTable data;
 
 	public VerifyisElementDisplayed(TestCases testCase, TestCaseInputs inputs, ArrayList<String> parameters) {
 		this.testCase = testCase;
-		// this.inputs = inputs;
-		//this.data = data;
+		this.inputs = inputs;
+		// this.data = data;
 		this.parameters = parameters;
 	}
 
@@ -44,7 +45,7 @@ public class VerifyisElementDisplayed extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user should be displayed with (.*)$")
+	@KeywordStep(gherkins = "^user should be displayed with \"(.+)\"$")
 	public boolean keywordSteps() throws KeywordException {
 
 		try {
@@ -110,27 +111,27 @@ public class VerifyisElementDisplayed extends Keyword {
 				if (al.isBackToViewListExists(30)) {
 					al.clickBackToViewList();
 				}
-					if (al.isClipStatusExists()) {
-						List<WebElement> elements = al.getClipStatus();
-						for (WebElement ele : elements) {
-							String status = ele.getText();
-							if (status.equals("VIEWED")) {
-								check = true;
-								Keyword.ReportStep_Pass(testCase, "Viewed status has been updated in clip list");
-								break;
-							}
+				if (al.isClipStatusExists()) {
+					List<WebElement> elements = al.getClipStatus();
+					for (WebElement ele : elements) {
+						String status = ele.getText();
+						if (status.equals("VIEWED")) {
+							check = true;
+							Keyword.ReportStep_Pass(testCase, "Viewed status has been updated in clip list");
+							break;
 						}
-						if (!check) {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									parameters.get(0) + "Viewed status has not been updated in clip list");
-							flag = false;
-
-						}
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								parameters.get(0) + " does not exists");
-						flag = false;
 					}
+					if (!check) {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameters.get(0) + "Viewed status has not been updated in clip list");
+						flag = false;
+
+					}
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " does not exists");
+					flag = false;
+				}
 
 				if (al.isClipPlayButtonExists()) {
 					al.clickClipPlayButton();
@@ -144,26 +145,26 @@ public class VerifyisElementDisplayed extends Keyword {
 				if (al.isBackToViewListExists(30)) {
 					al.clickBackToViewList();
 				}
-					if (al.isClipStatusExists()) {
-						List<WebElement> elements = al.getClipStatus();
-						for (WebElement ele : elements) {
-							String status = ele.getText();
-							if (status.equals("SAVED")) {
-								check = true;
-								Keyword.ReportStep_Pass(testCase, "Saved status has been updated in clip list");
-								break;
-							}
+				if (al.isClipStatusExists()) {
+					List<WebElement> elements = al.getClipStatus();
+					for (WebElement ele : elements) {
+						String status = ele.getText();
+						if (status.equals("SAVED")) {
+							check = true;
+							Keyword.ReportStep_Pass(testCase, "Saved status has been updated in clip list");
+							break;
 						}
-						if (!check) {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									parameters.get(0) + "Saved status has not been updated in clip list");
-							flag = false;
-						}
-					} else {
+					}
+					if (!check) {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								parameters.get(0) + " does not exists");
+								parameters.get(0) + "Saved status has not been updated in clip list");
 						flag = false;
 					}
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " does not exists");
+					flag = false;
+				}
 				break;
 			}
 			case "Download progress": {
@@ -269,33 +270,48 @@ public class VerifyisElementDisplayed extends Keyword {
 				}
 				break;
 			}
-			case "You can perform this action only in home or off mode" : {
+			case "You can perform this action only in home or off mode": {
 				BaseStationSettingsScreen cs = new BaseStationSettingsScreen(testCase);
-				if(testCase.getPlatform().toUpperCase().contains("ANDROID")){
-					Keyword.ReportStep_Pass(testCase, "You can perform this action only in home or off mode toast message displayed");
-				}else{
-					if(cs.isYoucanperformthisactiononlyinVisible()){
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					Keyword.ReportStep_Pass(testCase,
+							"You can perform this action only in home or off mode toast message displayed");
+				} else {
+					if (cs.isYoucanperformthisactiononlyinVisible()) {
 						cs.ClickOnYoucanperformthisactiononlyinOKOption();
-						Keyword.ReportStep_Pass(testCase, "You can perform this action only in home or off mode pop up displayed");
-					}else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "You can perform this action only in home or off mode pop up not displayed");
+						Keyword.ReportStep_Pass(testCase,
+								"You can perform this action only in home or off mode pop up displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"You can perform this action only in home or off mode pop up not displayed");
 					}
-				}break;
+				}
+				break;
 			}
-			case "Ensure the camera is turned on and the privacy ring is open" : {
+			case "Ensure the camera is turned on and the privacy ring is open": {
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
-				if(testCase.getPlatform().toUpperCase().contains("ANDROID")){
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					Keyword.ReportStep_Pass(testCase, "Ensure the camera is turned on and the privacy ring is open");
-				}else{
-					if(cs.isEnsureTheCameraisturnedonandtheprivacyringisopenvisible(10)){
+					if (cs.isEnsureTheCameraisturnedonandtheprivacyringisopenvisible(10)) {
 						cs.clickonEnsureTheCameraisOKoption();
-						Keyword.ReportStep_Pass(testCase, "Ensure the camera is turned on and the privacy ring is open");
-					}else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Ensure the camera is turned on and the privacy ring is open");
+						Keyword.ReportStep_Pass(testCase,
+								"Ensure the camera is turned on and the privacy ring is open");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Ensure the camera is turned on and the privacy ring is open");
 					}
-				}break;
+				}
+				break;
 			}
-
+			case "No Messages label in Activity History screen": {
+				ActivityHistoryScreen ah = new ActivityHistoryScreen(testCase);
+				if (ah.isNoMessagesLabelVisible(60)) {
+					Keyword.ReportStep_Pass(testCase, "No Messages label is displayed in Activity History Screen");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"No Messages label is not displayed in Activity History Screen");
+				}
+				break;
+			}
 			default: {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						parameters.get(0) + "Input does not match");

@@ -11,7 +11,7 @@ public class OSPopUps extends MobileScreens {
 	public OSPopUps(TestCases testCase) {
 		super(testCase, screenName);
 	}
-
+	
 	public boolean isAllowButtonVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AllowButton", 3, false);
 	}

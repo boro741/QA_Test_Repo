@@ -274,6 +274,14 @@ public class ChangeBaseStationSettings extends Keyword {
 								"Could not click on global geofence alert toggle");
 					}
 				}
+				if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (gs.selectOptionFromGeofenceSettings(GeofenceSettings.DISABLEGEOFENCETHISLOCATION)) {
+						Keyword.ReportStep_Pass(testCase, "Disabled geofence this location toggle option");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on global geofence toggle");
+					}
+				}
 			} else if (parameters.get(0).equalsIgnoreCase("Camera ON in Home Mode")) {
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {

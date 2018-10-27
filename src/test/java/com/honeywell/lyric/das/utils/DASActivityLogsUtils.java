@@ -2,14 +2,22 @@ package com.honeywell.lyric.das.utils;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.FluentWait;
 
+import com.google.common.base.Function;
+import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
+import com.honeywell.commons.report.FailType;
+import com.honeywell.screens.ActivityHistoryScreen;
 import com.honeywell.screens.ActivityLogsScreen;
+import com.honeywell.screens.AlarmScreen;
 
 public class DASActivityLogsUtils {
 
@@ -124,5 +132,63 @@ public class DASActivityLogsUtils {
 		return eventsList;
 	}
 
+	/**
+	 * <h1>Wait for until progress bar to complete</h1>
+	 * <p>
+	 * The waitForProgressBarToComplete method waits until the progress bar closes.
+	 * </p>
+	 *
+	 * @author Midhun Gollapalli (H179225)
+	 * @version 1.0
+	 * @since 2018-03-19
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @return boolean Returns 'true' if the progress bar disappears. Returns
+	 *         'false' if the progress bar is still displayed.
+	 */
+	public static boolean waitForProgressBarToComplete(TestCases testCase, String elementProgressBar, int duration) {
+		boolean flag = true;
+		try {
+			FluentWait<String> fWait = new FluentWait<String>(" ");
+			fWait.pollingEvery(3, TimeUnit.SECONDS);
+			fWait.withTimeout(duration, TimeUnit.MINUTES);
+			ActivityHistoryScreen ah = new ActivityHistoryScreen(testCase);
+			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
+				public Boolean apply(String a) {
+					try {
+						switch (elementProgressBar) {
+						case "PROGRESS BAR": {
+							if (ah.isProgressBarVisible()) {
+								System.out.println("Waiting for progress bar loading spinner to disappear");
+								return true;
+							} else {
+								return false;
+							}
+						}
+						default: {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Invalid argument passed : " + elementProgressBar);
+							return true;
+						}
+						}
+					} catch (Exception e) {
+						return false;
+					}
+				}
+			});
+			if (isEventReceived) {
+				Keyword.ReportStep_Pass(testCase, "Progress bar loading spinner diasppeared");
+			}
+		} catch (TimeoutException e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Progress bar loading spinner did not disapper after waiting for " + duration + " minutes");
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
+		}
 
+		return flag;
+	}
 }

@@ -34,6 +34,7 @@ import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.CameraSolutionCardScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.GeofenceSettings;
+import com.honeywell.screens.GlobalDrawerScreen;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SensorSettingScreen;
@@ -1097,9 +1098,7 @@ public class SelectElementOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Not Successfully clicked on " + parameters.get(0) + " button");
 				}
-			}
-
-			else if (parameters.get(1).equalsIgnoreCase("Change Fan")) {
+			} else if (parameters.get(1).equalsIgnoreCase("Change Fan")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "INFO": {
 					PrimaryCard thermo = new PrimaryCard(testCase);
@@ -1140,9 +1139,7 @@ public class SelectElementOnAScreen extends Keyword {
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
 				}
-			}
-
-			else if (parameters.get(1).equalsIgnoreCase("Mode info")
+			} else if (parameters.get(1).equalsIgnoreCase("Mode info")
 					|| parameters.get(1).equalsIgnoreCase("Fan info")) {
 
 				switch (parameters.get(0).toUpperCase()) {
@@ -1157,9 +1154,7 @@ public class SelectElementOnAScreen extends Keyword {
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0) + " button");
 				}
-			}
-
-			else if (parameters.get(1).equalsIgnoreCase("Locate Sensor")
+			} else if (parameters.get(1).equalsIgnoreCase("Locate Sensor")
 					|| parameters.get(1).equalsIgnoreCase("Signal Strength")
 					|| parameters.get(1).equalsIgnoreCase("Locate Motion Sensor")
 					|| parameters.get(1).equalsIgnoreCase("Motion Sensor Signal Strength")) {
@@ -1211,9 +1206,7 @@ public class SelectElementOnAScreen extends Keyword {
 					System.out.println("Successfully clicked on " + parameters.get(0) + " button");
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on \"+parameters.get(0)+\" button");
 				}
-			}
-
-			else if (parameters.get(1).equalsIgnoreCase("Mount Sensor")) {
+			} else if (parameters.get(1).equalsIgnoreCase("Mount Sensor")) {
 				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
 			} else if (parameters.get(1).equalsIgnoreCase("sensor pairing help")) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
@@ -1638,7 +1631,6 @@ public class SelectElementOnAScreen extends Keyword {
 					flag &= bs.clickonvacuumoption();
 					break;
 				}
-
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1685,8 +1677,27 @@ public class SelectElementOnAScreen extends Keyword {
 						"Failed to selected on " + parameters.get(0));
 			}
 			break;
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("GLOBAL DRAWER")) {
+				GlobalDrawerScreen gd = new GlobalDrawerScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "GEOFENCE": {
+					if (gd.isGeofenceOptionVisible()) {
+						gd.clickOnGeofenceOption();
+						Keyword.ReportStep_Pass(testCase, "Successfully selected on " + parameters.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to selected on " + parameters.get(0));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
+				}
+				}
 			}
-		}
 	} catch (Exception e) {
 		flag = false;
 		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());

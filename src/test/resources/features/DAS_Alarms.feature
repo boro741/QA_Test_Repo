@@ -237,7 +237,7 @@ Given user is set to "Home" mode through CHIL
      When user "door" access sensor "is not closed"
       And user should be displayed with the "Alarm" screen
       And user selects "dismiss alarm" from "alarm" screen
-      And user navigates to "Security Solution card" screen from the "Dashboard" screen
+      #And user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to "Home"
      When user "opens" activity log
      Then verify the following activity log:
@@ -305,7 +305,7 @@ Given user is set to "Home" mode through CHIL
        And user selects the "Door Opened" push notification
        And user selects "Attention" from "Entry Delay" screen
       Then user should be displayed with the "Alarm" screen
-       And user navigates to "Alarm history" screen from the “Alarm” screen
+       And user navigates to "Alarm history" screen from the "Alarm" screen
       Then verify the following alarm history:
        | Elements                    |
        | SIREN SOUNDED BY ACTUAL USER|
@@ -313,7 +313,7 @@ Given user is set to "Home" mode through CHIL
      Then user receives a "Alarm" email
      When user selects "dismiss alarm" from "alarm" screen
      Then user receives a "Alarm cancelled" email
-     When user navigates to "Security Solution card" screen from the "Dashboard" screen
+     #When user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to "Home"
       And user should see the "sensor" status as "issue" on the "Security Solution Card"
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
@@ -678,7 +678,7 @@ Given user is set to "Home" mode through CHIL
      When user "door" access sensor "is not closed"
       And user should be displayed with the "Alarm" screen
       And user selects "dismiss alarm" from "alarm" screen
-      And user navigates to "Security Solution card" screen from the "Dashboard" screen
+      #And user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to "Home"
      When user "opens" activity log
      Then verify the following activity log:
@@ -901,7 +901,7 @@ Given user is set to "Home" mode through CHIL
      When user "opens door with app" in background
      And timer lapse "60" seconds
     # When user "door" access sensor "is not closed"
-     And timer lapse "60" seconds  
+     #And timer lapse "60" seconds  
      #no action taken 
      When user selects the "Alarm" push notification
      Then user should be displayed with the "Alarm" screen
@@ -2016,9 +2016,12 @@ Given user is set to "Home" mode through CHIL
      When user indoor motion viewer "Tampered"
      And user is set to "HOME" mode through CHIL
       When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+      Then user should see the "ISMV" status as "Cover Tampered" on the "Sensor Status"
    	  When user indoor motion viewer "Tamper Restored"
-     When user "opens" activity log
-      Then verify the following activity log:
+   	  Then user should see the "ISMV" status as "Standby" on the "Sensor Status"
+   	  When user navigates to "Security Solution Card" screen from the "Sensor Status" screen
+     Then user "opens" activity log
+      And verify the following activity log:
        | Elements                 | 
        |Indoor motion viewer TAMPERED AT NIGHT MODE|
        |Indoor motion viewer TAMPER CLEARED AT NIGHT MODE|
@@ -2105,7 +2108,7 @@ Given user is set to "Home" mode through CHIL
       And user "window" access sensor "opened"
       Then user should be displayed with the "Alarm" screen
       When user selects "dismiss alarm" from "alarm" screen
-      And user navigates to "Security Solution card" screen from the "Dashboard" screen
+      #And user navigates to "Security Solution card" screen from the "Dashboard" screen
        When user "opens" activity log
       Then verify the following activity log:
        | Elements                 |

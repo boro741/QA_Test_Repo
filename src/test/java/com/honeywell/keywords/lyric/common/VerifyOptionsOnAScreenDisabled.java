@@ -16,6 +16,7 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
 
@@ -134,7 +135,8 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				}
 				flag = true;
 
-			}break;
+			}
+			break;
 		}
 		case "DAS SECURITY SETTINGS": {
 			BaseStationSettingsScreen cs = new BaseStationSettingsScreen(testCase);
@@ -166,17 +168,17 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				case "OUTDOOR MOTION VIEWERS ON IN HOME MODE": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
-						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-							int startx = (dimension.width * 20) / 100;
-							int starty = (dimension.height * 62) / 100;
-							int endx = (dimension.width * 22) / 100;
-							int endy = (dimension.height * 35) / 100;
-							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-						} else {
-							action.press(10, (int) (dimension.getHeight() * .9))
-							.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
-						}
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						int startx = (dimension.width * 20) / 100;
+						int starty = (dimension.height * 62) / 100;
+						int endx = (dimension.width * 22) / 100;
+						int endy = (dimension.height * 35) / 100;
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+					} else {
+						action.press(10, (int) (dimension.getHeight() * .9))
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+					}
 					flag &= !cs.isOutdoorMotionViewerOnInHomeModeEnabled();
 					flag &= !cs.isOutdoorMotionViewerOnInHomeModeDescriptionEnabled();
 					break;
@@ -184,7 +186,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				case "ENTRY/EXIT DELAY": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
-					if(!cs.isEntryExitDelayVisible()){
+					if (!cs.isEntryExitDelayVisible()) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimension.width * 20) / 100;
 							int starty = (dimension.height * 62) / 100;
@@ -194,7 +196,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
 							action.press(10, (int) (dimension.getHeight() * .9))
-							.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						}
 					}
 					flag &= !cs.isEntryExitDelayEnabled();
@@ -204,7 +206,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				case "ABOUT SECURITY MODES": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
-					if(!cs.isAboutSecurityModesVisible()){
+					if (!cs.isAboutSecurityModesVisible()) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimension.width * 20) / 100;
 							int starty = (dimension.height * 62) / 100;
@@ -214,7 +216,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
 							action.press(10, (int) (dimension.getHeight() * .9))
-							.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						}
 					}
 					flag &= !cs.isAboutSecurityModesEnabled();
@@ -223,7 +225,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				case "KEY FOB": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
-					if(!cs.isKeyFobVisible()){
+					if (!cs.isKeyFobVisible()) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimension.width * 20) / 100;
 							int starty = (dimension.height * 62) / 100;
@@ -233,7 +235,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
 							action.press(10, (int) (dimension.getHeight() * .9))
-							.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						}
 					}
 					flag &= !cs.isKeyFobEnabled();
@@ -242,7 +244,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				case "SENSORS": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
-					if(!cs.isSensorsOptionVisible()){
+					if (!cs.isSensorsOptionVisible()) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimension.width * 20) / 100;
 							int starty = (dimension.height * 62) / 100;
@@ -252,7 +254,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
 							action.press(10, (int) (dimension.getHeight() * .9))
-							.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						}
 					}
 					flag &= !cs.isSensorsOptionEnabled();
@@ -261,7 +263,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				case "Z-WAVE DEVICES": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
-					if(!cs.isZwaveDevicesVisible()){
+					if (!cs.isZwaveDevicesVisible()) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimension.width * 20) / 100;
 							int starty = (dimension.height * 62) / 100;
@@ -271,7 +273,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
 							action.press(10, (int) (dimension.getHeight() * .9))
-							.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						}
 					}
 					flag &= !cs.isZwaveDevicesEnabled();
@@ -280,7 +282,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				case "BSAE STATION VOLUME": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
-					if(!cs.isBaseStationVolumeValueVisible()){
+					if (!cs.isBaseStationVolumeValueVisible()) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimension.width * 20) / 100;
 							int starty = (dimension.height * 62) / 100;
@@ -290,7 +292,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
 							action.press(10, (int) (dimension.getHeight() * .9))
-							.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						}
 					}
 					flag &= !cs.isBaseStationVolumeEnabled();
@@ -299,7 +301,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				case "RESET WI-FI": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
-					if(!cs.isBaseStationResetWifiVisible()){
+					if (!cs.isBaseStationResetWifiVisible()) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimension.width * 20) / 100;
 							int starty = (dimension.height * 62) / 100;
@@ -309,7 +311,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
 							action.press(10, (int) (dimension.getHeight() * .9))
-							.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						}
 					}
 					flag &= !cs.isBaseStationResetWifiEnabled();
@@ -318,7 +320,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				case "BASE STATION CONFIGURATION": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
-					if(!cs.isBaseStationConfigurationsOptionVisible()){
+					if (!cs.isBaseStationConfigurationsOptionVisible()) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimension.width * 20) / 100;
 							int starty = (dimension.height * 62) / 100;
@@ -328,7 +330,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
 							action.press(10, (int) (dimension.getHeight() * .9))
-							.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						}
 					}
 					flag &= !cs.isBaseStationConfigurationEnabled();
@@ -341,7 +343,8 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							" The " + parameter + " has not disabled");
 				}
-			}break;
+			}
+			break;
 		}
 		case "VIDEO SETTINGS": {
 			try {
@@ -404,7 +407,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
 						action.press(10, (int) (dimension.getHeight() * .9))
-						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 					}
 					if (!cs.isMotionSensitivityEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase, "Motion Sensitivity section is disabled");
@@ -433,7 +436,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
 						action.press(10, (int) (dimension.getHeight() * .9))
-						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 					}
 					if (!cs.isSoundSensitivityEnabled()) {
 						Keyword.ReportStep_Pass(testCase, "Sound Sensitivity section is disabled");
@@ -460,15 +463,14 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 									"Sound Detection section is enabled");
 						}
 					} else if (fieldToBeVerified.equalsIgnoreCase("CAMERA MICROPHONE")) {
-						if (!cs.isCameraMicrophoneTextEnabled()){
+						if (!cs.isCameraMicrophoneTextEnabled()) {
 							Keyword.ReportStep_Pass(testCase, "Camera Microphone switch is disabled");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Camera Microphone switchis enabled");
 						}
-					}
-					else if (fieldToBeVerified.equalsIgnoreCase("MOTION DETECTION")) {
+					} else if (fieldToBeVerified.equalsIgnoreCase("MOTION DETECTION")) {
 						if (!cs.isMotionDetectionSectionEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase, "Camera Motion detection is disabled");
 						} else {
@@ -477,7 +479,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 									"Camera Motion detection is enabled");
 						}
 
-					}else if (fieldToBeVerified.equalsIgnoreCase("NIGHT VISION")) {
+					} else if (fieldToBeVerified.equalsIgnoreCase("NIGHT VISION")) {
 						if (!cs.isNightVisionSectionEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase, "Camera Night vision is disabled");
 						} else {
@@ -486,7 +488,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 									"Camera Night vision is enabled");
 						}
 
-					}else if (fieldToBeVerified.equalsIgnoreCase("VIDEO QUALITY")) {
+					} else if (fieldToBeVerified.equalsIgnoreCase("VIDEO QUALITY")) {
 						if (!cs.isVideoQualitySectionEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase, "Camera Video Quality is disabled");
 						} else {
@@ -495,13 +497,12 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 									"Camera Video  Quality is enabled");
 						}
 
-					}else if (fieldToBeVerified.equalsIgnoreCase("CAMERA LED")) {
+					} else if (fieldToBeVerified.equalsIgnoreCase("CAMERA LED")) {
 						if (!cs.isCameraLEDSectionEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase, "Camera LED  is disabled");
 						} else {
 							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Camera LED  is enabled");
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Camera LED  is enabled");
 						}
 
 					}
@@ -518,7 +519,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 		case "MOTION SENSOR SETTINGS":
 		case "ISMV SENSOR SETTINGS":
 		case "OSMV SENSOR SETTINGS":
-		case "KEYFOB SETTINGS":{
+		case "KEYFOB SETTINGS": {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldTobeVerified = data.getData(i, "Options");
@@ -672,7 +673,24 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				}
 			}
 			break;
-		} default: {
+		}
+		case "GEOFENCE SETTINGS": {
+			GeofenceSettings gs = new GeofenceSettings(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "Options");
+				if (fieldToBeVerified.equalsIgnoreCase("GEOFENCE THIS LOCATION")) {
+					if (!gs.isGeofenceThisLocationSectionEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase, "Geofence this location is disabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Geofence this location is enabled");
+					}
+				}
+			}
+			break;
+		}
+		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + expectedScreen.get(0));
 		}

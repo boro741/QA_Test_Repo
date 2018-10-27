@@ -3,3 +3,7 @@ Message	ID	ll_history_msg_container					XPATH	//*[@name='Messages_cell']	XPATH	/
 MessageTime	ID	view_notification_row_description										
 MessageContent	ID	view_notification_row_title										
 ActivityHistoryTitle	ID	toolbar_title					NAME	Activity History_HOME	Activity History_HOME	Activity History_HOME	NAME	Activity History_HOME
+NoMessagesLabel	XPATH	//android.widget.TextView[@text='No Messages']	XPATH	//android.widget.TextView[@text='No Messages']	XPATH	//android.widget.TextView[@text='No Messages']	NAME	No Messages	NAME	No Messages	NAME	No Messages
+EditButton	ID	diy_cancel_button	ID	diy_cancel_button	ID	diy_cancel_button	XPATH	//XCUIElementTypeButton[@name='Navigation_Right_Bar_Item']	XPATH	//XCUIElementTypeButton[@name='Navigation_Right_Bar_Item']	XPATH	//XCUIElementTypeButton[@name='Navigation_Right_Bar_Item']
+BackButton	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	NAME	Back	NAME	Back	NAME	Back
+ProgressBar	ID	progress	ID	progress	ID	progress	XPATH	//XCUIElementTypeActivityIndicator	XPATH	//XCUIElementTypeActivityIndicator	XPATH	//XCUIElementTypeActivityIndicator
