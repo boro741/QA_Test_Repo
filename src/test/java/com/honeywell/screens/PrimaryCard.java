@@ -386,16 +386,7 @@ public class PrimaryCard extends MobileScreens {
 					return false;
 				}
 			} else {
-				if (MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
-								+ mode + "']",
-								testCase)) {
-					return true;
-				} else if (testCase.getMobileDriver().findElement(By.xpath(
-						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
-								+ mode + "']"))
-						.isEnabled()) {
-					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
+				if(MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeCell[@name='COOL Selected']", testCase, false)){
 					return true;
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Mode: " + mode + " is unselected");
@@ -414,17 +405,7 @@ public class PrimaryCard extends MobileScreens {
 					return false;
 				}
 			} else {
-				if (MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
-								+ mode + "']",
-								testCase)) {
-					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
-					return true;
-				} else if (testCase.getMobileDriver().findElement(By.xpath(
-						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
-								+ mode + "']"))
-						.isEnabled()) {
-					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
+				if(MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeCell[@name='HEAT Selected']", testCase, false)){
 					return true;
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Mode: " + mode + " is unselected");
@@ -443,17 +424,7 @@ public class PrimaryCard extends MobileScreens {
 					return false;
 				}
 			} else {
-				if (MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
-								+ mode + "']",
-								testCase)) {
-					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
-					return true;
-				} else if (testCase.getMobileDriver().findElement(By.xpath(
-						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
-								+ mode + "']"))
-						.isEnabled()) {
-					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
+				if(MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeCell[@name='OFF Selected']", testCase, false)){
 					return true;
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Mode: " + mode + " is unselected");
@@ -472,17 +443,7 @@ public class PrimaryCard extends MobileScreens {
 					return false;
 				}
 			} else {
-				if (MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
-								+ mode + "']",
-								testCase)) {
-					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
-					return true;
-				} else if (testCase.getMobileDriver().findElement(By.xpath(
-						"//XCUIElementTypeImage[@name='iconCheckMark']/following-sibling::XCUIElementTypeStaticText[@name='"
-								+ mode + "']"))
-						.isEnabled()) {
-					Keyword.ReportStep_Pass(testCase, "Mode: " + mode + " is selected");
+				if(MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeCell[@name='AUTO Selected']", testCase, false)){
 					return true;
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Mode: " + mode + " is unselected");
