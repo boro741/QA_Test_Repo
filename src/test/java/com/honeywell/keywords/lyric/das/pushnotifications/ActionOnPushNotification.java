@@ -2,6 +2,7 @@ package com.honeywell.keywords.lyric.das.pushnotifications;
 
 import java.util.ArrayList;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 
@@ -21,6 +22,7 @@ import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AlarmScreen;
 
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.ios.IOSDriver;
 
 public class ActionOnPushNotification extends Keyword {
 
@@ -228,14 +230,17 @@ public class ActionOnPushNotification extends Keyword {
 		} else {
 			locatorValue = "//XCUIElementTypeCell[contains(@label,'" + notification + "')]";
 		}
-		if (MobileUtils.isMobElementExists("xpath", locatorValue, testCase, 10)) {
+		if (testCase.getMobileDriver().findElementsByXPath(locatorValue).get(0) != null) {
 			Keyword.ReportStep_Pass(testCase, "'" + notification + "' Push Notification Present");
-			WebElement ele = MobileUtils.getMobElement(testCase, "xpath", locatorValue);
+			WebElement ele = testCase.getMobileDriver().findElementsByXPath(locatorValue).get(0);
 
 			int xAxix = ele.getLocation().getX();
 			int yAxix = ele.getLocation().getY();
-			MobileUtils.clickOnElement(testCase, "xpath", locatorValue);
-
+//			if (testCase.getMobileDriver().getPlatformName().contains("Android")){
+				testCase.getMobileDriver().findElementsByXPath(locatorValue).get(0).click();
+//			}else{
+//				testCase.getMobileDriver().launchApp();
+//			}
 			testCase.getMobileDriver().swipe(xAxix, yAxix, 300, 0, 1);
 
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {

@@ -38,7 +38,7 @@ As user I should be able to configure camera settings from the app
       And the following "DAS Camera Settings" options should be enabled:
       | Options              | 
       | Manage Alerts        | 
-      | People detection     | 
+#      | People detection     | 
       | Camera On in Home mode  | 
       | Camera On in Night mode | 
   
@@ -53,7 +53,7 @@ As user I should be able to configure camera settings from the app
       | Options                 | 
       | Manage alerts           | 
       | Motion Detection        | 
-      | People detection        | 
+#      | People detection        | 
       | Night Vision            | 
       | Video Quality           | 
       | Camera On in Home Mode  | 
@@ -76,7 +76,7 @@ As user I should be able to configure camera settings from the app
       And the following "DAS Camera Settings" options should be enabled:
       | Options                 | 
       | Manage Alerts           | 
-      | People detection        | 
+#      | People detection        | 
     Examples: 
       | State | 
       | Away  | 
@@ -95,7 +95,7 @@ As user I should be able to configure camera settings from the app
       | Night Vision     | 
       | Video Quality    | 
       | Manage Alerts    | 
-      | People detection | 
+#      | People detection | 
       And the following "DAS Camera Settings" options should be disabled:
       |Options|
       | Camera On in Home Mode  | 

@@ -55,7 +55,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	}
 
 	public boolean isWindowCoverTamperedTextVisibleinSecuritySolutions() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WindowCoverTamperedText");
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "WindowCoverTamperedText");		
 	}
 
 	public boolean isDoorCoverTamperedTextVisibleinSecuritySolutions() {
@@ -92,17 +92,10 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 						"//android.widget.LinearLayout[@content-desc='" + securityState + "']", testCase);
 			}
 		} else {
-			if (MobileUtils.isMobElementExists("NAME", securityState, testCase)) {
-				return MobileUtils.isMobElementExists("NAME", securityState, testCase);
-			} else {
-				System.out.println("//XCUIElementTypeCell[@value='" + securityState + "']");
-				if (MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeCell[@value='" + securityState + "']",
-						testCase)) {
-					return MobileUtils.isMobElementExists("XPATH",
-							"//XCUIElementTypeCell[@value='" + securityState + "']", testCase);
-				} else {
-					flag = false;
-				}
+			if (testCase.getMobileDriver().findElementsByXPath("//XCUIElementTypeCell[@value='"+ securityState +"'])") != null) {
+				return testCase.getMobileDriver().findElementsByXPath("//XCUIElementTypeCell[@value='"+ securityState +"'])") != null;
+			} else{
+				flag = false;
 			}
 		}
 		return flag;
@@ -314,7 +307,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 		} else {
 			locatorValue = "//XCUIElementTypeCell[contains(@label,'" + notification + "')]";
 		}
-		if (MobileUtils.isMobElementExists("xpath", locatorValue, testCase, 30)) {
+		if (testCase.getMobileDriver().findElementsByXPath(locatorValue).get(0) != null) {
 			Keyword.ReportStep_Pass(testCase, "'" + notification + "' Push Notification Present");
 		} else {
 			flag = false;
@@ -441,7 +434,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		try {
 			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-					.release().perform();
+			.release().perform();
 			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorButton", 5)) {
 				Keyword.ReportStep_Pass(testCase, "not able to locate Sensor menu");
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
