@@ -80,7 +80,7 @@ As user I should be able to configure camera settings from the app
     Examples: 
       | State | 
       | Away  | 
-      | Night | 
+    | Night | 
   
   @CameraSettingsCameraOnPanelArmed @P3 @Automated@--xrayid:ATER-54455
   Scenario Outline: As a user I should be able to configure camera settings when my camera is in on state 
@@ -113,14 +113,14 @@ As user I should be able to configure camera settings from the app
       And user thermostat set "Away" with "UserDeparted" 
      When user navigates to "DAS Camera Solution Card" screen from the "Dashboard" screen
      Then user navigates to "Camera Settings" screen from the "Camera Solution Card" screen
-      And the following "DAS Camera Settings" options should be disabled:
+      And the following "DAS Camera Settings" options should be enabled:
       | Options          | 
       | Motion Detection | 
       | Night Vision     | 
       | Video Quality    | 
       | Manage Alerts    | 
       | People detection | 
-      And the following "DAS Camera Settings" options should be enabled:
+      And the following "DAS Camera Settings" options should be disabled:
       | Options              | 
       | Camera On Home mode  | 
       | Camera On Night mode | 

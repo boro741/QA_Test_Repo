@@ -73,6 +73,10 @@ public class DASCameraUtils {
 		}
 		return flag;
 	}
+	public static boolean verifyNotLiveStreaming(TestCases testCase) {
+		fieldObjects = MobileUtils.loadObjectFile(testCase, "DAS_VideoSolution");
+		return	!MobileUtils.isMobElementExists(fieldObjects, testCase, "Live_icon");
+	}
 
 	public static boolean clickOnAttention(TestCases testCase) {
 		boolean flag = true;

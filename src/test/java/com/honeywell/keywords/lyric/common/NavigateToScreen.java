@@ -976,7 +976,7 @@ public class NavigateToScreen extends Keyword {
 				// Author: Pratik P. Lalseta (H119237)
 				case "SECURITY SOLUTION CARD": {
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
-					flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+					//flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 					break;
 				}
 				case "SOLUTION": {

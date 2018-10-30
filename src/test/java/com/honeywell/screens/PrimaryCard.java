@@ -36,14 +36,9 @@ public class PrimaryCard extends MobileScreens {
 	}
 
 	public boolean clickOnBackButton() {
-		if (testCase.getMobileDriver().getPlatformName().contains("Android")){
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
-		} else{
-			testCase.getMobileDriver().findElementByName("Back").click();
-			return true;
 		}
-	}
-
+	
 	public boolean isThermostatCurrentTemperatureVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatCurrentTemperature");
 	}
