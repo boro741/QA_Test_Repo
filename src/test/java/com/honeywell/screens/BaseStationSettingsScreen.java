@@ -1688,19 +1688,19 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 	public boolean clearCameraNameTextBox() {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			MobileUtils.clickOnElement(objectDefinition, testCase, "DASSensorSettingNamingField");
-			return MobileUtils.clearTextField(objectDefinition, testCase, "DASSensorSettingNamingField");
+			MobileUtils.clickOnElement(objectDefinition, testCase, "CameraNamingField");
+			return MobileUtils.clearTextField(objectDefinition, testCase, "CameraNamingField");
 		} else {
-			testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypeCell[1]/XCUIElementTypeTextField"))
+			testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypeTextField[@label='BaseStation_Settings_0_0_textField_value']"))
 			.clear();
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "DASSensorSettingNamingField");
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraNamingField");
 		}
 	}
 
 	public boolean setValueToCameraNameTextBox(String value) {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.setValueToElement(objectDefinition, testCase, "DASSensorSettingNamingField", value);
+			return MobileUtils.setValueToElement(objectDefinition, testCase, "CameraNamingField", value);
 		} else {
 			flag &= MobileUtils.setValueToElement(testCase, "XPATH",
 					"//XCUIElementTypeCell[1]/XCUIElementTypeTextField", value);
@@ -1710,11 +1710,11 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 	public boolean isCameraNameFieldVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DASSensorSettingNamingField");
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraNamingField");
 	}
 
 	public boolean clickOnNameTextField() {
-		if (MobileUtils.clickOnElement(objectDefinition, testCase, "DASSensorSettingNamingField")) {
+		if (MobileUtils.clickOnElement(objectDefinition, testCase, "CameraNamingField")) {
 			return true;
 		}
 		return false;

@@ -41,9 +41,9 @@ Given user is set to "Home" mode through CHIL
     Examples: 
       | System | 
       | Away   | 
-  #   | Night  |
-  #   | Home   |
-  #   | OFF    |
+     | Night  |
+     | Home   |
+     | OFF    |
 
 @Doorsensor_InAwayExitDelay_OpenDoor_NoAlarm 				@P2 				@DAS_DoorSensor 					@Automated
   Scenario: As a user when I open the door during exit delay i should not get alarm  

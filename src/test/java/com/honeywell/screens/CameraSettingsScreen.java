@@ -1757,7 +1757,6 @@ public class CameraSettingsScreen extends MobileScreens {
 				return false;
 			}
 		} else {
-			System.out.println(testCase.getMobileDriver().findElementByXPath("//XCUIElementTypeSwitch[@name='Camera_Settings_2_0_toggle']").getAttribute("value"));
 			return (testCase.getMobileDriver().findElementByXPath("//XCUIElementTypeSwitch[@name='Camera_Settings_2_0_toggle']").getAttribute("value").equals("1"));
 		}
 	}
@@ -1784,7 +1783,7 @@ public class CameraSettingsScreen extends MobileScreens {
 	}
 	public boolean toggleCameraOnInNightModeSwitch(){
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraOnInNightModeSwitchs");		
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraOnInNightModeSwitch");		
 		} else {
 			 testCase.getMobileDriver().findElementByXPath("//XCUIElementTypeSwitch[@name='Camera_Settings_2_1_toggle']").click();
 			 return true;

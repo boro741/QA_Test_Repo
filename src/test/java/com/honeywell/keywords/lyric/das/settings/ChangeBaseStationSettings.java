@@ -338,31 +338,19 @@ public class ChangeBaseStationSettings extends Keyword {
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
 					if (cs.isCameraOnInNightModeSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase,
-								"camera ON in home mode is already enabled in the Camera settings Screen");
+								"camera ON in night mode is already enabled in the Camera settings Screen");
 					} else {
 						flag = flag & cs.toggleCameraOnInNightModeSwitch();
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 						if (cs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase,
-									"camera ON in home mode is enabled in the Camera settings Screen");
+									"camera ON in night mode is enabled in the Camera settings Screen");
 						}
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
 					if (!cs.isCameraOnInNightModeSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase,
-								"camera ON in home mode is already disabled in the Camera settings Screen");
-						flag = flag & cs.toggleCameraOnInNightModeSwitch();
-						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-						if (cs.isCameraOnInNightModeSwitchEnabled(testCase)) {
-							Keyword.ReportStep_Pass(testCase,
-									"camera ON in home mode is enabled in the Camera settings Screen");
-							flag = flag & cs.toggleCameraOnInNightModeSwitch();
-							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-							if (!cs.isCameraOnInNightModeSwitchEnabled(testCase)) {
-								Keyword.ReportStep_Pass(testCase,
-										"camera ON in home mode is disabled in the Camera settings Screen");
-							}
-						}
+								"camera ON in night mode is already disabled in the Camera settings Screen");
 					} else {
 						flag = flag & cs.toggleCameraOnInNightModeSwitch();
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);

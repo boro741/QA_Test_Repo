@@ -187,8 +187,8 @@ Then user "deletes location details" by clicking on "delete" button
 Examples: 
       | new location name           | new device name       | invalid zip code             | valid zip code        |
       | California                  | Scrum Room            | 555555                       | 90001                 |
-#      | Texas                       | War Room              | 555555                       | 73301                 |
-#     | Texas#$%                    | Ball Room             | 555555                       | 73301                 |
+      | Texas                       | War Room              | 555555                       | 73301                 |
+     | Texas#$%                    | Ball Room             | 555555                       | 73301                 |
 
 
 #Reauire a new account to execute
@@ -236,12 +236,12 @@ Then user "deletes default location details" by clicking on "delete" button
 
 Examples: 
       | Default Location		| Default Device Name		| invalid zip code             | valid zip code        |
-#      | Home					| Living Room				| 555555                       | 90001                 |		
-      | Vacation Home		| Kitchen					| 555555                       | 90001                 |
-#      | Office				| Entry Way					| 555555                       | 90001                 |
-#      | Lake House			| Dining Room				| 555555                       | 90001                 |
-#      | Cabin				| Bedroom					| 555555                       | 90001                 |
-#      | Pool House			| First Floor				| 555555                       | 90001                 |
+      | Home					| Living Room				| 555555                       | 90001                 |		
+     | Vacation Home		| Kitchen					| 555555                       | 90001                 |
+      | Office				| Entry Way					| 555555                       | 90001                 |
+      | Lake House			| Dining Room				| 555555                       | 90001                 |
+      | Cabin				| Bedroom					| 555555                       | 90001                 |
+      | Pool House			| First Floor				| 555555                       | 90001                 |
 
 
 @DIYDenyAppAccessToLocationServices		@P2				@CannotAutomate @--xrayid:ATER-55046
@@ -771,7 +771,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 Examples: 
       | location name                           | device name                     | 
       | Home                                    | Living Room                     |
-#      | Home                                    | Kitchen                         |
+     | Home                                    | Kitchen                         |
       
       
 @DIYRegistrationWithSkipGeoFenceAndSetUpAlexa	 @P2			@Automated @--xrayid:ATER-55069
@@ -1386,8 +1386,8 @@ Examples:
 | Create Location			| Choose Location				|
 | Name Your Base Station		| Choose Location				|
 | Power Base Station			| Name Your Base Station			|
-#| Enter your Wi-Fi password	| Connect to Network				|
-#| Set Up accessories         | Smart Home Security Success	|
+| Enter your Wi-Fi password	| Connect to Network				|
+| Set Up accessories         | Smart Home Security Success	|
 
 
 @DIYRegistrationWithAccessSensorEnrollmentWithDefaultName		@P3				@Automated @--xrayid:ATER-55088 
@@ -1483,19 +1483,18 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 Examples:
 | location name	| device name		| Sensor Location	| Sensor Type SETUP Button			| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
 | Home			| Living Room		| Door				| Door Access Sensor SETUP Button	| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com					| vibex888				|
-#| Home			| Living Room		| Window 			| Window Access Sensor SETUP Button	| Living Room Window 	| Open 			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com					| vibex888				|
-#incaserequired
-#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Back Door				| Opened			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Side Door				| Opened 		| Closed 				| Door Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Window 			| Window Access Sensor SETUP Button	|  Living Room Window 	| Opened 		| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Dining Room Window 	| Opened			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Kitchen Window 		| Opened			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Front Door			| Opened 		| Closed 				| Door Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Back Door				| Opened 		| Closed 				| Door Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Side Door				| Opened 		| Closed 				| Door Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Living Room Window 	| Opened			| Closed					| Window Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Dining Room Window 	| Opened 		| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Kitchen Window 		| Opened 		| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Window 			| Window Access Sensor SETUP Button	| Living Room Window 	| Open 			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com					| vibex888				|
+| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Back Door				| Opened			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Side Door				| Opened 		| Closed 				| Door Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Window 			| Window Access Sensor SETUP Button	|  Living Room Window 	| Opened 		| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Dining Room Window 	| Opened			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Kitchen Window 		| Opened			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Front Door			| Opened 		| Closed 				| Door Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Back Door				| Opened 		| Closed 				| Door Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Side Door				| Opened 		| Closed 				| Door Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Living Room Window 	| Opened			| Closed					| Window Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Dining Room Window 	| Opened 		| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Kitchen Window 		| Opened 		| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| vibex888				|
 
 
 @DIYRegistrationWithAccessSensorEnrollmentWithCustomName		@P4			@Automated @--xrayid:ATER-55089
@@ -1902,18 +1901,17 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 Examples:
 | location name	| device name		| Sensor Name    | Mount Sensor Name | Place Sensor      | Motion Status         | Motion Status Update | Amazon username				| Amazon password		|
 | Home			| Living Room		| Front Hall     | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Front Hall     | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
-#incaserequired
-#| Home			| Living Room		| Back Hall      | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Back Hall      | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Living Room    | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Living Room    | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Front Hall     | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Front Hall     | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Back Hall      | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Back Hall      | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Living Room    | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Living Room    | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Front Hall     | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Back Hall      | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Back Hall      | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Living Room    | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Living Room    | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Front Hall     | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Front Hall     | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Back Hall      | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Back Hall      | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Living Room    | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Living Room    | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
 
 
 @DIYRegistrationWithMotionViewerEnrollmentWithCustomSensorName		@P4			@Automated @--xrayid:ATER-55094
@@ -2001,7 +1999,7 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 Examples:
 | location name	| device name		| Custom name    | Mount Sensor Name | Place Sensor      | Motion Status         | Motion Status Update | Amazon username				| Amazon password		|
 | Home			| Living Room		| Honeywell      | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Honeywell1     | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Honeywell1     | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
 
 
 @DIYRegistrationWithKeyFobEnrollment		@P3			@Automated @--xrayid:ATER-55095
@@ -2152,18 +2150,17 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 Examples:
 | location name	| device name		| Viewer Location	| Place Viewer Area             | Motion Status         | Motion Status Update  | Amazon username				| Amazon password		|
 | Home			| Living Room		| Front Hall			| On a Shelf                    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Front Hall			| In a Corner                   | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Front Hall			| Flat on a Wall with Adhesive  | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Front Hall			| Flat on a Wall with Screws    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
-#Incaserequired
-#| Home			| Living Room		| Kitchen			| On a Shelf                    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Kitchen			| In a Corner                   | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Kitchen			| Flat on a Wall with Adhesive  | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Kitchen			| Flat on a Wall with Screws    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Living Room		| On a Shelf                    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Living Room		| In a Corner                   | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Living Room		| Flat on a Wall with Adhesive  | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Living Room		| Flat on a Wall with Screws    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Front Hall			| In a Corner                   | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Front Hall			| Flat on a Wall with Adhesive  | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Front Hall			| Flat on a Wall with Screws    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Kitchen			| On a Shelf                    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Kitchen			| In a Corner                   | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Kitchen			| Flat on a Wall with Adhesive  | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Kitchen			| Flat on a Wall with Screws    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Living Room		| On a Shelf                    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Living Room		| In a Corner                   | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Living Room		| Flat on a Wall with Adhesive  | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Living Room		| Flat on a Wall with Screws    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| vibex888				|
 
 
 @DIYRegistrationWithISMVEnrollmentWithCustomSensorName		@P4			@Automated @--xrayid:ATER-55097 
@@ -2338,11 +2335,10 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 Examples:
 | location name	| device name		| Viewer Location    | Motion Status         | Motion Status Update | Amazon username				| Amazon password		|
 | Home			| Living Room		| Front Porch        | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Back Porch         | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
-#incaserequired
-#| Home			| Living Room		| Driveway           | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Garage             | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
-#| Home			| Living Room		| Patio              | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Back Porch         | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Driveway           | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Garage             | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
+| Home			| Living Room		| Patio              | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| vibex888				|
 
 
 @DIYRegistrationWithOSMVEnrollmentWithCustomSensorName		@P4			@Automated @--xrayid:ATER-55099
@@ -2710,20 +2706,19 @@ Then user should not be displayed with <Sensor Location> device on the "sensor l
 Examples:
 | Mode	| Sensor Location	| Sensor Type SETUP Button			| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		|
 | Home	| Door				| Door Access Sensor SETUP Button	| Front Door				| Open			| Closed					| Door Access Settings		|
-#| Home	| Window 			| Window Access Sensor SETUP Button	| Living Room Window 	| Open 			| Closed 				| Window Access Settings		|
-#| Off	| Door				| Door Access Sensor SETUP Button	| Front Door				| Open			| Closed					| Door Access Settings		|
-#| Off	| Window 			| Window Access Sensor SETUP Button	| Living Room Window 	| Open 			| Closed 				| Window Access Settings		|
-#incaserequired
-#| Home	| Door				| Door Access Sensor SETUP Button	| Back Door				| Opened			| Closed					| Door Access Settings		|
-#| Home	| Door				| Door Access Sensor SETUP Button	| Side Door				| Opened 		| Closed 				| Door Access Settings		|
-#| Home	| Window 			| Window Access Sensor SETUP Button	| Living Room Window 	| Opened 		| Closed 				| Window Access Settings		|
-#| Home	| Window				| Window Access Sensor SETUP Button	| Dining Room Window 	| Opened			| Closed 				| Window Access Settings		|
-#| Home	| Window				| Window Access Sensor SETUP Button	| Kitchen Window 		| Opened			| Closed 				| Window Access Settings		|
-#| Off	| Door				| Door Access Sensor SETUP Button	| Back Door				| Opened 		| Closed 				| Door Access Settings		|
-#| Off	| Door				| Door Access Sensor SETUP Button	| Side Door				| Opened 		| Closed 				| Door Access Settings		|
-#| Off	| Window				| Window Access Sensor SETUP Button	| Living Room Window 	| Opened			| Closed					| Window Access Settings		|
-#| Off	| Window				| Window Access Sensor SETUP Button	| Dining Room Window 	| Opened 		| Closed 				| Window Access Settings		|
-#| Off	| Window				| Window Access Sensor SETUP Button	| Kitchen Window 		| Opened 		| Closed 				| Window Access Settings		|
+| Home	| Window 			| Window Access Sensor SETUP Button	| Living Room Window 	| Open 			| Closed 				| Window Access Settings		|
+| Off	| Door				| Door Access Sensor SETUP Button	| Front Door				| Open			| Closed					| Door Access Settings		|
+| Off	| Window 			| Window Access Sensor SETUP Button	| Living Room Window 	| Open 			| Closed 				| Window Access Settings		|
+| Home	| Door				| Door Access Sensor SETUP Button	| Back Door				| Opened			| Closed					| Door Access Settings		|
+| Home	| Door				| Door Access Sensor SETUP Button	| Side Door				| Opened 		| Closed 				| Door Access Settings		|
+| Home	| Window 			| Window Access Sensor SETUP Button	| Living Room Window 	| Opened 		| Closed 				| Window Access Settings		|
+| Home	| Window				| Window Access Sensor SETUP Button	| Dining Room Window 	| Opened			| Closed 				| Window Access Settings		|
+| Home	| Window				| Window Access Sensor SETUP Button	| Kitchen Window 		| Opened			| Closed 				| Window Access Settings		|
+| Off	| Door				| Door Access Sensor SETUP Button	| Back Door				| Opened 		| Closed 				| Door Access Settings		|
+| Off	| Door				| Door Access Sensor SETUP Button	| Side Door				| Opened 		| Closed 				| Door Access Settings		|
+| Off	| Window				| Window Access Sensor SETUP Button	| Living Room Window 	| Opened			| Closed					| Window Access Settings		|
+| Off	| Window				| Window Access Sensor SETUP Button	| Dining Room Window 	| Opened 		| Closed 				| Window Access Settings		|
+| Off	| Window				| Window Access Sensor SETUP Button	| Kitchen Window 		| Opened 		| Closed 				| Window Access Settings		|
 
 
 @DASAccessSensorEnrollmentWithCustomSensorName		@P1			@Automated @--xrayid:ATER-55102
@@ -2841,20 +2836,19 @@ Then user should not be displayed with "Motion sensor" device on the "sensor lis
 Examples:
 | Mode	| Sensor Name	| Mount Sensor Name	| Place Sensor 		| Motion Status			| Motion Status Update	|
 | Home	| Front Hall 	| In a Wall Corner 	| Mount in a Corner	| NO MOTION DETECTED		| MOTION DETECTED 		|
-#| OFF 	| Front Hall  	| Flat on a Wall		| Mount on the Wall	| NO MOTION DETECTED		| MOTION DETECTED 		|
-#incaserequired 
-#| Home	| Front Hall 	| In a Wall Corner 	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
-#| Home | Front Hall  	| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
-#| Home | Back Hall 		| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
-#| Home | Back Hall 		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
-#| Home | Living Room 	| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
-#| Home | Living Room  	| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
-#| OFF	| Front Hall 	| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
-#| OFF 	| Front Hall  	| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
-#| OFF 	| Back Hall 		| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
-#| OFF 	| Back Hall 		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
-#| OFF 	| Living Room 	| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
-#| OFF 	| Living Room  	| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| OFF 	| Front Hall  	| Flat on a Wall		| Mount on the Wall	| NO MOTION DETECTED		| MOTION DETECTED 		|
+| Home	| Front Hall 	| In a Wall Corner 	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| Home | Front Hall  	| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| Home | Back Hall 		| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| Home | Back Hall 		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| Home | Living Room 	| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| Home | Living Room  	| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| OFF	| Front Hall 	| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| OFF 	| Front Hall  	| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| OFF 	| Back Hall 		| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| OFF 	| Back Hall 		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| OFF 	| Living Room 	| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| OFF 	| Living Room  	| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
 
 
 @DASMotionSensorEnrollmentWithCustomName		@P1				@Automated @--xrayid:ATER-55104
@@ -2911,10 +2905,9 @@ Then user should not be displayed with "Motion sensor" device on the "sensor lis
 Examples:
 | Mode	| Custom name	| Mount Sensor Name	| Place Sensor		| Motion Status			| Motion Status Update	|
 | Home	| Honeywell		| In a Wall Corner	| Mount in a Corner	| NO MOTION DETECTED 	| MOTION DETECTED		|
-#| OFF	| Honeywell		| Flat on a Wall		| Mount on the Wall	| NO MOTION DETECTED 	| MOTION DETECTED		|
-#incaserequired
-#| Home | Honeywell		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
-#| OFF	| Honeywell 		| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| OFF	| Honeywell		| Flat on a Wall		| Mount on the Wall	| NO MOTION DETECTED 	| MOTION DETECTED		|
+| Home | Honeywell		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| OFF	| Honeywell 		| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
 
 
 @DASKeyFobEnrollment		@P1			@Automated @--xrayid:ATER-55105
@@ -2949,8 +2942,7 @@ Then user should not be displayed with "Keyfob" device on the "Keyfob list" scre
 Examples:
 | Mode | Custom name		|
 | Home | Keyfob			|
-#incaseerequied
-#| OFF | Keyfob			|
+| OFF | Keyfob			|
 
 
 @DASISMVEnrollmentWithDefaultSensorName		@P1			@Automated @--xrayid:ATER-55106
@@ -3002,20 +2994,19 @@ Then user should not be displayed with "ISMV sensor" device on the "sensor list"
 Examples:
 | Mode	| Viewer Location	| Place Viewer Area	|  Place Sensor 		| Motion Status			| Motion Status Update  |
 | Home	| Front Hall			| On a Shelf			| Mount in a Corner	| NO MOTION DETECTED		| MOTION DETECTED       |
-#| Off	| Front Hall			| In a Corner		| Mount on the Wall	| NO MOTION DETECTED		| MOTION DETECTED       |
-#incaserequired 
-#| Home	| Front Hall 		| In a Wall Corner 	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
-#| Home | Front Hall  		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
-#| Home | Back Hall 			| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
-#| Home | Back Hall 			| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
-#| Home | Living Room 		| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
-#| Home | Living Room  		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
-#| OFF	| Front Hall 		| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
-#| OFF 	| Front Hall  		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
-#| OFF 	| Back Hall 			| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
-#| OFF 	| Back Hall 			| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
-#| OFF 	| Living Room 		| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
-#| OFF 	| Living Room  		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| Off	| Front Hall			| In a Corner		| Mount on the Wall	| NO MOTION DETECTED		| MOTION DETECTED       |
+| Home	| Front Hall 		| In a Wall Corner 	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| Home | Front Hall  		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| Home | Back Hall 			| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| Home | Back Hall 			| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| Home | Living Room 		| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| Home | Living Room  		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| OFF	| Front Hall 		| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| OFF 	| Front Hall  		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| OFF 	| Back Hall 			| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| OFF 	| Back Hall 			| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| OFF 	| Living Room 		| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
+| OFF 	| Living Room  		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
 
 
 @DASISMVEnrollmentWithCustomName			@P1				@Automated @--xrayid:ATER-55107
@@ -3069,8 +3060,7 @@ Then user should not be displayed with "ISMV sensor" device on the "sensor list"
 Examples:
 | Mode	| Custom name	| Place Viewer Area 		| Motion Status         | Motion Status Update  |
 | Home	| Honeywell		| On a Shelf				| NO MOTION DETECTED    | MOTION DETECTED       |
-#| Off	| Honeywell		| On a Shelf				| NO MOTION DETECTED    | MOTION DETECTED       |
-#incaserequired
+| Off	| Honeywell		| On a Shelf				| NO MOTION DETECTED    | MOTION DETECTED       |
 #| Home | Honeywell		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
 #| OFF	| Honeywell 		| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|
 
@@ -3131,11 +3121,10 @@ Then user should not be displayed with "OSMV sensor" device on the "sensor list"
 Examples:
 | Mode	| Viewer Location	| Motion Status         | Motion Status Update |
 | Home	| Front Porch		| NO MOTION DETECTED    | MOTION DETECTED      |
-#| Off	| Back Porch			| NO MOTION DETECTED    | MOTION DETECTED      |
-#incaserequired
-#| Home	| Driveway			| NO MOTION DETECTED    | MOTION DETECTED      |
-#| Home	| Garage				| NO MOTION DETECTED    | MOTION DETECTED      |
-#| Home	| Patio				| NO MOTION DETECTED    | MOTION DETECTED      |
+| Off	| Back Porch			| NO MOTION DETECTED    | MOTION DETECTED      |
+| Home	| Driveway			| NO MOTION DETECTED    | MOTION DETECTED      |
+| Home	| Garage				| NO MOTION DETECTED    | MOTION DETECTED      |
+| Home	| Patio				| NO MOTION DETECTED    | MOTION DETECTED      |
 
 
 @DASOSMVEnrollmentWithCustomName		@P1				@Automated @--xrayid:ATER-55109
@@ -3196,7 +3185,6 @@ Then user should not be displayed with "OSMV sensor" device on the "sensor list"
 Examples:
 | Mode	| Custom name	| Place Viewer Area 		| Motion Status         | Motion Status Update  |
 | Home	| Honeywell		| On a Shelf				| NO MOTION DETECTED    | MOTION DETECTED       |
-#| Off	| Honeywell		| On a Shelf				| NO MOTION DETECTED    | MOTION DETECTED       |
-#incaserequired
+| Off	| Honeywell		| On a Shelf				| NO MOTION DETECTED    | MOTION DETECTED       |
 #| Home | Honeywell		| Flat on a Wall		| Mount on the Wall | NO MOTION DETECTED 	| MOTION DETECTED 		|
 #| OFF	| Honeywell 		| In a Wall Corner	| Mount in a Corner | NO MOTION DETECTED 	| MOTION DETECTED 		|

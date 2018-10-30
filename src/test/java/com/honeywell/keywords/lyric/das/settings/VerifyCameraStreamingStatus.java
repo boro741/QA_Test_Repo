@@ -43,12 +43,13 @@ public class VerifyCameraStreamingStatus extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Camera is not live streaming");
 				}
 			} else if (parameters.get(0).equalsIgnoreCase("not live streaming")) {
-				if (DASCameraUtils.verifyLiveStreaming(testCase)) {
+				if (DASCameraUtils.verifyNotLiveStreaming(testCase)) {
+					Keyword.ReportStep_Pass(testCase, "Camera is not live streaming");
+					} 
+				else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Camera is live streaming");
-				} else {
-					Keyword.ReportStep_Pass(testCase, "Camera is not live streaming");
-				}
+									}
 			}
 
 		} catch (Exception e) {

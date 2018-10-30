@@ -2,7 +2,7 @@
 Feature: DAS ZWAVE
 As a user I want to control all devices using ZWave technology
 
-Background:
+#Background:
 #Given user is set to "Home" mode through CHIL 
 
  @GeneralExcludeZwaveSwitch @Automated @--xrayid:ATER-54964
@@ -426,11 +426,11 @@ Background:
   
     Examples: 
       | SwitchStatus | DimmerStatus | SwitchExpectedState | DimmerExpectedState | 
-    #  | Off          | Off          | On                  | On                  | 
-    #  | Off          | On           | On                  | On                  | 
+      | Off          | Off          | On                  | On                  | 
+      | Off          | On           | On                  | On                  | 
       | On           | Off          | On                  | On                  | 
-    #  | Offline      | On           | Offline             | On                  | 
-    #  | On           | Offline      | On                  | Offline             | 
+      | Offline      | On           | Offline             | On                  | 
+      | On           | Offline      | On                  | Offline             | 
       
   @AllOffZwaveDevices @Automated @--xrayid:ATER-55024
   Scenario Outline: (ZwaveTC_Set3_4) As a user my I can turn off all my zwave devices at once
@@ -450,10 +450,10 @@ Background:
   
     Examples: 
       | SwitchStatus | DimmerStatus | ExpectedState | 
-    #  | Off          | Off          | Off           | 
+      | Off          | Off          | Off           | 
       | Off          | On           | Off           | 
-     # | On           | Off          | Off           | 
-   #  | On           | On           | Off           | 
+      | On           | Off          | Off           | 
+     | On           | On           | Off           | 
   
   @AllOnZwaveUnknownDevices  @LYDAS-5360 @NotAutomatable @--xrayid:ATER-55026
   Scenario Outline: (ZwaveTC_X3) As a user my I can turn on all my zwave devices at once
@@ -847,9 +847,9 @@ Background:
       | Command           | 
       | Away              | 
       | Night             | 
-   #   | Off               | 
-   #   | Alarm             | 
-   #   | Sensor Enrollment | 
+      | Off               | 
+      | Alarm             | 
+      | Sensor Enrollment | 
   
   @AddSecondary @LYDAS-4882 @NotAutomatable @--xrayid:ATER-55058
   Scenario: (ZwaveTC44) As a user my I want to include a zwave switch through General Inclusion in the application

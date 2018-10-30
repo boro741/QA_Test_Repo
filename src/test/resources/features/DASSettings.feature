@@ -25,7 +25,7 @@ As user I should be able to control my DAS panel settings from the app
     Examples: 
       | Mode | 
       | Home | 
-  #|OFF|
+  |OFF|
   
   #Requirements: Single Location Single DAS Device, OSMV required
   @VerifyDASSettingsOSMV @Automated @--xrayid:ATER-54566
@@ -52,7 +52,7 @@ As user I should be able to control my DAS panel settings from the app
     Examples: 
       | Mode | 
       | Home | 
-  #|OFF|
+  |OFF|
   
   #Requirements: Single Location Single DAS Device OSMV required
   @VerifyDASSettingswhenmodechange @Automated @--xrayid:ATER-54576
@@ -182,17 +182,17 @@ As user I should be able to control my DAS panel settings from the app
     Examples: 
       | Mode | UMode | Push Notification | UPush Notification | 
       | Home | Away  | Set to Away       | Set to Home        | 
-  #|Home|Night| Set to Night |Set to Home |
-  #|Home| Off| Set to Off | Set to Home |
-  #|OFF| Away |Set to Away |Set to Off | 
-  #|OFF| Night |Set to Night |Set to Off | 
-  #|OFF| Home | Set to Home |Set to Off | 
-  #|Night|Home | Set to Home |Set to Night |
-  #|Night|Away |Set to Away |Set to Night |
-  #|Night| Off|Set to Off | Set to Night |
-  #|Away|Home | Set to Home |Set to Away |
-  #|Away|Night |Set to Night |Set to Away |
-  #|Away| Off|Set to Off | Set to Away |
+  |Home|Night| Set to Night |Set to Home |
+  |Home| Off| Set to Off | Set to Home |
+  |OFF| Away |Set to Away |Set to Off | 
+  |OFF| Night |Set to Night |Set to Off | 
+  |OFF| Home | Set to Home |Set to Off | 
+  |Night|Home | Set to Home |Set to Night |
+  |Night|Away |Set to Away |Set to Night |
+  |Night| Off|Set to Off | Set to Night |
+  |Away|Home | Set to Home |Set to Away |
+  |Away|Night |Set to Night |Set to Away |
+  |Away| Off|Set to Off | Set to Away |
   
   #Requirements: DAS panel configured newly, One access sensor
   @VerifyManageAlertsScreenEnableDisableDoorsAndWindowsModeChangeHomeAwayNight @Automated @--xrayid:ATER-54587
@@ -215,17 +215,17 @@ As user I should be able to control my DAS panel settings from the app
     Examples: 
       | Mode | AS   | Event  | Event1 | Push Notification | UPush Notification | 
       | Home | door | Opened | Closed | DOOR OPENED       | DOOR CLOSED        | 
-  #|Home| door |Closed | Opened |DOOR CLOSED | DOOR OPENED|
-  #|Night|door |Opened | Closed | DOOR OPENED | DOOR CLOSED|
-  #|Night|door |Closed | Opened |DOOR CLOSED | DOOR OPENED|
-  #|Away|door |Opened | Closed | DOOR OPENED | DOOR CLOSED|
-  #|Away|door |Closed | Opened |DOOR CLOSED | DOOR OPENED|
-  #|Home| WINDOW | Opened | Closed | WINDOW OPENED | WINDOW CLOSED|
-  #|Home| WINDOW |Closed | Opened |WINDOW CLOSED | WINDOW OPENED|
-  #|Night|WINDOW |Opened | Closed | WINDOW OPENED | WINDOW CLOSED|
-  #|Night|WINDOW |Closed | Opened |WINDOW CLOSED | WINDOW OPENED|
-  #|Away|WINDOW |Opened | Closed | WINDOW OPENED | WINDOW CLOSED|
-  #|Away|WINDOW |Closed | Opened |WINDOW CLOSED | WINDOW OPENED|
+  |Home| door |Closed | Opened |DOOR CLOSED | DOOR OPENED|
+  |Night|door |Opened | Closed | DOOR OPENED | DOOR CLOSED|
+  |Night|door |Closed | Opened |DOOR CLOSED | DOOR OPENED|
+  |Away|door |Opened | Closed | DOOR OPENED | DOOR CLOSED|
+  |Away|door |Closed | Opened |DOOR CLOSED | DOOR OPENED|
+  |Home| WINDOW | Opened | Closed | WINDOW OPENED | WINDOW CLOSED|
+  |Home| WINDOW |Closed | Opened |WINDOW CLOSED | WINDOW OPENED|
+  |Night|WINDOW |Opened | Closed | WINDOW OPENED | WINDOW CLOSED|
+  |Night|WINDOW |Closed | Opened |WINDOW CLOSED | WINDOW OPENED|
+  |Away|WINDOW |Opened | Closed | WINDOW OPENED | WINDOW CLOSED|
+  |Away|WINDOW |Closed | Opened |WINDOW CLOSED | WINDOW OPENED|
   
   #Requirements: DAS panel configured newly, One access sensor
   @VerifyManageAlertsScreenEnableDisableDoorsAndWindowsModeChangeOff @Automated @--xrayid:ATER-54591
