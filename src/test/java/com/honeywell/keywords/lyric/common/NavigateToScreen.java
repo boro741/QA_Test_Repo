@@ -38,15 +38,18 @@ import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.lyric.utils.DASInputVariables;
 import com.honeywell.lyric.utils.LyricUtils;
+import com.honeywell.screens.ActivityHistoryScreen;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.CameraSolutionCardScreen;
+import com.honeywell.screens.CoachMarks;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
+import com.honeywell.screens.OSPopUps;
 import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SecondaryCardSettings;
 import com.honeywell.screens.SecuritySolutionCardScreen;
@@ -527,7 +530,7 @@ public class NavigateToScreen extends Keyword {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Could not click on Activity history menu from Global drawer");
 						} else {
-							// Fetching Messages
+							// Fetching messages
 						}
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -541,7 +544,7 @@ public class NavigateToScreen extends Keyword {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
 						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.MEMBERSHIPSUBSCRIPTION)) {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Could not click on Activity history menu from Global drawer");
+									"Could not click on Honeywell Membership menu from Global drawer");
 						} else {
 							// Fetching Messages
 							sc.selectOptionFromSecondarySettings(SecondaryCardSettings.MEMBERSHIPSUBSCRIPTION);
@@ -987,11 +990,23 @@ public class NavigateToScreen extends Keyword {
 				case "GLOBAL DRAWER": {
 					Thread.sleep(5000);
 					Dashboard ds = new Dashboard(testCase);
+					OSPopUps os = new OSPopUps(testCase);
+					CoachMarks cm = new CoachMarks(testCase);
+					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+						if (os.isNotNowButtonVisible(1)) {
+							flag &= os.clickOnNotNowButton();
+							if (os.isNotNowButtonVisible(1)) {
+								flag &= os.clickOnNotNowButton();
+							}
+						}
+						if (cm.isDoneButtonVisible(1)) {
+							flag = flag & cm.clickOnDoneButton();
+						}
+					}
 					if (!ds.clickOnGlobalDrawerButton()) {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Could not click on Global drawer menu from dashboard");
 						flag = false;
-
 					}
 					break;
 				}
@@ -3326,6 +3341,13 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "MANAGE ALERTS": {
 					DASSettingsUtils.navigateFromActivityHistoryScreenToManageAlertsScreen(testCase, inputs);
+					break;
+				}
+				case "GLOBAL DRAWER": {
+					ActivityHistoryScreen ah = new ActivityHistoryScreen(testCase);
+					if (ah.isBackButtonVisible()) {
+						flag &= ah.clickOnBackButton();
+					}
 					break;
 				}
 				case "DASHBOARD": {

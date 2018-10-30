@@ -107,7 +107,7 @@ public class LogoutOfLyric extends Keyword {
 								fWait.pollingEvery(500, TimeUnit.MILLISECONDS);
 								try {
 									WebElement logoutElement = fWait.until(ExpectedConditions
-											.visibilityOfElementLocated(By.xpath("//*[@label='Logout']")));
+											.visibilityOfElementLocated(By.name("logout_cell")));
 									if (logoutElement != null) {
 										logoutElement.click();
 										success = true;

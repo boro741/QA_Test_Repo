@@ -973,6 +973,16 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+			case "GEOFENCE SETTINGS": {
+				GeofenceSettings gs = new GeofenceSettings(testCase);
+				if (gs.isGeofenceSettingsScreenTitleVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

@@ -11,7 +11,9 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.screens.ActivityHistoryScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.GeofenceSettings;
 
 public class VerifyOptionsOnAScreenNotDisplayed extends Keyword {
 
@@ -39,7 +41,6 @@ public class VerifyOptionsOnAScreenNotDisplayed extends Keyword {
 	@KeywordStep(gherkins = "^user should not be displayed with the following \"(.*)\" options:$")
 	public boolean keywordSteps() throws KeywordException {
 		switch (expectedScreen.get(0).toUpperCase()) {
-
 		case "DETERRENCE SETTINGS": {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
@@ -67,6 +68,78 @@ public class VerifyOptionsOnAScreenNotDisplayed extends Keyword {
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"The " + parameter + " is displayed");
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "GEOFENCE THIS LOCATION": {
+			boolean flag = true;
+			GeofenceSettings gs = new GeofenceSettings(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "GeofenceThisLocation");
+				switch (parameter.toUpperCase()) {
+				case "GEOFENCE RADIUS": {
+					flag &= gs.isGeofenceRadiusOptionVisible();
+					if (!flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is not displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is displayed");
+					}
+					break;
+				}
+				case "LOCATION STATUS": {
+					flag &= gs.isLocationStatusOptionVisible();
+					if (!flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is not displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is displayed");
+					}
+					break;
+				}
+				case "GEOFENCE ALERT": {
+					flag &= gs.isGeofenceAlertOptionVisible();
+					if (!flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is not displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "ACTIVITY HISTORY": {
+			boolean flag = true;
+			ActivityHistoryScreen ah = new ActivityHistoryScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "Options");
+				switch (parameter.toUpperCase()) {
+				case "EDIT": {
+					flag &= ah.isEditButtonVisible();
+					if (!flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is not displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
 				}
 				flag = true;
 			}

@@ -24,14 +24,31 @@ public class ActivityHistoryScreen extends MobileScreens {
 
 	public boolean isMessagesDisplayed() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "Message");
-
 	}
+
 	public boolean isActivityHistoryTitleDisplayed() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ActivityHistoryTitle");
 
 	}
 	
+	public boolean isProgressBarVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ProgressBar");
+	}
+	public boolean isNoMessagesLabelVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoMessagesLabel");
+	}
 	
+	public boolean isEditButtonVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EditButton");
+	}
+	
+	public boolean isBackButtonVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton");
+	}
+	
+	public boolean clickOnBackButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+	}
 
 	public HashMap<String, String> getAllMessages(TestCases testCase) throws Exception {
 		HashMap<String, String> combinedMessage = new HashMap<String, String>();
@@ -63,16 +80,16 @@ public class ActivityHistoryScreen extends MobileScreens {
 				// for (WebElement message : messagesGroup) {
 				for (int j = 1; j < messagesGroup.size(); j++) {
 					//// XCUIElementTypeCell/XCUIElementTypeStaticText[1]
-					WebElement ele = testCase.getMobileDriver()
-							.findElement(By.xpath("(//XCUIElementTypeStaticText[@name='Messages_subTitle'])[" + (i+1) + "]"));
-					WebElement ele1 = testCase.getMobileDriver()
-							.findElement(By.xpath("(//XCUIElementTypeStaticText[@name='Messages_detail_subTitle'])[" + j + "]"));
+					WebElement ele = testCase.getMobileDriver().findElement(
+							By.xpath("(//XCUIElementTypeStaticText[@name='Messages_subTitle'])[" + (i + 1) + "]"));
+					WebElement ele1 = testCase.getMobileDriver().findElement(
+							By.xpath("(//XCUIElementTypeStaticText[@name='Messages_detail_subTitle'])[" + j + "]"));
 					if (!combinedMessage.containsKey(ele.getAttribute("value"))) {
 						combinedMessage.put(ele.getAttribute("value"), ele1.getAttribute("value"));
 					}
 					System.out.println(ele.getAttribute("value"));
 					System.out.println(ele1.getAttribute("value"));
-					i= i+2;
+					i = i + 2;
 				}
 
 			}

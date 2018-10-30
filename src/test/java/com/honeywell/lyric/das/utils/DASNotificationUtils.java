@@ -16,7 +16,7 @@ public class DASNotificationUtils {
 	public static void openNotifications(TestCases testCase) {
 		MobileUtils.minimizeApp(testCase, -1);
 		try {
-			Thread.sleep(7000);
+			Thread.sleep(12000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
