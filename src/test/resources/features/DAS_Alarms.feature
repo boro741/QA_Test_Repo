@@ -298,7 +298,7 @@ Given user is set to "Home" mode through CHIL
      Given user sets the entry/exit timer to "60" seconds
      Given user is set to "Away" mode through CHIL
        And user launches and logs in to the Lyric application
-       And user clears all push notifications
+      And user clears all push notifications
       When user navigates to "Security Solution card" screen from the "Dashboard" screen
        And timer ends on user device
        And user "opens door with app" in background
@@ -317,7 +317,7 @@ Given user is set to "Home" mode through CHIL
      Then user status should be set to "Home"
       And user should see the "sensor" status as "issue" on the "Security Solution Card"
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
-     Then user should see the "door" status as "opened" on the "Sensor Status"
+     Then user should see the "door" status as "open" on the "Sensor Status"
      And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
      When user "opens" activity log
      Then verify the following activity log:
@@ -360,12 +360,11 @@ Given user is set to "Home" mode through CHIL
       And user switches from "Home" to "Away"
       And user "opens door with app" in background
      Then user selects the "Door Opened" push notification
-      And user "door" access sensor "closed"
      When user selects "Switch to Home" from "Entry delay" screen
      Then user status should be set to "Home"
      Then user should see the "sensor" status as "no issue" on the "Security Solution Card"
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
-     Then user should see the "door" status as "closed" on the "Sensor Status"
+     Then user should see the "door" status as "OPEN" on the "Sensor Status"
      And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
       And user "opens" activity log
      Then verify the following activity log:

@@ -1638,7 +1638,12 @@ public class CameraSettingsScreen extends MobileScreens {
 		}
 	}
 	public boolean isPeopleDetectionEnabled(){
-		return MobileUtils.getMobElement(objectDefinition, testCase, "PeopleDetectionLable").isEnabled();	
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.getMobElement(objectDefinition, testCase, "PeopleDetectionLable").isEnabled();
+		}
+		else{
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "PeopleDetectionLable").equalsIgnoreCase("enabled");
+		}
 	}
 	public boolean isNightVisionEnabled(){
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {

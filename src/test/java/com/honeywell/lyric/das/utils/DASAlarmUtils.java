@@ -147,7 +147,7 @@ public class DASAlarmUtils {
 	public static boolean clickOnSwitchToHome(TestCases testCase, TestCaseInputs inputs) {
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);
 		inputs.setInputValue("HOME_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
-		return alarmScreen.clickOnSwitchToHome();
+		return alarmScreen.clickOnSwitchToHome(60);
 	}
 
 	public static boolean clickOnSwitchToNight(TestCases testCase, TestCaseInputs inputs) {

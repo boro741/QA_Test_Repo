@@ -346,25 +346,25 @@ Then user should not be displayed with "Low Battery status"
 Examples:
 |Mode|Sensor| 
 |Away|Door Sensor|			
-|Away|Window Sensor|		
-|Away|Motion Sensor|
-|Away|ISMV Sensor|
-|Away|OSMV Sensor|
-|Night|Door Sensor|			
-|Night|Window Sensor|		
-|Night|Motion Sensor|
-|Night|ISMV Sensor|
-|Night|OSMV Sensor|
-|Home|Door Sensor|			
-|Home|Window Sensor|		
-|Home|Motion Sensor|
-|Home|ISMV Sensor|
-|Home|OSMV Sensor|
-|Off |Door Sensor|			
-|Off |Window Sensor|		
-|Off |Motion Sensor|
-|Off |ISMV Sensor|
-|Off |OSMV Sensor|
+#|Away|Window Sensor|		
+#|Away|Motion Sensor|
+#|Away|ISMV Sensor|
+#|Away|OSMV Sensor|
+#|Night|Door Sensor|			
+#|Night|Window Sensor|		
+#|Night|Motion Sensor|
+#|Night|ISMV Sensor|
+#|Night|OSMV Sensor|
+#|Home|Door Sensor|			
+#|Home|Window Sensor|		
+#|Home|Motion Sensor|
+#|Home|ISMV Sensor|
+#|Home|OSMV Sensor|
+#|Off |Door Sensor|			
+#|Off |Window Sensor|		
+#|Off |Motion Sensor|
+#|Off |ISMV Sensor|
+#|Off |OSMV Sensor|
 
 
 @DASSensorOfflineStatus			@P2			@NotAutomatable

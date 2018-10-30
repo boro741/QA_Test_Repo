@@ -50,7 +50,6 @@ public class AlarmScreen extends MobileScreens {
 	public boolean clickOnDismissAlarm() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AlarmDismissButton")
 				&& MobileUtils.clickOnElement(objectDefinition, testCase, "DismissAlarmPopupOk");
-
 	}
 
 	public boolean clickOnCall() {
@@ -66,6 +65,14 @@ public class AlarmScreen extends MobileScreens {
 
 	public boolean clickOnSwitchToHome() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchToHomeButton");
+	}
+	
+	public boolean clickOnSwitchToHome(int timeout) {
+		boolean flag = true;
+		if( MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchToHomeButton", timeout)){;
+		flag = flag &  MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchToHomeButton");
+		}
+		return flag;
 	}
 
 	public boolean clickOnSwitchToNight() {

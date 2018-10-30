@@ -14,7 +14,7 @@ As user I should be able to control my DAS panel settings from the app
       | Amazon Alexa               | 
       | Geofencing                 | 
       | OK Security Voice Commands | 
-      | Entry/Exit Delay           | 
+      | Entry_Exit Delay           | 
       | About Security Modes       | 
       | Key Fob                    | 
       | Sensors                    | 
