@@ -376,8 +376,7 @@ public class SchedulingScreen extends MobileScreens {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return MobileUtils.getMobElements(objectDefinition, testCase, "HeatSetPointChooser").get(1).getText();
 			} else {
-				return testCase.getMobileDriver().findElement(By.name("//XCUIElementTypeStaticText[@name='Dialer'][2]"))
-						.getAttribute("value");
+				return MobileUtils.getMobElement(testCase, "XPATH", "//XCUIElementTypeStaticText[@name='Dialer'][2]").getAttribute("value");
 			}
 		} else {
 			return MobileUtils.getFieldValue(objectDefinition, testCase, "HeatSetPointChooser");
@@ -390,7 +389,7 @@ public class SchedulingScreen extends MobileScreens {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return MobileUtils.getMobElements(objectDefinition, testCase, "HeatDecrement").get(1);
 			} else {
-				return testCase.getMobileDriver().findElements(By.id("temp stepper down")).get(1);
+				return testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypeButton[@name='temp stepper down'][2]"));
 			}
 		} else {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
