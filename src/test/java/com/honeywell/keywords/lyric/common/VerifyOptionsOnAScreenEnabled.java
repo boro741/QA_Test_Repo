@@ -16,6 +16,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.GlobalVariables;
+import com.honeywell.screens.ActivityHistoryScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.Dashboard;
@@ -845,7 +846,6 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 			}
 			break;
 		}
-
 		case "SET FILTER REMINDER": {
 			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
@@ -873,6 +873,30 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Set Filter Reminder:" + fieldToBeVerified + " is disabled");
+					}
+				}
+			}
+			break;
+		}
+		case "ACTIVITY HISTORY": {
+			ActivityHistoryScreen ah = new ActivityHistoryScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "ActivityHistoryOptions");
+				if (fieldToBeVerified.equalsIgnoreCase("SELECT ALL")) {
+					if (ah.isSelectAllButtonVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option: " + fieldToBeVerified + " is enabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option: " + fieldToBeVerified + " is disabled");
+					}
+				} else if (fieldToBeVerified.equalsIgnoreCase("DELETE")) {
+					if (ah.isDeletelButtonEnabled()) {
+						Keyword.ReportStep_Pass(testCase, "Option: " + fieldToBeVerified + " is enabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option: " + fieldToBeVerified + " is disabled");
 					}
 				}
 			}

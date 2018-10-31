@@ -123,7 +123,7 @@ public class VerifyOptionsOnAScreenNotDisplayed extends Keyword {
 			boolean flag = true;
 			ActivityHistoryScreen ah = new ActivityHistoryScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
-				String parameter = data.getData(i, "Options");
+				String parameter = data.getData(i, "ActivityHistoryOptions");
 				switch (parameter.toUpperCase()) {
 				case "EDIT": {
 					flag &= ah.isEditButtonVisible();
@@ -132,6 +132,28 @@ public class VerifyOptionsOnAScreenNotDisplayed extends Keyword {
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Option " + parameter + " is displayed");
+					}
+					break;
+				}
+				case "SELECT ALL": {
+					flag &= ah.isSelectAllButtonVisible();
+					if (!flag) {
+						Keyword.ReportStep_Pass(testCase, "Option: " + parameter + " is not displayed");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option: " + parameter + " is displayed");
+					}
+					break;
+				}
+				case "DELETE": {
+					flag &= ah.isDeletelButtonEnabled();
+					if (!flag) {
+						Keyword.ReportStep_Pass(testCase, "Option: " + parameter + " is not displayed");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option: " + parameter + " is displayed");
 					}
 					break;
 				}

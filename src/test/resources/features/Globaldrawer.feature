@@ -4,7 +4,7 @@ Feature: Genral global drawer under scenarios
 	
 	
 #Single location with out any solution for UK Location
-@GeneralGlobalDrawerWithoutSolutionVerificationForUKLocation				@Automatable
+@GeneralGlobalDrawerWithoutSolutionVerificationForUKLocation				@Automated
 Scenario: As a user i want to view the options displayed in global drawer without a solution for UK location
 Given user launches and logs in to the Lyric application
 When user navigates to "Global Drawer" screen from the "Dashboard" screen
@@ -25,7 +25,7 @@ Then user should be displayed with the following "Global Drawer Without Solution
 
 
 #Single location with out any solution for US Location
-@GeneralGlobalDrawerWithoutSolutionVerificationForUSLocation				@Automatable
+@GeneralGlobalDrawerWithoutSolutionVerificationForUSLocation				@Automated
 Scenario: As a user i want to view the options displayed in global drawer without a solution for US location
 Given user launches and logs in to the Lyric Application
 When user Navigates to "Global Drawer" screen from the "Dashboard" screen 
@@ -46,7 +46,7 @@ Then user should be displayed with the following "Global Drawer Without Solution
 
 
 #WLD Solution for UK Location
-@GeneralGlobalDrawerWithWLDSolutionVerificationForUKLocation				@Automatable
+@GeneralGlobalDrawerWithWLDSolutionVerificationForUKLocation				@Automated
 Scenario: As a user i want to view the options displayed in global drawer with WLD solution for UK location
 Given user launches and logs in to the Lyric Application
 When user Navigates to "Global Drawer" screen from the "Dashboard" screen 
@@ -67,7 +67,7 @@ Then user should be displayed with the following "Global Drawer With WLD Solutio
 
 
 #WLD Solution for US Location
-@GeneralGlobalDrawerWithWLDSolutionVerificationForUSLocation				@Automatable
+@GeneralGlobalDrawerWithWLDSolutionVerificationForUSLocation				@Automated
 Scenario: As a user i want to view the options displayed in global drawer with WLD solution for US location
 Given user launches and logs in to the Lyric Application
 When user Navigates to "Global Drawer" screen from the "Dashboard" screen 
@@ -88,7 +88,7 @@ Then user should be displayed with the following "Global Drawer With WLD Solutio
 
 
 #DAS, C1, C2 Solution for UK Location
-@GeneralGlobalDrawerWithSolutionForDASC1C2VerificationForUKLocation			@Automatable
+@GeneralGlobalDrawerWithSolutionForDASC1C2VerificationForUKLocation			@Automated
 Scenario: As a user i want to view the options in global drawer scenarios for DAS or C1 or C2 solutions for UK location
 Given user launches and logs in to the Lyric Application
 When user navigates to "Global Drawer" screen from the "Dashboard" screen 
@@ -110,7 +110,7 @@ Then user should be displayed with the following "Global Drawer With DAS C1 C2 S
 
 
 #DAS, C1, C2 for US Location
-@GeneralGlobalDrawerWithSolutionForDASC1C2VerificationForUSLocation			@Automatable
+@GeneralGlobalDrawerWithSolutionForDASC1C2VerificationForUSLocation			@Automated
 Scenario: As a user i want to view the options in global drawer scenarios for DAS or C1 or C2 solutions for US location
 Given user launches and logs in to the Lyric Application
 When user navigates to "Global Drawer" screen from the "Dashboard" screen 
@@ -132,7 +132,7 @@ Then user should be displayed with the following "Global Drawer With DAS C1 C2 S
 
 
 #JASPEREMEA for UK Location
-@GeneralGlobalDrawerWithSolutionForJASPEREMEAVerificationForUKLocation			@Automatable
+@GeneralGlobalDrawerWithSolutionForJASPEREMEAVerificationForUKLocation			@Automated
 Scenario: As a user i want to view the options in global drawer scenarios for Jasper EMEA solution for UK location
 Given user launches and logs in to the Lyric Application
 When user navigates to "Global Drawer" screen from the "Dashboard" screen 
@@ -154,7 +154,7 @@ Then user should be displayed with the following "Global Drawer With JASPER EMEA
 
 
 #JasperNA for US Location
-@GeneralGlobalDrawerWithSolutionForJASPERNAVerificationForUSLocation			@Automatable
+@GeneralGlobalDrawerWithSolutionForJASPERNAVerificationForUSLocation			@Automated
 Scenario: As a user i want to view the options in global drawer scenarios for Jasper NA solution for US location
 Given user launches and logs in to the Lyric Application
 When user navigates to "Global Drawer" screen from the "Dashboard" screen 
@@ -176,9 +176,9 @@ Then user should be displayed with the following "Global Drawer With JASPER NA S
 
 
 #Geofence 
-# Geofence this location disabled and enabled
+#Geofence this location disabled and enabled
 #Requirements : single location with jasperNA or JapserEMEA or C1 or C2 or DAS or all the solutions  with out Geofence 
-@GeneralGlobalDrawerGeofenceDisabledEnableWhileDIY				@Automated
+@GeneralGlobalDrawerGeofenceDisabledEnableWhileDIY				@Automatable
 Scenario Outline:  As a user I wnat to verify the disabled and enabled geofence option under global drawer when configued solution with out geofence enable 
 Given user launches and logs in to the Lyric Application
 #And user configured the <Solution> with out geofence 
@@ -248,7 +248,7 @@ Examples:
 |DAS|
 
 
-# Geofence this location Permission pop up Dismiss
+#Geofence this location Permission pop up Dismiss
 #Requirements : single location with jasperNA or JapserEMEA or C1 or C2 or DAS  or all the solutions  with out Geofence 
 @GenralGlobalDrawerGoefnecedisabledEnablewhileDIYwhenlocationpermissionoffDismiss				@NotAutomatable
 Scenario Outline:  As a user I wnat to verify the disabled and enabled geofence option when location permission off under global drawer when configued solution with out geofence enable 
@@ -273,7 +273,7 @@ Examples:
 |DAS|
 
 
-# Geofence this location Permission pop up show me how
+#Geofence this location Permission pop up show me how
 #Requirements : single location with jasperNA or JapserEMEA or C1 or C2 or DAS  or all the solutions  with out Geofence 
 @GenralGlobalDrawerGoefnecedisabledEnablewhileDIYwhenlocationpermissionoffshowmehow				@NotAutomatable
 Scenario Outline:  As a user I wnat to verify the disabled and enabled geofence option when location permission off -- show me how , under global drawer when configued solution with out geofence enable 
@@ -315,7 +315,7 @@ Examples:
 |DAS|
 
 
-# Geofence this location Permission pop up Go to settings
+#Geofence this location Permission pop up Go to settings
 #Requirements : single location with jasperNA or JapserEMEA or C1 or C2 or DAS  or all the solutions  with out Geofence 
 @GenralGlobalDrawerGoefnecedisabledEnablewhileDIYwhenlocationpermissionoffGoToSettings				@NotAutomatable
 Scenario Outline:  As a user I wnat to verify the disabled and enabled geofence option when location permission off -- Go to settings , under global drawer when configued solution with out geofence enable 
@@ -352,7 +352,7 @@ Examples:
 #				 -- GeofenceRadiusUpdate.feature
 #				 -- GeofenceManager.feature
 #				 -- GeofenceSet.feature	 
-# Geofence Alert 
+#Geofence Alert 
 #Requirements : single location with jasperNA or JapserEMEA or C1 or C2 or DAS  or all the solutions  with out Geofence 
 @GenralGlobalDrawerGoefneceAlertdisabledEnablewhileDIY				@NotAutomatable
 Scenario Outline:  As a user I wnat to verify the disabled and enabled geofence alert option, under global drawer when configued solution with out geofence enable 
@@ -376,15 +376,16 @@ Examples:
 
 #ActivityHistory
 #Requirements : single location with out any solution 
-@GeneralGlobalDrawerActivityHistoryWithoutSolutionVerification				@Automated
-Scenario: As a user i want to Verify Activity History under gloabl drawer with no solution 
+@GeneralGlobalDrawerWithoutSolutionActivityHistoryNoMsgsLabel				@Automated
+Scenario: As a user i want to Verify No messages label in Activity History screen when no solution is configured for the logged in account 
 Given user launches and logs in to the Lyric Application
-When user navigates to "Activity History" screen from the "Dashboard" screen 
+When user navigates to "Activity History" screen from the "Dashboard" screen
 Then user should be displayed with "No Messages label in Activity History screen" 
 And user should not be displayed with the following "Activity History" options:
-| Options	|
-| Edit		|
-And user naivgates to "Global Drawer" screen from the "Activity History" screen
+| ActivityHistoryOptions		|
+| Edit						|
+Then user navigates to "Global Drawer" screen from the "Activity History" screen
+#And user logs out of the app
 
 
 #Activity history with all solution 
@@ -422,51 +423,157 @@ Examples:
 
 #Activity history Edit selected message  with all solutions
 #Requirements : single location with jasperNA or JapserEMEA or WLD or C1 or C2 or DAS or all the solutions  and triggered all the events 
-@GeneralGlobalDrawerWithsolutionActivityHistoryEditSelectedVerification				@Automatable
-Scenario Outline: As a user i want to Activity history edit selected  option under global drawer scenarios  with jasperNA or JapserEMEA or C1 or C2 or DAS or all the solutions  
+@GeneralGlobalDrawerWithSolutionActivityHistoryDeleteAMessage				@Automatable
+Scenario: As a user i want to delete selected Activity history message with jasperNA or JapserEMEA or C1 or C2 or DAS or all the solutions  
 Given user launches and logs in to the Lyric Application
-And user configured the <Solution>
-When user Navigates to "Activity History" screen from the "Dashboard" screen 
-Then user should be displayed with All "triggered" event for all the <Solution>
-When user selects the "Edit" option
-Then user should be displayed with enabled "Select All" button and disabled "Delete" button 
-When user selects the and "Message" 
-Then user user should be displayed with enabled "Delete" button
-And user able to select multiple "Message"
-And user should be displayed "Tick" mark with selected "message" 
-When user selects "Delete" option 
-Then user should not be displayed with selected "message"
-Examples:
-|Solution|
-|JasperNA|
-|JasperEMEA|
-|C1|
-|C2|
-|DAS|
-|WLD| 
+When user navigates to "Activity History" screen from the "Dashboard" screen
+When user selects "Edit" from "Activity History" screen
+And the following "Activity History" options should be enabled:
+| ActivityHistoryOptions		|
+| Select All					|
+Then the following "Activity History" options should be disabled:
+| ActivityHistoryOptions		|
+| Delete						|
+And user should be displayed with the following "Activity History" options:
+| ActivityHistoryOptions		|
+| Cancel						|
+When user selects "a message" from "Activity History" screen
+Then the following "Activity History" options should be enabled:
+| ActivityHistoryOptions		|
+| Delete						|
+And user should be displayed with the following "Activity History" options:
+| ActivityHistoryOptions		|
+| Cancel						|
+When user selects "Cancel" from "Activity History" screen
+Then user should not be displayed with the following "Activity History" options:
+| ActivityHistoryOptions		|
+| Select All					|
+| Delete						|
+When user selects "Edit" from "Activity History" screen
+And the following "Activity History" options should be enabled:
+| ActivityHistoryOptions		|
+| Select All					|
+Then the following "Activity History" options should be disabled:
+| ActivityHistoryOptions		|
+| Delete						|
+And user should be displayed with the following "Activity History" options:
+| ActivityHistoryOptions		|
+| Cancel						|
+When user selects "a message" from "Activity History" screen
+Then the following "Activity History" options should be enabled:
+| ActivityHistoryOptions		|
+| Delete						|
+And user should be displayed with the following "Activity History" options:
+| ActivityHistoryOptions		|
+| Cancel						|
+When user selects "Delete" from "Activity History" screen 
+Then "deleted message" should not be displayed in the "Activity History" screen
+
 
 #Activity history Edit select all message  with all solutions
 #Requirements : single location with jasperNA or JapserEMEA or WLD or C1 or C2 or DAS or all the solutions  and trigged all the events 
-@GenralGlobalDrawerWithsolutionActivityHistoryEditselectallVerification				@Automatable
-Scenario Outline: As a user i want to Activity history edit select all option under global drawer scenarios  with jasperNA or JapserEMEA or C1 or C2 or DAS or all the solutions  
+@GenralGlobalDrawerWithSolutionActivityHistoryDeleteAllMessages				@Automatable
+Scenario: As a user i want to delete all messages from Activity history with jasperNA or JapserEMEA or C1 or C2 or DAS or all the solutions  
 Given user launches and logs in to the Lyric Application
-And user configured the <Solution>
-When user Navigates to "Activity History" screen from the "Dashboard" screen 
-Then user should be displayed with All "triggered" event for all the <Solution>
-When user selects the "Edit" option
-Then user should be displayed with enabled "Select All" button and disabled "Delete" button 
-When user selects the and "Select All" 
-Then user should be displayed with enabled "Delete" button
-And user should be displayed with all "Message" selected 
-And user should be displayed "Tick" mark with all selected "message" 
-When user selects "Delete" option 
-Then user should not be displayed with selected "message"
-And user should be displayed with "No Message" text 
+When user navigates to "Activity History" screen from the "Dashboard" screen
+When user selects "Edit" from "Activity History" screen
+And the following "Activity History" options should be enabled:
+| ActivityHistoryOptions		|
+| Select All					|
+Then the following "Activity History" options should be disabled:
+| ActivityHistoryOptions		|
+| Delete						|
+And user should be displayed with the following "Activity History" options:
+| ActivityHistoryOptions		|
+| Cancel						|
+When user selects "all messages" from "Activity History" screen
+Then the following "Activity History" options should be enabled:
+| ActivityHistoryOptions		|
+| Delete						|
+And user should be displayed with the following "Activity History" options:
+| ActivityHistoryOptions		|
+| Cancel						|
+When user selects "Cancel" from "Activity History" screen
+Then user should not be displayed with the following "Activity History" options:
+| ActivityHistoryOptions		|
+| Select All					|
+| Delete						|
+When user selects "Edit" from "Activity History" screen
+And the following "Activity History" options should be enabled:
+| ActivityHistoryOptions		|
+| Select All					|
+Then the following "Activity History" options should be disabled:
+| ActivityHistoryOptions		|
+| Delete						|
+And user should be displayed with the following "Activity History" options:
+| ActivityHistoryOptions		|
+| Cancel						|
+When user selects "all messages" from "Activity History" screen
+Then the following "Activity History" options should be enabled:
+| ActivityHistoryOptions		|
+| Delete						|
+And user should be displayed with the following "Activity History" options:
+| ActivityHistoryOptions		|
+| Cancel						|
+When user selects "Delete" from "Activity History" screen 
+Then user should be displayed with "No Messages label in Activity History screen"
+
+
+#InviteUsers
+#Requirements : single location with and with out any solution 
+@GenralGlobalDrawerAddUsersWithandwithoutsolutionVerification
+Scenario Outline: As a user i want to Verify Add Users under gloabl drawer with and without solution 
+Given user launches and logs in to the Lyric Application
+When user Navigates to "Add Users" screen from the "Dashboard" screen 
+Then user should be displayed with "No Invited Users" text with "Add Users" button
+When user navigates to "Invite Users" screen from "Add Users" screen
+Then user should displayed with disabled "Send" button 
+Then user should be displayed with "Invite User" Header
+When user enters the <Email> 
+And user should displayed with enabled "Send" button
+When user  Selects the "Send" button   
+Then user should naivgtes to "Add users" screen from "Invite Users" screen 
+And user should displayed with "Invited" <Email>
+#And user <Email> should receive Email "Email Nitifciation" 
+When user logged out from the user1
+Then user logged in to the "user2"
+And user should naivgates to "Activity history" screen from "dashboard" screen
+And user should be displayed with the "Invited message"
+Then user should able to access with "Invited location"
+When user logged out from the user2
+Then user logged in to the "user1"
+Then remvoe invited user
+#Android
+And user "Tap on Hold" on "Invited" <Email> '
+#iOS
+Then user selects "Cancel(x)" button 
+And user should be displayed with "Confirm Access Removal" pop up 
+When user "Dismiss" the "Confirm Access Removal" pop up
+Then user should be displayed with "Invited Users" <Email>
+When user "accepts" the "Confirm Access Removal" pop up
+Then user should not be displayed with "Invited" <Email> 
 Examples:
-|Solution|
-|JasperNA|
-|JasperEMEA|
-|C1|
-|C2|
-|DAS|
-|WLD| 
+|Email|
+|ure@grr.la|
+|sys@grr.la|
+
+
+#Requirements : single location with and with out any solution and user should be invited 
+@GenralGlobalDrawerAddUsersWithsameaccountErrorWithandwithoutsolutionVerification
+Scenario: As a user i want to Verify Add Users under gloabl drawer with and without solution 
+Given user launches and logs in to the Lyric Application
+When user Navigates to "Invite Users" screen from the "Dashboard" screen 
+Then user enters the "Email" of logged account 
+And user should be displayed with "Error, The requested user was already added to this account" pop up
+
+#Requirements : single location with and with out any solution and user should be invited 
+@GenralGlobalDrawerAddUsersWithalreadyinvitedemailErrorWithandwithoutsolutionVerification
+Scenario Outline: As a user i want to Verify Add Users under gloabl drawer with and without solution 
+Given user launches and logs in to the Lyric Application
+And user invited <Email>
+When user Navigates to "Invite Users" screen from the "Dashboard" screen 
+Then user enters the <Email> 
+And user should be displayed with "Error, The requested user was already added to this account" pop up
+Examples:
+|Email|
+|ure@grr.la|

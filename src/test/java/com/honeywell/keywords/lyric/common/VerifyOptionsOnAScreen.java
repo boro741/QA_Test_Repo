@@ -14,6 +14,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
+import com.honeywell.screens.ActivityHistoryScreen;
 import com.honeywell.screens.AdhocScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
@@ -2871,6 +2872,31 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 				case "GEOFENCE ALERT": {
 					flag &= gs.isGeofenceAlertOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "ACTIVITY HISTORY": {
+			ActivityHistoryScreen ah = new ActivityHistoryScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "ActivityHistoryOptions");
+				switch (parameter.toUpperCase()) {
+				case "CANCEL": {
+					flag &= ah.isCancelOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
