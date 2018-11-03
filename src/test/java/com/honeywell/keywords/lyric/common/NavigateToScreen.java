@@ -49,6 +49,7 @@ import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
+import com.honeywell.screens.ManageUsersScreen;
 import com.honeywell.screens.OSPopUps;
 import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SecondaryCardSettings;
@@ -846,7 +847,6 @@ public class NavigateToScreen extends Keyword {
 							& DASSettingsUtils.navigateFromDashboardScreenToDASCameraSolutionScreen(testCase, inputs);
 					break;
 				}
-
 				case "SCHEDULING": {
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
 							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
@@ -976,7 +976,7 @@ public class NavigateToScreen extends Keyword {
 				// Author: Pratik P. Lalseta (H119237)
 				case "SECURITY SOLUTION CARD": {
 					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
-					//flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
+					// flag = flag & CoachMarkUtils.closeCoachMarks(testCase);
 					break;
 				}
 				case "SOLUTION": {
@@ -1045,7 +1045,6 @@ public class NavigateToScreen extends Keyword {
 					break;
 				}
 				case "VACATION": {
-
 					Dashboard ds = new Dashboard(testCase);
 					if (ds.clickOnGlobalDrawerButton()) {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
@@ -1073,6 +1072,41 @@ public class NavigateToScreen extends Keyword {
 					if (db.isAddDeviceIconBelowExistingDASDeviceVisible(20)) {
 						flag = flag & db.clickOnAddDeviceIconBelowExistingDASDevice();
 						flag = flag & dasDIY.selectDeviceToInstall(screen.get(0));
+					}
+					break;
+				}
+				case "ADD USERS": {
+					Dashboard dScreen = new Dashboard(testCase);
+					if (dScreen.clickOnGlobalDrawerButton()) {
+						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.MANAGEUSERS)) {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to Add Users screen from Global drawer");
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Global drawer menu from dashboard");
+					}
+					break;
+				}
+				case "INVITE USER": {
+					Dashboard dScreen = new Dashboard(testCase);
+					ManageUsersScreen mus = new ManageUsersScreen(testCase);
+					if (dScreen.clickOnGlobalDrawerButton()) {
+						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.MANAGEUSERS)) {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to Add Users screen from Global drawer");
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Global drawer menu from dashboard");
+					}
+					if (mus.isAddUserButtonVisible()) {
+						flag &= mus.clickOnAddUserButton();
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Add Button in Add Users Screen");
 					}
 					break;
 				}
@@ -3549,6 +3583,38 @@ public class NavigateToScreen extends Keyword {
 								"Failed to navigates to  " + screen.get(0));
 					}
 					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("ADD USERS")) {
+				ManageUsersScreen mus = new ManageUsersScreen(testCase);
+				switch (screen.get(0).toUpperCase()) {
+				case "INVITE USER": {
+					if (mus.isAddUserButtonVisible()) {
+						flag &= mus.clickOnAddUserButton();
+						if (mus.isInviteUserScreenTitleVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Successfully naviagates to " + screen.get(0));
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigates to  " + screen.get(0));
+						}
+						break;
+					}
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("INVITE USER")) {
+				ManageUsersScreen mus = new ManageUsersScreen(testCase);
+				switch (screen.get(0).toUpperCase()) {
+				case "ADD USERS": {
+					if (mus.isBackButtonVisible()) {
+						flag &= mus.clickOnBackButton();
+						if (mus.isAddUsersScreenHeaderVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Successfully naviagates to " + screen.get(0));
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigates to  " + screen.get(0));
+						}
+						break;
+					}
 				}
 				}
 			} else {

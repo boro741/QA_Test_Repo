@@ -15,6 +15,7 @@ import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
+import com.honeywell.screens.ManageUsersScreen;
 import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
@@ -375,6 +376,42 @@ public class VerifyDisplayedPopUp extends Keyword {
 				flag = false;
 				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Sensor name already assigned error popup");
+			}
+			break;
+		}
+		case "USER ALREADY ADDED TO THIS ACCOUNT ERROR": {
+			ManageUsersScreen mus = new ManageUsersScreen(testCase);
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (mus.isAlreadyInvitedUserMsgVisibleInAndroid()) {
+					Keyword.ReportStep_Pass(testCase,
+							"User already added to this account error message is displayed in Android");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+							"User already added to this account error message is not displayed in Android");
+				}
+			} else {
+				if (mus.isAlreadyInvitedUserErrorPopupTitleVisible() && mus.isAlreadyInvitedUserErrorPopupMsgVisible()
+						&& mus.isOKButtonInAlreadyInviteduserErrorPopupVisible()) {
+					Keyword.ReportStep_Pass(testCase, "User already added to this account error popup is displayed");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+							"User already added to this account error popup is not displayed");
+				}
+			}
+			break;
+		}
+		case "CONFIRM ACCESS REMOVAL": {
+			ManageUsersScreen mus = new ManageUsersScreen(testCase);
+			if (mus.isConfirmAccessRemovalPopupTitleVisible() && mus.isConfirmAccessRemovalPopupMsgVisible()
+					&& mus.isCancelButtonInConfirmAccessRemovalPopupVisible()
+					&& mus.isRemoveButtonInConfirmAccessRemovalPopupVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Confirm Access Removal popup is displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Confirm Access Removal popup is not displayed");
 			}
 			break;
 		}

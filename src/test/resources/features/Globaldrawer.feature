@@ -559,21 +559,50 @@ Examples:
 
 
 #Requirements : single location with and with out any solution and user should be invited 
-@GenralGlobalDrawerAddUsersWithsameaccountErrorWithandwithoutsolutionVerification
-Scenario: As a user i want to Verify Add Users under gloabl drawer with and without solution 
+@GeneralGlobalDrawerInviteUserWithLoggedInUserEmail
+Scenario: As a user i want to Verify if error message displays when logged in users email address in Add Users
 Given user launches and logs in to the Lyric Application
-When user Navigates to "Invite Users" screen from the "Dashboard" screen 
-Then user enters the "Email" of logged account 
-And user should be displayed with "Error, The requested user was already added to this account" pop up
+When user navigates to "Add Users" screen from the "Dashboard" screen
+Then user should not be displayed with the following "Invited Users" options:
+| InvitedUsersList	|
+| Logged in user		|
+When user navigates to "Invite User" screen from the "Add Users" screen
+Then user inputs "Logged in users email address" in "Email Text Field" in the "Invite User" screen
+And user should receive a "User already added to this account error" popup
+Then user "Clicks on OK in" the "User already added to this account error" popup
+When user navigates to "Add Users" screen from the "Invite User" screen
+Then user should not be displayed with the following "Invited Users" options:
+| InvitedUsersList	|
+| Logged in user		|
+
 
 #Requirements : single location with and with out any solution and user should be invited 
-@GenralGlobalDrawerAddUsersWithalreadyinvitedemailErrorWithandwithoutsolutionVerification
-Scenario Outline: As a user i want to Verify Add Users under gloabl drawer with and without solution 
+@GeneralGlobalDrawerInviteUserWithAlreadyInvitiedUsersEmail
+Scenario Outline: As a user i want to Verify if error message displays when already existing invited users email address is entered in Add Users 
 Given user launches and logs in to the Lyric Application
-And user invited <Email>
-When user Navigates to "Invite Users" screen from the "Dashboard" screen 
-Then user enters the <Email> 
-And user should be displayed with "Error, The requested user was already added to this account" pop up
+When user navigates to "Invite User" screen from the "Dashboard" screen
+And user inputs <invite users email address> in "Email Text Field" in the "Invite User" screen
+Then user should be displayed with the following "Invited Users" options:
+| InvitedUsersList		|
+| das_stage5@grr.la		|
+When user navigates to "Invite User" screen from the "Add Users" screen
+And user inputs <invite users email address> in "Email Text Field" in the "Invite User" screen
+Then user should receive a "User already added to this account error" popup
+And user "Clicks on OK in" the "User already added to this account error" popup
+When user navigates to "Add Users" screen from the "Invite User" screen
+And user deletes the <invite users email address> from "Add Users" screen
+Then user should receive a "Confirm Access Removal" popup
+And user "Cancels" the "Confirm Access Removal" popup
+Then user should be displayed with the following "Invited Users" options:
+| InvitedUsersList		|
+| das_stage5@grr.la		|
+When user deletes the <invite users email address> from "Add Users" screen
+Then user should receive a "Confirm Access Removal" popup
+And user "Clicks on Remove in" the "Confirm Access Removal" popup
+Then user should not be displayed with the following "Invited Users" options:
+| InvitedUsersList		|
+| das_stage5@grr.la		|
+
 Examples:
-|Email|
-|ure@grr.la|
+| invite users email address		|
+| das_stage5@grr.la				|

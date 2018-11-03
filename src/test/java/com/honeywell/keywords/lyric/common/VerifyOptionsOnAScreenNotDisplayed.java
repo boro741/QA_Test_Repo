@@ -14,6 +14,7 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.ActivityHistoryScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.GeofenceSettings;
+import com.honeywell.screens.ManageUsersScreen;
 
 public class VerifyOptionsOnAScreenNotDisplayed extends Keyword {
 
@@ -164,6 +165,34 @@ public class VerifyOptionsOnAScreenNotDisplayed extends Keyword {
 				}
 				}
 				flag = true;
+			}
+			break;
+		}
+		case "INVITED USERS": {
+			ManageUsersScreen mus = new ManageUsersScreen(testCase);
+			String parameter = data.getData(0, "InvitedUsersList");
+			if (mus.isNoInvitedUsersLabelVisible()) {
+				Keyword.ReportStep_Pass(testCase, "There are no Invited Users.");
+			} else {
+				Keyword.ReportStep_Pass(testCase, "Invited users are present.");
+				if (parameter.equalsIgnoreCase("LOGGED IN USER")) {
+					if (!mus.isInviteUsersEmailAddressDisplayedInTheListOfInvitedUsers(
+							inputs.getInputValue("USERID"))) {
+						Keyword.ReportStep_Pass(testCase, "Logged in user: " + inputs.getInputValue("USERID")
+								+ " is not present in the list of Invited Users.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Logged in user: "
+								+ inputs.getInputValue("USERID") + " is present in the list of Invited Users.");
+					}
+				} else {
+					if (!mus.isInviteUsersEmailAddressDisplayedInTheListOfInvitedUsers(parameter)) {
+						Keyword.ReportStep_Pass(testCase,
+								"User: " + parameter + " is not present in the list of Invited Users.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "User: "
+								+ inputs.getInputValue("USERID") + " is present in the list of Invited Users.");
+					}
+				}
 			}
 			break;
 		}

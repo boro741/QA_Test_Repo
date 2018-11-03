@@ -23,6 +23,7 @@ import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.GlobalDrawerScreen;
+import com.honeywell.screens.ManageUsersScreen;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
@@ -2912,6 +2913,25 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 				}
 				flag = true;
+			}
+			break;
+		}
+		case "INVITED USERS": {
+			ManageUsersScreen mus = new ManageUsersScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "InvitedUsersList");
+				if (mus.isNoInvitedUsersLabelVisible()) {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "There are no Invited Users.");
+				} else {
+					Keyword.ReportStep_Pass(testCase, "Invited users are present.");
+					if (mus.isInviteUsersEmailAddressDisplayedInTheListOfInvitedUsers(parameter)) {
+						Keyword.ReportStep_Pass(testCase, "Invite users email address: " + parameter
+								+ " is present in the list of Invited Users.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invite users email address: "
+								+ parameter + " is not present in the list of Invited Users.");
+					}
+				}
 			}
 			break;
 		}

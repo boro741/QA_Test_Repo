@@ -24,6 +24,7 @@ import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.DRScreens;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.GeofenceSettings;
+import com.honeywell.screens.ManageUsersScreen;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
@@ -51,7 +52,7 @@ public class PerformActionsOnPopUp extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user (.*) the (.*) popup$")
+	@KeywordStep(gherkins = "^user \"(.*)\" the \"(.*)\" popup$")
 	public boolean keywordSteps() {
 		if (expectedPopUp.get(1).equalsIgnoreCase("FACTORY RESET SUCCESSFUL")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
@@ -827,6 +828,71 @@ public class PerformActionsOnPopUp extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"OK button is not displayed in: " + expectedPopUp.get(0));
+				}
+				break;
+			}
+			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("USER ALREADY ADDED TO THIS ACCOUNT ERROR")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CLICKS ON OK IN": {
+				ManageUsersScreen mus = new ManageUsersScreen(testCase);
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					// do nothing
+				} else {
+					if (mus.isOKButtonInAlreadyInviteduserErrorPopupVisible()) {
+						flag &= mus.clickOnOKButtonInAlreadyInviteduserErrorPopup();
+						if (mus.isInviteUserScreenTitleVisible() && mus.isInvitieUserScreenSubTitleVisible()
+								&& mus.isBackButtonVisible() && mus.isEmailTextFieldInInviteUserScreenVisible()
+								&& mus.isSendButtonEnabled()) {
+							Keyword.ReportStep_Pass(testCase, "User is in Invite User screen");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"User is not in Invite User screen");
+						}
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"OK button is not displayed in: " + expectedPopUp.get(0));
+					}
+				}
+				break;
+			}
+			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("CONFIRM ACCESS REMOVAL")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CANCELS": {
+				ManageUsersScreen mus = new ManageUsersScreen(testCase);
+				if (mus.isCancelButtonInConfirmAccessRemovalPopupVisible()) {
+					flag &= mus.clickOnCancelButtonInConfirmAccessRemovalPopup();
+					if (mus.isAddUsersScreenHeaderVisible() && mus.isAddUserButtonVisible()
+							&& mus.isBackButtonVisible()) {
+						Keyword.ReportStep_Pass(testCase, "User is in Add Users screen");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"User is not in Add Users screen");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Remove button is not displayed in: " + expectedPopUp.get(0));
+				}
+				break;
+			}
+			case "CLICKS ON REMOVE IN": {
+				ManageUsersScreen mus = new ManageUsersScreen(testCase);
+				if (mus.isRemoveButtonInConfirmAccessRemovalPopupVisible()) {
+					flag &= mus.clickOnRemoveButtonInConfirmAccessRemovalPopup();
+					if (mus.isAddUsersScreenHeaderVisible() && mus.isAddUserButtonVisible()
+							&& mus.isBackButtonVisible()) {
+						Keyword.ReportStep_Pass(testCase, "User is in Add Users screen");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"User is not in Add Users screen");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Remove button is not displayed in: " + expectedPopUp.get(0));
 				}
 				break;
 			}
