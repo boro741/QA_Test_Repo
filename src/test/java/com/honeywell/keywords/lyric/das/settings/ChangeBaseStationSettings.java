@@ -1755,6 +1755,55 @@ public class ChangeBaseStationSettings extends Keyword {
 					}
 				}
 			}
+			
+			else if (parameters.get(0).equalsIgnoreCase("DOORS AND WINDOWS")) {
+				BaseStationSettingsScreen mc = new BaseStationSettingsScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (mc.isDoorsAndWindowsAlertSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Security Mode Change Toggle is already enabled in the Manage alerts screen");
+						flag = flag & mc.toggleDoorsAndWindowsAlertSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!mc.isDoorsAndWindowsAlertSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Security mode change Toggle is turned OFF");
+							flag = flag & mc.toggleDoorsAndWindowsAlertSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (mc.isDoorsAndWindowsAlertSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase,
+										"Security Mode Change Toggle is already enabled in the Manage alerts screen");
+							}
+						}
+					} else {
+						flag = flag & mc.toggleDoorsAndWindowsAlertSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (mc.isDoorsAndWindowsAlertSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Security mode change Toggle is turned ON");
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!mc.isDoorsAndWindowsAlertSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Security Mode Change Toggle is already disabled in the Manage alerts screen");
+						flag = flag & mc.toggleDoorsAndWindowsAlertSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (mc.isDoorsAndWindowsAlertSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Security mode change Toggle is turned ON");
+							flag = flag & mc.toggleDoorsAndWindowsAlertSwitch(testCase);
+							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							if (!mc.isDoorsAndWindowsAlertSwitchEnabled(testCase)) {
+								Keyword.ReportStep_Pass(testCase, "Security mode change Toggle is turned OFF");
+							}
+						}
+					} else {
+						flag = flag & mc.toggleDoorsAndWindowsAlertSwitch(testCase);
+						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						if (!mc.isDoorsAndWindowsAlertSwitchEnabled(testCase)) {
+							Keyword.ReportStep_Pass(testCase, "Security mode change Toggle is turned OFF");
+						}
+					}
+				}
+			}
+			
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());

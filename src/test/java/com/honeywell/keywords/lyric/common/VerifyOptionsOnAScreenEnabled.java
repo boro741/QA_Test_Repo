@@ -202,7 +202,6 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 				}
 				case "AMAZON ALEXA": {
 					flag &= cs.isAmazonAlexaiConVisible();
-					flag &= cs.isAmazonAlexaEnabled();
 					break;
 				}
 				case "GEOFENCING": {
@@ -292,7 +291,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 							.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						}
 					}
-					flag &= cs.isKeyFobOptionVisible();
+					flag &= cs.isKeyFobEnabled();
 					break;
 				}
 				case "SENSORS": {
