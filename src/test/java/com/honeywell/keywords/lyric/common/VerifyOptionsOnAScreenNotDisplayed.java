@@ -176,7 +176,7 @@ public class VerifyOptionsOnAScreenNotDisplayed extends Keyword {
 			} else {
 				Keyword.ReportStep_Pass(testCase, "Invited users are present.");
 				if (parameter.equalsIgnoreCase("LOGGED IN USER")) {
-					if (!mus.isInviteUsersEmailAddressDisplayedInTheListOfInvitedUsers(
+					if (!mus.isInviteUsersEmailAddressDisplayedInTheListOfInvitedUsers(inputs,
 							inputs.getInputValue("USERID"))) {
 						Keyword.ReportStep_Pass(testCase, "Logged in user: " + inputs.getInputValue("USERID")
 								+ " is not present in the list of Invited Users.");
@@ -185,7 +185,7 @@ public class VerifyOptionsOnAScreenNotDisplayed extends Keyword {
 								+ inputs.getInputValue("USERID") + " is present in the list of Invited Users.");
 					}
 				} else {
-					if (!mus.isInviteUsersEmailAddressDisplayedInTheListOfInvitedUsers(parameter)) {
+					if (!mus.isInviteUsersEmailAddressDisplayedInTheListOfInvitedUsers(inputs, parameter)) {
 						Keyword.ReportStep_Pass(testCase,
 								"User: " + parameter + " is not present in the list of Invited Users.");
 					} else {

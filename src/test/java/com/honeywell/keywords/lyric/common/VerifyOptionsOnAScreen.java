@@ -2924,7 +2924,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "There are no Invited Users.");
 				} else {
 					Keyword.ReportStep_Pass(testCase, "Invited users are present.");
-					if (mus.isInviteUsersEmailAddressDisplayedInTheListOfInvitedUsers(parameter)) {
+					if (mus.isInviteUsersEmailAddressDisplayedInTheListOfInvitedUsers(inputs, parameter)) {
 						Keyword.ReportStep_Pass(testCase, "Invite users email address: " + parameter
 								+ " is present in the list of Invited Users.");
 					} else {

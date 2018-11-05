@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 
 import com.google.common.base.Function;
 import com.honeywell.commons.coreframework.Keyword;
+import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
@@ -84,11 +85,12 @@ public class DASManageUsersUtils {
 		return flag;
 	}
 
-	public static boolean deleteInvitedUserInAddUsersScreen(TestCases testCase, String invitedUsersEmailAddress) {
+	public static boolean deleteInvitedUserInAddUsersScreen(TestCases testCase, TestCaseInputs inputs,
+			String invitedUsersEmailAddress) {
 		boolean flag = true;
 		ManageUsersScreen mus = new ManageUsersScreen(testCase);
 		if (mus.isAddUserButtonVisible()
-				&& mus.isInviteUsersEmailAddressDisplayedInTheListOfInvitedUsers(invitedUsersEmailAddress)) {
+				&& mus.isInviteUsersEmailAddressDisplayedInTheListOfInvitedUsers(inputs, invitedUsersEmailAddress)) {
 			flag = flag & mus.deleteInvitedUserInAddUsersScreen(invitedUsersEmailAddress);
 		}
 		return flag;

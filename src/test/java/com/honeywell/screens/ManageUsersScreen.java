@@ -7,6 +7,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 
 import com.honeywell.commons.coreframework.Keyword;
+import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
@@ -100,22 +101,23 @@ public class ManageUsersScreen extends MobileScreens {
 		return flag;
 	}
 	
-	public boolean isInviteUsersEmailAddressDisplayedInTheListOfInvitedUsers(String invitedUsersEmailAddress) {
+	public boolean isInviteUsersEmailAddressDisplayedInTheListOfInvitedUsers(TestCaseInputs inputs,
+			String invitedUsersEmailAddress) {
 		boolean flag = false;
 		List<WebElement> invitedUsersList = new ArrayList<>();
-		/*if (MobileUtils.isMobElementExists(objectDefinition, testCase, "InvitedUsersList")) {
-			invitedUsersList = MobileUtils.getMobElements(objectDefinition, testCase, "InvitedUsersList");
-			for (WebElement ele : invitedUsersList) {
-				if (ele.getText().equalsIgnoreCase(invitedUsersEmailAddress)) {
+		/*if (invitedUsersEmailAddress.equalsIgnoreCase("USER WHO INVITED THE LOGGED IN USER")) {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "InvitedUsersList")) {
+				invitedUsersList = MobileUtils.getMobElements(objectDefinition, testCase, "InvitedUsersList");
+				for (WebElement ele : invitedUsersList) {
+					if (ele.getText().equalsIgnoreCase(inputs.getInputValue("USERID").toString())) {
 						flag = true;
 						break;
 					}
+				}
 			}
-		}*/
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			if (MobileUtils.isMobElementExists("ID", "list_item_lyric_subtext_primary_text_view", testCase)) {
-				invitedUsersList = MobileUtils.getMobElements(testCase, "ID",
-						"list_item_lyric_subtext_primary_text_view");
+		} else {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "InvitedUsersList")) {
+				invitedUsersList = MobileUtils.getMobElements(objectDefinition, testCase, "InvitedUsersList");
 				for (WebElement ele : invitedUsersList) {
 					if (ele.getText().equalsIgnoreCase(invitedUsersEmailAddress)) {
 						flag = true;
@@ -123,16 +125,56 @@ public class ManageUsersScreen extends MobileScreens {
 					}
 				}
 			}
+		}*/
+		if (invitedUsersEmailAddress.equalsIgnoreCase("USER WHO INVITED THE LOGGED IN USER")) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.isMobElementExists("ID", "list_item_lyric_subtext_primary_text_view", testCase)) {
+					invitedUsersList = MobileUtils.getMobElements(testCase, "ID",
+							"list_item_lyric_subtext_primary_text_view");
+					for (WebElement ele : invitedUsersList) {
+						if (ele.getText().equalsIgnoreCase(inputs.getInputValue("USERID").toString())) {
+							flag = true;
+							break;
+						}
+					}
+				}
+			} else {
+				if (MobileUtils.isMobElementExists("XPATH",
+						"//XCUIElementTypeStaticText[starts-with(@name,'invited_user_0_') and contains(@name,'_subTitle')]",
+						testCase)) {
+					invitedUsersList = MobileUtils.getMobElements(testCase, "XPATH",
+							"//XCUIElementTypeStaticText[starts-with(@name,'invited_user_0_') and contains(@name,'_subTitle')]");
+					for (WebElement ele : invitedUsersList) {
+						if (ele.getText().equalsIgnoreCase(inputs.getInputValue("USERID").toString())) {
+							flag = true;
+							break;
+						}
+					}
+				}
+			}
 		} else {
-			if (MobileUtils.isMobElementExists("XPATH",
-					"//XCUIElementTypeStaticText[starts-with(@name,'invited_user_0_') and contains(@name,'_subTitle')]",
-					testCase)) {
-				invitedUsersList = MobileUtils.getMobElements(testCase, "XPATH",
-						"//XCUIElementTypeStaticText[starts-with(@name,'invited_user_0_') and contains(@name,'_subTitle')]");
-				for (WebElement ele : invitedUsersList) {
-					if (ele.getText().equalsIgnoreCase(invitedUsersEmailAddress)) {
-						flag = true;
-						break;
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (MobileUtils.isMobElementExists("ID", "list_item_lyric_subtext_primary_text_view", testCase)) {
+					invitedUsersList = MobileUtils.getMobElements(testCase, "ID",
+							"list_item_lyric_subtext_primary_text_view");
+					for (WebElement ele : invitedUsersList) {
+						if (ele.getText().equalsIgnoreCase(invitedUsersEmailAddress)) {
+							flag = true;
+							break;
+						}
+					}
+				}
+			} else {
+				if (MobileUtils.isMobElementExists("XPATH",
+						"//XCUIElementTypeStaticText[starts-with(@name,'invited_user_0_') and contains(@name,'_subTitle')]",
+						testCase)) {
+					invitedUsersList = MobileUtils.getMobElements(testCase, "XPATH",
+							"//XCUIElementTypeStaticText[starts-with(@name,'invited_user_0_') and contains(@name,'_subTitle')]");
+					for (WebElement ele : invitedUsersList) {
+						if (ele.getText().equalsIgnoreCase(invitedUsersEmailAddress)) {
+							flag = true;
+							break;
+						}
 					}
 				}
 			}

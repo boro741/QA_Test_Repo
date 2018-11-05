@@ -380,7 +380,7 @@ Examples:
 Scenario: As a user i want to Verify No messages label in Activity History screen when no solution is configured for the logged in account 
 Given user launches and logs in to the Lyric Application
 When user navigates to "Activity History" screen from the "Dashboard" screen
-Then user should be displayed with "No Messages label in Activity History screen" 
+Then user should be displayed with "No Messages label in Activity History screen"
 And user should not be displayed with the following "Activity History" options:
 | ActivityHistoryOptions		|
 | Edit						|
@@ -423,7 +423,7 @@ Examples:
 
 #Activity history Edit selected message  with all solutions
 #Requirements : single location with jasperNA or JapserEMEA or WLD or C1 or C2 or DAS or all the solutions  and triggered all the events 
-@GeneralGlobalDrawerWithSolutionActivityHistoryDeleteAMessage				@Automatable
+@GeneralGlobalDrawerWithSolutionActivityHistoryDeleteAMessage				@Automated
 Scenario: As a user i want to delete selected Activity history message with jasperNA or JapserEMEA or C1 or C2 or DAS or all the solutions  
 Given user launches and logs in to the Lyric Application
 When user navigates to "Activity History" screen from the "Dashboard" screen
@@ -472,7 +472,7 @@ Then "deleted message" should not be displayed in the "Activity History" screen
 
 #Activity history Edit select all message  with all solutions
 #Requirements : single location with jasperNA or JapserEMEA or WLD or C1 or C2 or DAS or all the solutions  and trigged all the events 
-@GenralGlobalDrawerWithSolutionActivityHistoryDeleteAllMessages				@Automatable
+@GenralGlobalDrawerWithSolutionActivityHistoryDeleteAllMessages				@Automated
 Scenario: As a user i want to delete all messages from Activity history with jasperNA or JapserEMEA or C1 or C2 or DAS or all the solutions  
 Given user launches and logs in to the Lyric Application
 When user navigates to "Activity History" screen from the "Dashboard" screen
@@ -521,45 +521,52 @@ Then user should be displayed with "No Messages label in Activity History screen
 
 #InviteUsers
 #Requirements : single location with and with out any solution 
-@GenralGlobalDrawerAddUsersWithandwithoutsolutionVerification
-Scenario Outline: As a user i want to Verify Add Users under gloabl drawer with and without solution 
+@GenralGlobalDrawerAddDeleteUsersFromInviteList				@Automated
+Scenario Outline: As a user i want to Verify invite user functionality by adding and removing a user from invite list
 Given user launches and logs in to the Lyric Application
-When user Navigates to "Add Users" screen from the "Dashboard" screen 
-Then user should be displayed with "No Invited Users" text with "Add Users" button
-When user navigates to "Invite Users" screen from "Add Users" screen
-Then user should displayed with disabled "Send" button 
-Then user should be displayed with "Invite User" Header
-When user enters the <Email> 
-And user should displayed with enabled "Send" button
-When user  Selects the "Send" button   
-Then user should naivgtes to "Add users" screen from "Invite Users" screen 
-And user should displayed with "Invited" <Email>
-#And user <Email> should receive Email "Email Nitifciation" 
-When user logged out from the user1
-Then user logged in to the "user2"
-And user should naivgates to "Activity history" screen from "dashboard" screen
-And user should be displayed with the "Invited message"
-Then user should able to access with "Invited location"
-When user logged out from the user2
-Then user logged in to the "user1"
-Then remvoe invited user
-#Android
-And user "Tap on Hold" on "Invited" <Email> '
-#iOS
-Then user selects "Cancel(x)" button 
-And user should be displayed with "Confirm Access Removal" pop up 
-When user "Dismiss" the "Confirm Access Removal" pop up
-Then user should be displayed with "Invited Users" <Email>
-When user "accepts" the "Confirm Access Removal" pop up
-Then user should not be displayed with "Invited" <Email> 
+When user navigates to "Invite User" screen from the "Dashboard" screen
+And user inputs <invite users email address> in "Email Text Field" in the "Invite User" screen
+Then user should be displayed with the following "Invited Users" options:
+| InvitedUsersList		|
+| das_stage5@grr.la		|
+And user logs out of the app
+When user launches and logs in to the Lyric Application with <invite users email address>
+Then user navigates to "Add Users" screen from the "Dashboard" screen
+And user should not be displayed with the following "Invited Users" options:
+| InvitedUsersList		|
+| das_stage5@grr.la		|
+Then user should be displayed with the following "Invited Users" options:
+| InvitedUsersList						|
+| User who invited the logged in user	|
+And user logs out of the app
+When user launches and logs in to the Lyric Application
+Then user navigates to "Add Users" screen from the "Dashboard" screen
+And user should not be displayed with the following "Invited Users" options:
+| InvitedUsersList	|
+| Logged in user		|
+Then user should be displayed with the following "Invited Users" options:
+| InvitedUsersList		|
+| das_stage5@grr.la		|
+When user deletes the <invite users email address> from "Add Users" screen
+Then user should receive a "Confirm Access Removal" popup
+And user "Clicks on Remove in" the "Confirm Access Removal" popup
+Then user should not be displayed with the following "Invited Users" options:
+| InvitedUsersList		|
+| das_stage5@grr.la		|
+And user should be displayed with "No Invited Users label"
+And user logs out of the app
+When user launches and logs in to the Lyric Application with <invite users email address>
+Then user navigates to "Add Users" screen from the "Dashboard" screen
+And user should be displayed with "No Invited Users label"
+And user logs out of the app
+
 Examples:
-|Email|
-|ure@grr.la|
-|sys@grr.la|
+| invite users email address		|
+| das_stage5@grr.la				|
 
 
 #Requirements : single location with and with out any solution and user should be invited 
-@GeneralGlobalDrawerInviteUserWithLoggedInUserEmail
+@GeneralGlobalDrawerInviteUserWithLoggedInUserEmail				@Automated
 Scenario: As a user i want to Verify if error message displays when logged in users email address in Add Users
 Given user launches and logs in to the Lyric Application
 When user navigates to "Add Users" screen from the "Dashboard" screen
@@ -574,10 +581,11 @@ When user navigates to "Add Users" screen from the "Invite User" screen
 Then user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList	|
 | Logged in user		|
+And user logs out of the app
 
 
 #Requirements : single location with and with out any solution and user should be invited 
-@GeneralGlobalDrawerInviteUserWithAlreadyInvitiedUsersEmail
+@GeneralGlobalDrawerInviteUserWithAlreadyInvitiedUsersEmail					@Automated
 Scenario Outline: As a user i want to Verify if error message displays when already existing invited users email address is entered in Add Users 
 Given user launches and logs in to the Lyric Application
 When user navigates to "Invite User" screen from the "Dashboard" screen
@@ -602,6 +610,7 @@ And user "Clicks on Remove in" the "Confirm Access Removal" popup
 Then user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
 | das_stage5@grr.la		|
+And user logs out of the app
 
 Examples:
 | invite users email address		|

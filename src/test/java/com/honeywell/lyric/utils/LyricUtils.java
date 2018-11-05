@@ -440,7 +440,6 @@ public class LyricUtils {
 		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
 		fWait.pollingEvery(5, TimeUnit.SECONDS);
 		fWait.withTimeout(3, TimeUnit.MINUTES);
-
 		try {
 			Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 				public Boolean apply(CustomDriver driver) {
@@ -645,32 +644,32 @@ public class LyricUtils {
 //				else {
 //				flag = flag & sm.clickOnSetDasDIYV2Toggle();
 //			}
-//			if (sm.isWebServerURLVisible()) {
-//				flag = flag & sm.clickOnWebServerURL();
-//				// Keeping this explicit wait because sometimes the environment selection fails
-//				// on ANDROID
-//				TimeUnit.SECONDS.sleep(1);
-//				// Thread.sleep(1000);
-//			}
-//			environmentToSelect = environmentToSelect.replaceAll("\\s", "");
-//			if (environmentToSelect.equalsIgnoreCase("ChilDas(QA)")) {
-//				flag = flag & sm.clickOnCHILDASQAOption();
-//			} else if (environmentToSelect.equalsIgnoreCase("Production")) {
-//				flag = flag & sm.clickOnProductionOption();
-//			} else if (environmentToSelect.equalsIgnoreCase("CHILStage(Azure)")) {
-//				flag = flag & sm.clickOnCHILStageAzureOption();
-//			} else if (environmentToSelect.equalsIgnoreCase("CHILInt(Azure)")) {
-//				flag = flag & sm.clickOnCHILIntAzureOption();
-//			} else if (environmentToSelect.equalsIgnoreCase("ChilDev(Dev2)")) {
-//				flag = flag & sm.clickOnCHILDevDev2Option();
-//			} else if (environmentToSelect.equalsIgnoreCase("LoadTesting")) {
-//				flag = flag & sm.clickOnCHILLoadTestingOption();
-//			} else if (environmentToSelect.equalsIgnoreCase("ChilDas(Test)")) {
-//				flag = flag & sm.clickOnCHILDASTestOption();
-//			} else {
-//				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Environment");
-//				return false;
-//			}
+			if (sm.isWebServerURLVisible()) {
+				flag = flag & sm.clickOnWebServerURL();
+				// Keeping this explicit wait because sometimes the environment selection fails
+				// on ANDROID
+				TimeUnit.SECONDS.sleep(1);
+				// Thread.sleep(1000);
+			}
+			environmentToSelect = environmentToSelect.replaceAll("\\s", "");
+			if (environmentToSelect.equalsIgnoreCase("ChilDas(QA)")) {
+				flag = flag & sm.clickOnCHILDASQAOption();
+			} else if (environmentToSelect.equalsIgnoreCase("Production")) {
+				flag = flag & sm.clickOnProductionOption();
+			} else if (environmentToSelect.equalsIgnoreCase("CHILStage(Azure)")) {
+				flag = flag & sm.clickOnCHILStageAzureOption();
+			} else if (environmentToSelect.equalsIgnoreCase("CHILInt(Azure)")) {
+				flag = flag & sm.clickOnCHILIntAzureOption();
+			} else if (environmentToSelect.equalsIgnoreCase("ChilDev(Dev2)")) {
+				flag = flag & sm.clickOnCHILDevDev2Option();
+			} else if (environmentToSelect.equalsIgnoreCase("LoadTesting")) {
+				flag = flag & sm.clickOnCHILLoadTestingOption();
+			} else if (environmentToSelect.equalsIgnoreCase("ChilDas(Test)")) {
+				flag = flag & sm.clickOnCHILDASTestOption();
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Environment");
+				return false;
+			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 
 				if (sm.isCHILFRTweakOptionAvailable()) {
@@ -723,9 +722,9 @@ public class LyricUtils {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
 		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+		//if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 			flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);	
-		}
+		//}
 		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
 		if (closeCoachMarks.length > 0) {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
@@ -1790,6 +1789,57 @@ public class LyricUtils {
 		}
 		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
 		flag = flag & LyricUtils.verifyLoginSuccessfulwithoutCoachMark(testCase, inputs);
+		return flag;
+	}
+	
+	public static boolean loginToLyricAppWithInviteUsersAccount(TestCases testCase, TestCaseInputs inputs, String usersEmailAddress) {
+		boolean flag = true;
+		LoginScreen ls = new LoginScreen(testCase);
+		if (ls.isLoginButtonVisible() && !ls.isEmailAddressTextFieldVisible()) {
+			flag = flag & ls.clickOnLoginButton();
+		}
+		if (ls.setEmailAddressValue(usersEmailAddress)) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				MobileUtils.hideKeyboard(testCase.getMobileDriver());
+			}
+			Keyword.ReportStep_Pass(testCase,
+					"Login To Lyric : Email Address set to - " + inputs.getInputValue("USERID"));
+		} else {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Login To Lyric : Not able to set Email Address.");
+			flag = false;
+		}
+		if (ls.setPasswordValue(inputs.getInputValue("PASSWORD").toString())) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				MobileUtils.hideKeyboard(testCase.getMobileDriver());
+			} else {
+				ls.clickOnLyricLogo();
+			}
+			Keyword.ReportStep_Pass(testCase, "Login To Lyric : Password set to - " + inputs.getInputValue("PASSWORD"));
+		} else {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Login To Lyric : Not able to set Password.");
+			flag = false;
+		}
+		if (ls.isLoginButtonVisible()) {
+			flag = flag & ls.clickOnLoginButton();
+		} else {
+			MobileUtils.hideKeyboardIOS(testCase.getMobileDriver(), "Go");
+		}
+		return flag;
+	}
+	
+	public static boolean launchAndLoginToApplicationWithInviteUsersAccount(TestCases testCase, TestCaseInputs inputs, String inviteUsersEmailAddress,
+			boolean... closeCoachMarks) {
+		boolean flag = true;
+		flag = MobileUtils.launchApplication(inputs, testCase, true);
+		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+		flag = flag & LyricUtils.loginToLyricAppWithInviteUsersAccount(testCase, inputs, inviteUsersEmailAddress);
+		if (closeCoachMarks.length > 0) {
+			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
+		} else {
+			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
+		}
 		return flag;
 	}
 }
