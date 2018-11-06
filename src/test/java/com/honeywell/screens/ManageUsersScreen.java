@@ -67,11 +67,13 @@ public class ManageUsersScreen extends MobileScreens {
 	public boolean isNoInvitedUsersLabelVisible() {
 		// return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoInvitedUsersLabel");
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			if (!MobileUtils.isMobElementExists("ID", "list_item_lyric_subtext_primary_text_view", testCase)) {
+			/*if (!MobileUtils.isMobElementExists("ID", "list_item_lyric_subtext_primary_text_view", testCase)) {
 				return true;
 			} else {
 				return false;
-			}
+			}*/
+			return MobileUtils.isMobElementExists("XPATH", "//android.widget.TextView[@text='No Invited Users']",
+					testCase);
 		} else {
 			return MobileUtils.isMobElementExists("NAME", "No Invited Users", testCase);
 		}
