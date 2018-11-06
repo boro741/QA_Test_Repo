@@ -1702,8 +1702,9 @@ public class SelectElementOnAScreen extends Keyword {
 				ActivityHistoryScreen ah = new ActivityHistoryScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "EDIT": {
-					if (ah.isEditButtonVisible()) {
-						ah.clickOnEditButton();
+					// MobileUtils.minimizeApp(testCase, 5);
+					flag &= ah.clickOnEditButton();
+					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully selected the option: " + parameters.get(0));
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

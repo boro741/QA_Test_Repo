@@ -71,6 +71,9 @@ public class GlobalDrawerScreen extends MobileScreens {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			flag &= MobileUtils.isMobElementExists("XPATH", "//android.widget.TextView[@text='Membership']", testCase);
+		} else {
+			flag &= MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeStaticText[@name='Honeywell Membership']",
+					testCase);
 		}
 		return flag;
 	}

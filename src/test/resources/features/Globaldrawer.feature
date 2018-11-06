@@ -21,7 +21,7 @@ Then user should be displayed with the following "Global Drawer Without Solution
 | About the app												|
 | FAQs														|
 | Logout														|
-#And user logs out of the app
+And user logs out of the app
 
 
 #Single location with out any solution for US Location
@@ -42,7 +42,7 @@ Then user should be displayed with the following "Global Drawer Without Solution
 | About the app												|
 | No FAQs For US location									|
 | Logout														|
-#And user logs out of the app
+And user logs out of the app
 
 
 #WLD Solution for UK Location
@@ -63,7 +63,7 @@ Then user should be displayed with the following "Global Drawer With WLD Solutio
 | About the app												|
 | FAQs														|
 | Logout														|
-#And user logs out of the app
+And user logs out of the app
 
 
 #WLD Solution for US Location
@@ -84,7 +84,7 @@ Then user should be displayed with the following "Global Drawer With WLD Solutio
 | About the app												|
 | No FAQs For US location									|
 | Logout														|
-#And user logs out of the app
+And user logs out of the app
 
 
 #DAS, C1, C2 Solution for UK Location
@@ -106,7 +106,7 @@ Then user should be displayed with the following "Global Drawer With DAS C1 C2 S
 | About the app										|
 | FAQs												|
 | Logout 											|
-#And user logs out of the app
+And user logs out of the app
 
 
 #DAS, C1, C2 for US Location
@@ -128,7 +128,7 @@ Then user should be displayed with the following "Global Drawer With DAS C1 C2 S
 | About the app										|
 | No FAQs For US location							|
 | Logout 											|
-#And user logs out of the app
+And user logs out of the app
 
 
 #JASPEREMEA for UK Location
@@ -150,7 +150,7 @@ Then user should be displayed with the following "Global Drawer With JASPER EMEA
 | About the app										|
 | FAQs												|
 | Logout 											|
-#And user logs out of the app
+And user logs out of the app
 
 
 #JasperNA for US Location
@@ -172,7 +172,7 @@ Then user should be displayed with the following "Global Drawer With JASPER NA S
 | About the app										|
 | No FAQs For US location							|
 | Logout 											|
-#And user logs out of the app
+And user logs out of the app
 
 
 #Geofence 
@@ -385,7 +385,7 @@ And user should not be displayed with the following "Activity History" options:
 | ActivityHistoryOptions		|
 | Edit						|
 Then user navigates to "Global Drawer" screen from the "Activity History" screen
-#And user logs out of the app
+And user logs out of the app
 
 
 #Activity history with all solution 
@@ -427,8 +427,8 @@ Examples:
 Scenario: As a user i want to delete selected Activity history message with jasperNA or JapserEMEA or C1 or C2 or DAS or all the solutions  
 Given user launches and logs in to the Lyric Application
 When user navigates to "Activity History" screen from the "Dashboard" screen
-When user selects "Edit" from "Activity History" screen
-And the following "Activity History" options should be enabled:
+#When user selects "Edit" from "Activity History" screen
+#And the following "Activity History" options should be enabled:
 | ActivityHistoryOptions		|
 | Select All					|
 Then the following "Activity History" options should be disabled:
@@ -468,7 +468,7 @@ And user should be displayed with the following "Activity History" options:
 | Cancel						|
 When user selects "Delete" from "Activity History" screen 
 Then "deleted message" should not be displayed in the "Activity History" screen
-
+And user logs out of the app
 
 #Activity history Edit select all message  with all solutions
 #Requirements : single location with jasperNA or JapserEMEA or WLD or C1 or C2 or DAS or all the solutions  and trigged all the events 
@@ -517,7 +517,7 @@ And user should be displayed with the following "Activity History" options:
 | Cancel						|
 When user selects "Delete" from "Activity History" screen 
 Then user should be displayed with "No Messages label in Activity History screen"
-
+And user logs out of the app
 
 #InviteUsers
 #Requirements : single location with and with out any solution 

@@ -63,26 +63,12 @@ public class ActivityHistoryScreen extends MobileScreens {
 
 	public boolean clickOnEditButton() {
 		boolean flag = true;
-		/*if (MobileUtils.isMobElementExists(objectDefinition, testCase, "EditButton")) {
-		 * flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "EditButton");
-			return flag;
-		} else {*/
+		//flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "EditButton");
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			if (MobileUtils.isMobElementExists("XPATH", "//*[@text='Edit']", testCase)) {
-				flag &= MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='Edit']");
-			} else {
-				flag = false;
-			}
+			flag &= MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='Edit']");
 		} else {
-			if (MobileUtils.isMobElementExists("XPATH",
-					"//XCUIElementTypeButton[@value='Edit']", testCase)) {
-				flag &= MobileUtils.clickOnElement(testCase, "XPATH",
-						"//XCUIElementTypeButton[@value='Edit']");
-			} else {
-				flag = false;
-			}
+			flag &= MobileUtils.clickOnElement(testCase, "XPATH", "//XCUIElementTypeButton[@value='Edit']");
 		}
-		//}
 		return flag;
 	}
 
@@ -226,7 +212,7 @@ public class ActivityHistoryScreen extends MobileScreens {
 				return flag;
 			} else*/ if (MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeButton[@name='RightButton']", testCase)
 					&& MobileUtils.getMobElement(testCase, "XPATH", "//XCUIElementTypeButton[@name='RightButton']")
-							.getAttribute("enabled").equalsIgnoreCase("1")) {
+							.getAttribute("enabled").equalsIgnoreCase("true")) {
 				return flag;
 			} else {
 				flag = false;

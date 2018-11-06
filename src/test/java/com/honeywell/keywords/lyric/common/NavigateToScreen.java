@@ -525,6 +525,20 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "ACTIVITY HISTORY": {
 					Dashboard dScreen = new Dashboard(testCase);
+					OSPopUps os = new OSPopUps(testCase);
+					CoachMarks cm = new CoachMarks(testCase);
+					Thread.sleep(5000);
+					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+						if (os.isNotNowButtonVisible(1)) {
+							flag &= os.clickOnNotNowButton();
+							if (os.isNotNowButtonVisible(1)) {
+								flag &= os.clickOnNotNowButton();
+							}
+						}
+						if (cm.isDoneButtonVisible(1)) {
+							flag = flag & cm.clickOnDoneButton();
+						}
+					}
 					if (dScreen.clickOnGlobalDrawerButton()) {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
 						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.MESSAGES)) {
@@ -1077,6 +1091,20 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "ADD USERS": {
 					Dashboard dScreen = new Dashboard(testCase);
+					OSPopUps os = new OSPopUps(testCase);
+					CoachMarks cm = new CoachMarks(testCase);
+					Thread.sleep(5000);
+					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+						if (os.isNotNowButtonVisible(1)) {
+							flag &= os.clickOnNotNowButton();
+							if (os.isNotNowButtonVisible(1)) {
+								flag &= os.clickOnNotNowButton();
+							}
+						}
+						if (cm.isDoneButtonVisible(1)) {
+							flag = flag & cm.clickOnDoneButton();
+						}
+					}
 					if (dScreen.clickOnGlobalDrawerButton()) {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
 						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.MANAGEUSERS)) {
