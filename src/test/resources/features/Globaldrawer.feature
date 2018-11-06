@@ -427,8 +427,8 @@ Examples:
 Scenario: As a user i want to delete selected Activity history message with jasperNA or JapserEMEA or C1 or C2 or DAS or all the solutions  
 Given user launches and logs in to the Lyric Application
 When user navigates to "Activity History" screen from the "Dashboard" screen
-#When user selects "Edit" from "Activity History" screen
-#And the following "Activity History" options should be enabled:
+When user selects "Edit" from "Activity History" screen
+And the following "Activity History" options should be enabled:
 | ActivityHistoryOptions		|
 | Select All					|
 Then the following "Activity History" options should be disabled:
