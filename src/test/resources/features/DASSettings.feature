@@ -9,23 +9,23 @@ As user I should be able to control my DAS panel settings from the app
      Then user launches and logs in to the Lyric application
      When user navigates to "Security Settings" screen from the "Dashboard" screen
      Then the following "DAS Security Settings" options should be enabled:
-      | Settings                   | 
+      | Settings 	               | 
       | Manage Alerts              | 
       | Amazon Alexa               | 
       | Geofencing                 | 
       | OK Security Voice Commands | 
-      | Entry_Exit Delay           | 
+      | Entry/Exit Delay           | 
       | About Security Modes       | 
       | Key Fob                    | 
       | Sensors                    | 
       | Z-Wave Devices             | 
-      | Base Station Volume        | 
+      | Base Station Volume	       | 
       | Reset Wi-Fi                | 
       | Base Station Configuration | 
     Examples: 
       | Mode | 
       | Home | 
-  |OFF|
+  	#|OFF|
   
   #Requirements: Single Location Single DAS Device, OSMV required
   @VerifyDASSettingsOSMV @Automated @--xrayid:ATER-54566
@@ -141,7 +141,6 @@ As user I should be able to control my DAS panel settings from the app
      Then user launches and logs in to the Lyric application
      When user navigates to "Security Settings" screen from the "Dashboard" screen
      Then user navigates to "Manage alerts" screen from the "Security Settings" screen
-     Then user should be display with the following "Alerts" Enabled:
       And the following "Security Manage Alerts" options should be enabled:
       | Alerts               | 
       | Security Mode change | 
@@ -149,7 +148,7 @@ As user I should be able to control my DAS panel settings from the app
     Examples: 
       | Mode  | 
       | Home  | 
-      | Night | 
+     | Night | 
       | OFF   | 
   
   #Requirements: DAS panel configured newly, No Sensors Required
@@ -174,8 +173,6 @@ As user I should be able to control my DAS panel settings from the app
      When user navigates to "Security Solution Card" screen from the "Manage alerts" screen
      Then user switches from <UMode> to <Mode>
       And user should be displayed with a switching to <Mode> text
-      And user should be displayed with switching timer
-      And timer ends on user device
       And user status should be set to <Mode>
       And user receives a <UPush Notification> push notification
       
@@ -183,16 +180,16 @@ As user I should be able to control my DAS panel settings from the app
       | Mode | UMode | Push Notification | UPush Notification | 
       | Home | Away  | Set to Away       | Set to Home        | 
   |Home|Night| Set to Night |Set to Home |
-  |Home| Off| Set to Off | Set to Home |
-  |OFF| Away |Set to Away |Set to Off | 
-  |OFF| Night |Set to Night |Set to Off | 
-  |OFF| Home | Set to Home |Set to Off | 
-  |Night|Home | Set to Home |Set to Night |
-  |Night|Away |Set to Away |Set to Night |
-  |Night| Off|Set to Off | Set to Night |
-  |Away|Home | Set to Home |Set to Away |
-  |Away|Night |Set to Night |Set to Away |
-  |Away| Off|Set to Off | Set to Away |
+ # |Home| Off| Set to Off | Set to Home |
+ # |OFF| Away |Set to Away |Set to Off | 
+  #|OFF| Night |Set to Night |Set to Off | 
+ # |OFF| Home | Set to Home |Set to Off | 
+ # |Night|Home | Set to Home |Set to Night |
+ # |Night|Away |Set to Away |Set to Night |
+ # |Night| Off|Set to Off | Set to Night |
+ # |Away|Home | Set to Home |Set to Away |
+  #|Away|Night |Set to Night |Set to Away |
+ # |Away| Off|Set to Off | Set to Away |
   
   #Requirements: DAS panel configured newly, One access sensor
   @VerifyManageAlertsScreenEnableDisableDoorsAndWindowsModeChangeHomeAwayNight @Automated @--xrayid:ATER-54587
@@ -203,7 +200,7 @@ As user I should be able to control my DAS panel settings from the app
       And user navigates to "Security Settings" screen from the "Dashboard" screen
      When user navigates to "Manage alerts" screen from the "Security Settings" screen
      Then user changes the "Doors and windows" to "Off"
-     When user navigates to "Security Solution Card" screen from "Manage alerts" screen
+     When user navigates to "Security Solution Card" screen from the "Manage alerts" screen
      Then user <AS> access sensor <Event>
       And user should not receive a <Push Notification> push notification
      When user navigates to "DAS Security Settings" screen from the "Security Solution Card" screen
@@ -215,17 +212,17 @@ As user I should be able to control my DAS panel settings from the app
     Examples: 
       | Mode | AS   | Event  | Event1 | Push Notification | UPush Notification | 
       | Home | door | Opened | Closed | DOOR OPENED       | DOOR CLOSED        | 
-  |Home| door |Closed | Opened |DOOR CLOSED | DOOR OPENED|
-  |Night|door |Opened | Closed | DOOR OPENED | DOOR CLOSED|
-  |Night|door |Closed | Opened |DOOR CLOSED | DOOR OPENED|
-  |Away|door |Opened | Closed | DOOR OPENED | DOOR CLOSED|
-  |Away|door |Closed | Opened |DOOR CLOSED | DOOR OPENED|
-  |Home| WINDOW | Opened | Closed | WINDOW OPENED | WINDOW CLOSED|
-  |Home| WINDOW |Closed | Opened |WINDOW CLOSED | WINDOW OPENED|
-  |Night|WINDOW |Opened | Closed | WINDOW OPENED | WINDOW CLOSED|
-  |Night|WINDOW |Closed | Opened |WINDOW CLOSED | WINDOW OPENED|
-  |Away|WINDOW |Opened | Closed | WINDOW OPENED | WINDOW CLOSED|
-  |Away|WINDOW |Closed | Opened |WINDOW CLOSED | WINDOW OPENED|
+#  |Home| door |Closed | Opened |DOOR CLOSED | DOOR OPENED|
+ # |Night|door |Opened | Closed | DOOR OPENED | DOOR CLOSED|
+ # |Night|door |Closed | Opened |DOOR CLOSED | DOOR OPENED|
+ # |Away|door |Opened | Closed | DOOR OPENED | DOOR CLOSED|
+#  |Away|door |Closed | Opened |DOOR CLOSED | DOOR OPENED|
+ # |Home| WINDOW | Opened | Closed | WINDOW OPENED | WINDOW CLOSED|
+#  |Home| WINDOW |Closed | Opened |WINDOW CLOSED | WINDOW OPENED|
+#  |Night|WINDOW |Opened | Closed | WINDOW OPENED | WINDOW CLOSED|
+#  |Night|WINDOW |Closed | Opened |WINDOW CLOSED | WINDOW OPENED|
+#  |Away|WINDOW |Opened | Closed | WINDOW OPENED | WINDOW CLOSED|
+#  |Away|WINDOW |Closed | Opened |WINDOW CLOSED | WINDOW OPENED|
   
   #Requirements: DAS panel configured newly, One access sensor
   @VerifyManageAlertsScreenEnableDisableDoorsAndWindowsModeChangeOff @Automated @--xrayid:ATER-54591
@@ -273,6 +270,7 @@ As user I should be able to control my DAS panel settings from the app
   @VerifySecuritySettingsGeofenceoptionHomeOff @Automated @--xrayid:ATER-54603
   Scenario Outline: As a user I should be verify geofence status in home and off mode
     Given user is set to <Mode> mode through CHIL
+      And user sets the entry/exit timer to "45" seconds
      Then user launches and logs in to the Lyric application
       And user changes the "Geofencing this location" to "off" 
      When user navigates to "Security Settings" screen from the "Dashboard" screen
@@ -289,12 +287,12 @@ As user I should be able to control my DAS panel settings from the app
       And user navigates to "Security Solution Card" screen from the "DAS Security Settings" screen
      Then user thermostat set <UPeriod> with <UGeofence>
       And user should not receive a <UPush Notification> push notification
-      And user status should be set to <Period>
+      And user status should be set to <UPeriod>
   
     Examples: 
       | Mode | Period | Geofence     | Push Notification | UPeriod | UGeofence    | UPush Notification | 
       | Home | Away   | UserDeparted | Away              | Home    | UserArrived  | GEOFENCE HOME      | 
-      | Away | Home   | UserArrived  | Home              | Away    | UserDeparted | GEOFENCE AWAY      | 
+     #| Away | Home   | UserArrived  | Home              | Away    | UserDeparted | GEOFENCE AWAY      | 
   
   #Requirements: DAS panel configured, No Sensors Required and "geofence this location" should be disabled under global drawer
   @VerifySecuritySettingsGeofenceoptionHomeOffDisbaledgeofencethislocation @Automated @--xrayid:ATER-54604
@@ -305,13 +303,13 @@ As user I should be able to control my DAS panel settings from the app
      When user navigates to "Security Settings" screen from the "Dashboard" screen
      Then user changes the "Geofencing Status" to "ON"
       And user should receive a "Geofencing" popup
-     When user "DISMISSES" the "Geofencing" popup
+    When user "DISMISSES" the "Geofencing" popup
      Then user should be displayed with the "DAS security settings" screen
      When user changes the "Geofencing Status" to "ON"
      Then user "ACCEPTS" the "Geofencing" popup
       And user should be displayed with the "Geofence" screen
      When user selects "BACK" from "Geofence this location" screen
-     Then user should be displayed with the "Geofence" screen
+    Then user should be displayed with the "Geofence" screen
      When user changes the "Geofencing Status" to "ON"
      Then user "ACCEPTS" the "Geofencing" popup
       And user should be displayed with the "Geofence" screen
@@ -518,7 +516,7 @@ As user I should be able to control my DAS panel settings from the app
     Examples: 
       | Mode  | 
       | Away  | 
-      #| Night | 
+      | Night | 
   
   @VerifyoutdorrmotionviewersoninhomemodeHomeOFFmode @Automated @--xrayid:ATER-54642
   Scenario Outline: As a user i should able to verify enable or disable in away or night mode
@@ -673,7 +671,7 @@ As user I should be able to control my DAS panel settings from the app
     Examples: 
       | Mode | 
       | Home | 
-      #| Off  | 
+      | Off  | 
   
   #Requirements Single Location Single DAS Device, No Sensors Required
   @ChangeBaseStationVolumeNightAwayOffline @Automated @--xrayid:ATER-54651
@@ -686,7 +684,7 @@ As user I should be able to control my DAS panel settings from the app
     Examples: 
       | Mode | 
       | Away | 
-      #| Night  | 
+      | Night  | 
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
   @ResetWiFi   @NotAutomatable @--xrayid:ATER-54652
@@ -858,11 +856,11 @@ As user I should be able to control my DAS panel settings from the app
     Examples: 
       | Mode | 
       | Home | 
-      #| Off  | 
+      | Off  | 
   
   #LYDAS-7075,LYDAS-4088,LYDAS-4058,LYDAS-4011,LYDAS-3294,LYDAS-3271,LYDAS-3116,LYDAS-2982,LYDAS-2808,LYDAS-2610,LYDAS-2563,LYDAS-2497,LYDAS-2408,LYDAS-2404,LYDAS-2231,LYDAS-2167
   #Requirements: Single Location Single DAS Device, No Sensors Required
-  @DeleteBaseStation @NotAutomatable @--xrayid:ATER-54661
+  @DeleteBaseStation2 @NotAutomatable @--xrayid:ATER-54661
   Scenario Outline: As a user I should be able to delete my DAS panel from my account through the Lyric application 
     Given user is set to <Mode> mode through CHIL
       And user launches and logs in to the Lyric application 

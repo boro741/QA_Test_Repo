@@ -153,7 +153,6 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				}
 				case "GEOFENCING": {
 					flag &= !cs.isGeofencingEnabled();
-					flag &= !cs.isGeofencingDescriptionEnabled();
 					break;
 				}
 				case "OK SECURITY VOICE COMMANDS": {
@@ -200,7 +199,6 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 						}
 					}
 					flag &= !cs.isEntryExitDelayEnabled();
-					flag &= !cs.isEntryExitDelayDescriptionEnabled();
 					break;
 				}
 				case "ABOUT SECURITY MODES": {
@@ -279,7 +277,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 					flag &= !cs.isZwaveDevicesEnabled();
 					break;
 				}
-				case "BSAE STATION VOLUME": {
+				case "BASE STATION VOLUME": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (!cs.isBaseStationVolumeValueVisible()) {

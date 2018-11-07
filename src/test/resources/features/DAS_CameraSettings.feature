@@ -132,6 +132,7 @@ As user I should be able to configure camera settings from the app
       And user launches and logs in to the Lyric application
       And user thermostat set "Home" with "UserArrived"
      When user navigates to "DAS Camera Solution Card" screen from the "Dashboard" screen
+    And  user camera is set to "on"
      Then user navigates to "Camera Settings" screen from the "Camera Solution Card" screen
      Then the following "DAS Camera Settings" options should be enabled:
       | Options              | 
@@ -263,16 +264,16 @@ As user I should be able to configure camera settings from the app
      Then "Motion Sensitivity" value should be updated to "Off" on "Motion Detection Settings" screen
      When user changes the "Motion Sensitivity" to "Low"
      Then "Motion Sensitivity" value should be updated to "Low" on "Motion Detection Settings" screen
-     When user changes the "Motion Sensitivity" to "Normal"
-     Then "Motion Sensitivity" value should be updated to "Normal" on "Motion Detection Settings" screen
+     When user changes the "Motion Sensitivity" to "Medium"
+     Then "Motion Sensitivity" value should be updated to "Medium" on "Motion Detection Settings" screen
      When user changes the "Motion Sensitivity" to "high"
      Then "Motion Sensitivity" value should be updated to "high" on "Motion Detection Settings" screen
     Examples: 
       | Zone   | 
       | Zone 1 | 
-#      | Zone 2 | 
-#      | Zone 3 | 
-#      | Zone 4 | 
+      | Zone 2 | 
+      | Zone 3 | 
+      | Zone 4 | 
   
   @VerifyMultipleZonesOverlapError  @P3  @Notautomatable @--xrayid:ATER-54488
   Scenario: As a user I want to verify sensitivity area on my zones should not overlap

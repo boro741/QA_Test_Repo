@@ -130,6 +130,14 @@ public class DASCommandControlUtils {
 								return false;
 							}
 						}
+						case "TIMER PROGRESS BAR TO APPEAR": {
+							if (sc.isCountDownTimerVisible() && sc.isSwitchingToTextVisible()) {
+								System.out.println("Waiting for timer progress bar loading spinner to appear");
+								return true;
+							} else {
+								return false;
+							}
+						}
 						default: {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Invalid argument passed : " + elementProgressBar);

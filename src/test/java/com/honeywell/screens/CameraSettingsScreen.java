@@ -206,7 +206,7 @@ public class CameraSettingsScreen extends MobileScreens {
 				return false;
 			}
 		} else {
-			if (testCase.getMobileDriver().findElementByXPath("//*[@label='FaceRecognization_toggle']")
+			if (testCase.getMobileDriver().findElementById("FaceRecognization_toggle")
 					.getAttribute("value").equalsIgnoreCase("1")) {
 				return true;
 			} else {
@@ -219,7 +219,7 @@ public class CameraSettingsScreen extends MobileScreens {
 		if (testCase.getMobileDriver().getPlatformName().contains("Android")){
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraFaceDetectionAlertsSwitch");
 		} else{
-			testCase.getMobileDriver().findElementByXPath("//*[@label='FaceRecognization_toggle']").click();
+			testCase.getMobileDriver().findElementById("FaceRecognization_toggle").click();
 			return true;
 		}
 	}
@@ -808,20 +808,14 @@ public class CameraSettingsScreen extends MobileScreens {
 				}
 			}
 		} else {
-			if (MobileUtils.isMobElementExists("XPATH","//XCUIElementTypeCell[@name='" + motionSensitivityStatus.toLowerCase() + "_cell"
-								+ "']/XCUIElementTypeImage[@name='" + motionSensitivityStatus.toLowerCase() + "_Image"
-								+ "']",testCase)){
+			if (MobileUtils.isMobElementExists("XPATH","//XCUIElementTypeCell[@name='" + motionSensitivityStatus.toLowerCase() + "_cell" + "']",testCase)){
 				return flag;
 			} else {
 				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
 				.release().perform();
 				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
 				.release().perform();
-				if (MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeCell[@name='" + motionSensitivityStatus.toLowerCase() + "_cell"
-								+ "']/XCUIElementTypeImage[@name='" + motionSensitivityStatus.toLowerCase() + "_Image"
-								+ "']",
-								testCase)) {
+				if (MobileUtils.isMobElementExists("XPATH","//XCUIElementTypeCell[@name='" + motionSensitivityStatus.toLowerCase() + "_cell" + "']",testCase)) {
 					return flag;
 				} else {
 					if (motionSensitivityStatus.toLowerCase().equals("normal")) {

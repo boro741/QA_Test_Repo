@@ -24,7 +24,7 @@ public class PrimaryCard extends MobileScreens {
 	}
 
 	public boolean isCogIconVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CogIcon", 20);
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CogIcon", 5);
 	}
 
 	public boolean clickOnCogIcon() {

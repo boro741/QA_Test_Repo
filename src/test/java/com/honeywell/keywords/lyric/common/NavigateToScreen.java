@@ -3508,6 +3508,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "SECURITY SOLUTION CARD": {
 					flag &= bs.clickOnBackButton();
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 					break;
 				}
 				case "ENHANCED DETERRENCE": {

@@ -8,6 +8,7 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DASCommandControlUtils;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 
 public class VerifySwitchingTextDisplayedWithMode extends Keyword {
@@ -35,6 +36,9 @@ public class VerifySwitchingTextDisplayedWithMode extends Keyword {
 		String displayedText = "";
 		boolean flag = true;
 		SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+		if ((expectedText.get(0).equalsIgnoreCase("AWAY"))||(expectedText.get(0).equalsIgnoreCase("NIGHT"))){
+		flag = flag & DASCommandControlUtils.waitForProgressBarToComplete(testCase, "TIMER PROGRESS BAR TO APPEAR", 2);
+		}
 		if (sc.isSwitchingToTextVisible()) {
 			displayedText = sc.getSwitchingTextLabel();
 		} else {
