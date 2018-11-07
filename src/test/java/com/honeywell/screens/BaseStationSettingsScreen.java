@@ -596,15 +596,14 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public boolean isGeofencingSwitchEnabled(TestCases testCase) throws Exception {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofencingSwitch", 10)) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (MobileUtils.getMobElement(objectDefinition, testCase, "GeofencingSwitch").getText()
-						.equalsIgnoreCase("ON")) {
+				if (MobileUtils.getMobElement(objectDefinition, testCase, "GeofencingSwitch").getAttribute("value").equalsIgnoreCase("1")) {
 					return true;
 				} else {
 					return false;
 				}
-			} else {
-				return Boolean.parseBoolean(MobileUtils.getMobElement(objectDefinition, testCase, "GeofencingSwitch")
-						.getAttribute("value"));
+			} else  {
+			 return (testCase.getMobileDriver().findElementById("apolloGeofence_toggle").getAttribute("value").equals("1"));
+				
 			}
 		} else {
 			throw new Exception("Could not find Geofencing Status Switch");
@@ -962,8 +961,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 	public boolean verifyBaseStationVolumeValueOnSecuritySettings(String value) throws Exception {
 		if (this.isBaseStationVolumeValueVisible(10)) {
-			String displayedValue = MobileUtils.getMobElement(objectDefinition, testCase, "VolumeValue")
-					.getAttribute("text");
+			String displayedValue = MobileUtils.getFieldValue(objectDefinition, testCase, "VolumeValue");
 			displayedValue = displayedValue.split("%")[0];
 			int expectedValue = Integer.parseInt(value);
 			int actualValue = Integer.parseInt(displayedValue);
@@ -2109,8 +2107,14 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 	public boolean isSecurityModeHomeiConVisible() {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeHomeiCon");
 	}
+		else{
+			testCase.getMobileDriver().findElementByXPath("//XCUIElementTypeStaticText[@name='Mode_Settings_0_0_cell']");
+		return true;
+		}	
+		}
 
 	public boolean isSecurityModeHomeModeVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeHomeMode");
@@ -2121,7 +2125,14 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 	public boolean isSecurityModeAwayiConVisible() {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeAwayiCon");
+	}
+	else{
+		testCase.getMobileDriver().findElementByXPath("//XCUIElementTypeStaticText[@name='Mode_Settings_0_3_cell']");
+	return true;
+	}	
 	}
 
 	public boolean isSecurityModeAwayModeVisible() {
@@ -2141,12 +2152,15 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			int endx = (dimension.width * 22) / 100;
 			int endy = (dimension.height * 35) / 100;
 			testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeNightiCon");
 		} else {
 			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
 					.release().perform();
+			testCase.getMobileDriver().findElementByXPath("//XCUIElementTypeStaticText[@name='Mode_Settings_0_6_cell']");
+			return true;
+			}
 		}
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeNightiCon");
-	}
+		
 
 	public boolean isSecurityModeNightModeVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeNightMode");
@@ -2165,12 +2179,14 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			int endx = (dimension.width * 22) / 100;
 			int endy = (dimension.height * 35) / 100;
 			testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeoffiCon");
 		} else {
 			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
 					.release().perform();
+			testCase.getMobileDriver().findElementByXPath("//XCUIElementTypeStaticText[@name='Mode_Settings_0_9_cell']");
+			return true;
 		}
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeoffiCon");
-	}
+		}
 
 	public boolean isSecurityModeoffModeVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeoffMode");

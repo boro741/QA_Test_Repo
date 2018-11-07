@@ -10,6 +10,8 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.DASCommandControlUtils;
+import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
@@ -560,6 +562,7 @@ public class VerifyValueOnAScreen extends Keyword {
 					&& parameters.get(2).equalsIgnoreCase("MANAGE ALERTS")) {
 				CameraSettingsScreen ts = new CameraSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					DASSettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 					if(ts.isCameraFaceDectiontAlertsSwitchEnabled(testCase)){
 						Keyword.ReportStep_Pass(testCase, "camera face detection Alert Toggle is ON");
 					} else {
@@ -567,6 +570,7 @@ public class VerifyValueOnAScreen extends Keyword {
 								"Thermostat Indoor Temperature Alert Toggle is OFF");
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					DASSettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
 					if(!ts.isCameraFaceDectiontAlertsSwitchEnabled(testCase)){
 						Keyword.ReportStep_Pass(testCase, "camera face detection Alert Toggle is OFF");
 					} else {

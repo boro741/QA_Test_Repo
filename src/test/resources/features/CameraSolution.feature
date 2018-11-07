@@ -1,6 +1,5 @@
 @CameraSolution
-Feature:  
-As a user,i should be able to get live streaming of the camera and to get motion alert on motion detection 
+Feature:  As a user,i should be able to get live streaming of the camera and to get motion alert on motion detection 
 
    @CameraStatusDashboardDIY @P2  @UIAutomated @--xrayid:ATER-53820
    Scenario: As an user I should be shown with camera in the dashboard after DIY registration
@@ -267,7 +266,7 @@ As a user,i should be able to get live streaming of the camera and to get motion
       
       
   @MotionDetectionPre-eventClip @P2 @NotAutomatable @--xrayid:ATER-53834
-  Scenario Outline: As a user I should receive motion detection with camera  
+  Scenario: As a user I should receive motion detection with camera  
     Given user DAS camera is set to "on" through CHIL
       And motion detection is "enabled" on user DAS panel through CHIL
       And user launches and logs in to the Lyric application
