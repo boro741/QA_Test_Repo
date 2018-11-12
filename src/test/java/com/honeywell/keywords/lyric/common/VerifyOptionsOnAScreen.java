@@ -14,6 +14,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
+import com.honeywell.screens.ActivityHistoryScreen;
 import com.honeywell.screens.AdhocScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
@@ -22,6 +23,7 @@ import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.GlobalDrawerScreen;
+import com.honeywell.screens.ManageUsersScreen;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
@@ -2886,6 +2888,50 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 				}
 				flag = true;
+			}
+			break;
+		}
+		case "ACTIVITY HISTORY": {
+			ActivityHistoryScreen ah = new ActivityHistoryScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "ActivityHistoryOptions");
+				switch (parameter.toUpperCase()) {
+				case "CANCEL": {
+					flag &= ah.isCancelOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "INVITED USERS": {
+			ManageUsersScreen mus = new ManageUsersScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "InvitedUsersList");
+				if (mus.isNoInvitedUsersLabelVisible()) {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "There are no Invited Users.");
+				} else {
+					Keyword.ReportStep_Pass(testCase, "Invited users are present.");
+					if (mus.isInviteUsersEmailAddressDisplayedInTheListOfInvitedUsers(inputs, parameter)) {
+						Keyword.ReportStep_Pass(testCase, "Invite users email address: " + parameter
+								+ " is present in the list of Invited Users.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invite users email address: "
+								+ parameter + " is not present in the list of Invited Users.");
+					}
+				}
 			}
 			break;
 		}

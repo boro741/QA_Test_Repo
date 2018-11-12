@@ -1,1 +1,9 @@
-FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Large-Selector-Type	Android-Large-Selector-Value	Android-Extra-Large-Selector-Type	Android-Extra-Large-Selector-Value	IOS-Medium-Selector-Type	IOS-Medium-Selector-Value	IOS-Large-Selector-Type	IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-ValueAllowButton	ID	com.android.packageinstaller:id/permission_allow_button	ID	com.android.packageinstaller:id/permission_allow_button	ID	com.android.packageinstaller:id/permission_allow_button	name	Allow	name	Allow	name	AllowOkButton							name	OK	name	OK	name	OKCancelButton							name	Cancel	name	Cancel	name	CancelNotNowButton							name	Not Now	name	Not Now	name	Not NowCloseButton	ID	btn_close	ID	btn_close	ID	btn_close						AlwaysAllowButton							name	Always Allow	name	Always Allow	name	Always AllowIgnoreButton							name	Ignore	name	Ignore	name	IgnoreRootedDevicePopup	XPATH	//*[@text='I Accept']	XPATH	//*[@text='I Accept']	XPATH	//*[@text='I Accept']						
+FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Large-Selector-Type	Android-Large-Selector-Value	Android-Extra-Large-Selector-Type	Android-Extra-Large-Selector-Value	IOS-Medium-Selector-Type	IOS-Medium-Selector-Value	IOS-Large-Selector-Type	IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-Value
+AllowButton	ID	com.android.packageinstaller:id/permission_allow_button	ID	com.android.packageinstaller:id/permission_allow_button	ID	com.android.packageinstaller:id/permission_allow_button	name	Allow	name	Allow	name	Allow
+OkButton							name	OK	name	OK	name	OK
+CancelButton							name	Cancel	name	Cancel	name	Cancel
+NotNowButton							name	Not Now	name	Not Now	name	Not Now
+CloseButton	ID	btn_close	ID	btn_close	ID	btn_close						
+AlwaysAllowButton							name	Always Allow	name	Always Allow	name	Always Allow
+IgnoreButton							name	Ignore	name	Ignore	name	Ignore
+RootedDevicePopup	XPATH	//*[@text='I Accept' or @text='I ACCEPT']	XPATH	//*[@text='I Accept' or @text='I ACCEPT']	XPATH	//*[@text='I Accept' or @text='I ACCEPT']						

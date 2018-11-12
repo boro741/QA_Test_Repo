@@ -22,6 +22,7 @@ import com.honeywell.screens.ActivityLogsScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.CameraSolutionCardScreen;
+import com.honeywell.screens.ManageUsersScreen;
 
 public class VerifyisElementDisplayed extends Keyword {
 
@@ -309,6 +310,16 @@ public class VerifyisElementDisplayed extends Keyword {
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"No Messages label is not displayed in Activity History Screen");
+				}
+				break;
+			}
+			case "No Invited Users label": {
+				ManageUsersScreen mus = new ManageUsersScreen(testCase);
+				if (mus.isNoInvitedUsersLabelVisible()) {
+					Keyword.ReportStep_Pass(testCase, "No Invited users label is displayed in Add Users Screen");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"No Invited users label is nog displayed in Add Users Screen");
 				}
 				break;
 			}

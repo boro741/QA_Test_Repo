@@ -13,6 +13,7 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.screens.ActivityHistoryScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.Dashboard;
@@ -683,6 +684,22 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Geofence this location is enabled");
+					}
+				}
+			}
+			break;
+		}
+		case "ACTIVITY HISTORY": {
+			ActivityHistoryScreen ah = new ActivityHistoryScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "ActivityHistoryOptions");
+				if (fieldToBeVerified.equalsIgnoreCase("DELETE")) {
+					if (!ah.isDeletelButtonEnabled()) {
+						Keyword.ReportStep_Pass(testCase, "Option: " + fieldToBeVerified + " is disabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option: " + fieldToBeVerified + " is enabled");
 					}
 				}
 			}
