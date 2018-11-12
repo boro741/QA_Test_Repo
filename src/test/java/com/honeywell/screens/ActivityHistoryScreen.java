@@ -136,7 +136,7 @@ public class ActivityHistoryScreen extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.isMobElementExists("ID", "horizontal_button_previous", testCase);
 		} else {
-			return MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeButton[@name='LeftButton']", testCase);
+			return MobileUtils.isMobElementExists("ID", "LeftButton", testCase);
 		}
 		//}
 	}
@@ -158,10 +158,10 @@ public class ActivityHistoryScreen extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if (MobileUtils.isMobElementExists("ID", "horizontal_button_previous", testCase)) {
 				flag &= MobileUtils.clickOnElement(testCase, "ID", "horizontal_button_previous");
-				selectedMsgList = MobileUtils.getMobElements(testCase, "ID",
-						"delete_radio_btn");
+				selectedMsgList = MobileUtils.getMobElements(testCase, "ID", "delete_radio_btn");
 				for (WebElement ele : selectedMsgList) {
-					if ((ele.getAttribute("checked") != null) && (ele.getAttribute("checked").equalsIgnoreCase("true"))) {
+					if ((ele.getAttribute("checked") != null)
+							&& (ele.getAttribute("checked").equalsIgnoreCase("true"))) {
 						return flag;
 					} else {
 						flag = false;
@@ -172,23 +172,36 @@ public class ActivityHistoryScreen extends MobileScreens {
 				flag = false;
 			}
 		} else {
-			if (MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeButton[@name='LeftButton']", testCase)) {
-				flag &= MobileUtils.clickOnElement(testCase, "XPATH", "//XCUIElementTypeButton[@name='LeftButton']");
+			if (MobileUtils.isMobElementExists("ID", "LeftButton", testCase)) {
+				flag &= MobileUtils.clickOnElement(testCase, "ID", "LeftButton");
 				selectedMsgList = MobileUtils.getMobElements(testCase, "XPATH",
 						"//XCUIElementTypeCell[@name='Messages_cell']/XCUIElementTypeButton");
 				for (WebElement ele : selectedMsgList) {
 					if ((ele.getAttribute("value") != null) && (ele.getAttribute("value").equalsIgnoreCase("1"))) {
 						return flag;
 					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to select the message");
+						if (MobileUtils.isMobElementExists("ID", "LeftButton", testCase)) {
+							flag &= MobileUtils.clickOnElement(testCase, "ID", "LeftButton");
+							selectedMsgList = MobileUtils.getMobElements(testCase, "XPATH",
+									"//XCUIElementTypeCell[@name='Messages_cell']/XCUIElementTypeButton");
+							for (WebElement ele1 : selectedMsgList) {
+								if ((ele1.getAttribute("value") != null)
+										&& (ele1.getAttribute("value").equalsIgnoreCase("1"))) {
+									return flag;
+								}
+							}
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to select all button");
+						}
 					}
 				}
 			} else {
 				flag = false;
 			}
 		}
-		//}
+		// }
 		return flag;
 	}
 
@@ -208,10 +221,10 @@ public class ActivityHistoryScreen extends MobileScreens {
 		} /*else {
 			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteButton")
 					&& MobileUtils.getMobElement(objectDefinition, testCase, "DeleteButton").getAttribute("enabled")
-							.equalsIgnoreCase("1")) {
+							.equalsIgnoreCase("true")) {
 				return flag;
-			} else*/ if (MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeButton[@name='RightButton']", testCase)
-					&& MobileUtils.getMobElement(testCase, "XPATH", "//XCUIElementTypeButton[@name='RightButton']")
+			} else*/ if (MobileUtils.isMobElementExists("ID", "RightButton", testCase)
+					&& MobileUtils.getMobElement(testCase, "ID", "RightButton")
 							.getAttribute("enabled").equalsIgnoreCase("true")) {
 				return flag;
 			} else {
@@ -240,14 +253,13 @@ public class ActivityHistoryScreen extends MobileScreens {
 		} else {
 			/*if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteButton")
 					&& MobileUtils.getMobElement(objectDefinition, testCase, "DeleteButton").getAttribute("enabled")
-							.equalsIgnoreCase("1")) {
+							.equalsIgnoreCase("true")) {
 				flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteButton");
 			} else {*/
-				if (MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeButton[@name='RightButton']", testCase)
-						&& MobileUtils.getMobElement(testCase, "XPATH", "//XCUIElementTypeButton[@name='RightButton']")
-								.getAttribute("enabled").equalsIgnoreCase("1")) {
-					flag &= MobileUtils.clickOnElement(testCase, "XPATH",
-							"//XCUIElementTypeButton[@name='RightButton']");
+				if (MobileUtils.isMobElementExists("ID", "RightButton", testCase)
+						&& MobileUtils.getMobElement(testCase, "ID", "RightButton")
+								.getAttribute("enabled").equalsIgnoreCase("true")) {
+					flag &= MobileUtils.clickOnElement(testCase, "ID", "RightButton");
 				} else {
 					flag = false;
 				}

@@ -245,57 +245,50 @@ public class ManageUsersScreen extends MobileScreens {
 	
 	public boolean clickOnSendButton() {
 		boolean flag = true;
-		/*if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SendButton")
-				&& MobileUtils.getMobElement(objectDefinition, testCase, "SendButton").getAttribute("enabled")
-						.equalsIgnoreCase("true")) {
-			MobileUtils.clickOnElement(objectDefinition, testCase, "SendButton");
-		} else {
-			flag = false;
-		}*/
+		// flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "SendButton");
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			if (MobileUtils.isMobElementExists("ID", "fragment_invite_user_send_button", testCase)
-					&& MobileUtils.getMobElement(testCase, "ID", "fragment_invite_user_send_button")
-							.getAttribute("enabled").equalsIgnoreCase("true")) {
-				MobileUtils.clickOnElement(testCase, "ID", "fragment_invite_user_send_button");
-			} else {
-				flag = false;
-			}
+			flag &= MobileUtils.clickOnElement(testCase, "ID", "fragment_invite_user_send_button");
 		} else {
-			if (MobileUtils.isMobElementExists("NAME", "Send", testCase) && MobileUtils
-					.getMobElement(testCase, "NAME", "Send").getAttribute("enabled").equalsIgnoreCase("true")) {
-				MobileUtils.clickOnElement(testCase, "NAME", "Send");
-			} else {
-				flag = false;
-			}
+			MobileUtils.clickOnElement(testCase, "NAME", "Send");
 		}
 		return flag;
 	}
 	
-	public boolean enterInviteEmailAddress(String inviteEmailAddress) {
+	public boolean enterInviteEmailAddress(TestCaseInputs inputs, String inviteEmailAddress) {
 		boolean flag = true;
+		TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
+		Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			/*flag &= MobileUtils.setValueToElement(objectDefinition, testCase, "EmailTextFieldInInviteUserScreen",
-					inviteEmailAddress);*/
-			flag &= MobileUtils.setValueToElement(testCase, "ID", "fragment_invite_user_email_edit_text", inviteEmailAddress);
-			TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
-			Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+			/*
+			 * flag &= MobileUtils.setValueToElement(objectDefinition, testCase,
+			 * "EmailTextFieldInInviteUserScreen", inviteEmailAddress);
+			 */
+			flag &= MobileUtils.setValueToElement(testCase, "ID", "fragment_invite_user_email_edit_text",
+					inviteEmailAddress);
 			System.out.println("######dimensions.width:- " + dimensions.width);
 			System.out.println("######dimensions.height:- " + dimensions.height);
 			System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
 			System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
 			touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (MobileUtils.isMobElementExists("XPATH", "//android.widget.TextView[@text='User Sync Pending']", testCase)) {
-					Keyword.ReportStep_Pass(testCase, "User Sync Pending popup is displayed. Click on OK button in the popup.");
+				if (MobileUtils.isMobElementExists("XPATH", "//android.widget.TextView[@text='User Sync Pending']",
+						testCase)) {
+					Keyword.ReportStep_Pass(testCase,
+							"User Sync Pending popup is displayed. Click on OK button in the popup.");
 					MobileUtils.clickOnElement(testCase, "ID", "button1");
 				}
 			}
 			return flag;
 		} else {
-			flag &= MobileUtils.setValueToElement(testCase, "XPATH", "//XCUIElementTypeTextField",
-					inviteEmailAddress);
-			//flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonInKeyboard");
-			flag &= MobileUtils.clickOnElement(testCase, "NAME", "Done");
+			flag &= MobileUtils.setValueToElement(testCase, "XPATH", "//XCUIElementTypeTextField", inviteEmailAddress);
+			if (inputs.isRunningOn("SauceLabs")) {
+				System.out.println("##############hideKeyboardIOS");
+				MobileUtils.hideKeyboardIOS(testCase.getMobileDriver(), "Done");
+			} else {
+				// flag &= MobileUtils.clickOnElement(objectDefinition, testCase,
+				// "DoneButtonInKeyboard");
+				flag &= MobileUtils.clickOnElement(testCase, "NAME", "Done");
+			}
 			if (this.isSendButtonEnabled()) {
 				flag &= this.clickOnSendButton();
 			} else {

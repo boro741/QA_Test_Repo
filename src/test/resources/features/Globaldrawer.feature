@@ -21,7 +21,7 @@ Then user should be displayed with the following "Global Drawer Without Solution
 | About the app												|
 | FAQs														|
 | Logout														|
-And user logs out of the app
+#And user logs out of the app
 
 
 #Single location with out any solution for US Location
@@ -42,7 +42,7 @@ Then user should be displayed with the following "Global Drawer Without Solution
 | About the app												|
 | No FAQs For US location									|
 | Logout														|
-And user logs out of the app
+#And user logs out of the app
 
 
 #WLD Solution for UK Location
@@ -63,7 +63,7 @@ Then user should be displayed with the following "Global Drawer With WLD Solutio
 | About the app												|
 | FAQs														|
 | Logout														|
-And user logs out of the app
+#And user logs out of the app
 
 
 #WLD Solution for US Location
@@ -84,7 +84,7 @@ Then user should be displayed with the following "Global Drawer With WLD Solutio
 | About the app												|
 | No FAQs For US location									|
 | Logout														|
-And user logs out of the app
+#And user logs out of the app
 
 
 #DAS, C1, C2 Solution for UK Location
@@ -106,7 +106,7 @@ Then user should be displayed with the following "Global Drawer With DAS C1 C2 S
 | About the app										|
 | FAQs												|
 | Logout 											|
-And user logs out of the app
+#And user logs out of the app
 
 
 #DAS, C1, C2 for US Location
@@ -128,7 +128,7 @@ Then user should be displayed with the following "Global Drawer With DAS C1 C2 S
 | About the app										|
 | No FAQs For US location							|
 | Logout 											|
-And user logs out of the app
+#And user logs out of the app
 
 
 #JASPEREMEA for UK Location
@@ -150,7 +150,7 @@ Then user should be displayed with the following "Global Drawer With JASPER EMEA
 | About the app										|
 | FAQs												|
 | Logout 											|
-And user logs out of the app
+#And user logs out of the app
 
 
 #JasperNA for US Location
@@ -172,7 +172,7 @@ Then user should be displayed with the following "Global Drawer With JASPER NA S
 | About the app										|
 | No FAQs For US location							|
 | Logout 											|
-And user logs out of the app
+#And user logs out of the app
 
 
 #Geofence 
@@ -385,7 +385,7 @@ And user should not be displayed with the following "Activity History" options:
 | ActivityHistoryOptions		|
 | Edit						|
 Then user navigates to "Global Drawer" screen from the "Activity History" screen
-And user logs out of the app
+#And user logs out of the app
 
 
 #Activity history with all solution 
@@ -468,7 +468,7 @@ And user should be displayed with the following "Activity History" options:
 | Cancel						|
 When user selects "Delete" from "Activity History" screen 
 Then "deleted message" should not be displayed in the "Activity History" screen
-And user logs out of the app
+#And user logs out of the app
 
 #Activity history Edit select all message  with all solutions
 #Requirements : single location with jasperNA or JapserEMEA or WLD or C1 or C2 or DAS or all the solutions  and trigged all the events 
@@ -517,7 +517,7 @@ And user should be displayed with the following "Activity History" options:
 | Cancel						|
 When user selects "Delete" from "Activity History" screen 
 Then user should be displayed with "No Messages label in Activity History screen"
-And user logs out of the app
+#And user logs out of the app
 
 #InviteUsers
 #Requirements : single location with and with out any solution 
@@ -529,8 +529,9 @@ And user inputs <invite users email address> in "Email Text Field" in the "Invit
 Then user should be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
 | das_stage5@grr.la		|
-And user logs out of the app
-When user launches and logs in to the Lyric Application with <invite users email address>
+#And user logs out of the app
+#When user launches and logs in to the Lyric Application with <invite users email address>
+When user logs out and logs in to the Lyric Application with <invite users email address>
 Then user navigates to "Add Users" screen from the "Dashboard" screen
 And user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
@@ -554,11 +555,12 @@ Then user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
 | das_stage5@grr.la		|
 And user should be displayed with "No Invited Users label"
-And user logs out of the app
-When user launches and logs in to the Lyric Application with <invite users email address>
+#And user logs out of the app
+#When user launches and logs in to the Lyric Application with <invite users email address>
+When user logs out and logs in to the Lyric Application with <invite users email address>
 Then user navigates to "Add Users" screen from the "Dashboard" screen
 And user should be displayed with "No Invited Users label"
-And user logs out of the app
+#And user logs out of the app
 
 Examples:
 | invite users email address		|
@@ -581,7 +583,7 @@ When user navigates to "Add Users" screen from the "Invite User" screen
 Then user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList	|
 | Logged in user		|
-And user logs out of the app
+#And user logs out of the app
 
 
 #Requirements : single location with and with out any solution and user should be invited 
@@ -610,7 +612,7 @@ And user "Clicks on Remove in" the "Confirm Access Removal" popup
 Then user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
 | das_stage5@grr.la		|
-And user logs out of the app
+#And user logs out of the app
 
 Examples:
 | invite users email address		|

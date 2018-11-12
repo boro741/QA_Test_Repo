@@ -38,9 +38,9 @@ public class EnterTextInATextField extends Keyword {
 			case "EMAIL TEXT FIELD": {
 				if (inputName.get(0).equalsIgnoreCase("LOGGED IN USERS EMAIL ADDRESS")) {
 					flag &= DASManageUsersUtils.inputEmailAddressInInviteUserScreen(testCase,
-							inputs.getInputValue("USERID"));
+							inputs, inputs.getInputValue("USERID"));
 				} else {
-					flag &= DASManageUsersUtils.inputEmailAddressInInviteUserScreen(testCase, inputName.get(0));
+					flag &= DASManageUsersUtils.inputEmailAddressInInviteUserScreen(testCase, inputs, inputName.get(0));
 				}
 				break;
 			}

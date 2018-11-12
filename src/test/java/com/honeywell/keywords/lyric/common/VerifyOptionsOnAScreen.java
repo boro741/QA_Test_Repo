@@ -2785,16 +2785,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					break;
 				}
 				case "EDIT ACCOUNT": {
-					flag &= gd.isEditAccountOptionVisible();
-					if (flag) {
-						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Option " + parameter + " is not displayed");
-					}
-					break;
-				}
-				case "ABOUT THE APP": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -2807,6 +2797,16 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						action.press(10, (int) (dimension.getHeight() * .9))
 								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 					}
+					flag &= gd.isEditAccountOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ABOUT THE APP": {
 					flag &= gd.isAboutTheAppOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");

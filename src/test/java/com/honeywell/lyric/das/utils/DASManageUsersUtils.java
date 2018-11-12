@@ -74,13 +74,14 @@ public class DASManageUsersUtils {
 		return flag;
 	}
 
-	public static boolean inputEmailAddressInInviteUserScreen(TestCases testCase, String inviteEmailAddress) {
+	public static boolean inputEmailAddressInInviteUserScreen(TestCases testCase, TestCaseInputs inputs,
+			String inviteEmailAddress) {
 		boolean flag = true;
 		ManageUsersScreen mus = new ManageUsersScreen(testCase);
 		if (mus.isInviteUserScreenTitleVisible() && mus.isInvitieUserScreenSubTitleVisible()
 				&& mus.isBackButtonVisible() && mus.isEmailTextFieldInInviteUserScreenVisible()
 				&& !mus.isSendButtonEnabled()) {
-			flag = flag & mus.enterInviteEmailAddress(inviteEmailAddress);
+			flag = flag & mus.enterInviteEmailAddress(inputs, inviteEmailAddress);
 		}
 		return flag;
 	}

@@ -445,6 +445,10 @@ public class LyricUtils {
 				public Boolean apply(CustomDriver driver) {
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 						try {
+							if (cm.isDoneButtonVisible(1)) {
+								cm.clickOnDoneButton();
+								System.out.println("Clicked On Default Done Button");
+							}
 							if (os.isAlwaysAllowButtonVisible(3)) {
 								os.clickOnAlwaysAllowButton();
 								System.out.println("Clicked On Alway allow");
@@ -460,10 +464,8 @@ public class LyricUtils {
 								if (closeCoachMarks.length > 0 && !closeCoachMarks[0]) {
 									return true;
 								} else {
-
 									return LyricUtils.closeCoachMarks(testCase);
 								}
-
 							}
 						}
 					} else {
@@ -1721,7 +1723,6 @@ public class LyricUtils {
 		boolean flag = true;
 		OSPopUps os = new OSPopUps(testCase);
 		CoachMarks cm = new CoachMarks(testCase);
-		Dashboard d = new Dashboard(testCase);
 		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
 		fWait.pollingEvery(5, TimeUnit.SECONDS);
 		fWait.withTimeout(3, TimeUnit.MINUTES);
@@ -1829,11 +1830,11 @@ public class LyricUtils {
 		return flag;
 	}
 	
-	public static boolean launchAndLoginToApplicationWithInviteUsersAccount(TestCases testCase, TestCaseInputs inputs, String inviteUsersEmailAddress,
+	public static boolean loginToApplicationWithInviteUsersAccount(TestCases testCase, TestCaseInputs inputs, String inviteUsersEmailAddress,
 			boolean... closeCoachMarks) {
 		boolean flag = true;
-		flag = MobileUtils.launchApplication(inputs, testCase, true);
-		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+		/*flag = MobileUtils.launchApplication(inputs, testCase, true);
+		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);*/
 		flag = flag & LyricUtils.loginToLyricAppWithInviteUsersAccount(testCase, inputs, inviteUsersEmailAddress);
 		if (closeCoachMarks.length > 0) {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
