@@ -36,20 +36,39 @@ public class VerifyScheduleCreatedWhenCoolOnly extends Keyword {
 	@KeywordStep(gherkins = "^\"(.+)\" scheduling gets activated with \"(.+)\"$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
-			if (exampleData.get(0).equalsIgnoreCase("no")) {
-				flag = flag & JasperSchedulingUtils.VerifyScheduleWhenHeatonly_CoolOnly(testCase, inputs, "no");
+			if(exampleData.get(1).equalsIgnoreCase("Cool Only")){
+				if (exampleData.get(0).equalsIgnoreCase("no")) {
+					flag = flag & JasperSchedulingUtils.VerifyScheduleWhen_CoolOnly(testCase, inputs, "no");
+					
+				} else if (exampleData.get(0).equalsIgnoreCase("Same Every Day")) {
+					inputs.setInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE, InputVariables.EVERYDAY_SCHEDULE);
+					flag = flag & JasperSchedulingUtils.VerifyScheduleWhen_CoolOnly(testCase, inputs, "time based");
+					
+				} else if (exampleData.get(0).equalsIgnoreCase("Different On Weekdays")) {
+					inputs.setInputValueWithoutTarget(InputVariables.TYPE_OF_TIME_SCHEDULE,
+							InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE);
+					flag = flag & JasperSchedulingUtils.VerifyScheduleWhen_CoolOnly(testCase, inputs, "time based");
+				} else if (exampleData.get(0).equalsIgnoreCase("Geofence based")) {
+					flag = flag & JasperSchedulingUtils.VerifyScheduleWhen_CoolOnly(testCase, inputs, "Geofence based");
+				}
 				
-			} else if (exampleData.get(0).equalsIgnoreCase("Same Every Day")) {
-				inputs.setInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE, InputVariables.EVERYDAY_SCHEDULE);
-				flag = flag & JasperSchedulingUtils.VerifyScheduleWhenHeatonly_CoolOnly(testCase, inputs, "time based");
-				
-			} else if (exampleData.get(0).equalsIgnoreCase("Different On Weekdays")) {
-				inputs.setInputValueWithoutTarget(InputVariables.TYPE_OF_TIME_SCHEDULE,
-						InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE);
-				flag = flag & JasperSchedulingUtils.VerifyScheduleWhenHeatonly_CoolOnly(testCase, inputs, "time based");
-			} else if (exampleData.get(0).equalsIgnoreCase("Geofence based")) {
-				flag = flag & JasperSchedulingUtils.VerifyScheduleWhenHeatonly_CoolOnly(testCase, inputs, "Geofence based");
+			} else {
+				if (exampleData.get(0).equalsIgnoreCase("no")) {
+					flag = flag & JasperSchedulingUtils.VerifyScheduleWhen_HeatOnly(testCase, inputs, "no");
+					
+				} else if (exampleData.get(0).equalsIgnoreCase("Same Every Day")) {
+					inputs.setInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE, InputVariables.EVERYDAY_SCHEDULE);
+					flag = flag & JasperSchedulingUtils.VerifyScheduleWhen_HeatOnly(testCase, inputs, "time based");
+					
+				} else if (exampleData.get(0).equalsIgnoreCase("Different On Weekdays")) {
+					inputs.setInputValueWithoutTarget(InputVariables.TYPE_OF_TIME_SCHEDULE,
+							InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE);
+					flag = flag & JasperSchedulingUtils.VerifyScheduleWhen_HeatOnly(testCase, inputs, "time based");
+				} else if (exampleData.get(0).equalsIgnoreCase("Geofence based")) {
+					flag = flag & JasperSchedulingUtils.VerifyScheduleWhen_HeatOnly(testCase, inputs, "Geofence based");
+				}
 			}
+		
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
