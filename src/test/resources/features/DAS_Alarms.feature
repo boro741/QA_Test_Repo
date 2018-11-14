@@ -1168,6 +1168,7 @@ Given user is set to "Home" mode through CHIL
       And user navigates to "Security Solution card" screen from the "Dashboard" screen
        When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
        When user "door" access sensor "tamper restored"
+       When user navigates to "Security Solution Card" screen from the "Sensor Status" screen
      When user "opens" activity log
       Then verify the following activity log:
        | Elements                 | 
@@ -1198,6 +1199,7 @@ Given user is set to "Home" mode through CHIL
       When user selects the "Alarm" push notification
    	  Then user should be displayed with the "Alarm" screen
       When user selects "dismiss alarm" from "alarm" screen
+      And user navigates to "Security Solution card" screen from the "Dashboard" screen
       When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
       When user "window" access sensor "Tamper Restored"
      
@@ -1211,8 +1213,10 @@ Given user is set to "Home" mode through CHIL
       When user selects the "Alarm" push notification
    	  Then user should be displayed with the "Alarm" screen
       When user selects "dismiss alarm" from "alarm" screen
+      And user navigates to "Security Solution card" screen from the "Dashboard" screen
       When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
       When user "window" access sensor "Tamper Restored"
+      When user navigates to "Security Solution Card" screen from the "Sensor Status" screen
      When user "opens" activity log
       Then verify the following activity log:
        | Elements                 | 
@@ -1234,6 +1238,7 @@ Given user is set to "Home" mode through CHIL
    	  And user navigates to "Security Solution card" screen from the "Dashboard" screen
    	   When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
       When user "window" access sensor "Tamper Restored"
+      When user navigates to "Security Solution Card" screen from the "Sensor Status" screen
      When user "opens" activity log
      Then verify the following activity log:
        | Elements                 | 

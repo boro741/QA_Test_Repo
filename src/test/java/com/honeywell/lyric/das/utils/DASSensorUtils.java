@@ -418,7 +418,12 @@ public class DASSensorUtils {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sensor state not handled");
 		}
 		List<WebElement> list;
-
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		list = DASSensorUtils.getSensorList(testCase);
 		System.out.println("########list.size() " + list.size());
 		System.out.println("########sensorName: " + sensorName);
@@ -433,21 +438,22 @@ public class DASSensorUtils {
 					System.out.println("Sensor status");
 					// Sensor status
 					if (states.contains("tamper cleared")) {
-						if (MobileUtils.isMobElementExists("xpath",
-								"//*[contains(@name,'SensorStatus_" + i + "_Image')]", testCase, 10)) {
-							MobileUtils.clickOnElement(testCase, "xpath",
-									"//*[contains(@name,'SensorStatus_" + i + "_Image')]");
+						if (testCase.getMobileDriver().findElementByXPath("//*[contains(@name,'SensorStatus_" + i + "_Image')]") != null) {
+//							MobileUtils.isMobElementExists("xpath",
+//									"]", testCase, 10)
+							testCase.getMobileDriver().findElementByXPath(
+									"//*[contains(@name,'SensorStatus_" + i + "_Image')]").click();
 							// code to click on clear tamper
 							SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
 							flag = flag & settingScreen.clickOnClearCoverTamperOption();
 							try {
-								Thread.sleep(10000);
+								Thread.sleep(30000);
 							} catch (InterruptedException e) {
 								e.printStackTrace();
 							}
-							if (settingScreen.isSensorTamperClearPopupDisplayed(30)) {
-								flag = flag & settingScreen.clickOnOkTamperClearPopup();
-							}
+//							if (settingScreen.isSensorTamperClearPopupDisplayed(30)) {
+//								flag = flag & settingScreen.clickOnOkTamperClearPopup();
+//							}
 						}
 						if (sensor.equalsIgnoreCase("Door")) {
 							inputs.setInputValue("DOOR_TAMPER_CLEARED_TIME",
@@ -507,11 +513,7 @@ public class DASSensorUtils {
 						if (sensorNameList.get(k).getAttribute("value").equalsIgnoreCase(sensorName)) {
 							if (states.contains("tamper cleared")) {
 								sensorStatusList.get(k).click();
-								try {
-									Thread.sleep(10000);
-								} catch (InterruptedException e) {
-									e.printStackTrace();
-								}
+								
 								if (sensor.equalsIgnoreCase("Door")) {
 									inputs.setInputValue("DOOR_TAMPER_CLEARED_TIME",
 											LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
