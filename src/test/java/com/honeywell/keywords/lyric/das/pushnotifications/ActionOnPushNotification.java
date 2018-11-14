@@ -92,6 +92,7 @@ public class ActionOnPushNotification extends Keyword {
 			} else {
 				locatorValue = "//XCUIElementTypeCell[contains(@label,'" + notification + "')]";
 			}
+			System.out.println(locatorValue);
 			AlarmScreen alarmScreen = new AlarmScreen(testCase);
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				if (alarmScreen.switchToHomeOnNotificationExists()) {
@@ -237,6 +238,7 @@ public class ActionOnPushNotification extends Keyword {
 			int xAxix = ele.getLocation().getX();
 			int yAxix = ele.getLocation().getY();
 //			if (testCase.getMobileDriver().getPlatformName().contains("Android")){
+			System.out.println("In click Method");
 				testCase.getMobileDriver().findElementsByXPath(locatorValue).get(0).click();
 //			}else{
 //				testCase.getMobileDriver().launchApp();

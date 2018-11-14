@@ -33,10 +33,10 @@ public class AlarmScreen extends MobileScreens {
 		this.testCase = testCase;
 	}
 
-	public boolean isAlarmScreenDisplayed() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "Alarm_Title")
-				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "Alarm_Subtitle")
-				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "AlarmDismissButton");
+	public boolean isAlarmScreenDisplayed(int timeout) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "Alarm_Title",timeout)
+				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "Alarm_Subtitle",timeout)
+				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "AlarmDismissButton",timeout);
 	}
 
 	public boolean isPleaseWaitDisplayed() {
@@ -296,7 +296,12 @@ public class AlarmScreen extends MobileScreens {
 
 	public void swipe(String locatorValue) {
 
-		MobileElement notificationLocation = MobileUtils.getMobElement(testCase, "xpath", locatorValue);
+		MobileElement notificationLocation;
+		if (testCase.getMobileDriver().getPlatformName().contains("Android")){
+			 notificationLocation = MobileUtils.getMobElement(testCase, "xpath", locatorValue);
+		} else{
+			notificationLocation =  testCase.getMobileDriver().findElementsByXPath(locatorValue).get(0);
+		}
 
 		int NotificationStartX = notificationLocation.getLocation().getX();
 		int NotificationStartY = notificationLocation.getLocation().getY();
@@ -351,7 +356,9 @@ public class AlarmScreen extends MobileScreens {
 					"//android.widget.Button[@resource-id='android:id/action0' and @content-desc='SWITCH TO HOME']"))
 					.click();
 		} else {
-			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchHomeNotificationButton");
+//			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchHomeNotificationButton");
+			testCase.getMobileDriver().findElementByName("Switch to Home").click();
+			flag = true;
 		}
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchToHomeButton")) {
 			Keyword.ReportStep_Pass(testCase,
@@ -370,7 +377,9 @@ public class AlarmScreen extends MobileScreens {
 					"//android.widget.Button[@resource-id='android:id/action0' and @content-desc='SWITCH TO NIGHT']"))
 					.click();
 		} else {
-			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchNightNotificationButton");
+//			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchNightNotificationButton");
+			testCase.getMobileDriver().findElementByName("Switch to Night").click();
+			flag = true;
 		}
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchToNightButton")) {
 			Keyword.ReportStep_Pass(testCase,

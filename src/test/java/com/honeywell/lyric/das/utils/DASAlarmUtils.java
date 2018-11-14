@@ -30,7 +30,7 @@ public class DASAlarmUtils {
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
 					try {
-						if (alarmScreen.isAlarmScreenDisplayed()) {
+						if (alarmScreen.isAlarmScreenDisplayed(30)) {
 							inputs.setInputValue("ALARM_TIME",
 									LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 							return true;
@@ -67,7 +67,7 @@ public class DASAlarmUtils {
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
 					try {
-						if (alarmScreen.isAlarmScreenDisplayed()) {
+						if (alarmScreen.isAlarmScreenDisplayed(30)) {
 							return true;
 						} else {
 							return false;
@@ -117,7 +117,7 @@ public class DASAlarmUtils {
 
 	public static boolean verifyAlarmScreenDisplayed(TestCases testCase) {
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);
-		return alarmScreen.isAlarmScreenDisplayed();
+		return alarmScreen.isAlarmScreenDisplayed(30);
 
 	}
 
