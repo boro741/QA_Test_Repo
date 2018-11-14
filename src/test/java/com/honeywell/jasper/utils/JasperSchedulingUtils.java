@@ -15361,24 +15361,13 @@ public class JasperSchedulingUtils {
 				heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
 				Keyword.ReportStep_Pass(testCase,"Displayed value "+heatSetPoint);
 			} else {
-				int size;
-				List<String> allowedModes = statInfo.getAllowedModes();
-				if (allowedModes.contains("Heat") && !allowedModes.contains("Cool")) {
-					 size = ss.getHeatOnlySetPointsElements().size();
-				}else{
-					 size = ss.getHeatSetPointsElements().size();
-				}
+				int size = ss.getHeatSetPointsElements().size();
 				if (inputs.getInputValue(InputVariables.GEOFENCE_PERIOD).equalsIgnoreCase(InputVariables.GEOFENCE_AWAY)
 						&& (size > 1)) {
-						heatSetPoint = ss.getHeatSetPointsElements().get(1).getAttribute("value");
+					heatSetPoint = ss.getHeatSetPointsElements().get(0).getAttribute("value");
 					
 				} else {
-					if (jasperStatType.equalsIgnoreCase("EMEA")) {
-						heatSetPoint = ss.getHeatOnlySetPointsElements().get(0).getAttribute("value");
-						
-					}else {
-						heatSetPoint = ss.getHeatSetPointsElements().get(0).getAttribute("value");
-					}
+					heatSetPoint = ss.getHeatSetPointChooserSetPointsValue();
 				}
 			}
 
