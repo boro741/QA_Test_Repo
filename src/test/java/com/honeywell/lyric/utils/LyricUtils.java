@@ -1804,7 +1804,7 @@ public class LyricUtils {
 				MobileUtils.hideKeyboard(testCase.getMobileDriver());
 			}
 			Keyword.ReportStep_Pass(testCase,
-					"Login To Lyric : Email Address set to - " + inputs.getInputValue("USERID"));
+					"Login To Lyric : Email Address set to - " + usersEmailAddress);
 		} else {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Login To Lyric : Not able to set Email Address.");

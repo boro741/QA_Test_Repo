@@ -1,7 +1,5 @@
 package com.honeywell.keywords.lyric.platform;
 
-import java.io.File;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -16,8 +14,6 @@ import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.KeywordStep;
-import com.honeywell.commons.coreframework.SuiteConstants;
-import com.honeywell.commons.coreframework.SuiteConstants.SuiteConstantTypes;
 import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.commons.coreframework.TestCaseInputs;
@@ -162,7 +158,12 @@ public class LoginToLyricWithInviteUser extends Keyword {
 					"Logout of Lyric : Error occured - " + e.getMessage());
 			flag = false;
 		}
-		flag = flag & LyricUtils.loginToApplicationWithInviteUsersAccount(testCase, inputs, inputName.get(0));
+		if (!inputName.get(0).equalsIgnoreCase("LOGGED IN USERS ACCOUNT")) {
+			flag &= LyricUtils.loginToApplicationWithInviteUsersAccount(testCase, inputs, inputName.get(0));
+		} else {
+			flag &= LyricUtils.loginToApplicationWithInviteUsersAccount(testCase, inputs,
+					inputs.getInputValue("USERID"));
+		}
 		return flag;
 	}
 

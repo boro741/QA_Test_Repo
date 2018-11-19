@@ -5,6 +5,8 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidKeyCode;
 
+import java.time.Duration;
+
 import org.openqa.selenium.Dimension;
 
 import com.honeywell.commons.coreframework.TestCases;
@@ -15,6 +17,7 @@ public class DASNotificationUtils {
 	@SuppressWarnings("unchecked")
 	public static void openNotifications(TestCases testCase) {
 		MobileUtils.minimizeApp(testCase, -1);
+		//testCase.getMobileDriver().runAppInBackground(Duration.ofSeconds(-1));
 		try {
 			Thread.sleep(12000);
 		} catch (InterruptedException e) {

@@ -7,3 +7,12 @@ CloseButton	ID	btn_close	ID	btn_close	ID	btn_close
 AlwaysAllowButton							name	Always Allow	name	Always Allow	name	Always Allow
 IgnoreButton							name	Ignore	name	Ignore	name	Ignore
 RootedDevicePopup	XPATH	//*[@text='I Accept' or @text='I ACCEPT']	XPATH	//*[@text='I Accept' or @text='I ACCEPT']	XPATH	//*[@text='I Accept' or @text='I ACCEPT']						
+UpdateLocationPermissionsPopup	ID	com.android.packageinstaller:id/perm_desc_root	ID	com.android.packageinstaller:id/perm_desc_root	ID	com.android.packageinstaller:id/perm_desc_root	NAME	Update Location Permissions	NAME	Update Location Permissions	NAME	Update Location Permissions
+GoToSettingsButtonInUpdateLocationPermissionsPopup							NAME	Go To Settings	NAME	Go To Settings	NAME	Go To Settings
+ShowMeHowButtonInUpdateLocationPermissionsPopup							NAME	Show me how	NAME	Show me how	NAME	Show me how
+DismissButtonInUpdateLocationPermissionsPopup							NAME	Dismiss	NAME	Dismiss	NAME	Dismiss
+LocationCellInHoneywellSettings							XPATH	//XCUIElementTypeCell[@name='Location']	XPATH	//XCUIElementTypeCell[@name='Location']	XPATH	//XCUIElementTypeCell[@name='Location']
+HoneywellButtonInLocationServicesScreen							XPATH	//XCUIElementTypeButton[@name='Honeywell']	XPATH	//XCUIElementTypeButton[@name='Honeywell']	XPATH	//XCUIElementTypeButton[@name='Honeywell']
+AlwaysOptionInHoneywellLocationServicesScreen							XPATH	//XCUIElementTypeCell[@name='Always']	XPATH	//XCUIElementTypeCell[@name='Always']	XPATH	//XCUIElementTypeCell[@name='Always']
+AlwaysOptionSelectedInHoneywellLocationServicesScreen							XPATH	//XCUIElementTypeCell[@name='Always']/XCUIElementTypeButton[@name='More Info']	XPATH	//XCUIElementTypeCell[@name='Always']/XCUIElementTypeButton[@name='More Info']	XPATH	//XCUIElementTypeCell[@name='Always']/XCUIElementTypeButton[@name='More Info']
+ReturnToHoneywellButtonInHoneywellLocationServicesScreen							XPATH	//XCUIElementTypeButton[@name='Return to Honeywell']	XPATH	//XCUIElementTypeButton[@name='Return to Honeywell']	XPATH	//XCUIElementTypeButton[@name='Return to Honeywell']

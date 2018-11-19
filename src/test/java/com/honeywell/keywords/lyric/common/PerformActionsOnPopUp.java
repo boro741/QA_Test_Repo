@@ -897,6 +897,84 @@ public class PerformActionsOnPopUp extends Keyword {
 				break;
 			}
 			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("UPDATE GEOFENCE CENTER")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CANCELS": {
+				GeofenceSettings gs = new GeofenceSettings(testCase);
+				if (gs.isCancelButtonInUpdateGeofenceCenterPopupVisible()) {
+					flag &= gs.clickOnCancelButtonInUpdateGeofenceCenterPopup();
+					if (gs.isGeofenceRadiusScreenTitleVisible() && gs.isUpdateGeofenceCenterButtonVisible()
+							&& gs.isBackButtonInGeofenceRadiusScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "User is in Geofence Radius screen");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"User is not in Geofence Radius screen");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Cancel button is not displayed in: " + expectedPopUp.get(0));
+				}
+				break;
+			}
+			case "CLICKS ON UPDATE IN": {
+				GeofenceSettings gs = new GeofenceSettings(testCase);
+				if (gs.isYesUpdateButtonInUpdateGeofenceCenterPopupVisible()) {
+					flag &= gs.clickOnYesUpdateButtonInUpdateGeofenceCenterPopup();
+					DASSettingsUtils.waitForProgressBarToComplete(testCase, "LOADING PROGRESS BAR", 2);
+					if (gs.isGeofenceRadiusScreenTitleVisible() && gs.isUpdateGeofenceCenterButtonVisible()
+							&& gs.isBackButtonInGeofenceRadiusScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "User is in Geofence Radius screen");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"User is not in Geofence Radius screen");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Yes, Update button is not displayed in: " + expectedPopUp.get(0));
+				}
+				break;
+			}
+			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("CANCEL GEOFENCE CHANGES")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CANCELS": {
+				GeofenceSettings gs = new GeofenceSettings(testCase);
+				if (gs.isNOButtonInCancelGeofenceChangesPopupVisible()) {
+					flag &= gs.clickOnNOButtonInCancelGeofenceChangesPopup();
+					if (gs.isGeofenceRadiusScreenTitleVisible() && gs.isUpdateGeofenceCenterButtonVisible()
+							&& gs.isBackButtonInGeofenceRadiusScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "User is in Geofence Radius screen");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"User is not in Geofence Radius screen");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"NO button is not displayed in: " + expectedPopUp.get(0));
+				}
+				break;
+			}
+			case "ACCEPTS": {
+				GeofenceSettings gs = new GeofenceSettings(testCase);
+				if (gs.isYESButtonInCancelGeofenceChangesPopupVisible()) {
+					flag &= gs.clickOnYESButtonInCancelGeofenceChangesPopup();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on YES button in Cancel Geofence Changes Popup");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on YES button in Cancel Geofence Changes Popup");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"YES button is not displayed in: " + expectedPopUp.get(0));
+				}
+				break;
+			}
+			}
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(1));

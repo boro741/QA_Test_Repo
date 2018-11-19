@@ -84,7 +84,6 @@ public class LocationInformation {
 		String firstName = null;
 		if (locationInformation != null) {
 			JSONArray users;
-
 			try {
 				users = locationInformation.getJSONArray("users");
 				JSONObject tempObj = null;

@@ -18,6 +18,7 @@ import com.honeywell.screens.AdhocScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.GeofenceSettings;
+import com.honeywell.screens.OSPopUps;
 
 import io.appium.java_client.TouchAction;
 
@@ -259,19 +260,97 @@ public class ChangeBaseStationSettings extends Keyword {
 			} // Amresh Edit Ends
 			else if (parameters.get(0).equalsIgnoreCase("Geofence this locaiton toggle")) {
 				GeofenceSettings gs = new GeofenceSettings(testCase);
+				OSPopUps os = new OSPopUps(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
 					if (gs.selectOptionFromGeofenceSettings(GeofenceSettings.ENABLEGEOFENCETHISLOCATION)) {
-						Keyword.ReportStep_Pass(testCase, "Enabled geofence this location toggle option");
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							if (os.isUpdateLocationPermissionsPopupVisible() && os.isAllowButtonVisible()) {
+								Keyword.ReportStep_Pass(testCase,
+										"Update Loation Permission Popup is displayed. Tap on Allow button in it");
+								flag &= os.clickOnAllowButton();
+							} else {
+								Keyword.ReportStep_Pass(testCase, "Update Loation Permission Popup is not displayed.");
+							}
+						} else {
+							if (os.isUpdateLocationPermissionsPopupVisible()) {
+								Keyword.ReportStep_Pass(testCase,
+										"Update Loation Permission Popup is displayed. Go to Settings-> Honeywell Location Services and Select Always Option");
+								if (os.isGoToSettingsButtonVisibleInUpdateLocationPermissionsPopup()) {
+									Keyword.ReportStep_Pass(testCase,
+											"Go To Settings button is displayed in Update Location Permissions Popup");
+									flag &= os.clickOnGoToSettingsButtonInUpdateLocationPermissionPopup();
+									if (os.isLocationCellInHoneywellSettingsVisible()) {
+										Keyword.ReportStep_Pass(testCase,
+												"Location Option in Honeywell App Settings Screen is displayed");
+										flag &= os.clickOnLocationCellInHoneywellSettings();
+										if (os.isHoneywellButtonInLocationServicesScreenVisible()
+												&& os.isAlwaysOptionInHoneywellLocationServicesScreenVisible()) {
+											Keyword.ReportStep_Pass(testCase,
+													"Always Option is displayed in Location Services screen under Settings");
+											flag &= os.clickOnAlwaysOptionInHoneywellLocationServicesScreen();
+											if (os.isAlwaysOptionSelectedInHoneywellLocationServicesScreenVisible()) {
+												Keyword.ReportStep_Pass(testCase,
+														"Always Option is selected in Location Services screen under Settings");
+												if (os.isReturnToHoneywellButtonInHoneywellLocationServicesScreenVisible()) {
+													Keyword.ReportStep_Pass(testCase,
+															"Return To Honeywell Button is displayed in Location Services screen under Settings");
+													flag &= os
+															.clickOnReturnToHoneywellButtonInHoneywellLocationServicesScreen();
+													if (gs.isGeofenceSettingsScreenTitleVisible()) {
+														Keyword.ReportStep_Pass(testCase,
+																"Navigated back to Honeywell Geofence Settings Screen");
+														if (gs.selectOptionFromGeofenceSettings(
+																GeofenceSettings.ENABLEGEOFENCETHISLOCATION)) {
+															Keyword.ReportStep_Pass(testCase,
+																	"Enabled geofence this location toggle option");
+														} else {
+															Keyword.ReportStep_Pass(testCase,
+																	"Already Enabled geofence this location toggle option");
+														}
+													} else {
+														flag = false;
+														Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+																"Failed to navigate back to Honeywell Geofence Settings Screen");
+													}
+												} else {
+													flag = false;
+													Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+															"Return To Honeywell button is not displayed in Location Services screen under Settings");
+												}
+											} else {
+												flag = false;
+												Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+														"Failed to Select Always Option in Location Services screen under Settings");
+											}
+										} else {
+											flag = false;
+											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+													"Always Option is not displayed in Location Services screen under Settings");
+										}
+									} else {
+										flag = false;
+										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+												"Location Option in Honeywell App Settings Screen is not displayed");
+									}
+								} else {
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Go To Settings button is not displayed in Update Location Permissions Popup");
+								}
+							} else {
+								Keyword.ReportStep_Pass(testCase, "Update Loation Permission Popup is not displayed.");
+							}
+						}
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not click on global geofence toggle");
+								"Failed to turn ON Geofence this Location toggle");
 					}
 					Thread.sleep(3000);
 					if (gs.selectOptionFromGeofenceSettings(GeofenceSettings.ENABLEGEOFENCEALERT)) {
 						Keyword.ReportStep_Pass(testCase, "Enabled geofence this location Alert toggle option");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not click on global geofence alert toggle");
+								"Failed to turn ON Geofence Alert toggle");
 					}
 				}
 				if (parameters.get(1).equalsIgnoreCase("OFF")) {
@@ -279,7 +358,25 @@ public class ChangeBaseStationSettings extends Keyword {
 						Keyword.ReportStep_Pass(testCase, "Disabled geofence this location toggle option");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not click on global geofence toggle");
+								"Failed to turn OFF Geofence this Location toggle");
+					}
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("Geofence Alert toggle")) {
+				GeofenceSettings gs = new GeofenceSettings(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (gs.selectOptionFromGeofenceSettings(GeofenceSettings.ENABLEGEOFENCEALERT)) {
+						Keyword.ReportStep_Pass(testCase, "Enabled Geofence Alert toggle option");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to turn ON Geofence Alert toggle");
+					}
+				}
+				if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (gs.selectOptionFromGeofenceSettings(GeofenceSettings.DISABLEGEOFENCEALERT)) {
+						Keyword.ReportStep_Pass(testCase, "Disabled geofence this location toggle option");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to turn OFF Geofence Alert toggle");
 					}
 				}
 			} else if (parameters.get(0).equalsIgnoreCase("Camera ON in Home Mode")) {

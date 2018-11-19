@@ -12,7 +12,6 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DASNotificationUtils;
 import com.honeywell.lyric.utils.GlobalVariables;
-import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.account.information.LocationInformation;
@@ -258,6 +257,16 @@ public class VerifyPushNotification extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error message: " + e.getMessage());
 				}
+				break;
+			}
+			case "GEOFENCE CROSSED AWAY": {
+				notification = "Geofence crossed. Everyone is away from ";
+				//+ "\'" + inputs.getInputValue("LOCATION1_NAME") + "\'" + ".";
+				break;
+			}
+			case "GEOFENCE CROSSED HOME": {
+				notification = "Geofence crossed. " + locInfo.getUserFirstName()+ " has arrived at ";
+				//+ "\'" + inputs.getInputValue("LOCATION1_NAME") + "\'" + ".";
 				break;
 			}
 			default: {

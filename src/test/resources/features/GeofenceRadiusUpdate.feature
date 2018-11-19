@@ -2,28 +2,65 @@
 Feature: GeofenceRadius Setup
 As an user I want to set my geofence radius so that geofence trigger happens and setpoint changes when I cross/enter the radius
 
-@GeofenceThisLocation_ToggleON
-  Scenario: Verify user is able to turn ON 'Geofence This Location' toggle
-Given user login to user account with single stat
-	And 'Geofence This Location' toggle is OFF
-  When user turn ON 'Geofence This Location' toggle 
-  Then verify the 'Geofence This Location' toggle is ON 
-  	And Geofence radius & Location status options are dispayed
-  	And user logout and login to verify the value is retained
-    And user log out of the app
+@GeofenceThisLocation_ToggleON          @Automated
+Scenario: Verify if 'Geofence This Location' toggle is turned ON when user turns ON the 'Geofence This Location', log out from the app and logs in back
+Given user launches and logs in to the Lyric Application
+And user navigates to "Global Drawer" screen from the "Dashboard" screen 
+When user selects "Geofence" from "Global Drawer" screen
+Then user should be displayed with the "Geofence Settings" screen
+When user changes the "Geofence this locaiton toggle" to "on"
+Then user should be displayed with the following "Geofence this location" options:
+| GeofenceThisLocation		|
+| Geofence Radius			|
+| Location Status			|
+| Geofence Alert				|
+#And user logs out of the app
+#When user launches and logs in to the Lyric Application
+When user logs out and logs in to the Lyric Application with "logged in users account"
+And user navigates to "Global Drawer" screen from the "Dashboard" screen 
+When user selects "Geofence" from "Global Drawer" screen
+Then user should be displayed with the "Geofence Settings" screen
+And "Geofencing" value should be updated to "ON" on "Geofence Settings" screen
+Then user should be displayed with the following "Geofence this location" options:
+| GeofenceThisLocation		|
+| Geofence Radius			|
+| Location Status			|
+| Geofence Alert				|
+#And user logs out of the app
 
-@GeofenceThisLocation_ToggleOff
-  Scenario: Verify user is able to turn off 'Geofence This Location' toggle
-Given user login to user account with single stat
-	And 'Geofence This Location' toggle is ON
-  When user turn OFF 'Geofence This Location' toggle 
-  Then Verify Disabling Geofence notification popup is displayed with OK button
-  	And verify the popup is dismissed on tapping OK button & 'Geofence This Location' toggle is OFF
-  	And Geofence radius & Location status options are not dispayed
-  	And user logout and login to verify the value is retained
-    And user log out of the app
+@GeofenceThisLocation_ToggleOFF          @Automed
+Scenario: Verify if 'Geofence This Location' toggle is turned OFF when user turns OFF the 'Geofence This Location', log out from the app and logs in back
+Given user launches and logs in to the Lyric Application
+And user navigates to "Global Drawer" screen from the "Dashboard" screen 
+When user selects "Geofence" from "Global Drawer" screen
+Then user should be displayed with the "Geofence Settings" screen
+When user changes the "Geofence this locaiton toggle" to "off"
+Then the following "Geofence Settings" options should be disabled:
+| Options					|
+| Geofence this Location		|
+And user should not be displayed with the following "Geofence this location" options:
+| GeofenceThisLocation		|
+| Geofence Radius			|
+| Location Status			|
+| Geofence Alert				|
+#And user logs out of the app
+#When user launches and logs in to the Lyric Application
+When user logs out and logs in to the Lyric Application with "logged in users account"
+And user navigates to "Global Drawer" screen from the "Dashboard" screen 
+When user selects "Geofence" from "Global Drawer" screen
+Then user should be displayed with the "Geofence Settings" screen
+And "Geofencing" value should be updated to "OFF" on "Geofence Settings" screen
+Then the following "Geofence Settings" options should be disabled:
+| Options					|
+| Geofence this Location		|
+And user should not be displayed with the following "Geofence this location" options:
+| GeofenceThisLocation		|
+| Geofence Radius			|
+| Location Status			|
+| Geofence Alert				|
+#And user logs out of the app
 
-@GeofenceRadius_Update_Singlestat
+@GeofenceRadius_Update_Singlestat          @NotAutomatable
   Scenario: Update geofence radius based on the geofence center for user account with single stat 
 Given user login to user account with single stat
 	And Geofence center is set
@@ -34,7 +71,7 @@ Given user login to user account with single stat
   	And user logout and login to verify the updated geofence radius is retained
     And user log out of the app
     
-@GeofenceRadius_Update_MultiStat
+@GeofenceRadius_Update_MultiStat          @NotAutomatable
   Scenario: Update geofence radius based on the geofence center for user account with multiple stats
 Given user login to user account with multiple stats
 	And Geofence center is set
@@ -45,7 +82,7 @@ Given user login to user account with multiple stats
   	And user logout and login to verify the updated geofence radius is retained
     And user log out of the app
     
-@GeofenceRadius_UpdateAndCancel_SingleStat
+@GeofenceRadius_UpdateAndCancel_SingleStat          @NotAutomatable
   Scenario: Login to user account with single stat update geofence radius and cancel without saving 
 Given user login to user account with single stat
 	And Geofence center is set
@@ -55,7 +92,7 @@ Given user login to user account with single stat
   Then verify the updated geofence radius is not saved & the old value is retained
     And user log out of the app
 
-@GeofenceRadius_UpdateAndCancel_MultiStat
+@GeofenceRadius_UpdateAndCancel_MultiStat          @NotAutomatable
   Scenario: Login to user account with multiple stats update geofence center and cancel without saving
 Given user login to user account with multiple stats
 	And Geofence center is set
@@ -65,7 +102,7 @@ Given user login to user account with multiple stats
   Then verify the updated geofence radius is not saved & the old value is retained
     And user log out of the app
     
-@GeofenceRadius_MobileLocation_PopupVerification
+@GeofenceRadius_MobileLocation_PopupVerification          @NotAutomatable
   Scenario: Verify Location service popup is displayed when mobile device location is turned off
 Given user login to lyric app
 	And Geofence center is set
@@ -75,7 +112,7 @@ Given user login to lyric app
     And user cancel the popup 
     And user log out of the app
     
-@GeofenceRadius_APPLocationPermission_PopupVerification
+@GeofenceRadius_APPLocationPermission_PopupVerification          @NotAutomatable
   Scenario: Verify Location service popup is displayed when app location permission is turned off
 Given user login to lyric app
 	And Geofence center is set
@@ -85,7 +122,7 @@ Given user login to lyric app
     And user cancel the popup 
     And user log out of the app
     
-@GeofenceRadius_MobileLocationTurnON
+@GeofenceRadius_MobileLocationTurnON          @NotAutomatable
   Scenario: Verify user is able to turn on mobile Location service and update the geofence radius
 Given user login to user account 
 	And Geofence center is set
@@ -98,7 +135,7 @@ Given user login to user account
   	And user logout and login to verify the updated geofence radius is retained
     And user log out of the app
 	    
-@GeofenceRadius_AppLocation_PermissionTurnON
+@GeofenceRadius_AppLocation_PermissionTurnON          @NotAutomatable
   Scenario: Verify user is able to turn on app Location permission and update the geofence radius
 Given user login to user account 
 	And Geofence center is set
@@ -111,7 +148,7 @@ Given user login to user account
   	And user logout and login to verify the updated geofence radius is retained
     And user log out of the app
     
-@GeofenceRadius_Update_MaximumAndMinimum
+@GeofenceRadius_Update_MaximumAndMinimum          @NotAutomatable
   Scenario Outline: verify user is able to update geofence radius to maximum/minimum limit
 Given user login to lyric app
 	And Geofence center is set
@@ -128,7 +165,7 @@ Given user login to lyric app
 |Minimum-500Meter   |
 
 
-@Geofence_LocationStatus
+@Geofence_LocationStatus          @NotAutomatable
   Scenario Outline: verify Location status is updated based on the user position
 Given user login to lyric app
 	And Geofence center is set
@@ -142,7 +179,7 @@ Given user login to lyric app
 |Within Radius  |
 |Outside Radius |
 
-@GeofenceTirggerVerification_ToggleOff
+@GeofenceTirggerVerification_ToggleOff          @NotAutomatable
   Scenario Outline: Verify the geofence trigger Home/Away doesn't happen when the 'Geofence This Location' toggle is OFF
 Given user login to user account with single stat
 	And Geofence center is set
@@ -157,7 +194,7 @@ Given user login to user account with single stat
 |Within Radius  |
 |Outside Radius |
 
-@GeofenceRadius_Update_MultiLocation
+@GeofenceRadius_Update_MultiLocation          @NotAutomatable
   Scenario: Verify the geofence radius update is location dependent
 Given user login to user account with multilocation
 	And Geofence center is set for Location1
@@ -169,7 +206,7 @@ Given user login to user account with multilocation
   	And verify the Location2 geofence radius is not updated & old radius retain
     And user log out of the app
 
-@GeofenceCenterUpdate_NewlyConfiguredStat
+@GeofenceCenterUpdate_NewlyConfiguredStat          @NotAutomatable
   Scenario: Verify user is able to updated geofence center for newly congifured stat
 Given user configured new Jasper/HB stat by skipping geofence
 	And Geofence center is set

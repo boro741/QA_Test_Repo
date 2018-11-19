@@ -15,6 +15,7 @@ import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
+import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.ManageUsersScreen;
 import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SecuritySolutionCardScreen;
@@ -412,6 +413,32 @@ public class VerifyDisplayedPopUp extends Keyword {
 				flag = false;
 				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Confirm Access Removal popup is not displayed");
+			}
+			break;
+		}
+		case "UPDATE GEOFENCE CENTER": {
+			GeofenceSettings gs = new GeofenceSettings(testCase);
+			if (gs.isUpdateGeofenceCenterPopupTitleVisible() && gs.isUpdateGeofenceCenterPopupMsgVisible()
+					&& gs.isCancelButtonInUpdateGeofenceCenterPopupVisible()
+					&& gs.isYesUpdateButtonInUpdateGeofenceCenterPopupVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Update Geofence Center popup is displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Update Geofence Center popup is not displayed");
+			}
+			break;
+		}
+		case "CANCEL GEOFENCE CHANGES": {
+			GeofenceSettings gs = new GeofenceSettings(testCase);
+			if (gs.isCancelGeofenceChangesPopupTitleVisible() && gs.isCancelGeofenceChangesPopupMsgVisible()
+					&& gs.isNOButtonInCancelGeofenceChangesPopupVisible()
+					&& gs.isYESButtonInCancelGeofenceChangesPopupVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Cancel Geofence Changes popup is displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Cancel Geofence Changes popup is not displayed");
 			}
 			break;
 		}

@@ -303,7 +303,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 		String locatorValue = "";
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			locatorValue = "//*[@text='" + notification + "']";
+			locatorValue = "//*[contains(@text='" + notification + "')]";
 		} else {
 			locatorValue = "//XCUIElementTypeCell[contains(@label,'" + notification + "')]";
 		}

@@ -28,7 +28,7 @@ Then user should be displayed with the following "Global Drawer Without Solution
 @GeneralGlobalDrawerWithoutSolutionVerificationForUSLocation				@Automated
 Scenario: As a user i want to view the options displayed in global drawer without a solution for US location
 Given user launches and logs in to the Lyric Application
-When user Navigates to "Global Drawer" screen from the "Dashboard" screen 
+When user navigates to "Global Drawer" screen from the "Dashboard" screen 
 Then user should be displayed with the following "Global Drawer Without Solution For US Location" options:
 | GlobalDrawerWithoutSolutionORWithWLDSolutionForUSLocation	|
 | Without Automation Header									|
@@ -49,7 +49,7 @@ Then user should be displayed with the following "Global Drawer Without Solution
 @GeneralGlobalDrawerWithWLDSolutionVerificationForUKLocation				@Automated
 Scenario: As a user i want to view the options displayed in global drawer with WLD solution for UK location
 Given user launches and logs in to the Lyric Application
-When user Navigates to "Global Drawer" screen from the "Dashboard" screen 
+When user navigates to "Global Drawer" screen from the "Dashboard" screen 
 Then user should be displayed with the following "Global Drawer With WLD Solution For UK Location" options:
 | GlobalDrawerWithoutSolutionORWithWLDSolutionForUKLocation	|
 | Without Automation Header									|
@@ -70,7 +70,7 @@ Then user should be displayed with the following "Global Drawer With WLD Solutio
 @GeneralGlobalDrawerWithWLDSolutionVerificationForUSLocation				@Automated
 Scenario: As a user i want to view the options displayed in global drawer with WLD solution for US location
 Given user launches and logs in to the Lyric Application
-When user Navigates to "Global Drawer" screen from the "Dashboard" screen 
+When user navigates to "Global Drawer" screen from the "Dashboard" screen 
 Then user should be displayed with the following "Global Drawer With WLD Solution For US Location" options:
 | GlobalDrawerWithoutSolutionORWithWLDSolutionForUSLocation	|
 | Without Automation Header									|
@@ -177,38 +177,99 @@ Then user should be displayed with the following "Global Drawer With JASPER NA S
 
 #Geofence 
 #Geofence this location disabled and enabled
-#Requirements : single location with jasperNA or JapserEMEA or C1 or C2 or DAS or all the solutions  with out Geofence 
-@GeneralGlobalDrawerGeofenceDisabledEnableWhileDIY				@Automatable
-Scenario Outline:  As a user I wnat to verify the disabled and enabled geofence option under global drawer when configued solution with out geofence enable 
+#Requirements : single location with jasperNA or JapserEMEA or C1 or C2 or DAS or all the solutions
+@GeneralGlobalDrawerEnableAndDisableGeofence					@Automated
+Scenario:  As a user I want to verify the enable and disable geofence option under global drawer when a solution is present
 Given user launches and logs in to the Lyric Application
-#And user configured the <Solution> with out geofence 
-And user Navigates to "Global Drawer" screen from the "Dashboard" screen 
+And user navigates to "Global Drawer" screen from the "Dashboard" screen 
 When user selects "Geofence" from "Global Drawer" screen
 Then user should be displayed with the "Geofence Settings" screen
-And the following "Geofence Settings" options should be disabled:
-| Options					|
-| Geofence this Location		|
 When user changes the "Geofence this locaiton toggle" to "on"
 Then user should be displayed with the following "Geofence this location" options:
 | GeofenceThisLocation		|
 | Geofence Radius			|
 | Location Status			|
 | Geofence Alert				|
-When user changes the "Geofence this locaiton toggle" to "off" 
-#Then user should dispaly with "Disabling geofencing" pop up 
-Then user should not be displayed with the following "Geofence this location" options:
+When user navigates to "Geofence Radius" screen from the "Geofence Settings" screen
+And user selects "Update Geofence Center" from "Geofence Radius" screen
+Then user should receive a "Update Geofence Center" popup
+And user "Cancels" the "Update Geofence Center" popup
+When user selects "Update Geofence Center" from "Geofence Radius" screen
+Then user should receive a "Update Geofence Center" popup
+And user "Clicks on UPDATE in" the "Update Geofence Center" popup
+When user selects "Save button" from "Geofence Radius" screen
+Then user should be displayed with the "Geofence Settings" screen
+And "Geofencing" value should be updated to "ON" on "Geofence Settings" screen
+And user should be displayed with the following "Geofence this location" options:
+| GeofenceThisLocation		|
+| Geofence Radius			|
+| Location Status			|
+| Geofence Alert				|
+When user changes the "Geofence this locaiton toggle" to "off"
+Then the following "Geofence Settings" options should be disabled:
+| Options					|
+| Geofence this Location		|
+And user should not be displayed with the following "Geofence this location" options:
 | GeofenceThisLocation		|
 | Geofence Radius			|
 | Location Status			|
 | Geofence Alert				|
 
-Examples:
-|Solution|
-#|JasperNA|
-#|JasperEMEA|
-#|C1|
-#|C2|
-|DAS|
+
+#Requirements : single location with jasperNA or JapserEMEA or C1 or C2 or DAS or all the solutions
+@GeneralGlobalDrawerUpdateGeofenceCenterAndTapOnBackButtonInGeofenceRadius     @Automated
+Scenario: As a user I want to verify if cancel geofence changes popup appears when YES, Update button is selected in Update Geofence Center popup and tap on back button in Geofence Radius screen
+Given user launches and logs in to the Lyric Application
+And user navigates to "Global Drawer" screen from the "Dashboard" screen 
+When user selects "Geofence" from "Global Drawer" screen
+Then user should be displayed with the "Geofence Settings" screen
+When user changes the "Geofence this locaiton toggle" to "on"
+Then user should be displayed with the following "Geofence this location" options:
+| GeofenceThisLocation		|
+| Geofence Radius			|
+| Location Status			|
+| Geofence Alert				|
+When user navigates to "Geofence Radius" screen from the "Geofence Settings" screen
+And user selects "Update Geofence Center" from "Geofence Radius" screen
+Then user should receive a "Update Geofence Center" popup
+And user "Clicks on UPDATE in" the "Update Geofence Center" popup
+When user selects "Back button" from "Geofence Radius" screen
+Then user should receive a "Cancel Geofence Changes" popup
+And user "Cancels" the "Cancel Geofence Changes" popup
+When user selects "Back button" from "Geofence Radius" screen
+Then user should receive a "Cancel Geofence Changes" popup
+And user "Accepts" the "Cancel Geofence Changes" popup
+Then user should be displayed with the "Geofence Settings" screen
+And "Geofencing" value should be updated to "ON" on "Geofence Settings" screen
+And user should be displayed with the following "Geofence this location" options:
+| GeofenceThisLocation		|
+| Geofence Radius			|
+| Location Status			|
+| Geofence Alert				|
+
+
+#Requirements : single location with jasperNA or JapserEMEA or C1 or C2 or DAS or all the solutions
+@GeneralGlobalDrawerTapOnBackButtonInGeofenceRadiusWithoutUpdatingGeofenceCenter    @Automated
+Scenario: As a user I want to verify if Geofence Settings screen is displayed when tapped on back button in Geofence Radius screen
+Given user launches and logs in to the Lyric Application
+And user navigates to "Global Drawer" screen from the "Dashboard" screen 
+When user selects "Geofence" from "Global Drawer" screen
+Then user should be displayed with the "Geofence Settings" screen
+When user changes the "Geofence this locaiton toggle" to "on"
+Then user should be displayed with the following "Geofence this location" options:
+| GeofenceThisLocation		|
+| Geofence Radius			|
+| Location Status			|
+| Geofence Alert				|
+When user navigates to "Geofence Radius" screen from the "Geofence Settings" screen
+And user selects "Back button" from "Geofence Radius" screen
+Then user should be displayed with the "Geofence Settings" screen
+And "Geofencing" value should be updated to "ON" on "Geofence Settings" screen
+And user should be displayed with the following "Geofence this location" options:
+| GeofenceThisLocation		|
+| Geofence Radius			|
+| Location Status			|
+| Geofence Alert				|
 
 
 #Geofence this location disabled and enabled when location serivce off 
@@ -218,12 +279,12 @@ Scenario Outline:  As a user I wnat to verify the disabled and enabled geofence 
 Given user launches and logs in to the Lyric Application
 And user turn off the "Location service" on the phone
 And user configured the <Solution> with out geofence 
-And user Navigates to "Global Drawer" screen from the "Dashboard" screen 
+And user navigates to "Global Drawer" screen from the "Dashboard" screen 
 When user selects "Geofence" button 
 Then user navigates to "Geofence option" screen
 And user disaplyed with disabled "Geofence this Location" option 
 When user enables the "Geofence this Location" toggle button 
-Then user should be displayed with "Location services disabled" pop up 
+Then user should be displayed with "Location services disabled" popup 
 When user enables the "Locatiton service" on the phone 
 Then user enables the "Geofence this Location" toggle button 
 And user should be displayed with following "Geofence this location" options :
@@ -232,7 +293,7 @@ And user should be displayed with following "Geofence this location" options :
 |Location Status |
 |Geofence Alert |
 When user disabled the "Goefnece this location" 
-Then user should dispaly with "Disabling geofencing" pop up 
+Then user should dispaly with "Disabling geofencing" popup 
 And user should not be displayed with following "Geofence this location" options :
 |Geofence this location |
 |Geofence Radius |
@@ -255,7 +316,7 @@ Scenario Outline:  As a user I wnat to verify the disabled and enabled geofence 
 Given user launches and logs in to the Lyric Application
 And user turn off the "locaiton permission" on the phone
 And user configured the <Solution> with out geofence 
-And user Navigates to "Global Drawer" screen from the "Dashboard" screen 
+And user navigates to "Global Drawer" screen from the "Dashboard" screen 
 When user selects "Geofence" button 
 Then user navigates to "Geofence option" screen
 And user disaplyed with disabled "Geofence this Location" option 
@@ -280,7 +341,7 @@ Scenario Outline:  As a user I wnat to verify the disabled and enabled geofence 
 Given user launches and logs in to the Lyric Application
 And user turn off the "locaiton permission" on the phone
 And user configured the <Solution> with out geofence 
-And user Navigates to "Global Drawer" screen from the "Dashboard" screen 
+And user navigates to "Global Drawer" screen from the "Dashboard" screen 
 When user selects "Geofence" button 
 Then user navigates to "Geofence option" screen
 And user disaplyed with disabled "Geofence this Location" option 
@@ -322,7 +383,7 @@ Scenario Outline:  As a user I wnat to verify the disabled and enabled geofence 
 Given user launches and logs in to the Lyric Application
 And user turn off the "locaiton permission" on the phone
 And user configured the <Solution> with out geofence 
-And user Navigates to "Global Drawer" screen from the "Dashboard" screen 
+And user navigates to "Global Drawer" screen from the "Dashboard" screen 
 When user selects "Geofence" button 
 Then user navigates to "Geofence option" screen
 And user disaplyed with disabled "Geofence this Location" option 
@@ -354,25 +415,43 @@ Examples:
 #				 -- GeofenceSet.feature	 
 #Geofence Alert 
 #Requirements : single location with jasperNA or JapserEMEA or C1 or C2 or DAS  or all the solutions  with out Geofence 
-@GenralGlobalDrawerGoefneceAlertdisabledEnablewhileDIY				@NotAutomatable
-Scenario Outline:  As a user I wnat to verify the disabled and enabled geofence alert option, under global drawer when configued solution with out geofence enable 
-Given user launches and logs in to the Lyric Application
-And user turn off the "locaiton permission" on the phone
-And user configured the <Solution> with out geofence 
-And user Navigates to "Geofence option" screen from the "Dashboard" screen 
-When user enables the "Geofence Alerts" 
-Then user should receive "Push notification" when th house is empty or someone is at home
-When user disables the "Geofence Alerts" 
-Then user should not receive "Push notification" when th house is empty or someone is at home
+@GenralGlobalDrawerVerifyPushNotificationWhenGeofenceAlertIsEnabledAndDisabled				@Automated
+Scenario Outline:  As a user I want to verify if push notification is received when geofence alert toggle is enabled 
+Given user has <Mode> system mode
+And user thermostat is set to "geofence based" schedule
+When user launches and logs in to the Lyric application
+And user navigates to "Global Drawer" screen from the "Dashboard" screen 
+When user selects "Geofence" from "Global Drawer" screen
+Then user should be displayed with the "Geofence Settings" screen
+When user changes the "Geofence this locaiton toggle" to "on"
+When user changes the "Geofence Alert toggle" to "on"
+And user thermostat set <Period> with <Geofence>
+Then user receives a "Geofence crossed Home" push notification
+And user thermostat set <UPeriod> with <UGeofence>
+Then user receives a "Geofence crossed Away" push notification
+When user clears all push notifications
+Then user navigates to "Global Drawer" screen from the "Dashboard" screen 
+And user selects "Geofence" from "Global Drawer" screen
+Then user should be displayed with the "Geofence Settings" screen
+When user changes the "Geofence Alert toggle" to "off"
+And user thermostat set <Period> with <Geofence>
+Then user should not receive a "Geofence crossed Home" push notification
+And user thermostat set <UPeriod> with <UGeofence>
+Then user should not receive a "Geofence crossed Away" push notification
+
 
 Examples:
-|Solution|
-|JasperNA|
-|JasperEMEA|
-|C1|
-|C2|
-|DAS|
+| Mode	| Period			| Geofence		| UPeriod		| UGeofence		|
+| Heat	| Home			| UserArrived  	| Away			| UserDeparted	|
+#| Cool	| UserArrived  	| Home			| Away			| UserDeparted	|
 
+
+@GeneralGlobalDrawerLoginWithProductionEnv			@Automated
+Scenario: Verify Geofence Screen after login
+Given user launches and logs in to the Lyric Application
+And user navigates to "Global Drawer" screen from the "Dashboard" screen 
+When user selects "Geofence" from "Global Drawer" screen
+Then user should be displayed with the "Geofence Settings" screen
 
 #ActivityHistory
 #Requirements : single location with out any solution 
@@ -394,7 +473,7 @@ Then user navigates to "Global Drawer" screen from the "Activity History" screen
 Scenario Outline: As a user i want to view the under global drawer scenarios  with jasperNA or JapserEMEA or C1 or C2 or DAS or all the solucations  
 Given user launches and logs in to the Lyric Application
 And user configured the <Solution>
-When user Navigates to "Activity History" screen from the "Dashboard" screen 
+When user navigates to "Activity History" screen from the "Dashboard" screen 
 Then user should be displayed with All "triggered" event for all the <Solution>
 When user selects the any "Message"
 Then user should be navigated to respective "Message" screen 
@@ -529,8 +608,6 @@ And user inputs <invite users email address> in "Email Text Field" in the "Invit
 Then user should be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
 | das_stage5@grr.la		|
-#And user logs out of the app
-#When user launches and logs in to the Lyric Application with <invite users email address>
 When user logs out and logs in to the Lyric Application with <invite users email address>
 Then user navigates to "Add Users" screen from the "Dashboard" screen
 And user should not be displayed with the following "Invited Users" options:
@@ -539,8 +616,9 @@ And user should not be displayed with the following "Invited Users" options:
 Then user should be displayed with the following "Invited Users" options:
 | InvitedUsersList						|
 | User who invited the logged in user	|
-And user logs out of the app
-When user launches and logs in to the Lyric Application
+#And user logs out of the app
+#When user launches and logs in to the Lyric Application
+When user logs out and logs in to the Lyric Application with "logged in users account"
 Then user navigates to "Add Users" screen from the "Dashboard" screen
 And user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList	|
@@ -555,8 +633,6 @@ Then user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
 | das_stage5@grr.la		|
 And user should be displayed with "No Invited Users label"
-#And user logs out of the app
-#When user launches and logs in to the Lyric Application with <invite users email address>
 When user logs out and logs in to the Lyric Application with <invite users email address>
 Then user navigates to "Add Users" screen from the "Dashboard" screen
 And user should be displayed with "No Invited Users label"
