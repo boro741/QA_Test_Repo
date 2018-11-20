@@ -318,7 +318,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	}
 
 	public boolean verifystate(String stateToVerify) {
-		String currentPanelState = MobileUtils.getFieldValue(objectDefinition, testCase, "CurrentPanelState");
+		String currentPanelState = MobileUtils.getFieldValue(objectDefinition, testCase, "PanelState");
 		switch (stateToVerify.toUpperCase()) {
 		case "HOME": {
 			if (stateToVerify.equalsIgnoreCase(currentPanelState)) {
@@ -426,7 +426,12 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	}
 
 	public boolean clickOnCancelButtonWhileSwitchingModes() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInSwitchingModes");
+		 if (testCase.getMobileDriver().getPlatformName().contains("Android")){
+			 return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInSwitchingModes");
+		 } else{
+			 testCase.getMobileDriver().findElementByName("cancelCommand").click();
+			 return true;
+		 }
 	}
 
 	public boolean clickOnSensorButton() {

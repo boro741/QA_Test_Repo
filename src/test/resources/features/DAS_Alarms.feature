@@ -1851,7 +1851,7 @@ Given user is set to "Home" mode through CHIL
       And user should be displayed with the following "EntryDelay" options:
       | Elements                               | 
       |  entry delay with door open title      |
-      |  entry delay with sensor name          |
+     # |  entry delay with sensor name          |
       |  entry delay subtitle as location name |
       |  entry delay live stream               |
       |  entry delay alarm in secs text        |
