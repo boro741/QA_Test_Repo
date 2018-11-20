@@ -41,7 +41,7 @@ public class DASSettingsUtils {
 				 * + inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"?']";
 				 */
 				message = "//android.widget.TextView[@text='This will delete " + "\""
-						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"" + " and all related accessories']";
+						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"" + ", all related accessories and facial recognition']";
 				messageWithMembership = "//android.widget.TextView[@text='This will delete " + "\""
 						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\""
 						+ ", all related accessories and facial recognition. Please remember to edit or cancel this device from your Membership']";
