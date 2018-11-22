@@ -72,4 +72,12 @@ public class AddNewDeviceScreen extends MobileScreens {
 	{
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "Logout");
 	}
+	
+	public boolean isChangeCountryLinkVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ChangeCountryLink");
+	}
+	
+	public boolean clickOnChangeCountryLink() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ChangeCountryLink");
+	}
 }

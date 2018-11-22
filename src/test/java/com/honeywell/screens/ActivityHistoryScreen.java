@@ -67,7 +67,7 @@ public class ActivityHistoryScreen extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			flag &= MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='Edit']");
 		} else {
-			flag &= MobileUtils.clickOnElement(testCase, "XPATH", "//XCUIElementTypeButton[@value='Edit']");
+			flag &= MobileUtils.clickOnElement(testCase, "ID", "Navigation_Right_Bar_Item");
 		}
 		return flag;
 	}
@@ -276,32 +276,24 @@ public class ActivityHistoryScreen extends MobileScreens {
 				return MobileUtils.isMobElementExists("XPATH", "//*[@text='Cancel']", testCase);
 			} else {
 				return MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeButton[@name='Navigation_Right_Bar_Item' and @value='Cancel']", testCase);
+						"//XCUIElementTypeButton[@value='Cancel']", testCase);
 			}
 		//}
 	}
 
 	public boolean clickOnCancelOption() {
 		boolean flag = true;
-		/*if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelOption")) {
-			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "CancelOption");
-		} else {*/
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (MobileUtils.isMobElementExists("XPATH", "//*[@text='Cancel']", testCase)) {
-					flag &= MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='Cancel']");
-				} else {
-					flag = false;
-				}
-			} else {
-				if (MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeButton[@name='Navigation_Right_Bar_Item' and @value='Cancel']", testCase)) {
-					flag &= MobileUtils.clickOnElement(testCase, "XPATH",
-							"//XCUIElementTypeButton[@name='Navigation_Right_Bar_Item' and @value='Cancel']");
-				} else {
-					flag = false;
-				}
-			}
-		//}
+		/*
+		 * if (MobileUtils.isMobElementExists(objectDefinition, testCase,
+		 * "CancelOption")) { flag &= MobileUtils.clickOnElement(objectDefinition,
+		 * testCase, "CancelOption"); } else {
+		 */
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			flag &= MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='Cancel']");
+		} else {
+			flag &= MobileUtils.clickOnElement(testCase, "ID", "Navigation_Right_Bar_Item");
+		}
+		// }
 		return flag;
 	}
 	

@@ -1807,6 +1807,29 @@ public class SelectElementOnAScreen extends Keyword {
 							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
 				}
+			} else if (parameters.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
+				AddNewDeviceScreen adn = new AddNewDeviceScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "CHANGE COUNTRY": {
+					if (adn.isChangeCountryLinkVisible()) {
+						flag &= adn.clickOnChangeCountryLink();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
+				}
+			}
 			}
 		} catch (Exception e) {
 			flag = false;

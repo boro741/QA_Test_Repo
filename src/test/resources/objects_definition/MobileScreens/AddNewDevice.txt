@@ -6,3 +6,4 @@ DevicesList	id	fragment_add_new_device_list	id	fragment_add_new_device_list	id	f
 AddNewDeviceHeader	XPATH	//*[@text='Add New Device']	XPATH	//*[@text='Add New Device']	XPATH	//*[@text='Add New Device']	xpath	//*[@value='Add New Device']	xpath	//*[@value='Add New Device']	xpath	//*[@value='Add New Device']
 FetchingDevicesLoadingSpinnerMsg	ID	message	ID	message	ID	message						
 BackButton	name	Back	name	Back	name	Back						
+ChangeCountryLink							NAME	Change Country	NAME	Change Country	NAME	Change Country

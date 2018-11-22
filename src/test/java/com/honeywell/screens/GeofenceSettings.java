@@ -176,11 +176,32 @@ public class GeofenceSettings extends MobileScreens {
 	}
 
 	public boolean isBackButtonInGeofenceRadiusScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton");
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton")) {
+			return flag;
+		} else {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltBackButton")) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		}
+		return flag;
 	}
 
 	public boolean clickOnBackButtonInGeofenceRadiusScreen() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton")) {
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+		} else {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AltBackButton")) {
+				flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "AltBackButton");
+			} else {
+				flag = false;
+			}
+		}
+		return flag;
+	
 	}
 
 	public boolean isUpdateGeofenceCenterButtonVisible() {
