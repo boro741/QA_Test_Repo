@@ -10,10 +10,12 @@ import org.openqa.selenium.support.ui.FluentWait;
 
 import com.google.common.base.Function;
 import com.honeywell.commons.coreframework.Keyword;
+import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
+import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CoachMarks;
 import com.honeywell.screens.Dashboard;
@@ -28,16 +30,16 @@ public class DashboardUtils {
 		List<WebElement> dashboardIconText = null;
 		Dashboard d = new Dashboard(testCase);
 		CoachMarks cm = new CoachMarks(testCase);
-		boolean flag = false;	
+		boolean flag = false;
 		List<String> availableDevices = new ArrayList<String>();
 		if (d.areDevicesVisibleOnDashboard(25)) {
 			dashboardIconText = d.getDashboardDeviceNameElements();
 		}
 		for (WebElement e : dashboardIconText) {
 			String displayedText = null;
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if(e!=null) {
-				displayedText = e.getText();
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (e != null) {
+					displayedText = e.getText();
 				}
 			} else {
 				try {
@@ -88,9 +90,9 @@ public class DashboardUtils {
 						flag = flag & sch.clickOnCloseButton();
 					} else if (bs.isBackButtonVisible(2)) {
 						flag = flag & bs.clickOnBackButton();
-					} else if (MobileUtils.isMobElementExists("id", "BACK", testCase)){
+					} else if (MobileUtils.isMobElementExists("id", "BACK", testCase)) {
 						flag = flag & MobileUtils.clickOnElement(testCase, "id", "BACK");
-					}else if (bs.isBackButtonVisible(2)) {
+					} else if (bs.isBackButtonVisible(2)) {
 						flag = flag & bs.clickOnBackButton();
 					} else if (camScr.isBackButtonVisible(2)) {
 						flag = flag & camScr.clickOnBackButton();
@@ -240,7 +242,7 @@ public class DashboardUtils {
 
 		return flag;
 	}
-	
+
 	/**
 	 * <h1>Wait for until progress bar to complete</h1>
 	 * <p>
@@ -297,6 +299,7 @@ public class DashboardUtils {
 
 		return flag;
 	}
+
 	public static boolean waitForOptionOnScreen(TestCases testCase, String elementProgressBar, int duration) {
 		boolean flag = true;
 		try {
@@ -382,7 +385,7 @@ public class DashboardUtils {
 							}
 						}
 						case "HEATINGORCOOLING TEXT TO DISSAPEAR IN PRIMARY CARD": {
-							if (pc.isHeatingCoolingTextVisible()){
+							if (pc.isHeatingCoolingTextVisible()) {
 								System.out.println("Waiting for Cooling Text to disappear");
 								return false;
 							} else {
@@ -401,17 +404,24 @@ public class DashboardUtils {
 				}
 			});
 			if (isEventReceived) {
-				Keyword.ReportStep_Pass(testCase, "Wait for:" + elementProgressBar +  "completed");
+				Keyword.ReportStep_Pass(testCase, "Wait for:" + elementProgressBar + "completed");
 			}
 		} catch (TimeoutException e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Wait for:"+ elementProgressBar + "Failed after waiting for: " + duration + " minutes");
+					"Wait for:" + elementProgressBar + "Failed after waiting for: " + duration + " minutes");
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 		}
+		return flag;
+	}
 
+	public static boolean enterCountryNameAndSelectItInConfirmYourCountryScreen(TestCases testCase,
+			TestCaseInputs inputs, String countryName) {
+		boolean flag = true;
+		AddNewDeviceScreen adn = new AddNewDeviceScreen(testCase);
+		flag &= adn.enterCountryNameInCountryTextField(inputs, countryName);
 		return flag;
 	}
 }

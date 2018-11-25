@@ -260,7 +260,8 @@ public class VerifyScreen extends Keyword {
 			case "ADD NEW DEVICE":
 			case "ADD NEW DEVICE DASHBOARD": {
 				AddNewDeviceScreen addDeviceSrceen = new AddNewDeviceScreen(testCase);
-				if (addDeviceSrceen.isAddNewDeviceHeaderDisplayed(60)) {
+				if (addDeviceSrceen.isAddNewDeviceHeaderDisplayed(60)
+						&& addDeviceSrceen.isSelectADeviceToInstallHeaderInAddNewDeviceScreenVisible()) {
 					Keyword.ReportStep_Pass(testCase,
 							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
 				} else {
@@ -976,6 +977,17 @@ public class VerifyScreen extends Keyword {
 			case "GEOFENCE SETTINGS": {
 				GeofenceSettings gs = new GeofenceSettings(testCase);
 				if (gs.isGeofenceSettingsScreenTitleVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
+			case "PLEASE CONFIRM YOUR COUNTRY": {
+				AddNewDeviceScreen adn = new AddNewDeviceScreen(testCase);
+				if (adn.isConfirmYourCountryScreenTitleVisible() && adn.isCurrentCountryButtonVisible()
+						&& adn.isEnterCountryTextFieldVisible()) {
 					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

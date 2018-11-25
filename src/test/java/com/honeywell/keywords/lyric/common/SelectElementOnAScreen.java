@@ -1830,6 +1830,15 @@ public class SelectElementOnAScreen extends Keyword {
 							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
 			}
+			} else if (parameters.get(1).equalsIgnoreCase("PLEASE CONFIRM YOUR COUNTRY")) {
+				/*flag &= DashboardUtils.enterCountryNameAndSelectItInConfirmYourCountryScreen(testCase, inputs,
+						parameters.get(0));*/
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to click on " + parameters.get(0));
+				}
 			}
 		} catch (Exception e) {
 			flag = false;
