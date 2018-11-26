@@ -3,9 +3,11 @@ package com.honeywell.screens;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 
+import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
+import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
 
 import io.appium.java_client.MobileElement;
@@ -22,9 +24,11 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	public boolean isAddNewDeviceScreenVisible(int timeOut) {
 		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceHeader")) {
-			flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceHeader", timeOut);
+			return flag;
 		} else {
-			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				flag = false;
+			} else {
 				if (MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Add New Device\"])[2]",
 						testCase)) {
 					flag = flag & MobileUtils.isMobElementExists("XPATH",
@@ -33,6 +37,10 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 			}
 		}
 		return flag;
+	}
+	
+	public boolean isDeviceListHeaderTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DevicesList");
 	}
 
 	public MobileElement getDeviceListWebElement() {
@@ -711,11 +719,12 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 
 	public boolean isCancelButtonInAddANetworkScreenVisible() {
 		boolean flag = true;
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInAddANetworkScreen", 5))
-			flag = flag
-					& MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInAddANetworkScreen", 5);
-		else {
-			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInAddANetworkScreen", 5)) {
+			return flag;
+		} else {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				flag = false;
+			} else {
 				if (MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Cancel\"])[4]", testCase,
 						3)) {
 					flag = flag & MobileUtils.isMobElementExists("XPATH",
@@ -1896,4 +1905,43 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	public String getSensorRangeSubTitleText() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "SensorRangeTestTitle");
 	}
-}
+	
+	public boolean isSelectADeviceToInstallHeaderTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SelectADeviceToInstallHeaderTitle");
+	}
+	
+	public boolean isAllMobElementsInAddNewDeviceHeaderSectionVisible() {
+		boolean flag = true;
+		if (this.isDeviceListHeaderTitleVisible()) {
+			Keyword.ReportStep_Pass(testCase, "Device list is displayed in Add New Device Screen");
+			if (this.isCancelButtonInAddANetworkScreenVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Cancel button is displayed in Add New Device Screen");
+				if (this.isAddNewDeviceScreenVisible(1)) {
+					Keyword.ReportStep_Pass(testCase,
+							"Add New Device Header title is displayed in Add New Device Screen");
+					if (this.isSelectADeviceToInstallHeaderTitleVisible()) {
+						Keyword.ReportStep_Pass(testCase,
+								"Select A Device Label is displayed in Add New Device Screen");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Select A Device Label is not displayed in Add New Device Screen");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Add New Device Header title is not displayed in Add New Device Screen");
+				}
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Cancel button is not displayed in Add New Device Screen");
+			}
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Device list is not displayed in Add New Device Screen");
+		}
+		return flag;
+	}
+} 

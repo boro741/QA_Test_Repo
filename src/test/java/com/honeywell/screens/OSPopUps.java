@@ -11,7 +11,7 @@ public class OSPopUps extends MobileScreens {
 	public OSPopUps(TestCases testCase) {
 		super(testCase, screenName);
 	}
-	
+
 	public boolean isAllowButtonVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AllowButton", 3, false);
 	}
@@ -87,13 +87,62 @@ public class OSPopUps extends MobileScreens {
 	public boolean clickOnIgnoreButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "IgnoreButton");
 	}
-	
+
 	public boolean isRootedDevicePopupVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "RootedDevicePopup", timeOut, false);
 	}
-	
+
 	public boolean clickAcceptOnRootedDevicePopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "RootedDevicePopup");
 	}
 
+	public boolean isUpdateLocationPermissionsPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UpdateLocationPermissionsPopup");
+	}
+
+	public boolean isGoToSettingsButtonVisibleInUpdateLocationPermissionsPopup() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase,
+				"GoToSettingsButtonInUpdateLocationPermissionsPopup");
+	}
+
+	public boolean clickOnGoToSettingsButtonInUpdateLocationPermissionPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase,
+				"GoToSettingsButtonInUpdateLocationPermissionsPopup");
+	}
+
+	public boolean isLocationCellInHoneywellSettingsVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LocationCellInHoneywellSettings");
+	}
+
+	public boolean clickOnLocationCellInHoneywellSettings() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "LocationCellInHoneywellSettings");
+	}
+
+	public boolean isHoneywellButtonInLocationServicesScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "HoneywellButtonInLocationServicesScreen");
+	}
+
+	public boolean isAlwaysOptionInHoneywellLocationServicesScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase,
+				"AlwaysOptionInHoneywellLocationServicesScreen");
+	}
+
+	public boolean clickOnAlwaysOptionInHoneywellLocationServicesScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AlwaysOptionInHoneywellLocationServicesScreen");
+	}
+
+	public boolean isAlwaysOptionSelectedInHoneywellLocationServicesScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase,
+				"AlwaysOptionSelectedInHoneywellLocationServicesScreen");
+	}
+
+	public boolean isReturnToHoneywellButtonInHoneywellLocationServicesScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase,
+				"ReturnToHoneywellButtonInHoneywellLocationServicesScreen");
+	}
+
+	public boolean clickOnReturnToHoneywellButtonInHoneywellLocationServicesScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase,
+				"ReturnToHoneywellButtonInHoneywellLocationServicesScreen");
+	}
 }

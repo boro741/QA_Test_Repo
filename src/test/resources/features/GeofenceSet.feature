@@ -2,7 +2,7 @@ Feature: As an user
 i want to set the geofence for my location
 so that my stat will set my comfortable indoor temperature in home/office automatically on my arrival & exit 
 
-Scenario Outline:
+Scenario Outline:               @NotAutomatable
 As an user 
 i want to view the geofence settings 
 so that i can change the geofence center and radius 
@@ -15,7 +15,7 @@ Examples:
 |already set|
 |yet to set |
 
-Scenario Outline:
+Scenario Outline:               @NotAutomatable
 As an user 
 i want to get guide message if user try to change the geofence center
 so that i should get cautioned on my attempt to change geofence center
@@ -27,7 +27,7 @@ Examples:
 |already set|
 |yet to set |
 
-Scenario Outline:
+Scenario Outline:               @NotAutomatable
 As an user 
 i want to get guide message if user not turned on location services in mobile settings or app
 so that i should turn on location services in mobile settings or app to use geofence feature
@@ -40,7 +40,7 @@ Examples:
 |yet to set |
 
 
-Scenario Outline:
+Scenario Outline:               @NotAutomatable
 As an user 
 i want to get message 
 so that i should get cautioned with guide message about geofence turned off for the location
@@ -49,7 +49,7 @@ When user turn off the geofence
 Then verify user gets cautioned with guide message about geofence turned off for the location 
 
 
-Scenario Outline:
+Scenario Outline:               @NotAutomatable
 As an user 
 i want to turn on the geofence
 
@@ -67,7 +67,7 @@ Examples:
 |Invite|android      |
 |Invite|iOS          |
 
-Scenario Outline:
+Scenario Outline:               @NotAutomatable
 As an user 
 i want to turn off the geofence
 
@@ -85,7 +85,7 @@ Examples:
 |Invite|android      |
 |Invite|iOS          |
 
-Scenario Outline:
+Scenario Outline:               @NotAutomatable
 As an user 
 i want to change the geofence center
 
@@ -103,7 +103,7 @@ Examples:
 |Invite|android      |
 |Invite|iOS          |
 
-Scenario Outline:
+Scenario Outline:               @NotAutomatable
 As an user 
 i want to change the geofence radius for the location
 
@@ -122,7 +122,7 @@ Examples:
 |Invite|iOS          |
 
 
-Scenario Outline:
+Scenario Outline:               @NotAutomatable
 As an user
 i want to create the geofence scheduling for my location
 so that my stat will set my comfortable indoor temperature in home/office automatically on my arrival & exit  
@@ -142,7 +142,7 @@ Examples:
 |Invite|iOS          |
 
 
-Scenario Outline:
+Scenario Outline:               @NotAutomatable
 As an user
 i want to create the geofence scheduling for my location
 so that my stat will set my comfortable indoor temperature in home/office automatically on my arrival & exit  

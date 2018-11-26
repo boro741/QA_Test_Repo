@@ -9,6 +9,7 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.lyric.das.utils.DASManageUsersUtils;
+import com.honeywell.lyric.das.utils.DashboardUtils;
 
 public class EnterTextInATextField extends Keyword {
 
@@ -37,11 +38,19 @@ public class EnterTextInATextField extends Keyword {
 			switch (inputName.get(1).toUpperCase()) {
 			case "EMAIL TEXT FIELD": {
 				if (inputName.get(0).equalsIgnoreCase("LOGGED IN USERS EMAIL ADDRESS")) {
-					flag &= DASManageUsersUtils.inputEmailAddressInInviteUserScreen(testCase,
+					flag &= DASManageUsersUtils.inputEmailAddressInInviteUserScreen(testCase, inputs,
 							inputs.getInputValue("USERID"));
 				} else {
-					flag &= DASManageUsersUtils.inputEmailAddressInInviteUserScreen(testCase, inputName.get(0));
+					flag &= DASManageUsersUtils.inputEmailAddressInInviteUserScreen(testCase, inputs, inputName.get(0));
 				}
+				break;
+			}
+			}
+		} else if (inputName.get(2).equalsIgnoreCase("PLEASE CONFIRM YOUR COUNTRY")) {
+			switch (inputName.get(1).toUpperCase()) {
+			case "SEARCH TEXT FIELD": {
+				flag &= DashboardUtils.enterCountryNameAndSelectItInConfirmYourCountryScreen(testCase, inputs,
+						inputName.get(0));
 				break;
 			}
 			}

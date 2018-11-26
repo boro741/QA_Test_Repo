@@ -1245,7 +1245,7 @@ public class CameraSettingsScreen extends MobileScreens {
 									testCase)) {
 						break;
 					} else {
-						System.out.println("%%%%%Scoll down again");
+						System.out.println("%%%%%Scroll down again");
 						action.press(10, (int) (dimension.getHeight() * .9))
 						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						action.press(10, (int) (dimension.getHeight() * .9))

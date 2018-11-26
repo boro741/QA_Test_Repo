@@ -95,6 +95,12 @@ public class VerifyPushNotificationNotReceived extends Keyword {
 		} else if (exampleData.get(0).equalsIgnoreCase("GEOFENCE HOME")) {
 			notification = "Geofence crossed. " + inputs.getInputValue("USER_NAME") + " has arrived at '"
 					+ inputs.getInputValue("LOCATION1_DEVICE1_NAME") + "'.";
+		} else if (exampleData.get(0).equalsIgnoreCase("GEOFENCE CROSSED AWAY")) {
+			notification = "Geofence crossed. Everyone is away from " + "\'" + inputs.getInputValue("LOCATION1_NAME") + "\'"
+			+ ".";
+		} else if (exampleData.get(0).equalsIgnoreCase("GEOFENCE CROSSED HOME")) {
+			notification = "Geofence crossed. " + locInfo.getUserFirstName()+ " has arrived at " + "\'"
+					+ inputs.getInputValue("LOCATION1_NAME") + "\'" + ".";
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input");

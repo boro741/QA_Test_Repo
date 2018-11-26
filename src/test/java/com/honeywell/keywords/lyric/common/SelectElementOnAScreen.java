@@ -1762,6 +1762,83 @@ public class SelectElementOnAScreen extends Keyword {
 							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
 				}
+			} else if (parameters.get(1).equalsIgnoreCase("GEOFENCE RADIUS")) {
+				GeofenceSettings gs = new GeofenceSettings(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "UPDATE GEOFENCE CENTER": {
+					if (gs.isUpdateGeofenceCenterButtonVisible()) {
+						flag &= gs.clickOnUpdateGeofenceCenterButton();
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				case "SAVE BUTTON": {
+					if (gs.isSaveButtonInGeofenceRadiusScreenVisible()) {
+						flag &= gs.clickOnSaveButtonInGeofenceRadiusScreen();
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				case "BACK BUTTON": {
+					if (gs.isBackButtonInGeofenceRadiusScreenVisible()) {
+						flag &= gs.clickOnBackButtonInGeofenceRadiusScreen();
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
+				AddNewDeviceScreen adn = new AddNewDeviceScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "CHANGE COUNTRY": {
+					if (adn.isChangeCountryLinkVisible()) {
+						flag &= adn.clickOnChangeCountryLink();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
+				}
+			}
+			} else if (parameters.get(1).equalsIgnoreCase("PLEASE CONFIRM YOUR COUNTRY")) {
+				/*flag &= DashboardUtils.enterCountryNameAndSelectItInConfirmYourCountryScreen(testCase, inputs,
+						parameters.get(0));*/
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to click on " + parameters.get(0));
+				}
 			}
 		} catch (Exception e) {
 			flag = false;

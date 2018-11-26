@@ -48,6 +48,7 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.perfecto.PerfectoLabUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.CoachMarks;
+import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.LoginScreen;
 import com.honeywell.screens.OSPopUps;
@@ -83,7 +84,8 @@ public class LyricUtils {
 	 * 
 	 *         Modified On: 21/02/2018 by Surendar
 	 */
-	public static long locationID=0;
+	public static long locationID = 0;
+
 	public static String takeScreenShot(String path, WebDriver driver) {
 		String scrName = "#";
 		if (driver == null) {
@@ -203,7 +205,7 @@ public class LyricUtils {
 	 *            testCase instance
 	 * @return JSONObject Device details of the device name and location name
 	 */
-	public static JSONObject getDeviceInformation(TestCases testCase, TestCaseInputs inputs,String... deviceId) {
+	public static JSONObject getDeviceInformation(TestCases testCase, TestCaseInputs inputs, String... deviceId) {
 		JSONObject jsonObject = null;
 
 		try (CHILUtil chUtil = new CHILUtil(inputs)) {
@@ -245,22 +247,21 @@ public class LyricUtils {
 							JSONObject tempJSONObject = null;
 
 							boolean elementFound = false;
-							boolean optionalDeviceElementfound=true;
+							boolean optionalDeviceElementfound = true;
 
 							for (int counter = 0; counter < array.length(); counter++) {
 								tempJSONObject = array.getJSONObject(counter);
-                                if(deviceId != null && deviceId.length>=1) {
-                                	if (deviceId[0].toString().equalsIgnoreCase(tempJSONObject.getString("userDefinedDeviceName"))) {
-                                	  jsonObject = array.getJSONObject(counter);
-                                	  optionalDeviceElementfound=true;
-    									break;
-    								}
-                                	else
-                                	{
-                                	optionalDeviceElementfound=false;
-                                	}
-                                }
-                               
+								if (deviceId != null && deviceId.length >= 1) {
+									if (deviceId[0].toString()
+											.equalsIgnoreCase(tempJSONObject.getString("userDefinedDeviceName"))) {
+										jsonObject = array.getJSONObject(counter);
+										optionalDeviceElementfound = true;
+										break;
+									} else {
+										optionalDeviceElementfound = false;
+									}
+								}
+
 								if (inputs.getInputValue("LOCATION1_DEVICE1_NAME")
 										.equalsIgnoreCase(tempJSONObject.getString("userDefinedDeviceName"))) {
 
@@ -268,16 +269,15 @@ public class LyricUtils {
 									elementFound = true;
 									break;
 								}
-                                
+
 							}
-                             if(!optionalDeviceElementfound) {
-                            	 Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FRAMEWORK_CONFIGURATION,
- 										"Get Stat Information : Stat not found by name - "
- 												+ deviceId[0]);
-                             }
+							if (!optionalDeviceElementfound) {
+								Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FRAMEWORK_CONFIGURATION,
+										"Get Stat Information : Stat not found by name - " + deviceId[0]);
+							}
 							if (elementFound) {
 							} else {
-								
+
 								Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FRAMEWORK_CONFIGURATION,
 										"Get Stat Information : Stat not found by name - "
 												+ inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
@@ -445,6 +445,10 @@ public class LyricUtils {
 				public Boolean apply(CustomDriver driver) {
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 						try {
+							if (cm.isDoneButtonVisible(1)) {
+								cm.clickOnDoneButton();
+								System.out.println("Clicked On Default Done Button");
+							}
 							if (os.isAlwaysAllowButtonVisible(3)) {
 								os.clickOnAlwaysAllowButton();
 								System.out.println("Clicked On Alway allow");
@@ -460,10 +464,8 @@ public class LyricUtils {
 								if (closeCoachMarks.length > 0 && !closeCoachMarks[0]) {
 									return true;
 								} else {
-
 									return LyricUtils.closeCoachMarks(testCase);
 								}
-
 							}
 						}
 					} else {
@@ -479,7 +481,7 @@ public class LyricUtils {
 							if (os.isRootedDevicePopupVisible(1)) {
 								os.clickAcceptOnRootedDevicePopup();
 							}
-							
+
 						}
 						if (os.isAllowButtonVisible(5)) {
 							os.clickOnAllowButton();
@@ -536,11 +538,11 @@ public class LyricUtils {
 		OSPopUps os = new OSPopUps(testCase);
 		LoginScreen ls = new LoginScreen(testCase);
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			
+
 			if (ls.isSkipButtonVisible()) {
 				flag = flag & ls.clickOnSkipIntroButton();
 			}
-			
+
 			if (os.isAllowButtonVisible(5)) {
 				flag = flag & os.clickOnAllowButton();
 			}
@@ -633,17 +635,17 @@ public class LyricUtils {
 				if (sm.isFeatureTweaksVisible()) {
 					flag = flag & sm.clickOnFeatureTweaks();
 					flag = flag & sm.clickOnSetAccessibilityToggle();
-					//flag = flag & sm.clickOnSetDasDIYV2Toggle();
+					// flag = flag & sm.clickOnSetDasDIYV2Toggle();
 					flag = flag & sm.clickOnNavigateUp();
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Unable to find Feature tweaks to set Accessibility");
 					return false;
 				}
-			} 
-//				else {
-//				flag = flag & sm.clickOnSetDasDIYV2Toggle();
-//			}
+			}
+			// else {
+			// flag = flag & sm.clickOnSetDasDIYV2Toggle();
+			// }
 			if (sm.isWebServerURLVisible()) {
 				flag = flag & sm.clickOnWebServerURL();
 				// Keeping this explicit wait because sometimes the environment selection fails
@@ -862,7 +864,7 @@ public class LyricUtils {
 	 *            testCase instance
 	 * @return String Device time in the format 'yyyymmddThh:mm:a'
 	 */
-	
+
 	public static String addMinutesToDate(TestCases testCase, String date, int noOfMins) {
 		String dateAfterAddition = "";
 		try {
@@ -1041,7 +1043,7 @@ public class LyricUtils {
 	 * @return boolean Returns 'true' if the element is found. Returns 'false' if
 	 *         the element is not found.
 	 */
-	public static boolean scrollUpAList(TestCases testCase, WebElement devieListWebEle) throws Exception {
+	public static boolean scrollUpAList(TestCases testCase, WebElement devieListWebEle) {
 		Dimension d1;
 		Point p1;
 		int startx = -1;
@@ -1183,6 +1185,126 @@ public class LyricUtils {
 		} catch (Exception e) {
 			throw new Exception("Element with text/value containing : '" + value + "' not found. Exception Message: "
 					+ e.getMessage());
+		}
+	}
+
+	/**
+	 * <h1>Scroll To Element Using Exact Attribute Value</h1>
+	 * <p>
+	 * The scrollToElementUsingExactAttributeValue method scrolls to an element
+	 * using the attribute and exact value passed to the method in the parameters.
+	 * </p>
+	 *
+	 * @author Pratik P. Lalseta (H119237)
+	 * @version 1.0
+	 * @since 2018-02-15
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @param attribute
+	 *            Attribute of the value used to locate the element
+	 * @param value
+	 *            Value of the attribute used to locate the element
+	 * @return boolean Returns 'true' if the element is found. Returns 'false' if
+	 *         the element is not found.
+	 */
+	public static boolean scrollToElementUsingExactAttribute(TestCases testCase, String attribute, String value) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists("xpath", 
+					"//android.widget.TextView[@" + attribute + "='" + value + "']", testCase, 5)) {
+				return true;
+			} else {
+				int counter = 0;
+				while (!MobileUtils.isMobElementExists("xpath",
+						"//android.widget.TextView[@" + attribute + "='" + value + "']", testCase, 3)
+						&& counter < 3) {
+					LyricUtils.scrollUpAList(testCase, dasDIY.getDeviceListWebElement());
+					counter++;
+				}
+				if (MobileUtils.isMobElementExists("xpath", 
+						"//android.widget.TextView[@" + attribute + "='" + value + "']", testCase, 5)) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		} else {
+			JavascriptExecutor js = (JavascriptExecutor) testCase.getMobileDriver();
+			HashMap<Object, Object> scrollObject = new HashMap<>();
+			try {
+				scrollObject.put("predicateString", attribute + " == '" + value + "'");
+				js.executeScript("mobile:scroll", scrollObject);
+			} catch (Exception e) {
+				scrollObject.clear();
+				scrollObject.put("direction", "down");
+				js.executeScript("mobile:scroll", scrollObject);
+			}
+			if (MobileUtils.isMobElementExists("xpath", "//*[@" + attribute + "='" + value + "']", testCase, 5)) {
+				WebElement element = testCase.getMobileDriver()
+						.findElement(MobileBy.iOSNsPredicateString(attribute + " == '" + value + "'"));
+				if (element.getAttribute(attribute).equals(value)) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * <h1>Scroll Up The List</h1>
+	 * <p>
+	 * The scrollUpAList method scrolls to an element using swipe gestures.
+	 * </p>
+	 *
+	 * @author Midhun Gollapalli (H179225)
+	 * @version 1.0
+	 * @since 2018-02-15
+	 * @param testCase
+	 *            Instance of the TestCases class used to create the testCase.
+	 *            testCase instance.
+	 * @param attribute
+	 *            Attribute of the value used to locate the element
+	 * @param value
+	 *            Value of the attribute used to locate the element
+	 * @return boolean Returns 'true' if the element is found. Returns 'false' if
+	 *         the element is not found.
+	 */
+	public static boolean scrollUpTheElementsDisplayedInAList(TestCases testCase, WebElement devieListWebEle)
+			throws Exception {
+		Dimension d1;
+		Point p1;
+		int startx = -1;
+		int starty = -1;
+		int endy = -1;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			d1 = devieListWebEle.getSize();
+			p1 = devieListWebEle.getLocation();
+			startx = p1.getX();
+			starty = (int) (d1.height * 0.90) + p1.getY();
+			endy = (int) (d1.height * 0.30) + p1.getY();
+			MobileUtils.swipe(testCase, startx, endy, startx, starty);
+			int counter = 0;
+			while (!MobileUtils.isMobElementExists("ID", "view_diy_resume_install_row_select_device_title", testCase, 3)
+					&& counter < 3) {
+				MobileUtils.swipe(testCase, startx, endy, startx, starty);
+				counter++;
+			}
+			if (MobileUtils.isMobElementExists("ID", "view_diy_resume_install_row_select_device_title", testCase, 5)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			d1 = devieListWebEle.getSize();
+			p1 = devieListWebEle.getLocation();
+			starty = (int) (d1.height * 0.80);
+			endy = (int) -((d1.height * 0.50) + p1.getY());
+			startx = d1.width / 2;
+			return MobileUtils.swipe(testCase, startx, -starty, 0, endy);
 		}
 	}
 
@@ -1575,32 +1697,33 @@ public class LyricUtils {
 	}
 
 	public static String getToastMessage(TestCases testCase) {
-        String fileName= takeScreenShot(
-				System.getProperty("user.dir") + File.separator + "ToastMessages", testCase.getMobileDriver());
+		String fileName = takeScreenShot(System.getProperty("user.dir") + File.separator + "ToastMessages",
+				testCase.getMobileDriver());
 		String str = "";
 		BytePointer outText;
-        TessBaseAPI api = new TessBaseAPI();
+		TessBaseAPI api = new TessBaseAPI();
 
-        if (api.Init(".", "ENG") != 0) {
-            System.err.println("Could not initialize tesseract.");
-            System.exit(1);
-        }		
-        String fileNamePath=System.getProperty("user.dir") + File.separator + "ToastMessages"+File.separator+fileName;
-        PIX image = pixRead(fileNamePath);
-        api.SetImage(image);
+		if (api.Init(".", "ENG") != 0) {
+			System.err.println("Could not initialize tesseract.");
+			System.exit(1);
+		}
+		String fileNamePath = System.getProperty("user.dir") + File.separator + "ToastMessages" + File.separator
+				+ fileName;
+		PIX image = pixRead(fileNamePath);
+		api.SetImage(image);
 
-        // Get OCR result
-        outText = api.GetUTF8Text();
-        str = outText.getString();
-//        System.out.println("OCR output:\n" + str);
+		// Get OCR result
+		outText = api.GetUTF8Text();
+		str = outText.getString();
+		// System.out.println("OCR output:\n" + str);
 
-        // Destroy used object and release memory
-        api.End();
-        outText.deallocate();
-        pixDestroy(image);
+		// Destroy used object and release memory
+		api.End();
+		outText.deallocate();
+		pixDestroy(image);
 		return str;
 	}
-	
+
 	public static String getDeviceEquivalentUTCTime(TestCases testCase, TestCaseInputs inputs, String UTCTime) {
 		String deviceTime = "";
 		try {
@@ -1640,7 +1763,7 @@ public class LyricUtils {
 		}
 		return deviceTime;
 	}
-	
+
 	public static String[][] getAllMessages(TestCases testCase) throws Exception {
 		String msgs[][] = new String[1][1];
 		try {
@@ -1650,7 +1773,8 @@ public class LyricUtils {
 					msgs = new String[messages.size()][6];
 					int i = 0;
 					for (WebElement message : messages) {
-						List<WebElement> messageDetails = message.findElements(By.className("android.widget.LinearLayout"));
+						List<WebElement> messageDetails = message
+								.findElements(By.className("android.widget.LinearLayout"));
 						int j = 0;
 						for (WebElement details : messageDetails) {
 							msgs[i][j] = details.getAttribute("text");
@@ -1663,50 +1787,54 @@ public class LyricUtils {
 				}
 			} else {
 				if (MobileUtils.isMobElementExists("name", "Messages_cell", testCase, 10)) {
-					
-					//---
-					List<MobileElement> newalerts = testCase.getMobileDriver().findElements(By.xpath("//*[(@name='Messages') and (@visible='true')]"));
+
+					// ---
+					List<MobileElement> newalerts = testCase.getMobileDriver()
+							.findElements(By.xpath("//*[(@name='Messages') and (@visible='true')]"));
 					msgs = new String[newalerts.size()][3];
 					int i = 0;
-					for(WebElement ele :newalerts){
+					for (WebElement ele : newalerts) {
 						msgs[i][0] = ele.getAttribute("value");
-                    	i++;
-                    }
-                    
-                    List<MobileElement> newalerts1 = testCase.getMobileDriver().findElements(By.xpath("//*[(@name='Messages_subTitle') and (@visible='true')]"));
-                    i = 0;
-					for(MobileElement ele :newalerts1){
+						i++;
+					}
+
+					List<MobileElement> newalerts1 = testCase.getMobileDriver()
+							.findElements(By.xpath("//*[(@name='Messages_subTitle') and (@visible='true')]"));
+					i = 0;
+					for (MobileElement ele : newalerts1) {
 						msgs[i][1] = ele.getAttribute("value");
-                    	i++;
-                    }
-					
-					 List<MobileElement> newalerts2 = testCase.getMobileDriver().findElements(By.xpath("//*[(@name='Messages_detail_subTitle') and (@visible='true')]"));
-	                    i = 0;
-						for(MobileElement ele :newalerts2){
-							msgs[i][2] = ele.getAttribute("value");
-	                    	i++;
-	                    }
-					
-					
-//					List<MobileElement> tableCells = new ArrayList<MobileElement>();
-//					tableCells = testCase.getMobileDriver()
-//							.findElements(By.xpath("//*[(@name='Messages_cell') and (@visible='true')]"));
-//					msgs = new String[tableCells.size()][3];
-//					int i = 0;
-//					for (MobileElement e : tableCells) {
-//						if (i == 4)
-//							break;
-//						List<MobileElement> messageDetails = e.findElements(By.xpath("//XCUIElementTypeStaticText"));
-//						int j = 0;
-//						for (MobileElement details : messageDetails) {
-//							if (j > 2) {
-//								break;
-//							}
-//							msgs[i][j] = details.getAttribute("value");
-//							j++;
-//						}
-//						i++;
-//					}
+						i++;
+					}
+
+					List<MobileElement> newalerts2 = testCase.getMobileDriver()
+							.findElements(By.xpath("//*[(@name='Messages_detail_subTitle') and (@visible='true')]"));
+					i = 0;
+					for (MobileElement ele : newalerts2) {
+						msgs[i][2] = ele.getAttribute("value");
+						i++;
+					}
+
+					// List<MobileElement> tableCells = new ArrayList<MobileElement>();
+					// tableCells = testCase.getMobileDriver()
+					// .findElements(By.xpath("//*[(@name='Messages_cell') and
+					// (@visible='true')]"));
+					// msgs = new String[tableCells.size()][3];
+					// int i = 0;
+					// for (MobileElement e : tableCells) {
+					// if (i == 4)
+					// break;
+					// List<MobileElement> messageDetails =
+					// e.findElements(By.xpath("//XCUIElementTypeStaticText"));
+					// int j = 0;
+					// for (MobileElement details : messageDetails) {
+					// if (j > 2) {
+					// break;
+					// }
+					// msgs[i][j] = details.getAttribute("value");
+					// j++;
+					// }
+					// i++;
+					// }
 				} else {
 					throw new Exception("No Alerts found");
 				}
@@ -1716,12 +1844,11 @@ public class LyricUtils {
 		}
 		return msgs;
 	}
-	
+
 	public static boolean verifyLoginSuccessfulwithoutCoachMark(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		OSPopUps os = new OSPopUps(testCase);
 		CoachMarks cm = new CoachMarks(testCase);
-		Dashboard d = new Dashboard(testCase);
 		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
 		fWait.pollingEvery(5, TimeUnit.SECONDS);
 		fWait.withTimeout(3, TimeUnit.MINUTES);
@@ -1739,26 +1866,26 @@ public class LyricUtils {
 							((CustomIOSDriver) testCase.getMobileDriver()).switchTo().alert().accept();
 							return false;
 						} catch (Exception e) {
-							if(cm.isNextButtonVisible(2)){
+							if (cm.isNextButtonVisible(2)) {
 								return true;
 							}
 						}
-						
-					} else if (testCase.getPlatform().toUpperCase().contains("ANDROID")){
+
+					} else if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						if (inputs.isRunningOn("SauceLabs")) {
 							if (os.isRootedDevicePopupVisible(1)) {
 								os.clickAcceptOnRootedDevicePopup();
 							}
-							
+
 						}
 						if (os.isAllowButtonVisible(5)) {
 							os.clickOnAllowButton();
 						}
-						if(cm.isNextButtonVisible(2)){
+						if (cm.isNextButtonVisible(2)) {
 							return true;
 						}
-					}	
-							return false;
+					}
+					return false;
 				}
 			});
 			if (isEventReceived) {
@@ -1779,20 +1906,22 @@ public class LyricUtils {
 		}
 		return flag;
 	}
-	
-	public static boolean launchAndLoginToApplicationWithoutClosingCoachMark(TestCases testCase, TestCaseInputs inputs) {
+
+	public static boolean launchAndLoginToApplicationWithoutClosingCoachMark(TestCases testCase,
+			TestCaseInputs inputs) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
 		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
 		if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-			flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);	
+			flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
 		}
 		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
 		flag = flag & LyricUtils.verifyLoginSuccessfulwithoutCoachMark(testCase, inputs);
 		return flag;
 	}
-	
-	public static boolean loginToLyricAppWithInviteUsersAccount(TestCases testCase, TestCaseInputs inputs, String usersEmailAddress) {
+
+	public static boolean loginToLyricAppWithInviteUsersAccount(TestCases testCase, TestCaseInputs inputs,
+			String usersEmailAddress) {
 		boolean flag = true;
 		LoginScreen ls = new LoginScreen(testCase);
 		if (ls.isLoginButtonVisible() && !ls.isEmailAddressTextFieldVisible()) {
@@ -1802,8 +1931,7 @@ public class LyricUtils {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				MobileUtils.hideKeyboard(testCase.getMobileDriver());
 			}
-			Keyword.ReportStep_Pass(testCase,
-					"Login To Lyric : Email Address set to - " + inputs.getInputValue("USERID"));
+			Keyword.ReportStep_Pass(testCase, "Login To Lyric : Email Address set to - " + usersEmailAddress);
 		} else {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Login To Lyric : Not able to set Email Address.");
@@ -1828,12 +1956,14 @@ public class LyricUtils {
 		}
 		return flag;
 	}
-	
-	public static boolean launchAndLoginToApplicationWithInviteUsersAccount(TestCases testCase, TestCaseInputs inputs, String inviteUsersEmailAddress,
-			boolean... closeCoachMarks) {
+
+	public static boolean loginToApplicationWithInviteUsersAccount(TestCases testCase, TestCaseInputs inputs,
+			String inviteUsersEmailAddress, boolean... closeCoachMarks) {
 		boolean flag = true;
-		flag = MobileUtils.launchApplication(inputs, testCase, true);
-		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+		/*
+		 * flag = MobileUtils.launchApplication(inputs, testCase, true); flag = flag &
+		 * LyricUtils.closeAppLaunchPopups(testCase);
+		 */
 		flag = flag & LyricUtils.loginToLyricAppWithInviteUsersAccount(testCase, inputs, inviteUsersEmailAddress);
 		if (closeCoachMarks.length > 0) {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);

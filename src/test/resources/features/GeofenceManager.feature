@@ -5,7 +5,7 @@ I want the stat to set my comfortable temperature automatically using geofence
 So that my arrival or exit home identified with the help of mobile geofence status for setting up my away temperature settings or home or sleep settings
 
 
-@GeofenceMonitoringForVariousCombination
+@GeofenceMonitoringForVariousCombination            @NotAutomatable
 Scenario Outline: Verify the geofence scheduling for Location accessed by various combination
 As an user 
 I want the system to consider the geofence location status by considering all mobile devices accessed to the location
@@ -33,7 +33,7 @@ Examples:
 |Actual and Invite user logged in multiple mobile device|Away  |
 
 
-@UserShouldnotRemovedfromGang 
+@UserShouldnotRemovedfromGang            @NotAutomatable
 Scenario Outline: Verify the mobile device should participate in location geofence status for below status
 As an user 
 I want the CHIL system to consider user for geofence status 
@@ -56,7 +56,7 @@ Examples:
 |App is killed                                  |Away |Home                |
 
 
-@UserShouldbeRemovedfromGang 
+@UserShouldbeRemovedfromGang            @NotAutomatable
 Scenario Outline: Verify the user should not participate in location geofence status for below status
 As an user 
 I want the CHIL system not to consider user for geofence status 
@@ -79,7 +79,7 @@ Examples:
 |Invite user  |User not triggered any change in geofence status for last 7 days |Away |Home                |
 
 
-@StatShouldnotParticipateGeofenceMonitoring
+@StatShouldnotParticipateGeofenceMonitoring            @NotAutomatable
 Scenario Outline: Verify the stat should not participate in location geofence status for below status
 As an user 
 I want the system to apply geofence setting only to the stat were gofence scheduling  is configured
@@ -101,7 +101,7 @@ Examples:
 |Multi stat |Geofence scheduling not configured |Away |
 
 
-@GeofencemonitoringNetworkfailuresRestored
+@GeofencemonitoringNetworkfailuresRestored            @NotAutomatable
 Scenario Outline: Verify the notifications for Geofence monitoring when network failures restored
 As an user 
 I want the system to have a logic for network failures restored
@@ -128,7 +128,7 @@ Examples:
 |Switch between (3G/wifi)       |Away |
 
 
-@GeofencemonitoringLyricserviceDown
+@GeofencemonitoringLyricserviceDown            @NotAutomatable
 Scenario Outline: Verify the notifications for Geofence monitoring when lyric system is down
 As an user 
 I want the system to have logic for if lyric service is down 
@@ -156,7 +156,7 @@ Examples:
 |Stat offline  |in foreground|Away |
 
 
-@GeofenceMonitoringLyricserviceRestored
+@GeofenceMonitoringLyricserviceRestored            @NotAutomatable
 Scenario Outline: Verify the Geofence monitoring when lyric service is restored back
 As an user 
 I want the system to have logic for lyric service is restored back 
@@ -187,7 +187,7 @@ And Verify the Location Geofence status updated in geofence settings
 |Stat offline  |in foreground|Away |
 
 
-@UserShouldnotRemovedfromGangExtra 
+@UserShouldnotRemovedfromGangExtra             @NotAutomatable
 Scenario Outline: Verify the mobile device should not participate in location geofence status for below status
 As an user 
 I want the CHIL system to consider mobile device for geofence status 
@@ -212,7 +212,7 @@ Examples:
 
 
 #Expected but yet to be implement
-@GeofenceMonitoringForChangedcenter
+@GeofenceMonitoringForChangedcenter            @NotAutomatable
 Scenario Outline: Verify the geofence scheduling for change in Geofence center due to changed address
 As an user 
 I want the system to consider the geofence location status if center is moved 
@@ -231,7 +231,7 @@ And Verify the Location Geofence status updated in geofence settings
 
 
 #Expected but yet to be implement
-@GeofenceMonitoringForChangedradius
+@GeofenceMonitoringForChangedradius            @NotAutomatable
 Scenario Outline: Verify the geofence scheduling for change in Geofence radius
 As an user 
 I want the system to consider the geofence location status if radius is changed 
@@ -273,7 +273,7 @@ Examples:
 
 
 #Expected but yet to be implement
-@GeofenceMonitoringPoweredback
+@GeofenceMonitoringPoweredback            @NotAutomatable
 Scenario Outline: Verify the Geofence monitoring when mobile device is powered on back from power down
 As an user 
 I want the system to have logic if mobile device is powered on back from power down

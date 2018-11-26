@@ -10,7 +10,6 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.lyric.das.utils.DASCommandControlUtils;
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
@@ -140,7 +139,7 @@ public class VerifyValueOnAScreen extends Keyword {
 					&& parameters.get(2).equalsIgnoreCase("Camera Settings")) {
 				CameraSettingsScreen bs = new CameraSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
-					if (bs.isCameraOnInNightModeSwitchEnabled(testCase)){
+					if (bs.isCameraOnInNightModeSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase, "Camera On in Night Mode is enabled on Video Settings");
 					} else {
 						flag = false;
@@ -157,7 +156,7 @@ public class VerifyValueOnAScreen extends Keyword {
 					}
 
 				}
-			}else if (parameters.get(0).equalsIgnoreCase("MOTION DETECTION")
+			} else if (parameters.get(0).equalsIgnoreCase("MOTION DETECTION")
 					&& parameters.get(2).equalsIgnoreCase("MOTION DETECTION SETTINGS")) {
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
@@ -297,113 +296,103 @@ public class VerifyValueOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Camera Sound detection status is not displayed");
 				}
-			} 
-			//Amresh wld edit starts
+			}
+			// Amresh wld edit starts
 			else if (parameters.get(0).equalsIgnoreCase("WLD INDOOR TEMPERATURE ALERT")
 					&& parameters.get(2).equalsIgnoreCase("MANAGE ALERTS")) {
 				WLDManageAlerts ale = new WLDManageAlerts(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
-					if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {//android code here
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {// android code here
 						String status = ale.getIndoorTemperatureAlertsToggleValue();
-						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " value is updated to: "+status+" on " +parameters.get(2)+" screen");
-					}
-					else {//ios code here
+						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " value is updated to: " + status + " on "
+								+ parameters.get(2) + " screen");
+					} else {// ios code here
 						String status = ale.getIndoorTemperatureAlertsToggleValue();
-						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " value is updated to: "+status+" on " +parameters.get(2)+" screen");
+						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " value is updated to: " + status + " on "
+								+ parameters.get(2) + " screen");
 					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {// android code here
+						String status = ale.getIndoorTemperatureAlertsToggleValue();
+						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " value is updated to: " + status + " on"
+								+ parameters.get(2) + " screen");
+					} else {// ios code here
+						String status = ale.getIndoorTemperatureAlertsToggleValue();
+						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " value is updated to: " + status + " on"
+								+ parameters.get(2) + " screen");
 					}
-				 else if (parameters.get(1).equalsIgnoreCase("OFF")) {
-						if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {//android code here
-							String status = ale.getIndoorTemperatureAlertsToggleValue();
-							Keyword.ReportStep_Pass(testCase, parameters.get(0) + " value is updated to: "+status+" on" +parameters.get(2)+" screen");
-						}
-						else {//ios code here
-							String status = ale.getIndoorTemperatureAlertsToggleValue();
-							Keyword.ReportStep_Pass(testCase, parameters.get(0) + " value is updated to: "+status+" on" +parameters.get(2)+" screen");
-						}
-				} 
-				 else {
+				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Camera Sound detection status is not displayed");
 				}
-			}
-			else if (parameters.get(0).equalsIgnoreCase("WLD INDOOR HUMIDITY ALERT")
+			} else if (parameters.get(0).equalsIgnoreCase("WLD INDOOR HUMIDITY ALERT")
 					&& parameters.get(2).equalsIgnoreCase("MANAGE ALERTS")) {
 				WLDManageAlerts ale = new WLDManageAlerts(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
-					
-					if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {//android code here
+
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {// android code here
 						String status = ale.getIndoorHumidityAlertsToggleValue();
-						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " value is updated to: "+status+" on " +parameters.get(2)+" screen");
-					}
-					else {//ios code here
+						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " value is updated to: " + status + " on "
+								+ parameters.get(2) + " screen");
+					} else {// ios code here
 						String status = ale.getIndoorHumidityAlertsToggleValue();
-						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " value is updated to: "+status+" on " +parameters.get(2)+" screen");
+						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " value is updated to: " + status + " on "
+								+ parameters.get(2) + " screen");
 					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {// android code here
+						String status = ale.getIndoorHumidityAlertsToggleValue();
+						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " value is updated to: " + status + " on"
+								+ parameters.get(2) + " screen");
+					} else {// ios code here
+						String status = ale.getIndoorHumidityAlertsToggleValue();
+						Keyword.ReportStep_Pass(testCase, parameters.get(0) + " value is updated to: " + status + " on"
+								+ parameters.get(2) + " screen");
 					}
-				 else if (parameters.get(1).equalsIgnoreCase("OFF")) {
-						if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {//android code here
-							String status = ale.getIndoorHumidityAlertsToggleValue();
-							Keyword.ReportStep_Pass(testCase, parameters.get(0) + " value is updated to: "+status+" on" +parameters.get(2)+" screen");
-						}
-						else {//ios code here
-							String status = ale.getIndoorHumidityAlertsToggleValue();
-							Keyword.ReportStep_Pass(testCase, parameters.get(0) + " value is updated to: "+status+" on" +parameters.get(2)+" screen");
-						}
-				} 
-				 else {
+				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Camera Sound detection status is not displayed");
 				}
-			}//Amresh wld edit ends
-			//Amresh wld edit starts
+			} // Amresh wld edit ends
+				// Amresh wld edit starts
 			else if (parameters.get(0).equalsIgnoreCase("UPDATE FREQUENCY")
 					&& parameters.get(2).equalsIgnoreCase("LEAK DETECTOR SETTINGS")) {
 				WLDLeakDetectorSettings set = new WLDLeakDetectorSettings(testCase);
-				if (parameters.get(1).equalsIgnoreCase("DAILY")) 
-				{	
+				if (parameters.get(1).equalsIgnoreCase("DAILY")) {
 					flag = flag && set.isUpdateFrequencyValueVisible();
 					String ufValue = set.displayUpdateFrequencyValue();
 					Keyword.ReportStep_Pass(testCase, ufValue);
-					if(ufValue.equals("Daily")) {
-						Keyword.ReportStep_Pass(testCase, ufValue+ " Frequency is Sucessfully updated");
-					}
-					else {
+					if (ufValue.equals("Daily")) {
+						Keyword.ReportStep_Pass(testCase, ufValue + " Frequency is Sucessfully updated");
+					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not Updated");
 					}
-				}
-				 else if (parameters.get(1).equalsIgnoreCase("TWICE DAILY")) 
-				 {
-					 	flag = flag && set.isUpdateFrequencyValueVisible();
-						String ufValue = set.displayUpdateFrequencyValue();
-						Keyword.ReportStep_Pass(testCase, ufValue);
-						if(ufValue.equals("Twice Daily")) {
-							Keyword.ReportStep_Pass(testCase, ufValue+ " Daily Frequency is Sucessfully updated");
-						}
-						else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not Updated");
-						}
-				 } 
-				 else if (parameters.get(1).equalsIgnoreCase("THREE TIMES DAILY")) 
-				 {
-					 	flag = flag && set.isUpdateFrequencyValueVisible();
-						String ufValue = set.displayUpdateFrequencyValue();
-						Keyword.ReportStep_Pass(testCase, ufValue);
-						if(ufValue.equalsIgnoreCase("Three Times Daily")) {
-							Keyword.ReportStep_Pass(testCase, ufValue+ " Daily Frequency is Sucessfully updated");
-						}
-						else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not Updated");
-						}
-				 } 
-				 else {
+				} else if (parameters.get(1).equalsIgnoreCase("TWICE DAILY")) {
+					flag = flag && set.isUpdateFrequencyValueVisible();
+					String ufValue = set.displayUpdateFrequencyValue();
+					Keyword.ReportStep_Pass(testCase, ufValue);
+					if (ufValue.equals("Twice Daily")) {
+						Keyword.ReportStep_Pass(testCase, ufValue + " Daily Frequency is Sucessfully updated");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not Updated");
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("THREE TIMES DAILY")) {
+					flag = flag && set.isUpdateFrequencyValueVisible();
+					String ufValue = set.displayUpdateFrequencyValue();
+					Keyword.ReportStep_Pass(testCase, ufValue);
+					if (ufValue.equalsIgnoreCase("Three Times Daily")) {
+						Keyword.ReportStep_Pass(testCase, ufValue + " Daily Frequency is Sucessfully updated");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Not Updated");
+					}
+				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Camera Sound detection status is not displayed");
 				}
-			}//Amresh wld edit ends
+			} // Amresh wld edit ends
 			else if ((parameters.get(0).equalsIgnoreCase("SOUND DETECTION")
 					|| parameters.get(0).equalsIgnoreCase("SOUND SENSITIVITY"))
 					&& parameters.get(2).equalsIgnoreCase("SOUND DETECTION SETTINGS")) {
@@ -452,7 +441,7 @@ public class VerifyValueOnAScreen extends Keyword {
 			} else if (parameters.get(0).equalsIgnoreCase("NIGHT VISION")
 					&& parameters.get(2).equalsIgnoreCase("NIGHT VISION SETTINGS")) {
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
-				if(cs.isNightVisionStatusSetToExpectedInNightVisionScreen(testCase, parameters.get(1))){
+				if (cs.isNightVisionStatusSetToExpectedInNightVisionScreen(testCase, parameters.get(1))) {
 					Keyword.ReportStep_Pass(testCase, "Night Vision status is set to: " + parameters.get(1));
 				} else {
 					flag = false;
@@ -463,7 +452,7 @@ public class VerifyValueOnAScreen extends Keyword {
 					&& parameters.get(2).equalsIgnoreCase("CAMERA SETTINGS")) {
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("AUTO")) {
-					if(cs.isNightVisionStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1))){
+					if (cs.isNightVisionStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1))) {
 						Keyword.ReportStep_Pass(testCase, "Night Vision status is set to: " + parameters.get(1));
 					} else {
 						flag = false;
@@ -471,7 +460,7 @@ public class VerifyValueOnAScreen extends Keyword {
 								"Night Vision status is not set to: " + parameters.get(1));
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("ON")) {
-					if(cs.isNightVisionStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1))){
+					if (cs.isNightVisionStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1))) {
 						Keyword.ReportStep_Pass(testCase, "Night Vision status is set to: " + parameters.get(1));
 					} else {
 						flag = false;
@@ -479,7 +468,7 @@ public class VerifyValueOnAScreen extends Keyword {
 								"Night Vision status is not set to: " + parameters.get(1));
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
-					if(cs.isNightVisionStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1))){
+					if (cs.isNightVisionStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1))) {
 						Keyword.ReportStep_Pass(testCase, "Night Vision status is set to: " + parameters.get(1));
 					} else {
 						flag = false;
@@ -529,7 +518,7 @@ public class VerifyValueOnAScreen extends Keyword {
 			} else if (parameters.get(0).equalsIgnoreCase("VIDEO QUALITY")
 					&& parameters.get(2).equalsIgnoreCase("CAMERA SETTINGS")) {
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
-				if(cs.isVideoQualityStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1))){
+				if (cs.isVideoQualityStatusSetToExpectedInCameraSettingsScreen(testCase, parameters.get(1))) {
 					Keyword.ReportStep_Pass(testCase, "Video Quality status is set to: " + parameters.get(1));
 				} else {
 					flag = false;
@@ -540,14 +529,14 @@ public class VerifyValueOnAScreen extends Keyword {
 					&& parameters.get(2).equalsIgnoreCase("MANAGE ALERTS")) {
 				ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
-					if(ts.isThermostatIndoorTempAlertSwitchEnabled(testCase)){
+					if (ts.isThermostatIndoorTempAlertSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase, "Thermostat Indoor Temperature Alert Toggle is ON");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Thermostat Indoor Temperature Alert Toggle is OFF");
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
-					if(!ts.isThermostatIndoorTempAlertSwitchEnabled(testCase)){
+					if (!ts.isThermostatIndoorTempAlertSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase, "Thermostat Indoor Temperature Alert Toggle is OFF");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -563,7 +552,7 @@ public class VerifyValueOnAScreen extends Keyword {
 				CameraSettingsScreen ts = new CameraSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
 					DASSettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-					if(ts.isCameraFaceDectiontAlertsSwitchEnabled(testCase)){
+					if (ts.isCameraFaceDectiontAlertsSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase, "camera face detection Alert Toggle is ON");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -571,7 +560,7 @@ public class VerifyValueOnAScreen extends Keyword {
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
 					DASSettingsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-					if(!ts.isCameraFaceDectiontAlertsSwitchEnabled(testCase)){
+					if (!ts.isCameraFaceDectiontAlertsSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase, "camera face detection Alert Toggle is OFF");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -586,23 +575,20 @@ public class VerifyValueOnAScreen extends Keyword {
 					&& parameters.get(2).equalsIgnoreCase("MANAGE ALERTS")) {
 				CameraSettingsScreen ts = new CameraSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
-					if(ts.isMotionEventAlertsSwitchEnabled(testCase)) {
+					if (ts.isMotionEventAlertsSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase, "Manage Alert Alert Toggle is ON");
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Manage Alert Toggle is OFF");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Manage Alert Toggle is OFF");
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
-					if(!ts.isMotionEventAlertsSwitchEnabled(testCase)) {
+					if (!ts.isMotionEventAlertsSwitchEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase, "Manage Alert Toggle is OFF");
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Manage Alert Toggle is ON");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Manage Alert Toggle is ON");
 					}
 				} else {
 					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Manage Alert is not displayed");
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Manage Alert is not displayed");
 				}
 			} else if (parameters.get(0).equalsIgnoreCase("INDOOR HUMIDITY ALERT")
 					&& parameters.get(2).equalsIgnoreCase("MANAGE ALERTS")) {
@@ -802,7 +788,7 @@ public class VerifyValueOnAScreen extends Keyword {
 										+ actualThermostatHumidificationValue + " .But "
 										+ Integer.parseInt(
 												inputs.getInputValue("CURRENT_THERMOSTAT_HUMIDIFICATION_VALUE")
-												+ " is displayed."));
+														+ " is displayed."));
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
 					actualThermoHumidificationValueInSettingsScreen = ts
@@ -867,7 +853,7 @@ public class VerifyValueOnAScreen extends Keyword {
 										+ actualThermostatDehumidificationValue + " .But "
 										+ Integer.parseInt(
 												inputs.getInputValue("CURRENT_THERMOSTAT_DEHUMIDIFICATION_VALUE")
-												+ " is displayed."));
+														+ " is displayed."));
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
 					actualThermoDehumidificationValueInSettingsScreen = ts
@@ -1086,7 +1072,8 @@ public class VerifyValueOnAScreen extends Keyword {
 					}
 
 				}
-			} else if (parameters.get(0).equalsIgnoreCase("Email Notifications") && parameters.get(2).equalsIgnoreCase("Manage Alerts Motion Events")) {
+			} else if (parameters.get(0).equalsIgnoreCase("Email Notifications")
+					&& parameters.get(2).equalsIgnoreCase("Manage Alerts Motion Events")) {
 				CameraSettingsScreen bs = new CameraSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
 					if (bs.isMotionEmailNotificationSwitchEnabled(testCase)) {
@@ -1105,48 +1092,57 @@ public class VerifyValueOnAScreen extends Keyword {
 								"Motion Email switch is enabled on Manage Alerts screen");
 					}
 				}
-			}else if (parameters.get(0).equalsIgnoreCase("Geofencing") && parameters.get(2).equalsIgnoreCase("DAS Security settings")) {
+			} else if (parameters.get(0).equalsIgnoreCase("Geofencing")
+					&& (parameters.get(2).equalsIgnoreCase("DAS Security settings")
+							|| parameters.get(2).equalsIgnoreCase("Geofence Settings"))) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
-					if(bs.isGeofencingSwitchEnabled(testCase)){
-						Keyword.ReportStep_Pass(testCase, "Geofencing is enabled on DAS security settings screen");
+					if (bs.isGeofencingSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Geofencing is enabled on DAS Security Settings/Geofence Settings screen");
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to enable Geofencing on DAS security settings screen");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Geofencing is disabled on DAS Security Settings/Geofence Settings screen");
 					}
-				}else if (parameters.get(1).equalsIgnoreCase("OFF")) {
-					if(!bs.isGeofencingSwitchEnabled(testCase)){
-						Keyword.ReportStep_Pass(testCase, "Geofencing is disabled on DAS security settings screen");
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!bs.isGeofencingSwitchEnabled(testCase)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Geofencing is disabled on DAS Security Settings/Geofence Settings screen");
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to disable Geofencing on DAS security settings screen");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Geofencing is enabled on DAS Security Settings/Geofence Settings screen");
 					}
 				}
-			}else if (parameters.get(0).equalsIgnoreCase("ENHANCED DETERRENCE") && parameters.get(2).equalsIgnoreCase("ENHANCED DETERRENCE")) {
+			} else if (parameters.get(0).equalsIgnoreCase("ENHANCED DETERRENCE")
+					&& parameters.get(2).equalsIgnoreCase("ENHANCED DETERRENCE")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
-				switch (parameters.get(1).toUpperCase()){
-				case "PLAY DOG BARK SOUND" :{
+				switch (parameters.get(1).toUpperCase()) {
+				case "PLAY DOG BARK SOUND": {
 					flag &= bs.isPlayDogBarkSoundselected();
 					break;
 				}
-				case "PARTY IS ON" :{
+				case "PARTY IS ON": {
 					flag &= bs.isPartyIsOnselected();
 					break;
 				}
-				case "VACUUM" :{
+				case "VACUUM": {
 					flag &= bs.isVacuumselected();
 					break;
 				}
 				}
-				if(flag){
+				if (flag) {
 					Keyword.ReportStep_Pass(testCase, parameters.get(1) + " selected");
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameters.get(1) + " not selected");
 				}
-					
-			}else if (parameters.get(0).equalsIgnoreCase("outdoor motion viewers on in home mode") && parameters.get(2).equalsIgnoreCase("DAS security settings")) {
+
+			} else if (parameters.get(0).equalsIgnoreCase("outdoor motion viewers on in home mode")
+					&& parameters.get(2).equalsIgnoreCase("DAS security settings")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
 					if (bs.isOutdoorMotionViewersOnInHomeModeSwitchEnabled(testCase)) {
-						Keyword.ReportStep_Pass(testCase, "Outdoor Motion viewers on in home mode switch is enabled on DAS security settings screen");
+						Keyword.ReportStep_Pass(testCase,
+								"Outdoor Motion viewers on in home mode switch is enabled on DAS security settings screen");
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1154,7 +1150,8 @@ public class VerifyValueOnAScreen extends Keyword {
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
 					if (!bs.isOutdoorMotionViewersOnInHomeModeSwitchEnabled(testCase)) {
-						Keyword.ReportStep_Pass(testCase, "Outdoor Motion viewers on in home mode switch is disabled on DAS security settings screen");
+						Keyword.ReportStep_Pass(testCase,
+								"Outdoor Motion viewers on in home mode switch is disabled on DAS security settings screen");
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1162,16 +1159,16 @@ public class VerifyValueOnAScreen extends Keyword {
 					}
 				}
 			}
-			} catch (Exception e) {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
-			}
-			return flag;
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 		}
-
-		@Override
-		@AfterKeyword
-		public boolean postCondition() throws KeywordException {
-			return flag;
-		}
+		return flag;
 	}
+
+	@Override
+	@AfterKeyword
+	public boolean postCondition() throws KeywordException {
+		return flag;
+	}
+}

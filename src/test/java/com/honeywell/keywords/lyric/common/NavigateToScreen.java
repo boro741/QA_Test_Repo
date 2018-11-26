@@ -49,6 +49,7 @@ import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
+import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.ManageUsersScreen;
 import com.honeywell.screens.OSPopUps;
 import com.honeywell.screens.SchedulingScreen;
@@ -3657,6 +3658,27 @@ public class NavigateToScreen extends Keyword {
 						}
 						break;
 					}
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("GEOFENCE SETTINGS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "GEOFENCE RADIUS": {
+					GeofenceSettings gs = new GeofenceSettings(testCase);
+					if (gs.isGeofenceRadiusOptionVisible()) {
+						flag &= gs.clickOnGeofenceRadiusOption();
+						if (gs.isGeofenceRadiusScreenTitleVisible()) {
+							Keyword.ReportStep_Pass(testCase, screen.get(1) + " displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to: " + screen.get(1));
+						}
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input : " + screen.get(0) + " for " + screen.get(1));
 				}
 				}
 			} else {

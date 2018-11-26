@@ -13,7 +13,6 @@ import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 
 public class ActivityLogsScreen extends MobileScreens {
