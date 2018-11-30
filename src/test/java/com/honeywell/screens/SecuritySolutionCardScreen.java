@@ -249,6 +249,10 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	public boolean isLoadingProgressVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LoadingProgressBar");
 	}
+	
+	public boolean ispleaseWaitProgressVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LoadingProgressBar");
+	}
 
 	public boolean isSetToOffPopupVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SetToOffPopupTitle");

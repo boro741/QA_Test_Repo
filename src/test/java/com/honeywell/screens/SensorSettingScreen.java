@@ -164,6 +164,8 @@ public class SensorSettingScreen extends MobileScreens {
 
 	public boolean clickOnSensorNotWorking() {
 		DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 2);
+		MobileUtils.clickOnElement(objectDefinition, testCase, "SensorNotWorkingButton");
+		DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 2);
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorNotWorkingButton");
 	}
 
@@ -217,7 +219,7 @@ public class SensorSettingScreen extends MobileScreens {
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		try {
 			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-					.release().perform();
+			.release().perform();
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", "Get additional help");
 			} else {
@@ -281,7 +283,7 @@ public class SensorSettingScreen extends MobileScreens {
 				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 				TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 				touchAction.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-						.release().perform();
+				.release().perform();
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "name", "Get Additional Help");
 			}
 		} catch (Exception e) {
@@ -379,6 +381,8 @@ public class SensorSettingScreen extends MobileScreens {
 	}
 
 	public boolean clickOnTestSensorBack() {
+		MobileUtils.clickOnElement(objectDefinition, testCase, "TestSensorBack");
+		DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 2);
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "TestSensorBack");
 	}
 
@@ -395,12 +399,17 @@ public class SensorSettingScreen extends MobileScreens {
 	}
 
 	public boolean isSensorTamperedScreenDisplayed() {
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorTamperScreen")
-				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "ClearTamperButton")) {
-			return true;
-		} else {
-			return false;
-		}
+		boolean flag = false;
+		if (testCase.getMobileDriver().getPlatformName().contains("Android")){
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorTamperScreen")
+					&& MobileUtils.isMobElementExists(objectDefinition, testCase, "ClearTamperButton")) {
+				flag = true;
+			}
+		}else if (testCase.getMobileDriver().findElementByXPath("//XCUIElementTypeStaticText[@value='Sensor Cover Tamper']") != null
+				) {
+			flag = true;
+		} 
+		return flag;
 	}
 
 	public boolean isSensorTamperClearPopupDisplayed(int timeOut) {
@@ -490,18 +499,18 @@ public class SensorSettingScreen extends MobileScreens {
 			SensorName = "Motion Sensor";
 			inputs.setInputValue(DASInputVariables.MOTIONSENSORTYPE, DASInputVariables.MOTIONSENSOR);
 		} /*
-			 * else if (SensorType.toLowerCase().contains("access sensor")) { SensorName =
-			 * "Access Sensor"; inputs.setInputValue(DASInputVariables.ACCESSSENSORTYPE,
-			 * DASInputVariables.ACCESSSENSOR); serialNo =
-			 * RelayConstants.RSI_Contact_Sensor_1_SerialNO; SensorName = "Access Sensor";
-			 * System.out.println("###########Access Sensor Serial No: " + serialNo); }
-			 */ else if (SensorType.toLowerCase().contains("ismv")) {
-			SensorName = "Indoor Motion Viewers";
-			inputs.setInputValue(DASInputVariables.ISMVMOTIONSENSORTYPE, DASInputVariables.ISMVMOTIONSENSOR);
-		} else if (SensorType.toLowerCase().contains("osmv")) {
-			SensorName = "Outdoor Motion Viewers";
-			inputs.setInputValue(DASInputVariables.OSMVMOTIONSENSORTYPE, DASInputVariables.OSMVMOTIONSENSOR);
-		}
+		 * else if (SensorType.toLowerCase().contains("access sensor")) { SensorName =
+		 * "Access Sensor"; inputs.setInputValue(DASInputVariables.ACCESSSENSORTYPE,
+		 * DASInputVariables.ACCESSSENSOR); serialNo =
+		 * RelayConstants.RSI_Contact_Sensor_1_SerialNO; SensorName = "Access Sensor";
+		 * System.out.println("###########Access Sensor Serial No: " + serialNo); }
+		 */ else if (SensorType.toLowerCase().contains("ismv")) {
+			 SensorName = "Indoor Motion Viewers";
+			 inputs.setInputValue(DASInputVariables.ISMVMOTIONSENSORTYPE, DASInputVariables.ISMVMOTIONSENSOR);
+		 } else if (SensorType.toLowerCase().contains("osmv")) {
+			 SensorName = "Outdoor Motion Viewers";
+			 inputs.setInputValue(DASInputVariables.OSMVMOTIONSENSORTYPE, DASInputVariables.OSMVMOTIONSENSOR);
+		 }
 		if (SensorType.toLowerCase().contains("keyfob")) {
 			SensorName = "Key Fob";
 			serialNo = RelayConstants.RSI_Keyfob_1_SerialNO;
@@ -549,9 +558,9 @@ public class SensorSettingScreen extends MobileScreens {
 					while ((MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeTable", testCase))
 							&& counter < 10) {
 						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						try {
 							TimeUnit.SECONDS.sleep(3);
 						} catch (InterruptedException e) {
@@ -562,16 +571,16 @@ public class SensorSettingScreen extends MobileScreens {
 
 						if (MobileUtils.isMobElementExists("xpath",
 								"//*[contains(@" + locator + ",'" + SensorName
-										+ "')]/following-sibling::XCUIElementTypeStaticText[contains(@value,'"
-										+ serialNo + "')]",
+								+ "')]/following-sibling::XCUIElementTypeStaticText[contains(@value,'"
+								+ serialNo + "')]",
 								testCase, 10)) {
 							MobileUtils.clickOnElement(testCase, "xpath",
 									"//*[contains(@" + locator + ",'" + SensorName + "')]");
 							Keyword.ReportStep_Pass(testCase, "Clicked on sensor");
 							if (MobileUtils.clickOnElement(testCase, "xpath",
 									"//*[contains(@" + locator + ",'" + SensorName
-											+ "')]/following-sibling::XCUIElementTypeStaticText[contains(@value,'"
-											+ serialNo + "')]")) {
+									+ "')]/following-sibling::XCUIElementTypeStaticText[contains(@value,'"
+									+ serialNo + "')]")) {
 								System.out.println("located sensor with serial number");
 
 								if (MobileUtils.isMobElementExists("xpath", "//*[contains(@" + locator + ",'"
@@ -709,9 +718,9 @@ public class SensorSettingScreen extends MobileScreens {
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		try {
 			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-					.release().perform();
+			.release().perform();
 			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-					.release().perform();
+			.release().perform();
 			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 				try {
 					TimeUnit.SECONDS.sleep(4);
@@ -841,9 +850,9 @@ public class SensorSettingScreen extends MobileScreens {
 		Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 		if (testCase.getPlatform().contains("IOS")) {
 			action.press(10, (int) (dimensions.getHeight() * .9)).moveTo(0, -(int) (dimensions.getHeight() * .6))
-					.release().perform();
+			.release().perform();
 			action.press(10, (int) (dimensions.getHeight() * .9)).moveTo(0, -(int) (dimensions.getHeight() * .6))
-					.release().perform();
+			.release().perform();
 			return MobileUtils.isMobElementExists("xpath", "//*[@" + locator + "='" + SensorName
 					+ "']/following-sibling::XCUIElementTypeStaticText[contains(@" + locator + ",'" + state + "')]",
 					testCase, 10);
