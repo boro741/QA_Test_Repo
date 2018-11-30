@@ -35,6 +35,12 @@ public class SwitchDASStates extends Keyword {
 	@KeywordStep(gherkins = "^user switches from \"(.*)\" to \"(.*)\"$")
 	public boolean keywordSteps() {
 		SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
+		try {
+			Thread.sleep(15000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String currentStatus = sc.getCurrentSecurityState();
 		System.out.println("#############currentStatus: " + currentStatus);
 		if (states.get(0).equalsIgnoreCase("Home")) {
