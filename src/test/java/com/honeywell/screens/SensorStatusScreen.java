@@ -102,6 +102,7 @@ public class SensorStatusScreen extends MobileScreens {
 					}
 					System.out.println("Sensor status");
 					// Sensor status
+					System.out.println("//*[contains(@name,'SensorStatus_" + i + "_Image')]");
 					if (MobileUtils.isMobElementExists("xpath", "//*[contains(@name,'SensorStatus_" + i + "_Image')]",
 							testCase, 10)) {
 						MobileUtils.clickOnElement(testCase, "xpath",

@@ -421,7 +421,7 @@ And user "closes" activity log
 Examples: 
 |Mode|Sensor|SensorOpenNotification|SensorStatusOnSolutionCard|ActivitySensorOpen|ActivitySensorClosed|
 |Off|Door Sensor|Door Opened|Front Door Open|DOOR OPENED AT OFF MODE|DOOR CLOSED AT OFF MODE|
-|Off|Window Sensor|Window Opened|Window Open|WINDOW OPENED AT OFF MODE|WINDOW CLOSED AT OFF MODE|
+#|Off|Window Sensor|Window Opened|Window Open|WINDOW OPENED AT OFF MODE|WINDOW CLOSED AT OFF MODE|
 
 @ContactSensorstatusPriority @P2    @UIAutomated @--xrayid:ATER-54940
 Scenario Outline: As a user I want to shown with sensors status based on priority when sensor with multiple status
@@ -705,7 +705,7 @@ Then user should not be displayed with Alarm screen
 Examples: 
 |Sensor       |
 |Motion Sensor|
-|ISMV Sensor  |
+#|ISMV Sensor  |
 
 @commandandcontrolExitdelayFault   @UIAutomated @--xrayid:ATER-54959
 Scenario Outline: As a user should not be get alarm during exit delay and my contact sensor is faulted
@@ -799,7 +799,7 @@ And user status should be set to "Away"
 Scenario Outline: As a user I should be able to cancel the switching away request
 Given user sets the entry/exit timer to "60" seconds 
 When user launches and logs in to the Lyric application
-And user is set to <Mode> through CHIL
+And user is set to <Mode> mode through CHIL
 When user navigates to "Security Solution Card" screen from the "Dashboard" screen
 And user switches from <Mode> to "Away"
 Then user should be displayed with a "Switching to Away" text
@@ -823,7 +823,7 @@ When user taps on "Cancel"
 Examples: 
 |Mode|
 |Home|
-|Off |
+#|Off |
 
 @CancelSwitchingModeNight   @UIAutomated @--xrayid:ATER-54965
 Scenario Outline: As a user I should be able to cancel the switching away request
@@ -853,7 +853,7 @@ When user taps on "Cancel"
 Examples: 
 |Mode|
 |Home|
-|Off |
+#|Off |
 
 @OutdoorMotionViewer_VideoClip   @NotAutomatable @--xrayid:ATER-54966
 Scenario: As a user when motion detected after exit delay irrespective of exit timer, I should have clips generated for 30sec (landscape, download)
