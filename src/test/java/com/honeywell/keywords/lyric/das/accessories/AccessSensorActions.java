@@ -88,6 +88,17 @@ public class AccessSensorActions extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Input not handled");
 				}
 
+			}else if (states.get(0).equalsIgnoreCase("motion") || states.get(0).equalsIgnoreCase("motion sensor")) {
+				if (states.get(1).equalsIgnoreCase("opened") || states.get(1).equalsIgnoreCase("open")) {
+					DASSensorUtils.openMotionSensor(testCase, inputs);
+				} else if (states.get(1).equalsIgnoreCase("closed")) {
+					DASSensorUtils.closeMotionSensor(testCase, inputs);
+				} else if (states.get(1).equalsIgnoreCase("Tampered")
+						|| states.get(1).equalsIgnoreCase("Cover Tampered")) {
+					DASSensorUtils.tamperMotionSensor(testCase, inputs);
+				} else if (states.get(1).equalsIgnoreCase("Tamper CLEARED")) {
+					DASSensorUtils.tamperClearMotionSensor(testCase, inputs);
+				}
 			}
 
 		} catch (Throwable e) {

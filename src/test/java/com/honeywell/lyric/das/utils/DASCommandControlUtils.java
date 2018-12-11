@@ -59,7 +59,7 @@ public class DASCommandControlUtils {
 	public static boolean verifySwitchToAwayPopupIsNotDisplayed(TestCases testCase) {
 		boolean flag = true;
 		SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
-		if (sc.isSwitchToAwayPopupVisible(5)) {
+		if (sc.isSwitchToAwayPopupVisible(15)) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Switch to away popup is still displayed");
 		} else {
