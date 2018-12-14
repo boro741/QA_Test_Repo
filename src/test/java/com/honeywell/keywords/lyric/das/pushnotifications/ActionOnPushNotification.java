@@ -231,6 +231,12 @@ public class ActionOnPushNotification extends Keyword {
 		} else {
 			locatorValue = "//XCUIElementTypeCell[contains(@label,'" + notification + "')]";
 		}
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (testCase.getMobileDriver().findElementsByXPath(locatorValue).get(0) != null) {
 			Keyword.ReportStep_Pass(testCase, "'" + notification + "' Push Notification Present");
 			WebElement ele = testCase.getMobileDriver().findElementsByXPath(locatorValue).get(0);

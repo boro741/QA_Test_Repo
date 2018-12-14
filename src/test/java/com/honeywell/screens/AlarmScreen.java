@@ -94,8 +94,8 @@ public class AlarmScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LoadingProgressBar");
 	}
 
-	public boolean isWaitingToCloseScreenDisplayed() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WaitingToCloseDoor");
+	public boolean isWaitingToCloseScreenDisplayed(int timeout) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WaitingToCloseDoor",timeout);
 	}
 
 	public boolean isCallScreenDisplayed() {
