@@ -138,7 +138,7 @@ public class VerifyScreen extends Keyword {
 			}
 			case "WAITING TO CLOSE": {
 				AlarmScreen alarmScreen = new AlarmScreen(testCase);
-				if (alarmScreen.isWaitingToCloseScreenDisplayed()) {
+				if (alarmScreen.isWaitingToCloseScreenDisplayed(30)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Successfully displayed with " + expectedScreen.get(0).toUpperCase() + " screen");
 				} else {

@@ -117,7 +117,7 @@ public class DASAlarmUtils {
 
 	public static boolean verifyAlarmScreenDisplayed(TestCases testCase) {
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);
-		return alarmScreen.isAlarmScreenDisplayed(30);
+		return alarmScreen.isAlarmScreenDisplayed(60);
 
 	}
 

@@ -24,7 +24,7 @@ public class DASActivityLogsUtils {
 	public static boolean openActivityLogs(TestCases testCase) throws Exception {
 		boolean flag = true;
 		ActivityLogsScreen al = new ActivityLogsScreen(testCase);
-		if (al.isOpenActivityLogsIconVisible()) {
+		if (al.isOpenActivityLogsIconVisible(15)) {
 			al.clickOnOpenActivityLogsIcon();
 		}
 		return flag;

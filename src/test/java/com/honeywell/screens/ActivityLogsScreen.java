@@ -27,9 +27,9 @@ public class ActivityLogsScreen extends MobileScreens {
 		super(testCase, screenName);
 	}
 
-	public boolean isOpenActivityLogsIconVisible() throws Exception {
+	public boolean isOpenActivityLogsIconVisible(int timeout) throws Exception {
 		boolean flag = true;
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AcitvityLogScrollUp")) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AcitvityLogScrollUp",timeout)) {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "AcitvityLogScrollUp");
 		} else {
 			try {

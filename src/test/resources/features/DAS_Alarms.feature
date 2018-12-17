@@ -382,22 +382,22 @@ Given user is set to "Home" mode through CHIL
       And user launches and logs in to the Lyric application
       And user clears all push notifications
      When user navigates to "Security Solution card" screen from the "Dashboard" screen
-      And user switches from "Home" to "Away"
+      And user switches from "Home" to "Night"
       And  user "door" access sensor "opened"
       And timer ends on user device
      #verify the entry delay status on dashboard
       And user selects "Switch to Night" from "Entry delay" screen
-     Then user should be displayed with the "Waiting to close" screen
+     #Then user should be displayed with the "Waiting to close" screen
      When user "door" access sensor "is not closed"
       And user should be displayed with the "Alarm" screen
      When user selects "dismiss alarm" from "alarm" screen
-     When user navigates to "Security Solution card" screen from the "Dashboard" screen
+    # When user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to "Home"
      When user "opens" activity log
      Then verify the following activity log:
        | Elements                 |
-       | DOOR SENSOR ALARM AT AWAY MODE|
-       | ALARM AT AWAY MODE |
+       | DOOR SENSOR ALARM AT NIGHT MODE|
+       | ALARM AT NIGHT MODE |
        | Alarm Dismissed |
        |Switched to Home by app|
       When user "closes" activity log
@@ -410,19 +410,19 @@ Given user is set to "Home" mode through CHIL
       And user launches and logs in to the Lyric application
       #And user clears all push notifications
      When user navigates to "Security Solution card" screen from the "Dashboard" screen
-      And user switches from "Home" to "Away"
+      And user switches from "Home" to "Night"
       And user "door" access sensor "opened"
       And timer ends on user device
       And user "door" access sensor "closed"
       And user selects "Switch to Night" from "Entry delay" screen
       And timer ends on user device
-      And user navigates to "Security Solution card" screen from the "Dashboard" screen
+      #And user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to "Night"
      When user "opens" activity log
      Then verify the following activity log:
        | Elements                 |
-       | Door Opened at Away mode|
-       | Door Closed at Away mode |
+       | Door Opened at Night mode|
+       | Door Closed at Night mode |
        | Switched to Night by app |
  
  
@@ -1147,7 +1147,6 @@ Given user is set to "Home" mode through CHIL
    	 Then user should be displayed with the "Alarm" screen
    	 When user selects "dismiss alarm" from "alarm" screen
    	  When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
-     When user "door" access sensor "tamper restored"
      When user "opens" activity log
      Then verify the following activity log:
        | Elements                 | 
@@ -1155,6 +1154,8 @@ Given user is set to "Home" mode through CHIL
        |DOOR SENSOR ALARM AT AWAY MODE |
        |DOOR SENSOR TAMPER CLEARED AT AWAY MODE|
      And user "closes" activity log
+     When user "door" access sensor "tamper restored"
+     
      
      
      @DoorSensor_TamperAfterNightModeExitDelay 				@P2 					@DAS_DoorSensor 					@Automated
@@ -1167,7 +1168,6 @@ Given user is set to "Home" mode through CHIL
      When user selects "dismiss alarm" from "alarm" screen
       And user navigates to "Security Solution card" screen from the "Dashboard" screen
        When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
-       When user "door" access sensor "tamper restored"
        When user navigates to "Security Solution Card" screen from the "Sensor Status" screen
      When user "opens" activity log
       Then verify the following activity log:
@@ -1175,6 +1175,8 @@ Given user is set to "Home" mode through CHIL
        |DOOR SENSOR TAMPERED AT NIGHT MODE|
        |DOOR SENSOR ALARM AT NIGHT MODE |
        |DOOR SENSOR TAMPER CLEARED AT NIGHT MODE|
+       When user "door" access sensor "tamper restored"
+       
       
        @WindowSensor_TamperDuringAwayModeExitDelay 					@P3 						@DAS_WindowSensor 					@Automated
       Scenario: 39 As a user when the window is tampered in Away exit delay I should be notified with alarm 
