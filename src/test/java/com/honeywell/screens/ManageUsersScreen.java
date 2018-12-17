@@ -195,13 +195,14 @@ public class ManageUsersScreen extends MobileScreens {
 	}
 	
 	public boolean isInvitieUserScreenSubTitleVisible() {
-		// return MobileUtils.isMobElementExists(objectDefinition, testCase, "InvitieUserScreenSubTitle");
+		// return MobileUtils.isMobElementExists(objectDefinition, testCase,
+		// "InvitieUserScreenSubTitle");
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.isMobElementExists("XPATH",
-					"//android.widget.TextView[@text='Who would you like to invite to Home?']", testCase);
+					"//android.widget.TextView[contains(@text,'Who would you like to invite to')]", testCase);
 		} else {
 			return MobileUtils.isMobElementExists("XPATH",
-					"//XCUIElementTypeStaticText[@name='Who would you like to invite to Home?']", testCase);
+					"//XCUIElementTypeStaticText[contains(@name,'Who would you like to invite to')]", testCase);
 		}
 	}
 	
@@ -265,17 +266,25 @@ public class ManageUsersScreen extends MobileScreens {
 			 */
 			flag &= MobileUtils.setValueToElement(testCase, "ID", "fragment_invite_user_email_edit_text",
 					inviteEmailAddress);
-			System.out.println("######dimensions.width:- " + dimensions.width);
+			System.out.println("######dimensions.width:a- " + dimensions.width);
 			System.out.println("######dimensions.height:- " + dimensions.height);
 			System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
 			System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
 			touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			MobileUtils.hideKeyboard(testCase.getMobileDriver(),
+					"Hide Android Keyboard for Email Address text field in Invite User Screen");
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				if (MobileUtils.isMobElementExists("XPATH", "//android.widget.TextView[@text='User Sync Pending']",
 						testCase)) {
 					Keyword.ReportStep_Pass(testCase,
 							"User Sync Pending popup is displayed. Click on OK button in the popup.");
 					MobileUtils.clickOnElement(testCase, "ID", "button1");
+				} else {
+					Keyword.ReportStep_Pass(testCase,
+							"User Sync Pending popup is not displayed. Click on Send button in the Invite User screen.");
+				}
+				if (this.isSendButtonEnabled()) {
+					flag &= this.clickOnSendButton();
 				}
 			}
 			return flag;
@@ -363,9 +372,9 @@ public class ManageUsersScreen extends MobileScreens {
 						flag = true;
 						TouchAction t1 = new TouchAction(testCase.getMobileDriver());
 						t1.longPress(ele).perform();
-						if (MobileUtils.isMobElementExists("XPATH", "//android.widget.TextView[@text='Remove Users']",
+						if (MobileUtils.isMobElementExists("XPATH", "//android.widget.TextView[@text='Remove User']",
 								testCase)) {
-							MobileUtils.clickOnElement(testCase, "XPATH", "//android.widget.TextView[@text='Remove Users']");
+							MobileUtils.clickOnElement(testCase, "XPATH", "//android.widget.TextView[@text='Remove User']");
 						}
 					}
 				}

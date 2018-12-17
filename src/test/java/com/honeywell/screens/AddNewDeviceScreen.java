@@ -102,6 +102,10 @@ public class AddNewDeviceScreen extends MobileScreens {
 	public boolean isCurrentCountryButtonVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CurrentCountryButton");
 	}
+	
+	public boolean clickOnCurrentCountryButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CurrentCountryButton");
+	}
 
 	public boolean isEnterCountryTextFieldVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EnterCountryTextField");

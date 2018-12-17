@@ -37,7 +37,7 @@ public class EnterNewLocationAndDeviceName extends Keyword {
 
 		if (inputName.get(1).equalsIgnoreCase("CREATE LOCATION")) {
 			inputs.setInputValue("LOCATION1_NAME", inputName.get(0));
-			flag = flag & DIYRegistrationUtils.inputNewLocationName(testCase, inputName.get(0));
+			flag = flag & DIYRegistrationUtils.inputNewLocationName(testCase, inputs, inputName.get(0));
 		} else if (inputName.get(1).equalsIgnoreCase("NAME YOUR LOCATION")) {
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 			inputs.setInputValue("LOCATION1_NAME", inputName.get(0));

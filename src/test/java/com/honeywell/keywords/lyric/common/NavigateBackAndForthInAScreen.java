@@ -1,4 +1,4 @@
-package com.honeywell.keywords.lyric.camerasettings;
+package com.honeywell.keywords.lyric.common;
 
 import io.appium.java_client.TouchAction;
 
@@ -16,6 +16,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
+import com.honeywell.screens.FAQsScreen;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.VacationHoldScreen;
 
@@ -44,6 +45,7 @@ public class NavigateBackAndForthInAScreen extends Keyword {
 		BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 		PrimaryCard pc = new PrimaryCard(testCase);
 		VacationHoldScreen vhs = new VacationHoldScreen(testCase);
+		FAQsScreen faqsScreen = new FAQsScreen(testCase);
 		switch (expectedOption.get(0).toUpperCase()) {
 		case "MANAGE ALERTS": {
 			cs.navigateBackAndForthInManageAlertsScreen(testCase);
@@ -91,6 +93,31 @@ public class NavigateBackAndForthInAScreen extends Keyword {
 					action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
 							.release().perform();
 				}
+			}
+			break;
+		}
+		case "QUESTION": {
+			if (faqsScreen.isBackButtonInFAQsScreenVisible()) {
+				flag &= faqsScreen.cliciOnBackButtonInFAQsScreen();
+				if (faqsScreen.isFirstQuestionDisplayedInGeneralScreenVisible()) {
+					flag &= faqsScreen.clickOnFirstQuestionDisplayedInGeneralScreen();
+					if (faqsScreen.isBackButtonInFAQsScreenVisible()
+							&& faqsScreen.isQuestionTitleInQuestionScreenVisible()
+							&& faqsScreen.isAnswerToTheQuestionAskedInQuestionScreenVisible()
+							&& faqsScreen.getQuestionTitleInQuestionScreen()
+									.equalsIgnoreCase(inputs.getInputValue("FIRST_QUESTION_IN_GENERAL_SCREEN"))) {
+						Keyword.ReportStep_Pass(testCase, "Navigated to Question Screen");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to navigate to Question Screen");
+					}
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Question not dispalyed in FAQs General Screen");
+				}
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Back button not displayed in Question Screen");
 			}
 			break;
 		}

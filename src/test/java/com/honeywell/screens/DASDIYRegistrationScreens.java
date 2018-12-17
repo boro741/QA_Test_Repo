@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 
 import com.honeywell.commons.coreframework.Keyword;
+import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
@@ -131,7 +132,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		}
 	}
 
-	public boolean enterCustomLocationName(String customLocationNameText) {
+	public boolean enterCustomLocationName(TestCaseInputs inputs, String customLocationNameText) {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "CustomeLocationTextField",
@@ -143,6 +144,17 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 			System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
 			System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
 			touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			if (inputs.isRunningOn("Perfecto")) {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					testCase.getMobileDriver().findElement(By.xpath("//*[@text='English (US)']")).click();
+					System.out.println("######dimensions.width:- " + dimensions.width);
+					System.out.println("######dimensions.height:- " + dimensions.height);
+					System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
+					System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
+					touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+					touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+				}
+			}
 			return flag;
 		} else {
 			flag = flag & MobileUtils.setValueToElement(testCase, "XPATH", "//XCUIElementTypeTextField",
@@ -1914,8 +1926,9 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		boolean flag = true;
 		if (this.isDeviceListHeaderTitleVisible()) {
 			Keyword.ReportStep_Pass(testCase, "Device list is displayed in Add New Device Screen");
-			if (this.isCancelButtonInAddANetworkScreenVisible()) {
-				Keyword.ReportStep_Pass(testCase, "Cancel button is displayed in Add New Device Screen");
+			if (this.isCancelButtonInAddNewDeviceScreenVisible()) {
+				Keyword.ReportStep_Pass(testCase,
+						"Cancel button in iOS and Back arrow in Android is displayed in Add New Device Screen");
 				if (this.isAddNewDeviceScreenVisible(1)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Add New Device Header title is displayed in Add New Device Screen");
@@ -1935,7 +1948,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Cancel button is not displayed in Add New Device Screen");
+						"Cancel button in iOS and Back arrow in Android is displayed in Add New Device Screen");
 			}
 		} else {
 			flag = false;

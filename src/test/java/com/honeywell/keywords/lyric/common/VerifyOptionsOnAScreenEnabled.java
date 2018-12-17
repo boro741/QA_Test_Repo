@@ -16,10 +16,13 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.GlobalVariables;
+import com.honeywell.screens.AboutTheAppScreen;
 import com.honeywell.screens.ActivityHistoryScreen;
+import com.honeywell.screens.AddressScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.EditAccountScreen;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.ThermostatSettingsScreen;
 
@@ -109,7 +112,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 						action.press(10, (int) (dimension.getHeight() * .9))
-						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 					} else {
 						int startx = (dimension.width * 20) / 100;
 						int starty = (dimension.height * 62) / 100;
@@ -190,7 +193,8 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							" The " + parameter + " has not Enabled");
 				}
-			}break;
+			}
+			break;
 		}
 		case "DAS SECURITY SETTINGS": {
 			BaseStationSettingsScreen cs = new BaseStationSettingsScreen(testCase);
@@ -231,7 +235,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
 						action.press(10, (int) (dimension.getHeight() * .9))
-						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 					}
 					flag &= cs.isOutdoorMotionViewerOnInHomeModeEnabled();
 					flag &= cs.isOutdoorMotionViewerOnInHomeModeDescriptionEnabled();
@@ -240,7 +244,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 				case "ENTRY/EXIT DELAY": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
-					if(!cs.isEntryExitDelayVisible()){
+					if (!cs.isEntryExitDelayVisible()) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimension.width * 20) / 100;
 							int starty = (dimension.height * 62) / 100;
@@ -250,7 +254,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
 							action.press(10, (int) (dimension.getHeight() * .9))
-							.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						}
 					}
 					flag &= cs.isEntryExitDelayEnabled();
@@ -260,7 +264,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 				case "ABOUT SECURITY MODES": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
-					if(!cs.isAboutSecurityModesVisible()){
+					if (!cs.isAboutSecurityModesVisible()) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimension.width * 20) / 100;
 							int starty = (dimension.height * 62) / 100;
@@ -270,7 +274,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
 							action.press(10, (int) (dimension.getHeight() * .9))
-							.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						}
 					}
 					flag &= cs.isAboutSecurityModesEnabled();
@@ -279,7 +283,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 				case "KEY FOB": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
-					if(!cs.isKeyFobVisible()){
+					if (!cs.isKeyFobVisible()) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimension.width * 20) / 100;
 							int starty = (dimension.height * 62) / 100;
@@ -289,7 +293,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
 							action.press(10, (int) (dimension.getHeight() * .9))
-							.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						}
 					}
 					flag &= cs.isKeyFobEnabled();
@@ -298,7 +302,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 				case "SENSORS": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
-					if(!cs.isSensorsOptionVisible()){
+					if (!cs.isSensorsOptionVisible()) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimension.width * 20) / 100;
 							int starty = (dimension.height * 62) / 100;
@@ -308,7 +312,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
 							action.press(10, (int) (dimension.getHeight() * .9))
-							.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						}
 					}
 					flag &= cs.isSensorsOptionEnabled();
@@ -317,7 +321,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 				case "Z-WAVE DEVICES": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
-					if(!cs.isZwaveDevicesVisible()){
+					if (!cs.isZwaveDevicesVisible()) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimension.width * 20) / 100;
 							int starty = (dimension.height * 62) / 100;
@@ -327,7 +331,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
 							action.press(10, (int) (dimension.getHeight() * .9))
-							.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						}
 					}
 					flag &= cs.isZwaveDevicesEnabled();
@@ -336,7 +340,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 				case "BASE STATION VOLUME": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
-					if(!cs.isBaseStationVolumeValueVisible()){
+					if (!cs.isBaseStationVolumeValueVisible()) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimension.width * 20) / 100;
 							int starty = (dimension.height * 62) / 100;
@@ -346,7 +350,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
 							action.press(10, (int) (dimension.getHeight() * .9))
-							.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						}
 					}
 					flag &= cs.isBaseStationVolumeEnabled();
@@ -355,7 +359,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 				case "RESET WI-FI": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
-					if(!cs.isBaseStationResetWifiVisible()){
+					if (!cs.isBaseStationResetWifiVisible()) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimension.width * 20) / 100;
 							int starty = (dimension.height * 62) / 100;
@@ -365,7 +369,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
 							action.press(10, (int) (dimension.getHeight() * .9))
-							.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						}
 					}
 					flag &= cs.isBaseStationResetWifiEnabled();
@@ -374,7 +378,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 				case "BASE STATION CONFIGURATION": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
-					if(!cs.isBaseStationConfigurationsOptionVisible()){
+					if (!cs.isBaseStationConfigurationsOptionVisible()) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimension.width * 20) / 100;
 							int starty = (dimension.height * 62) / 100;
@@ -384,7 +388,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
 							action.press(10, (int) (dimension.getHeight() * .9))
-							.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						}
 					}
 					flag &= cs.isBaseStationConfigurationEnabled();
@@ -403,29 +407,35 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							" Option " + parameter + " is not enabled");
 				}
-			}break;
+			}
+			break;
 		}
-		case "SECURITY MANAGE ALERTS" :{
+		case "SECURITY MANAGE ALERTS": {
 			BaseStationSettingsScreen cs = new BaseStationSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String parameter = data.getData(i, "Alerts");
 				switch (parameter.toUpperCase()) {
 				case "SECURITY MODE CHANGE": {
-					if(cs.isSecurityModeChangeEnabled() && cs.isSecurityModeChangeDescription()){
+					if (cs.isSecurityModeChangeEnabled() && cs.isSecurityModeChangeDescription()) {
 						Keyword.ReportStep_Pass(testCase, "Security Mode cange Alert Enabled");
-					}else{
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Security Mode change alert disabled or not dispalyed");
-					}break;
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Security Mode change alert disabled or not dispalyed");
+					}
+					break;
 				}
-				case "DOOR AND WINDOWS" : {
-					if(cs.isSecurityModeDoorAndWindowEnabled()){
+				case "DOOR AND WINDOWS": {
+					if (cs.isSecurityModeDoorAndWindowEnabled()) {
 						Keyword.ReportStep_Pass(testCase, "Security Mode cange Alert Enabled");
-					}else{
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Security Mode change alert disabled or not dispalyed");
-					}break;
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Security Mode change alert disabled or not dispalyed");
+					}
+					break;
 				}
 				}
-			}break;
+			}
+			break;
 		}
 		case "MOTION DETECTION": {
 			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
@@ -451,13 +461,14 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
 						action.press(10, (int) (dimension.getHeight() * .9))
-						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
-					}	
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+					}
 					if (cs.isMotionSensitivityEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase, "Motion Sensitivity section is enabled");
 					} else {
 						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,"Motion Sensitivity section is disabled");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Motion Sensitivity section is disabled");
 					}
 				}
 			}
@@ -507,8 +518,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 								"Motion Detection section is disabled");
 					}
 
-				}
-				else if (fieldToBeVerified.equalsIgnoreCase("UP STEPPER")) {
+				} else if (fieldToBeVerified.equalsIgnoreCase("UP STEPPER")) {
 					DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 					HashMap<String, String> setPoints = new HashMap<String, String>();
 					String CurrentUnits = null;
@@ -516,14 +526,14 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 					try {
 						setPoints = statInfo.getDeviceMaxMinSetPoints();
 						CurrentUnits = statInfo.getThermostatUnits();
-						
+
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 					String CurrentSetPoint = statInfo.getCurrentSetPoints();
 					if (statInfo.getThermoStatMode().equalsIgnoreCase("Heat")) {
-						if (CurrentUnits.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)){
-							 maxHeat = setPoints.get("MaxHeat").split("\\.")[0];
+						if (CurrentUnits.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+							maxHeat = setPoints.get("MaxHeat").split("\\.")[0];
 						} else {
 							maxHeat = setPoints.get("MaxHeat");
 						}
@@ -536,7 +546,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"UP Stepper Element is not enabled");
 							}
-						}else if (maxHeat.equals(CurrentSetPoint)) {
+						} else if (maxHeat.equals(CurrentSetPoint)) {
 							if (!thermo.isUPStepperElementEnabled()) {
 								Keyword.ReportStep_Pass(testCase, "UP Stepper Element is disabled");
 							} else {
@@ -545,9 +555,9 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 										"UP Stepper Element is not disabled");
 							}
 						}
-					}else if (statInfo.getThermoStatMode().equalsIgnoreCase("cool")) {
-						if (CurrentUnits.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)){
-							maxCool = setPoints.get("MaxCool").split("\\.")[0];	
+					} else if (statInfo.getThermoStatMode().equalsIgnoreCase("cool")) {
+						if (CurrentUnits.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+							maxCool = setPoints.get("MaxCool").split("\\.")[0];
 						} else {
 							maxCool = setPoints.get("MaxCool");
 						}
@@ -559,7 +569,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"UP Stepper Element is not enabled");
 							}
-						}else if (maxCool.equals(CurrentSetPoint)) {
+						} else if (maxCool.equals(CurrentSetPoint)) {
 							if (!thermo.isUPStepperElementEnabled()) {
 								Keyword.ReportStep_Pass(testCase, "UP Stepper Element is disabled");
 							} else {
@@ -570,8 +580,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 						}
 					}
 
-				} 
-				else if (fieldToBeVerified.equalsIgnoreCase("DOWN STEPPER")) {
+				} else if (fieldToBeVerified.equalsIgnoreCase("DOWN STEPPER")) {
 					DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 					HashMap<String, String> setPoints = new HashMap<String, String>();
 					String CurrentUnits = null;
@@ -579,14 +588,14 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 					try {
 						setPoints = statInfo.getDeviceMaxMinSetPoints();
 						CurrentUnits = statInfo.getThermostatUnits();
-						
+
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 					String CurrentSetPoint = statInfo.getCurrentSetPoints();
 					if (statInfo.getThermoStatMode().equalsIgnoreCase("Heat")) {
-						
-						if (CurrentUnits.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)){
+
+						if (CurrentUnits.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
 							minHeat = setPoints.get("MinHeat").split("\\.")[0];
 						} else {
 							minHeat = setPoints.get("MinHeat");
@@ -599,7 +608,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Down Stepper Element is not enabled");
 							}
-						}else if (minHeat.equals(CurrentSetPoint)) {
+						} else if (minHeat.equals(CurrentSetPoint)) {
 							if (!thermo.isDownStepperElementEnabled()) {
 								Keyword.ReportStep_Pass(testCase, "Down Stepper Element is disabled");
 							} else {
@@ -608,9 +617,9 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 										"Down Stepper Element is not disabled");
 							}
 						}
-					}else if (statInfo.getThermoStatMode().equalsIgnoreCase("cool")) {
+					} else if (statInfo.getThermoStatMode().equalsIgnoreCase("cool")) {
 
-						if (CurrentUnits.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)){
+						if (CurrentUnits.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
 							System.out.println(setPoints.get("MinCool"));
 							mincool = setPoints.get("MinCool").split("\\.")[0];
 						} else {
@@ -624,7 +633,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Down Stepper Element is not enabled");
 							}
-						}else if (mincool.equals(CurrentSetPoint)) {
+						} else if (mincool.equals(CurrentSetPoint)) {
 							if (!thermo.isDownStepperElementEnabled()) {
 								Keyword.ReportStep_Pass(testCase, "Down Stepper Element is disabled");
 							} else {
@@ -654,14 +663,14 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 					try {
 						setPoints = statInfo.getDeviceMaxMinSetPoints();
 						CurrentUnits = statInfo.getThermostatUnits();
-						
+
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 					String CurrentSetPoint = statInfo.getCurrentSetPoints();
 					if (statInfo.getThermoStatMode().equalsIgnoreCase("Heat")) {
-						if (CurrentUnits.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)){
-							 maxHeat = setPoints.get("MaxHeat").split("\\.")[0];
+						if (CurrentUnits.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+							maxHeat = setPoints.get("MaxHeat").split("\\.")[0];
 						} else {
 							maxHeat = setPoints.get("MaxHeat");
 						}
@@ -674,7 +683,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"UP Stepper Element is not enabled");
 							}
-						}else if (maxHeat.equals(CurrentSetPoint)) {
+						} else if (maxHeat.equals(CurrentSetPoint)) {
 							if (!thermo.isUPStepperElementEnabled()) {
 								Keyword.ReportStep_Pass(testCase, "UP Stepper Element is disabled");
 							} else {
@@ -683,9 +692,9 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 										"UP Stepper Element is not disabled");
 							}
 						}
-					}else if (statInfo.getThermoStatMode().equalsIgnoreCase("cool")) {
-						if (CurrentUnits.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)){
-							maxCool = setPoints.get("MaxCool").split("\\.")[0];	
+					} else if (statInfo.getThermoStatMode().equalsIgnoreCase("cool")) {
+						if (CurrentUnits.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+							maxCool = setPoints.get("MaxCool").split("\\.")[0];
 						} else {
 							maxCool = setPoints.get("MaxCool");
 						}
@@ -697,7 +706,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"UP Stepper Element is not enabled");
 							}
-						}else if (maxCool.equals(CurrentSetPoint)) {
+						} else if (maxCool.equals(CurrentSetPoint)) {
 							if (!thermo.isUPStepperElementEnabled()) {
 								Keyword.ReportStep_Pass(testCase, "UP Stepper Element is disabled");
 							} else {
@@ -716,14 +725,14 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 					try {
 						setPoints = statInfo.getDeviceMaxMinSetPoints();
 						CurrentUnits = statInfo.getThermostatUnits();
-						
+
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 					String CurrentSetPoint = statInfo.getCurrentSetPoints();
 					if (statInfo.getThermoStatMode().equalsIgnoreCase("Heat")) {
-						
-						if (CurrentUnits.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)){
+
+						if (CurrentUnits.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
 							minHeat = setPoints.get("MinHeat").split("\\.")[0];
 						} else {
 							minHeat = setPoints.get("MinHeat");
@@ -736,7 +745,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Down Stepper Element is not enabled");
 							}
-						}else if (minHeat.equals(CurrentSetPoint)) {
+						} else if (minHeat.equals(CurrentSetPoint)) {
 							if (!thermo.isDownStepperElementEnabled()) {
 								Keyword.ReportStep_Pass(testCase, "Down Stepper Element is disabled");
 							} else {
@@ -745,9 +754,9 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 										"Down Stepper Element is not disabled");
 							}
 						}
-					}else if (statInfo.getThermoStatMode().equalsIgnoreCase("cool")) {
+					} else if (statInfo.getThermoStatMode().equalsIgnoreCase("cool")) {
 
-						if (CurrentUnits.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)){
+						if (CurrentUnits.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
 							System.out.println(setPoints.get("MinCool"));
 							mincool = setPoints.get("MinCool").split("\\.")[0];
 						} else {
@@ -761,7 +770,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Down Stepper Element is not enabled");
 							}
-						}else if (mincool.equals(CurrentSetPoint)) {
+						} else if (mincool.equals(CurrentSetPoint)) {
 							if (!thermo.isDownStepperElementEnabled()) {
 								Keyword.ReportStep_Pass(testCase, "Down Stepper Element is disabled");
 							} else {
@@ -823,9 +832,9 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 						action.press(10, (int) (dimension.getHeight() * .9))
-						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 						action.press(10, (int) (dimension.getHeight() * .9))
-						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
 					} else {
 						int startx = (dimension.width * 20) / 100;
 						int starty = (dimension.height * 62) / 100;
@@ -902,7 +911,70 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 			}
 			break;
 		}
-
+		case "EDIT ADDRESS": {
+			AddressScreen ads = new AddressScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "EditAddressOptions");
+				if (fieldToBeVerified.equalsIgnoreCase("SAVE")) {
+					if (ads.isSaveButtonEnabledInEditAddressScreen()) {
+						Keyword.ReportStep_Pass(testCase, "Option: " + fieldToBeVerified + " is enabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option: " + fieldToBeVerified + " is disabled");
+					}
+				}
+			}
+			break;
+		}
+		case "EDIT ACCOUNT": {
+			EditAccountScreen eas = new EditAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "EditAccountOptions");
+				if (fieldToBeVerified.equalsIgnoreCase("SAVE")) {
+					if (eas.isSaveButtonInEditAccountScreenEnabled()) {
+						Keyword.ReportStep_Pass(testCase, "Option: " + fieldToBeVerified + " is enabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option: " + fieldToBeVerified + " is disabled");
+					}
+				}
+			}
+			break;
+		}
+		case "CHANGE PASSWORD": {
+			EditAccountScreen eas = new EditAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "ChangePasswordOptions");
+				if (fieldToBeVerified.equalsIgnoreCase("SAVE")) {
+					if (eas.isSaveButtonInChangePasswordScreenEnabled()) {
+						Keyword.ReportStep_Pass(testCase, "Option: " + fieldToBeVerified + " is enabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option: " + fieldToBeVerified + " is disabled");
+					}
+				}
+			}
+			break;
+		}
+		case "APP FEEDBACK": {
+			AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "AppFeedbackOptions");
+				if (fieldToBeVerified.equalsIgnoreCase("SEND FEEDBACK BUTTON")) {
+					if (atas.isSendFeedbackButtonEnabled()) {
+						Keyword.ReportStep_Pass(testCase, "Option: " + fieldToBeVerified + " is enabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option: " + fieldToBeVerified + " is disabled");
+					}
+				}
+			}
+			break;
+		}
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + expectedScreen.get(0));

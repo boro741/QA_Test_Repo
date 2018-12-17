@@ -26,14 +26,18 @@ import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.lyric.utils.LyricUtils;
+import com.honeywell.screens.AboutTheAppScreen;
 import com.honeywell.screens.ActivityHistoryScreen;
 import com.honeywell.screens.ActivityLogsScreen;
 import com.honeywell.screens.AddNewDeviceScreen;
+import com.honeywell.screens.AddressScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.CameraSolutionCardScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
+import com.honeywell.screens.EditAccountScreen;
+import com.honeywell.screens.FAQsScreen;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.GlobalDrawerScreen;
 import com.honeywell.screens.PrimaryCard;
@@ -1829,15 +1833,399 @@ public class SelectElementOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
-			}
+				}
 			} else if (parameters.get(1).equalsIgnoreCase("PLEASE CONFIRM YOUR COUNTRY")) {
-				/*flag &= DashboardUtils.enterCountryNameAndSelectItInConfirmYourCountryScreen(testCase, inputs,
-						parameters.get(0));*/
+				// Write code for selecting country from the list of countries displayed in
+				// Please confirm your country screen
+				/*
+				 * flag &= DashboardUtils.enterCountryNameAndSelectItInConfirmYourCountryScreen(
+				 * testCase, inputs, parameters.get(0));
+				 */
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Failed to click on " + parameters.get(0));
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("EDIT ADDRESS")) {
+				AddressScreen ads = new AddressScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "CHANGE COUNTRY": {
+					if (ads.isChangeCountryButtonInEditAddressScreenVisible()) {
+						flag &= ads.clickOnChangeCountryButtonInEditAddressScreen();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				case "SAVE BUTTON": {
+					if (ads.isSaveButtonEnabledInEditAddressScreen()) {
+						flag &= ads.clickOnSaveButtonInEditAddressScreen();
+						if (ads.isEditAddressScreenTitleVisible()
+								&& ads.isChangeCountryButtonInEditAddressScreenVisible()
+								&& ads.isSaveButtonEnabledInEditAddressScreen()) {
+							Keyword.ReportStep_Pass(testCase, "User is still in Edit Address Screen. Clicking on the "
+									+ parameters.get(0) + " again.");
+							flag &= ads.clickOnSaveButtonInEditAddressScreen();
+						} else {
+							Keyword.ReportStep_Pass(testCase, "User is not in Edit Address Screen.");
+						}
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in Edit Address Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("EDIT ACCOUNT")) {
+				EditAccountScreen eas = new EditAccountScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "SAVE BUTTON": {
+					if (eas.isSaveButtonInEditAccountScreenVisible()) {
+						flag &= eas.clickOnSaveButtonInEditAccountScreen();
+						if (eas.isEditAccountScreenTitleVisible() && eas.isFirstNameLabelInEditAccountScreenVisible()
+								&& eas.isFirstNameValueInEditAccountScreenVisible()) {
+							Keyword.ReportStep_Pass(testCase, "User is still in Edit Account Screen. Clicking on the "
+									+ parameters.get(0) + " again.");
+							flag &= eas.clickOnSaveButtonInEditAccountScreen();
+						} else {
+							Keyword.ReportStep_Pass(testCase, "User is not in Edit Account Screen.");
+						}
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in Edit Account Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				case "CHANGE PASSWORD BUTTON": {
+					if (eas.isChangePasswordButtonInEditAccountScreenVisible()) {
+						flag &= eas.clickOnChangePasswordButtonInEditAccountScreen();
+						if (eas.isEditAccountScreenTitleVisible()) {
+							Keyword.ReportStep_Pass(testCase, "User is still in Edit Account Screen. Clicking on the "
+									+ parameters.get(0) + " again.");
+							flag &= eas.clickOnChangePasswordButtonInEditAccountScreen();
+						} else {
+							Keyword.ReportStep_Pass(testCase, "User is not in Edit Account Screen.");
+						}
+						// EditAccountUtils.waitForProgressBarToComplete(testCase, "PROGRESS BAR", 2);
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in Edit Account Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				case "DELETE ACCOUNT": {
+					if (eas.isDeleteAccountButtonInEditAccountScreenVisible()) {
+						flag &= eas.clickOnDeleteAccountButtonInEditAccountScreen();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in Edit Account Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("CHANGE PASSWORD")) {
+				EditAccountScreen eas = new EditAccountScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "SAVE BUTTON": {
+					if (eas.isSaveButtonInChangePasswordScreenVisible()) {
+						flag &= eas.clickOnSaveButtonInChangePasswordScreen();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in Change Password Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("DELETE ACCOUNT")) {
+				EditAccountScreen eas = new EditAccountScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "LEARN HOW TO DELETE A DEVICE": {
+					if (eas.isLearnHowToDeleteADeviceLinkVisible()) {
+						flag &= eas.clickOnLearnHowToDeleteADeviceLink();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in Delete Account Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				case "CLOSE BUTTON": {
+					if (eas.isCloseButtonInDeleteAccountScreenVisible()) {
+						flag &= eas.clickOnCloseButtonInDeleteAccountScreen();
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in Delete Account Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				case "DELETE ACCOUNT BUTTON": {
+					if (eas.isDeleteAccountButtonInDeleteAccountScreenVisible()) {
+						flag &= eas.clickOnDeleteAccountButtonInDeleteAccountScreen();
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in Delete Account Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("LEARN HOW TO DELETE A DEVICE")) {
+				EditAccountScreen eas = new EditAccountScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "CLOSE BUTTON": {
+					if (eas.isCloseButtonInLearnHowToDeleteADeviceScreenVisible()) {
+						flag &= eas.clickOnCloseButtonInLearnHowToDeleteADeviceScreen();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0)
+								+ " in Learn How To Delete A Device Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("ABOUT THE APP")) {
+				AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "PRIVACY POLICY AND EULA": {
+					if (atas.isPrivacyPolicyAndEULAOptionInAboutTheAppVisible()) {
+						flag &= atas.clickOnPrivacyPolicyAndEULAOptionInAboutTheApp();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in About the App Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				case "ACKNOWLEDGEMENTS": {
+					if (atas.isAcknowledgementsOptionInAboutTheAppVisible()) {
+						flag &= atas.clickOnAcknowledgementsOptionInAboutTheApp();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in About the App Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				case "GET HELP": {
+					if (atas.isGetHelpOptionInAboutTheAppVisible()) {
+						flag &= atas.clickOnGetHelpOptionInAboutTheApp();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in About the App Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				case "RATE THE APP": {
+					if (atas.isRateTheAppOptionInAboutTheAppVisible()) {
+						flag &= atas.clickOnRateTheAppOptionInAboutTheApp();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in About the App Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("RATE THE APP")) {
+				AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+				switch (parameters.get(0)) {
+				case "1": {
+					if (atas.isRateOneCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopupVisbile()) {
+						flag &= atas.clickOnRateOneCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopup();
+					}
+					break;
+				}
+				case "2": {
+					if (atas.isRateTwoCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopupVisbile()) {
+						flag &= atas.clickOnRateTwoCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopup();
+					}
+					break;
+				}
+				case "3": {
+					if (atas.isRateThreeCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopupVisbile()) {
+						flag &= atas.clickOnRateThreeCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopup();
+					}
+					break;
+				}
+				case "4": {
+					if (atas.isRateFourCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopupVisbile()) {
+						flag &= atas.clickOnRateFourCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopup();
+					}
+					break;
+				}
+				case "5": {
+					if (atas.isRateFiveCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopupVisbile()) {
+						flag &= atas.clickOnRateFiveCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopup();
+					}
+					break;
+				}
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase,
+							"Successfully clicked on " + parameters.get(0) + " in Rate the App Popup.");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to click on " + parameters.get(0));
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("APP FEEDBACK")) {
+				AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "SEND FEEDBACK BUTTON": {
+					if (atas.isSendFeedbackButtonEnabled()) {
+						flag &= atas.selectSendFeedbackButton();
+					}
+					break;
+				}
+				case "CLOSE BUTTON": {
+					if (atas.isCloseButtonInAppFeedbackScreenVisible()) {
+						flag &= atas.clickOnCloseButtonInAppFeedbackScreen();
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("FAQS")) {
+				FAQsScreen faqsScreen = new FAQsScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "GENERAL OPTION": {
+					if (faqsScreen.isGeneralOptionInFAQsScreenVisible()) {
+						flag &= faqsScreen.clickOnGeneralOptionInFAQsScreen();
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("GENERAL")) {
+				FAQsScreen faqsScreen = new FAQsScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "A QUESTION": {
+					if (faqsScreen.isGeneralScreenQuestionListVisible()
+							&& faqsScreen.isFirstQuestionDisplayedInGeneralScreenVisible()) {
+						inputs.setInputValue("FIRST_QUESTION_IN_GENERAL_SCREEN",
+								faqsScreen.getFirstQuestionDisplayedInGeneralScreen());
+						flag &= faqsScreen.clickOnFirstQuestionDisplayedInGeneralScreen();
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("QUESTION")) {
+				FAQsScreen faqsScreen = new FAQsScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "YES BUTTON FROM WAS THIS HELPFUL SECTION": {
+					if (faqsScreen.isYESButtonInWasThisHelpfulTextInQuestionScreenVisible()) {
+						flag &= faqsScreen.clickOnYESButtonInWasThisHelpfulTextInQuestionScreen();
+					}
+					break;
+				}
+				case "NO BUTTON FROM WAS THIS HELPFUL SECTION": {
+					if (faqsScreen.isNOButtonInWasThisHelpfulTextInQuestionScreenVisible()) {
+						flag &= faqsScreen.clickOnNOButtonInWasThisHelpfulTextInQuestionScreen();
+					}
+					break;
+				}
 				}
 			}
 		} catch (Exception e) {

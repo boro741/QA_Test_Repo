@@ -87,4 +87,3 @@ Scenario Outline: As a user i want to verify list of solutions displayed in Add 
 		| United Kingdom               		| NO DAS 	| NO HB 		| NO D6 		| NO T5 		| NO T6 PRO 		| YES WLD 	| YES C1 	| YES C2 	| YES T6 	| YES T6R 	| 
 		| United States                		| YES DAS 	| YES HB 	| YES D6 	| YES T5 	| YES T6 PRO 	| YES WLD 	| YES C1 	| YES C2 	| NO T6 		| NO T6R 	| 
 		| Virgin Islands, British      		| NO DAS 	| YES HB 	| NO D6 		| YES T5 	| YES T6 PRO 	| NO WLD 	| NO C1 		| NO C2 		| YES T6 	| YES T6R 	|
-		

@@ -14,6 +14,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.CameraUtils;
 import com.honeywell.lyric.utils.LyricUtils;
+import com.honeywell.screens.AboutTheAppScreen;
 import com.honeywell.screens.AdhocScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
@@ -1852,7 +1853,7 @@ public class ChangeBaseStationSettings extends Keyword {
 					}
 				}
 			}
-			
+
 			else if (parameters.get(0).equalsIgnoreCase("DOORS AND WINDOWS")) {
 				BaseStationSettingsScreen mc = new BaseStationSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
@@ -1899,8 +1900,51 @@ public class ChangeBaseStationSettings extends Keyword {
 						}
 					}
 				}
+			} else if (parameters.get(0).equalsIgnoreCase("ANONYMOUS TOGGLE BUTTON")) {
+				AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+				if (parameters.get(1).equalsIgnoreCase("ON")) {
+					if (atas.isAnonymousToggleButtonEnabled()) {
+						Keyword.ReportStep_Pass(testCase,
+								"Anonymous Toggle Button is already enabled in the App Feedback screen");
+						flag = flag & atas.selectAnonymousToggleButton();
+						if (!atas.isAnonymousToggleButtonEnabled()) {
+							Keyword.ReportStep_Pass(testCase, "Anonymous Toggle Button is turned OFF");
+							flag = flag & atas.selectAnonymousToggleButton();
+							if (atas.isAnonymousToggleButtonEnabled()) {
+								Keyword.ReportStep_Pass(testCase,
+										"Anonymous Toggle Button is enabled in the App Feedback screen");
+							}
+						}
+					} else {
+						flag = flag & atas.selectAnonymousToggleButton();
+						if (atas.isAnonymousToggleButtonEnabled()) {
+							Keyword.ReportStep_Pass(testCase,
+									"Anonymous Toggle Button is enabled in the App Feedback screen");
+						}
+					}
+				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
+					if (!atas.isAnonymousToggleButtonEnabled()) {
+						Keyword.ReportStep_Pass(testCase,
+								"Anonymous Toggle Button is already disabled in the App Feedback screen");
+						flag = flag & atas.selectAnonymousToggleButton();
+						if (atas.isAnonymousToggleButtonEnabled()) {
+							Keyword.ReportStep_Pass(testCase, "Anonymous Toggle Button is turned ON");
+							flag = flag & atas.selectAnonymousToggleButton();
+							if (!atas.isAnonymousToggleButtonEnabled()) {
+								Keyword.ReportStep_Pass(testCase,
+										"Anonymous Toggle Button is disabled in the App Feedback screen");
+							}
+						}
+					} else {
+						flag = flag & atas.selectAnonymousToggleButton();
+						if (atas.isAnonymousToggleButtonEnabled()) {
+							Keyword.ReportStep_Pass(testCase,
+									"Anonymous Toggle Button is disabled in the App Feedback screen");
+						}
+					}
+				}
 			}
-			
+
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());

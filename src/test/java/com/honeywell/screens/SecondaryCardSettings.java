@@ -2,11 +2,14 @@ package com.honeywell.screens;
 
 import java.util.List;
 
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
+
+import io.appium.java_client.TouchAction;
 
 public class SecondaryCardSettings extends MobileScreens {
 
@@ -20,6 +23,7 @@ public class SecondaryCardSettings extends MobileScreens {
 	public static final String ABOUTTHEAPP = "About the app";
 	public static final String EDITACCOUNT = "Edit Account";
 	public static final String MESSAGES = "Activity History";
+	public static final String FAQS = "FAQs";
 	public static final String LOGOUT = "Logout";
 	public static final String ADDRESSDETAILS = "Address";
 	public static final String MEMBERSHIPSUBSCRIPTION = "Honeywell Membership";
@@ -51,11 +55,12 @@ public class SecondaryCardSettings extends MobileScreens {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "EditAccountOption");
 		case SecondaryCardSettings.MESSAGES:
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "MessagesOption");
+		case SecondaryCardSettings.FAQS:
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "FAQsOption");
 		case SecondaryCardSettings.LOGOUT:
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "LogoutOption");
 		case SecondaryCardSettings.MEMBERSHIPSUBSCRIPTION:
-			return MobileUtils.clickOnElement(objectDefinition, testCase,
-					"HoneywellMembershipOption");
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "HoneywellMembershipOption");
 		case SecondaryCardSettings.VACATION:
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "VacationOption");
 		default: {

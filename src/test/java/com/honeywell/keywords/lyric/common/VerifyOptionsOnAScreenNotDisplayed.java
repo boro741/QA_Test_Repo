@@ -13,6 +13,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.ActivityHistoryScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
+import com.honeywell.screens.FAQsScreen;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.ManageUsersScreen;
 
@@ -193,6 +194,32 @@ public class VerifyOptionsOnAScreenNotDisplayed extends Keyword {
 								+ inputs.getInputValue("USERID") + " is present in the list of Invited Users.");
 					}
 				}
+			}
+			break;
+		}
+		case "QUESTION": {
+			FAQsScreen faqsScreen = new FAQsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "QuestionOptions");
+				switch (parameter.toUpperCase()) {
+				case "WAS THIS HELPFUL WITH YES AND NO BUTTONS": {
+					if (!faqsScreen.wasThisHelpfulTextInQuestionScreenVisible()
+							&& !faqsScreen.isYESButtonInWasThisHelpfulTextInQuestionScreenVisible()
+							&& !faqsScreen.isNOButtonInWasThisHelpfulTextInQuestionScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Options " + parameter + " are not displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Options " + parameter + " are displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
 			}
 			break;
 		}

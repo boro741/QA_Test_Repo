@@ -14,6 +14,7 @@ import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
+import com.honeywell.screens.EditAccountScreen;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.ManageUsersScreen;
@@ -23,7 +24,8 @@ import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.VacationHoldScreen;
 import com.honeywell.screens.WLDConfigurationScreen;
 import com.honeywell.screens.ZwaveScreen;
-
+import com.honeywell.screens.AboutTheAppScreen;
+import com.honeywell.screens.AddressScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 
 public class VerifyDisplayedPopUp extends Keyword {
@@ -439,6 +441,137 @@ public class VerifyDisplayedPopUp extends Keyword {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Cancel Geofence Changes popup is not displayed");
+			}
+			break;
+		}
+		case "CANCEL LOCATION CHANGES": {
+			AddressScreen ads = new AddressScreen(testCase);
+			if (ads.isCancelLocationChangesPopupVisible() && ads.isCancelLocationChangesPopupMsgVisible()
+					&& ads.isNoButtonInCancelLocationChangesPopupVisible()
+					&& ads.isYesButtonInCancelLocationChangesPopupVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Cancel Location Changes popup is displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Cancel Location Changes popup is not displayed");
+			}
+			break;
+		}
+		case "INVALID ZIPCODE": {
+			AddressScreen ads = new AddressScreen(testCase);
+			if (ads.isInvalidZipCodePopupVisible() && ads.isInvalidZipCodePopupMsgVisible()
+					&& ads.isOKButtonInInvalidZipCodePopupVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Invalid Zipcode popup is displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Invalid Zipcode popup is not displayed");
+			}
+			break;
+		}
+		case "NAME MUST START WITH LETTER OR NUMBER": {
+			AddressScreen ads = new AddressScreen(testCase);
+			if (ads.isNameMustStartWithErrorPopupVisible() && ads.isNameMustStartWithErrorPopupMsgVisible()
+					&& ads.isOKButtonInNameMustStartWithPopupVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Name Must Start With Letter or Number popup is displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Name Must Start With Letter or Number popup is not displayed");
+			}
+			break;
+		}
+		case "FIRST NAME IS REQUIRED": {
+			EditAccountScreen eas = new EditAccountScreen(testCase);
+			if (eas.isFirstNameOrLastNameRequiredErrorPopupTitleVisible()
+					&& eas.isFirstNameIsRequiredErrorPopupMsgVisible()
+					&& eas.isOKButtonInFirstNameOrLastNameRequiredErrorPopupVisible()) {
+				Keyword.ReportStep_Pass(testCase, "First Name is required popup is displayed in Edit Account Screen");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"First Name is required popup is not displayed in Edit Account Screen");
+			}
+			break;
+		}
+		case "LAST NAME IS REQUIRED": {
+			EditAccountScreen eas = new EditAccountScreen(testCase);
+			if (eas.isFirstNameOrLastNameRequiredErrorPopupTitleVisible()
+					&& eas.isLastNameIsRequiredErrorPopupMsgVisible()
+					&& eas.isOKButtonInFirstNameOrLastNameRequiredErrorPopupVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Last Name is required popup is displayed in Edit Account Screen");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Last Name is required popup is not displayed in Edit Account Screen");
+			}
+			break;
+		}
+		case "YOUR ACCOUNT AND DATA IS DELETED": {
+			EditAccountScreen eas = new EditAccountScreen(testCase);
+			if (eas.isYourAccountAndDataIsDeletedPopupVisible()) {
+				Keyword.ReportStep_Pass(testCase,
+						"Your account and data is deleted popup is displayed in Honeywell Home Screen");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Your account and data is deleted popup is not displayed in Honeywell Home Screen");
+			}
+			break;
+		}
+		case "EMAIL OR PASSWORD INCORRECT": {
+			EditAccountScreen eas = new EditAccountScreen(testCase);
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (eas.isEmailOrPwdIncorrectErrorPopupTitleVisible()) {
+					Keyword.ReportStep_Pass(testCase,
+							"Email or Password Incorrect error popup is displayed in Honeywell Home Screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Email or Password Incorrect error popup is not displayed in Honeywell Home Screen");
+				}
+			} else {
+				if (eas.isEmailOrPwdIncorrectErrorPopupTitleVisible() && eas.isEmailOrPwdIncorrectErrorPopupMsgVisible()
+						&& eas.isOKButtonInEmailOrPwdIncorrectErrorPopupVisible()) {
+					Keyword.ReportStep_Pass(testCase,
+							"Email or Password Incorrect error popup is displayed in Honeywell Home Screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Email or Password Incorrect error popup is not displayed in Honeywell Home Screen");
+				}
+			}
+			break;
+		}
+		case "WHAT DO YOU THINK OF HONEYWELL HOME APP": {
+			AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+			if (atas.isWhatDoYouThinkOfHoneywellHomeAppPopupVisible()
+					&& atas.isRateOneCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopupVisbile()
+					&& atas.isRateTwoCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopupVisbile()
+					&& atas.isRateThreeCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopupVisbile()
+					&& atas.isRateFourCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopupVisbile()
+					&& atas.isRateFiveCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopupVisbile()
+					&& atas.isCloseButtonInWhatDoYouThinkOfHoneywellHomeAppPopupVisible()) {
+				Keyword.ReportStep_Pass(testCase,
+						"What do you think of Honeywell home app popup is displayed with ratings 1 to 5 and close button in About the App Screen");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"What do you think of Honeywell home app popup is not displayed with ratings 1 to 5 and close button in About the App Screen");
+			}
+			break;
+		}
+		case "THANKS FOR YOUR RATING": {
+			AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+			if (atas.isThanksForYourRatingPopupTitleVisible() && atas.isThanksForYourRatingPopupMsgVisible()
+					&& atas.isCloseButtonInThanksForYourRatingPopupVisible()
+					&& atas.isContinueButtonInThanksForYourRatingPopupVisible()) {
+				Keyword.ReportStep_Pass(testCase,
+						"Thanks for your rating popup is displayed with close and continue buttons");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Thanks for your rating popup is not displayed with close and continue buttons");
 			}
 			break;
 		}

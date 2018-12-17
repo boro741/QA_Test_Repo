@@ -19,15 +19,20 @@ import com.honeywell.lyric.das.utils.DASCameraUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.utils.CoachMarkUtils;
+import com.honeywell.screens.AboutTheAppScreen;
 import com.honeywell.screens.AddNewDeviceScreen;
+import com.honeywell.screens.AddressScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASCameraSolutionCard;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.EditAccountScreen;
+import com.honeywell.screens.FAQsScreen;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
 import com.honeywell.screens.GeofenceSettings;
+import com.honeywell.screens.GlobalDrawerScreen;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SecuritySolutionCardScreen;
@@ -992,6 +997,240 @@ public class VerifyScreen extends Keyword {
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
+			case "ADDRESS": {
+				AddressScreen ads = new AddressScreen(testCase);
+				if (ads.isAddressScreenTitleVisible() && ads.isBackButtonVisible()
+						&& ads.isLocationNameInAddressScreenVisible() && ads.isLocationAddressInAddressScreenVisible()
+						&& ads.isEditAddressInAddressScreenVisible()
+						&& ads.isDeleteLocationButtonInAddressScreenVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
+			case "EDIT ADDRESS": {
+				AddressScreen ads = new AddressScreen(testCase);
+				if (ads.isEditAddressScreenTitleVisible() && ads.isBackButtonVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
+			case "EDIT ACCOUNT": {
+				EditAccountScreen eas = new EditAccountScreen(testCase);
+				if (eas.isEditAccountScreenTitleVisible() && eas.isFirstNameLabelInEditAccountScreenVisible()
+						&& eas.isFirstNameValueInEditAccountScreenVisible()
+						&& eas.isLastNameLabelInEditAccountScreenVisible()
+						&& eas.isLastNameValueInEditAccountScreenVisible()
+						&& eas.isEmailLabelInEditAccountScreenVisible() && eas.isEmailValueInEditAccountScreenVisible()
+						&& eas.isChangePasswordButtonInEditAccountScreenVisible()
+						&& eas.isDeleteAccountButtonInEditAccountScreenVisible()
+						&& eas.isPrivacyLabelInEditAccountScreenVisible()
+						&& eas.isUsePasscodeLabelInEditAccountScreenVisible()
+						&& eas.isUsePasscodeSwitchInEditAccountScreenVisible()
+						&& eas.isSaveButtonInEditAccountScreenVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
+			case "GLOBAL DRAWER": {
+				GlobalDrawerScreen gds = new GlobalDrawerScreen(testCase);
+				if (gds.isAccountHeaderTitleVisible() && gds.isEditAccountOptionVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
+			case "CHANGE PASSWORD": {
+				EditAccountScreen eas = new EditAccountScreen(testCase);
+				if (eas.isChangePasswordScreenTitleVisible() && eas.isOldPasswordLabelVisible()
+						&& eas.isOldPasswordTextFieldVisible() && eas.isCreatePasswordLabelVisible()
+						&& eas.isNewPasswordTextFeildVisible() && eas.isVerifyNewPasswordTextFieldVisible()
+						&& eas.isSaveButtonInChangePasswordScreenVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
+			case "HONEYWELL HOME": {
+				EditAccountScreen eas = new EditAccountScreen(testCase);
+				if (eas.isCreateAccountButtonInHoneywellHomeScreenVisible(20)
+						&& eas.isLoginButtontInHoneywellHomeScreenVisible(20)) {
+					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
+			case "DELETE ACCOUNT WITH SOLUTION": {
+				EditAccountScreen eas = new EditAccountScreen(testCase);
+				if (eas.isDeleteAccountScreenTitleVisible() && eas.isCloseButtonInDeleteAccountScreenVisible()
+						&& eas.isActionRequiredLabelVisible() && eas.isLearnHowToDeleteADeviceLinkVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
+			case "DELETE ACCOUNT WITHOUT SOLUTION": {
+				EditAccountScreen eas = new EditAccountScreen(testCase);
+				if (eas.isDeleteAccountScreenTitleVisible() && eas.isCloseButtonInDeleteAccountScreenVisible()
+						&& eas.isDeleteAccountButtonInDeleteAccountScreenVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
+			case "LEARN HOW TO DELETE A DEVICE": {
+				EditAccountScreen eas = new EditAccountScreen(testCase);
+				if (eas.isLearnHowToDeleteADeviceScreenTitleVisible()
+						&& eas.isCloseButtonInLearnHowToDeleteADeviceScreenVisible()
+						&& eas.isWebViewInLearnHowToDeleteADeviceScreenVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
+			case "ABOUT THE APP": {
+				AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+				if (atas.isAboutTheAppScreenTitleVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
+			case "PRIVACY POLICY AND EULA": {
+				AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+				if (atas.isPrivacyPolicyAndEULAScreenTitleVisible()
+						&& atas.isDoneButtonInPrivacyPolicyAndEULAScreenVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
+			case "ACKNOWLEDGEMENTS": {
+				AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					if (atas.isAcknowledgementsScreenTitleVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to navigate to " + expectedScreen.get(0));
+					}
+				} else {
+					if (atas.isAcknowledgementsScreenTitleVisible()
+							&& atas.isDoneButtonInAcknowledgementsScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to navigate to " + expectedScreen.get(0));
+					}
+				}
+				break;
+			}
+			case "GET HELP": {
+				AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					if (atas.isGetHelpScreenTitleVisible(30)) {
+						Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to navigate to " + expectedScreen.get(0));
+					}
+				} else {
+					if (atas.isGetHelpScreenTitleVisible(30)
+							&& atas.isNavBackToHoneywellButtonInGetHelpScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to navigate to " + expectedScreen.get(0));
+					}
+				}
+				break;
+			}
+			case "APP FEEDBACK": {
+				AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+				if (atas.isAppFeedbackScreenTitleVisible() && atas.isCloseButtonInAppFeedbackScreenVisible()
+						&& atas.isAppFeedbackThankYouNoteVisible() && atas.isAppFeedbackTextFieldVisible()
+						&& atas.isAnonymousToggleButtonButtonVisible() && atas.isAnonymousSubTitleTextVisible()
+						&& atas.isSendFeedbackButtonVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
+			case "HONEYWELL HOME IN GOOGLE PLAYSTORE": {
+				AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+				if (atas.isGooglePlayHeaderTitleVisible() && atas.isHoneywellHomeTitleInGooglePlayStoreVisible()
+						&& atas.isResideoTechnolgiesTitleInGooglePlayStoreVisible()
+						&& atas.isUninstallButtonForHoneywellHomeAppInGooglePlayStoreVisible()
+						&& atas.isOPENButtonForHoneywellHomeAppInGooglePlayStoreVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
+			case "FAQS": {
+				FAQsScreen faqsScreen = new FAQsScreen(testCase);
+				if (faqsScreen.isFAQsScreenTitleVisible() && faqsScreen.isBackButtonInFAQsScreenVisible()
+						&& faqsScreen.isHelpSearchTextFieldInFAQsScreenVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
+			case "GENERAL": {
+				FAQsScreen faqsScreen = new FAQsScreen(testCase);
+				if (faqsScreen.isFAQsScreenTitleVisible() && faqsScreen.isBackButtonInFAQsScreenVisible()
+						&& faqsScreen.isHelpSearchTextFieldInFAQsScreenVisible()
+						&& faqsScreen.isGeneralScreenQuestionListVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0) + " screen.");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0) + " screen.");
+				}
+				break;
+			}
+			case "QUESTION": {
+				FAQsScreen faqsScreen = new FAQsScreen(testCase);
+				if (faqsScreen.isBackButtonInFAQsScreenVisible() && faqsScreen.isQuestionTitleInQuestionScreenVisible()
+						&& faqsScreen.isAnswerToTheQuestionAskedInQuestionScreenVisible()
+						&& faqsScreen.getQuestionTitleInQuestionScreen()
+								.equalsIgnoreCase(inputs.getInputValue("FIRST_QUESTION_IN_GENERAL_SCREEN"))) {
+					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0) + " screen.");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0) + " screen.");
 				}
 				break;
 			}

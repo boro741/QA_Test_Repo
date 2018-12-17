@@ -72,7 +72,6 @@ public class LoginToLyricWithInviteUser extends Keyword {
 			 * ); } else { testCase.getMobileDriver().launchApp(); } }
 			 */
 		}
-
 		return flag;
 	}
 

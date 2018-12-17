@@ -3,7 +3,7 @@ AllowButton	ID	com.android.packageinstaller:id/permission_allow_button	ID	com.an
 OkButton							name	OK	name	OK	name	OK
 CancelButton							name	Cancel	name	Cancel	name	Cancel
 NotNowButton							name	Not Now	name	Not Now	name	Not Now
-CloseButton	ID	btn_close	ID	btn_close	ID	btn_close						
+CloseButton	XPATH	//android.widget.Button[@resource-id='com.honeywell.android.lyric:id/btn_close']	XPATH	//android.widget.Button[@resource-id='com.honeywell.android.lyric:id/btn_close']	XPATH	//android.widget.Button[@resource-id='com.honeywell.android.lyric:id/btn_close']						
 AlwaysAllowButton							name	Always Allow	name	Always Allow	name	Always Allow
 IgnoreButton							name	Ignore	name	Ignore	name	Ignore
 RootedDevicePopup	XPATH	//*[@text='I Accept' or @text='I ACCEPT']	XPATH	//*[@text='I Accept' or @text='I ACCEPT']	XPATH	//*[@text='I Accept' or @text='I ACCEPT']						

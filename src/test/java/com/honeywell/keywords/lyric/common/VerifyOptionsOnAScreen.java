@@ -13,8 +13,11 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.AddressUtils;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
+import com.honeywell.screens.AboutTheAppScreen;
 import com.honeywell.screens.ActivityHistoryScreen;
+import com.honeywell.screens.AddressScreen;
 import com.honeywell.screens.AdhocScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
@@ -25,6 +28,8 @@ import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.GlobalDrawerScreen;
 import com.honeywell.screens.ManageUsersScreen;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.EditAccountScreen;
+import com.honeywell.screens.FAQsScreen;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
@@ -2015,8 +2020,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "HOME ADDRESS": {
-					flag &= gd.isHomeAddressOptionVisible();
+				case "ADDRESS": {
+					flag &= gd.isAddressOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
@@ -2154,8 +2159,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "HOME ADDRESS": {
-					flag &= gd.isHomeAddressOptionVisible();
+				case "ADDRESS": {
+					flag &= gd.isAddressOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
@@ -2291,8 +2296,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "HOME ADDRESS": {
-					flag &= gd.isHomeAddressOptionVisible();
+				case "ADDRESS": {
+					flag &= gd.isAddressOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
@@ -2449,8 +2454,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "HOME ADDRESS": {
-					flag &= gd.isHomeAddressOptionVisible();
+				case "ADDRESS": {
+					flag &= gd.isAddressOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
@@ -2616,8 +2621,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "HOME ADDRESS": {
-					flag &= gd.isHomeAddressOptionVisible();
+				case "ADDRESS": {
+					flag &= gd.isAddressOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
@@ -2764,8 +2769,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "HOME ADDRESS": {
-					flag &= gd.isHomeAddressOptionVisible();
+				case "ADDRESS": {
+					flag &= gd.isAddressOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
@@ -2935,9 +2940,486 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-		default: {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + expectedScreen.get(0));
+		case "EDIT ADDRESS": {
+			AddressScreen ads = new AddressScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "EditAddressOptions");
+				switch (parameter.toUpperCase()) {
+				case "LOCATION NAME HEADER": {
+					if (ads.isLocationNameHeaderTitleInEditAddressScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "LOCATION NAME TEXT FIELD": {
+					if (ads.isLocationNameTextInEditAddressScreenVisible()
+							&& !ads.isPlaceHolderValueInLocationNameTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed and " + parameter
+								+ " Place holder is not displayed");
+						flag &= AddressUtils.verifyLocationNameDisplayedInEditAddressScreen(testCase,
+								inputs.getInputValue("LOCATION_NAME"));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option " + parameter
+								+ " is not displayed OR " + parameter + " Place holder is displayed");
+					}
+					break;
+				}
+				case "ADDRESS HEADER": {
+					if (ads.isAddressHeaderTitleInEditAddressScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ADDRESS TEXT FIELD": {
+					if (ads.isAddressTextInEditAddressScreenVisible()
+							&& !ads.isPlaceHolderValueInAddressTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed and " + parameter
+								+ " Place holder is not displayed");
+						flag &= AddressUtils.verifyLocationAddressValueDisplayedInEditAddressScreen(testCase,
+								inputs.getInputValue("LOCATION_ADDRESS"));
+					} else if (ads.isPlaceHolderValueInAddressTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, parameter + " Place holder is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option " + parameter
+								+ " is not displayed OR " + parameter + " Place holder is not displayed");
+					}
+					break;
+				}
+				case "CITY TEXT FIELD": {
+					if (ads.isCityTextInEditAddressScreenVisible() && !ads.isPlaceHolderValueInCityTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						flag &= AddressUtils.verifyLocationCityValueDisplayedInEditAddressScreen(testCase,
+								inputs.getInputValue("LOCATION_ADDRESS"));
+					} else if (ads.isPlaceHolderValueInCityTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, parameter + " Place holder is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option " + parameter
+								+ " is not displayed OR " + parameter + " Place holder is not displayed");
+					}
+					break;
+				}
+				case "STATE TEXT FIELD": {
+					if (ads.isStateTextInEditAddressScreenVisible()
+							&& !ads.isPlaceHolderValueInStateTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						flag &= AddressUtils.verifyLocationStateValueDisplayedInEditAddressScreen(testCase,
+								inputs.getInputValue("LOCATION_ADDRESS"));
+					} else if (ads.isPlaceHolderValueInStateTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, parameter + " Place holder is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option " + parameter
+								+ " is not displayed OR " + parameter + " Place holder is not displayed");
+					}
+					break;
+				}
+				case "POSTAL CODE TEXT FIELD": {
+					if (ads.isPostalCodeTextInEditAddressScreenVisible()
+							&& !ads.isPlaceHolderValueInPostalCodeTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						flag &= AddressUtils.verifyLocationPostalCodeValueDisplayedInEditAddressScreen(testCase,
+								inputs.getInputValue("LOCATION_ADDRESS"));
+					} else if (ads.isPlaceHolderValueInPostalCodeTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, parameter + " Place holder is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option " + parameter
+								+ " is not displayed OR " + parameter + " Place holder is not displayed");
+					}
+					break;
+				}
+				case "CHANGE COUNTRY": {
+					if (ads.isChangeCountryButtonInEditAddressScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Button " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Button " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "ADDRESS FIELDS FOR THE SELECTED COUNTRY": {
+			AddressScreen ads = new AddressScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "AddressFieldsForTheSelectedCountry");
+				switch (parameter.toUpperCase()) {
+				case "LOCATION NAME HEADER": {
+					if (ads.isLocationNameHeaderTitleInEditAddressScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "LOCATION NAME TEXT FIELD": {
+					if (ads.isLocationNameTextInEditAddressScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						flag &= AddressUtils.verifyLocationNameDisplayedInEditAddressScreen(testCase,
+								inputs.getInputValue("LOCATION_NAME"));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ADDRESS HEADER": {
+					if (ads.isAddressHeaderTitleInEditAddressScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ADDRESS TEXT FIELD": {
+					if (ads.isAddressTextInEditAddressScreenVisible()
+							&& ads.isPlaceHolderValueInAddressTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option " + parameter
+								+ " is not displayed OR " + parameter + " Place holder is not displayed. ");
+					}
+					break;
+				}
+				case "CITY TEXT FIELD": {
+					if (ads.isCityTextInEditAddressScreenVisible() && ads.isPlaceHolderValueInCityTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option " + parameter
+								+ " is not displayed OR " + parameter + " Place holder is not displayed. ");
+					}
+					break;
+				}
+				case "STATE TEXT FIELD": {
+					if (ads.isStateTextInEditAddressScreenVisible()
+							&& ads.isPlaceHolderValueInStateTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option " + parameter
+								+ " is not displayed OR " + parameter + " Place holder is not displayed. ");
+					}
+					break;
+				}
+				case "POSTAL CODE TEXT FIELD": {
+					if (ads.isPostalCodeTextInEditAddressScreenVisible()
+							&& ads.isPlaceHolderValueInPostalCodeTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option " + parameter
+								+ " is not displayed OR " + parameter + " Place holder is not displayed. ");
+					}
+					break;
+				}
+				case "CHANGE COUNTRY": {
+					if (ads.isChangeCountryButtonInEditAddressScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Button " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Button " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "ADDRESS": {
+			AddressScreen ads = new AddressScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "AddressOptions");
+				switch (parameter.toUpperCase()) {
+				case "EDIT ADDRESS LABEL": {
+					if (ads.isEditAddressInAddressScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "DELETE LOCATION OPTION": {
+					if (ads.isDeleteLocationButtonInAddressScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Button " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Button " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "DELETE ACCOUNT": {
+			EditAccountScreen eas = new EditAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "DeleteAccountOptions");
+				switch (parameter.toUpperCase()) {
+				case "WE ARE SORRY TO SEE YOU GO": {
+					if (eas.isWeAreSorryToSeeYouGoLabelVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "LEARN HOW TO DELETE A DEVICE": {
+			EditAccountScreen eas = new EditAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "LearnHowToDeleteADeviceOptions");
+				switch (parameter.toUpperCase()) {
+				case "WAS THIS HELPFUL WITH YES AND NO BUTTONS": {
+					if (eas.wasThisHelpfulTextInLearnHowToDeleteADeviceScreenVisible()
+							&& eas.isYESButtonInWasThisHelpfulTextInLearnHowToDeleteADeviceScreenVisible()
+							&& eas.isNOButtonInWasThisHelpfulTextInLearnHowToDeleteADeviceScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "ABOUT THE APP": {
+			AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "AboutTheAppOptions");
+				switch (parameter.toUpperCase()) {
+				case "RATE THE APP FOR ANDROID": {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						if (atas.isRateTheAppOptionInAboutTheAppVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Option " + parameter + " is not displayed");
+						}
+					} else {
+						if (!atas.isRateTheAppOptionInAboutTheAppVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Option " + parameter + " is not displayed");
+						}
+					}
+					break;
+				}
+				case "GET HELP": {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						if (atas.isGetHelpOptionInAboutTheAppVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Option " + parameter + " is not displayed");
+						}
+					} else {
+						if (atas.isGetHelpOptionInAboutTheAppVisible()
+								&& atas.isGetHelpOptionInAboutTheAppArrowVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Option " + parameter + " is not displayed");
+						}
+					}
+					break;
+				}
+				case "WITHOUT GET HELP OPTION": {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						if (!atas.isGetHelpOptionInAboutTheAppVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is not displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Option " + parameter + " is displayed");
+						}
+					} else {
+						if (!atas.isGetHelpOptionInAboutTheAppVisible()
+								&& !atas.isGetHelpOptionInAboutTheAppArrowVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is not displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Option " + parameter + " is displayed");
+						}
+					}
+					break;
+				}
+				case "PRIVACY POLICY AND EULA": {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						if (atas.isPrivacyPolicyAndEULAOptionInAboutTheAppVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Option " + parameter + " is not displayed");
+						}
+					} else {
+						if (atas.isPrivacyPolicyAndEULAOptionInAboutTheAppVisible()
+								&& atas.isPrivacyPolicyAndEULAOptionInAboutTheAppArrowVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Option " + parameter + " is not displayed");
+						}
+					}
+					break;
+				}
+				case "ACKNOWLEDGEMENTS": {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						if (atas.isAcknowledgementsOptionInAboutTheAppVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Option " + parameter + " is not displayed");
+						}
+					} else {
+						if (atas.isAcknowledgementsOptionInAboutTheAppVisible()
+								&& atas.isAcknowledgementsOptionInAboutTheAppArrowVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Option " + parameter + " is not displayed");
+						}
+					}
+					break;
+				}
+				case "VERSION": {
+					if (atas.isVersionOptionInAboutTheAppVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "FAQS": {
+			FAQsScreen faqsScreen = new FAQsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "FAQsOptions");
+				switch (parameter.toUpperCase()) {
+				case "GENERAL": {
+					if (faqsScreen.isGeneralOptionInFAQsScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "THERMOSTAT": {
+					if (faqsScreen.isThermotatOptionInFAQsScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "WATER LEAK DETECTOR": {
+					if (faqsScreen.isWaterLeakDetectorOptionInFAQsScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "CAMERA": {
+					if (faqsScreen.isCameraOptionInFAQsScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "QUESTION": {
+			FAQsScreen faqsScreen = new FAQsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "QuestionOptions");
+				switch (parameter.toUpperCase()) {
+				case "WAS THIS HELPFUL WITH YES AND NO BUTTONS": {
+					if (faqsScreen.wasThisHelpfulTextInQuestionScreenVisible()
+							&& faqsScreen.isYESButtonInWasThisHelpfulTextInQuestionScreenVisible()
+							&& faqsScreen.isNOButtonInWasThisHelpfulTextInQuestionScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Options " + parameter + " are displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Options " + parameter + " are not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
 		}
 		}
 		return flag;

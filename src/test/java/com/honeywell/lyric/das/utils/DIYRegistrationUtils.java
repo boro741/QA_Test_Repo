@@ -373,12 +373,12 @@ public class DIYRegistrationUtils {
 		return flag;
 	}
 
-	public static boolean inputNewLocationName(TestCases testCase, String newLocationName) {
+	public static boolean inputNewLocationName(TestCases testCase, TestCaseInputs inputs, String newLocationName) {
 
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
 		if (dasDIY.isCreateLocationHeaderTitleVisible() && dasDIY.isCustomLocationTextFieldVisible()) {
-			flag = flag & dasDIY.enterCustomLocationName(newLocationName);
+			flag = flag & dasDIY.enterCustomLocationName(inputs, newLocationName);
 		}
 		return flag;
 	}
@@ -534,6 +534,7 @@ public class DIYRegistrationUtils {
 	public static boolean deleteDefaultLocation(TestCases testCase, TestCaseInputs inputs) {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
+		System.out.println("#########LOCATION1_NAME: " + inputs.getInputValue("LOCATION1_NAME"));
 		if (dasDIY.isGlobalDrawerButtonVisible()) {
 			flag = flag & dasDIY.clickOnGlobalDrawerButton();
 			if (dasDIY.isLocationDetailsVisible()) {
@@ -546,6 +547,42 @@ public class DIYRegistrationUtils {
 							Keyword.ReportStep_Pass(testCase,
 									"Successfully Deleted Location: " + inputs.getInputValue("LOCATION1_NAME"));
 							flag = flag & dasDIY.isAddNewDeviceScreenVisible(10);
+							if (flag) {
+								Keyword.ReportStep_Pass(testCase,
+										"Successfully navigated to Add New Device Screen after deleting the location.");
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to navigate to Add New Device Screen after deleting the location.");
+							}
+						}
+					}
+				}
+			}
+		}
+		return flag;
+	}
+
+	public static boolean deleteTheExistingLocation(TestCases testCase, TestCaseInputs inputs) {
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		boolean flag = true;
+		if (dasDIY.isGlobalDrawerButtonVisible()) {
+			flag = flag & dasDIY.clickOnGlobalDrawerButton();
+			if (dasDIY.isLocationDetailsVisible()) {
+				flag = flag & dasDIY.clickOnLocationDetails();
+				if (dasDIY.isDeleteLocationButtonVisible()) {
+					flag = flag & dasDIY.clickOnDeleteLocationButton();
+					if (dasDIY.isDeleteLocationPopupVisible() && dasDIY.isYesButtonInDeleteLocationPopupVisible()) {
+						flag = flag & dasDIY.clickOnYesButtonInDeleteLocationPopup();
+						Keyword.ReportStep_Pass(testCase, "Successfully Deleted First Location");
+						flag = flag & dasDIY.isAddNewDeviceScreenVisible(10);
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase,
+									"Successfully navigated to Add New Device Screen after deleting the location.");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to Add New Device Screen after deleting the location.");
 						}
 					}
 				}

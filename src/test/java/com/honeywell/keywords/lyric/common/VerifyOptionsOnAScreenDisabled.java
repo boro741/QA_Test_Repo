@@ -13,10 +13,13 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.screens.AboutTheAppScreen;
 import com.honeywell.screens.ActivityHistoryScreen;
+import com.honeywell.screens.AddressScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.EditAccountScreen;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
@@ -695,6 +698,62 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				String fieldToBeVerified = data.getData(i, "ActivityHistoryOptions");
 				if (fieldToBeVerified.equalsIgnoreCase("DELETE")) {
 					if (!ah.isDeletelButtonEnabled()) {
+						Keyword.ReportStep_Pass(testCase, "Option: " + fieldToBeVerified + " is disabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option: " + fieldToBeVerified + " is enabled");
+					}
+				}
+			}
+			break;
+		}
+		case "EDIT ADDRESS": {
+			AddressScreen ads = new AddressScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "EditAddressOptions");
+				if (fieldToBeVerified.equalsIgnoreCase("SAVE")) {
+					if (!ads.isSaveButtonEnabledInEditAddressScreen()) {
+						Keyword.ReportStep_Pass(testCase, "Option: " + fieldToBeVerified + " is disabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option: " + fieldToBeVerified + " is enabled");
+					}
+				}
+			}
+			break;
+		}
+		case "EDIT ACCOUNT": {
+			EditAccountScreen eas = new EditAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "EditAccountOptions");
+				if (fieldToBeVerified.equalsIgnoreCase("SAVE")) {
+					if (!eas.isSaveButtonInEditAccountScreenEnabled()) {
+						Keyword.ReportStep_Pass(testCase, "Option: " + fieldToBeVerified + " is disabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option: " + fieldToBeVerified + " is enabled");
+					}
+				}
+			}
+			break;
+		}
+		case "APP FEEDBACK": {
+			AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "AppFeedbackOptions");
+				if (fieldToBeVerified.equalsIgnoreCase("ANONYMOUS TOGGLE BUTTON")) {
+					if (!atas.isAnonymousToggleButtonEnabled()) {
+						Keyword.ReportStep_Pass(testCase, "Option: " + fieldToBeVerified + " is disabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option: " + fieldToBeVerified + " is enabled");
+					}
+				} else if (fieldToBeVerified.equalsIgnoreCase("SEND FEEDBACK BUTTON")) {
+					if (!atas.isSendFeedbackButtonEnabled()) {
 						Keyword.ReportStep_Pass(testCase, "Option: " + fieldToBeVerified + " is disabled");
 					} else {
 						flag = false;
