@@ -27,6 +27,7 @@ import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AboutTheAppScreen;
+import com.honeywell.screens.ActivateAccountScreen;
 import com.honeywell.screens.ActivityHistoryScreen;
 import com.honeywell.screens.ActivityLogsScreen;
 import com.honeywell.screens.AddNewDeviceScreen;
@@ -35,12 +36,15 @@ import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.CameraSolutionCardScreen;
+import com.honeywell.screens.CreateAccountScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.EditAccountScreen;
 import com.honeywell.screens.FAQsScreen;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.GlobalDrawerScreen;
+import com.honeywell.screens.LoginScreen;
 import com.honeywell.screens.PrimaryCard;
+import com.honeywell.screens.PrivacyPolicyEULA;
 import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
@@ -547,6 +551,13 @@ public class SelectElementOnAScreen extends Keyword {
 				case "SMART HOME SECURITY": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					flag = flag & dasDIY.selectDeviceToInstall(parameters.get(0));
+					break;
+				}
+				case "CLOSE BUTTON": {
+					AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
+					if (ads.isCloseButtonInAddNewDeviceScreenVisible()) {
+						flag &= ads.clickOnCloseButtonInAddNewDeviceScreen();
+					}
 					break;
 				}
 				}
@@ -1696,6 +1707,32 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					break;
 				}
+				case "LOG OUT": {
+					if (gd.isLogoutOptionVisible()) {
+						gd.clickOnLogoutOption();
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+					} else {
+						Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+						TouchAction action = new TouchAction(testCase.getMobileDriver());
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							int startx = (dimension.width * 20) / 100;
+							int starty = (dimension.height * 62) / 100;
+							int endx = (dimension.width * 22) / 100;
+							int endy = (dimension.height * 35) / 100;
+							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						} else {
+							action.press(10, (int) (dimension.getHeight() * .9))
+									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						}
+						if (gd.isLogoutOptionVisible()) {
+							gd.clickOnLogoutOption();
+							Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+						}
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to clicked on " + parameters.get(0));
+					}
+					break;
+				}
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1841,6 +1878,22 @@ public class SelectElementOnAScreen extends Keyword {
 				 * flag &= DashboardUtils.enterCountryNameAndSelectItInConfirmYourCountryScreen(
 				 * testCase, inputs, parameters.get(0));
 				 */
+				switch (parameters.get(0).toUpperCase()) {
+				case "CURRENT COUNTRY": {
+					AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
+					if (ads.isCurrentCountryButtonVisible()) {
+						flag &= ads.clickOnCurrentCountryButton();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click on " + parameters.get(0));
+						}
+					}
+					break;
+				}
+
+				}
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
 				} else {
@@ -2191,22 +2244,42 @@ public class SelectElementOnAScreen extends Keyword {
 			} else if (parameters.get(1).equalsIgnoreCase("FAQS")) {
 				FAQsScreen faqsScreen = new FAQsScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
-				case "GENERAL OPTION": {
+				case "GENERAL": {
 					if (faqsScreen.isGeneralOptionInFAQsScreenVisible()) {
 						flag &= faqsScreen.clickOnGeneralOptionInFAQsScreen();
 					}
 					break;
 				}
+				case "THERMOSTAT": {
+					if (faqsScreen.isThermostatOptionInFAQsScreenVisible()) {
+						flag &= faqsScreen.clickOnThermostatOptionInFAQsScreen();
+					}
+					break;
 				}
-			} else if (parameters.get(1).equalsIgnoreCase("GENERAL")) {
+				case "WATER LEAK DETECTOR": {
+					if (faqsScreen.isWaterLeakDetectorOptionInFAQsScreenVisible()) {
+						flag &= faqsScreen.clickOnWaterLeakDetectorOptionInFAQsScreen();
+					}
+					break;
+				}
+				case "CAMERA": {
+					if (faqsScreen.isCameraOptionInFAQsScreenVisible()) {
+						flag &= faqsScreen.clickOnCameraOptionInFAQsScreen();
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("GENERAL") || parameters.get(1).equalsIgnoreCase("THERMOSTAT")
+					|| parameters.get(1).equalsIgnoreCase("WATER LEAK DETECTOR")
+					|| parameters.get(1).equalsIgnoreCase("CAMERA")) {
 				FAQsScreen faqsScreen = new FAQsScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "A QUESTION": {
-					if (faqsScreen.isGeneralScreenQuestionListVisible()
-							&& faqsScreen.isFirstQuestionDisplayedInGeneralScreenVisible()) {
-						inputs.setInputValue("FIRST_QUESTION_IN_GENERAL_SCREEN",
-								faqsScreen.getFirstQuestionDisplayedInGeneralScreen());
-						flag &= faqsScreen.clickOnFirstQuestionDisplayedInGeneralScreen();
+					if (faqsScreen.isFirstQuestionDisplayedInTheScreen()
+							&& faqsScreen.isFirstQuestionDisplayedInTheScreen()) {
+						inputs.setInputValue("FIRST_QUESTION_IN_THE_SCREEN",
+								faqsScreen.getFirstQuestionDisplayedInTheScreen());
+						flag &= faqsScreen.clickOnFirstQuestionDisplayedInTheScreen();
 					}
 					break;
 				}
@@ -2223,6 +2296,208 @@ public class SelectElementOnAScreen extends Keyword {
 				case "NO BUTTON FROM WAS THIS HELPFUL SECTION": {
 					if (faqsScreen.isNOButtonInWasThisHelpfulTextInQuestionScreenVisible()) {
 						flag &= faqsScreen.clickOnNOButtonInWasThisHelpfulTextInQuestionScreen();
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("HONEYWELL HOME")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "CREATE ACCOUNT": {
+					CreateAccountScreen cas = new CreateAccountScreen(testCase);
+					if (cas.isCreateAccountButtonDisplayed()) {
+						flag &= cas.clickOnCreateAccountButton();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Unable to click on Create Account button");
+						}
+
+						break;
+					}
+				}
+				case "LOGIN": {
+					CreateAccountScreen cas = new CreateAccountScreen(testCase);
+					if (cas.isCreateAccountLoginButtonDisplayed()) {
+						flag &= cas.clickOnLoginButton();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Unable to click on Login button");
+						}
+					}
+
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("LOGIN")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "CANCEL": {
+					LoginScreen ls = new LoginScreen(testCase);
+					if (ls.isLoginCancelButtonDisplayed()) {
+						flag &= ls.clickOnCancelButton();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Unable to click on Cancel button");
+						}
+						break;
+					}
+				}
+				// Login button in Login screen
+				case "LOGIN BUTTON": {
+					LoginScreen ls = new LoginScreen(testCase);
+					if (ls.isLoginButtonDisplayed()) {
+						flag &= ls.clickOnLoginButton();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Unable to click on Login button");
+						}
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("CREATE ACCOUNT")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "SIGN ME UP TOGGLE BUTTON": {
+					CreateAccountScreen cas = new CreateAccountScreen(testCase);
+					if (!cas.isCreateAccountSignMeUpToggleButtonEnabled()) {
+						flag &= cas.isCreateAccountClickOnSignMeUpToggleButton();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase,
+									"Sign me up for exclusive updates toggle button is clicked");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Sign me up for exclusive updates toggle button is not clicked");
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Sign me up for exclusive updates toggle button is enabled by default");
+					}
+					break;
+				}
+				case "CANCEL": {
+					CreateAccountScreen cas = new CreateAccountScreen(testCase);
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						flag &= cas.isCreateAccountClickOnBack();
+					} else {
+						// ios
+						flag &= cas.isCreateAccountClickOnCancelButtonOnIOS();
+
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Back or Cancel button is clicked");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Back or Cancel button not clicked");
+					}
+					break;
+				}
+				case "COUNTRY": {
+					CreateAccountScreen cas = new CreateAccountScreen(testCase);
+					if (cas.isCreateAccountCountrySelectionDisplayed()) {
+						flag &= cas.isCreateAccountClickOnCountrySelection();
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Country selection button is clicked");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Country selection button not clicked");
+					}
+					break;
+				}
+				case "PRIVACY STATEMENT": {
+					CreateAccountScreen cas = new CreateAccountScreen(testCase);
+					if (cas.isCreateAccountPrivacyStatementLinkDisplayed()) {
+						flag &= cas.isCreateAccountClickOnPrivacyStatementLink();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Privacy Statement link is clicked");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Privacy Statement link is not clicked");
+						}
+					}
+					break;
+				}
+				case "EULA": {
+					CreateAccountScreen cas = new CreateAccountScreen(testCase);
+					if (cas.isCreateAccountEULALinkDisplayed()) {
+						flag &= cas.isCreateAccountClickOnEULALink();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "EULA link is clicked");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "EULA link is not clicked");
+						}
+					}
+					break;
+				}
+				case "CREATE BUTTON": {
+					CreateAccountScreen cas = new CreateAccountScreen(testCase);
+					if (cas.isCreateAccountRegisterButtonDisplayed()) {
+						flag &= cas.clickOnCreateAccountRegisterButton();
+					} else {
+						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+						TouchAction action = new TouchAction(testCase.getMobileDriver());
+						System.out.println("$$$$$$$$$$$$$$: " + testCase.getPlatform());
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							int startx = (dimensions.width * 20) / 100;
+							int starty = (dimensions.height * 62) / 100;
+							int endx = (dimensions.width * 22) / 100;
+							int endy = (dimensions.height * 35) / 100;
+							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						} else {
+							action.press(10, (int) (dimensions.getHeight() * .9))
+									.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
+						}
+						if (cas.isCreateAccountRegisterButtonDisplayed()) {
+							flag &= cas.clickOnCreateAccountRegisterButton();
+						} else {
+							flag &= false;
+						}
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Create Account Register button is clicked");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Create Account Register button is not clicked");
+					}
+				}
+					break;
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("ACTIVATE ACCOUNT")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "CLOSE BUTTON": {
+					ActivateAccountScreen aas = new ActivateAccountScreen(testCase);
+					if (aas.isActivateAccountCloseButtonDisplayed()) {
+						flag &= aas.isActivateAccountClickOnCloseButton();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Close button is clicked");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Close button is not clicked");
+						}
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("PRIVACY POLICY AND EULA")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "BACK": {
+					PrivacyPolicyEULA ppe = new PrivacyPolicyEULA(testCase);
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						flag &= ppe.isPrivacyPolicyEULAClickOnBack();
+					} else {
+						// ios
+						flag &= ppe.isPrivacyPolicyEULAClickOnIOSBackButton();
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Back button is clicked");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Back button not clicked");
 					}
 					break;
 				}

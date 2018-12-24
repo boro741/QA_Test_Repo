@@ -12,20 +12,24 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.AddressUtils;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.screens.AboutTheAppScreen;
+import com.honeywell.screens.ActivateAccountScreen;
 import com.honeywell.screens.ActivityHistoryScreen;
 import com.honeywell.screens.AddressScreen;
 import com.honeywell.screens.AdhocScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
+import com.honeywell.screens.CreateAccountScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.GlobalDrawerScreen;
+import com.honeywell.screens.LoginScreen;
 import com.honeywell.screens.ManageUsersScreen;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.EditAccountScreen;
@@ -3359,7 +3363,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					break;
 				}
 				case "THERMOSTAT": {
-					if (faqsScreen.isThermotatOptionInFAQsScreenVisible()) {
+					if (faqsScreen.isThermostatOptionInFAQsScreenVisible()) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -3411,6 +3415,26 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
+				case "SEARCH RESULTS": {
+					if (faqsScreen.isSearchResultsDisplayedInFAQsScreen()
+							&& faqsScreen.isFirstQuestionInSearchResultsDisplayed()) {
+						Keyword.ReportStep_Pass(testCase, parameter + " are displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " are not displayed");
+					}
+					break;
+				}
+				case "NO FAQS FOUND": {
+					if (faqsScreen.isNoFAQsFoundLabelInSearchResultsVisible()
+							&& faqsScreen.getNoFAQsFoundLabelInSearchResults().contains("No FAQs found")) {
+						Keyword.ReportStep_Pass(testCase, "Label No FAQs found is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Label No FAQs found is not displayed");
+					}
+					break;
+				}
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -3420,6 +3444,638 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				flag = true;
 			}
 			break;
+		}
+		case "CREATE ACCOUNT": {
+			boolean flag = true;
+			CreateAccountScreen cas = new CreateAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "CreateAccountOptions");
+				switch (parameter.toUpperCase()) {
+				case "FIRST NAME": {
+					flag &= cas.isCreateAccountFirstNameFieldDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " field is not displayed");
+					}
+					break;
+				}
+
+				case "LAST NAME": {
+					flag &= cas.isCreateAccountLastNameFieldDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " field is not displayed");
+					}
+					break;
+				}
+
+				case "EMAIL": {
+					flag &= cas.isCreateAccountEmailFieldDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " field is not displayed");
+					}
+					break;
+				}
+
+				case "PASSWORD": {
+					flag &= cas.isCreateAccountPasswordFieldDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " field is not displayed");
+					}
+					break;
+				}
+
+				case "VERIFY PASSWORD": {
+					flag &= cas.isCreateAccountVerifyPasswordFieldDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " field is not displayed");
+					}
+					break;
+				}
+
+				case "PASSWORD MUST HAVE": {
+					flag &= cas.isCreateAccountPasswordMustHaveTextDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " text is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " text is not displayed");
+					}
+					break;
+				}
+
+				case "COUNTRY SELECTION": {
+					flag &= cas.isCreateAccountCountrySelectionDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " button is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " button is not displayed");
+					}
+					break;
+
+				}
+
+				case "BY TAPPING CREATE BELOW": {
+					flag &= cas.isCreateAccountByTappingCreateBelowTextDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " text is displayed");
+					} else {
+						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+						TouchAction action = new TouchAction(testCase.getMobileDriver());
+						System.out.println("$$$$$$$$$$$$$$: " + testCase.getPlatform());
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							int startx = (dimensions.width * 20) / 100;
+							int starty = (dimensions.height * 62) / 100;
+							int endx = (dimensions.width * 22) / 100;
+							int endy = (dimensions.height * 35) / 100;
+							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						} else {
+							action.press(10, (int) (dimensions.getHeight() * .9))
+									.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
+						}
+						if (cas.isCreateAccountByTappingCreateBelowTextDisplayed()) {
+							Keyword.ReportStep_Pass(testCase, parameter + " text is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									parameter + " text is not displayed");
+						}
+					}
+					break;
+				}
+
+				case "PRIVACY STATEMENT": {
+					if (cas.isCreateAccountPrivacyStatementLinkDisplayed()) {
+						Keyword.ReportStep_Pass(testCase, parameter + "link is displayed");
+					} else {
+						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+						TouchAction action = new TouchAction(testCase.getMobileDriver());
+						System.out.println("$$$$$$$$$$$$$$: " + testCase.getPlatform());
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							int startx = (dimensions.width * 20) / 100;
+							int starty = (dimensions.height * 62) / 100;
+							int endx = (dimensions.width * 22) / 100;
+							int endy = (dimensions.height * 35) / 100;
+							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						} else {
+							action.press(10, (int) (dimensions.getHeight() * .9))
+									.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
+						}
+						if (cas.isCreateAccountPrivacyStatementLinkDisplayed()) {
+							Keyword.ReportStep_Pass(testCase, parameter + " link is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									parameter + " link is not displayed");
+						}
+					}
+					break;
+				}
+
+				case "EULA": {
+					flag &= cas.isCreateAccountEULALinkDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " link is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " link is not displayed");
+					}
+					break;
+				}
+
+				case "CREATE BUTTON": {
+					flag &= cas.isCreateAccountRegisterButtonDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " button is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " button is not displayed");
+					}
+					break;
+				}
+				case "MARKETING COMMUNICATIONS SIGN UP": {
+					flag &= cas.isCreateAccountMarketingCommunicationsSignUpTextDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " text is not displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " text is displayed");
+					}
+					break;
+				}
+
+				case "SIGN ME UP FOR EXCLUSIVE UPDATES AND TOGGLE": {
+					flag &= cas.isCreateAccountSignMeUpForExclusiveUpdatesTextDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " button & toggle is not displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + "button & toggle is displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+
+		case "CREATE ACCOUNT FOR UK": {
+			boolean flag = true;
+			CreateAccountScreen cas = new CreateAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "CreateAccountOptions");
+				switch (parameter.toUpperCase()) {
+				case "FIRST NAME": {
+					flag &= cas.isCreateAccountFirstNameFieldDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " field is not displayed");
+					}
+					break;
+				}
+
+				case "LAST NAME": {
+					flag &= cas.isCreateAccountLastNameFieldDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " field is not displayed");
+					}
+					break;
+				}
+
+				case "EMAIL": {
+					flag &= cas.isCreateAccountEmailFieldDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " field is not displayed");
+					}
+					break;
+				}
+
+				case "PASSWORD": {
+					flag &= cas.isCreateAccountPasswordFieldDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " field is not displayed");
+					}
+					break;
+				}
+
+				case "VERIFY PASSWORD": {
+					flag &= cas.isCreateAccountVerifyPasswordFieldDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " field is not displayed");
+					}
+					break;
+				}
+
+				case "PASSWORD MUST HAVE": {
+					flag &= cas.isCreateAccountPasswordMustHaveTextDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " text is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " text is not displayed");
+					}
+					break;
+				}
+
+				case "COUNTRY SELECTION": {
+					flag &= cas.isCreateAccountCountrySelectionDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + "button is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " button is not displayed");
+					}
+					break;
+				}
+
+				case "MARKETING COMMUNICATIONS SIGN UP": {
+					flag &= cas.isCreateAccountMarketingCommunicationsSignUpTextDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " text is displayed");
+						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+						TouchAction action = new TouchAction(testCase.getMobileDriver());
+						System.out.println("$$$$$$$$$$$$$$: " + testCase.getPlatform());
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							int startx = (dimensions.width * 20) / 100;
+							int starty = (dimensions.height * 62) / 100;
+							int endx = (dimensions.width * 22) / 100;
+							int endy = (dimensions.height * 35) / 100;
+							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						} else {
+							action.press(10, (int) (dimensions.getHeight() * .9))
+									.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " text is not displayed");
+					}
+					break;
+				}
+
+				case "SIGN ME UP FOR EXCLUSIVE UPDATES AND TOGGLE": {
+					flag &= cas.isCreateAccountSignMeUpForExclusiveUpdatesTextDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " button is displayed & toggle is disabled");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + "button & toggle are not displayed");
+					}
+					break;
+				}
+
+				case "SIGNING UP CONSENT LABEL SHOULD NOT BE DISPLAYED": {
+					if (!cas.isCreateAccountSigningUpConsentLabelDisplayed()) {
+						Keyword.ReportStep_Pass(testCase, parameter);
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " label is displayed");
+					}
+					break;
+				}
+
+				case "SIGNING UP CONSENT LABEL SHOULD BE DISPLAYED": {
+					flag &= cas.isCreateAccountSigningUpConsentLabelDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter);
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " label is not displayed");
+					}
+					break;
+				}
+
+				case "BY TAPPING CREATE BELOW": {
+					flag &= cas.isCreateAccountByTappingCreateBelowTextDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " text is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " text is not displayed");
+					}
+					break;
+				}
+
+				case "PRIVACY STATEMENT": {
+					if (cas.isCreateAccountPrivacyStatementLinkDisplayed()) {
+						Keyword.ReportStep_Pass(testCase, parameter + " link is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " link is not displayed");
+					}
+					break;
+				}
+
+				case "EULA": {
+					flag &= cas.isCreateAccountEULALinkDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " link is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " link is not displayed");
+					}
+					break;
+				}
+
+				case "CREATE BUTTON": {
+					flag &= cas.isCreateAccountRegisterButtonDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " button is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " button is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+			}
+			break;
+		}
+		case "CREATE ACCOUNT FIELD ERROR VALIDATION": {
+			boolean flag = true;
+			CreateAccountScreen cas = new CreateAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "CreateAccountFieldErrorValidation");
+				switch (parameter.toUpperCase()) {
+				case "YOU MUST ENTER A FIRST NAME": {
+					flag &= cas.isCreateAccountFirstNameFieldErrorValidationDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " error validation is displayed for First Name");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " error validation is not displayed for First Name");
+					}
+					break;
+				}
+				case "YOU MUST ENTER A LAST NAME": {
+					flag &= cas.isCreateAccountLastNameFieldErrorValidationDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " error validation is displayed for Last Name");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " error validation is not displayed for Last Name");
+					}
+					break;
+				}
+
+				case "YOU MUST ENTER A VALID EMAIL ADDRESS": {
+					flag &= cas.isCreateAccountEmailFieldErrorValidationDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " error validation is displayed for Email");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " error validation is not displayed for Email");
+					}
+					break;
+				}
+
+				case "THE PASSWORD MUST BE AT LEAST EIGHT CHARACTERS": {
+					flag &= cas.isCreateAccountPasswordFieldErrorValidationDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " error validation is displayed for Password");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " error validation is not displayed for Password");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "ALREADY REGISTERED EMAIL VALIDATION": {
+			boolean flag = true;
+			CreateAccountScreen cas = new CreateAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "AlreadyRegisteredEmailValidation");
+				switch (parameter.toUpperCase()) {
+				case "THIS EMAIL ADDRESS HAS ALREADY BEEN REGISTERED.": {
+					flag &= cas.isCreateAccountAlreadyRegisteredEmailValidationDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is displayed for Email field");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " is not displayed for Email field");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+			}
+			break;
+		}
+		case "PASSWORD DONT MATCH VALIDATION": {
+			boolean flag = true;
+			CreateAccountScreen cas = new CreateAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "PasswordDontMatchValidation");
+				switch (parameter.toUpperCase()) {
+				case "THE PASSWORD MUST BE AT LEAST EIGHT CHARACTERS": {
+					flag &= cas.isCreateAccountPasswordFieldErrorValidationDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " error validation is displayed for Password");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " error validation is not displayed for Password");
+					}
+					break;
+				}
+				case "PASSWORDS DON'T MATCH": {
+					flag &= cas.isCreateAccountVerifyPasswordDontMatchValidationDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								parameter + " validation is displayed for Verify Password field");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " validation is not displayed for Verify Password field");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+			}
+			break;
+		}
+		case "LOGIN": {
+			boolean flag = true;
+			LoginScreen ls = new LoginScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "Login");
+				switch (parameter.toUpperCase()) {
+				case "EMAIL": {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						MobileUtils.hideKeyboard(testCase.getMobileDriver());
+						flag &= ls.isLoginEmailAddressTextFieldVisible();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									parameter + " field is not displayed");
+						}
+						break;
+					} else {
+						// ios
+						ls.ClickOnHoneywellHomeLogo();
+						flag &= ls.isLoginEmailAddressTextFieldVisible();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									parameter + " field is not displayed");
+						}
+						break;
+					}
+				}
+				case "PASSWORD": {
+					flag &= ls.isLoginPasswordTextFieldDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " field is not displayed");
+					}
+					break;
+				}
+				case "FORGOT PASSWORD": {
+					flag &= ls.isLoginForgotPasswordLinkDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " link is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " link is not displayed");
+					}
+					break;
+				}
+				case "DISABLED LOGIN BUTTON": {
+					flag &= ls.isLoginButtonDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is displayed and disabled");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not displayed");
+					}
+					break;
+				}
+				case "CANCEL": {
+					flag &= ls.isLoginCancelButtonDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " button is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " button is not displayed");
+					}
+					break;
+				}
+				case "INVALID EMAIL AND PASSWORD VALIDATION": {
+					flag &= ls.isLoginInvalidEmailAndPasswordValidationDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not displayed");
+					}
+					break;
+				}
+				}
+			}
+			break;
+		}
+		case "ACTIVATE ACCOUNT DETAILS": {
+			boolean flag = true;
+			ActivateAccountScreen aas = new ActivateAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "ActivateAccountDetails");
+				switch (parameter.toUpperCase()) {
+				case "ALMOST DONE": {
+					flag &= aas.isActivateAccountAlmostDoneLabelDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " label is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " label is not displayed");
+					}
+					break;
+				}
+				case "NEW EMAIL": {
+					flag &= aas.isActivateAccountNewEmailDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " Id is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " Id is not displayed");
+					}
+					break;
+				}
+				case "GO TO MAIL": {
+					flag &= aas.isActivateAccountGoToMailButtonDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " button is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " button is not displayed");
+					}
+					break;
+				}
+				case "RESEND EMAIL": {
+					flag &= aas.isActivateAccountResendEmailLinkDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " link is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " link is not displayed");
+					}
+					break;
+				}
+				}
+			}
 		}
 		}
 		return flag;

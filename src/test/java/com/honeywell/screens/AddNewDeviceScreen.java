@@ -102,7 +102,7 @@ public class AddNewDeviceScreen extends MobileScreens {
 	public boolean isCurrentCountryButtonVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CurrentCountryButton");
 	}
-	
+
 	public boolean clickOnCurrentCountryButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CurrentCountryButton");
 	}
@@ -249,5 +249,42 @@ public class AddNewDeviceScreen extends MobileScreens {
 		} else {
 			return MobileUtils.getMobElement(testCase, "NAME", firstDeviceInTheListInAddNewDeviceScreen);
 		}
+	}
+
+	public boolean isCloseButtonInAddNewDeviceScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CloseButtonInAddNewDeviceScreen");
+	}
+
+	public boolean clickOnCloseButtonInAddNewDeviceScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CloseButtonInAddNewDeviceScreen");
+	}
+
+	public boolean isExitHoneywellHomePopupTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ExitHoneywellHomePopupTitle");
+	}
+
+	public boolean isSignOutButtonInExitHoneywellHomePopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SignOutButtonInExitHoneywellHomePopup");
+	}
+
+	public boolean clickOnSignOutButtonInExitHoneywellHomePopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SignOutButtonInExitHoneywellHomePopup");
+	}
+
+	public boolean isDeleteAccountButtonInExitHoneywellHomePopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase,
+				"DeleteAccountButtonInExitHoneywellHomePopup");
+	}
+
+	public boolean clickOnDeleteAccountButtonInExitHoneywellHomePopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteAccountButtonInExitHoneywellHomePopup");
+	}
+
+	public boolean isCancelButtonInExitHoneywellHomePopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInExitHoneywellHomePopup");
+	}
+
+	public boolean clickOnCancelButtonInExitHoneywellHomePopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInExitHoneywellHomePopup");
 	}
 }

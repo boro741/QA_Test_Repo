@@ -105,7 +105,7 @@ public class AboutTheAppUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean minimizeAndMaximizeTheApp(TestCases testCase) {
 		boolean flag = true;
 		MobileUtils.minimizeApp(testCase, 5);

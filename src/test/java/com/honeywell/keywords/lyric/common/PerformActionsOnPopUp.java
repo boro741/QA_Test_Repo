@@ -18,6 +18,7 @@ import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.lyric.das.utils.VacationSettingsUtils;
 import com.honeywell.screens.AboutTheAppScreen;
+import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.AddressScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
@@ -1165,6 +1166,56 @@ public class PerformActionsOnPopUp extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Failed to click on Continue button in Thanks for your rating Popup");
 					}
+				}
+				break;
+			}
+			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("EXIT HONEYWELL HOME")) {
+			AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CLICKS ON SIGN OUT BUTTON IN": {
+				if (ads.isSignOutButtonInExitHoneywellHomePopupVisible()) {
+					flag &= ads.clickOnSignOutButtonInExitHoneywellHomePopup();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on Sign Out button in Exit Honeywell Home Popup");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on Sign Out button in Exit Honeywell Home Popup");
+					}
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Sign Out button in Exit Honeywell Home Popup is not displayed");
+				}
+				break;
+			}
+			case "CLICKS ON DELETE ACCOUNT BUTTON IN": {
+				if (ads.isDeleteAccountButtonInExitHoneywellHomePopupVisible()) {
+					flag &= ads.clickOnDeleteAccountButtonInExitHoneywellHomePopup();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Clicked on Delete Account button in Exit Honeywell Home Popup");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on Delete Account button in Exit Honeywell Home Popup");
+					}
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Delete Account button in Exit Honeywell Home Popup is not displayed");
+				}
+				break;
+			}
+			case "CLICKS ON CANCEL BUTTON IN": {
+				if (ads.isCancelButtonInExitHoneywellHomePopupVisible()) {
+					flag &= ads.clickOnCancelButtonInExitHoneywellHomePopup();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on Cancel button in Exit Honeywell Home Popup");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on Cancel button in Exit Honeywell Home Popup");
+					}
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Cancel button in Exit Honeywell Home Popup is not displayed");
 				}
 				break;
 			}

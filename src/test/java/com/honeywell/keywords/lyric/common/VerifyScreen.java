@@ -14,17 +14,21 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.CreateAccountAndForgotPwdUtils;
 import com.honeywell.lyric.das.utils.DASAlarmUtils;
 import com.honeywell.lyric.das.utils.DASCameraUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
+import com.honeywell.lyric.das.utils.FAQsUtils;
 import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.screens.AboutTheAppScreen;
+import com.honeywell.screens.ActivateAccountScreen;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.AddressScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
+import com.honeywell.screens.CreateAccountScreen;
 import com.honeywell.screens.DASCameraSolutionCard;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
@@ -1123,6 +1127,7 @@ public class VerifyScreen extends Keyword {
 			}
 			case "PRIVACY POLICY AND EULA": {
 				AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+				DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "PRIVACY POLICY LOADING SPINNER", 2);
 				if (atas.isPrivacyPolicyAndEULAScreenTitleVisible()
 						&& atas.isDoneButtonInPrivacyPolicyAndEULAScreenVisible()) {
 					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
@@ -1200,37 +1205,343 @@ public class VerifyScreen extends Keyword {
 			}
 			case "FAQS": {
 				FAQsScreen faqsScreen = new FAQsScreen(testCase);
-				if (faqsScreen.isFAQsScreenTitleVisible() && faqsScreen.isBackButtonInFAQsScreenVisible()
-						&& faqsScreen.isHelpSearchTextFieldInFAQsScreenVisible()) {
-					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
+				FAQsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER", 1);
+				if (faqsScreen.isFAQsScreenTitleVisible()) {
+					Keyword.ReportStep_Pass(testCase, "FAQs Screen title in the header is displayed");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"FAQs Screen title in the header is not displayed");
+				}
+				if (faqsScreen.isBackButtonInFAQsScreenVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Back button in the header is displayed");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Back button in the header is not displayed");
+				}
+				if (faqsScreen.isHelpSearchTextFieldInFAQsScreenVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Help Search in the header Text field is displayed");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Help Search Text field in the header is not displayed");
+				}
+				break;
+			}
+			case "GENERAL": {
+				FAQsScreen faqsScreen = new FAQsScreen(testCase);
+				FAQsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER", 1);
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					if (faqsScreen.isFAQsScreenTitleVisible()) {
+						Keyword.ReportStep_Pass(testCase, "FAQs Screen title in the header is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"FAQs Screen title in the header is not displayed");
+					}
+					if (faqsScreen.isBackButtonInGeneralScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Back button in the header is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Back button in the header is not displayed");
+					}
+					if (faqsScreen.isHelpSearchTextFieldInFAQsScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Help Search in the header Text field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Help Search Text field in the header is not displayed");
+					}
+					if (faqsScreen.isGeneralScreenHeaderTitleVisible(20)) {
+						Keyword.ReportStep_Pass(testCase, "General title is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"General Screen title is not displayed");
+					}
+					if (faqsScreen.isGeneralScreenHeaderTitleVisible(20)) {
+						Keyword.ReportStep_Pass(testCase, "General title is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"General Screen title is not displayed");
+					}
+					if (faqsScreen.isQuestionListInAScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "General Question list is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"General Question list is not displayed");
+					}
+				} else {
+					if (faqsScreen.isBackButtonInGeneralScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Back button in the header is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Back button in the header is not displayed");
+					}
+					if (faqsScreen.isGeneralScreenHeaderTitleVisible(20)) {
+						Keyword.ReportStep_Pass(testCase, "General title is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"General Screen title is not displayed");
+					}
+					if (faqsScreen.isQuestionListInAScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "General Question list is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"General Question list is not displayed");
+					}
+				}
+				break;
+			}
+			case "THERMOSTAT": {
+				FAQsScreen faqsScreen = new FAQsScreen(testCase);
+				FAQsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER", 1);
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					if (faqsScreen.isFAQsScreenTitleVisible()) {
+						Keyword.ReportStep_Pass(testCase, "FAQs Screen title in the header is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"FAQs Screen title in the header is not displayed");
+					}
+					if (faqsScreen.isBackButtonInThermostatScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Back button in the header is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Back button in the header is not displayed");
+					}
+					if (faqsScreen.isHelpSearchTextFieldInFAQsScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Help Search in the header Text field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Help Search Text field in the header is not displayed");
+					}
+					if (faqsScreen.isThermostatScreenHeaderTitleVisible(20)) {
+						Keyword.ReportStep_Pass(testCase, "Thermostat title is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Thermostat Screen title is not displayed");
+					}
+					if (faqsScreen.isQuestionListInAScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Thermostat Question list is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Thermostat Question list is not displayed");
+					}
+				} else {
+					if (faqsScreen.isBackButtonInThermostatScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Back button in the header is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Back button in the header is not displayed");
+					}
+					if (faqsScreen.isThermostatScreenHeaderTitleVisible(20)) {
+						Keyword.ReportStep_Pass(testCase, "Thermostat title is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Thermostat Screen title is not displayed");
+					}
+					if (faqsScreen.isQuestionListInAScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Thermostat Question list is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Thermostat Question list is not displayed");
+					}
+				}
+				break;
+			}
+			case "WATER LEAK DETECTOR": {
+				FAQsScreen faqsScreen = new FAQsScreen(testCase);
+				FAQsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER", 1);
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					if (faqsScreen.isFAQsScreenTitleVisible()) {
+						Keyword.ReportStep_Pass(testCase, "FAQs Screen title in the header is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"FAQs Screen title in the header is not displayed");
+					}
+					if (faqsScreen.isBackButtonInWaterLeakDetectorScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Back button in the header is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Back button in the header is not displayed");
+					}
+					if (faqsScreen.isHelpSearchTextFieldInFAQsScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Help Search in the header Text field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Help Search Text field in the header is not displayed");
+					}
+					if (faqsScreen.isWaterLeakDetectorScreenHeaderTitleVisible(20)) {
+						Keyword.ReportStep_Pass(testCase, "Water Leak Detector title is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Water Leak Detector Screen title is not displayed");
+					}
+					if (faqsScreen.isQuestionListInAScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Water Leak Detector Question list is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Water Leak Detector Question list is not displayed");
+					}
+				} else {
+					if (faqsScreen.isBackButtonInWaterLeakDetectorScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Back button in the header is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Back button in the header is not displayed");
+					}
+					if (faqsScreen.isWaterLeakDetectorScreenHeaderTitleVisible(20)) {
+						Keyword.ReportStep_Pass(testCase, "Water Leak Detector title is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Water Leak Detector Screen title is not displayed");
+					}
+					if (faqsScreen.isQuestionListInAScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Water Leak Detector Question list is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Water Leak Detector Question list is not displayed");
+					}
+				}
+				break;
+			}
+			case "CAMERA": {
+				FAQsScreen faqsScreen = new FAQsScreen(testCase);
+				FAQsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER", 1);
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					if (faqsScreen.isFAQsScreenTitleVisible()) {
+						Keyword.ReportStep_Pass(testCase, "FAQs Screen title in the header is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"FAQs Screen title in the header is not displayed");
+					}
+					if (faqsScreen.isBackButtonInCameraScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Back button in the header is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Back button in the header is not displayed");
+					}
+					if (faqsScreen.isHelpSearchTextFieldInFAQsScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Help Search in the header Text field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Help Search Text field in the header is not displayed");
+					}
+					if (faqsScreen.isCameraScreenHeaderTitleVisible(20)) {
+						Keyword.ReportStep_Pass(testCase, "Camera title is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Camera Screen title is not displayed");
+					}
+					if (faqsScreen.isQuestionListInAScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Water Leak Detector Question list is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Water Leak Detector Question list is not displayed");
+					}
+				} else {
+					if (faqsScreen.isBackButtonInCameraScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Back button in the header is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Back button in the header is not displayed");
+					}
+					if (faqsScreen.isCameraScreenHeaderTitleVisible(20)) {
+						Keyword.ReportStep_Pass(testCase, "Camera title is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Camera Screen title is not displayed");
+					}
+					if (faqsScreen.isQuestionListInAScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Water Leak Detector Question list is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Water Leak Detector Question list is not displayed");
+					}
+				}
+				break;
+			}
+			case "QUESTION": {
+				FAQsScreen faqsScreen = new FAQsScreen(testCase);
+				FAQsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER", 1);
+				String questionTitleDisplayed = null;
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					if (faqsScreen.isBackButtonInQuestionScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Back button in header is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Back button in header is not displayed");
+					}
+					if (faqsScreen.isQuestionTitleInQuestionScreenVisible(20)) {
+						Keyword.ReportStep_Pass(testCase, "Question title is displayed");
+						questionTitleDisplayed = faqsScreen.getQuestionTitleInQuestionScreen();
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Question title is not displayed");
+					}
+					if (faqsScreen.isAnswerToTheQuestionAskedInQuestionScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Answer to the question is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Answer to the question is not displayed");
+					}
+					if (questionTitleDisplayed.trim().replaceAll(" +", " ").equalsIgnoreCase(
+							inputs.getInputValue("FIRST_QUESTION_IN_THE_SCREEN").trim().replaceAll(" +", " "))) {
+						Keyword.ReportStep_Pass(testCase, "Question is correctly displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Question displayed is: " + questionTitleDisplayed + " which is not same as: "
+										+ inputs.getInputValue("FIRST_QUESTION_IN_THE_SCREEN"));
+					}
+				} else {
+					if (faqsScreen.isBackButtonInQuestionScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Back button in header is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Back button in header is not displayed");
+					}
+					if (faqsScreen.isQuestionTitleInQuestionScreenVisible(20)) {
+						Keyword.ReportStep_Pass(testCase, "Question title is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Question title is not displayed");
+					}
+					if (faqsScreen.isAnswerToTheQuestionAskedInQuestionScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Answer to the question is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Answer to the question is not displayed");
+					}
+				}
+				break;
+			}
+			case "CREATE ACCOUNT": {
+				CreateAccountScreen cas = new CreateAccountScreen(testCase);
+				if (cas.createAccountTitle()) {
+					Keyword.ReportStep_Pass(testCase, "Create Account Title Screen is displayed");
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Failed to navigate to " + expectedScreen.get(0));
 				}
 				break;
 			}
-			case "GENERAL": {
-				FAQsScreen faqsScreen = new FAQsScreen(testCase);
-				if (faqsScreen.isFAQsScreenTitleVisible() && faqsScreen.isBackButtonInFAQsScreenVisible()
-						&& faqsScreen.isHelpSearchTextFieldInFAQsScreenVisible()
-						&& faqsScreen.isGeneralScreenQuestionListVisible()) {
-					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0) + " screen.");
+			case "SELECTED COUNTRY IN CREATE ACCOUNT": {
+				CreateAccountScreen cas = new CreateAccountScreen(testCase);
+				String actCountry = cas.isCreateAccountGetSelectedCountry();
+				if (inputs.getInputValue("SELECTED_COUNTRY").equalsIgnoreCase(actCountry)) {
+					Keyword.ReportStep_Pass(testCase,
+							"Selected Country is the same as the one selected in Please Confirm your country screen");
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to navigate to " + expectedScreen.get(0) + " screen.");
+							"Selected Country is not the same as the one selected in Please Confirm your country screen "
+									+ expectedScreen.get(0));
 				}
 				break;
 			}
-			case "QUESTION": {
-				FAQsScreen faqsScreen = new FAQsScreen(testCase);
-				if (faqsScreen.isBackButtonInFAQsScreenVisible() && faqsScreen.isQuestionTitleInQuestionScreenVisible()
-						&& faqsScreen.isAnswerToTheQuestionAskedInQuestionScreenVisible()
-						&& faqsScreen.getQuestionTitleInQuestionScreen()
-								.equalsIgnoreCase(inputs.getInputValue("FIRST_QUESTION_IN_GENERAL_SCREEN"))) {
-					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0) + " screen.");
+			case "ACTIVATE ACCOUNT": {
+				ActivateAccountScreen aas = new ActivateAccountScreen(testCase);
+				CreateAccountAndForgotPwdUtils.waitForProgressBarToComplete(testCase, "PROGRESS BAR", 1);
+
+				if (aas.isActivateAccountTitleDisplayed()) {
+					Keyword.ReportStep_Pass(testCase, "Activate Account screen is displayed");
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to navigate to " + expectedScreen.get(0) + " screen.");
+							"Failed to navigate to " + expectedScreen.get(0));
 				}
 				break;
 			}

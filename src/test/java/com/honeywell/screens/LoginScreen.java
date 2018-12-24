@@ -4,6 +4,7 @@ import io.appium.java_client.TouchAction;
 
 import org.openqa.selenium.WebElement;
 import com.honeywell.commons.coreframework.Keyword;
+import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.mobile.MobileScreens;
@@ -83,4 +84,47 @@ public class LoginScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "LyricLogo");
 	}
 
+	public boolean isLoginPasswordTextFieldDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PasswordTextField");
+	}
+
+	public boolean isLoginForgotPasswordLinkDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ForgotPasswordLink");
+	}
+
+	public boolean isLoginButtonDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LoginButton");
+	}
+
+	public boolean isLoginEmailAddressTextFieldVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EmailAddressTextField");
+	}
+
+	public boolean isLoginHoneywellHomeLogoVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "HoneywellHomeLogo", 3);
+	}
+
+	public boolean isLoginCancelButtonDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButton");
+	}
+
+	public boolean clickOnCancelButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton");
+	}
+
+	public boolean ClickOnHoneywellHomeLogo() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "HoneywellHomeLogo");
+	}
+
+	public boolean enterEmailIdInLoginScreen(TestCaseInputs inputs, String email) {
+		return MobileUtils.setValueToElement(objectDefinition, testCase, "EmailAddressTextField", email);
+	}
+
+	public boolean enterPasswordInLoginScreen(TestCaseInputs inputs, String password) {
+		return MobileUtils.setValueToElement(objectDefinition, testCase, "PasswordTextField", password);
+	}
+
+	public boolean isLoginInvalidEmailAndPasswordValidationDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "InvalidEmailAndPasswordValidation");
+	}
 }

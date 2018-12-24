@@ -25,6 +25,7 @@ import com.honeywell.screens.VacationHoldScreen;
 import com.honeywell.screens.WLDConfigurationScreen;
 import com.honeywell.screens.ZwaveScreen;
 import com.honeywell.screens.AboutTheAppScreen;
+import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.AddressScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 
@@ -572,6 +573,20 @@ public class VerifyDisplayedPopUp extends Keyword {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Thanks for your rating popup is not displayed with close and continue buttons");
+			}
+			break;
+		}
+		case "EXIT HONEYWELL HOME": {
+			AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
+			if (ads.isExitHoneywellHomePopupTitleVisible() && ads.isSignOutButtonInExitHoneywellHomePopupVisible()
+					&& ads.isDeleteAccountButtonInExitHoneywellHomePopupVisible()
+					&& ads.isCancelButtonInExitHoneywellHomePopupVisible()) {
+				Keyword.ReportStep_Pass(testCase,
+						"Exit Honeywell Home popup is displayed with Sign Out, Delete Account and Cancel buttons");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Exit Honeywell Home popup is not displayed with Sign Out, Delete Account and Cancel buttons");
 			}
 			break;
 		}

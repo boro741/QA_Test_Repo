@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 
 import com.google.common.base.Function;
 import com.honeywell.commons.coreframework.Keyword;
+import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.FAQsScreen;
@@ -30,6 +31,14 @@ public class FAQsUtils {
 								return true;
 							} else {
 								return false;
+							}
+						}
+						case "LOADING SPINNER": {
+							if (faqsScreen.isLoadingSpinnerVisible()) {
+								System.out.println("Waiting for loading spinner to disappear");
+								return true;
+							} else {
+								return true;
 							}
 						}
 						default: {
@@ -62,7 +71,15 @@ public class FAQsUtils {
 		boolean flag = true;
 		FAQsScreen faqsScreen = new FAQsScreen(testCase);
 		if (wasThisHelpfulTextAfterSelectingYesOrNoOption.equalsIgnoreCase("YOU DID NOT FIND THIS HELPFUL")) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			wasThisHelpfulTextAfterSelectingYesOrNoOption = "You didn't find this helpful";
+			} else {
+				wasThisHelpfulTextAfterSelectingYesOrNoOption = "You didn't find this helpful.";
+			}
+		} else {
+			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+				wasThisHelpfulTextAfterSelectingYesOrNoOption = wasThisHelpfulTextAfterSelectingYesOrNoOption + ".";
+			}
 		}
 		String textDisplayedInTheQuestionFooter;
 		textDisplayedInTheQuestionFooter = faqsScreen.getQuestionFooterMessage();
@@ -77,6 +94,20 @@ public class FAQsUtils {
 					"Text displayed after selecting either Yes or No button in Question Screen is: "
 							+ textDisplayedInTheQuestionFooter + ", which is not same as the actual: "
 							+ wasThisHelpfulTextAfterSelectingYesOrNoOption);
+		}
+		return flag;
+	}
+	
+	public static boolean enterHelpTextInFAQsScreen(TestCases testCase, TestCaseInputs inputs, String inputText) {
+		boolean flag = true;
+		FAQsScreen faqsScreen = new FAQsScreen(testCase);
+		flag &= faqsScreen.enterTextInHelpTextField(inputText);
+		if (flag) {
+			Keyword.ReportStep_Pass(testCase, "Successfully entered text in Help text field:" + inputText);
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Failed to enter text in Help text field:" + inputText);
 		}
 		return flag;
 	}

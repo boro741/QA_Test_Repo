@@ -1,6 +1,6 @@
 @GeneralGlobalDrawerUnderScenarios @Platform
 Feature: General global drawer under scenarios 
-	As a user I want to verify under global drawer scenaios 
+	As a user I want to verify under global drawer scenaios
 	
 	
 #Single location with out any solution for UK Location
@@ -814,7 +814,7 @@ Examples:
 
   
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerVerifyUpdatedExistingAddress            @Automatable			@--xrayid:ATER-68244
+@GeneralGlobalDrawerVerifyUpdatedExistingAddress            @Automated			@--xrayid:ATER-68244
 Scenario Outline: As a user i want to verify if updated address is displayed after saving it
 Given user launches and logs in to the Lyric Application
 When user navigates to "Address" screen from the "Dashboard" screen
@@ -1133,7 +1133,7 @@ Examples:
 
   
 #Requirements : single location with any solution
-@GeneralGlobalDrawerAddressDeleteLocationWithAnySoultion             @Automatable		@--xrayid:ATER-74327			#PendingForAutomation
+@GeneralGlobalDrawerAddressDeleteLocationWithAnySoultion             @Automated		@--xrayid:ATER-74327			#PendingForAutomation
 Scenario: As a user i want to Verify if error popup displays when tapped on delete location for an account with any solution
 Given user launches and logs in to the Lyric Application
 When user navigates to "Address" screen from the "Dashboard" screen
@@ -2196,7 +2196,7 @@ And user should be displayed with the following "FAQS" options:
 #FAQs General 
   
 #Requirements : single location with and with out any solution , UK location 
-@GeneralGlobalDrawerTapOnYesButtonInWasThisHelpfulDIsplayedForAQuestionInGeneralFAQs            @Automatable		@--xrayid:ATER-69126
+@GeneralGlobalDrawerTapOnYesButtonInWasThisHelpfulDIsplayedForAQuestionInGeneralFAQs            @Automated		@--xrayid:ATER-69126
 Scenario: Verify the app behavior by tapping on Yes button in Was this helpful displayed for a question in FAQs General questions list
 Given user launches and logs in to the Lyric Application
 When user navigates to "FAQS" screen from the "Dashboard" screen
@@ -2207,7 +2207,7 @@ And user should be displayed with the following "FAQS" options:
 | Thermostat          	| 
 | Water leak detector 	| 
 | Camera              	|
-When user selects "General Option" from "FAQS" screen 
+When user selects "General" from "FAQS" screen 
 Then user should be displayed with the "General" screen
 When user selects "A Question" from "General" screen
 Then user should be displayed with the "Question" screen
@@ -2227,7 +2227,7 @@ And user should not be displayed with the following "Question" options:
 
 
 #Requirements : single location with and with out any solution , UK location 
-@GeneralGlobalDrawerTapOnNoButtonInWasThisHelpfulDIsplayedForAQuestionInGeneralFAQs            @Automatable		@--xrayid:ATER-75786
+@GeneralGlobalDrawerTapOnNoButtonInWasThisHelpfulDIsplayedForAQuestionInGeneralFAQs            @Automated		@--xrayid:ATER-75786
 Scenario: Verify the app behavior by tapping on No button in Was this helpful displayed for a question in FAQs General questions list
 Given user launches and logs in to the Lyric Application
 When user navigates to "FAQS" screen from the "Dashboard" screen
@@ -2238,7 +2238,7 @@ And user should be displayed with the following "FAQS" options:
 | Thermostat          	| 
 | Water leak detector 	| 
 | Camera              	|
-When user selects "General Option" from "FAQS" screen 
+When user selects "General" from "FAQS" screen 
 Then user should be displayed with the "General" screen
 When user selects "A Question" from "General" screen
 Then user should be displayed with the "Question" screen
@@ -2257,162 +2257,294 @@ And user should not be displayed with the following "Question" options:
 | Was this helpful with Yes and No buttons	|
 
  
+#FAQs Thermostat 
   
-  #FAQs Thermostat 
+
+#Requirements : single location with and with out any solution , UK location 
+@GeneralGlobalDrawerTapOnYesButtonInWasThisHelpfulDIsplayedForAQuestionInThermostatFAQs             @Automated		@--xrayid:ATER-69127
+Scenario: Verify the app behavior by tapping on Yes button in Was this helpful displayed for a question in FAQs Thermostat questions list
+Given user launches and logs in to the Lyric Application
+When user navigates to "FAQS" screen from the "Dashboard" screen
+Then user should be displayed with the "FAQS" screen
+And user should be displayed with the following "FAQS" options:
+| FAQsOptions			| 
+| General             	| 
+| Thermostat          	| 
+| Water leak detector 	| 
+| Camera              	|
+When user selects "Thermostat" from "FAQS" screen 
+Then user should be displayed with the "Thermostat" screen
+When user selects "A Question" from "Thermostat" screen
+Then user should be displayed with the "Question" screen
+And user should be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Yes button from Was this helpful section" from "Question" screen
+Then user should be displayed with "You found this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user navigates back and forth in "Question" screen
+And user should be displayed with "You found this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+
+
+#Requirements : single location with and with out any solution , UK location 
+@GeneralGlobalDrawerTapOnNoButtonInWasThisHelpfulDIsplayedForAQuestionInThermostatFAQs            @Automated	@--xrayid:ATER-76410
+Scenario: Verify the app behavior by tapping on No button in Was this helpful displayed for a question in FAQs Thermostat questions list
+Given user launches and logs in to the Lyric Application
+When user navigates to "FAQS" screen from the "Dashboard" screen
+Then user should be displayed with the "FAQS" screen
+And user should be displayed with the following "FAQS" options:
+| FAQsOptions			| 
+| General             	| 
+| Thermostat          	| 
+| Water leak detector 	| 
+| Camera              	|
+When user selects "Thermostat" from "FAQS" screen 
+Then user should be displayed with the "Thermostat" screen
+When user selects "A Question" from "Thermostat" screen
+Then user should be displayed with the "Question" screen
+And user should be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user selects "No button from Was this helpful section" from "Question" screen
+Then user should be displayed with "You did not find this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user navigates back and forth in "Question" screen
+And user should be displayed with "You did not find this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+
   
-  #Requirements : single location with and with out any solution , UK location 
-  @GeneralGlobalDrawerFAQsThermostatUKLocationVerification             @Automatable		@--xrayid:ATER-69127
-  Scenario: As a user i want to Verify Thermostat FAQs with UK Location under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "About the app" screen from the "Dashboard" screen
-     When user selects "FAQs" option 
-     Then user should be navigates to "FAQs" screen 
-      And user should be displayed with following "FAQs" list:
-      | FAQs                | 
-      | General             | 
-      | Thermostat          | 
-      | Water leak detector | 
-      | Camera              | 
-     When user selects "Thermostat" option 
-     Then user should be displayed with "General" screen with respective "Questions"
-     When user selects any one "Questions"
-     Then user navigates to respective "Questions" screen
-     When user selects "YES" button 
-     Then user should be displayed with "You found this helpful" text  
-      And user should not displayed with the "Options" 
-     When user selects any one "Questions"
-     Then user navigates to respective "Questions" screen
-     When user selects "NO" button 
-     Then user should be displayed with "You didn't find this helpful" text 
-      And user should not displayed with the "Options" 
-      And suer navigates to "General" screen from " Questions" screen
+#FAQs WLD 
+
+
+#Requirements : single location with and with out any solution , UK location 
+@GeneralGlobalDrawerTapOnYesButtonInWasThisHelpfulDIsplayedForAQuestionInWLDFAQs            @Automated		@--xrayid:ATER-69129
+Scenario: Verify the app behavior by tapping on Yes button in Was this helpful displayed for a question in FAQs Water Leak Detector questions list
+Given user launches and logs in to the Lyric Application
+When user navigates to "FAQS" screen from the "Dashboard" screen
+Then user should be displayed with the "FAQS" screen
+And user should be displayed with the following "FAQS" options:
+| FAQsOptions			| 
+| General             	| 
+| Thermostat          	| 
+| Water leak detector 	| 
+| Camera              	|
+When user selects "Water leak detector" from "FAQS" screen 
+Then user should be displayed with the "Water leak detector" screen
+When user selects "A Question" from "Water leak detector" screen
+Then user should be displayed with the "Question" screen
+And user should be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Yes button from Was this helpful section" from "Question" screen
+Then user should be displayed with "You found this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user navigates back and forth in "Question" screen
+And user should be displayed with "You found this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	| 
+
+
+#Requirements : single location with and with out any solution , UK location 
+@GeneralGlobalDrawerTapOnNoButtonInWasThisHelpfulDIsplayedForAQuestionInWLDFAQs            @Automated		@--xrayid:ATER-76411
+Scenario: Verify the app behavior by tapping on No button in Was this helpful displayed for a question in FAQs Water Leak Detector questions list
+Given user launches and logs in to the Lyric Application
+When user navigates to "FAQS" screen from the "Dashboard" screen
+Then user should be displayed with the "FAQS" screen
+And user should be displayed with the following "FAQS" options:
+| FAQsOptions			| 
+| General             	| 
+| Thermostat          	| 
+| Water leak detector 	| 
+| Camera              	|
+When user selects "Water leak detector" from "FAQS" screen 
+Then user should be displayed with the "Water leak detector" screen
+When user selects "A Question" from "Water leak detector" screen
+Then user should be displayed with the "Question" screen
+And user should be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user selects "No button from Was this helpful section" from "Question" screen
+Then user should be displayed with "You did not find this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user navigates back and forth in "Question" screen
+And user should be displayed with "You did not find this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+
+ 
+#FAQs CAMERA 
+
+ 
+#Requirements : single location with and with out any solution , UK location 
+@GeneralGlobalDrawerTapOnYesButtonInWasThisHelpfulDIsplayedForAQuestionInCameraFAQs              @Automated		@--xrayid:ATER-69131
+Scenario: Verify the app behavior by tapping on Yes button in Was this helpful displayed for a question in FAQs Camera questions list
+Given user launches and logs in to the Lyric Application
+When user navigates to "FAQS" screen from the "Dashboard" screen
+Then user should be displayed with the "FAQS" screen
+And user should be displayed with the following "FAQS" options:
+| FAQsOptions			| 
+| General             	| 
+| Thermostat          	| 
+| Water leak detector 	| 
+| Camera              	|
+When user selects "Camera" from "FAQS" screen 
+Then user should be displayed with the "Camera" screen
+When user selects "A Question" from "Camera" screen
+Then user should be displayed with the "Question" screen
+And user should be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Yes button from Was this helpful section" from "Question" screen
+Then user should be displayed with "You found this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user navigates back and forth in "Question" screen
+And user should be displayed with "You found this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+
+
+#Requirements : single location with and with out any solution , UK location 
+@GeneralGlobalDrawerTapOnNoButtonInWasThisHelpfulDIsplayedForAQuestionInCameraFAQs            @Automated		@--xrayid:ATER-76412
+Scenario: Verify the app behavior by tapping on No button in Was this helpful displayed for a question in FAQs Camera questions list
+Given user launches and logs in to the Lyric Application
+When user navigates to "FAQS" screen from the "Dashboard" screen
+Then user should be displayed with the "FAQS" screen
+And user should be displayed with the following "FAQS" options:
+| FAQsOptions			| 
+| General             	| 
+| Thermostat          	| 
+| Water leak detector 	| 
+| Camera              	|
+When user selects "Camera" from "FAQS" screen 
+Then user should be displayed with the "Camera" screen
+When user selects "A Question" from "Camera" screen
+Then user should be displayed with the "Question" screen
+And user should be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user selects "No button from Was this helpful section" from "Question" screen
+Then user should be displayed with "You did not find this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user navigates back and forth in "Question" screen
+And user should be displayed with "You did not find this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
   
-  #FAQs WLD 
+
+#FAQs search box 
   
-  #Requirements : single location with and with out any solution , UK location 
-  @GeneralGlobalDrawerWaterleakdetectorFAQsUKLocationVerification             @Automatable		@--xrayid:ATER-69129
-  Scenario: As a user i want to Verify WLD FAQs with UK Location under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "About the app" screen from the "Dashboard" screen
-     When user selects "FAQs" option 
-     Then user should be navigates to "FAQs" screen 
-      And user should be displayed with following "FAQs" list:
-      | FAQs                | 
-      | General             | 
-      | Thermostat          | 
-      | Water leak detector | 
-      | Camera              | 
-     When user selects "Water leak detector" option 
-     Then user should be displayed with "General" screen with respective "Questions"
-     When user selects any one "Questions"
-     Then user navigates to respective "Questions" screen
-     When user selects "YES" button 
-     Then user should be displayed with "You found this helpful" text  
-      And user should not displayed with the "Options" 
-     When user selects any one "Questions"
-     Then user navigates to respective "Questions" screen
-     When user selects "NO" button 
-     Then user should be displayed with "You didn't find this helpful" text 
-      And user should not displayed with the "Options" 
-      And suer navigates to "General" screen from " Questions" screen
+
+#Requirements : single location with and with out any solution , UK location 
+@GeneralGlobalDrawerVerifySearchResultsInFAQsScreen             @Automated		@--xrayid:ATER-69132
+Scenario: As a user i want to Verify if list of questions display for the entered help text in FAQs screen
+Given user launches and logs in to the Lyric Application
+When user navigates to "FAQS" screen from the "Dashboard" screen
+Then user should be displayed with the "FAQS" screen
+And user should be displayed with the following "FAQS" options:
+| FAQsOptions			| 
+| General             	| 
+| Thermostat          	| 
+| Water leak detector 	| 
+| Camera              	|
+When user inputs "What happens" in "Help Text" in the "FAQs" screen
+Then user should be displayed with the following "Question" options:
+| QuestionOptions	|
+| Search results		|
+ 
   
-  #FAQs CAMERA 
+#FAQs search box with no FAQs
   
-  #Requirements : single location with and with out any solution , UK location 
-  @GeneralGlobalDrawerCameraFAQsUKLocationVerification             @Automatable		@--xrayid:ATER-69131
-  Scenario: As a user i want to Verify camera FAQs with UK Location under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "About the app" screen from the "Dashboard" screen
-     When user selects "FAQs" option 
-     Then user should be navigates to "FAQs" screen 
-      And user should be displayed with following "FAQs" list:
-      | FAQs                | 
-      | General             | 
-      | Thermostat          | 
-      | Water leak detector | 
-      | Camera              | 
-     When user selects "camera" option 
-     Then user should be displayed with "General" screen with respective "Questions"
-     When user selects any one "Questions"
-     Then user navigates to respective "Questions" screen
-     When user selects "YES" button 
-     Then user should be displayed with "You found this helpful" text  
-      And user should not displayed with the "Options" 
-     When user selects any one "Questions"
-     Then user navigates to respective "Questions" screen
-     When user selects "NO" button 
-     Then user should be displayed with "You didn't find this helpful" text 
-      And user should not displayed with the "Options" 
-      And user navigates to "General" screen from " Questions" screen
+#Requirements : single location with and with out any solution , UK location 
+@GeneralGlobalDrawerVerifyNoFAQsFoundLabelInFAQsScreen             @Automated		@--xrayid:ATER-69133
+Scenario: As a user i want to Verify if No FAQs found label displayed for the entered help text in FAQs screen
+Given user launches and logs in to the Lyric Application
+When user navigates to "FAQS" screen from the "Dashboard" screen
+Then user should be displayed with the "FAQS" screen
+And user should be displayed with the following "FAQS" options:
+| FAQsOptions			| 
+| General             	| 
+| Thermostat          	| 
+| Water leak detector 	| 
+| Camera              	|
+When user inputs "abcdefghij" in "Help Text" in the "FAQs" screen
+Then user should be displayed with the following "Question" options:
+| QuestionOptions	|
+| No FAQs found		|
   
-  #FAQs search box 
+
+#Logout
   
-  #Requirements : single location with and with out any solution , UK location 
-  @GeneralGlobalDrawerFAQsThermostatUKLocationVerification             @Automatable		@--xrayid:ATER-69132
-  Scenario: As a user i want to Verify Thermostat FAQs with UK Location under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "FAQs" screen from the "Dashboard" screen
-     When user enters the text in "Search" edit box 
-     Then user should be display with respective "Questions"
+
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerLogoutFromTheAppWithLocation             @Automated	@--xrayid:ATER-69134
+Scenario: As a user i want to Verify logout with location under global drawer with and with out solution
+Given user launches and logs in to the Lyric Application
+When user navigates to "Global Drawer" screen from the "Dashboard" screen
+And user selects "Log out" from "Global Drawer" screen
+Then user should be displayed with the "Honeywell Home" Screen
+
   
-  #FAQs search box with no FAQs
+#Withoutlocation
+#Requirements : No location
+@GeneralGlobalDrawerLogoutFromAppWithoutAnyLocation             @Automated		@--xrayid:ATER-69135
+Scenario: As a user i want to Verify logout from the app without location
+Given user launches and logs in to the Lyric application with user account without any location
+Then user should be displayed with the "Add New Device" screen
+When user selects "Close Button" from "Add New Device" screen
+Then user should receive a "Exit Honeywell Home" popup
+When user "Clicks on Cancel button in" the "Exit Honeywell Home" popup
+Then user should be displayed with the "Add New Device" screen
+When user selects "Close Button" from "Add New Device" screen
+Then user should receive a "Exit Honeywell Home" popup
+When user "Clicks on Sign Out button in" the "Exit Honeywell Home" popup
+Then user should be displayed with the "Honeywell Home" Screen
+And user should be able to login to the app after sign out
+Then user should be displayed with the "Add New Device" screen
   
-  #Requirements : single location with and with out any solution , UK location 
-  @GeneralGlobalDrawerNoFAQsUKLocationVerification             @Automatable		@--xrayid:ATER-69133
-  Scenario Outline: As a user i want to Verify No FAQs with UK Location under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "FAQs" screen from the "Dashboard" screen
-     When user enters the <text> text in "Search" edit box 
-     Then user should be displayed with "No FAQs Found" text
-    Examples: 
-      | Text | 
-      | acbd | 
-  
-  #Logout
-  
-  #Requirements : single location with and with out any solution
-  @GeneralGlobalDrawerlogoutwithlocationVerification             @Automatable		@--xrayid:ATER-69134
-  Scenario: As a user i want to Verify logout with location under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "Global Drawer" screen from the "Dashboard" screen
-     When user selects "Logout" options
-     Then user should be displayed with "Login" Screen
-  
-  #Withoutlocation
-  #Requirements : No location
-  @GeneralGlobalDrawerlogoutwithnolocationVerification             @Automatable		@--xrayid:ATER-69135
-  Scenario: As a user I want to verify logout with out location
-    Given user launches and logs in to the Lyric Application
-     Then user selects “Back/Cancel” option from the “Add new Device” screen
-      And user should be displayed with “Exit Honeywell Home?” Pop up
-     When user select “Cancel” option from “Exit Honeywell Home?” Pop up
-     Then user should be displayed with “Add new Device” screen
-     When user selects “Back/Cancel” option from the “Add new Device” screen
-     Then user should be displayed with “Exit Honeywell Home?” Pop up
-     When user selects the “Sign out” option
-     Then user should be displayed with “login” screen
-  
-  #Delete account
-  #Feature: As an user, I want to delete my account from the app. @LYR-22282
-  @SingleUserDeleteAccountWithNoLocationNoDeviceNoMembership             @Automatable 		@--xrayid:ATER-69136  
-  Scenario: To verify user is able to delete his account if there are no devices, no locations and no Membership linked to the account
-    Given app is launched
-      And user creates account and email got verified.	
-     When user lands in “Add New Device” screen
-      And user clicks on BACK button
-     Then verify user should receive the Pop up screen with “Exit Honeywell Home?” Pop up.
-     When user Clicks on “DELETE ACCOUNT” link     
-     Then verify user should receive a “Delete Account-Sorry to see you go” Page/Pop up.
-     When user clicks of NO button
-     Then verify user should navigate back to “Add New Device” screen
-     When user clicks on BACK button
-     Then verify user should receive the Pop up screen with Exit Honeywell Pop up.
-     When user Clicks on “DELETE ACCOUNT” button     
-     Then verify user should receive a ““DELETE ACCOUNT”-Sorry to see you go” ““DELETE ACCOUNT”-Sorry to see you go” Page/Pop up.
-     When user Clicks on YES button
-     Then verify user should navigate to Login screen
-      And verify user should receive a pop-up saying “Your Account & Data is Deleted”.
-      And verify user is unable to login with same credentials
+
+#Delete account
+#Feature: As an user, I want to delete my account from the app. @LYR-22282
+@SingleUserDeleteAccountWithNoLocationNoDeviceNoMembership             @Automatable 		@--xrayid:ATER-69136  
+Scenario: To verify user is able to delete account if there are no devices, no locations and no Membership linked to the account
+Given user launches and logs in to the Lyric application with user account without any location
+Then user should be displayed with the "Add New Device" screen
+When user selects "Close Button" from "Add New Device" screen
+Then user should receive a "Exit Honeywell Home" popup
+When user "Clicks on Delete Account button in" the "Exit Honeywell Home" popup
+Then user should receive a "Sorry to see you go" popup
+When user "No button in" the "Sorry to see you go" popup
+Then user should be displayed with the "Add New Device" scree
+When user selects "Close Button" from "Add New Device" screen
+Then user should receive a "Exit Honeywell Home" popup
+When user "Clicks on Delete Account button in" the "Exit Honeywell Home" popup
+Then user should receive a "Sorry to see you go" popup
+When user "Yes button in" the "Sorry to see you go" popup
+Then user should be displayed with the "Honeywell Home" screen
+When user logs in to the Lyric Application with "deleted account credentials"
+Then user should receive a "Email or Password incorrect" popup
+And user "Accepts" the "Email or Password incorrect" popup
+
   
   @SingleUserDeleteAccountWithNoDeviceNoMembership             @Automatable		@--xrayid:ATER-69137
   Scenario: To verify user is able to delete his account if there are no devices in any locations any no Membership linked to the account 
@@ -2493,7 +2625,7 @@ And user should not be displayed with the following "Question" options:
       | C2 Wifi Security Camera             | 
       | Lyric Smart Controller              | 
   
-  @MultipleDeviceDeleteSameAccountRestAllDeviceLogsOut             @Automatable		@--xrayid:ATER-69141
+  @MultipleDeviceDeleteSameAccountRestAllDeviceLogsOut             @NotAutomatable		@--xrayid:ATER-69141
   Scenario Outline: To verify all logged in devices should log out if account is deleted
     Given app is launched in two devices
       And user taps on LOGIN in both the devices with same account.
@@ -2544,7 +2676,7 @@ And user should not be displayed with the following "Question" options:
       And verify user is unable to login with same credentials in any device.
   
   
-  @MultipleAccountSharedLocationDeletedInOneAccount             @Automatable		@--xrayid:ATER-69143
+  @MultipleAccountSharedLocationDeletedInOneAccount             @NotAutomatable		@--xrayid:ATER-69143
   Scenario Outline: To verify user is navigated to add device screen when a shared location is deleted and if account is deleted
     Given app is launched in two devices
       And both users taps on LOGIN in with different accounts

@@ -1,65 +1,88 @@
-@Platform
-Feature: As an user, I want to Create an account, forget password and Login scenaios 
+	 @Platform
+	 Feature: As an user, I want to Create an account, forget password and Login scenarios 
 
-@GenralCreateaccountscreen
-  Scenario: To verify the Create Account screen  
-    Given app is launched 
+	 @GenralCreateaccountscreen
+  	 Scenario: To verify the Create Account screen  
+     Given app is launched 
      When the user taps on Create Account  
      Then Create Account screen should be displayed 
 
-     #requirement : Copuntry should be US 
-     @GernalcreateaccountfieldvalicationUSLocation          @Automatable
-     Scenario: To veirfy create account fields text
-     Given user launches the app
-     When user selects "Create account" option
-     Then user should be dispalyed header with "Create account" text 
-     And user should be displayed with below "Fields" option:
-     |Fieldvalication |
+     #requirement : Country should be US 
+     @GeneralCreateAccountFieldValidationUSLocation          @Automated
+     Scenario: To verify create account fields text
+     Given user launches the Lyric application
+     When user selects "Create Account" from "Honeywell Home" screen
+     #Then user should be displayed with the "Please confirm your country" screen
+     #And user selects "Current Country" from "Please confirm your country" screen
+     Then user should be displayed with the "Create Account" screen
+     Then user selects "Country" from "Create Account" screen
+     Then user should be displayed with the "Please confirm your country" screen
+     Then user inputs "United States" in "Search Text Field" in the "Please confirm your country" screen
+     Then user should be displayed with the "Create Account" screen
+     And user should be displayed with the following "Create Account" options:
+     |CreateAccountOptions |
      |First Name|
      |Last Name|
      |Email |
      |Password|
      |Verify Password |
-     |Password must have: |
+     |Password must have |
      |Country selection |
-     |By Tapping create below.|
+     |By Tapping create below |
      |Privacy Statement |
      |EULA|
      |Create button|
 
-     #requirement : Copuntry should be UK 
-     @GernalcreateaccountfieldvalicationEMEALocation          @Automatable
-     Scenario: To veirfy create account fields text
-     Given user launches the app
-     When user selects "Create account" option
-     Then user should be dispalyed header with "Create account" text 
-     And user should be displayed with below "Fields" option:
-     |Fieldvalication |
+     #requirement : Country should be UK 
+     @GeneralCreateAccountFieldValidationEMEALocation          @Automated
+     Scenario: To verify create account fields text
+     Given user launches the Lyric application
+     When user selects "Create Account" from "Honeywell Home" screen
+     #Then user should be displayed with the "Please confirm your country" screen
+     #When user inputs "United Kingdom" in "Search Text Field" in the "Please confirm your country" screen
+     Then user should be displayed with the "Create Account" screen
+     Then user selects "Country" from "Create Account" screen
+     Then user should be displayed with the "Please confirm your country" screen
+     Then user inputs "United Kingdom" in "Search Text Field" in the "Please confirm your country" screen
+     Then user should be displayed with the "Create Account" screen
+     And user should be displayed with the following "Create Account for UK" options:
+     |CreateAccountOptions |
      |First Name|
      |Last Name|
      |Email |
      |Password|
      |Verify Password |
-     |Password must have: |
+     |Password must have |
      |Country selection |
-     |Marketing communications sign-up |
-     |By Tapping create below.|
+     |Marketing communications sign up |
+     |Sign me up for exclusive updates and toggle |
+     |Signing up consent label should not be displayed |	
+     |By Tapping create below |
      |Privacy Statement |
      |EULA|
-     |Create button|
-
-     @Gernalcreateaccountcancelfunctionalitywithoutenteringtext          @Automatable
-     Scenario:To verify cancel functionlity with out fieling the fields
-     Given user launches the app
-     When user selects "Create account" option
-     Then user selects the "Cancel" option
-     And user should navigates to "Login" screen
-
-     @genralcreateaccountcancelfunctionalitywithfielingtext          @Automatable
-     Scenario : To veirfy cancel functionlity with fieling the fields
-      Given user launches the app
-     When user selects "Create account" option
-     Then user enters the "First name" and "Last name"
+     |Create button |
+	 When user selects "Sign me up toggle button" from "Create Account" screen
+	 And user should be displayed with the following "Create Account for UK" options:
+     |CreateAccountOptions |
+	 |Signing up consent label should be displayed |	
+	
+	
+     @GeneralCreateAccountCancelFunctionalityWithoutEnteringText          @Automated
+     Scenario: To verify cancel functionlity with out filling the fields
+     Given user launches the Lyric application
+     When user selects "Create Account" from "Honeywell Home" screen
+     #Then user should be displayed with the "Please confirm your country" screen
+     #And user selects "Current Country" from "Please confirm your country" screen
+     Then user should be displayed with the "Create Account" screen
+     Then user selects "Cancel" from "Create Account" screen
+     And user should be displayed with the "Honeywell Home" screen
+	
+	 #Invalid scenario
+     @GeneralCreateAccountCancelFunctionalityWithFillingText          #Functionality Not there
+     Scenario: To verify cancel functionlity with filling the fields
+     Given user launches the Lyric application
+     When user selects "Create Account" from "Honeywell Home" screen
+     Then user enters the "First Name" and "Last Name"
      When user selects the "Cancel" option
      Then user should be displayed with "confirmation" pop up
      When user dismiss the popup
@@ -71,7 +94,7 @@ Feature: As an user, I want to Create an account, forget password and Login scen
 
      @Gernalcreateaccountwithvaliddetails          @NotAutomatable
      Scenario Outline: As a user i wanted to create account
-      Given user launches the app
+     Given user launches the app
      When user selects "Create account" option
      Then the user edits the <first name> and <last name>
      And user eidts the <Email> 
@@ -86,16 +109,16 @@ Feature: As an user, I want to Create an account, forget password and Login scen
      |Resend Email|
      When user navigates to "Email" and selects activation link
      Then user should be navigates to "Add new device" screen 
-    Examples: 
+     Examples: 
       | first name | last name | Email | Password | Verify Password |
       | giri       | THEJ      | New email | Password1 | Password1 |
       | sami       | krishna   | New email | Password1 | Password1 |
       | vijay      | Govda     | New email | Password1 | Password1 |
       | anju       | sweets    | New email | Password1 | Password1 |
 
-      @Gernalcreateaccountwithvaliddetailsgotoemnail          @NotAutomatable
+     @Gernalcreateaccountwithvaliddetailsgotoemnail          @NotAutomatable
      Scenario Outline: As a user i wanted to create account with go to email
-      Given user launches the app
+     Given user launches the app
      When user selects "Create account" option
      Then the user edits the <first name> and <last name>
      And user eidts the <Email> 
@@ -119,7 +142,7 @@ Feature: As an user, I want to Create an account, forget password and Login scen
       | vijay      | Govda     | New email | Password1 | Password1 |
       | anju       | sweets    | New email | Password1 | Password1 |
 
-@Gernalcreateaccountwithvaliddetailsresendlink          @NotAutomatable
+	 @Gernalcreateaccountwithvaliddetailsresendlink          @NotAutomatable
      Scenario Outline: As a user i wanted to create account
       Given user launches the app
      When user selects "Create account" option
@@ -135,258 +158,387 @@ Feature: As an user, I want to Create an account, forget password and Login scen
      |Go To Mail |
      |Resend Email|
      Then user selects "Resend Email" option
-    And user should dispalyed with "Activation email sent" pop up
-    When user accepts "Activaction email sent" pop up
-    Then user should navigates to "Activate account" screen
-    When user navigates to email inbox
-    Then user should be dispalyed two activation mail
+     And user should dispalyed with "Activation email sent" pop up
+     When user accepts "Activaction email sent" pop up
+     Then user should navigates to "Activate account" screen
+     When user navigates to email inbox
+     Then user should be dispalyed two activation mail
      When user navigates to "Email" and selects activation link
      Then user should be navigates to "Add new device" screen  
-    Examples: 
+      Examples: 
       | first name | last name | Email | Password | Verify Password |
       | giri       | THEJ      | New email | Password1 | Password1 |
       | sami       | krishna   | New email | Password1 | Password1 |
       | vijay      | Govda     | New email | Password1 | Password1 |
       | anju       | sweets    | New email | Password1 | Password1 |
-
-      @Gernalcreateaccountwithvaliddetailsbackoption          @Automatable
-     Scenario Outline: As a user i wanted to verify back option in activatin account screen
-      Given user launches the app
-     When user selects "Create account" option
-     Then the user edits the <first name> and <last name>
-     And user eidts the <Email> 
-     And user edits the <Password> and <Verify Password>
-     When user selects "Create" button
-     Then user navigates "Activate Account" screen
-     And user should be displayed with "Details" options:
-     |Details|
+	
+	 #Issue on Android in Activate Account screen
+     @GeneralCreateAccountWithValidDetailsBackOption          @Automated
+     Scenario Outline: As a user I want to verify Back option on activating account screen
+     Given user launches the Lyric application
+     When user selects "Create Account" from "Honeywell Home" screen
+     Then user inputs <First Name> in "First Name Text Field" in the "Create Account" screen
+     Then user inputs <Last Name> in "Last Name Text Field" in the "Create Account" screen
+     Then user inputs <Email> in "Email Text Field" in the "Create Account" screen
+     Then user inputs <Password> in "Password Text Field" in the "Create Account" screen
+     Then user inputs <Verify Password> in "Verify Password Text Field" in the "Create Account" screen
+     Then user selects "Create button" from "Create Account" screen
+     Then user should be displayed with the "Activate Account" screen
+     Then user should be displayed with the following "Activate Account Details" options:
+     |ActivateAccountDetails|
      |Almost Done |
      |New email |
      |Go To Mail |
      |Resend Email|
-     Then user selects "Back" option
-    And user should be navigates to "Login" screen
-    When user selects "Login" option
-    Then user enters the <Email> and <Password>
-    When user selects "Login" option
-    Then user should be navigates to "Activate account" screen
-    Examples: 
-      | first name | last name | Email | Password | Verify Password |
-      | giri       | THEJ      | New email | Password1 | Password1 |
-      | sami       | krishna   | New email | Password1 | Password1 |
-      | vijay      | Govda     | New email | Password1 | Password1 |
-      | anju       | sweets    | New email | Password1 | Password1 |
+     Then user selects "Close button" from "Activate Account" screen
+     Then user should be displayed with the "Honeywell Home" screen
+     When user selects "Login" from "Honeywell Home" screen
+     Then user inputs <Email> in "Email Text Field" in the "Login" screen
+     Then user inputs <Password> in "Password Text Field" in the "Login" screen
+     Then user selects "Login button" from "Login" screen
+     Then user should be displayed with the "Activate Account" screen
+     Examples: 
+      | First Name | Last Name | Email 	   		| Password  | Verify Password |
+      #| giri       | THEJ      | unit500@grr.la | Password1 | Password1       |
+      #| sami       | krishna   | unit501@grr.la | Password1 | Password1       |
+      #| vijay      | Govda     | unit502@grr.la | Password1 | Password1       |
+      #| anju       | sweets    | unit503@grr.la | Password1 | Password1       |
+       | manoj		| kumar     | unit506@grr.la | Password1 | Password1       |
+      #| Hemanth	| kumar     | unit507@grr.la | Password1 | Password1       |
  
-@Gernalcreateaccountwithmaxaphanumericcharecters          @Automatable
-     Scenario Outline: As a user i wanted to verify max charecters allow for first and last name
-      Given user launches the app
-     When user selects "Create account" option
-     Then the user edits the <first name> and <last name>
-      Then “First Name” and “Last Name” should allow to edit max 40 characters
-      And “First Name” and “Last Name” should allow to enter special characters
-
-    @Gernalcreateaccountwithoutfieldsthedetailserrorvalidation          @Automatable
-     Scenario Outline: As a user i wanted to verify back option in activatin account screen
-      Given user launches the app
-     When user selects "Create account" option
-     Then user selects "Create" option
-     And user shoudl be dispalyed with "You must enter a first name" below First name field with red color
-     And user shoudl be dispalyed with "You must enter a last name" below last name field with red color
-     And user shoudl be dispalyed with "You must enter a valid email address" below email name field with red color
-     And user should be displayed with below “Old password” edit box text “You must enter your password” with red color
-     And user should be displayed with below “New Password” edit box text “You must enter your new password” with red color
-
- @Gernalcreateaccountwithalreadyregistedemailid          @Automatable
-     Scenario Outline: As a user i wanted to verify create account with already registered account
-      Given user launches the app
-     When user selects "Create account" option
-     Then user selects "Create" option
-      Then the user edits the <first name> and <last name>
-     And user eidts the <Email> 
-     And user edits the <Password> and <Verify Password>
-     When user selects "Create" button
-     Then user should be dispalyed with below "Email" edit box "This email address has already been registered." with red color
-    Examples: 
-      | first name | last name | Email | Password | Verify Password |
-      | giri       | THEJ      | unit@grr.la | Password1 | Password1 |
+	 @GeneralCreateAccountWithMaxAlphanumericCharacters          @Automated
+     Scenario Outline: As a user I want to verify max alphanumeric characters allowed for First Name and Last Name
+     Given user launches the Lyric application
+     When user selects "Create Account" from "Honeywell Home" screen
+     Then user should be displayed with the "Create Account" screen
+     When user inputs <First Name Max Characters> in "First Name Text Field" in the "Create Account" screen
+     Then user should not be allowed to enter more than "40" characters in "First Name" in the "Create Account" screen
+     When user inputs <Last Name Max Characters> in "Last Name Text Field" in the "Create Account" screen
+     Then user should not be allowed to enter more than "40" characters in "Last Name" in the "Create Account" screen
+     Examples:
+     | First Name Max Characters		  		        | Last Name Max Characters				          |
+     #| This is to test max characters     		   		| This is to test max characters              	  |
+     | This is to test max characters and its D			| This is to test max characters and its D        |
+     | This is to test max characters and its Digits   | This is to test max characters and its Digits   |
+     #| This is to test max characters 1234567$!	   	| This is to test max characters 1234567$!	      |
+     #| This is to test max characters 1234567$! 78 	| This is to test max characters 1234567$! 78     |
+     #| !@#$%^&*()_+=-`~!@#$%^&*()_+-~!@#$%^&*()    	| !@#$%^&*()_+=-`~!@#$%^&*()_+-~!@#$%^&*()        |
+     
+	 
+     @GeneralCreateAccountWithoutFillingsTheDetailsErrorValidation          @Automated
+     Scenario: As a user I want to verify the error options on Create Account screen without filling the details
+     Given user launches the Lyric application
+     When user selects "Create Account" from "Honeywell Home" screen
+     Then user should be displayed with the "Create Account" screen
+     Then user selects "Country" from "Create Account" screen
+     Then user should be displayed with the "Please confirm your country" screen
+     Then user inputs "United States" in "Search Text Field" in the "Please confirm your country" screen
+     Then user should be displayed with the "Create Account" screen
+     And user should be displayed with the following "Create Account Field Error Validation" options:
+     | CreateAccountFieldErrorValidation |
+     | You must enter a first name |
+     | You must enter a last name | 
+     | You must enter a valid email address |
+     | The password must be at least eight characters |
+     Then user should be displayed with the following "Create Account" options: 
+     | CreateAccountOptions		|
+     | First Name				|
+     
+ 	 @GeneralCreateAccountWithAlreadyRegisteredEmailId          @Automated
+     Scenario Outline: As a user I want to verify create account with already registered email id
+     Given user launches the Lyric application
+     When user selects "Create Account" from "Honeywell Home" screen
+     Then user should be displayed with the "Create Account" screen
+     Then user inputs <First Name> in "First Name Text Field" in the "Create Account" screen
+     Then user inputs <Last Name> in "Last Name Text Field" in the "Create Account" screen
+     Then user inputs <Email> in "Email Field" in the "Create Account" screen
+     Then user inputs <Password> in "Password Text Field" in the "Create Account" screen
+     Then user inputs <Verify Password> in "Verify Password Text Field" in the "Create Account" screen
+     Then user selects "Create button" from "Create Account" screen
+     Then user should be displayed with the following "Already Registered Email validation" options:
+     | AlreadyRegisteredEmailValidation	|
+     | This email address has already been registered. |
+     Examples: 
+     | First Name | Last Name | Email 		  |Password  | Verify Password |
+     | giri       | THEJ      | unit@grr.la   |Password1 | Password1 	  |
   
 
- @GernalcreateaccountwithInvalidpassword          @Automatable
-     Scenario Outline: As a user i wanted to verify create account with already registered account
-      Given user launches the app
-     When user selects "Create account" option
-     Then user selects "Create" option
-      Then the user edits the <first name> and <last name>
-     And user eidts the <Email> 
-     And user edits the <Password> and <Verify Password>
-     When user selects "Create" button
-     Then user should be displayed with “Invalid Password Format” text below “New Password” edit box with red color
-    Examples: 
-      | first name | last name | Email | Password | Verify Password |
-      | giri       | THEJ      | unit@grr.la |  | Password1 |
+ 	 @GeneralCreateAccountWithInvalidPasswordFormat          @Automated
+     Scenario Outline: As a user i want to verify Create Account with invalid password
+     Given user launches the Lyric application
+     When user selects "Create Account" from "Honeywell Home" screen
+     Then user should be displayed with the "Create Account" screen
+     Then user selects "Country" from "Create Account" screen
+     Then user should be displayed with the "Please confirm your country" screen
+     Then user inputs "United States" in "Search Text Field" in the "Please confirm your country" screen
+     Then user should be displayed with the "Create Account" screen
+     Then user inputs <First Name> in "First Name Text Field" in the "Create Account" screen
+     Then user inputs <Last Name> in "Last Name Text Field" in the "Create Account" screen
+     Then user inputs <Email> in "Email Text Field" in the "Create Account" screen
+     Then user inputs <Password> in "Password Text Field" in the "Create Account" screen
+     Then user inputs <Verify Password> in "Verify Password Text Field" in the "Create Account" screen
+     Then user selects "Create button" from "Create Account" screen
+     Then user should be displayed with the following "Password dont match validation" options:
+     | PasswordDontMatchValidation |
+     | The password must be at least eight characters |
+     | Passwords don't match |    
+     Examples: 
+     | First Name | Last Name | Email 		| Password | Verify Password |
+     | giri       | THEJ      | unit@grr.la |  		   | Password1 		 |
 
- @GernalcreateaccountwithInvalidpassword          @Automatable
-     Scenario Outline: As a user i wanted to verify create account with already registered account
-      Given user launches the app
-     When user selects "Create account" option
-     Then user selects "Create" option
-      Then the user edits the <first name> and <last name>
-     And user eidts the <Email> 
-     And user edits the <Password> and <Verify Password>
-     When user selects "Create" button
-     Then user should be displayed with “Passwords don't match” text below “verify Password” edit box with red color
-    Examples: 
-      | first name | last name | Email | Password | Verify Password |
-      | giri       | THEJ      | unit@grr.la | Password2 | Password1 |
+ 	 @GeneralCreateAccountWithInvalidPassword          @Automated
+     Scenario Outline: As a user i want to verify Create Account with Invalid Password
+     Given user launches the Lyric application
+     When user selects "Create Account" from "Honeywell Home" screen
+     Then user selects "Country" from "Create Account" screen
+     Then user should be displayed with the "Please confirm your country" screen
+     Then user inputs "United States" in "Search Text Field" in the "Please confirm your country" screen
+     Then user should be displayed with the "Create Account" screen
+     Then user inputs <First Name> in "First Name Text Field" in the "Create Account" screen
+     Then user inputs <Last Name> in "Last Name Text Field" in the "Create Account" screen
+     Then user inputs <Email> in "Email Text Field" in the "Create Account" screen
+     Then user inputs <Password> in "Password Text Field" in the "Create Account" screen
+     Then user inputs <Verify Password> in "Verify Password Text Field" in the "Create Account" screen
+     Then user selects "Create button" from "Create Account" screen
+     Then user should be displayed with the following "Password dont match validation" options:
+     | PasswordDontMatchValidation |
+     | Passwords don't match |
+     Examples: 
+     | First Name | Last Name | Email 		| Password 	| Verify Password |
+     | giri       | THEJ      | unit@grr.la | Password2 | Password1 	  |
 
- @GernalcreateaccountPrivacystatementandEULA          @Automatable
-     Scenario Outline: As a user i wanted to verify create account with already registered account
-      Given user launches the app
-     When user selects "Create account" option
-     Then user selects "Create" option
-      Then user selects the "Privacy statement"
-      And user shoudl be navigates to "Privacy policy & EULA" screen
-      When user selects "Back" option
-      Then user should be naivgates to "Create account"
-      When user selects "EULA"
-      Then user should be navigates to "Privacy policy & EULA" screen
-     When user selects "Back" option
-      Then user should be naivgates to "Create account"
-    Examples: 
-      | first name | last name | Email | Password | Verify Password |
-      | giri       | THEJ      | unit@grr.la | Password2 | Password1 |
+ 	 @GeneralCreateAccountPrivacyStatementAndEULA          @Automated
+     Scenario Outline: As a user I want to verify Create Account Privacy Policy and EULA
+     Given user launches the Lyric application
+     When user selects "Create Account" from "Honeywell Home" screen
+     Then user should be displayed with the "Create Account" screen
+     Then user inputs <First Name> in "First Name Text Field" in the "Create Account" screen
+     Then user inputs <Last Name> in "Last Name Text Field" in the "Create Account" screen
+     Then user inputs <Email> in "Email Text Field" in the "Create Account" screen
+     Then user inputs <Password> in "Password Text Field" in the "Create Account" screen
+     Then user inputs <Verify Password> in "Verify Password Text Field" in the "Create Account" screen
+     Then user should be displayed with the following "Create Account" options:
+     | CreateAccountOptions    |
+     | By Tapping create below |
+     | Privacy Statement       |
+     When user selects "Privacy Statement" from "Create Account" screen
+     Then user should be displayed with the "Privacy Policy and EULA" screen
+     Then user selects "Back" from "Privacy Policy and EULA" screen
+     Then user should be displayed with the "Create Account" screen
+     Then user should be displayed with the following "Create Account" options:
+     | CreateAccountOptions    |
+     | By Tapping create below |
+     | Privacy Statement       |
+     When user selects "EULA" from "Create Account" screen
+     Then user should be displayed with the "Privacy Policy and EULA" screen
+     Then user selects "Back" from "Privacy Policy and EULA" screen
+     Then user should be displayed with the "Create Account" screen
+     Examples: 
+     | First Name | Last Name | Email 		| Password 	| Verify Password |
+     | giri       | THEJ      | unit@grr.la | Password1 | Password1 	  |
 
-@CreateAccounOptIn @LYR25497          @Automatable
-  Scenario: To verify that user has provided with a option for opting-in marketing emails while creating an account
-     Given app is launched 
-     And user navigates to “Create Account” screen
-     When user selects any EMEA country
-     #As of now toggle is only for EMEA countries
-     Then verify marketing communication toggle button is “present”
-     When user selects non EMEA country
-     #As of now toggle is only for EMEA countries
-     Then verify marketing communication toggle button is “ not present” 
-     #Default value of toggle button should be off
-     When toggle is “on” description should be “shown”
-     And toggle is “off” description should be “hidden”
-     Then create account with toggle “on”
-     And navigate back to “Login screen”
-     And create account with toggle “off”
-
-@EditAccounOptInOptOut @LYR25497          @NotAutomatable
- Scenario: To verify that user has provided with a option for opting-in and opting out marketing emails in edit account screen 
+	 @GeneralCreateAccountMarketingOptIn               @Automated  
+  	 Scenario Outline: To verify that user has provided with a option for opting-in marketing emails while creating an account
+     Given user launches the Lyric application
+     When user selects "Create Account" from "Honeywell Home" screen
+     Then user should be displayed with the "Create Account" screen
+     Then user inputs <First Name> in "First Name Text Field" in the "Create Account" screen
+     Then user inputs <Last Name> in "Last Name Text Field" in the "Create Account" screen
+     Then user inputs <Email> in "Email Text Field" in the "Create Account" screen
+     Then user inputs <Password> in "Password Text Field" in the "Create Account" screen
+     Then user inputs <Verify Password> in "Verify Password Text Field" in the "Create Account" screen
+     Then user selects "Country" from "Create Account" screen
+     Then user should be displayed with the "Please confirm your country" screen
+     Then user inputs "United Kingdom" in "Search Text Field" in the "Please confirm your country" screen
+     Then user should be displayed with the "Create Account" screen
+     Then user should be displayed with the following "Create Account for UK" options:
+     |CreateAccountOptions 						  |
+     |Marketing communications sign up 		      |
+     |Sign me up for exclusive updates and toggle |
+     Then user selects "Sign Me Up Toggle Button" from "Create Account" screen
+     Then user should be displayed with the following "Create Account for UK" options:
+     |CreateAccountOptions 						  |
+     |Marketing communications sign up 		      |
+     |Signing up consent label should be displayed|
+     Then user selects "Create Button" from "Create Account" screen
+     Then user should be displayed with the "Activate Account" screen
+     Then user selects "Close Button" from "Activate Account" screen
+     Then user should be displayed with the "Honeywell Home" screen   
+     When user selects "Create Account" from "Honeywell Home" screen
+     Then user should be displayed with the "Create Account" screen
+     Then user inputs <First Name> in "First Name Text Field" in the "Create Account" screen
+     Then user inputs <Last Name> in "Last Name Text Field" in the "Create Account" screen
+     Then user inputs <Email> in "Email Text Field" in the "Create Account" screen
+     Then user inputs <Password> in "Password Text Field" in the "Create Account" screen
+     Then user inputs <Verify Password> in "Verify Password Text Field" in the "Create Account" screen
+     Then user selects "Country" from "Create Account" screen
+     Then user should be displayed with the "Please confirm your country" screen
+     Then user inputs "United States" in "Search Text Field" in the "Please confirm your country" screen
+     Then user should be displayed with the "Create Account" screen
+     Then user should be displayed with the following "Create Account" options:
+     |CreateAccountOptions |
+     |First Name|
+     |Last Name|
+     |Email |
+     |Password|
+     |Verify Password |
+     |Password must have |
+     |Country selection |
+     |By Tapping create below |
+     |Privacy Statement |
+     |EULA|
+     |Create button|
+     Then user selects "Create Button" from "Create Account" screen
+     Then user should be displayed with the "Activate Account" screen
+     Then user selects "Close Button" from "Activate Account" screen
+     Then user should be displayed with the "Honeywell Home" screen
+     Examples: 
+     | First Name | Last Name | Email 		   | Password 	| Verify Password |
+     | anil       | Govda     | unit@grr.la    | Password1  | Password1 	  |
+     
+     
+     
+	@EditAccounOptInOptOut @LYR25497          @NotAutomatable
+ 	Scenario: To verify that user has provided with a option for opting-in and opting out marketing emails in edit account screen 
     Given app is launched 
     And user taps on LOGIN
-    When user navigates to “Edit Account” screen
+    When user navigates to â€œEdit Accountâ€� screen
     Then check for opt in link
     And verify opt in weblink 
     And opt in for marketing email
     And verify the inbox for the opt in confirmation email
-    And user navigates to “Edit Account” screen
+    And user navigates to â€œEdit Accountâ€� screen
     Then check for opt out link
     And verify opt out weblink 
     And verify the inbox for the opt out confirmation email
   
 
-   @GenralCreateaccountSelectcountry          @Automatable
-  Scenario Outline: To verify Select country screen 
-    Given Confirm country screen is dislayed
-     When the user selects any country from auto-populated list OR enters the required country in Search field
-      And tap on the required country
-     Then the selected country should be displayed in Create account screen
-  
-   
-  @GenralLoginFunctionality          @Automatable
-  Scenario: Verify LOGIN in Create Account
-    Given user launces the app
-    When user select "Login" option 
-    Then suer should be dispalyed with below "Fields" options:
-    |Details|
-    |Email |
-    |Password|
-    |Forgot Password? |
+   	@GeneralCreateAccountSelectCountry          @Automated
+  	Scenario: To verify Select country screen 
+  	Given user launches the Lyric application
+    When user selects "Create Account" from "Honeywell Home" screen
+    #Then user should be displayed with the "Please confirm your country" screen
+    #When user inputs "United Kingdom" in "Search Text Field" in the "Please confirm your country" screen
+    Then user should be displayed with the "Create Account" screen
+    Then user selects "Country" from "Create Account" screen
+    Then user should be displayed with the "Please confirm your country" screen
+    Then user inputs "United Kingdom" in "Search Text Field" in the "Please confirm your country" screen
+    Then user should be displayed with the "Create Account" screen
+    Then user should be displayed with the following "Create Account" options: 
+    | CreateAccountOptions		|
+    | Country selection			|
+    Then user should be displayed with the "Selected Country in Create Account" screen
+    
+  	@GeneralLoginFunctionality          @Automated
+    Scenario: Verify Login in Honeywell Home screen
+    Given user launches the Lyric application
+    When user selects "Login" from "Honeywell Home" screen
+    Then user should be displayed with the following "Login" options:
+    |Login				  |
+    |Email 				  |
+    |Password             |
+    |Forgot Password      |
     |Disabled Login button|
-    |Cacnel |
+    |Cancel               |
 
-    @GenralLogincancelFunctionality          @Automatable
-  Scenario: Verify LOGIN in Create Account
-    Given user launces the app
-    When user select "Login" option 
-    Then suer should be dispalyed with below "Fields" options:
-    |Details|
-    |Email |
-    |Password|
-    |Forgot Password? |
+    @GeneralLoginCancelFunctionality          @Automated
+  	Scenario: Verify Login in Honeywell Home screen
+    Given user launches the Lyric application
+    When user selects "Login" from "Honeywell Home" screen
+    Then user should be displayed with the following "Login" options:
+    |Login				  |
+    |Email 				  |
+    |Password			  |
+    |Forgot Password      |
     |Disabled Login button|
-    |Cacnel |
-    When user selects "Cancel" option
-    Then user should navigates to "Login" screen
+    |Cancel 			  |
+    When user selects "Cancel" from "Login" screen
+    Then user should be displayed with the "Honeywell Home" screen
 
-    @GernalLoginwithvalidcredentialwithoutlocation          @Automatable
-    Scenario : As a user i wanted to verify valid login with out location
-    Given user launches the app
-    when user edits the <Email> and <Password>
-    Then user should be displayed with "ADD NEW DEVICE" screen
+    @GeneralLoginWithValidCredentialWithoutLocation          @Automated
+    Scenario Outline: As a user I want to verify valid Login credentails with out location
+    Given user launches the Lyric application
+    When user selects "Login" from "Honeywell Home" screen
+    Then user inputs <Email> in "Email Text Field" in the "Login" screen
+    Then user inputs <Password> in "Password Text Field" in the "Login" screen
+    Then user selects "Login button" from "Login" screen
+    Then user should be displayed with the "Add New Device" screen
+    #Then user logs out of the app
     Examples:
-    |Email| Password |
-    |ure@grr.la | Password |
+    |Email         | Password  |
+    |zone58@grr.la | Password1 |
 
-    @GernalLoginwithvalidcredentialwithlocation          @Automatable
-    Scenario : As a user i wanted to verify valid login with location
-    Given user launches the app
-    when user edits the <Email> and <Password>
-    Then user should be displayed with "Dashboard" screen
+    @GeneralLoginWithValidCredentialWithLocation          @Automated
+    Scenario Outline: As a user I want to verify valid Login with location
+    Given user launches the Lyric application
+    When user selects "Login" from "Honeywell Home" screen
+    Then user inputs <Email> in "Email Text Field" in the "Login" screen
+    Then user inputs <Password> in "Password Text Field" in the "Login" screen
+    Then user selects "Login button" from "Login" screen
+    Then user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
+    Then user should be displayed with the "Add New Device Dashboard" screen
+    #Then user logs out of the app
     Examples:
-    |Email| Password |
-    |unit@grr.la | Password |
+    |Email		 | Password  |
+    |unit@grr.la | Password1 |
 
-    @GernalLoginwithinvalidemailandpassword          @Automatable
-    Scenario : As a user i wanted to verify valid login with location
-    Given user launches the app
-    when user edits the <Email> and <Password>
-    Then user should be displayed with "Unable to login. Email or password incorrect" text above email edit box with red color
+    @GeneralLoginWithInvalidEmailAndPassword          @Automated
+    Scenario Outline: As a user I want to verify valid Login with location
+    Given user launches the Lyric application
+    When user selects "Login" from "Honeywell Home" screen
+    Then user inputs <Email> in "Email Text Field" in the "Login" screen
+    Then user inputs <Password> in "Password Text Field" in the "Login" screen
+    Then user selects "Login button" from "Login" screen
+    #Then user should be displayed with "Unable to login. Email or password incorrect" text above email edit box with red color
+    Then user should be displayed with the following "Invalid Email and Password validation" options:
+    |InvalidEmailAndPasswordValidation |
+    |Unable to login. Email or password incorrect|
     Examples:
-    |Email| Password |
+    |Email		   | Password |
     |bajssm@grr.la | Password1 |
 
-     @GernalLoginwithinvalidemail          @Automatable
-    Scenario : As a user i wanted to verify valid login with location
+    @GeneralLoginWithInvalidEmail            @AlreadyCoveredInTheAbove
+    Scenario Outline: As a user i wanted to verify valid login with location
     Given user launches the app
-    when user edits the <Email> and <Password>
+    When user edits the <Email> and <Password>
     Then user should be displayed with "Your email address or password is invalid" text above email edit box with red color
     Examples:
-    |Email| Password |
+    |Email | Password  |
     |bajssm| Password1 |
 
   
- #Forget Password 
- 
- 
- @GenralForgetPasswordfieldvalidation          @Automatable
-  Scenario: To verify the Forgot Password screen  
-    Given user launches the app
-     When user selects "Login" screen
-     Then user selects "Forget password"
-     And user should be dispalyed with below "Details" options:
-     |Details|
-     |Email text with edit box|
-     |Disabled Reset button |
-     |Login |
+    #Forget Password 
+    @GeneralForgetPasswordFieldValidation          @Automated
+    Scenario: To verify the Forgot Password screen  
+    Given user launches the Lyric application
+    When user selects "Login" from "Honeywell Home" screen
+    Then user selects "Forget password" from "Login" screen
+    And user should be displayed with the following "Reset Details" options:
+    |ResetDetails|
+    |Email text with edit box|
+    |Disabled Reset button |
+    |Login |
 
-      @GenralForgetPasswordloginfunctionlity          @Automatable
-  Scenario: To verify the Forgot Password screen  
-    Given user launches the app
-     When user selects "Login" screen
-     Then user selects "Forget password"
-     When user edits the <Email>
-     Then user selects the "Login" option
-     And user should navigates to "Login" screen with clear edit box
+     @GeneralForgetPasswordLoginFunctionality          @Automated
+     Scenario Outline: To verify the Forgot Password screen  
+     Given user launches the Lyric application
+     When user selects "Login" from "Honeywell Home" screen
+     Then user selects "Forget password" from "Login" screen
+     Then user inputs <Email> in "Email Text Field" in the "Login" screen
+     Then user selects "Login button" from "Login" screen
+     Then user should be displayed with the following "Login" options:
+     |Login				    |
+     |Email 				|
+     |Password			    |
+     |Forgot Password       |
+     |Disabled Login button |
+     |Cancel 			    |
      Examples:
      |Email|
      | unit@grr.la | 
   
     @GenralForgetPasswordmailactivation          @NotAutomatable
-  Scenario: To verify the Forgot Password screen  
+  	Scenario Outline: To verify the Forgot Password screen  
     Given user launches the app
      When user selects "Login" screen
      Then user selects "Forget password"

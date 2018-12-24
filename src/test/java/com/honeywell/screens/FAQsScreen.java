@@ -1,5 +1,10 @@
 package com.honeywell.screens;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.openqa.selenium.WebElement;
+
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
@@ -29,33 +34,33 @@ public class FAQsScreen extends MobileScreens {
 	}
 
 	public boolean isBackButtonInFAQsScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton");
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInFAQsScreen");
 	}
 
 	public boolean cliciOnBackButtonInFAQsScreen() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButtonInFAQsScreen");
 	}
 
 	public boolean isGeneralOptionInFAQsScreenVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeneralOptionInFAQsScreen");
 	}
-	
+
 	public boolean clickOnGeneralOptionInFAQsScreen() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GeneralOptionInFAQsScreen");
 	}
 
-	public boolean isThermotatOptionInFAQsScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermotatOptionInFAQsScreen");
+	public boolean isThermostatOptionInFAQsScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatOptionInFAQsScreen");
 	}
-	
-	public boolean clickOnThermotatOptionInFAQsScreen() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "ThermotatOptionInFAQsScreen");
+
+	public boolean clickOnThermostatOptionInFAQsScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ThermostatOptionInFAQsScreen");
 	}
 
 	public boolean isWaterLeakDetectorOptionInFAQsScreenVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WaterLeakDetectorOptionInFAQsScreen");
 	}
-	
+
 	public boolean clickOnWaterLeakDetectorOptionInFAQsScreen() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "WaterLeakDetectorOptionInFAQsScreen");
 	}
@@ -63,37 +68,139 @@ public class FAQsScreen extends MobileScreens {
 	public boolean isCameraOptionInFAQsScreenVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraOptionInFAQsScreen");
 	}
-	
+
 	public boolean clickOnCameraOptionInFAQsScreen() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraOptionInFAQsScreen");
 	}
 
-	public boolean isGeneralScreenHeaderTitleVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeneralScreenHeaderTitle");
+	public boolean isGeneralScreenHeaderTitleVisible(int timeOut) {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.isMobElementExists("XPATH", "//*[(@text='General') or (@text='GENERAL')]", testCase,
+					timeOut);
+		} else {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeneralScreenHeaderTitle", timeOut);
+		}
 	}
 
-	public boolean isGeneralScreenQuestionListVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeneralScreenQuestionList");
+	public boolean isBackButtonInGeneralScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInGeneralScreen");
 	}
 
-	public boolean isFirstQuestionDisplayedInGeneralScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FirstQuestionDisplayedInGeneralScreen");
+	public boolean isThermostatScreenHeaderTitleVisible(int timeOut) {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.isMobElementExists("XPATH", "//*[(@text='Thermostat') or (@text='THERMOSTAT')]",
+					testCase, timeOut);
+		} else {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatScreenHeaderTitle", timeOut);
+		}
 	}
 
-	public String getFirstQuestionDisplayedInGeneralScreen() {
-		return MobileUtils.getFieldValue(objectDefinition, testCase, "FirstQuestionDisplayedInGeneralScreen");
+	public boolean isBackButtonInThermostatScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInThermostatScreen");
 	}
 
-	public boolean clickOnFirstQuestionDisplayedInGeneralScreen() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "FirstQuestionDisplayedInGeneralScreen");
+	public boolean isWaterLeakDetectorScreenHeaderTitleVisible(int timeOut) {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.isMobElementExists("XPATH",
+					"//*[(@text='Water leak detector') or (@text='WATER LEAK DETECTOR')]", testCase, timeOut);
+		} else {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "WaterLeakDetectorScreenHeaderTitle",
+					timeOut);
+		}
 	}
 
-	public boolean isQuestionTitleInQuestionScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "QuestionTitleInQuestionScreen");
+	public boolean isBackButtonInWaterLeakDetectorScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInWaterLeakDetectorScreen");
 	}
-	
+
+	public boolean isCameraScreenHeaderTitleVisible(int timeOut) {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.isMobElementExists("XPATH", "//*[(@text='Camera') or (@text='CAMERA')]", testCase,
+					timeOut);
+		} else {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraScreenHeaderTitle", timeOut);
+		}
+	}
+
+	public boolean isBackButtonInCameraScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInCameraScreen");
+	}
+
+	public boolean isQuestionListInAScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "QuestionListInAScreen");
+	}
+
+	public boolean isFirstQuestionDisplayedInTheScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FirstQuestionDisplayedInTheScreen");
+	}
+
+	public String getFirstQuestionDisplayedInTheScreen() {
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "FirstQuestionDisplayedInTheScreen");
+	}
+
+	public boolean clickOnFirstQuestionDisplayedInTheScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "FirstQuestionDisplayedInTheScreen");
+	}
+
+	public boolean isQuestionTitleInQuestionScreenVisible(int timeOut) {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.isMobElementExists("XPATH", "//android.webkit.WebView/android.view.View[1]", testCase,
+					timeOut);
+		} else {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "QuestionTitleInQuestionScreen", timeOut);
+		}
+	}
+
 	public String getQuestionTitleInQuestionScreen() {
-		return MobileUtils.getFieldValue(objectDefinition, testCase, "QuestionTitleInQuestionScreen");
+		return MobileUtils.getFieldValue(testCase, "XPATH", "//android.webkit.WebView/android.view.View[1]");
+	}
+
+	public boolean isBackButtonInQuestionScreenVisible() {
+		boolean flag = true;
+		List<WebElement> listOfButtonsDisplayedInQuestionScreenIniOS = new ArrayList<WebElement>();
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInQuestionScreen");
+		} else {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInQuestionScreen")) {
+				listOfButtonsDisplayedInQuestionScreenIniOS = MobileUtils.getMobElements(objectDefinition, testCase,
+						"BackButtonInQuestionScreen");
+				for (WebElement ele : listOfButtonsDisplayedInQuestionScreenIniOS) {
+					if (ele.getAttribute("name").equalsIgnoreCase("General")
+							|| ele.getAttribute("name").equalsIgnoreCase("Thermostat")
+							|| ele.getAttribute("name").equalsIgnoreCase("Water leak detector")
+							|| ele.getAttribute("name").equalsIgnoreCase("Camera")) {
+						return flag;
+					} else {
+						flag = false;
+					}
+				}
+			}
+		}
+		return flag;
+	}
+
+	public boolean clickOnBackButtonInQuestionScreen() {
+		boolean flag = true;
+		List<WebElement> listOfButtonsDisplayedInQuestionScreenIniOS = new ArrayList<WebElement>();
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButtonInQuestionScreen");
+		} else {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButtonInQuestionScreen")) {
+				listOfButtonsDisplayedInQuestionScreenIniOS = MobileUtils.getMobElements(objectDefinition, testCase,
+						"BackButtonInQuestionScreen");
+				for (WebElement ele : listOfButtonsDisplayedInQuestionScreenIniOS) {
+					if (ele.getAttribute("name").equalsIgnoreCase("General")
+							|| ele.getAttribute("name").equalsIgnoreCase("Thermostat")
+							|| ele.getAttribute("name").equalsIgnoreCase("Water leak detector")
+							|| ele.getAttribute("name").equalsIgnoreCase("Camera")) {
+						ele.click();
+					} else {
+						flag = false;
+					}
+				}
+			}
+		}
+		return flag;
 	}
 
 	public boolean isAnswerToTheQuestionAskedInQuestionScreenVisible() {
@@ -121,12 +228,41 @@ public class FAQsScreen extends MobileScreens {
 	public boolean clickOnNOButtonInWasThisHelpfulTextInQuestionScreen() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "NOButtonInWasThisHelpfulTextInQuestionScreen");
 	}
-	
+
 	public boolean isQuestionFooterMessageVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "QuestionFooterMessage");
 	}
-	
+
 	public String getQuestionFooterMessage() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "QuestionFooterMessage");
+	}
+
+	public boolean enterTextInHelpTextField(String inputText) {
+		boolean flag = true;
+		flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "HelpSearchTextFieldInFAQsScreen");
+		flag &= MobileUtils.setValueToElement(objectDefinition, testCase, "HelpSearchTextFieldInFAQsScreen", inputText);
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			testCase.getMobileDriver().navigate().back();
+		} else {
+			MobileUtils.clickOnElement(objectDefinition, testCase, "SearchButtonInHelpTextKeyboardForiOS");
+		}
+		return flag;
+	}
+	
+	public boolean isSearchResultsDisplayedInFAQsScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SearchResultsDisplayedInFAQsScreen");
+	}
+	
+	public boolean isFirstQuestionInSearchResultsDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FirstQuestionInSearchResultsDisplayed");
+	}
+	
+	public boolean isNoFAQsFoundLabelInSearchResultsVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoFAQsFoundLabelInSearchResults");
+	}
+	
+	public String getNoFAQsFoundLabelInSearchResults() {
+		System.out.println("############" + MobileUtils.getFieldValue(objectDefinition, testCase, "NoFAQsFoundLabelInSearchResults"));
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "NoFAQsFoundLabelInSearchResults");
 	}
 }

@@ -10,6 +10,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.lyric.das.utils.AboutTheAppUtils;
 import com.honeywell.lyric.das.utils.AddressUtils;
+import com.honeywell.lyric.das.utils.CreateAccountAndForgotPwdUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.EditAccountUtils;
 
@@ -86,6 +87,19 @@ public class VerifyCharsEnteredInTextFieldInTheScreen extends Keyword {
 			case "FEEDBACK TEXT FIELD": {
 				AboutTheAppUtils.verifyIfMaxCharsEnteredInFeedbackTxtFieldInAppFeedbackScreen(testCase, inputs,
 						maxAllowedCharLength, inputs.getInputValue("TEXT_ENTERED_IN_FEEDBACK_TEXT_FIELD"));
+				break;
+			}
+			}
+		} else if (textEnteredInCustomNameTxtField.get(2).equalsIgnoreCase("CREATE ACCOUNT")) {
+			switch (textEnteredInCustomNameTxtField.get(1).toUpperCase()) {
+			case "FIRST NAME": {
+				CreateAccountAndForgotPwdUtils.verifyIfMaxCharsEnteredInCustomNameTxtField(testCase, inputs,
+						maxAllowedCharLength, inputs.getInputValue("FIRST_NAME_WITH_MAX_CHARS"));
+				break;
+			}
+			case "LAST NAME": {
+				CreateAccountAndForgotPwdUtils.verifyIfMaxCharsEnteredInCustomNameTxtField(testCase, inputs,
+						maxAllowedCharLength, inputs.getInputValue("LAST_NAME_WITH_MAX_CHARS"));
 				break;
 			}
 			}

@@ -880,6 +880,14 @@ public class DIYRegistrationUtils {
 								return false;
 							}
 						}
+						case "PRIVACY POLICY LOADING SPINNER": {
+							if (dasDIY.isVerifyingLoadingSpinnerTextVisible()) {
+								System.out.println("Waiting for Privacy Policy loading spinner to disappear");
+								return true;
+							} else {
+								return true;
+							}
+						}
 						default: {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Invalid argument passed : " + elementProgressBar);

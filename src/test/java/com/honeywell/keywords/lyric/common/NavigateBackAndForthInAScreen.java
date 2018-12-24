@@ -14,6 +14,7 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.FAQsUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.FAQsScreen;
@@ -97,19 +98,59 @@ public class NavigateBackAndForthInAScreen extends Keyword {
 			break;
 		}
 		case "QUESTION": {
-			if (faqsScreen.isBackButtonInFAQsScreenVisible()) {
-				flag &= faqsScreen.cliciOnBackButtonInFAQsScreen();
-				if (faqsScreen.isFirstQuestionDisplayedInGeneralScreenVisible()) {
-					flag &= faqsScreen.clickOnFirstQuestionDisplayedInGeneralScreen();
-					if (faqsScreen.isBackButtonInFAQsScreenVisible()
-							&& faqsScreen.isQuestionTitleInQuestionScreenVisible()
-							&& faqsScreen.isAnswerToTheQuestionAskedInQuestionScreenVisible()
-							&& faqsScreen.getQuestionTitleInQuestionScreen()
-									.equalsIgnoreCase(inputs.getInputValue("FIRST_QUESTION_IN_GENERAL_SCREEN"))) {
-						Keyword.ReportStep_Pass(testCase, "Navigated to Question Screen");
+			if (faqsScreen.isBackButtonInQuestionScreenVisible()) {
+				flag &= faqsScreen.clickOnBackButtonInQuestionScreen();
+				if (faqsScreen.isFirstQuestionDisplayedInTheScreen()) {
+					flag &= faqsScreen.clickOnFirstQuestionDisplayedInTheScreen();
+					FAQsUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER", 1);
+					String questionTitleDisplayed = null;
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						if (faqsScreen.isBackButtonInQuestionScreenVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Back button in header is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Back button in header is not displayed");
+						}
+						if (faqsScreen.isQuestionTitleInQuestionScreenVisible(20)) {
+							Keyword.ReportStep_Pass(testCase, "Question title is displayed");
+							questionTitleDisplayed = faqsScreen.getQuestionTitleInQuestionScreen();
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Question title is not displayed");
+						}
+						if (faqsScreen.isAnswerToTheQuestionAskedInQuestionScreenVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Answer to the question is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Answer to the question is not displayed");
+						}
+						if (questionTitleDisplayed.trim().replaceAll(" +", " ").equalsIgnoreCase(
+								inputs.getInputValue("FIRST_QUESTION_IN_THE_SCREEN").trim().replaceAll(" +", " "))) {
+							Keyword.ReportStep_Pass(testCase, "Question is correctly displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Question displayed is: " + questionTitleDisplayed + " which is not same as: "
+											+ inputs.getInputValue("FIRST_QUESTION_IN_THE_SCREEN"));
+						}
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Failed to navigate to Question Screen");
+						if (faqsScreen.isBackButtonInQuestionScreenVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Back button in header is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Back button in header is not displayed");
+						}
+						if (faqsScreen.isQuestionTitleInQuestionScreenVisible(20)) {
+							Keyword.ReportStep_Pass(testCase, "Question title is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Question title is not displayed");
+						}
+						if (faqsScreen.isAnswerToTheQuestionAskedInQuestionScreenVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Answer to the question is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Answer to the question is not displayed");
+						}
 					}
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

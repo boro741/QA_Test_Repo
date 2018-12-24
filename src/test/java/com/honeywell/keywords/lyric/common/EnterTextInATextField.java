@@ -9,11 +9,15 @@ import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.lyric.das.utils.AboutTheAppUtils;
 import com.honeywell.lyric.das.utils.AddressUtils;
+import com.honeywell.lyric.das.utils.CreateAccountAndForgotPwdUtils;
 import com.honeywell.lyric.das.utils.DASManageUsersUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.das.utils.EditAccountUtils;
+import com.honeywell.lyric.das.utils.FAQsUtils;
+import com.honeywell.lyric.das.utils.LoginUtils;
 
 public class EnterTextInATextField extends Keyword {
 
@@ -52,6 +56,7 @@ public class EnterTextInATextField extends Keyword {
 		} else if (inputName.get(2).equalsIgnoreCase("PLEASE CONFIRM YOUR COUNTRY")) {
 			switch (inputName.get(1).toUpperCase()) {
 			case "SEARCH TEXT FIELD": {
+				inputs.setInputValue("SELECTED_COUNTRY", inputName.get(0));
 				flag &= DashboardUtils.enterCountryNameAndSelectItInConfirmYourCountryScreen(testCase, inputs,
 						inputName.get(0));
 				break;
@@ -196,6 +201,94 @@ public class EnterTextInATextField extends Keyword {
 				inputs.setInputValue("TEXT_ENTERED_IN_FEEDBACK_TEXT_FIELD", inputName.get(0));
 				flag &= AboutTheAppUtils.enterFeedbackText(testCase, inputs, inputName.get(0));
 				return flag;
+			}
+			}
+		} else if (inputName.get(2).equalsIgnoreCase("FAQs")) {
+			switch (inputName.get(1).toUpperCase()) {
+			case "HELP TEXT": {
+				flag &= FAQsUtils.enterHelpTextInFAQsScreen(testCase, inputs, inputName.get(0));
+				return flag;
+			}
+			}
+		} else if (inputName.get(2).equalsIgnoreCase("CREATE ACCOUNT")) {
+			switch (inputName.get(1).toUpperCase()) {
+			case "FIRST NAME TEXT FIELD": {
+				inputs.setInputValue("FIRST_NAME_WITH_MAX_CHARS", inputName.get(0));
+				flag &= CreateAccountAndForgotPwdUtils.enterFirstNameInFirstNameTxtFieldInCreateAccountScreen(testCase,
+						inputs, inputs.getInputValue("FIRST_NAME_WITH_MAX_CHARS"));
+				break;
+			}
+			case "LAST NAME TEXT FIELD": {
+				inputs.setInputValue("LAST_NAME_WITH_MAX_CHARS", inputName.get(0));
+				flag &= CreateAccountAndForgotPwdUtils.enterLastNameInLastNameTxtFieldInCreateAccountScreen(testCase,
+						inputs, inputName.get(0));
+				break;
+			}
+			case "EMAIL TEXT FIELD": {
+				String value = inputName.get(0).split("@")[0];
+				String value1 = inputName.get(0).split("@")[1];
+				// System.out.println(value);
+				Random rand = new Random();
+				int rn = rand.nextInt(10000);
+				value = value + rn + "@" + value1;
+				inputs.setInputValue("EMAIL_TEXT", value);
+				// System.out.println(value);
+				flag &= CreateAccountAndForgotPwdUtils.enterEmailInEmailTxtFieldInCreateAccountScreen(testCase, inputs,
+						value);
+				break;
+			}
+
+			case "EMAIL FIELD": {
+				inputs.setInputValue("EMAIL_TEXT", inputName.get(0));
+				flag &= CreateAccountAndForgotPwdUtils.enterEmailInEmailTxtFieldInCreateAccountScreen(testCase, inputs,
+						inputName.get(0));
+				break;
+			}
+
+			case "PASSWORD TEXT FIELD": {
+				inputs.setInputValue("PASSWORD_TEXT", inputName.get(0));
+				flag &= CreateAccountAndForgotPwdUtils.enterPasswordInPasswordTxtFieldInCreateAccountScreen(testCase,
+						inputs, inputName.get(0));
+				break;
+			}
+			case "VERIFY PASSWORD TEXT FIELD": {
+				inputs.setInputValue("VERIFY_PASSWORD_TEXT", inputName.get(0));
+				flag &= CreateAccountAndForgotPwdUtils.enterVerifyPasswordInVerifyPasswordTxtFieldInCreateAccountScreen(
+						testCase, inputs, inputName.get(0));
+
+				if (flag) {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						// MobileUtils.pressBackButton(testCase, "Keyboard minimized");
+						// MobileUtils.hideKeyboard(testCase.getMobileDriver(), "Keyboard minimized");
+						MobileUtils.hideKeyboard(testCase.getMobileDriver());
+					} else {
+						// ios
+						MobileUtils.clickOnElement(testCase, "Name", "Done");
+					}
+				}
+				break;
+			}
+			}
+		} else if (inputName.get(2).equalsIgnoreCase("LOGIN")) {
+			switch (inputName.get(1).toUpperCase()) {
+			case "EMAIL TEXT FIELD": {
+				inputs.setInputValue("EMAIL_ID", inputName.get(0));
+				flag &= LoginUtils.enterEmailIdInLoginScreen(testCase, inputs, inputName.get(0));
+				break;
+			}
+			case "PASSWORD TEXT FIELD": {
+				inputs.setInputValue("PASSWORD_FIELD", inputName.get(0));
+				flag &= LoginUtils.enterPasswordInLoginScreen(testCase, inputs, inputName.get(0));
+				if (flag) {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						// MobileUtils.pressBackButton(testCase, "Keyboard minimized");
+						MobileUtils.hideKeyboard(testCase.getMobileDriver(), "Keyboard minimized");
+					} else {
+						// ios
+						MobileUtils.clickOnElement(testCase, "Name", "Go");
+					}
+				}
+				break;
 			}
 			}
 		}
