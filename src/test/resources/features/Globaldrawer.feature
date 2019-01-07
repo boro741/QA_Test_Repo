@@ -2497,7 +2497,7 @@ Then user should be displayed with the following "Question" options:
   
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerLogoutFromTheAppWithLocation             @Automated	@--xrayid:ATER-69134
+@GeneralGlobalDrawerLogoutFromTheAppWithLocation             @Automated		@--xrayid:ATER-69134
 Scenario: As a user i want to Verify logout with location under global drawer with and with out solution
 Given user launches and logs in to the Lyric Application
 When user navigates to "Global Drawer" screen from the "Dashboard" screen
@@ -2563,7 +2563,7 @@ And user "Accepts" the "Email or Password incorrect" popup
       And verify user should navigate to Login screen. 
       And verify user is unable to login with same credentials
   
-  @SingleUserWithUnsharedDeviceWithCameraSubscriptions             @Automatable		@--xrayid:ATER-69138
+  @SingleUserWithUnsharedDeviceWithCameraSubscriptions             @NotAutomatable		@--xrayid:ATER-69138
   Scenario Outline: To verify user is not able to delete his account when he has a unshared device or a Camera Subscription in it
     Given app is launched
       And user taps on LOGIN
@@ -2600,7 +2600,7 @@ And user "Accepts" the "Email or Password incorrect" popup
      When user clicks of BACK or OK button
      Then verify user should navigate back to Edit Account screen.
   
-  @DeleteAccountWithLocationHavingDeviceWithsubscription             @Automatable		@--xrayid:ATER-69140
+  @DeleteAccountWithLocationHavingDeviceWithsubscription             @NotAutomatable		@--xrayid:ATER-69140
   Scenario Outline: To verify user is unable to delete his account when he has a unshared device or a Camera Subscription in it
     Given app is launched
       And user taps on LOGIN
@@ -2709,7 +2709,7 @@ And user "Accepts" the "Email or Password incorrect" popup
       | C2 Wifi Security Camera             | 
       | Lyric Smart Controller              | 
   
-  @InvitedUserHaveAccessToDeletedPrimaryUserLocationAndDevice             @Automatable		@--xrayid:ATER-69144
+  @InvitedUserHaveAccessToDeletedPrimaryUserLocationAndDevice             @NotAutomatable		@--xrayid:ATER-69144
   Scenario Outline: To verify invited user is able to access the primary user shared location and device even if primary user deleted its account
     Given app is launched in two devices
       And both users taps on LOGIN in with different accounts
