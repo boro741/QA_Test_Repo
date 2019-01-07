@@ -53,8 +53,7 @@ And user should be updated with <UMode>
 And user should be updated with based on the <UMode> settings
 
 Examples:
-|Solutions||Mode| UMode | 
-|Solutions||Mode| UMode | 
+|Solutions||Mode| UMode |
 |JasperNA|Home| Away | 
 |JasperNA|Away| Home |
 |JasperEMEA|Home| Away | 
