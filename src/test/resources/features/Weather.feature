@@ -1,11 +1,11 @@
 @Weatherforecast
-Feature:Weather forecast, As user I want to view the outdoor temperature from weather forecast so that I will aware of my outdoor temperature
+Feature: Weather forecast, As user I want to view the outdoor temperature from weather forecast so that I will aware of my outdoor temperature
 
 #Dashboard weather 
 
 #Requirements: Single location with or with out solution 
 @GenralWeatherforecastwithorwithoutsolutionDashboard          @Automatable
-Scenario : As a user I want to verify the weather forecast for the location with temper scale celsius/Fahrenheit on dashboard with or with out solution 
+Scenario: As a user I want to verify the weather forecast for the location with temper scale celsius/Fahrenheit on dashboard with or with out solution 
 Given user launches and logs in to the Lyric Application
 Then user navigates to “Dashboard” screen 
 And Verify the “Weather icon and Tempr value” based on the location zipcode  #respective temper scale 
@@ -15,7 +15,7 @@ And Verify the “Weather icon and Tempr value” based on the location zipcode 
 
 #Requirements: Single location with or with out solution 
 @GenralWeatherforecastwithorwithoutsolutionWeatherScreen          @NotAutomatable
-Scenario : As a user I wanted to verify weather forecast screen for the location with temper scale celsius/Fahrenheit on Weather screen with or with out solution  and for time format 24/12hr
+Scenario: As a user I wanted to verify weather forecast screen for the location with temper scale celsius/Fahrenheit on Weather screen with or with out solution  and for time format 24/12hr
 Given user launches and logs in to the Lyric Application
 Then user navigates to “Forecast” screen 
 And verify the current weather forecast for the location with temperature and weather status 
@@ -26,7 +26,7 @@ And Verify the time format in app is same as mobile device
 
 #Requirements: Single location with or with out solution US location          @Automatable
 @GenralWeatherforecastwithorwithoutsolutionWeathertemperscaleswitchwithUSLocation
-Scenario : As a user I wanted to verify weather forecast screen temper scale switch with celsius/Fahrenheit on weather screen with or with out solution  and for time format 24/12hr, US Location
+Scenario: As a user I wanted to verify weather forecast screen temper scale switch with celsius/Fahrenheit on weather screen with or with out solution  and for time format 24/12hr, US Location
 Given user launches and logs in to the Lyric Application
 Then user navigates to “Forecast” screen 
 And verify the temper scale selected on “Fahrenheit”
@@ -43,7 +43,7 @@ And verify for three more forecast with “Fahrenheit”
 
 #Requirements: Single location with or with out solution US location          @Automatable
 @GenralWeatherforecastwithorwithoutsolutionWeathertemperscaleswitchwithUSLocation
-Scenario : As a user I wanted to verify weather forecast screen temper scale switch with celsius/Fahrenheit on weather screen with or with out solution  and for time format 24/12hr, US Location
+Scenario: As a user I wanted to verify weather forecast screen temper scale switch with celsius/Fahrenheit on weather screen with or with out solution  and for time format 24/12hr, US Location
 Given user launches and logs in to the Lyric Application
 Then user navigates to “Forecast” screen 
 And verify the temper scale selected as “Fahrenheit”
@@ -61,7 +61,7 @@ And verify for three more forecast with “Fahrenheit”
 
 #Requirements: Single location with or with out solution UK location          @Automatable
 @GenralWeatherforecastwithorwithoutsolutionWeathertemperscaleswitchwithUKLocation
-Scenario : As a user I wanted to verify weather forecast screen temper scale switch with celsius/Fahrenheit on weather screen with or with out solution  and for time format 24/12hr, UK Location
+Scenario: As a user I wanted to verify weather forecast screen temper scale switch with celsius/Fahrenheit on weather screen with or with out solution  and for time format 24/12hr, UK Location
 Given user launches and logs in to the Lyric Application
 Then user navigates to “Forecast” screen 
 And verify the temper scale selected as “celsius”
@@ -78,7 +78,7 @@ And verify for three more forecast with “celsius”
 
 #Requirements: Single location with or with out solution           @Automatable
 @GenralWeatherforecastwithorwithoutsolutionWeathertemperscaleswitch
-Scenario : As a user I wanted to verify weather forecast screen temper scale switch with celsius/Fahrenheit on Dashboard with or with out solution
+Scenario: As a user I wanted to verify weather forecast screen temper scale switch with celsius/Fahrenheit on Dashboard with or with out solution
 Given user launches and logs in to the Lyric Application
 And user set to temper scale “Celsius” 
 And verify the temper scale “Celsius” for weather
@@ -89,7 +89,7 @@ And verify the temper scale “Fahrenheit” for weather
 
                              
 @GenralWeatherforecast          @NotAutomatable
-Scenario :Fetch Weather forecast for systems with mobile time format 24/12hr
+Scenario: Fetch Weather forecast for systems with mobile time format 24/12hr
 Given user launches and logs in to the Lyric Application
 Then user navigates to “Forecast” screen from “Dashboard” screen 
 And Verify the current weather forecast for the location with temperature and weather status
@@ -124,6 +124,7 @@ Then user should be displayed with weather based on the location1 zipcode
 
 #Requirment: Single location with or without solution
 @Genralweatherchangebasedonlocationzipcodeudpate          @Automatable
+Scenario: As a user i wanted to verify the weather update with zip code
 Given user launches and logs in to the Lyric application
 When user see the weather status of locatoin
 Then user navigates to "Location settings" screen 
@@ -133,6 +134,7 @@ And user should be displayed with udpated weather based on the location zipcode
 
 #Requirment : Mulitple location with different Tempr scale
 @Genralweathertempscalevalidationmultilocation          @Automatable
+Scenario: As a user i wanted to verify the weather update for multi location
 Given user launches and logs in to the Lyric application
 When user navigates to weather screen
 Then user changes to tempr scale to C
