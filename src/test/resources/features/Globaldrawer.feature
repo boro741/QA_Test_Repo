@@ -2544,6 +2544,8 @@ Then user should be displayed with the "Honeywell Home" screen
 When user logs in to the Lyric Application with "deleted account credentials"
 Then user should receive a "Email or Password incorrect" popup
 And user "Accepts" the "Email or Password incorrect" popup
+Then create the deleted user account through CHIL
+
 
   
   @SingleUserDeleteAccountWithNoDeviceNoMembership             @Automatable		@--xrayid:ATER-69137

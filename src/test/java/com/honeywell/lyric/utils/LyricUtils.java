@@ -2026,6 +2026,43 @@ public class LyricUtils {
 		}
 		return flag;
 	}
+	
+	public static boolean loginToLyricAppUserWithoutAnyLocation(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		LoginScreen ls = new LoginScreen(testCase);
+		if (ls.isLoginButtonVisible() && !ls.isEmailAddressTextFieldVisible()) {
+			flag = flag & ls.clickOnLoginButton();
+		}
+		if (ls.setEmailAddressValue(inputs.getInputValue("DELETEDUSERID").toString())) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				MobileUtils.hideKeyboard(testCase.getMobileDriver());
+			}
+			Keyword.ReportStep_Pass(testCase,
+					"Login To Lyric : Email Address set to - " + inputs.getInputValue("USERID"));
+		} else {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Login To Lyric : Not able to set Email Address.");
+			flag = false;
+		}
+		if (ls.setPasswordValue(inputs.getInputValue("PASSWORD").toString())) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				MobileUtils.hideKeyboard(testCase.getMobileDriver());
+			} else {
+				ls.clickOnLyricLogo();
+			}
+			Keyword.ReportStep_Pass(testCase, "Login To Lyric : Password set to - " + inputs.getInputValue("PASSWORD"));
+		} else {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Login To Lyric : Not able to set Password.");
+			flag = false;
+		}
+		if (ls.isLoginButtonVisible()) {
+			flag = flag & ls.clickOnLoginButton();
+		} else {
+			MobileUtils.hideKeyboardIOS(testCase.getMobileDriver(), "Go");
+		}
+		return flag;
+	}
 
 	public static boolean loginToLyricAppWithDeletedAccountCredentials(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
@@ -2207,7 +2244,7 @@ public class LyricUtils {
 		// if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
 		// }
-		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
+		flag = flag & LyricUtils.loginToLyricAppUserWithoutAnyLocation(testCase, inputs);
 		if (closeCoachMarks.length > 0) {
 			flag = flag
 					& LyricUtils.verifyLoginSuccessfulForUserWithoutAnyLocation(testCase, inputs, closeCoachMarks[0]);
