@@ -1115,6 +1115,18 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+			case "LEARN HOW TO CANCEL A MEMBERSHIP": {
+				EditAccountScreen eas = new EditAccountScreen(testCase);
+				if (eas.isLearnHowToCancelAMembershipScreenTitleVisible()
+						&& eas.isCloseButtonInLearnHowToCancelAMembershipScreenVisible()
+						&& eas.isWebViewInLearnHowToCancelAMembershipScreenVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
 			case "ABOUT THE APP": {
 				AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
 				if (atas.isAboutTheAppScreenTitleVisible()) {

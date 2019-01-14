@@ -1220,6 +1220,40 @@ public class PerformActionsOnPopUp extends Keyword {
 				break;
 			}
 			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("SORRY TO SEE YOU GO")) {
+			AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CLICKS ON NO BUTTON IN": {
+				if (ads.isNoButtonInSorryToSeeYouGoPopupVisible()) {
+					flag &= ads.clickOnNoButtonInSorryToSeeYouGoPopup();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on No button in Sorry To See You Go Popup");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on No button in Sorry To See You Go Popup");
+					}
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"No button in Sorry To See You Go Popup is not displayed");
+				}
+				break;
+			}
+			case "CLICKS ON YES BUTTON IN": {
+				if (ads.isYesButtonInSorryToSeeYouGoPopupVisible()) {
+					flag &= ads.clickOnYesButtonInSorryToSeeYouGoPopup();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on Yes button in Sorry To See You Go Popup");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on Yes button in Sorry To See You Go Popup");
+					}
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Yes button in Sorry To See You Go Popup is not displayed");
+				}
+				break;
+			}
+			}
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(1));

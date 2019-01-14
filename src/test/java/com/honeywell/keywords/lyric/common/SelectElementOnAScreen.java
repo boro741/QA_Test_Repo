@@ -24,6 +24,7 @@ import com.honeywell.lyric.das.utils.DASSolutionCardUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
+import com.honeywell.lyric.das.utils.EditAccountUtils;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AboutTheAppScreen;
@@ -1999,6 +2000,7 @@ public class SelectElementOnAScreen extends Keyword {
 				case "DELETE ACCOUNT": {
 					if (eas.isDeleteAccountButtonInEditAccountScreenVisible()) {
 						flag &= eas.clickOnDeleteAccountButtonInEditAccountScreen();
+						flag &= EditAccountUtils.waitForProgressBarToComplete(testCase, "PROGRESS BAR", 2);
 					} else {
 						flag = false;
 					}
@@ -2059,6 +2061,21 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					break;
 				}
+				case "LEARN HOW TO CANCEL A MEMBERSHIP": {
+					if (eas.isLearnHowToCancelAMembershipLinkVisible()) {
+						flag &= eas.clickOnLearnHowToCancelAMembershipLink();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in Delete Account Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
 				case "CLOSE BUTTON": {
 					if (eas.isCloseButtonInDeleteAccountScreenVisible()) {
 						flag &= eas.clickOnCloseButtonInDeleteAccountScreen();
@@ -2103,6 +2120,30 @@ public class SelectElementOnAScreen extends Keyword {
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0)
 								+ " in Learn How To Delete A Device Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("LEARN HOW TO CANCEL A MEMBERSHIP")) {
+				EditAccountScreen eas = new EditAccountScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "CLOSE BUTTON": {
+					if (eas.isCloseButtonInLearnHowToCancelAMembershipScreenVisible()) {
+						flag &= eas.clickOnCloseButtonInLearnHowToCancelAMembershipScreenScreen();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0)
+								+ " in Learn How To Cancel A Membership Screen.");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Failed to click on " + parameters.get(0));

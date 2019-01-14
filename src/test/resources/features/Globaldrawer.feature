@@ -1182,7 +1182,8 @@ When user "accepts" the "Cancel Setup" popup
 Then user should be displayed with the "Add New Device Dashboard" screen
 When user clicks on the back arrow in the <Current Screen> screen
 Then user should be displayed with the <Previous Screen> screen
-And user "deletes the existing location details" by clicking on "delete" button
+#And user "deletes the existing location details" by clicking on "delete" button
+And user "deletes location details" by clicking on "delete" button
 Then user should be displayed with the "Dashboard" screen
 And user "deletes the existing location details" by clicking on "delete" button
     
@@ -1533,8 +1534,8 @@ Then user should be displayed with "Passwords do not match" error message in the
 
 #Requirements : single location with out solution 
 @GeneralGlobalDrawerEditAccountDeleteAccountWithoutASolution             @Automated		@--xrayid:ATER-69091
-Scenario: As a user i want to Verify the app behavior by deleting an account without any solution 
-Given user launches and logs in to the Lyric Application
+Scenario Outline: As a user i want to Verify the app behavior by deleting an account without any solution 
+Given user launches and logs in to the Lyric application with user account with location
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
 When user selects "Delete Account" from "Edit Account" screen
@@ -1549,6 +1550,24 @@ Then user should be displayed with the "Honeywell Home" screen
 When user logs in to the Lyric Application with "deleted account credentials"
 Then user should receive a "Email or Password incorrect" popup
 And user "Accepts" the "Email or Password incorrect" popup
+Then create the deleted user account through CHIL
+When user logs in to the Lyric Application with "deleted account credentials"
+Then user should be displayed with the "Add New Device" screen
+When user selects "Smart Home Security" from "Add New Device" screen
+Then user should be displayed with the "What To Expect" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects <Default Location> from "Choose Location" screen
+Then user should be displayed with the "Confirm Your ZIP Code" screen
+When user inputs <valid zip code>
+Then user should be displayed with the "Name Your Base Station" screen
+When user "cancels the set up" by clicking on "cancel" button
+Then user should receive a "Cancel Setup" popup
+When user "accepts" the "Cancel Setup" popup
+Then user should be displayed with the "Add New Device" screen
+
+Examples: 
+      | Default Location		| Default Device Name		| valid zip code        |
+      | Home					| Living Room				| 90001                 |
 
 
 #Delete account with learn how to delete a device 
@@ -2524,7 +2543,7 @@ Then user should be displayed with the "Add New Device" screen
   
 
 #Delete account
-#Feature: As an user, I want to delete my account from the app. @LYR-22282
+#Requirements: No Location, No Device and No Membership
 @SingleUserDeleteAccountWithNoLocationNoDeviceNoMembership             @Automatable 		@--xrayid:ATER-69136  
 Scenario: To verify user is able to delete account if there are no devices, no locations and no Membership linked to the account
 Given user launches and logs in to the Lyric application with user account without any location
@@ -2533,13 +2552,15 @@ When user selects "Close Button" from "Add New Device" screen
 Then user should receive a "Exit Honeywell Home" popup
 When user "Clicks on Delete Account button in" the "Exit Honeywell Home" popup
 Then user should receive a "Sorry to see you go" popup
-When user "No button in" the "Sorry to see you go" popup
-Then user should be displayed with the "Add New Device" scree
+When user "Clicks on No button in" the "Sorry to see you go" popup
+Then user should be displayed with the "Add New Device" screen
 When user selects "Close Button" from "Add New Device" screen
 Then user should receive a "Exit Honeywell Home" popup
 When user "Clicks on Delete Account button in" the "Exit Honeywell Home" popup
 Then user should receive a "Sorry to see you go" popup
-When user "Yes button in" the "Sorry to see you go" popup
+When user "Clicks on Yes button in" the "Sorry to see you go" popup
+Then user should receive a "Your Account and Data is deleted" popup
+And user "Accepts" the "Your Account and Data is deleted" popup
 Then user should be displayed with the "Honeywell Home" screen
 When user logs in to the Lyric Application with "deleted account credentials"
 Then user should receive a "Email or Password incorrect" popup
@@ -2547,24 +2568,44 @@ And user "Accepts" the "Email or Password incorrect" popup
 Then create the deleted user account through CHIL
 
 
+#Requirements: With Location, No Device and No Membership 
+@SingleUserDeleteAccountWithNoDeviceNoMembership             @Automatable		@--xrayid:ATER-69137
+Scenario Outline: To verify user is able to delete his account if there are no devices in any locations any no Membership linked to the account 
+Given user launches and logs in to the Lyric application with user account with location
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account Without Solution" screen
+And user should be displayed with the following "Delete Account" options:
+| DeleteAccountOptions				| 
+| We are sorry to see you go			|
+When user selects "Delete Account button" from "Delete Account" screen
+Then user should receive a "Your Account and Data is deleted" popup
+And user "Accepts" the "Your Account and Data is deleted" popup
+Then user should be displayed with the "Honeywell Home" screen
+When user logs in to the Lyric Application with "deleted account credentials"
+Then user should receive a "Email or Password incorrect" popup
+And user "Accepts" the "Email or Password incorrect" popup
+Then create the deleted user account through CHIL
+When user logs in to the Lyric Application with "deleted account credentials"
+Then user should be displayed with the "Add New Device" screen
+When user selects "Smart Home Security" from "Add New Device" screen
+Then user should be displayed with the "What To Expect" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects <Default Location> from "Choose Location" screen
+Then user should be displayed with the "Confirm Your ZIP Code" screen
+When user inputs <valid zip code>
+Then user should be displayed with the "Name Your Base Station" screen
+When user "cancels the set up" by clicking on "cancel" button
+Then user should receive a "Cancel Setup" popup
+When user "accepts" the "Cancel Setup" popup
+Then user should be displayed with the "Add New Device" screen
+
+Examples: 
+      | Default Location		| Default Device Name		| valid zip code        |
+      | Home					| Living Room				| 90001                 |	
   
-  @SingleUserDeleteAccountWithNoDeviceNoMembership             @Automatable		@--xrayid:ATER-69137
-  Scenario: To verify user is able to delete his account if there are no devices in any locations any no Membership linked to the account 
-    Given app is launched
-      And user creates account and email got verified.
-      And user created a location only without any device.
-     When user navigates to “Edit Account” screen from “Dashboard” screen
-      And user clicks on “DELETE ACCOUNT” link.
-     Then verify user should receive a ““DELETE ACCOUNT”-Sorry to see you go” Page/Pop up.
-     When user clicks of NO button
-     Then verify user should navigate back to “Edit Account” screen
-     When user clicks on “DELETE ACCOUNT” link
-     Then verify user should receive a ““DELETE ACCOUNT”-Sorry to see you go” Page/Pop up.
-     When user clicks on YES button
-     Then verify user should receive a pop-up saying “Your Account & Data is Deleted”.
-      And verify user should navigate to Login screen. 
-      And verify user is unable to login with same credentials
-  
+
   @SingleUserWithUnsharedDeviceWithCameraSubscriptions             @NotAutomatable		@--xrayid:ATER-69138
   Scenario Outline: To verify user is not able to delete his account when he has a unshared device or a Camera Subscription in it
     Given app is launched
@@ -2589,43 +2630,227 @@ Then create the deleted user account through CHIL
       | C2 Wifi Security Camera             | 
       | Lyric Smart Controller              | 
   
-  @DeleteAccountWithLocationHavingNoDeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-69139
-  Scenario: To verify user is unable to delete his account when he has a unshared device or a Camera Subscription in it
-    Given app is launched
-      And user creates account and email got verified.
-      And user created a location only without any device.
-      And user should have a valid CAMERA SUBSCRIPTION
-     When user navigates to “Edit Account” screen from “Dashboard” screen
-      And user clicks on “DELETE ACCOUNT” link
-     Then verify user should receive a pop up saying “Actions required before deleting your account ”
-     Then verify user can click and navigate to the the “Cancel Your Honeywell Membership” FAQ Page from the link
-     When user clicks of BACK or OK button
-     Then verify user should navigate back to Edit Account screen.
-  
-  @DeleteAccountWithLocationHavingDeviceWithsubscription             @NotAutomatable		@--xrayid:ATER-69140
-  Scenario Outline: To verify user is unable to delete his account when he has a unshared device or a Camera Subscription in it
-    Given app is launched
-      And user taps on LOGIN
-      And user should have <DEVICE> in one LOCATION
-      And user should have a valid CAMERA SUBSCRIPTION
-     When user navigates to “Edit Account” screen from “Dashboard” screen
-      And user clicks on “DELETE ACCOUNT” link
-     Then verify user should receive a pop up saying “Actions required before deleting your account ”
-      And verify user can click and navigate to the the “Delete All Devices” FAQ Page from the link.
-      And verify user can click and navigate to the the “Cancel Your Honeywell Membership” FAQ Page from the link
-     When user clicks of BACK or OK button
-     Then verify user should navigate back to Edit Account screen.
-  Examples: 
-      | DEVICE                              | 
-      | Smart Home Security                 | 
-      | Lyric Round Wi-Fi Thermostat        | 
-      | D6 Pro Wifi Ductless Controller     | 
-      | T5 Wifi Thermostat                  | 
-      | T6 Pro Wifi Thermostat              | 
-      | Wifi Water Leak and Freeze Detector | 
-      | C1 Wifi Security Camera             | 
-      | C2 Wifi Security Camera             | 
-      | Lyric Smart Controller              | 
+
+@DeleteAccountWithLocationHavingNoDeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-69139
+Scenario: To verify user is able to delete the account if there are no devices in any location and if Camera Membership is linked to the account
+Given user launches and logs in to the Lyric application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Delete A Device" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Delete A Device" screen
+And user should be displayed with the following "Learn How To Delete A Device" options:
+| LearnHowToDeleteADeviceOptions				| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Delete A Device" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
+| LearnHowToCancelAMembershipOptions			| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+
+
+@DeleteAccountWithLocationHavingDASDeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-69140
+Scenario: To verify user is able to delete the account if there is DAS DEVICE in any location and if Camera Membership is linked to the account
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Delete A Device" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Delete A Device" screen
+And user should be displayed with the following "Learn How To Delete A Device" options:
+| LearnHowToDeleteADeviceOptions				| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Delete A Device" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
+| LearnHowToCancelAMembershipOptions			| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+
+
+@DeleteAccountWithLocationHavingLyricRoundWiFiThermostatDeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-81293
+Scenario: To verify user is able to delete the account if there is LYRIC ROUND Wi-Fi THERMOSTAT DEVICE in any location and if Camera Membership is linked to the account
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Delete A Device" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Delete A Device" screen
+And user should be displayed with the following "Learn How To Delete A Device" options:
+| LearnHowToDeleteADeviceOptions				| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Delete A Device" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
+| LearnHowToCancelAMembershipOptions			| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+
+
+@DeleteAccountWithLocationHavingD6PRODeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-81294
+Scenario: To verify user is able to delete the account if there is D6 PRO DEVICE in any location and if Camera Membership is linked to the account
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Delete A Device" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Delete A Device" screen
+And user should be displayed with the following "Learn How To Delete A Device" options:
+| LearnHowToDeleteADeviceOptions				| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Delete A Device" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
+| LearnHowToCancelAMembershipOptions			| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+
+
+@DeleteAccountWithLocationHavingT5DeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-81295
+Scenario: To verify user is able to delete the account if there is T5 DEVICE in any location and if Camera Membership is linked to the account
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Delete A Device" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Delete A Device" screen
+And user should be displayed with the following "Learn How To Delete A Device" options:
+| LearnHowToDeleteADeviceOptions				| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Delete A Device" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
+| LearnHowToCancelAMembershipOptions			| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+
+
+@DeleteAccountWithLocationHavingT6PRODeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-81296
+Scenario: To verify user is able to delete the account if there is T6 PRO DEVICE in any location and if Camera Membership is linked to the account
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Delete A Device" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Delete A Device" screen
+And user should be displayed with the following "Learn How To Delete A Device" options:
+| LearnHowToDeleteADeviceOptions				| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Delete A Device" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
+| LearnHowToCancelAMembershipOptions			| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+
+
+@DeleteAccountWithLocationHavingWLDDeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-81297
+Scenario: To verify user is able to delete the account if there is WLD DEVICE in any location and if Camera Membership is linked to the account
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Delete A Device" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Delete A Device" screen
+And user should be displayed with the following "Learn How To Delete A Device" options:
+| LearnHowToDeleteADeviceOptions				| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Delete A Device" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
+| LearnHowToCancelAMembershipOptions			| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen    
+
+
+@DeleteAccountWithLocationHavingC1DeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-81298
+Scenario: To verify user is able to delete the account if there is C1 DEVICE in any location and if Camera Membership is linked to the account
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Delete A Device" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Delete A Device" screen
+And user should be displayed with the following "Learn How To Delete A Device" options:
+| LearnHowToDeleteADeviceOptions				| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Delete A Device" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
+| LearnHowToCancelAMembershipOptions			| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+
+
+@DeleteAccountWithLocationHavingC2DeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-81299
+Scenario: To verify user is able to delete the account if there is C2 DEVICE in any location and if Camera Membership is linked to the account
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Delete A Device" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Delete A Device" screen
+And user should be displayed with the following "Learn How To Delete A Device" options:
+| LearnHowToDeleteADeviceOptions				| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Delete A Device" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
+| LearnHowToCancelAMembershipOptions			| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+
+
+@DeleteAccountWithLocationHavingLyricSmartControllerDeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-81300
+Scenario: To verify user is able to delete the account if there is LYRIC SMART CONTROLLER DEVICE in any location and if Camera Membership is linked to the account
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Delete A Device" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Delete A Device" screen
+And user should be displayed with the following "Learn How To Delete A Device" options:
+| LearnHowToDeleteADeviceOptions				| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Delete A Device" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
+| LearnHowToCancelAMembershipOptions			| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+
   
   @MultipleDeviceDeleteSameAccountRestAllDeviceLogsOut             @NotAutomatable		@--xrayid:ATER-69141
   Scenario Outline: To verify all logged in devices should log out if account is deleted
@@ -2737,28 +2962,65 @@ Then create the deleted user account through CHIL
       | C2 Wifi Security Camera             | 
       | Lyric Smart Controller              | 
   
-  @DeleteAllLocationsAndThenDeleteAccount             @Automatable		@--xrayid:ATER-69147
-  Scenario: To Verify user is navigated to add device screen when all locations are deleted and account is deleted when user clicks on “DELETE ACCOUNT” with appropriate pop up
-    Given app is launched
-      And user creates account and email got verified
-      And user creates Location1 without any device
-      And user creates Location2 without any device
-     When user navigates to “Home Address” screen from “Dashboard” screen
-      And user clicks on “DELETE LOCATION” link in Location2
-      And Clicks on DELETE in Confirmation page.
-     Then user should be directed to Location1 Dashboard.
-     When user navigates to “Home Address” screen from “Dashboard” screen
-      And user clicks on “DELETE LOCATION” link in Location1
-      And Clicks on DELETE in Confirmation page.
-     Then user should be directed to “Add New Device” screen
-      And user clicks on BACK button
-     Then verify user should receive the Pop up screen with “Exit Honeywell Home?” Pop up
-     When user Clicks on “DELETE ACCOUNT” button     
-     Then verify user should receive a “DELETE ACCOUNT”-Sorry to see you go” “DELETE ACCOUNT”-Sorry to see you go” Page/Pop up.
-     When user Clicks on YES button
-     Then verify user should navigate to Login screen
-      And verify user should receive a pop-up saying “Your Account & Data is Deleted”.
-      And verify user is unable to login with same credentials
+ 
+@DeleteAllLocationsAndThenDeleteAccount             @Automatable		@--xrayid:ATER-69147
+Scenario Outline: Verify if user is navigated to add device screen when all locations are deleted and account is deleted when user deletes the account
+Given user launches and logs in to the Lyric application with user account with location
+When user selects "Smart Home Security" from "Add New Device" screen
+Then user should be displayed with the "What To Expect" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects "Create New Location" from "Choose Location" screen
+Then user should be displayed with the "Create Location" screen
+When user inputs <first location name> in the "Create Location" screen
+Then user should be displayed with the "Confirm Your ZIP Code" screen
+When user inputs <valid first locations zip code>
+Then user should be displayed with the "Name Your Base Station" screen
+When user "cancels the set up" by clicking on "cancel" button
+Then user should receive a "Cancel Setup" popup
+When user "accepts" the "Cancel Setup" popup
+Then user should be displayed with the "Add New Device Dashboard" screen
+When user selects "Smart Home Security" from "Add New Device" screen
+Then user should be displayed with the "What To Expect" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects "Create New Location" from "Choose Location" screen
+Then user should be displayed with the "Create Location" screen
+When user inputs <second location name> in the "Create Location" screen
+Then user should be displayed with the "Confirm Your ZIP Code" screen
+When user inputs <valid second locations zip code>
+Then user should be displayed with the "Name Your Base Station" screen
+When user "cancels the set up" by clicking on "cancel" button
+Then user should receive a "Cancel Setup" popup
+When user "accepts" the "Cancel Setup" popup
+Then user should be displayed with the "Add New Device Dashboard" screen
+When user clicks on the back arrow in the <Current Screen> screen
+Then user should be displayed with the <Previous Screen> screen
+And user "deletes location details" by clicking on "delete" button
+Then user should be displayed with the "Dashboard" screen
+And user "deletes the existing location details" by clicking on "delete" button
+Then user should be displayed with the "Add New Device" screen
+When user selects "Close Button" from "Add New Device" screen
+Then user should receive a "Exit Honeywell Home" popup
+When user "Clicks on Delete Account button in" the "Exit Honeywell Home" popup
+Then user should receive a "Sorry to see you go" popup
+When user "Clicks on No button in" the "Sorry to see you go" popup
+Then user should be displayed with the "Add New Device" screen
+When user selects "Close Button" from "Add New Device" screen
+Then user should receive a "Exit Honeywell Home" popup
+When user "Clicks on Delete Account button in" the "Exit Honeywell Home" popup
+Then user should receive a "Sorry to see you go" popup
+When user "Clicks on Yes button in" the "Sorry to see you go" popup
+Then user should receive a "Your Account and Data is deleted" popup
+And user "Accepts" the "Your Account and Data is deleted" popup
+Then user should be displayed with the "Honeywell Home" screen
+When user logs in to the Lyric Application with "deleted account credentials"
+Then user should receive a "Email or Password incorrect" popup
+And user "Accepts" the "Email or Password incorrect" popup
+Then create the deleted user account through CHIL
+    
+Examples: 
+| first location name	| valid first locations zip code		| second location name	| valid second locations zip code		| Current Screen					| Previous Screen	|
+| California				| 90001								|  Texas					| 90002									| Add New Device Dashboard		| Dashboard			|
+
   
   #Feature: User should be blocked from using app if device is having invalid date and time @LYR23886/22361
   @InvalidmobiledeviceDateOrTimeAndAppisLoggedout             @NotAutomatable		@--xrayid:ATER-69148

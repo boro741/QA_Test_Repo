@@ -39,6 +39,18 @@ public class LoginScreen extends MobileScreens {
 	public boolean isEmailAddressTextFieldVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EmailAddress");
 	}
+	
+	public boolean clearTextInsideEmailAddressTextField() {
+		return MobileUtils.clearTextField(objectDefinition, testCase, "EmailAddress");
+	}
+	
+	public boolean isPasswordTextFieldVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "Password");
+	}
+	
+	public boolean clearTextInsidePasswordTextField() {
+		return MobileUtils.clearTextField(objectDefinition, testCase, "Password");
+	}
 
 	public boolean longPressOnSecretMenuImage() {
 		boolean flag = true;

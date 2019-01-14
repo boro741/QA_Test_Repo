@@ -482,11 +482,51 @@ public class EditAccountScreen extends MobileScreens {
 
 	public boolean isNOButtonInWasThisHelpfulTextInLearnHowToDeleteADeviceScreenVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase,
-				"isNOButtonInWasThisHelpfulTextInLearnHowToDeleteADeviceScreenVisible");
+				"NOButtonInWasThisHelpfulTextInLearnHowToDeleteADeviceScreen");
 	}
 
 	public boolean clickOnCloseButtonInLearnHowToDeleteADeviceScreen() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CloseButtonInLearnHowToDeleteADeviceScreen");
+	}
+
+	public boolean isLearnHowToCancelAMembershipLinkVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LearnHowToCancelAMembershipLink");
+	}
+
+	public boolean clickOnLearnHowToCancelAMembershipLink() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "LearnHowToCancelAMembershipLink");
+	}
+
+	public boolean isLearnHowToCancelAMembershipScreenTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LearnHowToCancelAMembershipScreen");
+	}
+
+	public boolean isCloseButtonInLearnHowToCancelAMembershipScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase,
+				"CloseButtonInLearnHowToCancelAMembershipScreen");
+	}
+
+	public boolean isWebViewInLearnHowToCancelAMembershipScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WebViewInLearnHowToCancelAMembershipScreen");
+	}
+
+	public boolean wasThisHelpfulTextInLearnHowToCancelAMembershipScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase,
+				"WasThisHelpfulTextInLearnHowToCancelAMembershipScreen");
+	}
+
+	public boolean isYESButtonInWasThisHelpfulTextInLearnHowToCancelAMembershipScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase,
+				"YESButtonInWasThisHelpfulTextInLearnHowToCancelAMembershipScreen");
+	}
+
+	public boolean isNOButtonInWasThisHelpfulTextInLearnHowToCancelAMembershipScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase,
+				"NOButtonInWasThisHelpfulTextInLearnHowToCancelAMembershipScreen");
+	}
+
+	public boolean clickOnCloseButtonInLearnHowToCancelAMembershipScreenScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CloseButtonInLearnHowToCancelAMembershipScreen");
 	}
 
 	public boolean isWeAreSorryToSeeYouGoLabelVisible() {

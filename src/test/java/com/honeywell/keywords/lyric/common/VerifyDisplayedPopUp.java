@@ -590,6 +590,19 @@ public class VerifyDisplayedPopUp extends Keyword {
 			}
 			break;
 		}
+		case "SORRY TO SEE YOU GO": {
+			AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
+			if (ads.isSorryToSeeYouGoPopupTitleVisbile() && ads.isSorryToSeeYouGoPopupMsgVisible()
+					&& ads.isNoButtonInSorryToSeeYouGoPopupVisible()
+					&& ads.isYesButtonInSorryToSeeYouGoPopupVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Sorry To See You Go popup is displayed with No and Yes buttons");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Sorry To See You Go popup is not displayed with No and Yes buttons");
+			}
+			break;
+		}
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));

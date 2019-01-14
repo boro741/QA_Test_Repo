@@ -47,7 +47,6 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.perfecto.PerfectoLabUtils;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.CoachMarks;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
@@ -2038,7 +2037,44 @@ public class LyricUtils {
 				MobileUtils.hideKeyboard(testCase.getMobileDriver());
 			}
 			Keyword.ReportStep_Pass(testCase,
-					"Login To Lyric : Email Address set to - " + inputs.getInputValue("USERID"));
+					"Login To Lyric : Email Address set to - " + inputs.getInputValue("DELETEDUSERID"));
+		} else {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Login To Lyric : Not able to set Email Address.");
+			flag = false;
+		}
+		if (ls.setPasswordValue(inputs.getInputValue("PASSWORD").toString())) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				MobileUtils.hideKeyboard(testCase.getMobileDriver());
+			} else {
+				ls.clickOnLyricLogo();
+			}
+			Keyword.ReportStep_Pass(testCase, "Login To Lyric : Password set to - " + inputs.getInputValue("PASSWORD"));
+		} else {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Login To Lyric : Not able to set Password.");
+			flag = false;
+		}
+		if (ls.isLoginButtonVisible()) {
+			flag = flag & ls.clickOnLoginButton();
+		} else {
+			MobileUtils.hideKeyboardIOS(testCase.getMobileDriver(), "Go");
+		}
+		return flag;
+	}
+	
+	public static boolean loginToLyricAppUserWithLocation(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		LoginScreen ls = new LoginScreen(testCase);
+		if (ls.isLoginButtonVisible() && !ls.isEmailAddressTextFieldVisible()) {
+			flag = flag & ls.clickOnLoginButton();
+		}
+		if (ls.setEmailAddressValue(inputs.getInputValue("DELETEDUSERID").toString())) {
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				MobileUtils.hideKeyboard(testCase.getMobileDriver());
+			}
+			Keyword.ReportStep_Pass(testCase,
+					"Login To Lyric : Email Address set to - " + inputs.getInputValue("DELETEDUSERID"));
 		} else {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Login To Lyric : Not able to set Email Address.");
@@ -2070,18 +2106,22 @@ public class LyricUtils {
 		if (ls.isLoginButtonVisible() && !ls.isEmailAddressTextFieldVisible()) {
 			flag = flag & ls.clickOnLoginButton();
 		}
-		if (ls.setEmailAddressValue(inputs.getInputValue("USERID").toString())) {
+		if (ls.isEmailAddressTextFieldVisible()) {
+			ls.clearTextInsideEmailAddressTextField();
+			ls.setEmailAddressValue(inputs.getInputValue("DELETEDUSERID").toString());
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				MobileUtils.hideKeyboard(testCase.getMobileDriver());
 			}
 			Keyword.ReportStep_Pass(testCase,
-					"Login To Lyric : Email Address set to - " + inputs.getInputValue("USERID"));
+					"Login To Lyric : Email Address set to - " + inputs.getInputValue("DELETEDUSERID"));
 		} else {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Login To Lyric : Not able to set Email Address.");
 			flag = false;
 		}
-		if (ls.setPasswordValue(inputs.getInputValue("PASSWORD").toString())) {
+		if (ls.isPasswordTextFieldVisible()) {
+			ls.clearTextInsidePasswordTextField();
+			ls.setPasswordValue(inputs.getInputValue("PASSWORD").toString());
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				MobileUtils.hideKeyboard(testCase.getMobileDriver());
 			} else {
@@ -2097,94 +2137,6 @@ public class LyricUtils {
 			flag = flag & ls.clickOnLoginButton();
 		} else {
 			MobileUtils.hideKeyboardIOS(testCase.getMobileDriver(), "Go");
-		}
-		return flag;
-	}
-
-	public static boolean verifyLoginSuccessfulForUserWithoutAnyLocation(TestCases testCase, TestCaseInputs inputs,
-			boolean... closeCoachMarks) {
-		boolean flag = true;
-		OSPopUps os = new OSPopUps(testCase);
-		CoachMarks cm = new CoachMarks(testCase);
-		Dashboard d = new Dashboard(testCase);
-		AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
-		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
-		fWait.pollingEvery(5, TimeUnit.SECONDS);
-		fWait.withTimeout(3, TimeUnit.MINUTES);
-		try {
-			Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
-				public Boolean apply(CustomDriver driver) {
-					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-						try {
-							if (cm.isDoneButtonVisible(1)) {
-								cm.clickOnDoneButton();
-								System.out.println("Clicked On Default Done Button");
-							}
-							if (os.isAlwaysAllowButtonVisible(3)) {
-								os.clickOnAlwaysAllowButton();
-								System.out.println("Clicked On Alway allow");
-								return false;
-							}
-							((CustomIOSDriver) testCase.getMobileDriver()).switchTo().alert().accept();
-							return false;
-						} catch (Exception e) {
-							if (os.isNotNowButtonVisible(1)) {
-								os.clickOnNotNowButton();
-								return false;
-							} else if (cm.isGotitButtonVisible(1) || cm.isNextButtonVisible(1)) {
-								if (closeCoachMarks.length > 0 && !closeCoachMarks[0]) {
-									return true;
-								} else {
-									return LyricUtils.closeCoachMarks(testCase);
-								}
-							}
-						}
-					} else {
-						if (os.isCloseButtonVisible(20)) {
-							os.clickOnCloseButton();
-							return false;
-						}
-					}
-					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-						return ads.isAddNewDeviceHeaderDisplayed(30);
-					} else {
-						if (inputs.isRunningOn("SauceLabs")) {
-							if (os.isRootedDevicePopupVisible(1)) {
-								os.clickAcceptOnRootedDevicePopup();
-							}
-
-						}
-						if (os.isAllowButtonVisible(20)) {
-							os.clickOnAllowButton();
-						}
-						if (!d.isSplashScreenVisible(2) && !d.isProgressBarVisible(2)) {
-							if (closeCoachMarks.length > 0 && !closeCoachMarks[0]) {
-								return true;
-							} else {
-								return CoachMarkUtils.closeCoachMarks(testCase);
-							}
-
-						} else {
-							return false;
-						}
-					}
-				}
-			});
-			if (isEventReceived) {
-				Keyword.ReportStep_Pass(testCase, "Login to Lyric : Successfully navigated to HomeScreen");
-			} else {
-				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Login To Lyric : Unable to navigate to homepage. Could not find notification icon on homepage");
-			}
-
-		} catch (TimeoutException e) {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Timed out while loading. Wait time : 2 minutes");
-		} catch (Exception e) {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 		}
 		return flag;
 	}
@@ -2246,10 +2198,26 @@ public class LyricUtils {
 		// }
 		flag = flag & LyricUtils.loginToLyricAppUserWithoutAnyLocation(testCase, inputs);
 		if (closeCoachMarks.length > 0) {
-			flag = flag
-					& LyricUtils.verifyLoginSuccessfulForUserWithoutAnyLocation(testCase, inputs, closeCoachMarks[0]);
+			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
 		} else {
-			flag = flag & LyricUtils.verifyLoginSuccessfulForUserWithoutAnyLocation(testCase, inputs);
+			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
+		}
+		return flag;
+	}
+	
+	public static boolean launchAndLoginToApplicationWithUserWithLocation(TestCases testCase,
+			TestCaseInputs inputs, boolean... closeCoachMarks) {
+		boolean flag = true;
+		flag = MobileUtils.launchApplication(inputs, testCase, true);
+		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+		// if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		// }
+		flag = flag & LyricUtils.loginToLyricAppUserWithLocation(testCase, inputs);
+		if (closeCoachMarks.length > 0) {
+			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
+		} else {
+			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 		}
 		return flag;
 	}

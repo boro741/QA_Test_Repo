@@ -3230,6 +3230,32 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
+		case "LEARN HOW TO CANCEL A MEMBERSHIP": {
+			EditAccountScreen eas = new EditAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "LearnHowToCancelAMembershipOptions");
+				switch (parameter.toUpperCase()) {
+				case "WAS THIS HELPFUL WITH YES AND NO BUTTONS": {
+					if (eas.wasThisHelpfulTextInLearnHowToDeleteADeviceScreenVisible()
+							&& eas.isYESButtonInWasThisHelpfulTextInLearnHowToDeleteADeviceScreenVisible()
+							&& eas.isNOButtonInWasThisHelpfulTextInLearnHowToDeleteADeviceScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
 		case "ABOUT THE APP": {
 			AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {

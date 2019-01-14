@@ -287,4 +287,28 @@ public class AddNewDeviceScreen extends MobileScreens {
 	public boolean clickOnCancelButtonInExitHoneywellHomePopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInExitHoneywellHomePopup");
 	}
-}
+	
+	public boolean isSorryToSeeYouGoPopupTitleVisbile() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SorryToSeeYouGoPopupTitle");
+	}
+	
+	public boolean isSorryToSeeYouGoPopupMsgVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SorryToSeeYouGoPopupMsg");
+	}
+	
+	public boolean isNoButtonInSorryToSeeYouGoPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoButtonInSorryToSeeYouGoPopup");
+	}
+	
+	public boolean clickOnNoButtonInSorryToSeeYouGoPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "NoButtonInSorryToSeeYouGoPopup");
+	}
+	
+	public boolean isYesButtonInSorryToSeeYouGoPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "YesButtonInSorryToSeeYouGoPopup");
+	}
+	
+	public boolean clickOnYesButtonInSorryToSeeYouGoPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "YesButtonInSorryToSeeYouGoPopup");
+	}
+ }

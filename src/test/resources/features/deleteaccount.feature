@@ -1,6 +1,6 @@
 Feature: As an user, I want to delete my account from the app. @LYR-22282
 
-@SingleUserDeleteAccountWithNoLocationNoDeviceNoMembership          
+@DeleteAccountWithSingleuserWithNoLocationNoDeviceNoMembership        
   Scenario: To verify user is able to delete his account if there are no devices, no locations and no Membership linked to the account. 
     	Given app is launched
 		And user creates account and email got verified.	
@@ -22,7 +22,7 @@ Feature: As an user, I want to delete my account from the app. @LYR-22282
 	
 
 
-@SingleUserDeleteAccountWithNoDeviceNoMembership
+@SingleUserDeleteAccountWithNoDeviceNoMembershipOld
   Scenario: To verify user is able to delete his account if there are no devices in any locations any no Membership linked to the account. 
 	Given app is launched
 		And user creates account and email got verified.
@@ -65,7 +65,7 @@ Examples:
       | Lyric Smart Controller              |
 
 
-@DeleteAccountWithLocationHavingNoDeviceWithCameraSubscription 
+@DeleteAccountWithLocationHavingNoDeviceWithCameraSubscriptionOld
 	Scenario: To verify user is unable to delete his account when he has a unshared device or a Camera Subscription in it
 		Given app is launched
 		And user creates account and email got verified.
@@ -227,7 +227,7 @@ Examples:
 
 
 
-@DeleteAllLocationsAndThenDeleteAccount
+@DeleteAllLocationsAndThenDeleteAccountOld
 Scenario: To Verify user is navigated to add device screen when all locations are deleted and account is deleted when user clicks on '93DELETE ACCOUNT'94 with appropriate pop up
 	Given app is launched
 		And user creates account and email got verified

@@ -150,7 +150,7 @@ public class CreateAccountAndForgotPwdUtils {
 								userAccountJson.get("activationID").toString());
 						result = chUtil.putDeletedUserActivation(inputs.getInputValue("DELETEDUSERID"),
 								inputs.getInputValue("DELETED_USER_ACCOUNT_ACTIVATION_ID"));
-						if (result == 201) {
+						if (result == 201 || result == 200) {
 							Keyword.ReportStep_Pass(testCase, "Deleted users email address is activated successfully");
 						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
