@@ -3954,8 +3954,34 @@ public class CHILUtil implements AutoCloseable {
 			} catch (Exception e) {
 				throw new Exception(e.getMessage());
 			}
-
 		}
 		return result;
+	}
+	
+	public String getWeather(long locationID) throws Exception {
+		JSONObject weather = new JSONObject();
+		JSONObject realFeelTemperature = new JSONObject();
+		String weatherTemperature = null;
+		if (isConnected) {
+			String url = chilURL + String.format("api/locations/%s/Weather", String.valueOf(locationID));
+			HttpURLConnection connection = doGetRequest(url);
+			if (connection != null) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+				String inputLine;
+				StringBuffer html = new StringBuffer();
+				while (!in.ready()) {
+				}
+				while ((inputLine = in.readLine()) != null) {
+					html.append(inputLine);
+				}
+				in.close();
+				weather = new JSONObject(html.toString().trim());
+				realFeelTemperature = weather.getJSONObject("realFeelTemperature");
+				weatherTemperature = realFeelTemperature.get("value").toString();
+			} else {
+				throw new Exception("Unable to connect to CHIL");
+			}
+		}
+		return weatherTemperature;
 	}
 }

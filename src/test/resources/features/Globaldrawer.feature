@@ -446,13 +446,6 @@ Examples:
 #| Cool	| UserArrived  	| Home			| Away			| UserDeparted	|
 
 
-@GeneralGlobalDrawerLoginWithProductionEnv			@Automated
-Scenario: Verify Geofence Screen after login
-Given user launches and logs in to the Lyric Application
-And user navigates to "Global Drawer" screen from the "Dashboard" screen 
-When user selects "Geofence" from "Global Drawer" screen
-Then user should be displayed with the "Geofence Settings" screen
-
 #ActivityHistory
 #Requirements : single location with out any solution 
 @GeneralGlobalDrawerWithoutSolutionActivityHistoryNoMsgsLabel				@Automated			@--xrayid:ATER-67862
@@ -2656,6 +2649,7 @@ Then user should be displayed with the "Delete Account With Solution" screen
 
 @DeleteAccountWithLocationHavingDASDeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-69140
 Scenario: To verify user is able to delete the account if there is DAS DEVICE in any location and if Camera Membership is linked to the account
+Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
 When user selects "Delete Account" from "Edit Account" screen
@@ -2678,6 +2672,7 @@ Then user should be displayed with the "Delete Account With Solution" screen
 
 @DeleteAccountWithLocationHavingLyricRoundWiFiThermostatDeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-81293
 Scenario: To verify user is able to delete the account if there is LYRIC ROUND Wi-Fi THERMOSTAT DEVICE in any location and if Camera Membership is linked to the account
+Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
 When user selects "Delete Account" from "Edit Account" screen
@@ -2700,6 +2695,7 @@ Then user should be displayed with the "Delete Account With Solution" screen
 
 @DeleteAccountWithLocationHavingD6PRODeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-81294
 Scenario: To verify user is able to delete the account if there is D6 PRO DEVICE in any location and if Camera Membership is linked to the account
+Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
 When user selects "Delete Account" from "Edit Account" screen
@@ -2722,6 +2718,7 @@ Then user should be displayed with the "Delete Account With Solution" screen
 
 @DeleteAccountWithLocationHavingT5DeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-81295
 Scenario: To verify user is able to delete the account if there is T5 DEVICE in any location and if Camera Membership is linked to the account
+Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
 When user selects "Delete Account" from "Edit Account" screen
@@ -2744,6 +2741,7 @@ Then user should be displayed with the "Delete Account With Solution" screen
 
 @DeleteAccountWithLocationHavingT6PRODeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-81296
 Scenario: To verify user is able to delete the account if there is T6 PRO DEVICE in any location and if Camera Membership is linked to the account
+Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
 When user selects "Delete Account" from "Edit Account" screen
@@ -2766,6 +2764,7 @@ Then user should be displayed with the "Delete Account With Solution" screen
 
 @DeleteAccountWithLocationHavingWLDDeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-81297
 Scenario: To verify user is able to delete the account if there is WLD DEVICE in any location and if Camera Membership is linked to the account
+Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
 When user selects "Delete Account" from "Edit Account" screen
@@ -2788,6 +2787,7 @@ Then user should be displayed with the "Delete Account With Solution" screen
 
 @DeleteAccountWithLocationHavingC1DeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-81298
 Scenario: To verify user is able to delete the account if there is C1 DEVICE in any location and if Camera Membership is linked to the account
+Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
 When user selects "Delete Account" from "Edit Account" screen
@@ -2810,6 +2810,7 @@ Then user should be displayed with the "Delete Account With Solution" screen
 
 @DeleteAccountWithLocationHavingC2DeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-81299
 Scenario: To verify user is able to delete the account if there is C2 DEVICE in any location and if Camera Membership is linked to the account
+Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
 When user selects "Delete Account" from "Edit Account" screen
@@ -2832,6 +2833,7 @@ Then user should be displayed with the "Delete Account With Solution" screen
 
 @DeleteAccountWithLocationHavingLyricSmartControllerDeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-81300
 Scenario: To verify user is able to delete the account if there is LYRIC SMART CONTROLLER DEVICE in any location and if Camera Membership is linked to the account
+Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
 When user selects "Delete Account" from "Edit Account" screen
