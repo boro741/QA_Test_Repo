@@ -2,19 +2,19 @@
 Feature: Weather forecast, As user I want to view the outdoor temperature from weather forecast so that I will aware of my outdoor temperature
 
 #Dashboard weather 
-
 #Requirements: Single location with or with out solution 
-@GenralWeatherforecastwithorwithoutsolutionDashboard          @Automatable
-Scenario: As a user I want to verify the weather forecast for the location with temper scale celsius/Fahrenheit on dashboard with or with out solution 
+@GeneralWeatherForecastWithOrWithoutSolutionDashboard          @Automatable
+Scenario: As a user I want to verify the weather forecast for the location with temper scale celsius or Fahrenheit on dashboard with or with out solution 
 Given user launches and logs in to the Lyric Application
-Then user navigates to “Dashboard” screen 
-And Verify the “Weather icon and Tempr value” based on the location zipcode  #respective temper scale 
-
+And user should be displayed with the following "Weather" options:
+|WeatherOptions|
+|Weather Icon  |
+|Weather Temp  |
+Then user logs out of the app
 
 #Weather screen 
-
 #Requirements: Single location with or with out solution 
-@GenralWeatherforecastwithorwithoutsolutionWeatherScreen          @NotAutomatable
+@GeneralWeatherForecastWithOrWithoutSolutionWeatherScreen          @NotAutomatable
 Scenario: As a user I wanted to verify weather forecast screen for the location with temper scale celsius/Fahrenheit on Weather screen with or with out solution  and for time format 24/12hr
 Given user launches and logs in to the Lyric Application
 Then user navigates to “Forecast” screen 
@@ -23,80 +23,57 @@ And Verify for three more forecast with interval of 6 hrs from current time
 And Verify the time format in app is same as mobile device
 
 #Weather screen switching temper scale celsius and Fahrenheit 
-
 #Requirements: Single location with or with out solution US location          @Automatable
-@GenralWeatherforecastwithorwithoutsolutionWeathertemperscaleswitchwithUSLocation
-Scenario: As a user I wanted to verify weather forecast screen temper scale switch with celsius/Fahrenheit on weather screen with or with out solution  and for time format 24/12hr, US Location
+@GeneralWeatherForecastWithOrWithoutSolutionWeatherTemperScaleSwitchWithUSLocation
+Scenario: As a user I wanted to verify weather forecast screen temper scale switch with celsius or Fahrenheit on weather screen with or with out solution  and for time format 24hr or 12hr, US Location
 Given user launches and logs in to the Lyric Application
-Then user navigates to “Forecast” screen 
-And verify the temper scale selected on “Fahrenheit”
-When user switches to “Celsius” on bottom of the screen 
-Then verify the current weather forecast for the location with temperature displayed with the “Celsius”
-And Verify for three more forecast with interval of 6 hrs from current time
-And verify for three more forecast with “Celsius” 
-When user switches to “Fahrenheit” on bottom of the screen 
-Then verify the current weather forecast for the location with temperature displayed with the “Fahrenheit”
-And Verify for three more forecast with interval of 6 hrs from current time
-And verify for three more forecast with “Fahrenheit” 
-
-#Weather screen switching temper scale celsius and Fahrenheit, US location
-
-#Requirements: Single location with or with out solution US location          @Automatable
-@GenralWeatherforecastwithorwithoutsolutionWeathertemperscaleswitchwithUSLocation
-Scenario: As a user I wanted to verify weather forecast screen temper scale switch with celsius/Fahrenheit on weather screen with or with out solution  and for time format 24/12hr, US Location
-Given user launches and logs in to the Lyric Application
-Then user navigates to “Forecast” screen 
-And verify the temper scale selected as “Fahrenheit”
-When user switches to “Celsius” on bottom of the screen 
-Then verify the current weather forecast for the location with temperature displayed with the “Celsius”
-And Verify for three more forecast with interval of 6 hrs from current time
-And verify for three more forecast with “Celsius” 
-When user switches to “Fahrenheit” on bottom of the screen 
-Then verify the current weather forecast for the location with temperature displayed with the “Fahrenheit”
-And Verify for three more forecast with interval of 6 hrs from current time
-And verify for three more forecast with “Fahrenheit” 
-
+Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
+When user selects "Farenheit" from "Weather Forecast" screen
+Then user should be displayed with the current unit of "Farenheit" in the "Weather Forecast" screen
+Then user should be displayed with three forecast with interval of "6" hrs in "Weather Forecast" screen
+And user should be displayed with the following "Weather" options:
+|WeatherOptions			|
+|Humidity      			|
+|Max Weather Temperature|
+|Min Weather Temperature|
+Then user selects "Celsius" from "Weather Forecast" screen
+Then user should be displayed with the current unit of "Celsius" in the "Weather Forecast" screen
+Then user should be displayed with three forecast with interval of "6" hrs in "Weather Forecast" screen
+Then user logs out of the app
 
 #Weather screen switching temper scale celsius and Fahrenheit, EMEA Location 
-
 #Requirements: Single location with or with out solution UK location          @Automatable
-@GenralWeatherforecastwithorwithoutsolutionWeathertemperscaleswitchwithUKLocation
-Scenario: As a user I wanted to verify weather forecast screen temper scale switch with celsius/Fahrenheit on weather screen with or with out solution  and for time format 24/12hr, UK Location
+@GeneralWeatherForecastWithOrWithoutSolutionWeatherTemperScaleSwitchWithUKLocation
+Scenario: As a user I wanted to verify weather forecast screen temper scale switch with celsius or Fahrenheit on weather screen with or with out solution  and for time format 24hr or 12hr, UK Location
 Given user launches and logs in to the Lyric Application
-Then user navigates to “Forecast” screen 
-And verify the temper scale selected as “celsius”
-When user switches to “Fahrenheit” on bottom of the screen 
-Then verify the current weather forecast for the location with temperature displayed with the “Fahrenheit”
-And Verify for three more forecast with interval of 6 hrs from current time
-And verify for three more forecast with “Fahrenheit” 
-When user switches to “celsius” on bottom of the screen 
-Then verify the current weather forecast for the location with temperature displayed with the “Fahrenheit”
-And Verify for three more forecast with interval of 6 hrs from current time
-And verify for three more forecast with “celsius”     
+Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
+When user selects "Farenheit" from "Weather Forecast" screen
+Then user should be displayed with the current unit of "Farenheit" in the "Weather Forecast" screen
+Then user should be displayed with three forecast with interval of "6" hrs in "Weather Forecast" screen
+Then user selects "Celsius" from "Weather Forecast" screen
+Then user should be displayed with the current unit of "Celsius" in the "Weather Forecast" screen
+Then user should be displayed with three forecast with interval of "6" hrs in "Weather Forecast" screen
+Then user logs out of the app
 
-#Dashboard weather switching temper  switching scale celsius and Fahrenheit, EMEA Location 
-
+#Dashboard weather switching temper switching scale celsius and Fahrenheit, EMEA Location 
 #Requirements: Single location with or with out solution           @Automatable
-@GenralWeatherforecastwithorwithoutsolutionWeathertemperscaleswitch
-Scenario: As a user I wanted to verify weather forecast screen temper scale switch with celsius/Fahrenheit on Dashboard with or with out solution
+@GeneralWeatherForecastWithOrWithoutSolutionWeatherTemperScaleSwitchForEMEALocation
+Scenario: As a user I want to verify weather forecast screen temperature scale switch with celsius or Fahrenheit on Dashboard with or with out solution for UK Location
 Given user launches and logs in to the Lyric Application
-And user set to temper scale “Celsius” 
-And verify the temper scale “Celsius” for weather
-Then user navigates to “Forecast” screen 
-When user switches to “Fahrenheit” on bottom of the screen 
-Then user navigates to “Dashboard” screen from “Forecast” screen
-And verify the temper scale “Fahrenheit” for weather
-
-                             
-@GenralWeatherforecast          @NotAutomatable
-Scenario: Fetch Weather forecast for systems with mobile time format 24/12hr
+Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
+Then user should be displayed with "Celsius" temperature scale in "Weather Forecast" screen
+Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
+Then user should be displayed with "Farenheit" temperature scale in "Weather Forecast" screen
+Then user logs out of the app
+           
+@GeneralWeatherForecastWithOrWithoutSolutionWeatherTemperScaleSwitchForUSLocation
+Scenario: As a user I want to verify weather forecast screen temperature scale switch with celsius or Fahrenheit on Dashboard with or with out solution for US Location
 Given user launches and logs in to the Lyric Application
-Then user navigates to “Forecast” screen from “Dashboard” screen 
-And Verify the current weather forecast for the location with temperature and weather status
-And Verify for three more forecast with interval of 6 hrs from current time
-And Verify the time format in app is same as mobile device
-
-
+Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
+Then user should be displayed with "Celsius" temperature scale in "Weather Forecast" screen
+Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
+Then user should be displayed with "Farenheit" temperature scale in "Weather Forecast" screen
+Then user logs out of the app          
 
 @ErrormessageWeatherforecast          @NotAutomatable
 Scenario Outline:To get error messages on system unavailability to fetch weather forecast As an user I want to get error message if app failed to fetch weather forecast for the location  So that I will get notified on system unavailability
@@ -113,35 +90,135 @@ Examples:
 |Smart network switch            |
 
 #Requirment : Multiple location with different zipcode
-@GenralchangelocationWeatherupdate          @Automatable
-Scenario: As a user i wanted to verify the weather update with lcoation change 
+@GeneralChangeLocationWeatherUpdate          @Automatable @AlreadyCoveredTheSameStepsInGeneralWeatherTempScaleValidationMultiLocation
+Scenario: As a user i want to verify the weather update with lcoation change 
 Given user launches and logs in to the Lyric application
 When user see the wheather status of location1
 Then user changes the location2
 And user should be displayed updated weather based on the location2 zipcode
 When user changes the location1
 Then user should be displayed with weather based on the location1 zipcode
+Then user logs out of the app
 
 #Requirment: Single location with or without solution
-@Genralweatherchangebasedonlocationzipcodeudpate          @Automatable
-Scenario: As a user i wanted to verify the weather update with zip code
+@GeneralWeatherChangeBasedOnLocationZipCodeUpdate          @Automatable
+Scenario Outline: As a user I want to verify the weather update with zip code
 Given user launches and logs in to the Lyric application
-When user see the weather status of locatoin
-Then user navigates to "Location settings" screen 
-When user update the location 
-Then user navigates to dashboard
-And user should be displayed with udpated weather based on the location zipcode
+Then user should be displayed with the following "Weather" options:
+|WeatherOptions|
+|Weather Icon  |
+|Weather Temp  |
+Then user navigates to "Address" screen from the "Dashboard" screen
+Then user navigates to "Edit Address" screen from the "Address" screen
+Then user gets the current postal code from "Edit Address" screen
+Then user clears the text displayed in the following text fields in the "Edit Address" screen:
+| TextFieldsInEditAddressScreen		|
+| Postal Code Text Field			|
+Then user inputs <Postal Code> in "Postal Code Text Field" in the "Edit Address" screen
+Then the following "Edit Address" options should be enabled:
+| EditAddressOptions	|
+| Save					|
+Then user selects "Save button" from "Edit Address" screen
+When user clicks on the back arrow in the "Edit Address" screen
+Then user navigates to "Dashboard" screen from the "Global Drawer" screen
+Then user should be displayed with the following "Weather" options:
+|WeatherOptions|
+|Weather Icon  |
+|Weather Temp  |
+Then user navigates to "Address" screen from the "Dashboard" screen
+Then user navigates to "Edit Address" screen from the "Address" screen
+Then user clears the text displayed in the following text fields in the "Edit Address" screen:
+| TextFieldsInEditAddressScreen		|
+| Postal Code Text Field			|
+Then user inputs "Default Postal Code" in "Postal Code Text Field" in the "Edit Address" screen
+Then user selects "Save button" from "Edit Address" screen
+Then user logs out of the app
+
+Examples:
+| Postal Code	|
+| 14008			|
+
 
 #Requirment : Mulitple location with different Tempr scale
-@Genralweathertempscalevalidationmultilocation          @Automatable
-Scenario: As a user i wanted to verify the weather update for multi location
+@GeneralWeatherTempScaleValidationMultiLocation          @Automatable
+Scenario Outline: As a user I want to verify the weather update for multi location
 Given user launches and logs in to the Lyric application
-When user navigates to weather screen
-Then user changes to tempr scale to C
-When user navigates to location2
-Then user navigates to weather screen
-When user changes the tempr scale to F
-Then user navigates to location1
-And user should be displayed with C
-When user navigates to location2
-Then user should be displayed with F
+When user selects "Smart Home Security" from "Add New Device" screen
+Then user should be displayed with the "What To Expect" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects "Create New Location" from "Choose Location" screen
+Then user should be displayed with the "Create Location" screen
+When user inputs <first location name> in the "Create Location" screen
+Then user should be displayed with the "Confirm Your ZIP Code" screen
+When user inputs <valid first locations zip code>
+Then user should be displayed with the "Name Your Base Station" screen
+When user "cancels the set up" by clicking on "cancel" button
+Then user should receive a "Cancel Setup" popup
+When user "accepts" the "Cancel Setup" popup
+Then user should be displayed with the "Add New Device" screen
+Then user clicks on the back arrow in the <Current Screen> screen
+Then user should be displayed with the <Previous Screen> screen
+And user should be displayed with the following "Weather" options:
+| WeatherOptions            |
+| Weather Icon              |
+| Weather Temperature       |
+Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
+Then user selects "Celsius" from "Weather Forecast" screen
+Then user selects "Back button" from "Weather Forecast" screen
+Then user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
+When user selects "Smart Home Security" from "Add New Device" screen
+Then user should be displayed with the "What To Expect" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects "Create New Location" from "Choose Location" screen
+Then user should be displayed with the "Create Location" screen
+When user inputs <second location name> in the "Create Location" screen
+Then user should be displayed with the "Confirm Your ZIP Code" screen
+When user inputs <valid second locations zip code>
+Then user should be displayed with the "Name Your Base Station" screen
+When user "cancels the set up" by clicking on "cancel" button
+Then user should receive a "Cancel Setup" popup
+When user "accepts" the "Cancel Setup" popup
+Then user should be displayed with the "Add New Device" screen
+Then user clicks on the back arrow in the <Current Screen> screen
+Then user should be displayed with the <Previous Screen> screen
+And user should be displayed with the following "Weather" options:
+| WeatherOptions            |
+| Weather Icon              |
+| Weather Temperature       |
+Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
+Then user selects "Farenheit" from "Weather Forecast" screen
+Then user selects "Back button" from "Weather Forecast" screen
+Then user selects <first location name> from "Add New Device Dashboard" screen
+Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
+Then user should be displayed with "Celsius Unit" temperature scale in "Add New Device Dashboard" screen
+Then user selects "Back button" from "Weather Forecast" screen
+Then user selects <second location name> from "Add New Device Dashboard" screen
+Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
+Then user should be displayed with "Farenheit Unit" temperature scale in "Add New Device Dashboard" screen
+Then user selects "Back button" from "Weather Forecast" screen
+And user "deletes location details" by clicking on "delete" button
+Then user should be displayed with the "Dashboard" screen
+And user "deletes the existing location details" by clicking on "delete" button
+Then user should be displayed with the "Add New Device Dashboard" screen
+Then user logs out of the app
+
+Examples: 
+| first location name | valid first locations zip code | second location name   | valid second locations zip code  | Current Screen              | Previous Screen   |
+| California          | 90001                          |  Texas                 | 75457                            | Add New Device Dashboard    | Dashboard         |
+
+
+#Dashboard weather switching temper switching scale celsius and Fahrenheit, login with different device
+#Requirements: Single location with or with out solution           @NotAutomatable
+@GeneralWeatherForecastWithOrWithoutSolutionWeatherTemperScaleSwitchLoginwithdifferentdevice
+Scenario: As a user I want to verify weather forecast screen temper scale switch with celsius or Fahrenheit on Dashboard with or with out solution and check in different device
+Given user launches and logs in to the Lyric Application
+#Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
+#And user set to temper scale “Celsius” 
+And user should be displayed with "Celsius" temperature scale in "Add New Device Dashboard" screen
+Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
+When user selects "Farenheit" from "Weather Forecast" screen 
+Then user selects "Back button" from "Weather Forecast" screen 
+And user should be displayed with "Farenheit" temper scale in "Add New Device Dashboard" screen
+When user launches and logs in to the Lyric Application on phone2
+Then user should be displauyed with "Celsius" temperatureYou have this scenario scale in "Add New Device Dashboard" screen
+ 

@@ -538,7 +538,6 @@ public class LyricUtils {
 		OSPopUps os = new OSPopUps(testCase);
 		LoginScreen ls = new LoginScreen(testCase);
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-
 			if (ls.isSkipButtonVisible()) {
 				flag = flag & ls.clickOnSkipIntroButton();
 			}
@@ -2219,6 +2218,16 @@ public class LyricUtils {
 		} else {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
 		}
+		return flag;
+	}
+	
+	public static boolean launchLyricApplication(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		flag = MobileUtils.launchApplication(inputs, testCase, true);
+		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+		// if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		// }
 		return flag;
 	}
 }

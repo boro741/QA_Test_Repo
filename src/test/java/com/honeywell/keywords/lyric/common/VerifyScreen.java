@@ -19,6 +19,7 @@ import com.honeywell.lyric.das.utils.DASAlarmUtils;
 import com.honeywell.lyric.das.utils.DASCameraUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
+import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.das.utils.FAQsUtils;
 import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.screens.AboutTheAppScreen;
@@ -33,11 +34,13 @@ import com.honeywell.screens.DASCameraSolutionCard;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.EditAccountScreen;
+import com.honeywell.screens.EndUserLicenseAgreementScreen;
 import com.honeywell.screens.FAQsScreen;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.GlobalDrawerScreen;
 import com.honeywell.screens.PrimaryCard;
+import com.honeywell.screens.PrivacyStatementScreen;
 import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
@@ -269,6 +272,7 @@ public class VerifyScreen extends Keyword {
 			case "ADD NEW DEVICE":
 			case "ADD NEW DEVICE DASHBOARD": {
 				AddNewDeviceScreen addDeviceSrceen = new AddNewDeviceScreen(testCase);
+				flag &= DashboardUtils.waitForProgressBarToComplete(testCase, "PROGRESS BAR", 1);
 				if (addDeviceSrceen.isAddNewDeviceHeaderDisplayed(60)
 						&& addDeviceSrceen.isSelectADeviceToInstallHeaderInAddNewDeviceScreenVisible()) {
 					Keyword.ReportStep_Pass(testCase,
@@ -995,6 +999,7 @@ public class VerifyScreen extends Keyword {
 			}
 			case "PLEASE CONFIRM YOUR COUNTRY": {
 				AddNewDeviceScreen adn = new AddNewDeviceScreen(testCase);
+				flag &= DashboardUtils.waitForProgressBarToComplete(testCase, "PROGRESS BAR", 1);
 				if (adn.isConfirmYourCountryScreenTitleVisible() && adn.isCurrentCountryButtonVisible()
 						&& adn.isEnterCountryTextFieldVisible()) {
 					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
@@ -1142,6 +1147,18 @@ public class VerifyScreen extends Keyword {
 				DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "PRIVACY POLICY LOADING SPINNER", 2);
 				if (atas.isPrivacyPolicyAndEULAScreenTitleVisible()
 						&& atas.isDoneButtonInPrivacyPolicyAndEULAScreenVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
+			case "PRIVACY POLICY AND EULA FOR SELECTED COUNTRY": {
+				AddNewDeviceScreen and = new AddNewDeviceScreen(testCase);
+				DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "PRIVACY POLICY LOADING SPINNER", 2);
+				if (and.isPrivacyPolicyAndEULAScreenTitleVisible()
+						&& and.isPrivacyPolicyAndEULAScreenDataVisible()) {
 					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1551,6 +1568,39 @@ public class VerifyScreen extends Keyword {
 
 				if (aas.isActivateAccountTitleDisplayed()) {
 					Keyword.ReportStep_Pass(testCase, "Activate Account screen is displayed");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
+			case "PRIVACY STATEMENT": {
+				PrivacyStatementScreen pStatementScreen = new PrivacyStatementScreen(testCase);
+				if (pStatementScreen.isPrivacyStatementScreenTitleVisible()
+						&& pStatementScreen.isPrivacyStatementScreenContentVisible()
+						&& pStatementScreen.isBackButtonInPrivacyStatmentScreenVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Privacy Statement screen is displayed");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
+			case "END USER LICENSE AGREEMENT": {
+				EndUserLicenseAgreementScreen eulaScreen = new EndUserLicenseAgreementScreen(testCase);
+				if (eulaScreen.isEULAScreenTitleVisible() && eulaScreen.isEULAScreenContentVisible()
+						&& eulaScreen.isBackButtonInEULAScreenVisible()) {
+					Keyword.ReportStep_Pass(testCase, "End User License Agreement screen is displayed");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
+			case "NEW AGREEMENT": {
+				AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
+				if (ads.verifyNewAgreementScreen(inputs, inputs.getInputValue("SELECTED_COUNTRY"))) {
+					Keyword.ReportStep_Pass(testCase, "New Agreement screen is displayed");
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Failed to navigate to " + expectedScreen.get(0));

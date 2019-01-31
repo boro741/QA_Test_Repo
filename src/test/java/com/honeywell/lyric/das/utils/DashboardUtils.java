@@ -274,6 +274,14 @@ public class DashboardUtils {
 								return true;
 							}
 						}
+						case "PROGRESS BAR": {
+							if (d.isProgressBarVisible()) {
+								System.out.println("Waiting for Verifying loading spinner text to disappear");
+								return false;
+							} else {
+								return true;
+							}
+						}
 						default: {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Invalid argument passed : " + elementProgressBar);
@@ -417,11 +425,35 @@ public class DashboardUtils {
 		return flag;
 	}
 
+	public static boolean enterCountryNameAndSelectItInConfirmYourCountryScreenAndAcceptNewAgreement(TestCases testCase,
+			TestCaseInputs inputs, String countryName) {
+		boolean flag = true;
+		AddNewDeviceScreen adn = new AddNewDeviceScreen(testCase);
+		flag &= adn.enterCountryNameInCountryTextFieldAndAcceptNewAgreement(inputs, countryName);
+		return flag;
+	}
+
 	public static boolean enterCountryNameAndSelectItInConfirmYourCountryScreen(TestCases testCase,
 			TestCaseInputs inputs, String countryName) {
 		boolean flag = true;
 		AddNewDeviceScreen adn = new AddNewDeviceScreen(testCase);
 		flag &= adn.enterCountryNameInCountryTextField(inputs, countryName);
+		return flag;
+	}
+
+	public static boolean verifyDefaultCountryDisplayedInConfirmYourCountryScreen(TestCases testCase,
+			TestCaseInputs inputs, String countryName) {
+		boolean flag = true;
+		AddNewDeviceScreen adn = new AddNewDeviceScreen(testCase);
+		flag &= adn.verifyDefaultCountryDisplayedInConfirmYourCountryScreen(inputs, countryName);
+		return flag;
+	}
+
+	public static boolean verifyCountryDisplayedInAddNewDeviceScreen(TestCases testCase, String countryName) {
+		boolean flag = true;
+		System.out.println("##########COUNTRY NAME IS: " + countryName);
+		AddNewDeviceScreen adn = new AddNewDeviceScreen(testCase);
+		flag &= adn.isShowingDevicesForCountryLabelInAddNewDeviceScreenVisible(countryName);
 		return flag;
 	}
 }

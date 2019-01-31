@@ -367,7 +367,7 @@ public class AddressUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean verifyIfLocationNameInEditAddressScreenContainsEmptySpaces(TestCases testCase,
 			TestCaseInputs inputs, String locationNameWithEmptySpaces) {
 		AddressScreen ads = new AddressScreen(testCase);
@@ -451,7 +451,7 @@ public class AddressUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean verifyIfLocationNameInAddressScreenContainsEmptySpaces(TestCases testCase,
 			TestCaseInputs inputs, String locationNameWithSpecialCharacters) {
 		AddressScreen ads = new AddressScreen(testCase);

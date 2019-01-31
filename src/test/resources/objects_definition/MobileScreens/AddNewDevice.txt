@@ -28,3 +28,7 @@ SorryToSeeYouGoPopupTitle	XPATH	"//*[@resource-id='android:id/alertTitle' and co
 SorryToSeeYouGoPopupMsg	ID	message	ID	message	ID	message						
 NoButtonInSorryToSeeYouGoPopup	ID	button2	ID	button2	ID	button2						
 YesButtonInSorryToSeeYouGoPopup	ID	button1	ID	button1	ID	button1						
+FooterTextInAddNewDeviceScreen	ID	footer_text	ID	footer_text	ID	footer_text						
+PrivacyPolicyAndEULALinkInNewAgreementScreen	ID	fragment_new_eula_link_container	ID	fragment_new_eula_link_container	ID	fragment_new_eula_link_container						
+PrivacyPolicyAndEULAScreenTitle	XPATH	//*[@resource-id='com.honeywell.android.lyric:id/toolbar_title' and @text='Privacy Policy & EULA']	XPATH	//*[@resource-id='com.honeywell.android.lyric:id/toolbar_title' and @text='Privacy Policy & EULA']	XPATH	//*[@resource-id='com.honeywell.android.lyric:id/toolbar_title' and @text='Privacy Policy & EULA']						
+PrivacyPolicyAndEULAScreenData	XPATH	//android.webkit.WebView	XPATH	//android.webkit.WebView	XPATH	//android.webkit.WebView						

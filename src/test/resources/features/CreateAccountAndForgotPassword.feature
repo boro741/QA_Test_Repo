@@ -308,7 +308,7 @@
      | giri       | THEJ      | unit@grr.la | Password2 | Password1 	  |
 
  	 @GeneralCreateAccountPrivacyStatementAndEULA          @Automated
-     Scenario Outline: As a user I want to verify Create Account Privacy Policy and EULA
+     Scenario Outline: As a user I want to verify Create Account Privacy Statement
      Given user launches the Lyric application
      When user selects "Create Account" from "Honeywell Home" screen
      Then user should be displayed with the "Create Account" screen
@@ -322,16 +322,16 @@
      | By Tapping create below |
      | Privacy Statement       |
      When user selects "Privacy Statement" from "Create Account" screen
-     Then user should be displayed with the "Privacy Policy and EULA" screen
-     Then user selects "Back" from "Privacy Policy and EULA" screen
+     Then user should be displayed with the "Privacy Statement" screen
+     Then user selects "Back" from "Privacy Statement" screen
      Then user should be displayed with the "Create Account" screen
      Then user should be displayed with the following "Create Account" options:
      | CreateAccountOptions    |
      | By Tapping create below |
      | Privacy Statement       |
-     When user selects "EULA" from "Create Account" screen
-     Then user should be displayed with the "Privacy Policy and EULA" screen
-     Then user selects "Back" from "Privacy Policy and EULA" screen
+     When user selects "END USER License Agreement" from "Create Account" screen
+     Then user should be displayed with the "Privacy Statement" screen
+     Then user selects "Back" from "Privacy Statement" screen
      Then user should be displayed with the "Create Account" screen
      Examples: 
      | First Name | Last Name | Email 		| Password 	| Verify Password |

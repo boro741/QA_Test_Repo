@@ -40,12 +40,13 @@ import com.honeywell.screens.CameraSolutionCardScreen;
 import com.honeywell.screens.CreateAccountScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.EditAccountScreen;
+import com.honeywell.screens.EndUserLicenseAgreementScreen;
 import com.honeywell.screens.FAQsScreen;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.GlobalDrawerScreen;
 import com.honeywell.screens.LoginScreen;
 import com.honeywell.screens.PrimaryCard;
-import com.honeywell.screens.PrivacyPolicyEULA;
+import com.honeywell.screens.PrivacyStatementScreen;
 import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
@@ -1851,8 +1852,29 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
 				AddNewDeviceScreen adn = new AddNewDeviceScreen(testCase);
+				String getFooterTextDisplayedInAddNewDeviceScreen = null;
+				String getCurrentCountryFromAddNewDeviceScreen = null;
 				switch (parameters.get(0).toUpperCase()) {
 				case "CHANGE COUNTRY": {
+					if (adn.isFooterTextInAddNewDeviceScreenVisible()) {
+						getFooterTextDisplayedInAddNewDeviceScreen = adn.getFooterTextDisplayedInAddNewDeviceScreen();
+						String[] footerText = getFooterTextDisplayedInAddNewDeviceScreen.split("\\W+");
+						getCurrentCountryFromAddNewDeviceScreen = footerText[footerText.length - 2] + " "
+								+ footerText[footerText.length - 1];
+						System.out.println(
+								"getCurrentCountryFromAddNewDeviceScreen: " + getCurrentCountryFromAddNewDeviceScreen);
+						if (getCurrentCountryFromAddNewDeviceScreen.contains("for")) {
+							String[] currentCountryName = getCurrentCountryFromAddNewDeviceScreen.split("\\W+");
+							getCurrentCountryFromAddNewDeviceScreen = currentCountryName[currentCountryName.length - 1];
+							System.out.println("getCurrentCountryFromAddNewDeviceScreen after removing for: "
+									+ getCurrentCountryFromAddNewDeviceScreen);
+							inputs.setInputValue("COUNTRY_DISPLAYED_IN_ADD_NEW_DEVICE_SCREEN",
+									getCurrentCountryFromAddNewDeviceScreen);
+						} else {
+							inputs.setInputValue("COUNTRY_DISPLAYED_IN_ADD_NEW_DEVICE_SCREEN",
+									getCurrentCountryFromAddNewDeviceScreen);
+						}
+					}
 					if (adn.isChangeCountryLinkVisible()) {
 						flag &= adn.clickOnChangeCountryLink();
 					} else {
@@ -1880,7 +1902,8 @@ public class SelectElementOnAScreen extends Keyword {
 				 * testCase, inputs, parameters.get(0));
 				 */
 				switch (parameters.get(0).toUpperCase()) {
-				case "CURRENT COUNTRY": {
+				case "CURRENT COUNTRY":
+				case "DEFAULT COUNTRY": {
 					AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
 					if (ads.isCurrentCountryButtonVisible()) {
 						flag &= ads.clickOnCurrentCountryButton();
@@ -2455,19 +2478,55 @@ public class SelectElementOnAScreen extends Keyword {
 					CreateAccountScreen cas = new CreateAccountScreen(testCase);
 					if (cas.isCreateAccountPrivacyStatementLinkDisplayed()) {
 						flag &= cas.isCreateAccountClickOnPrivacyStatementLink();
-						if (flag) {
-							Keyword.ReportStep_Pass(testCase, "Privacy Statement link is clicked");
+					} else {
+						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+						TouchAction action = new TouchAction(testCase.getMobileDriver());
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							int startx = (dimensions.width * 20) / 100;
+							int starty = (dimensions.height * 62) / 100;
+							int endx = (dimensions.width * 22) / 100;
+							int endy = (dimensions.height * 35) / 100;
+							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Privacy Statement link is not clicked");
+							action.press(10, (int) (dimensions.getHeight() * .9))
+									.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
 						}
+						if (cas.isCreateAccountPrivacyStatementLinkDisplayed()) {
+							flag &= cas.isCreateAccountClickOnPrivacyStatementLink();
+						} else {
+							flag = false;
+						}
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Privacy Statement link is clicked");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Privacy Statement link is not clicked");
 					}
 					break;
 				}
-				case "EULA": {
+				case "END USER LICENSE AGREEMENT": {
 					CreateAccountScreen cas = new CreateAccountScreen(testCase);
 					if (cas.isCreateAccountEULALinkDisplayed()) {
 						flag &= cas.isCreateAccountClickOnEULALink();
+					} else {
+						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+						TouchAction action = new TouchAction(testCase.getMobileDriver());
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							int startx = (dimensions.width * 20) / 100;
+							int starty = (dimensions.height * 62) / 100;
+							int endx = (dimensions.width * 22) / 100;
+							int endy = (dimensions.height * 35) / 100;
+							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						} else {
+							action.press(10, (int) (dimensions.getHeight() * .9))
+									.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
+						}
+						if (cas.isCreateAccountEULALinkDisplayed()) {
+							flag &= cas.isCreateAccountClickOnEULALink();
+						} else {
+							flag = false;
+						}
 						if (flag) {
 							Keyword.ReportStep_Pass(testCase, "EULA link is clicked");
 						} else {
@@ -2506,8 +2565,8 @@ public class SelectElementOnAScreen extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Create Account Register button is not clicked");
 					}
-				}
 					break;
+				}
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("ACTIVATE ACCOUNT")) {
 				switch (parameters.get(0).toUpperCase()) {
@@ -2525,20 +2584,95 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				}
-			} else if (parameters.get(1).equalsIgnoreCase("PRIVACY POLICY AND EULA")) {
+			} else if (parameters.get(1).equalsIgnoreCase("PRIVACY STATEMENT")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "BACK": {
-					PrivacyPolicyEULA ppe = new PrivacyPolicyEULA(testCase);
-					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-						flag &= ppe.isPrivacyPolicyEULAClickOnBack();
-					} else {
-						// ios
-						flag &= ppe.isPrivacyPolicyEULAClickOnIOSBackButton();
+					PrivacyStatementScreen pStatementScreen = new PrivacyStatementScreen(testCase);
+					if (pStatementScreen.isBackButtonInPrivacyStatmentScreenVisible()) {
+						flag &= pStatementScreen.clickOnBackButtonInPrivacyStatmentScreen();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Clicked on back button in Privacy statement screen");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click on back button in Privacy statement screen");
+						}
 					}
-					if (flag) {
-						Keyword.ReportStep_Pass(testCase, "Back button is clicked");
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Back button not clicked");
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("END USER LICENSE AGREEMENT")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "BACK": {
+					EndUserLicenseAgreementScreen eulaScreen = new EndUserLicenseAgreementScreen(testCase);
+					if (eulaScreen.isBackButtonInEULAScreenVisible()) {
+						flag &= eulaScreen.clickOnBackButtonInEULAScreen();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase,
+									"Clicked on back button in End user License Agreement screen");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click on back button in End user License Agreement screen");
+						}
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("NEW AGREEMENT")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "CANCEL": {
+					AddNewDeviceScreen and = new AddNewDeviceScreen(testCase);
+					if (and.isCancelButtonInNewAgreementScreenVisible()) {
+						flag &= and.clickOnCancelButtonInNewAgreementScreen();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Clicked on Cancel button in New Agreement screen");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click on Cancel button in New Agreement screen");
+						}
+					}
+					break;
+				}
+				case "ACCEPT": {
+					AddNewDeviceScreen and = new AddNewDeviceScreen(testCase);
+					if (and.isAcceptButtonInNewAgreementScreenVisible()) {
+						flag &= and.clickOnAcceptButtonInNewAgreementScreen();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Clicked on Accept button in New Agreement screen");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click on Accept button in New Agreement screen");
+						}
+					}
+					break;
+				}
+				case "PRIVACY POLICY AND EULA LINK": {
+					AddNewDeviceScreen and = new AddNewDeviceScreen(testCase);
+					if (and.isPrivacyPolicyAndEULALinkInNewAgreementScreenVisible()) {
+						flag &= and.clickOnPrivacyPolicyAndEULALinkInNewAgreementScreen();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase,
+									"Clicked on Privacy Policy and EULA Link in New Agreement screen");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click on Privacy Policy and EULA Link in New Agreement screen");
+						}
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("PRIVACY POLICY AND EULA FOR SELECTED COUNTRY")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "BACK": {
+					AddNewDeviceScreen and = new AddNewDeviceScreen(testCase);
+					if (and.isBackButtonVisible()) {
+						flag &= and.clickOnBackButton();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase,
+									"Clicked on Back button in Privacy Policy and EULA screen");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click on Back button in Privacy Policy and EULA screen");
+						}
 					}
 					break;
 				}

@@ -39,6 +39,10 @@ public class Dashboard extends MobileScreens {
 	public boolean isSplashScreenVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SplashScreen", timeOut, false);
 	}
+	
+	public boolean isProgressBarVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ProgressBar");
+	}
 
 	public boolean isProgressBarVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ProgressBar", timeOut, false);

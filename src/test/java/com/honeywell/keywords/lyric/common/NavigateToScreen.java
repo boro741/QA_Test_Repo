@@ -1708,6 +1708,21 @@ public class NavigateToScreen extends Keyword {
 				}
 			} else if (screen.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "DASHBOARD": {
+					AddNewDeviceScreen addScreen = new AddNewDeviceScreen(testCase);
+					if (addScreen.isBackButtonVisible()) {
+						flag &= addScreen.clickOnBackButton();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully navigated to " + screen.get(0) + " screen");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to navigate to " + screen.get(0) + " screen");
+					}
+					break;
+				}
 				case "GLOBAL DRAWER": {
 					AddNewDeviceScreen addScreen = new AddNewDeviceScreen(testCase);
 					if (addScreen.clickOnCancelButtonOfAddDeviceScreen()) {
@@ -3875,6 +3890,85 @@ public class NavigateToScreen extends Keyword {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Failed to navigate to: " + screen.get(1));
 						}
+					}
+					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("EDIT ADDRESS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "EDIT ACCOUNT": {
+					AddressScreen ads = new AddressScreen(testCase);
+					GlobalDrawerScreen gds = new GlobalDrawerScreen(testCase);
+					EditAccountScreen eas = new EditAccountScreen(testCase);
+					if (ads.isBackButtonVisible()) {
+						flag &= ads.clickOnBackButton();
+						if (ads.isCancelLocationChangesPopupVisible() && ads.isCancelLocationChangesPopupMsgVisible()
+								&& ads.isNoButtonInCancelLocationChangesPopupVisible()
+								&& ads.isYesButtonInCancelLocationChangesPopupVisible()) {
+							flag &= ads.clickOnYesButtonInCancelLocationChangesPopup();
+							if (ads.isAddressScreenTitleVisible() && ads.isBackButtonVisible()) {
+								flag &= ads.clickOnBackButton();
+								if (gds.isEditAccountOptionVisible()) {
+									flag &= gds.clickEditAccountOption();
+									if (eas.isEditAccountScreenTitleVisible()) {
+										Keyword.ReportStep_Pass(testCase, screen.get(1) + " displayed");
+									} else {
+										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+												"Failed to navigate to: " + screen.get(1));
+									}
+								} else {
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Failed to display Edit Account option in Global Drawer");
+								}
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to display Address Screen");
+							}
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to display Cancel Location Popup");
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to display Back button in Edit Address screen");
+					}
+					break;
+				}
+				case "DASHBOARD": {
+					AddressScreen ads = new AddressScreen(testCase);
+					Dashboard d = new Dashboard(testCase);
+					if (ads.isBackButtonVisible()) {
+						flag &= ads.clickOnBackButton();
+						if (ads.isCancelLocationChangesPopupVisible() && ads.isCancelLocationChangesPopupMsgVisible()
+								&& ads.isNoButtonInCancelLocationChangesPopupVisible()
+								&& ads.isYesButtonInCancelLocationChangesPopupVisible()) {
+							flag &= ads.clickOnYesButtonInCancelLocationChangesPopup();
+							if (ads.isAddressScreenTitleVisible() && ads.isBackButtonVisible()) {
+								flag &= ads.clickOnBackButton();
+								if (ads.isBackButtonVisible()) {
+									flag &= ads.clickOnBackButton();
+									if (d.isAddDeviceIconVisible(10)
+											|| d.isAddDeviceIconBelowExistingDevicesVisible(1)) {
+										Keyword.ReportStep_Pass(testCase, screen.get(1) + " Screen is displayed");
+									} else {
+										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+												"Failed to display the screen: " + screen.get(1));
+									}
+								} else {
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Failed to display Back button in Global Drawer");
+								}
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to display Back button in Address Screen");
+							}
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to display Cancel Location Popup");
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to display Back button in Edit Address screen");
 					}
 					break;
 				}

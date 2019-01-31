@@ -609,6 +609,10 @@ And user should not be displayed with the following "Invited Users" options:
 Then user should be displayed with the following "Invited Users" options:
 | InvitedUsersList						|
 | User who invited the logged in user	|
+When user navigates to "Activity History" screen from the "Add Users" screen
+Then user should be displayed with the following "Activity History" options:
+| ActivityHistoryOptions						|
+| Invitation message for the Invited user	|
 #And user logs out of the app
 #When user launches and logs in to the Lyric Application
 When user logs out and logs in to the Lyric Application with "logged in users account"
@@ -1563,7 +1567,7 @@ Examples:
       | Home					| Living Room				| 90001                 |
 
 
-#Delete account with learn how to delete a device 
+#Delete account with learn how to delete a device #GDPR
   
 #Requirements : single location with solution 
 @GeneralGlobalDrawerEditAccountDeleteAccountWithSolution             @Automated			@--xrayid:ATER-69092
@@ -2670,7 +2674,7 @@ When user selects "Close button" from "Learn How To Cancel A Membership" screen
 Then user should be displayed with the "Delete Account With Solution" screen
 
 
-@DeleteAccountWithLocationHavingLyricRoundWiFiThermostatDeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-81293
+@DeleteAccountWithLocationHavingLyricRoundWiFiThermostatDeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81293
 Scenario: To verify user is able to delete the account if there is LYRIC ROUND Wi-Fi THERMOSTAT DEVICE in any location and if Camera Membership is linked to the account
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -2693,7 +2697,7 @@ When user selects "Close button" from "Learn How To Cancel A Membership" screen
 Then user should be displayed with the "Delete Account With Solution" screen
 
 
-@DeleteAccountWithLocationHavingD6PRODeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-81294
+@DeleteAccountWithLocationHavingD6PRODeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81294
 Scenario: To verify user is able to delete the account if there is D6 PRO DEVICE in any location and if Camera Membership is linked to the account
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -2716,7 +2720,7 @@ When user selects "Close button" from "Learn How To Cancel A Membership" screen
 Then user should be displayed with the "Delete Account With Solution" screen
 
 
-@DeleteAccountWithLocationHavingT5DeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-81295
+@DeleteAccountWithLocationHavingT5DeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81295
 Scenario: To verify user is able to delete the account if there is T5 DEVICE in any location and if Camera Membership is linked to the account
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -2739,7 +2743,7 @@ When user selects "Close button" from "Learn How To Cancel A Membership" screen
 Then user should be displayed with the "Delete Account With Solution" screen
 
 
-@DeleteAccountWithLocationHavingT6PRODeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-81296
+@DeleteAccountWithLocationHavingT6PRODeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81296
 Scenario: To verify user is able to delete the account if there is T6 PRO DEVICE in any location and if Camera Membership is linked to the account
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -2762,7 +2766,7 @@ When user selects "Close button" from "Learn How To Cancel A Membership" screen
 Then user should be displayed with the "Delete Account With Solution" screen
 
 
-@DeleteAccountWithLocationHavingWLDDeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-81297
+@DeleteAccountWithLocationHavingWLDDeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81297
 Scenario: To verify user is able to delete the account if there is WLD DEVICE in any location and if Camera Membership is linked to the account
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -2785,7 +2789,7 @@ When user selects "Close button" from "Learn How To Cancel A Membership" screen
 Then user should be displayed with the "Delete Account With Solution" screen    
 
 
-@DeleteAccountWithLocationHavingC1DeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-81298
+@DeleteAccountWithLocationHavingC1DeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81298
 Scenario: To verify user is able to delete the account if there is C1 DEVICE in any location and if Camera Membership is linked to the account
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -2808,7 +2812,7 @@ When user selects "Close button" from "Learn How To Cancel A Membership" screen
 Then user should be displayed with the "Delete Account With Solution" screen
 
 
-@DeleteAccountWithLocationHavingC2DeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-81299
+@DeleteAccountWithLocationHavingC2DeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81299
 Scenario: To verify user is able to delete the account if there is C2 DEVICE in any location and if Camera Membership is linked to the account
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -2831,7 +2835,7 @@ When user selects "Close button" from "Learn How To Cancel A Membership" screen
 Then user should be displayed with the "Delete Account With Solution" screen
 
 
-@DeleteAccountWithLocationHavingLyricSmartControllerDeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-81300
+@DeleteAccountWithLocationHavingLyricSmartControllerDeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81300
 Scenario: To verify user is able to delete the account if there is LYRIC SMART CONTROLLER DEVICE in any location and if Camera Membership is linked to the account
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen

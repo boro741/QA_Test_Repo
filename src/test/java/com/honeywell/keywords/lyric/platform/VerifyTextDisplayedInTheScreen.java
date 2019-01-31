@@ -11,6 +11,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.AddressUtils;
+import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.das.utils.EditAccountUtils;
 import com.honeywell.lyric.das.utils.FAQsUtils;
 import com.honeywell.screens.AddressScreen;
@@ -130,6 +131,33 @@ public class VerifyTextDisplayedInTheScreen extends Keyword {
 				}
 				break;
 			}
+			case "DEFAULT COUNTRY": {
+				String countryName = ads.getCountryNameDisplayedInAddressScreen();
+				if (!countryName.isEmpty() && countryName != null) {
+					inputs.setInputValue("DEFAULT_COUNTRY_IN_ADDRESS_SCREEN", countryName);
+					System.out.println("#########DEFAULT_COUNTRY_IN_ADDRESS_SCREEN: "
+							+ inputs.getInputValue("DEFAULT_COUNTRY_IN_ADDRESS_SCREEN"));
+					Keyword.ReportStep_Pass(testCase, "Default Country is displayed in Address Screen is: "
+							+ inputs.getInputValue("DEFAULT_COUNTRY_IN_ADDRESS_SCREEN"));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Default Country is not displayed in Address Screen");
+				}
+				break;
+			}
+			case "UPDATED COUNTRY": {
+				String countryName = ads.getCountryNameDisplayedInAddressScreen();
+				if (!countryName.isEmpty() && countryName != null) {
+					System.out.println("#########UPDATED_COUNTRY_IN_ADDRESS_SCREEN: "
+							+ inputs.getInputValue("UPDATED_COUNTRY_IN_ADDRESS_SCREEN"));
+					Keyword.ReportStep_Pass(testCase, "Updated Country is displayed in Address Screen is: "
+							+ inputs.getInputValue("UPDATED_COUNTRY_IN_ADDRESS_SCREEN"));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Updated Country is not displayed in Address Screen");
+				}
+				break;
+			}
 			default: {
 				if (ads.isLocationAddressInAddressScreenVisible()) {
 					System.out.println("###########addressText.get(0): " + inputText.get(0));
@@ -171,6 +199,34 @@ public class VerifyTextDisplayedInTheScreen extends Keyword {
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Location Name is not displayed in Edit Address Screen");
+				}
+				break;
+			}
+			case "DEFAULT COUNTRY": {
+				System.out.println("#########DEFAULT_COUNTRY_IN_ADDRESS_SCREEN: "
+						+ inputs.getInputValue("DEFAULT_COUNTRY_IN_ADDRESS_SCREEN"));
+				flag &= ads.isNotInTheCountryLabelInEditAddressScreenVisible(
+						inputs.getInputValue("DEFAULT_COUNTRY_IN_ADDRESS_SCREEN"));
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Default Country is displayed in Edit Address Screen is: "
+							+ inputs.getInputValue("DEFAULT_COUNTRY_IN_ADDRESS_SCREEN"));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							inputs.getInputValue("DEFAULT_COUNTRY_IN_ADDRESS_SCREEN")
+									+ " Default Country is not displayed in Edit Address Screen");
+				}
+				break;
+			}
+			case "UPDATED COUNTRY": {
+				System.out.println("#########SELECTED_COUNTRY: " + inputs.getInputValue("SELECTED_COUNTRY"));
+				flag &= ads.isNotInTheCountryLabelInEditAddressScreenVisible(inputs.getInputValue("SELECTED_COUNTRY"));
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Updated Country is displayed in Edit Address Screen is: "
+							+ inputs.getInputValue("SELECTED_COUNTRY"));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							inputs.getInputValue("SELECTED_COUNTRY")
+									+ " Updated Country is not displayed in Edit Address Screen");
 				}
 				break;
 			}
@@ -218,6 +274,56 @@ public class VerifyTextDisplayedInTheScreen extends Keyword {
 			case "YOU FOUND THIS HELPFUL":
 			case "YOU DID NOT FIND THIS HELPFUL": {
 				flag &= FAQsUtils.verifyWasThisHelpfulTextAfterSelectingYesOrNo(testCase, inputText.get(0));
+				break;
+			}
+			}
+		} else if (inputText.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
+			switch (inputText.get(0).toUpperCase()) {
+			case "DEFAULT COUNTRY": {
+				System.out.println("#########COUNTRY_DISPLAYED_IN_ADD_NEW_DEVICE_SCREEN: "
+						+ inputs.getInputValue("COUNTRY_DISPLAYED_IN_ADD_NEW_DEVICE_SCREEN"));
+				flag &= DashboardUtils.verifyCountryDisplayedInAddNewDeviceScreen(testCase,
+						inputs.getInputValue("COUNTRY_DISPLAYED_IN_ADD_NEW_DEVICE_SCREEN"));
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Default Country is displayed in Add New Device Screen is: "
+							+ inputs.getInputValue("COUNTRY_DISPLAYED_IN_ADD_NEW_DEVICE_SCREEN"));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							inputs.getInputValue("COUNTRY_DISPLAYED_IN_ADD_NEW_DEVICE_SCREEN")
+									+ " Default Country is not displayed in Add New Device Screen");
+				}
+				break;
+			}
+			case "UPDATED COUNTRY": {
+				System.out.println("#########NEW_COUNTRY_ENTERED_IN_PLEASE_CONFIRM_YOUR_COUNT_SCREEN: "
+						+ inputs.getInputValue("NEW_COUNTRY_ENTERED_IN_PLEASE_CONFIRM_YOUR_COUNT_SCREEN"));
+				flag &= DashboardUtils.verifyCountryDisplayedInAddNewDeviceScreen(testCase,
+						inputs.getInputValue("NEW_COUNTRY_ENTERED_IN_PLEASE_CONFIRM_YOUR_COUNT_SCREEN"));
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Updated Country is displayed in Add New Device Screen is: "
+							+ inputs.getInputValue("NEW_COUNTRY_ENTERED_IN_PLEASE_CONFIRM_YOUR_COUNT_SCREEN"));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							inputs.getInputValue("NEW_COUNTRY_ENTERED_IN_PLEASE_CONFIRM_YOUR_COUNT_SCREEN")
+									+ " Country is not displayed in Add New Device Screen");
+				}
+				break;
+			}
+			}
+		} else if (inputText.get(1).equalsIgnoreCase("NEW AGREEMENT")) {
+			AddressScreen ads = new AddressScreen(testCase);
+			switch (inputText.get(0).toUpperCase()) {
+			case "UPDATED COUNTRY IN PRIVACY POLICY AND EULA LINK": {
+				System.out.println("######SELECTED_COUNTRY: " + inputs.getInputValue("SELECTED_COUNTRY"));
+				if (ads.verifyCountryNamePrivacyPolicyAndEULALink(inputs.getInputValue("SELECTED_COUNTRY"))) {
+					System.out.println("#########SELECTED_COUNTRY: " + inputs.getInputValue("SELECTED_COUNTRY"));
+					Keyword.ReportStep_Pass(testCase,
+							"Updated Country is displayed in Privacy Policy and EULA link in New Agreement Screen is: "
+									+ inputs.getInputValue("SELECTED_COUNTRY"));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Updated Country is not displayed in Address Screen");
+				}
 				break;
 			}
 			}
