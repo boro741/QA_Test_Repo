@@ -1,6 +1,6 @@
 package com.honeywell.keywords.lyric.DR;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -42,9 +42,9 @@ public class CancelDREvent extends Keyword {
 			int eventID = statInfo.getDREventID();
 			if (eventID != -1) {
 				try {
-					String result = CHILUtil.cancelDREvent(inputs,eventID, statInfo.getDeviceID());
+					String result = CHILUtil.cancelDREvent(inputs, eventID, statInfo.getDeviceID());
 					if (result.contains("Failed")) {
-						result = CHILUtil.cancelDREvent(inputs,eventID, statInfo.getDeviceID());
+						result = CHILUtil.cancelDREvent(inputs, eventID, statInfo.getDeviceID());
 						if (result.contains("Failed")) {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -63,8 +63,12 @@ public class CancelDREvent extends Keyword {
 				}
 			}
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(10, TimeUnit.SECONDS);
-			fWait.withTimeout(2, TimeUnit.MINUTES);
+			/*
+			 * fWait.pollingEvery(10, TimeUnit.SECONDS); fWait.withTimeout(2,
+			 * TimeUnit.MINUTES);
+			 */
+			fWait.pollingEvery(Duration.ofSeconds(10));
+			fWait.withTimeout(Duration.ofMinutes(2));
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				int i = 0;
 
@@ -80,7 +84,7 @@ public class CancelDREvent extends Keyword {
 							int eventID = statInfo.getDREventID();
 							if (eventID != -1) {
 								try {
-									CHILUtil.cancelDREvent(inputs,eventID, statInfo.getDeviceID());
+									CHILUtil.cancelDREvent(inputs, eventID, statInfo.getDeviceID());
 								} catch (Exception e) {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"Error Occured : " + e.getMessage());

@@ -16,9 +16,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperSchedulingEditUtils;
 import com.honeywell.jasper.utils.JasperSchedulingUtils;
-import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.utils.InputVariables;
-
 
 public class SetTimeSchedulePeriodToSpecificTime extends Keyword {
 	public boolean flag = true;
@@ -38,11 +36,19 @@ public class SetTimeSchedulePeriodToSpecificTime extends Keyword {
 	@BeforeKeyword
 	public boolean preCondition() throws KeywordException {
 
-//		if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Grouped Days")) {
-//			flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Grouped Days");
-//		} else if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("SINGLE DAY")) {
-//			flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "SINGLE DAY");
-//		}
+		// if
+		// (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Grouped
+		// Days")) {
+		// flag = flag &
+		// JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase,
+		// "Grouped Days");
+		// } else if
+		// (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("SINGLE
+		// DAY")) {
+		// flag = flag &
+		// JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase,
+		// "SINGLE DAY");
+		// }
 		return flag;
 	}
 
@@ -152,43 +158,52 @@ public class SetTimeSchedulePeriodToSpecificTime extends Keyword {
 
 					if (jasperStatType.toUpperCase().contains("EMEA")) {
 						if (exampleData.get(0).equalsIgnoreCase("1")) {
-							inputs.setInputValue(InputVariables.EVERYDAY_1_TIME, exampleData.get(1).split("\\s+")[0] + ":"
-									+ exampleData.get(1).split("\\s+")[1] + " " + exampleData.get(1).split("\\s+")[2]);
+							inputs.setInputValue(InputVariables.EVERYDAY_1_TIME,
+									exampleData.get(1).split("\\s+")[0] + ":" + exampleData.get(1).split("\\s+")[1]
+											+ " " + exampleData.get(1).split("\\s+")[2]);
 						}
 						if (exampleData.get(0).equalsIgnoreCase("2")) {
-							inputs.setInputValue(InputVariables.EVERYDAY_2_TIME, exampleData.get(1).split("\\s+")[0] + ":"
-									+ exampleData.get(1).split("\\s+")[1] + " " + exampleData.get(1).split("\\s+")[2]);
+							inputs.setInputValue(InputVariables.EVERYDAY_2_TIME,
+									exampleData.get(1).split("\\s+")[0] + ":" + exampleData.get(1).split("\\s+")[1]
+											+ " " + exampleData.get(1).split("\\s+")[2]);
 						}
 						if (exampleData.get(0).equalsIgnoreCase("3")) {
-							inputs.setInputValue(InputVariables.EVERYDAY_3_TIME, exampleData.get(1).split("\\s+")[0] + ":"
-									+ exampleData.get(1).split("\\s+")[1] + " " + exampleData.get(1).split("\\s+")[2]);
+							inputs.setInputValue(InputVariables.EVERYDAY_3_TIME,
+									exampleData.get(1).split("\\s+")[0] + ":" + exampleData.get(1).split("\\s+")[1]
+											+ " " + exampleData.get(1).split("\\s+")[2]);
 						}
 						if (exampleData.get(0).equalsIgnoreCase("4")) {
-							inputs.setInputValue(InputVariables.EVERYDAY_4_TIME, exampleData.get(1).split("\\s+")[0] + ":"
-									+ exampleData.get(1).split("\\s+")[1] + " " + exampleData.get(1).split("\\s+")[2]);
+							inputs.setInputValue(InputVariables.EVERYDAY_4_TIME,
+									exampleData.get(1).split("\\s+")[0] + ":" + exampleData.get(1).split("\\s+")[1]
+											+ " " + exampleData.get(1).split("\\s+")[2]);
 						}
 					} else if (jasperStatType.toUpperCase().contains("NA")) {
 						if (exampleData.get(0).equalsIgnoreCase("Wake")) {
-							inputs.setInputValue(InputVariables.EVERYDAY_WAKE_TIME, exampleData.get(1).split("\\s+")[0] + ":"
-									+ exampleData.get(1).split("\\s+")[1]+ " " + exampleData.get(1).split("\\s+")[2]);
+							inputs.setInputValue(InputVariables.EVERYDAY_WAKE_TIME,
+									exampleData.get(1).split("\\s+")[0] + ":" + exampleData.get(1).split("\\s+")[1]
+											+ " " + exampleData.get(1).split("\\s+")[2]);
 						}
 						if (exampleData.get(0).equalsIgnoreCase("Away")) {
-							inputs.setInputValue(InputVariables.EVERYDAY_AWAY_TIME, exampleData.get(1).split("\\s+")[0] + ":"
-									+ exampleData.get(1).split("\\s+")[1]+ " " + exampleData.get(1).split("\\s+")[2]);
+							inputs.setInputValue(InputVariables.EVERYDAY_AWAY_TIME,
+									exampleData.get(1).split("\\s+")[0] + ":" + exampleData.get(1).split("\\s+")[1]
+											+ " " + exampleData.get(1).split("\\s+")[2]);
 						}
 						if (exampleData.get(0).equalsIgnoreCase("Home")) {
-							inputs.setInputValue(InputVariables.EVERYDAY_HOME_TIME, exampleData.get(1).split("\\s+")[0] + ":"
-									+ exampleData.get(1).split("\\s+")[1]+ " " + exampleData.get(1).split("\\s+")[2]);
+							inputs.setInputValue(InputVariables.EVERYDAY_HOME_TIME,
+									exampleData.get(1).split("\\s+")[0] + ":" + exampleData.get(1).split("\\s+")[1]
+											+ " " + exampleData.get(1).split("\\s+")[2]);
 						}
 						if (exampleData.get(0).equalsIgnoreCase("Sleep")) {
-							inputs.setInputValue(InputVariables.EVERYDAY_SLEEP_TIME, exampleData.get(1).split("\\s+")[0] + ":"
-									+ exampleData.get(1).split("\\s+")[1]+ " " + exampleData.get(1).split("\\s+")[2]);
+							inputs.setInputValue(InputVariables.EVERYDAY_SLEEP_TIME,
+									exampleData.get(1).split("\\s+")[0] + ":" + exampleData.get(1).split("\\s+")[1]
+											+ " " + exampleData.get(1).split("\\s+")[2]);
 						}
 					}
-					flag = flag & JasperSchedulingEditUtils.editTimeBasedSchedule(testCase, inputs, schedulePeriodToSelect, 1);
+					flag = flag & JasperSchedulingEditUtils.editTimeBasedSchedule(testCase, inputs,
+							schedulePeriodToSelect, 1);
 				}
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 
 		}
 		return flag;
@@ -217,4 +232,3 @@ public class SetTimeSchedulePeriodToSpecificTime extends Keyword {
 		return flag;
 	}
 }
-

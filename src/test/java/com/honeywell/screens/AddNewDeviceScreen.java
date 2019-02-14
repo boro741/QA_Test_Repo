@@ -12,6 +12,8 @@ import com.honeywell.lyric.utils.LyricUtils;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.TapOptions.tapOptions;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class AddNewDeviceScreen extends MobileScreens {
 
@@ -74,7 +76,7 @@ public class AddNewDeviceScreen extends MobileScreens {
 	public boolean isSearchVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "Search", timeOut);
 	}
-	
+
 	public boolean isBackButtonVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton");
 	}
@@ -167,6 +169,7 @@ public class AddNewDeviceScreen extends MobileScreens {
 	public boolean enterCountryNameInCountryTextFieldAndAcceptNewAgreement(TestCaseInputs inputs,
 			String countryNameInput) {
 		boolean flag = true;
+		@SuppressWarnings("rawtypes")
 		TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 		Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 		flag &= MobileUtils.setValueToElement(objectDefinition, testCase, "EnterCountryTextField", countryNameInput);
@@ -175,7 +178,10 @@ public class AddNewDeviceScreen extends MobileScreens {
 			System.out.println("######dimensions.height:- " + dimensions.height);
 			System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
 			System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
-			touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			// touchAction.tap((dimensions.width - 100), (dimensions.height -
+			// 100)).perform();
+			touchAction.tap(tapOptions().withPosition(point((dimensions.width - 100), (dimensions.height - 100))))
+					.perform();
 		}
 		if (flag && MobileUtils.isMobElementExists(objectDefinition, testCase,
 				"CountryListInConfirmYourCountryScreen")) {
@@ -238,6 +244,7 @@ public class AddNewDeviceScreen extends MobileScreens {
 
 	public boolean enterCountryNameInCountryTextField(TestCaseInputs inputs, String countryNameInput) {
 		boolean flag = true;
+		@SuppressWarnings("rawtypes")
 		TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 		Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 		inputs.setInputValue("NEW_COUNTRY_ENTERED_IN_PLEASE_CONFIRM_YOUR_COUNT_SCREEN", countryNameInput);
@@ -247,7 +254,10 @@ public class AddNewDeviceScreen extends MobileScreens {
 			System.out.println("######dimensions.height:- " + dimensions.height);
 			System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
 			System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
-			touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			// touchAction.tap((dimensions.width - 100), (dimensions.height -
+			// 100)).perform();
+			touchAction.tap(tapOptions().withPosition(point((dimensions.width - 100), (dimensions.height - 100))))
+					.perform();
 		}
 		if (flag && MobileUtils.isMobElementExists(objectDefinition, testCase,
 				"CountryListInConfirmYourCountryScreen")) {
@@ -419,7 +429,7 @@ public class AddNewDeviceScreen extends MobileScreens {
 	public boolean clickOnYesButtonInSorryToSeeYouGoPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "YesButtonInSorryToSeeYouGoPopup");
 	}
-	
+
 	public boolean isPrivacyPolicyAndEULALinkInNewAgreementScreenVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase,
 				"PrivacyPolicyAndEULALinkInNewAgreementScreen");
@@ -428,11 +438,11 @@ public class AddNewDeviceScreen extends MobileScreens {
 	public boolean clickOnPrivacyPolicyAndEULALinkInNewAgreementScreen() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "PrivacyPolicyAndEULALinkInNewAgreementScreen");
 	}
-	
+
 	public boolean isPrivacyPolicyAndEULAScreenTitleVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PrivacyPolicyAndEULAScreenTitle");
 	}
-	
+
 	public boolean isPrivacyPolicyAndEULAScreenDataVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PrivacyPolicyAndEULAScreenData");
 	}

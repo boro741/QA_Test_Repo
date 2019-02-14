@@ -46,6 +46,7 @@ public class ChangeSystemModesBasedOnDelay extends Keyword {
 	@KeywordStep(gherkins = "^user changes the (.*) should be delay with (.*)$")
 	public boolean keywordSteps() throws KeywordException {
 		
+		@SuppressWarnings("unused")
 		BaseStationSettingsScreen bs=new BaseStationSettingsScreen(testCase);
 		Dashboard d = new Dashboard(testCase);
 		SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
@@ -54,6 +55,7 @@ public class ChangeSystemModesBasedOnDelay extends Keyword {
 			{
 				for (int i = 0; i < data.getSize(); i++) {
 					try {
+						@SuppressWarnings("resource")
 						CHILUtil chUtil = new CHILUtil(inputs);
 						LocationInformation locInfo = new LocationInformation(testCase, inputs);
 						DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);

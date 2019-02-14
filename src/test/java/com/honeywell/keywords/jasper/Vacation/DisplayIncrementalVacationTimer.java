@@ -3,6 +3,9 @@ package com.honeywell.keywords.jasper.Vacation;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import com.honeywell.CHIL.CHILUtil;
 import com.honeywell.commons.coreframework.AfterKeyword;
@@ -44,7 +47,11 @@ public class DisplayIncrementalVacationTimer extends Keyword {
 				try {
 					if (vhs.clickOnStartTime()) {
 						String newTime = vhs.increaseTimerWithStartOrEndTime(CHILUtil.startTime, "10");
-						double hour = new SimpleDateFormat("HH mm ss").parse(newTime).getHours();
+						// double hour = new SimpleDateFormat("HH mm ss").parse(newTime).getHours();
+						Calendar cal = new GregorianCalendar();
+						Date date = new SimpleDateFormat("HH mm ss").parse(newTime);
+						cal.setTime(date);
+						double hour = cal.get(Calendar.HOUR_OF_DAY);
 						if (String.valueOf(hour).equals(vhs.hourInTimePicker())) {
 							Keyword.ReportStep_Pass(testCase, String
 									.format("The hour in start date time picker is as expected after incrementation"));
@@ -54,7 +61,8 @@ public class DisplayIncrementalVacationTimer extends Keyword {
 									String.format("The start time hour and expected increment does not match"));
 
 						}
-						double minute = new SimpleDateFormat("HH mm ss").parse(newTime).getMinutes();
+						// double minute = new SimpleDateFormat("HH mm ss").parse(newTime).getMinutes();
+						double minute = cal.getActualMaximum(Calendar.MINUTE);
 						if (String.valueOf(minute).equals(vhs.minuteInTimePicker())) {
 							Keyword.ReportStep_Pass(testCase, String.format(
 									"The minute in start date time picker is as expected after incrementation"));
@@ -70,7 +78,12 @@ public class DisplayIncrementalVacationTimer extends Keyword {
 					}
 					if (vhs.clickOnEndTime()) {
 						String newEndTime = vhs.increaseTimerWithStartOrEndTime(CHILUtil.endTime, "10");
-						double endHour = new SimpleDateFormat("HH mm ss").parse(newEndTime).getHours();
+						// double endHour = new SimpleDateFormat("HH mm
+						// ss").parse(newEndTime).getHours();
+						Calendar cal = new GregorianCalendar();
+						Date date = new SimpleDateFormat("HH mm ss").parse(newEndTime);
+						cal.setTime(date);
+						double endHour = cal.get(Calendar.HOUR_OF_DAY);
 						if (String.valueOf(endHour).equals(vhs.hourInTimePicker())) {
 							Keyword.ReportStep_Pass(testCase, String
 									.format("The hour in start date time picker is as expected after incrementation"));
@@ -80,7 +93,9 @@ public class DisplayIncrementalVacationTimer extends Keyword {
 									String.format("The start time hour and expected increment does not match"));
 
 						}
-						double endMinute = new SimpleDateFormat("HH mm ss").parse(newEndTime).getMinutes();
+						// double endMinute = new SimpleDateFormat("HH mm
+						// ss").parse(newEndTime).getMinutes();
+						double endMinute = cal.get(Calendar.MINUTE);
 						if (String.valueOf(endMinute).equals(vhs.minuteInTimePicker())) {
 							Keyword.ReportStep_Pass(testCase, String.format(
 									"The minute in start date time picker is as expected after incrementation"));
@@ -110,7 +125,11 @@ public class DisplayIncrementalVacationTimer extends Keyword {
 				try {
 					if (vhs.clickOnStartTime()) {
 						String newTime = vhs.increaseTimerWithStartOrEndTime(CHILUtil.startTime, "15");
-						double hour = new SimpleDateFormat("HH mm ss").parse(newTime).getHours();
+						// double hour = new SimpleDateFormat("HH mm ss").parse(newTime).getHours();
+						Calendar cal = new GregorianCalendar();
+						Date date = new SimpleDateFormat("HH mm ss").parse(newTime);
+						cal.setTime(date);
+						double hour = cal.get(Calendar.HOUR_OF_DAY);
 						if (String.valueOf(hour).equals(vhs.hourInTimePicker())) {
 							Keyword.ReportStep_Pass(testCase, String
 									.format("The hour in start date time picker is as expected after incrementation"));
@@ -120,7 +139,8 @@ public class DisplayIncrementalVacationTimer extends Keyword {
 									String.format("The start time hour and expected increment does not match"));
 
 						}
-						double minute = new SimpleDateFormat("HH mm ss").parse(newTime).getMinutes();
+						// double minute = new SimpleDateFormat("HH mm ss").parse(newTime).getMinutes();
+						double minute = cal.get(Calendar.MINUTE);
 						if (String.valueOf(minute).equals(vhs.minuteInTimePicker())) {
 							Keyword.ReportStep_Pass(testCase, String.format(
 									"The minute in start date time picker is as expected after incrementation"));
@@ -139,7 +159,12 @@ public class DisplayIncrementalVacationTimer extends Keyword {
 					}
 					if (vhs.clickOnEndTime()) {
 						String newEndTime = vhs.increaseTimerWithStartOrEndTime(CHILUtil.endTime, "15");
-						double endHour = new SimpleDateFormat("HH mm ss").parse(newEndTime).getHours();
+						// double endHour = new SimpleDateFormat("HH mm
+						// ss").parse(newEndTime).getHours();
+						Calendar cal = new GregorianCalendar();
+						Date date = new SimpleDateFormat("HH mm ss").parse(newEndTime);
+						cal.setTime(date);
+						double endHour = cal.get(Calendar.HOUR_OF_DAY);
 						if (String.valueOf(endHour).equals(vhs.hourInTimePicker())) {
 							Keyword.ReportStep_Pass(testCase, String
 									.format("The hour in start date time picker is as expected after incrementation"));
@@ -149,7 +174,9 @@ public class DisplayIncrementalVacationTimer extends Keyword {
 									String.format("The start time hour and expected increment does not match"));
 
 						}
-						double endMinute = new SimpleDateFormat("HH mm ss").parse(newEndTime).getMinutes();
+						// double endMinute = new SimpleDateFormat("HH mm
+						// ss").parse(newEndTime).getMinutes();
+						double endMinute = cal.get(Calendar.MINUTE);
 						if (String.valueOf(endMinute).equals(vhs.minuteInTimePicker())) {
 							Keyword.ReportStep_Pass(testCase, String.format(
 									"The minute in start date time picker is as expected after incrementation"));

@@ -18,6 +18,7 @@ import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.das.utils.EditAccountUtils;
 import com.honeywell.lyric.das.utils.FAQsUtils;
 import com.honeywell.lyric.das.utils.LoginUtils;
+import com.honeywell.screens.LocationDetailsScreen;
 
 public class EnterTextInATextField extends Keyword {
 
@@ -279,6 +280,23 @@ public class EnterTextInATextField extends Keyword {
 			case "PASSWORD TEXT FIELD": {
 				inputs.setInputValue("PASSWORD_FIELD", inputName.get(0));
 				flag &= LoginUtils.enterPasswordInLoginScreen(testCase, inputs, inputName.get(0));
+				if (flag) {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						// MobileUtils.pressBackButton(testCase, "Keyboard minimized");
+						MobileUtils.hideKeyboard(testCase.getMobileDriver(), "Keyboard minimized");
+					} else {
+						// ios
+						MobileUtils.clickOnElement(testCase, "Name", "Go");
+					}
+				}
+				break;
+			}
+			}
+		} else if (inputName.get(2).equalsIgnoreCase("LOCATION DETAILS")) {
+			switch (inputName.get(1).toUpperCase()) {
+			case "ZIP CODE": {
+				LocationDetailsScreen ld = new LocationDetailsScreen(testCase);
+				flag &= ld.enterZipCode(inputName.get(0));
 				if (flag) {
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						// MobileUtils.pressBackButton(testCase, "Keyboard minimized");

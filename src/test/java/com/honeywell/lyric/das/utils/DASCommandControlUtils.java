@@ -1,6 +1,6 @@
 package com.honeywell.lyric.das.utils;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -17,10 +17,10 @@ public class DASCommandControlUtils {
 	public static boolean changeStatus(TestCases testCase, String statusToSelect, TestCaseInputs inputs) {
 		boolean flag = true;
 		SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
-		if (testCase.getMobileDriver().getPlatformName().contains("Android")){
-		flag = flag & sc.clickOnState(statusToSelect, inputs);
-		} else{
-		testCase.getMobileDriver().findElementById(statusToSelect).click();
+		if (testCase.getMobileDriver().getPlatformName().contains("Android")) {
+			flag = flag & sc.clickOnState(statusToSelect, inputs);
+		} else {
+			testCase.getMobileDriver().findElementById(statusToSelect).click();
 		}
 		return flag;
 	}
@@ -99,8 +99,12 @@ public class DASCommandControlUtils {
 		boolean flag = true;
 		try {
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(duration, TimeUnit.MINUTES);
+			/*
+			 * fWait.pollingEvery(3, TimeUnit.SECONDS); fWait.withTimeout(duration,
+			 * TimeUnit.MINUTES);
+			 */
+			fWait.pollingEvery(Duration.ofSeconds(3));
+			fWait.withTimeout(Duration.ofMinutes(duration));
 			SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
@@ -123,7 +127,7 @@ public class DASCommandControlUtils {
 							}
 						}
 						case "LOADING PROGRESS TEXT": {
-							if(sc.isLoadingProgressVisible()) {
+							if (sc.isLoadingProgressVisible()) {
 								System.out.println("Waiting for loading progress bar text to disappear");
 								return true;
 							} else {

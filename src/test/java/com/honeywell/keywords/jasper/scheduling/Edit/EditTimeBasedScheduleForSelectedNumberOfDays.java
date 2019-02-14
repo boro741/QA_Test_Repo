@@ -1,6 +1,5 @@
 package com.honeywell.keywords.jasper.scheduling.Edit;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +16,6 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperSchedulingEditUtils;
 import com.honeywell.jasper.utils.JasperSchedulingUtils;
-import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.utils.InputVariables;
 
 public class EditTimeBasedScheduleForSelectedNumberOfDays extends Keyword {
@@ -86,7 +84,7 @@ public class EditTimeBasedScheduleForSelectedNumberOfDays extends Keyword {
 				String temp = " ";
 
 				if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
-						.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {	
+						.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
 					defaultValues = JasperSchedulingUtils.getDefaultScheduleValues(testCase, inputs, "Time");
 					if (allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
 						temp = parseValue(defaultValues.get("EverydayWakeCoolTemp"));
@@ -201,37 +199,38 @@ public class EditTimeBasedScheduleForSelectedNumberOfDays extends Keyword {
 									}
 								}
 
-							} else
-								if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("SINGLE DAY")) {
-									tempDays = days[rn.nextInt((6 - 0) + 1) + 0];
-									if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-										if (jasperStatType.equalsIgnoreCase("NA")) {
-											schedulePeriodToSelect = schedulePeriods_NA[rn.nextInt((2 - 0) + 1) + 0] + "_"
-													+ tempDays;
-										} else if (jasperStatType.equalsIgnoreCase("EMEA")) {
-											schedulePeriodToSelect = schedulePeriods_EMEA[rn.nextInt((2 - 0) + 1) + 0] + "_"
-													+ tempDays;
-										}
+							} else if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE)
+									.equalsIgnoreCase("SINGLE DAY")) {
+								tempDays = days[rn.nextInt((6 - 0) + 1) + 0];
+								if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+									if (jasperStatType.equalsIgnoreCase("NA")) {
+										schedulePeriodToSelect = schedulePeriods_NA[rn.nextInt((2 - 0) + 1) + 0] + "_"
+												+ tempDays;
+									} else if (jasperStatType.equalsIgnoreCase("EMEA")) {
+										schedulePeriodToSelect = schedulePeriods_EMEA[rn.nextInt((2 - 0) + 1) + 0] + "_"
+												+ tempDays;
+									}
+								} else {
+									if (jasperStatType.equalsIgnoreCase("NA")) {
+										schedulePeriodToSelect = tempDays + "_"
+												+ schedulePeriods_NA[rn.nextInt((3 - 0) + 1) + 0];
 									} else {
-										if (jasperStatType.equalsIgnoreCase("NA")) {
-											schedulePeriodToSelect = tempDays + "_"
-													+ schedulePeriods_NA[rn.nextInt((3 - 0) + 1) + 0];
-										} else {
-											schedulePeriodToSelect = tempDays + "_"
-													+ schedulePeriods_EMEA[rn.nextInt((3 - 0) + 1) + 0];
-										}
+										schedulePeriodToSelect = tempDays + "_"
+												+ schedulePeriods_EMEA[rn.nextInt((3 - 0) + 1) + 0];
 									}
 								}
+							}
 						} while (arrlistPeriod.contains(schedulePeriodToSelect) || arrlistDays.contains(tempDays));
 						arrlistPeriod.add(schedulePeriodToSelect);
 						arrlistDays.add(tempDays);
 
-						flag = flag & JasperSchedulingEditUtils.editTimeBasedSchedule(testCase, inputs, schedulePeriodToSelect, j);
+						flag = flag & JasperSchedulingEditUtils.editTimeBasedSchedule(testCase, inputs,
+								schedulePeriodToSelect, j);
 					}
 				}
-//				flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
+				// flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
 			}
-		}catch (Exception e){
+		} catch (Exception e) {
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Error Occured : " + e.getMessage());
 		}

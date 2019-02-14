@@ -327,66 +327,66 @@ Then user should be displayed with the "Add New Device" screen
 
 Examples: 
       | Default Location		| Default Device Name		| valid zip code        | Country					  |
-      | Home					| Living Room				| 90001                 | Argentina					  | 
-      | Home					| Living Room				| 90001                 | Australia                    | 
-      | Home					| Living Room				| 90001                 | Austria                      | 
-      | Home					| Living Room				| 90001                 | Belgium                      | 
-      | Home					| Living Room				| 90001                 | Brazil                       | 
-      | Home					| Living Room				| 90001                 | British Virgin Islands       | 
-      | Home					| Living Room				| 90001                 | Bulgaria                     | 
-      | Home					| Living Room				| 90001                 | Canada                       | 
-      | Home					| Living Room				| 90001                 | Chile                        | 
-      | Home					| Living Room				| 90001                 | China                        | 
-      | Home					| Living Room				| 90001                 | Colombia                     | 
-      | Home					| Living Room				| 90001                 | Costa Rica                   | 
-      | Home					| Living Room				| 90001                 | Czech Republic               | 
-      | Home					| Living Room				| 90001                 | Denmark                      | 
-      | Home					| Living Room				| 90001                 | Dominican Republic           | 
-      | Home					| Living Room				| 90001                 | Egypt                        | 
-      | Home					| Living Room				| 90001                 | Estonia                      | 
-      | Home					| Living Room				| 90001                 | Finland                      | 
-      | Home					| Living Room				| 90001                 | France                       | 
-      | Home					| Living Room				| 90001                 | Germany                      | 
-      | Home					| Living Room				| 90001                 | Greece                       | 
-      | Home					| Living Room				| 90001                 | Hungary                      | 
-      | Home					| Living Room				| 90001                 | India                        | 
-      | Home					| Living Room				| 90001                 | Ireland                      | 
-      | Home					| Living Room				| 90001                 | Italy                        | 
-      | Home					| Living Room				| 90001                 | Japan                        | 
-      | Home					| Living Room				| 90001                 | Kenya                        | 
-      | Home					| Living Room				| 90001                 | Korea, Republic of           | 
-      | Home					| Living Room				| 90001                 | Latvia                       | 
-      | Home					| Living Room				| 90001                 | Lithuania                    | 
-      | Home					| Living Room				| 90001                 | Malaysia                     | 
-      | Home					| Living Room				| 90001                 | Mexico                       | 
-      | Home					| Living Room				| 90001                 | Minor Outlying Islands, U.S. | 
-      | Home					| Living Room				| 90001                 | Morocco                      | 
-      | Home					| Living Room				| 90001                 | Netherlands                  | 
-      | Home					| Living Room				| 90001                 | New Zealand                  | 
-      | Home					| Living Room				| 90001                 | Norway                       | 
-      | Home					| Living Room				| 90001                 | Panama                       | 
-      | Home					| Living Room				| 90001                 | Peru                         | 
-      | Home					| Living Room				| 90001                 | Poland                       | 
-      | Home					| Living Room				| 90001                 | Portugal                     | 
-      | Home					| Living Room				| 90001                 | Puerto Rico                  | 
-      | Home					| Living Room				| 90001                 | Romania                      | 
-      | Home					| Living Room				| 90001                 | Saudi Arabia                 | 
-      | Home					| Living Room				| 90001                 | Sinapore                     | 
-      | Home					| Living Room				| 90001                 | Slovakia                     | 
-      | Home					| Living Room				| 90001                 | South Africa                 | 
-      | Home					| Living Room				| 90001                 | South Korea                  | 
-      | Home					| Living Room				| 90001                 | Spain                        | 
-      | Home					| Living Room				| 90001                 | Sweden                       | 
-      | Home					| Living Room				| 90001                 | Switzerland                  | 
-      | Home					| Living Room				| 90001                 | Tunisia                      | 
-      | Home					| Living Room				| 90001                 | Turkey                       | 
-      | Home					| Living Room				| 90001                 | U.S.Outlying Islands         | 
-      | Home					| Living Room				| 90001                 | U.S.Virgin Islands           | 
-      | Home					| Living Room				| 90001                 | Ukraine                      | 
-      | Home					| Living Room				| 90001                 | United Arab Emirates         | 
-      | Home					| Living Room				| 90001                 | United Kingdom               | 
+      | Home					| Living Room				| B7600                 | Argentina					  | 
+      | Home					| Living Room				| 2618                  | Australia                    | 
+      | Home					| Living Room				| 5081                  | Austria                      | 
+      | Home					| Living Room				| 2630                  | Belgium                      | 
+      | Home					| Living Room				| 11070                 | Brazil                       | 
+      | Home					| Living Room				| VG1110                | British Virgin Islands       | 
+      | Home					| Living Room				| 9700                  | Bulgaria                     | 
+      | Home					| Living Room				| A1A 1A1               | Canada                       | 
+      | Home					| Living Room				| 8320000               | Chile                        | 
+      | Home					| Living Room				| 100000                | China                        | 
+      | Home					| Living Room				| 055038                | Colombia                     | 
+      | Home					| Living Room				| 11801                 | Costa Rica                   | 
+      | Home					| Living Room				| 301 00                | Czech Republic               | 
+      | Home					| Living Room				| 2720                  | Denmark                      | 
+      | Home					| Living Room				| 10147                 | Dominican Republic           | 
+      | Home					| Living Room				| 22436                 | Egypt                        | 
+      | Home					| Living Room				| 13417                 | Estonia                      | 
+      | Home					| Living Room				| 00100                 | Finland                      | 
+      | Home					| Living Room				| 75001                 | France                       | 
+      | Home					| Living Room				| 12277                 | Germany                      | 
+      | Home					| Living Room				| 142 32                | Greece                       | 
+      | Home					| Living Room				| 3580                  | Hungary                      | 
+      | Home					| Living Room				| 560103                | India                        | 
+      | Home					| Living Room				| BT1 1BW               | Ireland                      | 
+      | Home					| Living Room				| 00010                 | Italy                        | 
+      | Home					| Living Room				| 135-0000              | Japan                        | 
+      | Home					| Living Room				| 40406                 | Kenya                        | 
+      | Home					| Living Room				| 101NN                 | Korea, Republic of           | 
+      | Home					| Living Room				| LV-3003               | Latvia                       | 
+      | Home					| Living Room				| LT-00000              | Lithuania                    | 
+      | Home					| Living Room				| 101000                | Malaysia                     | 
+      | Home					| Living Room				| 01020                 | Mexico                       | 
+      | Home					| Living Room				| 96850                 | Minor Outlying Islands, U.S. | 
+      | Home					| Living Room				| 91000                 | Morocco                      | 
+      | Home					| Living Room				| 9400                  | Netherlands                  | 
+      | Home					| Living Room				| 0622                  | New Zealand                  | 
+      | Home					| Living Room				| 0258                  | Norway                       | 
+      | Home					| Living Room				| 0501                  | Panama                       | 
+      | Home					| Living Room				| 07036                 | Peru                         | 
+      | Home					| Living Room				| 41-936                | Poland                       | 
+      | Home					| Living Room				| 3505                  | Portugal                     | 
+      | Home					| Living Room				| 00909                 | Puerto Rico                  | 
+      | Home					| Living Room				| 447005                | Romania                      | 
+      | Home					| Living Room				| 55221                 | Saudi Arabia                 | 
+      | Home					| Living Room				| 308215                | Sinapore                     | 
+      | Home					| Living Room				| 900 84                | Slovakia                     | 
+      | Home					| Living Room				| 0699                  | South Africa                 | 
+      | Home					| Living Room				| 100NN                 | South Korea                  | 
+      | Home					| Living Room				| 28400                 | Spain                        | 
+      | Home					| Living Room				| 125 20                | Sweden                       | 
+      | Home					| Living Room				| 6900                  | Switzerland                  | 
+      | Home					| Living Room				| 2080                  | Tunisia                      | 
+      | Home					| Living Room				| 21560                 | Turkey                       | 
+      | Home					| Living Room				| 97850                 | U.S.Outlying Islands         | 
+      | Home					| Living Room				| 00802                 | U.S.Virgin Islands           | 
+      | Home					| Living Room				| 68355                 | Ukraine                      | 
+      | Home					| Living Room				| 00000                 | United Arab Emirates         | 
+      | Home					| Living Room				| SW1P 3EU              | United Kingdom               | 
 #      | Home					| Living Room				| 90001                 | United States                | 
-      | Home					| Living Room				| 90001                 | Virgin Islands, British      |
+      | Home					| Living Room				| 00801                 | Virgin Islands, British      |
 			
   
 #With location

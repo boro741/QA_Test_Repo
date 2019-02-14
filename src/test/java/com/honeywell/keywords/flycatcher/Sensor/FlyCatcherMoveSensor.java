@@ -44,6 +44,7 @@ public class FlyCatcherMoveSensor extends Keyword {
 	public boolean keywordSteps() {
 		try {
 			FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
+			@SuppressWarnings("resource")
 			CHILUtil chUtil = new CHILUtil(inputs);
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			int groupid = statInfo.getSensorGroupID();

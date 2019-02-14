@@ -7,10 +7,9 @@ Feature: Weather forecast, As user I want to view the outdoor temperature from w
 Scenario: As a user I want to verify the weather forecast for the location with temper scale celsius or Fahrenheit on dashboard with or with out solution 
 Given user launches and logs in to the Lyric Application
 And user should be displayed with the following "Weather" options:
-|WeatherOptions|
-|Weather Icon  |
-|Weather Temp  |
-Then user logs out of the app
+|WeatherOptions					  |
+|Weather Icon  					  |
+|Weather Temp In Dashboard Screen |
 
 #Weather screen 
 #Requirements: Single location with or with out solution 
@@ -23,8 +22,8 @@ And Verify for three more forecast with interval of 6 hrs from current time
 And Verify the time format in app is same as mobile device
 
 #Weather screen switching temper scale celsius and Fahrenheit 
-#Requirements: Single location with or with out solution US location          @Automatable
-@GeneralWeatherForecastWithOrWithoutSolutionWeatherTemperScaleSwitchWithUSLocation
+#Requirements: Single location with or with out solution US location         
+@GeneralWeatherForecastWithOrWithoutSolutionWeatherTemperScaleSwitchWithUSLocation				@Automated
 Scenario: As a user I wanted to verify weather forecast screen temper scale switch with celsius or Fahrenheit on weather screen with or with out solution  and for time format 24hr or 12hr, US Location
 Given user launches and logs in to the Lyric Application
 Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
@@ -32,48 +31,74 @@ When user selects "Farenheit" from "Weather Forecast" screen
 Then user should be displayed with the current unit of "Farenheit" in the "Weather Forecast" screen
 Then user should be displayed with three forecast with interval of "6" hrs in "Weather Forecast" screen
 And user should be displayed with the following "Weather" options:
-|WeatherOptions			|
-|Humidity      			|
-|Max Weather Temperature|
-|Min Weather Temperature|
+|WeatherOptions			         |
+|Weather Temp In Forecast Screen |
+|Humidity      				     |
+|Max Weather Temperature         |
+|Min Weather Temperature         |
 Then user selects "Celsius" from "Weather Forecast" screen
 Then user should be displayed with the current unit of "Celsius" in the "Weather Forecast" screen
 Then user should be displayed with three forecast with interval of "6" hrs in "Weather Forecast" screen
-Then user logs out of the app
+And user should be displayed with the following "Weather" options:
+|WeatherOptions			         |
+|Weather Temp In Forecast Screen |
+|Humidity      				     |
+|Max Weather Temperature         |
+|Min Weather Temperature         |
 
 #Weather screen switching temper scale celsius and Fahrenheit, EMEA Location 
-#Requirements: Single location with or with out solution UK location          @Automatable
-@GeneralWeatherForecastWithOrWithoutSolutionWeatherTemperScaleSwitchWithUKLocation
+#Requirements: Single location with or with out solution UK location          
+@GeneralWeatherForecastWithOrWithoutSolutionWeatherTemperScaleSwitchWithUKLocation				@Automated
 Scenario: As a user I wanted to verify weather forecast screen temper scale switch with celsius or Fahrenheit on weather screen with or with out solution  and for time format 24hr or 12hr, UK Location
 Given user launches and logs in to the Lyric Application
 Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
 When user selects "Farenheit" from "Weather Forecast" screen
 Then user should be displayed with the current unit of "Farenheit" in the "Weather Forecast" screen
 Then user should be displayed with three forecast with interval of "6" hrs in "Weather Forecast" screen
+And user should be displayed with the following "Weather" options:
+|WeatherOptions			         |
+|Weather Temp In Forecast Screen |
+|Humidity      				     |
+|Max Weather Temperature         |
+|Min Weather Temperature         |
 Then user selects "Celsius" from "Weather Forecast" screen
 Then user should be displayed with the current unit of "Celsius" in the "Weather Forecast" screen
 Then user should be displayed with three forecast with interval of "6" hrs in "Weather Forecast" screen
-Then user logs out of the app
+And user should be displayed with the following "Weather" options:
+|WeatherOptions			         |
+|Weather Temp In Forecast Screen |
+|Humidity      				     |
+|Max Weather Temperature         |
+|Min Weather Temperature         |
 
 #Dashboard weather switching temper switching scale celsius and Fahrenheit, EMEA Location 
-#Requirements: Single location with or with out solution           @Automatable
-@GeneralWeatherForecastWithOrWithoutSolutionWeatherTemperScaleSwitchForEMEALocation
+#Requirements: Single location with or with out solution           
+@GeneralWeatherForecastWithOrWithoutSolutionWeatherTemperScaleSwitchForEMEALocation				@Automated
 Scenario: As a user I want to verify weather forecast screen temperature scale switch with celsius or Fahrenheit on Dashboard with or with out solution for UK Location
 Given user launches and logs in to the Lyric Application
 Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
-Then user should be displayed with "Celsius" temperature scale in "Weather Forecast" screen
-Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
-Then user should be displayed with "Farenheit" temperature scale in "Weather Forecast" screen
-Then user logs out of the app
-           
-@GeneralWeatherForecastWithOrWithoutSolutionWeatherTemperScaleSwitchForUSLocation
+When user selects "Celsius" from "Weather Forecast" screen
+Then user should be displayed with "Celsius Unit" temperature scale in "Weather Forecast" screen
+When user selects "Farenheit" from "Weather Forecast" screen
+Then user should be displayed with "Farenheit Unit" temperature scale in "Weather Forecast" screen
+
+
+@GeneralWeatherForecastWithOrWithoutSolutionWeatherTemperScaleSwitchForUSLocation			@Automated
 Scenario: As a user I want to verify weather forecast screen temperature scale switch with celsius or Fahrenheit on Dashboard with or with out solution for US Location
 Given user launches and logs in to the Lyric Application
 Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
-Then user should be displayed with "Celsius" temperature scale in "Weather Forecast" screen
-Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
-Then user should be displayed with "Farenheit" temperature scale in "Weather Forecast" screen
-Then user logs out of the app          
+When user selects "Celsius" from "Weather Forecast" screen
+Then user should be displayed with "Celsius Unit" temperature scale in "Weather Forecast" screen
+When user selects "Farenheit" from "Weather Forecast" screen
+Then user should be displayed with "Farenheit Unit" temperature scale in "Weather Forecast" screen
+           
+@GenralWeatherforecast          @NotAutomatable
+Scenario: Fetch Weather forecast for systems with mobile time format 24/12hr
+Given user launches and logs in to the Lyric Application
+Then user navigates to “Forecast” screen from “Dashboard” screen 
+And Verify the current weather forecast for the location with temperature and weather status
+And Verify for three more forecast with interval of 6 hrs from current time
+And Verify the time format in app is same as mobile device
 
 @ErrormessageWeatherforecast          @NotAutomatable
 Scenario Outline:To get error messages on system unavailability to fetch weather forecast As an user I want to get error message if app failed to fetch weather forecast for the location  So that I will get notified on system unavailability
@@ -90,7 +115,7 @@ Examples:
 |Smart network switch            |
 
 #Requirment : Multiple location with different zipcode
-@GeneralChangeLocationWeatherUpdate          @Automatable @AlreadyCoveredTheSameStepsInGeneralWeatherTempScaleValidationMultiLocation
+@GeneralChangeLocationWeatherUpdate           @AlreadyCoveredTheSameStepsInGeneralWeatherTempScaleValidationMultiLocation
 Scenario: As a user i want to verify the weather update with lcoation change 
 Given user launches and logs in to the Lyric application
 When user see the wheather status of location1
@@ -101,13 +126,13 @@ Then user should be displayed with weather based on the location1 zipcode
 Then user logs out of the app
 
 #Requirment: Single location with or without solution
-@GeneralWeatherChangeBasedOnLocationZipCodeUpdate          @Automatable
+@GeneralWeatherChangeBasedOnLocationZipCodeUpdate          @Automated
 Scenario Outline: As a user I want to verify the weather update with zip code
 Given user launches and logs in to the Lyric application
 Then user should be displayed with the following "Weather" options:
-|WeatherOptions|
-|Weather Icon  |
-|Weather Temp  |
+|WeatherOptions					   |
+|Weather Icon                      |
+|Weather Temp In Dashboard Screen  |
 Then user navigates to "Address" screen from the "Dashboard" screen
 Then user navigates to "Edit Address" screen from the "Address" screen
 Then user gets the current postal code from "Edit Address" screen
@@ -122,9 +147,9 @@ Then user selects "Save button" from "Edit Address" screen
 When user clicks on the back arrow in the "Edit Address" screen
 Then user navigates to "Dashboard" screen from the "Global Drawer" screen
 Then user should be displayed with the following "Weather" options:
-|WeatherOptions|
-|Weather Icon  |
-|Weather Temp  |
+|WeatherOptions					  |
+|Weather Icon                     |
+|Weather Temp In Dashboard Screen |
 Then user navigates to "Address" screen from the "Dashboard" screen
 Then user navigates to "Edit Address" screen from the "Address" screen
 Then user clears the text displayed in the following text fields in the "Edit Address" screen:
@@ -140,7 +165,7 @@ Examples:
 
 
 #Requirment : Mulitple location with different Tempr scale
-@GeneralWeatherTempScaleValidationMultiLocation          @Automatable
+@GeneralWeatherTempScaleValidationMultiLocation          @Automated
 Scenario Outline: As a user I want to verify the weather update for multi location
 Given user launches and logs in to the Lyric application
 When user selects "Smart Home Security" from "Add New Device" screen
@@ -158,10 +183,6 @@ When user "accepts" the "Cancel Setup" popup
 Then user should be displayed with the "Add New Device" screen
 Then user clicks on the back arrow in the <Current Screen> screen
 Then user should be displayed with the <Previous Screen> screen
-And user should be displayed with the following "Weather" options:
-| WeatherOptions            |
-| Weather Icon              |
-| Weather Temperature       |
 Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
 Then user selects "Celsius" from "Weather Forecast" screen
 Then user selects "Back button" from "Weather Forecast" screen
@@ -181,26 +202,21 @@ When user "accepts" the "Cancel Setup" popup
 Then user should be displayed with the "Add New Device" screen
 Then user clicks on the back arrow in the <Current Screen> screen
 Then user should be displayed with the <Previous Screen> screen
-And user should be displayed with the following "Weather" options:
-| WeatherOptions            |
-| Weather Icon              |
-| Weather Temperature       |
 Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
 Then user selects "Farenheit" from "Weather Forecast" screen
 Then user selects "Back button" from "Weather Forecast" screen
 Then user selects <first location name> from "Add New Device Dashboard" screen
 Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
-Then user should be displayed with "Celsius Unit" temperature scale in "Add New Device Dashboard" screen
+Then user should be displayed with "Celsius Unit" temperature scale in "Weather Forecast" screen
 Then user selects "Back button" from "Weather Forecast" screen
 Then user selects <second location name> from "Add New Device Dashboard" screen
 Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
-Then user should be displayed with "Farenheit Unit" temperature scale in "Add New Device Dashboard" screen
+Then user should be displayed with "Farenheit Unit" temperature scale in "Weather Forecast" screen
 Then user selects "Back button" from "Weather Forecast" screen
 And user "deletes location details" by clicking on "delete" button
 Then user should be displayed with the "Dashboard" screen
 And user "deletes the existing location details" by clicking on "delete" button
 Then user should be displayed with the "Add New Device Dashboard" screen
-Then user logs out of the app
 
 Examples: 
 | first location name | valid first locations zip code | second location name   | valid second locations zip code  | Current Screen              | Previous Screen   |
@@ -221,4 +237,16 @@ Then user selects "Back button" from "Weather Forecast" screen
 And user should be displayed with "Farenheit" temper scale in "Add New Device Dashboard" screen
 When user launches and logs in to the Lyric Application on phone2
 Then user should be displauyed with "Celsius" temperatureYou have this scenario scale in "Add New Device Dashboard" screen
- 
+
+
+#Requirement: On enabling or disabling the Geofence the Weather should not change
+@GeneralWeatherForecastWithOrWithoutSolutionWeatherTemperScaleNotChangeWhenGeofenceIsEnabledOrDisabled  @Automatable
+Scenario: As a user I want to verify weather forecast screen temper scale should not change when the Geofence is Enabled or Disabled
+Given user launches and logs in to Lyric Application
+Then user gets the "Weather" from "Add New Device Dashboard" screen
+Then user navigates to "Geofence" from "Add New Device Dashboard" screen
+Then user should be displayed with the "Geofence" screen
+Then user enables the "Geofence location" from "Geofence" screen
+Then user navigates back to "Global Drawer" screen
+Then user navigates back to "Add New Device Dashboard" screen
+Then user should be displayed with the same "Weather Forecast" which should not be updated

@@ -2,7 +2,7 @@
 
 package com.honeywell.keywords.lyric.DR;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -41,8 +41,12 @@ public class WaitForDRtoEnd extends Keyword {
 	public boolean keywordSteps() {
 		try {
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(10, TimeUnit.SECONDS);
-			fWait.withTimeout(15, TimeUnit.MINUTES);
+			/*
+			 * fWait.pollingEvery(10, TimeUnit.SECONDS); fWait.withTimeout(15,
+			 * TimeUnit.MINUTES);
+			 */
+			fWait.pollingEvery(Duration.ofSeconds(10));
+			fWait.withTimeout(Duration.ofMinutes(15));
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				int i = 0;
 

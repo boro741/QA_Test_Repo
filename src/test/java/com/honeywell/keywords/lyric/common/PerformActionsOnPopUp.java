@@ -29,6 +29,7 @@ import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.EditAccountScreen;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.ManageUsersScreen;
+import com.honeywell.screens.OSPopUps;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
@@ -72,7 +73,26 @@ public class PerformActionsOnPopUp extends Keyword {
 			}
 			}
 
-		} else if (expectedPopUp.get(1).equalsIgnoreCase("CONTROLLER RESET")) {
+		} else if(expectedPopUp.get(1).equalsIgnoreCase("TURN ON LOCATION SERVICES")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CLICKS ON SKIP BUTTON IN": {
+				OSPopUps osp= new OSPopUps(testCase);
+				osp.clickOnSkipButtonInTurnOnLocationServicesPopup();
+				break;
+			}
+			case "CLICKS ON SETTINGS BUTTON IN" : {
+				OSPopUps osp= new OSPopUps(testCase);
+				osp.clickOnSettingsButtonInTurnOnLocationServicesPopup();
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+		  }
+		}
+		else if (expectedPopUp.get(1).equalsIgnoreCase("CONTROLLER RESET")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "CANCELS": {
 				ZwaveScreen zScreen = new ZwaveScreen(testCase);

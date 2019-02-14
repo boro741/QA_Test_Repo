@@ -2,7 +2,7 @@
 
 package com.honeywell.keywords.lyric.DR;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -42,8 +42,12 @@ public class WaitForDRtoStart extends Keyword {
 	public boolean keywordSteps() {
 		try {
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(10, TimeUnit.SECONDS);
-			fWait.withTimeout(5, TimeUnit.MINUTES);
+			/*
+			 * fWait.pollingEvery(10, TimeUnit.SECONDS); fWait.withTimeout(5,
+			 * TimeUnit.MINUTES);
+			 */
+			fWait.pollingEvery(Duration.ofSeconds(10));
+			fWait.withTimeout(Duration.ofMinutes(5));
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				int i = 0;
 
@@ -67,15 +71,13 @@ public class WaitForDRtoStart extends Keyword {
 				Keyword.ReportStep_Pass(testCase, "Wait For DR To Start : DR Event started");
 				DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 				inputs.setInputValue(WaitForDRtoStart.DREVENTENDTIME, statInfo.getDREndTime());
-				
+
 			}
-		}
-		catch(TimeoutException e)
-		{
+		} catch (TimeoutException e) {
 			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Wait For DR Event to Start : DR Event did not start on CHIL after waiting for 5 minutes");
-		}
-		catch (Exception e) {
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Wait For DR Event to Start : DR Event did not start on CHIL after waiting for 5 minutes");
+		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 		}

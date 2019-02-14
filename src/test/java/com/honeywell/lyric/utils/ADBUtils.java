@@ -3,10 +3,10 @@ package com.honeywell.lyric.utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,8 +20,7 @@ import com.honeywell.commons.coreframework.SuiteConstants.SuiteConstantTypes;
 
 public class ADBUtils {
 
-	public static boolean isDevicePresentInADBDevices(String... deviceUDID)
-			throws Exception {
+	public static boolean isDevicePresentInADBDevices(String... deviceUDID) throws Exception {
 		boolean isPresent = false;
 		String[] devices = ADBUtils.getAllADBDevices();
 		if (deviceUDID.length > 0) {
@@ -45,8 +44,7 @@ public class ADBUtils {
 			String[] tempArr = cmd.split(" ");
 			String[] cmdArray;
 			List<String> cmdList = new ArrayList<String>();
-			cmdList.add(SuiteConstants.getConstantValue(
-					SuiteConstantTypes.PROJECT_SPECIFIC, "LOCAL_ADB_PATH"));
+			cmdList.add(SuiteConstants.getConstantValue(SuiteConstantTypes.PROJECT_SPECIFIC, "LOCAL_ADB_PATH"));
 			for (int i = 1; i < tempArr.length; i++) {
 				cmdList.add(tempArr[i]);
 			}
@@ -58,8 +56,7 @@ public class ADBUtils {
 			Process pr = null;
 
 			pr = run.exec(cmdArray);
-			BufferedReader buf = new BufferedReader(new InputStreamReader(
-					pr.getInputStream()));
+			BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
 			String temp;
 			while ((temp = buf.readLine()) != null) {
 				output += temp;
@@ -91,13 +88,17 @@ public class ADBUtils {
 		}
 		return devices;
 	}
-	
+
 	public static boolean rebootDASDevice(String dasDeviceADBID) throws Exception {
 		boolean flag = true;
 		boolean isDASDeviceConnected = false;
 		FluentWait<Boolean> fWait = new FluentWait<Boolean>(isDASDeviceConnected);
-		fWait.pollingEvery(3, TimeUnit.SECONDS);
-		fWait.withTimeout(1, TimeUnit.MINUTES);
+		/*
+		 * fWait.pollingEvery(3, TimeUnit.SECONDS); fWait.withTimeout(1,
+		 * TimeUnit.MINUTES);
+		 */
+		fWait.pollingEvery(Duration.ofSeconds(3));
+		fWait.withTimeout(Duration.ofMinutes(1));
 		try {
 			Boolean isEventReceived = fWait.until(new Function<Boolean, Boolean>() {
 				public Boolean apply(Boolean connected) {
@@ -141,45 +142,41 @@ public class ADBUtils {
 		String cmd = "";
 		if (deviceUDID.length > 0) {
 			boolean isDASDeviceConnected = false;
-			FluentWait<Boolean> fWait = new FluentWait<Boolean>(
-					isDASDeviceConnected);
-			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(1, TimeUnit.MINUTES);
+			FluentWait<Boolean> fWait = new FluentWait<Boolean>(isDASDeviceConnected);
+			/*
+			 * fWait.pollingEvery(3, TimeUnit.SECONDS); fWait.withTimeout(1,
+			 * TimeUnit.MINUTES);
+			 */
+			fWait.pollingEvery(Duration.ofSeconds(3));
+			fWait.withTimeout(Duration.ofMinutes(1));
 			try {
-				Boolean isEventReceived = fWait
-						.until(new Function<Boolean, Boolean>() {
-							public Boolean apply(Boolean connected) {
-								try {
-									if (isDevicePresentInADBDevices(deviceUDID[0])) {
-										System.out
-												.println("Device is available in adb devices list");
-										return true;
-									} else {
-										System.out
-												.println("Waiting for device to be available in adb devices list");
-										return false;
-									}
-								} catch (Exception e) {
-									return false;
-								}
+				Boolean isEventReceived = fWait.until(new Function<Boolean, Boolean>() {
+					public Boolean apply(Boolean connected) {
+						try {
+							if (isDevicePresentInADBDevices(deviceUDID[0])) {
+								System.out.println("Device is available in adb devices list");
+								return true;
+							} else {
+								System.out.println("Waiting for device to be available in adb devices list");
+								return false;
 							}
-						});
+						} catch (Exception e) {
+							return false;
+						}
+					}
+				});
 				isDASDeviceConnected = isEventReceived;
 			} catch (TimeoutException e) {
-				throw new Exception(
-						"DAS device '"
-								+ deviceUDID[0]
-								+ "' is not connected. DAS device could not be found in ADB devices command. Wait Time 1 minute");
+				throw new Exception("DAS device '" + deviceUDID[0]
+						+ "' is not connected. DAS device could not be found in ADB devices command. Wait Time 1 minute");
 			} catch (Exception e) {
 				throw new Exception("Error Occured" + e.getMessage());
 			}
 			if (isDASDeviceConnected) {
 				cmd = "adb -s " + deviceUDID[0] + " logcat -c";
 			} else {
-				throw new Exception(
-						"DAS device '"
-								+ deviceUDID[0]
-								+ "' is not connected. DAS device could not be found in ADB devices command");
+				throw new Exception("DAS device '" + deviceUDID[0]
+						+ "' is not connected. DAS device could not be found in ADB devices command");
 			}
 		} else {
 			cmd = "adb logcat -c";
@@ -199,8 +196,7 @@ public class ADBUtils {
 			String[] tempArr = cmd.split(" ");
 			String[] cmdArray;
 			List<String> cmdList = new ArrayList<String>();
-			cmdList.add(SuiteConstants.getConstantValue(
-					SuiteConstantTypes.PROJECT_SPECIFIC, "LOCAL_ADB_PATH"));
+			cmdList.add(SuiteConstants.getConstantValue(SuiteConstantTypes.PROJECT_SPECIFIC, "LOCAL_ADB_PATH"));
 			for (int i = 1; i < tempArr.length; i++) {
 				cmdList.add(tempArr[i]);
 			}
@@ -214,8 +210,7 @@ public class ADBUtils {
 			// pr = run.exec(new
 			// String[]{"/usr/local/Cellar/android-sdk/24.4.1_1/bin/adb"},commandArr);
 			pr = run.exec(cmdArray);
-			BufferedReader buf = new BufferedReader(new InputStreamReader(
-					pr.getInputStream()));
+			BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
 			// pr.destroy();
 			String temp;
 			long startTime = System.currentTimeMillis();
@@ -233,7 +228,7 @@ public class ADBUtils {
 		}
 		return output;
 	}
-	
+
 	public static void deleteDASDeviceCFAFiles(String... deviceUDID) throws Exception {
 		String cmd = "";
 		if (deviceUDID.length > 0) {
@@ -244,20 +239,19 @@ public class ADBUtils {
 		executeADBCommand(cmd);
 	}
 
-	public static void pullADBFile(String filePathOnADBShell,
-			String filePathToStoreFile, String... deviceUDID) throws Exception {
+	public static void pullADBFile(String filePathOnADBShell, String filePathToStoreFile, String... deviceUDID)
+			throws Exception {
 		String cmd;
 		if (deviceUDID.length > 0) {
-			cmd = "adb -s " + deviceUDID[0] + " pull " + filePathOnADBShell
-					+ " " + filePathToStoreFile;
+			cmd = "adb -s " + deviceUDID[0] + " pull " + filePathOnADBShell + " " + filePathToStoreFile;
 		} else {
 			cmd = "adb pull " + filePathOnADBShell + " " + filePathToStoreFile;
 		}
 		executeADBCommand(cmd);
 	}
 
-	public static ArrayList<String> getAllFileNamesInADirectory(
-			String directoryPath, String... deviceUDID) throws Exception {
+	public static ArrayList<String> getAllFileNamesInADirectory(String directoryPath, String... deviceUDID)
+			throws Exception {
 		String cmd;
 		if (deviceUDID.length > 0) {
 			cmd = "adb -s " + deviceUDID[0] + " shell ls -R " + directoryPath;
@@ -268,8 +262,7 @@ public class ADBUtils {
 		String[] files = output.split("\\s+");
 		List<String> fileList = new ArrayList<String>(Arrays.asList(files));
 		fileList.removeAll(Arrays.asList("", null));
-		Pattern pattern = Pattern
-				.compile("\\[[0-9]*[0-9]*;[0-9]*[0-9][m](.*)(.*?)\\[{1}[0-9]*[0-9]*[m]");
+		Pattern pattern = Pattern.compile("\\[[0-9]*[0-9]*;[0-9]*[0-9][m](.*)(.*?)\\[{1}[0-9]*[0-9]*[m]");
 		ArrayList<String> fileNames = new ArrayList<String>();
 		for (String a : fileList) {
 			Matcher matcher = pattern.matcher(a);
@@ -279,7 +272,7 @@ public class ADBUtils {
 		}
 		return fileNames;
 	}
-	
+
 	public static String getAndroidMobileDeviceTimeZone(String... deviceUDID) throws Exception {
 		String cmd = "";
 		if (deviceUDID.length > 0) {

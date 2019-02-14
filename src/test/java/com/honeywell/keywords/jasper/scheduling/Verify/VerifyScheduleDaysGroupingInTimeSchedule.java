@@ -11,7 +11,6 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperSchedulingVerifyUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
-import com.honeywell.lyric.utils.InputVariables;
 
 public class VerifyScheduleDaysGroupingInTimeSchedule extends Keyword {
 
@@ -44,7 +43,8 @@ public class VerifyScheduleDaysGroupingInTimeSchedule extends Keyword {
 			} else if (exampleData.get(0).equalsIgnoreCase("Five Days")) {
 			} else if (exampleData.get(0).equalsIgnoreCase("Six Days")) {
 			}
-			flag = flag & JasperSchedulingVerifyUtils.verifyEditedDayIsSeparatedFromGroupInTimeSchedule(testCase, inputs);
+			flag = flag
+					& JasperSchedulingVerifyUtils.verifyEditedDayIsSeparatedFromGroupInTimeSchedule(testCase, inputs);
 
 			flag = flag & DashboardUtils.navigateToDashboardFromAnyScreen(testCase);
 

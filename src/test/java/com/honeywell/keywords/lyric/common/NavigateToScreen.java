@@ -1,6 +1,7 @@
 package com.honeywell.keywords.lyric.common;
 
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 import java.util.ArrayList;
 /*
@@ -67,6 +68,7 @@ import com.honeywell.screens.WLDConfigurationScreen;
 import com.honeywell.screens.WLDLeakDetectorSettings;
 import com.honeywell.screens.WLDManageAlerts;
 import com.honeywell.screens.WLDSolutionCard;
+import com.honeywell.screens.WeatherForecastScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class NavigateToScreen extends Keyword {
@@ -1259,6 +1261,7 @@ public class NavigateToScreen extends Keyword {
 					if (dScreen.clickOnGlobalDrawerButton()) {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
 						Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+						@SuppressWarnings("rawtypes")
 						TouchAction action = new TouchAction(testCase.getMobileDriver());
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimension.width * 20) / 100;
@@ -1267,8 +1270,12 @@ public class NavigateToScreen extends Keyword {
 							int endy = (dimension.height * 35) / 100;
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
-							action.press(10, (int) (dimension.getHeight() * .9))
-									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+							/*
+							 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimension.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimension.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						}
 						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ABOUTTHEAPP)) {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1299,6 +1306,7 @@ public class NavigateToScreen extends Keyword {
 					if (dScreen.clickOnGlobalDrawerButton()) {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
 						Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+						@SuppressWarnings("rawtypes")
 						TouchAction action = new TouchAction(testCase.getMobileDriver());
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimension.width * 20) / 100;
@@ -1307,8 +1315,13 @@ public class NavigateToScreen extends Keyword {
 							int endy = (dimension.height * 35) / 100;
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
-							action.press(10, (int) (dimension.getHeight() * .9))
-									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+							/*
+							 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimension.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimension.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+
 						}
 						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.FAQS)) {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1749,6 +1762,23 @@ public class NavigateToScreen extends Keyword {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					flag = flag & dasDIY.isAddNewDeviceScreenVisible(20);
 					flag = flag & dasDIY.selectDeviceToInstall(screen.get(0));
+					break;
+				}
+				case "WEATHER FORECAST": {
+					WeatherForecastScreen w = new WeatherForecastScreen(testCase);
+					Dashboard d = new Dashboard(testCase);
+					if (d.isDashboardWeatherForecastDisplayed(10)) {
+						d.clickOnWeatherTempValue();
+						if (w.isWeatherScreenTitleDisplayed()) {
+							ReportStep_Pass(testCase, "Weather Forecast screen is displayed");
+						} else {
+							ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Weather Forecast screen is not displayed");
+						}
+					} else {
+						ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Weather Forecast icon is not displayed in dashboard screen");
+					}
 					break;
 				}
 				default: {
@@ -3768,6 +3798,7 @@ public class NavigateToScreen extends Keyword {
 			} else if (screen.get(1).equalsIgnoreCase("DAS SECURITY SETTINGS")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+				@SuppressWarnings("rawtypes")
 				TouchAction action = new TouchAction(testCase.getMobileDriver());
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
@@ -3800,8 +3831,12 @@ public class NavigateToScreen extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= bs.clickonAboutSecurityModesoption();
 					flag &= bs.isSecurityModesHeader();

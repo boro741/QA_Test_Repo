@@ -1,7 +1,7 @@
 package com.honeywell.keywords.lyric.platform;
 
+import java.time.Duration;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -26,9 +26,11 @@ import com.honeywell.screens.LoginScreen;
 
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidDriver;
+
+import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class LoginToLyricWithInviteUser extends Keyword {
 
@@ -90,21 +92,28 @@ public class LoginToLyricWithInviteUser extends Keyword {
 					try {
 						if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 							Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+							@SuppressWarnings("rawtypes")
 							TouchAction action = new TouchAction(testCase.getMobileDriver());
 							for (int i = 0; i < 3; ++i) {
 								if (success) {
 									break;
 								}
 								try {
-									action.press(10, (int) (dimension.getHeight() * .5))
-											.moveTo(0, (int) (dimension.getHeight() * -.5)).release().perform();
+									/*
+									 * action.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+									 * (dimension.getHeight() * -.5)).release().perform();
+									 */
+									action.press(point(10, (int) (dimension.getHeight() * .5)))
+											.moveTo(point(0, (int) (dimension.getHeight() * -.5))).release().perform();
 								} catch (Exception e) {
 								}
 
 								FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(
 										testCase.getMobileDriver());
-								fWait.withTimeout(5, TimeUnit.SECONDS);
-								fWait.pollingEvery(500, TimeUnit.MILLISECONDS);
+								// fWait.withTimeout(5, TimeUnit.SECONDS);
+								// fWait.pollingEvery(500, TimeUnit.MILLISECONDS);
+								fWait.pollingEvery(Duration.ofSeconds(5));
+								fWait.withTimeout(Duration.ofMillis(500));
 								try {
 									WebElement logoutElement = fWait.until(
 											ExpectedConditions.visibilityOfElementLocated(By.name("logout_cell")));

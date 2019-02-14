@@ -701,4 +701,34 @@ public class Dashboard extends MobileScreens {
 			return -1;
 		}
 	}
+	
+	public boolean isWeatherIconDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardWeatherForecast");
+	}
+	
+	public boolean isDashboardWeatherForecastDisplayed(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardWeatherForecast", timeOut);
+	}
+	
+	public String getWeatherTempValue() {
+		String weatherValue= MobileUtils.getFieldValue(objectDefinition, testCase, "DashboardWeatherForecastValue");
+		System.out.println(weatherValue);
+		return weatherValue.split("˚")[0];
+	}
+	
+	public boolean clickOnWeatherTempValue() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DashboardWeatherForecast");
+	}
+	
+	public boolean isDashboardMenuVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardMenu");
+	}
+	
+	public boolean clickOnDashboardMenu() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DashboardMenu");
+	}
+	
+	public boolean clickOnLocationDropdown() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "LocationDropdown");
+	}
 }

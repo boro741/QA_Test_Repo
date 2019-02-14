@@ -12,7 +12,6 @@ import org.json.JSONException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.honeywell.CHIL.CHILUtil;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
@@ -700,7 +699,7 @@ public class DeviceInformation {
 
 	public String getVacationStartDateTime() {
 		String startTime = "";
-		SimpleDateFormat vacationDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		//SimpleDateFormat vacationDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		if (deviceInformation != null) {
 			try {
 				startTime = deviceInformation.getJSONObject("vacationHold").getString("vacationStart");
@@ -751,7 +750,7 @@ public class DeviceInformation {
 
 	public String getVacationEndDateTime() {
 		String endTime = "";
-		SimpleDateFormat vacationDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		//SimpleDateFormat vacationDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		if (deviceInformation != null) {
 			try {
 				endTime = deviceInformation.getJSONObject("vacationHold").getString("vacationEnd");

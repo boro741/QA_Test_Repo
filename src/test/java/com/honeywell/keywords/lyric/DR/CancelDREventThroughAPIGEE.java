@@ -1,6 +1,6 @@
 package com.honeywell.keywords.lyric.DR;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -70,8 +70,12 @@ public class CancelDREventThroughAPIGEE extends Keyword {
 				return false;
 			}
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(10, TimeUnit.SECONDS);
-			fWait.withTimeout(2, TimeUnit.MINUTES);
+			/*
+			 * fWait.pollingEvery(10, TimeUnit.SECONDS); fWait.withTimeout(2,
+			 * TimeUnit.MINUTES);
+			 */
+			fWait.pollingEvery(Duration.ofSeconds(10));
+			fWait.withTimeout(Duration.ofMinutes(2));
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				int i = 0;
 
@@ -97,7 +101,7 @@ public class CancelDREventThroughAPIGEE extends Keyword {
 							i = i + 10;
 							try {
 								if (testCase.getMobileDriver() != null) {
-									MobileUtils.isMobElementExists("id", "actionbar_activity_log_image", testCase,3);
+									MobileUtils.isMobElementExists("id", "actionbar_activity_log_image", testCase, 3);
 								} else {
 									return false;
 								}

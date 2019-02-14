@@ -16,11 +16,11 @@ Then user should be displayed with the following "Global Drawer Without Solution
 | Activity history											|
 | Add Users													|
 | Address													| 
-| Account Header												|
+| Account Header											|
 | Edit Account												|
 | About the app												|
 | FAQs														|
-| Logout														|
+| Logout													|
 #And user logs out of the app
 
 
@@ -591,39 +591,39 @@ When user selects "Delete" from "Activity History" screen
 Then user should be displayed with "No Messages label in Activity History screen"
 #And user logs out of the app
 
-#InviteUsers
+#ManageUsers
 #Requirements : single location with and with out any solution 
-@GeneralGlobalDrawerAddDeleteUsersFromInviteList				@Automated			@--xrayid:ATER-67865
-Scenario Outline: As a user i want to Verify invite user functionality by adding and removing a user from invite list
+@GeneralGlobalDrawerAddDeleteUsersFromInviteList				@Automated	@--xrayid:ATER-67865  @NeedsToBeUpdated
+Scenario Outline: As a user I want to Verify invite user functionality by adding and removing a user from invite list
 Given user launches and logs in to the Lyric Application
-When user navigates to "Invite User" screen from the "Dashboard" screen
-And user inputs <invite users email address> in "Email Text Field" in the "Invite User" screen
+When user navigates to "Invite New User" screen from the "Dashboard" screen
+And user inputs <invite users email address> in "Email Text Field" in the "Invite New User" screen
 Then user should be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
 | das_stage5@grr.la		|
 When user logs out and logs in to the Lyric Application with <invite users email address>
-Then user navigates to "Add Users" screen from the "Dashboard" screen
+Then user navigates to "Manage Users" screen from the "Dashboard" screen
 And user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
 | das_stage5@grr.la		|
 Then user should be displayed with the following "Invited Users" options:
 | InvitedUsersList						|
 | User who invited the logged in user	|
-When user navigates to "Activity History" screen from the "Add Users" screen
+When user navigates to "Activity History" screen from the "Invite New Users" screen
 Then user should be displayed with the following "Activity History" options:
 | ActivityHistoryOptions						|
 | Invitation message for the Invited user	|
 #And user logs out of the app
 #When user launches and logs in to the Lyric Application
 When user logs out and logs in to the Lyric Application with "logged in users account"
-Then user navigates to "Add Users" screen from the "Dashboard" screen
+Then user navigates to "Manage Users" screen from the "Dashboard" screen
 And user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList	|
 | Logged in user		|
 Then user should be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
 | das_stage5@grr.la		|
-When user deletes the <invite users email address> from "Add Users" screen
+When user deletes the <invite users email address> from "Manage Users" screen
 Then user should receive a "Confirm Access Removal" popup
 And user "Clicks on Remove in" the "Confirm Access Removal" popup
 Then user should not be displayed with the following "Invited Users" options:
@@ -631,28 +631,29 @@ Then user should not be displayed with the following "Invited Users" options:
 | das_stage5@grr.la		|
 And user should be displayed with "No Invited Users label"
 When user logs out and logs in to the Lyric Application with <invite users email address>
-Then user navigates to "Add Users" screen from the "Dashboard" screen
+Then user navigates to "Manage Users" screen from the "Dashboard" screen
 And user should be displayed with "No Invited Users label"
 #And user logs out of the app
 
 Examples:
-| invite users email address		|
+| invite users email address	|
 | das_stage5@grr.la				|
 
 
 #Requirements : single location with and with out any solution and user should be invited 
-@GeneralGlobalDrawerInviteUserWithLoggedInUserEmail				@Automated			@--xrayid:ATER-67866
+@GeneralGlobalDrawerInviteUserWithLoggedInUserEmail				@Automated			@--xrayid:ATER-67866  @NeedsToBeUpdated
 Scenario: As a user i want to Verify if error message displays when logged in users email address in Add Users
 Given user launches and logs in to the Lyric Application
-When user navigates to "Add Users" screen from the "Dashboard" screen
+When user navigates to "Manage Users" screen from the "Dashboard" screen
 Then user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList	|
 | Logged in user		|
-When user navigates to "Invite User" screen from the "Add Users" screen
-Then user inputs "Logged in users email address" in "Email Text Field" in the "Invite User" screen
-And user should receive a "User already added to this account error" popup
-Then user "Clicks on OK in" the "User already added to this account error" popup
-When user navigates to "Add Users" screen from the "Invite User" screen
+When user navigates to "Invite New User" screen from the "Manage Users" screen
+Then user inputs "Logged in users email address" in "Email Text Field" in the "Invite New User" screen
+#And user should receive a "User already added to this account error" popup
+Then user should receive an error message as "User already added to this account error"
+#Then user "Clicks on OK in" the "User already added to this account error" popup
+When user navigates to "Manage Users" screen from the "Invite New User" screen
 Then user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList	|
 | Logged in user		|
@@ -660,20 +661,20 @@ Then user should not be displayed with the following "Invited Users" options:
 
 
 #Requirements : single location with and with out any solution and user should be invited 
-@GeneralGlobalDrawerInviteUserWithAlreadyInvitiedUsersEmail					@Automated			@--xrayid:ATER-67867
+@GeneralGlobalDrawerInviteUserWithAlreadyInvitiedUsersEmail			@Automated		@--xrayid:ATER-67867   @NeedsToBeUpdated
 Scenario Outline: As a user i want to Verify if error message displays when already existing invited users email address is entered in Add Users 
 Given user launches and logs in to the Lyric Application
-When user navigates to "Invite User" screen from the "Dashboard" screen
+When user navigates to "Invite New User" screen from the "Dashboard" screen
 And user inputs <invite users email address> in "Email Text Field" in the "Invite User" screen
 Then user should be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
 | das_stage5@grr.la		|
-When user navigates to "Invite User" screen from the "Add Users" screen
-And user inputs <invite users email address> in "Email Text Field" in the "Invite User" screen
-Then user should receive a "User already added to this account error" popup
-And user "Clicks on OK in" the "User already added to this account error" popup
-When user navigates to "Add Users" screen from the "Invite User" screen
-And user deletes the <invite users email address> from "Add Users" screen
+When user navigates to "Invite New User" screen from the "Manage Users" screen
+And user inputs <invite users email address> in "Email Text Field" in the "Invite New User" screen
+Then user should receive an error message as "User already added to this account error"
+#And user "Clicks on OK in" the "User already added to this account error" popup
+When user navigates to "Manage Users" screen from the "Invite New User" screen
+And user deletes the <invite users email address> from "Manage Users" screen
 Then user should receive a "Confirm Access Removal" popup
 And user "Cancels" the "Confirm Access Removal" popup
 Then user should be displayed with the following "Invited Users" options:
@@ -681,7 +682,7 @@ Then user should be displayed with the following "Invited Users" options:
 | das_stage5@grr.la		|
 When user deletes the <invite users email address> from "Add Users" screen
 Then user should receive a "Confirm Access Removal" popup
-And user "Clicks on Remove in" the "Confirm Access Removal" popup
+And user "Clicks on OK in" the "Confirm Access Removal" popup
 Then user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
 | das_stage5@grr.la		|
@@ -691,25 +692,25 @@ Examples:
 | invite users email address		|
 | das_stage5@grr.la				|
 
-      #Requirements : Single location with and with out any solution
-      @GeneralGlobalDrawerInvitNewUser				@NotAutomatable			@--xrayid:ATER-68240
-      Scenario Outline: As a user i want to verifry invite new user and with out activation the account user should not receive any alerts
-       Given user launches and logs in to the Lyric Application
-     When user navigates to "Invite User" screen from the "Dashboard" screen
-      Then user inputs <invite users email address> in "Email Text Field" in the "Invite User" screen
-     And user should be displayed with the following "Invited Users" options:
-      | InvitedUsersList  | 
-      | new account|
-      When user navigates to "New user" Eamil account
-      Then user trigger the events 
-      And new user should not be receive events mail
-      Then user should be displayed with invited mail 
-      When new user downlaod the app or open the app
-      Then user Activated accunt
-      And user should be displayed with invited location details
-      Examples:
-      |invite users email address |
-      |New account |
+#Requirements : Single location with and with out any solution
+@GeneralGlobalDrawerInvitNewUser				@NotAutomatable		@--xrayid:ATER-68240
+Scenario Outline: As a user i want to verify invite new user and with out activation the account user should not receive any alerts
+Given user launches and logs in to the Lyric Application
+When user navigates to "Invite New User" screen from the "Dashboard" screen
+Then user inputs <invite users email address> in "Email Text Field" in the "Invite New User" screen
+And user should be displayed with the following "Invited Users" options:
+| InvitedUsersList  | 
+| new account|
+When user navigates to "New user" Email account
+Then user trigger the events 
+And new user should not be receive events mail
+Then user should be displayed with invited mail 
+When new user download the app or open the app
+Then user Activated account
+And user should be displayed with invited location details
+Examples:
+|invite users email address |
+|New account |
 
   
 #HomeAddress
@@ -1201,20 +1202,39 @@ Examples:
   
 #Edit Account
 #Edit first name last name
-
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountUpdateFirstNameAndLastName            @Automated				@--xrayid:ATER-69076
+@GeneralGlobalDrawerEditAccountUpdateFirstNameAndLastName         @Automated	@--xrayid:ATER-69076   @NeedsToBeUpdated
 Scenario Outline: As a user i want to Verify if updated first name and last name is getting saved
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
-When user inputs <first name> in "First Name Text Field" in the "Edit Account" screen
-Then user inputs <last name> in "Last Name Text Field" in the "Edit Account" screen
-And user selects "Save button" from "Edit Account" screen
-Then user should be displayed with the "Global Drawer" screen
-And user navigates to "Edit Account" screen from the "Global Drawer" screen
-And user should be displayed with "updated first name" in the "Edit Account" screen
-And user should be displayed with "updated last name" in the "Edit Account" screen
+#When user inputs <first name> in "First Name Text Field" in the "Edit Account" screen
+#Then user inputs <last name> in "Last Name Text Field" in the "Edit Account" screen
+Then user should be displayed with the following "Edit Account" options:
+|EditAccountOptions|
+|Name              |
+|Email			   |
+|Change Password   |
+|Delete Account    |
+|Use Passcode	   |
+And user should be displayed with the "First and Last Name" in "Edit Account" screen
+And user should be displayed with the "Logged in Email" in "Edit Account" screen
+#And user selects "Save button" from "Edit Account" screen
+Then user selects "Name" from "Edit Account" screen
+Then user should be displayed with the "Name Edit Account" screen
+Then user should be displayed with the following "Name Edit Account" options:
+|NameEditAccountOptions|
+|First Name			   |
+|Last Name			   |
+|Save button		   |
+Then user should be displayed with the "Save button" as disabled
+Then user should update the "First Name and Last Name" in the "Name Edit Account" screen
+Then user selects "Save button" from "Name Edit Account" screen
+Then user should be displayed with the "Edit Account" screen
+#Then user should be displayed with the "Global Drawer" screen
+#And user navigates to "Edit Account" screen from the "Global Drawer" screen
+Then user should be displayed with "updated first name" in the "Edit Account" screen
+Then user should be displayed with "updated last name" in the "Edit Account" screen
 
 Examples: 
 | first name | last name | 
@@ -1226,7 +1246,7 @@ Examples:
 
 #Edit first name last name with error
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountErrorMsgWhenExistingFirstNameIsCleared             @Automated			@--xrayid:ATER-69079
+@GeneralGlobalDrawerEditAccountErrorMsgWhenExistingFirstNameIsCleared    @Automated	@--xrayid:ATER-69079   @InvalidScenario
 Scenario: As a user i want to Verify if error message is displayed when tried to save account without first name 
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1246,7 +1266,7 @@ And user should be displayed with "existing last name" in the "Edit Account" scr
 
   
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountErrorMsgWhenExistingLastNameIsCleared             @Automated				@--xrayid:ATER-69080
+@GeneralGlobalDrawerEditAccountErrorMsgWhenExistingLastNameIsCleared   @Automated	@--xrayid:ATER-69080   @InvalidScenario
 Scenario: As a user i want to Verify if error message is displayed when tried to save account without last name 
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1266,36 +1286,57 @@ And user should be displayed with "existing last name" in the "Edit Account" scr
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountDisabledAndEnabledSaveButtonWhenFirstNameIsCleared             @Automated			@--xrayid:ATER-69081
+@GeneralGlobalDrawerEditAccountDisabledAndEnabledSaveButtonWhenFirstNameIsCleared    @Automated	@--xrayid:ATER-69081  @NeedsToBeUpdated
 Scenario: As a user i want to Verify if save button gets enabled when first name text field is cleared
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
-And the following "Edit Account" options should be disabled:
-| EditAccountOptions		| 
-| Save					|
-When user clears the text displayed in the following text fields in the "Edit Account" screen:
+Then user selects "Name" from "Edit Account" screen
+Then user should be displayed with the "Name Edit Account" screen
+Then user should be displayed with the following "Name Edit Account" options:
+|NameEditAccountOptions|
+|First Name			   |
+|Last Name			   |
+|Save button		   |
+Then user should be displayed with the "Save button" as disabled
+When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
 | TextFieldsInEditAccountScreen		|
 | First Name Text Field				|
-Then the following "Edit Account" options should be enabled:
+And the following "Name Edit Account" options should be disabled:
+| NameEditAccountOptions	| 
+| Save					    |
+When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
+| TextFieldsInEditAccountScreen		|
+| Last Name Text Field				|
+Then the following "Edit Account" options should be disabled:
 | EditAccountOptions		| 
-| Save					|
-And user selects "Save button" from "Edit Account" screen
-Then user should receive a "First Name is required" popup
-When user "Clicks on OK in" the "First Name is required" popup
-Then user should be displayed with the "Edit Account" screen
-Then the following "Edit Account" options should be enabled:
-| EditAccountOptions		| 
-| Save					|
-When user clicks on the back arrow in the "Edit Account" screen
-Then user should be displayed with the "Global Drawer" screen
-And user navigates to "Edit Account" screen from the "Global Drawer" screen
+| Save						|
+Then user clicks on the back arrow in the "Name Edit Account" screen
+Then user should be displayed with "Cancel Name Changes" popup
+And user selects "No button" in the "Cancel Name Changes" popup
+Then user should be displayed with "Name Edit Account" screen without any changes
+Then user clicks on the back arrow in the "Name Edit Account" screen
+Then user should be displayed with "Cancel Name Changes" popup
+And user selects "Yes button" in the "Cancel Name Changes" popup
+Then user should be displayed with "Edit Account" screen
 Then user should be displayed with "existing first name" in the "Edit Account" screen
 And user should be displayed with "existing last name" in the "Edit Account" screen
 
+#Then user should receive a "First Name is required" popup
+#When user "Clicks on OK in" the "First Name is required" popup
+#Then user should be displayed with the "Edit Account" screen
+#Then the following "Edit Account" options should be enabled:
+#| EditAccountOptions		| 
+#| Save					|
+#When user clicks on the back arrow in the "Edit Account" screen
+#Then user should be displayed with the "Global Drawer" screen
+#And user navigates to "Edit Account" screen from the "Global Drawer" screen
+#Then user should be displayed with "existing first name" in the "Edit Account" screen
+#And user should be displayed with "existing last name" in the "Edit Account" screen
+
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountDisabledAndEnabledSaveButtonWhenLastNameIsCleared             @Automated			@--xrayid:ATER-74334
+@GeneralGlobalDrawerEditAccountDisabledAndEnabledSaveButtonWhenLastNameIsCleared   @Automated	@--xrayid:ATER-74334  @AlreadyCoveredInTheAboveScenario
 Scenario: As a user i want to Verify if save button gets enabled when last name text field is cleared
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1324,25 +1365,39 @@ And user should be displayed with "existing last name" in the "Edit Account" scr
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountValidateMaxCharsInFirstNameAndLastNameTxtFields             @Automated		@--xrayid:ATER-69082
+@GeneralGlobalDrawerEditAccountValidateMaxCharsInFirstNameAndLastNameTxtFields  @Automated @--xrayid:ATER-69082 @NeedsToBeUpdated
 Scenario Outline: As a user i want to verify max characters that can be entered in first name and last name text fields in Edit Account screen
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
-When user inputs <max characters> in "First Name Text Field" in the "Edit Account" screen
-And user inputs <max characters> in "Last Name Text Field" in the "Edit Account" screen
-And user selects "Save button" from "Edit Account" screen
-Then user should be displayed with the "Global Drawer" screen
-When user navigates to "Edit Account" screen from the "Global Drawer" screen
-And user should not be allowed to enter more than "40" characters in "First Name" in the "Edit Account" screen
+Then user selects "Name" from "Edit Account" screen
+Then user should be displayed with the "Name Edit Account" screen
+Then user should be displayed with the following "Name Edit Account" options:
+|NameEditAccountOptions|
+|First Name			   |
+|Last Name			   |
+|Save button		   |
+When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
+| TextFieldsInEditAccountScreen		|
+| First Name Text Field				|
+When user inputs <max characters> in "First Name Text Field" in the "Name Edit Account" screen
+And user should not be allowed to enter more than "40" characters in "First Name" in the "Name Edit Account" screen
+When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
+| TextFieldsInEditAccountScreen		|
+| Last Name Text Field				|
+And user inputs <max characters> in "Last Name Text Field" in the "Name Edit Account" screen
 Then user should not be allowed to enter more than "40" characters in "Last Name" in the "Edit Account" screen
-When user inputs "Previous value" in "First Name Text Field" in the "Edit Account" screen
-And user inputs "Previous value" in "Last Name Text Field" in the "Edit Account" screen
-And user selects "Save button" from "Edit Account" screen
-Then user should be displayed with the "Global Drawer" screen
-When user navigates to "Edit Account" screen from the "Global Drawer" screen
-Then user should be displayed with "existing first name" in the "Edit Account" screen
-And user should be displayed with "existing last name" in the "Edit Account" screen
+And user selects "Save button" from "Name Edit Account" screen
+Then user should be displayed with the "Edit Account" screen
+#When user navigates to "Edit Account" screen from the "Global Drawer" screen
+Then user should be displayed with the "Updated First Name and Last Name" in the "Edit Account" screen
+#When user inputs "Previous value" in "First Name Text Field" in the "Edit Account" screen
+#And user inputs "Previous value" in "Last Name Text Field" in the "Edit Account" screen
+#And user selects "Save button" from "Edit Account" screen
+#Then user should be displayed with the "Global Drawer" screen
+#When user navigates to "Edit Account" screen from the "Global Drawer" screen
+#Then user should be displayed with "existing first name" in the "Edit Account" screen
+#And user should be displayed with "existing last name" in the "Edit Account" screen
 
 Examples:
 | max characters                   			|
@@ -1352,36 +1407,48 @@ Examples:
 
   
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountValidateSpecialCharsInFirstNameAndLastNameTxtFields             @Automated		@--xrayid:ATER-69083
+@GeneralGlobalDrawerEditAccountValidateSpecialCharsInFirstNameAndLastNameTxtFields  @Automated  @--xrayid:ATER-69083  @NeedsToBeUpdated
 Scenario: As a user i want to Verify if special characters can be saved in first name and last name text fields in Edit Account screen
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
-When user inputs "special characters" in "First Name Text Field" in the "Edit Account" screen
+Then user selects "Name" from "Edit Account" screen
+Then user should be displayed with the "Name Edit Account" screen
+Then user should be displayed with the following "Name Edit Account" options:
+|NameEditAccountOptions|
+|First Name			   |
+|Last Name			   |
+|Save button		   |
+When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
+| TextFieldsInEditAccountScreen		|
+| First Name Text Field				|
+When user inputs "special characters" in "First Name Text Field" in the "Name Edit Account" screen
+When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
+| TextFieldsInEditAccountScreen		|
+| Last Name Text Field				|
 And user inputs "special characters" in "Last Name Text Field" in the "Edit Account" screen
-And user selects "Save button" from "Edit Account" screen
-Then user should be displayed with the "Global Drawer" screen
-When user navigates to "Edit Account" screen from the "Global Drawer" screen
+And user selects "Save button" from "Name Edit Account" screen
+Then user should be displayed with the "Edit Account" screen
+#When user navigates to "Edit Account" screen from the "Global Drawer" screen
 Then user should be displayed with "updated first name" in the "Edit Account" screen
 And user should be displayed with "updated last name" in the "Edit Account" screen
-When user inputs "Previous value" in "First Name Text Field" in the "Edit Account" screen
-And user inputs "Previous value" in "Last Name Text Field" in the "Edit Account" screen
-And user selects "Save button" from "Edit Account" screen
-Then user should be displayed with the "Global Drawer" screen
-When user navigates to "Edit Account" screen from the "Global Drawer" screen
-Then user should be displayed with "existing first name" in the "Edit Account" screen
-And user should be displayed with "existing last name" in the "Edit Account" screen
+#When user inputs "Previous value" in "First Name Text Field" in the "Edit Account" screen
+#And user inputs "Previous value" in "Last Name Text Field" in the "Edit Account" screen
+#And user selects "Save button" from "Edit Account" screen
+#Then user should be displayed with the "Global Drawer" screen
+#When user navigates to "Edit Account" screen from the "Global Drawer" screen
+#Then user should be displayed with "existing first name" in the "Edit Account" screen
+#And user should be displayed with "existing last name" in the "Edit Account" screen
   
 
 #Change Password in Edit Account Screen
-
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountUpdatePassword             @Automated		@--xrayid:ATER-69084
+@GeneralGlobalDrawerEditAccountUpdatePassword    @Automated	 @--xrayid:ATER-69084	@NeedsToBeUpdated
 Scenario: As a user i want to Verify update password functionality in Edit Account screen
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
-When user selects "Change Password button" from "Edit Account" screen
+When user selects "Change Password" from "Edit Account" screen
 Then user should be displayed with the "Change Password" screen
 Then the following "Change Password" options should be enabled:
 | ChangePasswordOptions		| 
@@ -1394,7 +1461,7 @@ Then user should be displayed with the "Honeywell Home" screen
 When user logs in to the Lyric Application with "updated password"
 And user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
-When user selects "Change Password button" from "Edit Account" screen
+When user selects "Change Password" from "Edit Account" screen
 Then user should be displayed with the "Change Password" screen
 Then the following "Change Password" options should be enabled:
 | ChangePasswordOptions		| 
@@ -1410,12 +1477,12 @@ And user should be displayed with the "Edit Account" screen
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountChangePwdValidationWhenTappedOnSaveWithoutEnteringAnyText            @Automated		@--xrayid:ATER-69085
+@GeneralGlobalDrawerEditAccountChangePwdValidationWhenTappedOnSaveWithoutEnteringAnyText    @Automated	@--xrayid:ATER-69085  @NoUpdateRequired
 Scenario: Change password screen validations when user taps on Save button without entering text in Old Password, New Password and Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
-When user selects "Change Password button" from "Edit Account" screen
+When user selects "Change Password" from "Edit Account" screen
 Then user should be displayed with the "Change Password" screen
 When user selects "Save button" from "Change Password" screen
 Then user should be displayed with "You must enter your password" error message in the "Old Password text field" in the "Change Password" screen
@@ -1423,42 +1490,42 @@ And user should be displayed with "You must enter your new password" error messa
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountChangePwdValidationWhenIncorrectOldPwdIsEntered             @Automated		@--xrayid:ATER-69086
+@GeneralGlobalDrawerEditAccountChangePwdValidationWhenIncorrectOldPwdIsEntered  @Automated @--xrayid:ATER-69086 @NeedsToBeUpdated
 Scenario: Change password screen validations when user taps on Save button by entering incorrect Old Password, valid New Password and Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
-When user selects "Change Password button" from "Edit Account" screen
+When user selects "Change Password" from "Edit Account" screen
 Then user should be displayed with the "Change Password" screen
 When user inputs "Incorrect Old Password" in "Old Password Text Field" in the "Change Password" screen
 And user inputs "Valid New Password Format" in "New Password Text Field" in the "Change Password" screen
 And user inputs "Valid Verify New Password Format" in "Verify New Password Text Field" in the "Change Password" screen
 And user selects "Save button" from "Change Password" screen
-Then user should be displayed with "Invalid password format" error message in the "Old Password text field" in the "Change Password" screen
+Then user should be displayed with "Old Password is Invalid" error message in the "Old Password text field" in the "Change Password" screen
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountChangePwdValidationWhenInvalidNewPwdIsEntered             @Automated		@--xrayid:ATER-69087
+@GeneralGlobalDrawerEditAccountChangePwdValidationWhenInvalidNewPwdIsEntered  @Automated @--xrayid:ATER-69087 @NeedsToBeUpdated
 Scenario: Change password screen validations when user taps on Save button by entering valid Old Password, invalid New Password and Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
-When user selects "Change Password button" from "Edit Account" screen
+When user selects "Change Password" from "Edit Account" screen
 Then user should be displayed with the "Change Password" screen
 When user inputs "Valid Old Password" in "Old Password Text Field" in the "Change Password" screen
 And user inputs "Invalid New Password Format" in "New Password Text Field" in the "Change Password" screen
 And user inputs "Invalid Verify New Password Format" in "Verify New Password Text Field" in the "Change Password" screen
 And user selects "Save button" from "Change Password" screen
-Then user should be displayed with "Invalid password format" error message in the "New Password Text Field" in the "Change Password" screen
+Then user should be displayed with "Passwords dont match" error message in the "New Password Text Field" in the "Change Password" screen
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountChangePwdValidationWithBlankVerifyNewPwd           @Automated		@--xrayid:ATER-74348
+@GeneralGlobalDrawerEditAccountChangePwdValidationWithBlankVerifyNewPwd  @Automated	@--xrayid:ATER-74348  @NoUpdateRequired
 Scenario: Change password screen validations when user taps on Save button by entering valid Old Password, valid New Password and skip Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
-When user selects "Change Password button" from "Edit Account" screen
+When user selects "Change Password" from "Edit Account" screen
 Then user should be displayed with the "Change Password" screen
 When user inputs "Valid Old Password" in "Old Password Text Field" in the "Change Password" screen
 And user inputs "Valid New Password Format" in "New Password Text Field" in the "Change Password" screen
@@ -1467,12 +1534,12 @@ Then user should be displayed with "You must enter your verify password" error m
 
  
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountChangePwdValidationWhenNewAndVerifyNewPwdDoesNotMatch             @Automated		@--xrayid:ATER-69088
+@GeneralGlobalDrawerEditAccountChangePwdValidationWhenNewAndVerifyNewPwdDoesNotMatch   @Automated @--xrayid:ATER-69088 @NeedsToBeUpdated
 Scenario: Change password screen validations when user taps on Save button by entering valid Old Password, different text in New Password and Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
-When user selects "Change Password button" from "Edit Account" screen
+When user selects "Change Password" from "Edit Account" screen
 Then user should be displayed with the "Change Password" screen
 When user inputs "Valid Old Password" in "Old Password Text Field" in the "Change Password" screen
 And user inputs "Valid New Password Format" in "New Password Text Field" in the "Change Password" screen
@@ -1482,7 +1549,7 @@ Then user should be displayed with "Passwords do not match" error message in the
 When user inputs "InValid New Password Format" in "New Password Text Field" in the "Change Password" screen
 And user inputs "Valid Verify New Password Format" in "Verify New Password Text Field" in the "Change Password" screen
 And user selects "Save button" from "Change Password" screen
-Then user should be displayed with "Passwords do not match" error message in the "New Password text field" in the "Change Password" screen
+Then user should be displayed with "Passwords dont match" error message in the "New Password text field" in the "Change Password" screen
 
   
   #Same as above
@@ -1528,7 +1595,6 @@ Then user should be displayed with "Passwords do not match" error message in the
 
 
 #Delete Account in Edit Account Screen
-
 #Requirements : single location with out solution 
 @GeneralGlobalDrawerEditAccountDeleteAccountWithoutASolution             @Automated		@--xrayid:ATER-69091
 Scenario Outline: As a user i want to Verify the app behavior by deleting an account without any solution 

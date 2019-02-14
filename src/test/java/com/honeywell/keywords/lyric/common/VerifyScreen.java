@@ -39,6 +39,7 @@ import com.honeywell.screens.FAQsScreen;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.GlobalDrawerScreen;
+import com.honeywell.screens.MobileDeviceSettingsScreen;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.PrivacyStatementScreen;
 import com.honeywell.screens.SchedulingScreen;
@@ -1607,6 +1608,17 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+			case "MOBILE DEVICE LOCATION SETTINGS" : {
+				MobileDeviceSettingsScreen mdls= new MobileDeviceSettingsScreen(testCase);
+				if(mdls.isMobileDeviceLocationHeaderDisplayed()) {
+					Keyword.ReportStep_Pass(testCase, "Mobile Device Location Settings screen is displayed");
+				}else {
+					
+				}Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Failed to navigate to " + expectedScreen.get(0));
+				break;
+			}
+			
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

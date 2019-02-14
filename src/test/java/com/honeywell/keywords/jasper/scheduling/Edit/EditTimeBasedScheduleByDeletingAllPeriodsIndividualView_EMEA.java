@@ -23,6 +23,8 @@ import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.screens.SchedulingScreen;
 
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class EditTimeBasedScheduleByDeletingAllPeriodsIndividualView_EMEA extends Keyword {
 
@@ -57,6 +59,7 @@ public class EditTimeBasedScheduleByDeletingAllPeriodsIndividualView_EMEA extend
 			Dimension dimension = driver.manage().window().getSize();
 			int height = dimension.getHeight();
 			int width = dimension.getWidth();
+			@SuppressWarnings("rawtypes")
 			TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 
 			for (int i = 0; i < days.length; i++) {
@@ -86,8 +89,11 @@ public class EditTimeBasedScheduleByDeletingAllPeriodsIndividualView_EMEA extend
 									if (!MobileUtils.clickOnElement(fieldObjects, testCase, "ConfirmDeleteButton")) {
 										flag = false;
 									} else {
-										SchedulingScreen schl= new SchedulingScreen(testCase);
-										if (MobileUtils.isMobElementExists("Xpath", "//*[contains(@text,'"+inputs.getInputValue("LOCATION1_DEVICE1_NAME")+"')]", testCase)||schl.isScheduleOptionsVisible(15)
+										SchedulingScreen schl = new SchedulingScreen(testCase);
+										if (MobileUtils.isMobElementExists("Xpath",
+												"//*[contains(@text,'" + inputs.getInputValue("LOCATION1_DEVICE1_NAME")
+														+ "')]",
+												testCase) || schl.isScheduleOptionsVisible(15)
 												|| schl.isCreateScheduleButtonVisible(15)) {
 											Keyword.ReportStep_Pass(testCase,
 													"Schedule period is deleted when clicked on Delete during Delete operation");
@@ -96,7 +102,7 @@ public class EditTimeBasedScheduleByDeletingAllPeriodsIndividualView_EMEA extend
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"Schedule period is not deleted when clicked on Delete during Delete operation");
 										}
-										
+
 									}
 								} else {
 									flag = false;
@@ -121,14 +127,24 @@ public class EditTimeBasedScheduleByDeletingAllPeriodsIndividualView_EMEA extend
 
 						Keyword.ReportStep_Pass(testCase,
 								"*************** Completed deleting period- " + "" + " ***************");
-						touchAction.press(width / 2, height / 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82).release();
-						touchAction.perform();
+						/*
+						 * touchAction.press(width / 2, height /
+						 * 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82).release();
+						 * touchAction.perform();
+						 */
+						touchAction.press(point(width / 2, height / 2))
+								.waitAction(waitOptions(MobileUtils.getDuration(2000))).moveTo(point(width / 2, 82))
+								.release().perform();
 						counter++;
 					}
 				} else {
 					if (i == 5 || i == 6) {
-						touchAction.press(10, (int) (dimension.getHeight() * .5))
-						.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+						/*
+						 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+						 * (dimension.getHeight() * -.4)).release().perform();
+						 */
+						touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+								.moveTo(point(0, (int) (dimension.getHeight() * -.4))).release().perform();
 					}
 					desiredDayIndex = Arrays.asList(days).indexOf(days[i]);
 					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "ScheduleDayHeader", 5)) {
@@ -138,20 +154,30 @@ public class EditTimeBasedScheduleByDeletingAllPeriodsIndividualView_EMEA extend
 								.indexOf(scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));
 					}
 					int m = 0;
-					while ((!MobileUtils.isMobElementExists("xpath", "//*[contains(@name,'"+days[i]+"_')]", testCase, 20)) && m < 5) {
+					while ((!MobileUtils.isMobElementExists("xpath", "//*[contains(@name,'" + days[i] + "_')]",
+							testCase, 20)) && m < 5) {
 						if (desiredDayIndex > greaterDayIndex) {
-							touchAction.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+							/*
+							 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+							 * (dimension.getHeight() * -.4)).release().perform();
+							 */
+							touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+									.moveTo(point(0, (int) (dimension.getHeight() * -.4))).release().perform();
 							m++;
 						} else if (desiredDayIndex < lesserDayIndex) {
-							touchAction.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * .4)).release().perform();
+							/*
+							 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+							 * (dimension.getHeight() * .4)).release().perform();
+							 */
+							touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+									.moveTo(point(0, (int) (dimension.getHeight() * .4))).release().perform();
 							m++;
 						} else {
 							break;
 						}
 					}
-					WebElement tempDay = testCase.getMobileDriver().findElement(By.xpath("//*[contains(@name,'"+days[i]+"')]"));
+					WebElement tempDay = testCase.getMobileDriver()
+							.findElement(By.xpath("//*[contains(@name,'" + days[i] + "')]"));
 					if (tempDay != null) {
 						ReportStep_Pass(testCase, "Located - " + days[i]);
 					} else {
@@ -184,14 +210,16 @@ public class EditTimeBasedScheduleByDeletingAllPeriodsIndividualView_EMEA extend
 										flag = false;
 									} else {
 										Thread.sleep(5000);
-									/*	if (MobileUtils.isMobElementExists("xpath", "//*[contains(@value,'"+inputs.getInputValue("LOCATION1_DEVICE1_NAME")+"')]", testCase)) {
-											Keyword.ReportStep_Pass(testCase,
-													"Schedule period is deleted when clicked on Delete during Delete operation");
-										} else {
-											flag = false;
-											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-													"Schedule period is not deleted when clicked on Delete during Delete operation");
-										}*/
+										/*
+										 * if (MobileUtils.isMobElementExists("xpath",
+										 * "//*[contains(@value,'"+inputs.getInputValue("LOCATION1_DEVICE1_NAME")+"')]",
+										 * testCase)) { Keyword.ReportStep_Pass(testCase,
+										 * "Schedule period is deleted when clicked on Delete during Delete operation");
+										 * } else { flag = false; Keyword.ReportStep_Fail(testCase,
+										 * FailType.FUNCTIONAL_FAILURE,
+										 * "Schedule period is not deleted when clicked on Delete during Delete operation"
+										 * ); }
+										 */
 									}
 								} else {
 									flag = false;

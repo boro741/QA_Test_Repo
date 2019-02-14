@@ -19,13 +19,15 @@ import com.honeywell.lyric.utils.InputVariables;
 import com.honeywell.screens.SchedulingScreen;
 
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class JasperSchedulingViewUtils {
 	public static boolean selectIndividualDaysViewOrGroupedDaysView(TestCases testCase, String viewDays) {
 		boolean flag = true;
 		SchedulingScreen schl = new SchedulingScreen(testCase);
 		try {
-			if (schl.isTimeScheduleButtonVisible(5)){
+			if (schl.isTimeScheduleButtonVisible(5)) {
 				flag = flag && schl.clickOnTimeScheduleButton();
 			}
 			if (!schl.isViewByIndividualDaysVisible(5)) {
@@ -142,15 +144,22 @@ public class JasperSchedulingViewUtils {
 			Dimension dimension = driver.manage().window().getSize();
 			int height = dimension.getHeight();
 			int width = dimension.getWidth();
+			@SuppressWarnings("rawtypes")
 			TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				if (!MobileUtils.isMobElementExists("XPATH", "//*[@content-desc='" + schedulePeriodToSelect + "']",
 						testCase, 5)) {
 					testCase.getMobileDriver().scrollToExact(schedulePeriodToSelect.split("_")[1]);
-					while (!MobileUtils.isMobElementExists("XPATH", "//*[@content-desc='" + schedulePeriodToSelect + "']",
-							testCase, 5)) {
-						touchAction.press(width / 2, height / 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82).release();
-						touchAction.perform();
+					while (!MobileUtils.isMobElementExists("XPATH",
+							"//*[@content-desc='" + schedulePeriodToSelect + "']", testCase, 5)) {
+						/*
+						 * touchAction.press(width / 2, height /
+						 * 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82).release();
+						 * touchAction.perform();
+						 */
+						touchAction.press(point(width / 2, height / 2))
+								.waitAction(waitOptions(MobileUtils.getDuration(2000))).moveTo(point(width / 2, 82))
+								.release().perform();
 					}
 				}
 				period = testCase.getMobileDriver()
@@ -165,19 +174,31 @@ public class JasperSchedulingViewUtils {
 				}
 				int i = 0;
 				while ((!MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + schedulePeriodToSelect + "']", testCase,
-						5)) && i < 10) {
+						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + schedulePeriodToSelect + "']",
+						testCase, 5)) && i < 10) {
 					if (desiredDayIndex > greaterDayIndex) {
-						touchAction.press(10, (int) (dimension.getHeight() * .5))
-						.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+						/*
+						 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+						 * (dimension.getHeight() * -.4)).release().perform();
+						 */
+						touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+								.moveTo(point(0, (int) (dimension.getHeight() * -.4))).release().perform();
 						i++;
 					} else if (desiredDayIndex < lesserDayIndex) {
-						touchAction.press(10, (int) (dimension.getHeight() * .5))
-						.moveTo(0, (int) (dimension.getHeight() * .4)).release().perform();
+						/*
+						 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+						 * (dimension.getHeight() * .4)).release().perform();
+						 */
+						touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+								.moveTo(point(0, (int) (dimension.getHeight() * .4))).release().perform();
 						i++;
 					} else {
-						touchAction.press(10, (int) (dimension.getHeight() * .5))
-						.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+						/*
+						 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+						 * (dimension.getHeight() * -.4)).release().perform();
+						 */
+						touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+								.moveTo(point(0, (int) (dimension.getHeight() * -.4))).release().perform();
 						i++;
 					}
 				}
@@ -198,12 +219,11 @@ public class JasperSchedulingViewUtils {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Failed to locate the period: " + schedulePeriodToSelect);
 			}
-		}catch (Exception e){
+		} catch (Exception e) {
 
 		}
 
 		return flag;
 	}
-
 
 }

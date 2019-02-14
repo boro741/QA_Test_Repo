@@ -1,14 +1,8 @@
 package com.honeywell.keywords.lyric.DR;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
-
-import org.openqa.selenium.By;
 
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
@@ -16,16 +10,12 @@ import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.keywords.lyric.chil.TriggerDREvent;
 import com.honeywell.lyric.DR.utils.DRUtils;
-import com.honeywell.lyric.das.utils.CameraUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.ActivityHistoryScreen;
-
-import io.appium.java_client.MobileElement;
 
 public class VerifyDRMessage extends Keyword {
 
@@ -51,7 +41,7 @@ public class VerifyDRMessage extends Keyword {
 	@KeywordStep(gherkins = "^user receives and views a \"(.*)\" message on the \"(.*)\" screen$")
 	public boolean keywordSteps() {
 		try {
-			flag = flag & DRUtils.waitForProgressBarToComplete(testCase,"Messages", 1);
+			flag = flag & DRUtils.waitForProgressBarToComplete(testCase, "Messages", 1);
 			ActivityHistoryScreen ahs = new ActivityHistoryScreen(testCase);
 			if (ahs.isMessagesDisplayed()) {
 
@@ -64,7 +54,8 @@ public class VerifyDRMessage extends Keyword {
 						"Verify Activity History Title : Activity History Title displayed in activity history scren");
 			} else {
 				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Activity history title found in Activity History screen");
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Activity history title found in Activity History screen");
 			}
 
 			boolean isMessagePresent = false;
@@ -103,8 +94,7 @@ public class VerifyDRMessage extends Keyword {
 							isMessagePresent = true;
 							Keyword.ReportStep_Pass(testCase,
 									"Verify DR Message : Savings Event Scheduled DR Message displayed with correct values in activity history scren");
-						}
-						else{
+						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Verify DR Message : Savings Event Scheduled title not displayed correctly in activity history scren");
 						}
@@ -113,31 +103,30 @@ public class VerifyDRMessage extends Keyword {
 							MobileUtils.clickOnElement(testCase, "xpath", xpath);
 							Keyword.ReportStep_Pass(testCase,
 									"Verify DR Message : Successfully clicked on DR Scheduled message");
-						}
-						else{
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "DR Scheduled message id not found");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"DR Scheduled message id not found");
 						}
 						if (ahs.isActivityHistoryTitleDisplayed()) {
 							Keyword.ReportStep_Pass(testCase,
 									"Verify Activity History Title : Activity History Title displayed in message details scren");
 						} else {
 							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Activity History title not found on message details screen");
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Activity History title not found on message details screen");
 						}
 
 						if (s.getValue().contains(message) || (s.getValue().contains(message2))) {
 							isMessagePresent = true;
 							Keyword.ReportStep_Pass(testCase,
 									"Verify DR Message : Savings Event Scheduled DR Message displayed with correct values on message details screen");
-						}
-						else{
+						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Verify DR Message : Savings Event Scheduled DR Message is not displayed correctly on message details screen");
 						}
 					}
 				}
-			} 
-			else if (exampleData.get(0).equalsIgnoreCase("saving event started")) {
+			} else if (exampleData.get(0).equalsIgnoreCase("saving event started")) {
 				String deviceDay;
 				String deviceDay1;
 				if (deviceDRStartTime.split("T")[0].equals(currentDeviceTime.split("T")[0])) {
@@ -158,8 +147,7 @@ public class VerifyDRMessage extends Keyword {
 							isMessagePresent = true;
 							Keyword.ReportStep_Pass(testCase,
 									"Verify DR Message : Savings Event Started DR Message displayed with correct values in activity history scren");
-						}
-						else{
+						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Verify DR Message : Savings Event Started title not displayed correctly in activity history scren");
 						}
@@ -168,9 +156,9 @@ public class VerifyDRMessage extends Keyword {
 							MobileUtils.clickOnElement(testCase, "xpath", xpath);
 							Keyword.ReportStep_Pass(testCase,
 									"Verify DR Message : Successfully clicked on DR Started message");
-						}
-						else{
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "DR Started message id not found");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"DR Started message id not found");
 						}
 						if (ahs.isActivityHistoryTitleDisplayed()) {
 							Keyword.ReportStep_Pass(testCase,
@@ -178,22 +166,21 @@ public class VerifyDRMessage extends Keyword {
 
 						} else {
 							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Activity History title not found on message details screen");
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Activity History title not found on message details screen");
 						}
 
 						if (s.getValue().contains(message) || (s.getValue().contains(message2))) {
 							isMessagePresent = true;
 							Keyword.ReportStep_Pass(testCase,
 									"Verify DR Message : Savings Event Started DR Message displayed with correct values on message details screen");
-						}
-						else{
+						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Verify DR Message : Savings Event Started DR Message is not displayed correctly on message details screen");
 						}
 					}
 				}
-			}
-			else if (exampleData.get(0).equalsIgnoreCase("saving event ended")) {
+			} else if (exampleData.get(0).equalsIgnoreCase("saving event ended")) {
 				String deviceDay;
 				String deviceDay1;
 				if (deviceDRStartTime.split("T")[0].equals(currentDeviceTime.split("T")[0])) {
@@ -214,20 +201,19 @@ public class VerifyDRMessage extends Keyword {
 							isMessagePresent = true;
 							Keyword.ReportStep_Pass(testCase,
 									"Verify DR Message : Savings Event Ended DR Message displayed with correct values in activity history scren");
-						}
-						else{
+						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Verify DR Message : Savings Event Ended title not displayed correctly in activity history scren");
 						}
-						
+
 						String xpath = "//*[@text='" + message + "']";
 						if (MobileUtils.isMobElementExists("xpath", xpath, testCase, 3)) {
 							MobileUtils.clickOnElement(testCase, "xpath", xpath);
 							Keyword.ReportStep_Pass(testCase,
 									"Verify DR Message : Successfully clicked on DR Ended message");
-						}
-						else{
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "DR Ended message id not found");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"DR Ended message id not found");
 						}
 						if (ahs.isActivityHistoryTitleDisplayed()) {
 							Keyword.ReportStep_Pass(testCase,
@@ -235,23 +221,22 @@ public class VerifyDRMessage extends Keyword {
 
 						} else {
 							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Activity History title not found on message details screen");
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Activity History title not found on message details screen");
 						}
 
 						if (s.getValue().contains(message) || (s.getValue().contains(message2))) {
 							isMessagePresent = true;
 							Keyword.ReportStep_Pass(testCase,
 									"Verify DR Message : Savings Event Ended DR Message displayed with correct values on message details screen");
-						}
-						else{
+						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Verify DR Message : Savings Event Ended DR Message is not displayed correctly on message details screen");
 						}
 					}
 				}
 
-			}
-			else if (exampleData.get(0).equalsIgnoreCase("saving event canceled by utility")) {
+			} else if (exampleData.get(0).equalsIgnoreCase("saving event canceled by utility")) {
 				String deviceDay;
 				String deviceDay1;
 				if (deviceDRStartTime.split("T")[0].equals(currentDeviceTime.split("T")[0])) {
@@ -270,8 +255,7 @@ public class VerifyDRMessage extends Keyword {
 							isMessagePresent = true;
 							Keyword.ReportStep_Pass(testCase,
 									"Verify DR Message : Savings Event cancelled DR Message displayed with correct values in activity history scren");
-						}
-						else{
+						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Verify DR Message : Savings Event cancelled title not displayed correctly in activity history scren");
 						}
@@ -280,34 +264,33 @@ public class VerifyDRMessage extends Keyword {
 							MobileUtils.clickOnElement(testCase, "xpath", xpath);
 							Keyword.ReportStep_Pass(testCase,
 									"Verify DR Message : Successfully clicked on DR Canceled message");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"DR canceled message id not found");
 						}
-						else{
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "DR canceled message id not found");
-						}
-						
+
 						if (ahs.isActivityHistoryTitleDisplayed()) {
 							Keyword.ReportStep_Pass(testCase,
 									"Verify Activity History Title : Activity History Title displayed in message details scren");
 
 						} else {
 							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Activity History title not found on message details screen");
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Activity History title not found on message details screen");
 						}
 
 						if (s.getValue().contains(message) || (s.getValue().contains(message2))) {
 							isMessagePresent = true;
 							Keyword.ReportStep_Pass(testCase,
 									"Verify DR Message : Savings Event Canceled DR Message displayed with correct values on message details screen");
-						}
-						else{
+						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Verify DR Message : Savings Event Canceled DR Message is not displayed correctly on message details screen");
 						}
 					}
 				}
 
-			}
-			else if (exampleData.get(0).equalsIgnoreCase("saving event canceled by user")) {
+			} else if (exampleData.get(0).equalsIgnoreCase("saving event canceled by user")) {
 				String deviceDay;
 				String deviceDay1;
 				if (deviceDRStartTime.split("T")[0].equals(currentDeviceTime.split("T")[0])) {
@@ -326,8 +309,7 @@ public class VerifyDRMessage extends Keyword {
 							isMessagePresent = true;
 							Keyword.ReportStep_Pass(testCase,
 									"Verify DR Message : Savings Event Canceled by User DR Message displayed with correct values in activity history scren");
-						}
-						else{
+						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Verify DR Message : Savings Event Canceled by User DR Message is not displayed with correct values in activity history scren");
 						}
@@ -336,26 +318,26 @@ public class VerifyDRMessage extends Keyword {
 							MobileUtils.clickOnElement(testCase, "xpath", xpath);
 							Keyword.ReportStep_Pass(testCase,
 									"Verify DR Message : Successfully clicked on DR Canceled by user message");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"DR canceled by user message id not found");
 						}
-						else{
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "DR canceled by user message id not found");
-						}
-						
+
 						if (ahs.isActivityHistoryTitleDisplayed()) {
 							Keyword.ReportStep_Pass(testCase,
 									"Verify Activity History Title : Activity History Title displayed in message details scren");
 
 						} else {
 							flag = false;
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Activity History title not found on message details screen");
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Activity History title not found on message details screen");
 						}
 
 						if (s.getValue().contains(message) || (s.getValue().contains(message2))) {
 							isMessagePresent = true;
 							Keyword.ReportStep_Pass(testCase,
 									"Verify DR Message : Savings Event Canceled by user DR Message displayed with correct values on message details screen");
-						}
-						else{
+						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Verify DR Message : Savings Event Canceled by user DR Message is not displayed correctly on message details screen");
 						}

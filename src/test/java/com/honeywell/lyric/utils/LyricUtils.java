@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -57,12 +58,14 @@ import com.honeywell.screens.SecretMenu;
 
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.offset.PointOption.point;
 import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidDriver;
 import org.bytedeco.javacpp.*;
 import static org.bytedeco.javacpp.lept.*;
 import static org.bytedeco.javacpp.tesseract.*;
+
+import io.appium.java_client.TouchAction;
 
 public class LyricUtils {
 
@@ -438,8 +441,8 @@ public class LyricUtils {
 		CoachMarks cm = new CoachMarks(testCase);
 		Dashboard d = new Dashboard(testCase);
 		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
-		fWait.pollingEvery(5, TimeUnit.SECONDS);
-		fWait.withTimeout(3, TimeUnit.MINUTES);
+		fWait.pollingEvery(Duration.ofSeconds(5));
+		fWait.withTimeout(Duration.ofMinutes(3));
 		try {
 			Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 				public Boolean apply(CustomDriver driver) {
@@ -541,15 +544,14 @@ public class LyricUtils {
 			if (ls.isSkipButtonVisible()) {
 				flag = flag & ls.clickOnSkipIntroButton();
 			}
-
 			if (os.isAllowButtonVisible(5)) {
 				flag = flag & os.clickOnAllowButton();
 			}
 		} else {
 			try {
 				FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
-				fWait.pollingEvery(2, TimeUnit.SECONDS);
-				fWait.withTimeout(1, TimeUnit.MINUTES);
+				fWait.pollingEvery(Duration.ofSeconds(2));
+				fWait.withTimeout(Duration.ofMinutes(1));
 				Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 					public Boolean apply(CustomDriver driver) {
 						try {
@@ -1550,20 +1552,29 @@ public class LyricUtils {
 				flag = false;
 			} else {
 				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+				@SuppressWarnings("rawtypes")
 				TouchAction action = new TouchAction(testCase.getMobileDriver());
 				for (int i = 0; i < 5; ++i) {
 					if (success) {
 						break;
 					}
 					try {
-						action.press(10, (int) (dimension.getHeight() * .5))
-								.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+						action.press(point(10, (int) (dimension.getHeight() * .5)))
+								.moveTo(point(0, (int) (dimension.getHeight() * -.2))).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+						 * (dimension.getHeight() * -.2)).release().perform();
+						 */
 					} catch (Exception e) {
 					}
 
 					FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
-					fWait.withTimeout(5, TimeUnit.SECONDS);
-					fWait.pollingEvery(500, TimeUnit.MILLISECONDS);
+					/*
+					 * fWait.withTimeout(5, TimeUnit.SECONDS); fWait.pollingEvery(500,
+					 * TimeUnit.MILLISECONDS);
+					 */
+					fWait.pollingEvery(Duration.ofSeconds(5));
+					fWait.withTimeout(Duration.ofMillis(500));
 					try {
 						WebElement elem = fWait.until(
 								ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@label='Privacy']")));
@@ -1695,6 +1706,7 @@ public class LyricUtils {
 				testCase.getMobileDriver());
 		String str = "";
 		BytePointer outText;
+		@SuppressWarnings("resource")
 		TessBaseAPI api = new TessBaseAPI();
 
 		if (api.Init(".", "ENG") != 0) {
@@ -1844,8 +1856,8 @@ public class LyricUtils {
 		OSPopUps os = new OSPopUps(testCase);
 		CoachMarks cm = new CoachMarks(testCase);
 		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
-		fWait.pollingEvery(5, TimeUnit.SECONDS);
-		fWait.withTimeout(3, TimeUnit.MINUTES);
+		fWait.pollingEvery(Duration.ofSeconds(5));
+		fWait.withTimeout(Duration.ofMinutes(3));
 
 		try {
 			Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
@@ -2024,7 +2036,7 @@ public class LyricUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean loginToLyricAppUserWithoutAnyLocation(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		LoginScreen ls = new LoginScreen(testCase);
@@ -2061,7 +2073,7 @@ public class LyricUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean loginToLyricAppUserWithLocation(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		LoginScreen ls = new LoginScreen(testCase);
@@ -2203,9 +2215,9 @@ public class LyricUtils {
 		}
 		return flag;
 	}
-	
-	public static boolean launchAndLoginToApplicationWithUserWithLocation(TestCases testCase,
-			TestCaseInputs inputs, boolean... closeCoachMarks) {
+
+	public static boolean launchAndLoginToApplicationWithUserWithLocation(TestCases testCase, TestCaseInputs inputs,
+			boolean... closeCoachMarks) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
 		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
@@ -2220,7 +2232,7 @@ public class LyricUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean launchLyricApplication(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
@@ -2228,6 +2240,23 @@ public class LyricUtils {
 		// if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
 		// }
+		return flag;
+	}
+
+	public static boolean launchLyricApplicationWithoutClosingPopup(TestCases testCase, TestCaseInputs inputs) {
+
+		boolean flag = true;
+		flag = MobileUtils.launchApplication(inputs, testCase, true);
+		return flag;
+	}
+
+	public static boolean launchAndLoginToLyricApplicationWithoutClosingPopup(TestCases testCase, TestCaseInputs inputs,
+			boolean... closeCoachMarks) {
+
+		boolean flag = true;
+		flag = MobileUtils.launchApplication(inputs, testCase, true);
+		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
 		return flag;
 	}
 }

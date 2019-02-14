@@ -1,6 +1,6 @@
 package com.honeywell.lyric.das.utils;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 import org.json.JSONObject;
 import org.openqa.selenium.TimeoutException;
@@ -94,8 +94,12 @@ public class CreateAccountAndForgotPwdUtils {
 		boolean flag = true;
 		try {
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(duration, TimeUnit.MINUTES);
+			/*
+			 * fWait.pollingEvery(3, TimeUnit.SECONDS); fWait.withTimeout(duration,
+			 * TimeUnit.MINUTES);
+			 */
+			fWait.pollingEvery(Duration.ofSeconds(2));
+			fWait.withTimeout(Duration.ofMinutes(duration));
 			ActivateAccountScreen aas = new ActivateAccountScreen(testCase);
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {

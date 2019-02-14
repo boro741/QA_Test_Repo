@@ -12,7 +12,6 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.jasper.utils.JasperSchedulingUtils;
 import com.honeywell.jasper.utils.JasperSetPoint;
 import com.honeywell.screens.VacationHoldScreen;
 
@@ -48,17 +47,16 @@ public class DisplayVacationSetPointOnSoultionCard extends Keyword {
 				CHILUtil.vacationCoolSetPoint = (int) Double.parseDouble(statInfo.getVacationCoolSetPoint());
 				String vacationSetPointInPrimaryCard = vhs.getPrimaryCardValue();
 				if (statInfo.getThermostatUnits().equalsIgnoreCase("Celsius")) {
-					vacationSetPointInPrimaryCard  = JasperSetPoint.convertFromCelsiusToFahrenhiet
-							(testCase,vacationSetPointInPrimaryCard);
+					vacationSetPointInPrimaryCard = JasperSetPoint.convertFromCelsiusToFahrenhiet(testCase,
+							vacationSetPointInPrimaryCard);
 				}
-				
+
 				if (Integer.parseInt(vacationSetPointInPrimaryCard) == CHILUtil.vacationHeatSetPoint
-						|| (Integer.parseInt(vacationSetPointInPrimaryCard) == CHILUtil.vacationCoolSetPoint)){
+						|| (Integer.parseInt(vacationSetPointInPrimaryCard) == CHILUtil.vacationCoolSetPoint)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Vacation Setpoint displayed in Solution card is: " + vacationSetPointInPrimaryCard);
 
-				} 
-				else {
+				} else {
 					flag = false;
 					Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Vacation Setpoint dispalyed in Solution card is: " + vacationSetPointInPrimaryCard);

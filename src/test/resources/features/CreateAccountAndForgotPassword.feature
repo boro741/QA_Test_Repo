@@ -8,7 +8,7 @@
      Then Create Account screen should be displayed 
 
      #requirement : Country should be US 
-     @GeneralCreateAccountFieldValidationUSLocation          @Automated
+     @GeneralCreateAccountFieldValidationUSLocation          @Automated   @NoUpdateRequired
      Scenario: To verify create account fields text
      Given user launches the Lyric application
      When user selects "Create Account" from "Honeywell Home" screen
@@ -34,7 +34,7 @@
      |Create button|
 
      #requirement : Country should be UK 
-     @GeneralCreateAccountFieldValidationEMEALocation          @Automated
+     @GeneralCreateAccountFieldValidationEMEALocation        @Automated  @NoUpdateRequired
      Scenario: To verify create account fields text
      Given user launches the Lyric application
      When user selects "Create Account" from "Honeywell Home" screen
@@ -67,7 +67,7 @@
 	 |Signing up consent label should be displayed |	
 	
 	
-     @GeneralCreateAccountCancelFunctionalityWithoutEnteringText          @Automated
+     @GeneralCreateAccountCancelFunctionalityWithoutEnteringText         @Automated  @NoUpdateRequired
      Scenario: To verify cancel functionlity with out filling the fields
      Given user launches the Lyric application
      When user selects "Create Account" from "Honeywell Home" screen
@@ -173,7 +173,7 @@
       | anju       | sweets    | New email | Password1 | Password1 |
 	
 	 #Issue on Android in Activate Account screen
-     @GeneralCreateAccountWithValidDetailsBackOption          @Automated
+     @GeneralCreateAccountWithValidDetailsBackOption       @Automated		@NeedsToBeUpdated
      Scenario Outline: As a user I want to verify Back option on activating account screen
      Given user launches the Lyric application
      When user selects "Create Account" from "Honeywell Home" screen
@@ -187,10 +187,10 @@
      Then user should be displayed with the following "Activate Account Details" options:
      |ActivateAccountDetails|
      |Almost Done |
-     |New email |
-     |Go To Mail |
+     |New email   |
+     |Go To Email |
      |Resend Email|
-     Then user selects "Close button" from "Activate Account" screen
+     Then user selects "Back button" from "Activate Account" screen
      Then user should be displayed with the "Honeywell Home" screen
      When user selects "Login" from "Honeywell Home" screen
      Then user inputs <Email> in "Email Text Field" in the "Login" screen
@@ -206,7 +206,7 @@
        | manoj		| kumar     | unit506@grr.la | Password1 | Password1       |
       #| Hemanth	| kumar     | unit507@grr.la | Password1 | Password1       |
  
-	 @GeneralCreateAccountWithMaxAlphanumericCharacters          @Automated
+	 @GeneralCreateAccountWithMaxAlphanumericCharacters       @Automated  @NoUpdateRequired
      Scenario Outline: As a user I want to verify max alphanumeric characters allowed for First Name and Last Name
      Given user launches the Lyric application
      When user selects "Create Account" from "Honeywell Home" screen
@@ -225,7 +225,7 @@
      #| !@#$%^&*()_+=-`~!@#$%^&*()_+-~!@#$%^&*()    	| !@#$%^&*()_+=-`~!@#$%^&*()_+-~!@#$%^&*()        |
      
 	 
-     @GeneralCreateAccountWithoutFillingsTheDetailsErrorValidation          @Automated
+     @GeneralCreateAccountWithoutFillingsTheDetailsErrorValidation          @Automated			@NeedsToBeUpdated
      Scenario: As a user I want to verify the error options on Create Account screen without filling the details
      Given user launches the Lyric application
      When user selects "Create Account" from "Honeywell Home" screen
@@ -239,12 +239,12 @@
      | You must enter a first name |
      | You must enter a last name | 
      | You must enter a valid email address |
-     | The password must be at least eight characters |
+     | Invalid password format |
      Then user should be displayed with the following "Create Account" options: 
      | CreateAccountOptions		|
      | First Name				|
      
- 	 @GeneralCreateAccountWithAlreadyRegisteredEmailId          @Automated
+ 	 @GeneralCreateAccountWithAlreadyRegisteredEmailId      @Automated		@NeedsToBeUpdated
      Scenario Outline: As a user I want to verify create account with already registered email id
      Given user launches the Lyric application
      When user selects "Create Account" from "Honeywell Home" screen
@@ -255,15 +255,16 @@
      Then user inputs <Password> in "Password Text Field" in the "Create Account" screen
      Then user inputs <Verify Password> in "Verify Password Text Field" in the "Create Account" screen
      Then user selects "Create button" from "Create Account" screen
-     Then user should be displayed with the following "Already Registered Email validation" options:
-     | AlreadyRegisteredEmailValidation	|
-     | This email address has already been registered. |
+     #Then user should be displayed with the following "Already Registered Email validation" options:
+     #| AlreadyRegisteredEmailValidation	|
+     #| This email address has already been registered. |
+     Then user should be displayed with "This email is adready registered with Cancel and Login button" popup
      Examples: 
      | First Name | Last Name | Email 		  |Password  | Verify Password |
      | giri       | THEJ      | unit@grr.la   |Password1 | Password1 	  |
   
 
- 	 @GeneralCreateAccountWithInvalidPasswordFormat          @Automated
+ 	 @GeneralCreateAccountWithInvalidPasswordFormat    @Automated		@NeedsToBeUpdated
      Scenario Outline: As a user i want to verify Create Account with invalid password
      Given user launches the Lyric application
      When user selects "Create Account" from "Honeywell Home" screen
@@ -280,14 +281,14 @@
      Then user selects "Create button" from "Create Account" screen
      Then user should be displayed with the following "Password dont match validation" options:
      | PasswordDontMatchValidation |
-     | The password must be at least eight characters |
-     | Passwords don't match |    
+     | Invalid password format |
+     #| Passwords don't match |    
      Examples: 
      | First Name | Last Name | Email 		| Password | Verify Password |
      | giri       | THEJ      | unit@grr.la |  		   | Password1 		 |
 
- 	 @GeneralCreateAccountWithInvalidPassword          @Automated
-     Scenario Outline: As a user i want to verify Create Account with Invalid Password
+ 	 @GeneralCreateAccountWithInvalidPassword          @Automated			@NeedsToBeUpdated
+     Scenario Outline: As a user I want to verify Create Account with Invalid Password
      Given user launches the Lyric application
      When user selects "Create Account" from "Honeywell Home" screen
      Then user selects "Country" from "Create Account" screen
@@ -302,12 +303,12 @@
      Then user selects "Create button" from "Create Account" screen
      Then user should be displayed with the following "Password dont match validation" options:
      | PasswordDontMatchValidation |
-     | Passwords don't match |
+     | Invalid password format |
      Examples: 
      | First Name | Last Name | Email 		| Password 	| Verify Password |
      | giri       | THEJ      | unit@grr.la | Password2 | Password1 	  |
 
- 	 @GeneralCreateAccountPrivacyStatementAndEULA          @Automated
+ 	 @GeneralCreateAccountPrivacyStatementAndEULA         @Automated			@NeedsToBeUpdated
      Scenario Outline: As a user I want to verify Create Account Privacy Statement
      Given user launches the Lyric application
      When user selects "Create Account" from "Honeywell Home" screen
@@ -329,7 +330,7 @@
      | CreateAccountOptions    |
      | By Tapping create below |
      | Privacy Statement       |
-     When user selects "END USER License Agreement" from "Create Account" screen
+     When user selects "End User License Agreement" from "Create Account" screen
      Then user should be displayed with the "Privacy Statement" screen
      Then user selects "Back" from "Privacy Statement" screen
      Then user should be displayed with the "Create Account" screen
@@ -337,7 +338,7 @@
      | First Name | Last Name | Email 		| Password 	| Verify Password |
      | giri       | THEJ      | unit@grr.la | Password1 | Password1 	  |
 
-	 @GeneralCreateAccountMarketingOptIn               @Automated  
+	 @GeneralCreateAccountMarketingOptIn           @Automated  			@NeedsToBeUpdated
   	 Scenario Outline: To verify that user has provided with a option for opting-in marketing emails while creating an account
      Given user launches the Lyric application
      When user selects "Create Account" from "Honeywell Home" screen
@@ -362,7 +363,7 @@
      |Signing up consent label should be displayed|
      Then user selects "Create Button" from "Create Account" screen
      Then user should be displayed with the "Activate Account" screen
-     Then user selects "Close Button" from "Activate Account" screen
+     Then user selects "Back Button" from "Activate Account" screen
      Then user should be displayed with the "Honeywell Home" screen   
      When user selects "Create Account" from "Honeywell Home" screen
      Then user should be displayed with the "Create Account" screen
@@ -390,7 +391,7 @@
      |Create button|
      Then user selects "Create Button" from "Create Account" screen
      Then user should be displayed with the "Activate Account" screen
-     Then user selects "Close Button" from "Activate Account" screen
+     Then user selects "Back Button" from "Activate Account" screen
      Then user should be displayed with the "Honeywell Home" screen
      Examples: 
      | First Name | Last Name | Email 		   | Password 	| Verify Password |
@@ -413,7 +414,7 @@
     And verify the inbox for the opt out confirmation email
   
 
-   	@GeneralCreateAccountSelectCountry          @Automated
+   	@GeneralCreateAccountSelectCountry         @Automated  @NoUpdateRequired
   	Scenario: To verify Select country screen 
   	Given user launches the Lyric application
     When user selects "Create Account" from "Honeywell Home" screen
@@ -429,7 +430,7 @@
     | Country selection			|
     Then user should be displayed with the "Selected Country in Create Account" screen
     
-  	@GeneralLoginFunctionality          @Automated
+  	@GeneralLoginFunctionality          @Automated    @NoUpdateRequired
     Scenario: Verify Login in Honeywell Home screen
     Given user launches the Lyric application
     When user selects "Login" from "Honeywell Home" screen
@@ -441,7 +442,7 @@
     |Disabled Login button|
     |Cancel               |
 
-    @GeneralLoginCancelFunctionality          @Automated
+    @GeneralLoginCancelFunctionality        @Automated   @NoUpdateRequired
   	Scenario: Verify Login in Honeywell Home screen
     Given user launches the Lyric application
     When user selects "Login" from "Honeywell Home" screen
@@ -455,7 +456,7 @@
     When user selects "Cancel" from "Login" screen
     Then user should be displayed with the "Honeywell Home" screen
 
-    @GeneralLoginWithValidCredentialWithoutLocation          @Automated
+    @GeneralLoginWithValidCredentialWithoutLocation        @Automated  @NoUpdateRequired
     Scenario Outline: As a user I want to verify valid Login credentails with out location
     Given user launches the Lyric application
     When user selects "Login" from "Honeywell Home" screen
@@ -468,7 +469,7 @@
     |Email         | Password  |
     |zone58@grr.la | Password1 |
 
-    @GeneralLoginWithValidCredentialWithLocation          @Automated
+    @GeneralLoginWithValidCredentialWithLocation        @Automated  @NoUpdateRequired
     Scenario Outline: As a user I want to verify valid Login with location
     Given user launches the Lyric application
     When user selects "Login" from "Honeywell Home" screen
@@ -482,7 +483,7 @@
     |Email		 | Password  |
     |unit@grr.la | Password1 |
 
-    @GeneralLoginWithInvalidEmailAndPassword          @Automated
+    @GeneralLoginWithInvalidEmailAndPassword        @Automated  @NoUpdateRequired
     Scenario Outline: As a user I want to verify valid Login with location
     Given user launches the Lyric application
     When user selects "Login" from "Honeywell Home" screen
@@ -508,7 +509,7 @@
 
   
     #Forget Password 
-    @GeneralForgetPasswordFieldValidation          @Automated
+    @GeneralForgetPasswordFieldValidation       @Automated  @NoUpdateRequired
     Scenario: To verify the Forgot Password screen  
     Given user launches the Lyric application
     When user selects "Login" from "Honeywell Home" screen
@@ -519,7 +520,7 @@
     |Disabled Reset button |
     |Login |
 
-     @GeneralForgetPasswordLoginFunctionality          @Automated
+     @GeneralForgetPasswordLoginFunctionality      @Automated  @NoUpdateRequired
      Scenario Outline: To verify the Forgot Password screen  
      Given user launches the Lyric application
      When user selects "Login" from "Honeywell Home" screen
@@ -537,7 +538,7 @@
      |Email|
      | unit@grr.la | 
   
-    @GenralForgetPasswordmailactivation          @NotAutomatable
+    @GenralForgetPasswordmailactivation       @NotAutomatable  @NoUpdateRequired
   	Scenario Outline: To verify the Forgot Password screen  
     Given user launches the app
      When user selects "Login" screen
@@ -559,5 +560,3 @@
       Examples:
      |Email|
      | unit@grr.la | 
-
-   

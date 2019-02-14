@@ -3,10 +3,10 @@ package com.honeywell.commons.deviceCloudProviders;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.TimeoutException;
@@ -153,7 +153,6 @@ public class PCloudyExecutionDesiredCapability extends MobileDesiredCapabilities
 					.replaceAll("\\s+", FrameworkGlobalVariables.BLANK);
 
 			if (credentials != null) {
-				
 
 				String authToken = pCloudyCONNECTOR.authenticateUser(credentials.getUserName(),
 						credentials.getPassword());
@@ -161,17 +160,21 @@ public class PCloudyExecutionDesiredCapability extends MobileDesiredCapabilities
 				int pCloudyTimeOut = Integer
 						.valueOf(SuiteConstants.getConstantValue(SuiteConstantTypes.PCLOUDY, "DeviceTimeOut"));
 
-				MobileDevice[] devices =  pCloudyCONNECTOR.getDevices(authToken,pCloudyTimeOut,inputs.getInputValue(TestCaseInputs.OS_NAME), false);
+				MobileDevice[] devices = pCloudyCONNECTOR.getDevices(authToken, pCloudyTimeOut,
+						inputs.getInputValue(TestCaseInputs.OS_NAME), false);
 
 				List<MobileDevice> selectedDevices = new ArrayList<MobileDevice>();
 
 				FluentWait<MobileDevice[]> fWait = new FluentWait<MobileDevice[]>(devices);
-				fWait.pollingEvery(1, TimeUnit.SECONDS);
-				fWait.withTimeout(2, TimeUnit.MINUTES);
+				/*
+				 * fWait.pollingEvery(1, TimeUnit.SECONDS); fWait.withTimeout(2,
+				 * TimeUnit.MINUTES);
+				 */
+				fWait.pollingEvery(Duration.ofSeconds(1));
+				fWait.withTimeout(Duration.ofMinutes(2));
 
 				BookingDtoDevice[] bookedDevicesIDs = {};
-				
-				
+
 				String appPath = FrameworkGlobalVariables.BLANK;
 
 				switch (inputs.getInputValue(TestCaseInputs.OS_NAME).toUpperCase()) {
@@ -223,7 +226,7 @@ public class PCloudyExecutionDesiredCapability extends MobileDesiredCapabilities
 				} else {
 					System.out.println("App is already uploaded, No need to upload.");
 				}
-				
+
 				try {
 					boolean isEventReceived = fWait.until(new Function<MobileDevice[], Boolean>() {
 						public Boolean apply(MobileDevice[] devices) {
@@ -280,8 +283,6 @@ public class PCloudyExecutionDesiredCapability extends MobileDesiredCapabilities
 
 					bookedDevicesIDs = pCloudyCONNECTOR.AppiumApis().bookDevicesForAppium(authToken, selectedDevices,
 							pCloudyTimeOut, testCase.getTestCaseName());
-
-					
 
 					if (flag && bookedDevicesIDs.length > 0) {
 						deviceID = bookedDevicesIDs[0].capabilities.deviceName;

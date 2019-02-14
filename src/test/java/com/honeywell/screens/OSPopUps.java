@@ -145,4 +145,56 @@ public class OSPopUps extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase,
 				"ReturnToHoneywellButtonInHoneywellLocationServicesScreen");
 	}
+	
+	public boolean isTurnOnLocationServicesPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "TurnOnLocationServicesPopup");
+	}
+	
+	public boolean isSettingsButtonVisibleInTurnOnLocationServicesPopup() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SettingsButton");
+	}
+	
+	public boolean isSkipButtonVisibleInTurnOnLocationServicesPopup() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SkipButton");
+	}
+	
+	public boolean clickOnSkipButtonInTurnOnLocationServicesPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SkipButton");
+	}
+	
+	public boolean clickOnSettingsButtonInTurnOnLocationServicesPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SettingsButton");
+	}
+	
+	public boolean isMobileDeviceLocationEnabled() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MobileDeviceLocationEnabled");
+	}
+	
+	public boolean isMobileDeviceLocationDisabled() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MobileDeviceLocationDisabled");
+	}
+	
+	public boolean clickToTurnOffMobileDeviceLocation() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "MobileDeviceLocationEnabled");
+	}
+	
+	public boolean isAllowHoneywellToAccessDeviceLocationPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AllowHoneywellToAccessDeviceLocationPopup");
+	}
+	
+	public boolean isDenyAccessToDeviceLocationButtonVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DenyAccessToDeviceLocation");
+	}
+	
+	public boolean isAllowAccessToDeviceLocationButtonVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AllowAccessToDeviceLocation");
+	}
+	
+	public boolean clickOnDenyAccessToDeviceLocationButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DenyAccessToDeviceLocation");
+	}
+	
+	public boolean clickOnAllowAccessToDeviceLocationButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AllowAccessToDeviceLocation");
+	}
 }

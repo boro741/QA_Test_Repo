@@ -1,11 +1,11 @@
 package com.honeywell.jasper.utils;
 
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -164,7 +164,7 @@ public class JasperVacation {
 		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 		if (isOn) {
 			try {
-				SchedulingScreen ss= new SchedulingScreen(testCase);
+				SchedulingScreen ss = new SchedulingScreen(testCase);
 				ss.isNoScheduleTextVisible(60);
 				adHocText = adhoc.getVacationStatusInSolutionsCardScreen();
 			} catch (NoSuchElementException e) {
@@ -211,13 +211,13 @@ public class JasperVacation {
 				Keyword.ReportStep_Pass(testCase, "Vacation End time from CHIL device information is: " + endDate);
 				SimpleDateFormat adHocDateFormat = new SimpleDateFormat("MMM dd");
 				try {
-					
+
 					endDateToBeDisplayed = adHocDateFormat.format(vacationDateFormat.parse(endDate));
-					
+
 					Keyword.ReportStep_Pass(testCase,
 							"Vacation End date from CHIL device information to be displayed is: "
 									+ endDateToBeDisplayed);
-					
+
 				} catch (Exception e) {
 					flag = false;
 					Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -260,20 +260,19 @@ public class JasperVacation {
 				} else {
 					try {
 						SimpleDateFormat date24Format = new SimpleDateFormat("HH:mm");
-	                    SimpleDateFormat date12Format = new SimpleDateFormat("hh:mm a");
-	                    SimpleDateFormat vacationDateFormat1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-	                   
-	                    String endTime = date24Format.format(vacationDateFormat1.parse(endDate));
-	                    String adhoctexttime = adhoc.getVacationStatusInSolutionsCardScreen().replace("Vacation Until ", "");
-	                    adhoctexttime = date24Format.format(date12Format.parse(adhoctexttime));
-	                    adhoctexttime = convertTimetoUTCTime(testCase, "2018-09-12T"+ adhoctexttime+":00");
-	                    if(adhoctexttime.contains(endTime))
-						{
-	                    	Keyword.ReportStep_Pass(testCase,
-	    							"Verify Vacation Status On Solutions Card : Vacation is on in the Solutions card and displayed end date is correct: "
-	    									+ adhoctexttime);
-						}
-	                    else if (adHocText.contains("Vacation")) {
+						SimpleDateFormat date12Format = new SimpleDateFormat("hh:mm a");
+						SimpleDateFormat vacationDateFormat1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
+						String endTime = date24Format.format(vacationDateFormat1.parse(endDate));
+						String adhoctexttime = adhoc.getVacationStatusInSolutionsCardScreen().replace("Vacation Until ",
+								"");
+						adhoctexttime = date24Format.format(date12Format.parse(adhoctexttime));
+						adhoctexttime = convertTimetoUTCTime(testCase, "2018-09-12T" + adhoctexttime + ":00");
+						if (adhoctexttime.contains(endTime)) {
+							Keyword.ReportStep_Pass(testCase,
+									"Verify Vacation Status On Solutions Card : Vacation is on in the Solutions card and displayed end date is correct: "
+											+ adhoctexttime);
+						} else if (adHocText.contains("Vacation")) {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Verify Vacation Status On Solutions Card : Vacation is on in the Solutions card but displayed end date is incorrect: "
@@ -283,7 +282,7 @@ public class JasperVacation {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Verify Vacation Status On Solutions Card : Vacation is not on in the Solutions card");
 						}
-					}catch(Exception e) {
+					} catch (Exception e) {
 						System.out.println("");
 					}
 				}
@@ -400,8 +399,12 @@ public class JasperVacation {
 			} else {
 				System.out.println("Waiting for vacation to start");
 				FluentWait<String> fWait = new FluentWait<String>(" ");
-				fWait.pollingEvery(10, TimeUnit.SECONDS);
-				fWait.withTimeout(15, TimeUnit.MINUTES);
+				/*
+				 * fWait.pollingEvery(10, TimeUnit.SECONDS); fWait.withTimeout(15,
+				 * TimeUnit.MINUTES);
+				 */
+				fWait.pollingEvery(Duration.ofSeconds(10));
+				fWait.withTimeout(Duration.ofMinutes(15));
 				Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 					public Boolean apply(String a) {
 						DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
@@ -438,8 +441,12 @@ public class JasperVacation {
 					}
 				});
 				System.out.println("Waiting for vacation to start running in CHIL");
-				fWait.pollingEvery(10, TimeUnit.SECONDS);
-				fWait.withTimeout(2, TimeUnit.MINUTES);
+				/*
+				 * fWait.pollingEvery(10, TimeUnit.SECONDS); fWait.withTimeout(2,
+				 * TimeUnit.MINUTES);
+				 */
+				fWait.pollingEvery(Duration.ofSeconds(10));
+				fWait.withTimeout(Duration.ofMinutes(2));
 				isEventReceived = fWait.until(new Function<String, Boolean>() {
 					public Boolean apply(String a) {
 						try {
@@ -513,8 +520,12 @@ public class JasperVacation {
 			} else {
 				System.out.println("Waiting for vacation to start");
 				FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
-				fWait.pollingEvery(10, TimeUnit.SECONDS);
-				fWait.withTimeout(15, TimeUnit.MINUTES);
+				/*
+				 * fWait.pollingEvery(10, TimeUnit.SECONDS); fWait.withTimeout(15,
+				 * TimeUnit.MINUTES);
+				 */
+				fWait.pollingEvery(Duration.ofSeconds(10));
+				fWait.withTimeout(Duration.ofMinutes(15));
 				Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 					public Boolean apply(CustomDriver driver) {
 						DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
@@ -555,8 +566,12 @@ public class JasperVacation {
 					}
 				});
 				System.out.println("Waiting for vacation to start running in CHIL");
-				fWait.pollingEvery(10, TimeUnit.SECONDS);
-				fWait.withTimeout(2, TimeUnit.MINUTES);
+				/*
+				 * fWait.pollingEvery(10, TimeUnit.SECONDS); fWait.withTimeout(2,
+				 * TimeUnit.MINUTES);
+				 */
+				fWait.pollingEvery(Duration.ofSeconds(10));
+				fWait.withTimeout(Duration.ofMinutes(2));
 				isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 					public Boolean apply(CustomDriver driver) {
 						DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
@@ -670,157 +685,158 @@ public class JasperVacation {
 
 		return time;
 	}
-	public boolean setMaxTemperatureByTappingUpStepperVacation(TestCases testCase, TestCaseInputs inputs){
+
+	public boolean setMaxTemperatureByTappingUpStepperVacation(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "VacationHold");
-			String maxSetPointh = "";
-			String maxSetPointc = "";
-			float maxSetPointFloat = 0;
-			int maxSetPointInt = 0;
-			boolean systemIsCelsius = false;
-			String currentSetPoint = "";
-			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-			HashMap<String, String> setPoints = new HashMap<String, String>();
-			try {
-				setPoints = statInfo.getDeviceMaxMinSetPoints();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-				maxSetPointh = setPoints.get("MaxHeat");
-			if (maxSetPointh.contains(".")) {
-				systemIsCelsius = true;
-				maxSetPointFloat = Float.parseFloat(maxSetPointh);
-			} else {
-				maxSetPointInt = (int) Float.parseFloat(maxSetPointh);
-			}
-
-			WebElement ele = MobileUtils.getMobElement(fieldObjects, testCase, "HeatSetPointRound");
-			currentSetPoint = ele.getText();
-			if (systemIsCelsius == false) {
-				while (Integer.parseInt(currentSetPoint) < maxSetPointInt) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "HeatSetPointStepperUpButton");
-					currentSetPoint = ele.getText();
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "HeatSetPointRound") && MobileUtils
-							.getFieldValue(fieldObjects, testCase, "HeatSetPointRound").equalsIgnoreCase(currentSetPoint)) {
-						return flag;
-					} else {
-						flag = false;
-					}
-				}
-			} else {
-				while (Float.parseFloat(currentSetPoint) < maxSetPointFloat) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "HeatSetPointStepperUpButton");
-					currentSetPoint = ele.getText();
-				}
-			}
-			maxSetPointc = setPoints.get("MaxCool");
-			if (maxSetPointc.contains(".")) {
-				systemIsCelsius = true;
-				maxSetPointFloat = Float.parseFloat(maxSetPointc);
-			} else {
-				maxSetPointInt = (int) Float.parseFloat(maxSetPointc);
-			}
-			WebElement ele1 = MobileUtils.getMobElement(fieldObjects, testCase, "CoolSetPointRound");
-			currentSetPoint = ele1.getText();
-			if (systemIsCelsius == false) {
-				while (Integer.parseInt(currentSetPoint) < maxSetPointInt) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CoolSetPointStepperUpButton");
-					currentSetPoint = ele1.getText();
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CoolSetPointRound") && MobileUtils
-							.getFieldValue(fieldObjects, testCase, "CoolSetPointRound").equalsIgnoreCase(currentSetPoint)) {
-						return flag;
-					} else {
-						flag = false;
-					}
-				}
-			} else {
-				while (Float.parseFloat(currentSetPoint) < maxSetPointFloat) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CoolSetPointStepperUpButton");
-					currentSetPoint = ele1.getText();
-				}
-			}
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			return flag;
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "VacationHold");
+		String maxSetPointh = "";
+		String maxSetPointc = "";
+		float maxSetPointFloat = 0;
+		int maxSetPointInt = 0;
+		boolean systemIsCelsius = false;
+		String currentSetPoint = "";
+		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+		HashMap<String, String> setPoints = new HashMap<String, String>();
+		try {
+			setPoints = statInfo.getDeviceMaxMinSetPoints();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		public boolean setMinTemperatureByTappingDownStepperVacation(TestCases testCase, TestCaseInputs inputs) {
-			boolean flag = true;
-			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "VacationHold");
-			String minSetPointh = "";
-			String minSetPointc = "";
-			float minSetPointFloat = 0;
-			int minSetPointInt = 0;
-			boolean systemIsCelsius = false;
-			String currentSetPoint = "";
-			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
-			HashMap<String, String> setPoints = new HashMap<String, String>();
-			try {
-				setPoints = statInfo.getDeviceMaxMinSetPoints();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-				minSetPointh = setPoints.get("MinHeat");
-			if (minSetPointh.contains(".")) {
-				systemIsCelsius = true;
-				minSetPointFloat = Float.parseFloat(minSetPointh);
-			} else {
-				minSetPointInt = (int) Float.parseFloat(minSetPointh);
-			}
-
-			WebElement ele = MobileUtils.getMobElement(fieldObjects, testCase, "HeatSetPointRound");
-			currentSetPoint = ele.getText();
-			if (systemIsCelsius == false) {
-				while (minSetPointInt<Integer.parseInt(currentSetPoint)) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "HeatSetPointStepperDownButton");
-					currentSetPoint = ele.getText();
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "HeatSetPointRound") && MobileUtils
-							.getFieldValue(fieldObjects, testCase, "HeatSetPointRound").equalsIgnoreCase(currentSetPoint)) {
-						return flag;
-					} else {
-						flag = false;
-					}
-				}
-			} else {
-				while ( minSetPointFloat < Float.parseFloat(currentSetPoint) ) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "HeatSetPointStepperDownButton");
-					currentSetPoint = ele.getText();
-				}
-			}
-			minSetPointc = setPoints.get("MinCool");
-			if (minSetPointc.contains(".")) {
-				systemIsCelsius = true;
-				minSetPointFloat = Float.parseFloat(minSetPointc);
-			} else {
-				minSetPointInt = (int) Float.parseFloat(minSetPointc);
-			}
-			WebElement ele1 = MobileUtils.getMobElement(fieldObjects, testCase, "CoolSetPointRound");
-			currentSetPoint = ele1.getText();
-			if (systemIsCelsius == false) {
-				while (minSetPointInt < Integer.parseInt(currentSetPoint)) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CoolSetPointStepperDownButton");
-					currentSetPoint = ele1.getText();
-					if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CoolSetPointRound") && MobileUtils
-							.getFieldValue(fieldObjects, testCase, "CoolSetPointRound").equalsIgnoreCase(currentSetPoint)) {
-						return flag;
-					} else {
-						flag = false;
-					}
-				}
-			} else {
-				while (minSetPointFloat < Float.parseFloat(currentSetPoint)) {
-					flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CoolSetPointStepperDownButton");
-					currentSetPoint = ele1.getText();
-				}
-			}
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			return flag;
+		maxSetPointh = setPoints.get("MaxHeat");
+		if (maxSetPointh.contains(".")) {
+			systemIsCelsius = true;
+			maxSetPointFloat = Float.parseFloat(maxSetPointh);
+		} else {
+			maxSetPointInt = (int) Float.parseFloat(maxSetPointh);
 		}
+
+		WebElement ele = MobileUtils.getMobElement(fieldObjects, testCase, "HeatSetPointRound");
+		currentSetPoint = ele.getText();
+		if (systemIsCelsius == false) {
+			while (Integer.parseInt(currentSetPoint) < maxSetPointInt) {
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "HeatSetPointStepperUpButton");
+				currentSetPoint = ele.getText();
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "HeatSetPointRound") && MobileUtils
+						.getFieldValue(fieldObjects, testCase, "HeatSetPointRound").equalsIgnoreCase(currentSetPoint)) {
+					return flag;
+				} else {
+					flag = false;
+				}
+			}
+		} else {
+			while (Float.parseFloat(currentSetPoint) < maxSetPointFloat) {
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "HeatSetPointStepperUpButton");
+				currentSetPoint = ele.getText();
+			}
+		}
+		maxSetPointc = setPoints.get("MaxCool");
+		if (maxSetPointc.contains(".")) {
+			systemIsCelsius = true;
+			maxSetPointFloat = Float.parseFloat(maxSetPointc);
+		} else {
+			maxSetPointInt = (int) Float.parseFloat(maxSetPointc);
+		}
+		WebElement ele1 = MobileUtils.getMobElement(fieldObjects, testCase, "CoolSetPointRound");
+		currentSetPoint = ele1.getText();
+		if (systemIsCelsius == false) {
+			while (Integer.parseInt(currentSetPoint) < maxSetPointInt) {
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CoolSetPointStepperUpButton");
+				currentSetPoint = ele1.getText();
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CoolSetPointRound") && MobileUtils
+						.getFieldValue(fieldObjects, testCase, "CoolSetPointRound").equalsIgnoreCase(currentSetPoint)) {
+					return flag;
+				} else {
+					flag = false;
+				}
+			}
+		} else {
+			while (Float.parseFloat(currentSetPoint) < maxSetPointFloat) {
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CoolSetPointStepperUpButton");
+				currentSetPoint = ele1.getText();
+			}
+		}
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+
+	public boolean setMinTemperatureByTappingDownStepperVacation(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "VacationHold");
+		String minSetPointh = "";
+		String minSetPointc = "";
+		float minSetPointFloat = 0;
+		int minSetPointInt = 0;
+		boolean systemIsCelsius = false;
+		String currentSetPoint = "";
+		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
+		HashMap<String, String> setPoints = new HashMap<String, String>();
+		try {
+			setPoints = statInfo.getDeviceMaxMinSetPoints();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		minSetPointh = setPoints.get("MinHeat");
+		if (minSetPointh.contains(".")) {
+			systemIsCelsius = true;
+			minSetPointFloat = Float.parseFloat(minSetPointh);
+		} else {
+			minSetPointInt = (int) Float.parseFloat(minSetPointh);
+		}
+
+		WebElement ele = MobileUtils.getMobElement(fieldObjects, testCase, "HeatSetPointRound");
+		currentSetPoint = ele.getText();
+		if (systemIsCelsius == false) {
+			while (minSetPointInt < Integer.parseInt(currentSetPoint)) {
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "HeatSetPointStepperDownButton");
+				currentSetPoint = ele.getText();
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "HeatSetPointRound") && MobileUtils
+						.getFieldValue(fieldObjects, testCase, "HeatSetPointRound").equalsIgnoreCase(currentSetPoint)) {
+					return flag;
+				} else {
+					flag = false;
+				}
+			}
+		} else {
+			while (minSetPointFloat < Float.parseFloat(currentSetPoint)) {
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "HeatSetPointStepperDownButton");
+				currentSetPoint = ele.getText();
+			}
+		}
+		minSetPointc = setPoints.get("MinCool");
+		if (minSetPointc.contains(".")) {
+			systemIsCelsius = true;
+			minSetPointFloat = Float.parseFloat(minSetPointc);
+		} else {
+			minSetPointInt = (int) Float.parseFloat(minSetPointc);
+		}
+		WebElement ele1 = MobileUtils.getMobElement(fieldObjects, testCase, "CoolSetPointRound");
+		currentSetPoint = ele1.getText();
+		if (systemIsCelsius == false) {
+			while (minSetPointInt < Integer.parseInt(currentSetPoint)) {
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CoolSetPointStepperDownButton");
+				currentSetPoint = ele1.getText();
+				if (MobileUtils.isMobElementExists(fieldObjects, testCase, "CoolSetPointRound") && MobileUtils
+						.getFieldValue(fieldObjects, testCase, "CoolSetPointRound").equalsIgnoreCase(currentSetPoint)) {
+					return flag;
+				} else {
+					flag = false;
+				}
+			}
+		} else {
+			while (minSetPointFloat < Float.parseFloat(currentSetPoint)) {
+				flag = flag & MobileUtils.clickOnElement(fieldObjects, testCase, "CoolSetPointStepperDownButton");
+				currentSetPoint = ele1.getText();
+			}
+		}
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
 }

@@ -21,8 +21,6 @@ import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.OSPopUps;
 
-import io.appium.java_client.TouchAction;
-
 import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
@@ -32,6 +30,9 @@ import com.honeywell.screens.VacationHoldScreen;
 import com.honeywell.screens.WLDLeakDetectorSettings;
 import com.honeywell.screens.WLDManageAlerts;
 import com.honeywell.screens.WLDUpdateFrequency;
+
+import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class ChangeBaseStationSettings extends Keyword {
 
@@ -422,6 +423,7 @@ public class ChangeBaseStationSettings extends Keyword {
 			} else if (parameters.get(0).equalsIgnoreCase("Camera ON in Night Mode")) {
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+				@SuppressWarnings("rawtypes")
 				TouchAction action = new TouchAction(testCase.getMobileDriver());
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					int startx = (dimension.width * 20) / 100;
@@ -430,8 +432,12 @@ public class ChangeBaseStationSettings extends Keyword {
 					int endy = (dimension.height * 35) / 100;
 					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				} else {
-					action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-							.release().perform();
+					/*
+					 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
+					 * (dimension.getHeight() * .6)) .release().perform();
+					 */
+					action.press(point(10, (int) (dimension.getHeight() * .9)))
+							.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 				}
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
 					if (cs.isCameraOnInNightModeSwitchEnabled(testCase)) {
@@ -685,6 +691,7 @@ public class ChangeBaseStationSettings extends Keyword {
 			} else if (parameters.get(0).equalsIgnoreCase("MOTION SENSITIVITY")) {
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+				@SuppressWarnings("rawtypes")
 				TouchAction action = new TouchAction(testCase.getMobileDriver());
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					int startx = (dimension.width * 20) / 100;
@@ -694,10 +701,16 @@ public class ChangeBaseStationSettings extends Keyword {
 					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				} else {
-					action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-							.release().perform();
-					action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-							.release().perform();
+					/*
+					 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
+					 * (dimension.getHeight() * .6)) .release().perform(); action.press(10, (int)
+					 * (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+					 * .release().perform();
+					 */
+					action.press(point(10, (int) (dimension.getHeight() * .9)))
+							.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+					action.press(point(10, (int) (dimension.getHeight() * .9)))
+							.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 				}
 				if (parameters.get(1).equalsIgnoreCase("OFF")) {
 					if (cs.isMotionSensitivityStatusSetToExpected(testCase, parameters.get(1))) {
@@ -1795,6 +1808,7 @@ public class ChangeBaseStationSettings extends Keyword {
 				}
 			} else if (parameters.get(0).equalsIgnoreCase("OUTDOOR MOTION VIEWERS ON IN HOME MODE")) {
 				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+				@SuppressWarnings("rawtypes")
 				TouchAction action = new TouchAction(testCase.getMobileDriver());
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					int startx = (dimension.width * 20) / 100;
@@ -1803,8 +1817,12 @@ public class ChangeBaseStationSettings extends Keyword {
 					int endy = (dimension.height * 35) / 100;
 					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				} else {
-					action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-							.release().perform();
+					/*
+					 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
+					 * (dimension.getHeight() * .6)) .release().perform();
+					 */
+					action.press(point(10, (int) (dimension.getHeight() * .9)))
+							.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 				}
 
 				BaseStationSettingsScreen mc = new BaseStationSettingsScreen(testCase);

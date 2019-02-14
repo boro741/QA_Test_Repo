@@ -12,10 +12,9 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.screens.HoneywellMembershipScreen;
 
-public class MembershipUtility extends Keyword  {
-	
+public class MembershipUtility extends Keyword {
+
 	public TestCases testCase;
 	public TestCaseInputs inputs;
 	public boolean flag = true;
@@ -33,54 +32,47 @@ public class MembershipUtility extends Keyword  {
 	public boolean preCondition() throws KeywordException {
 		return flag;
 	}
-	
+
 	@Override
 	@KeywordStep(gherkins = "^(.*) camera from CHIL$")
-	public boolean keywordSteps() throws KeywordException{
-		
+	public boolean keywordSteps() throws KeywordException {
+
 		CHILUtil util;
 		int locationId = 46099;
 		String emxDeviceId = "31338C0AB6A5D94C07EB1B0A669EAA94DA5611A5CCD25BF3AB5A4BD1BCB1D90F";
 		try {
 			if (parameters.get(0).equalsIgnoreCase("add")) {
-			
+
 				try {
 					util = new CHILUtil(inputs);
-					int result  = util.RegisterAndActivateCamera(locationId, emxDeviceId, testCase);
-					
-					if (result == HttpURLConnection.HTTP_CREATED || result == HttpURLConnection.HTTP_OK)
-					{
+					int result = util.RegisterAndActivateCamera(locationId, emxDeviceId, testCase);
+
+					if (result == HttpURLConnection.HTTP_CREATED || result == HttpURLConnection.HTTP_OK) {
 						flag = true;
 						Keyword.ReportStep_Pass(testCase, "Device Registered Sucessfully");
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
-				}	
-			}
-			else if (parameters.get(0).equalsIgnoreCase("delete"))
-			{
+				}
+			} else if (parameters.get(0).equalsIgnoreCase("delete")) {
 				util = new CHILUtil(inputs);
 				int resultDelete = util.deleteDeviceHub(locationId);
-				
-				if (resultDelete == HttpURLConnection.HTTP_CREATED || resultDelete == HttpURLConnection.HTTP_OK)
-				{
+
+				if (resultDelete == HttpURLConnection.HTTP_CREATED || resultDelete == HttpURLConnection.HTTP_OK) {
 					flag = true;
 					Keyword.ReportStep_Pass(testCase, "Device Deleted Sucessfully");
 				}
-			}
-			else
-			{
+			} else {
 				flag = false;
-			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Invalid input  ");
+				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid input  ");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}	
+		}
 
 		return flag;
 	}
-		
+
 	@Override
 	@AfterKeyword
 	public boolean postCondition() throws KeywordException {

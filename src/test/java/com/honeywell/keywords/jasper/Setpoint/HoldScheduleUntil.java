@@ -15,7 +15,6 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.jasper.utils.JasperAdhocOverride;
-import com.honeywell.jasper.utils.JasperSetPoint;
 import com.honeywell.lyric.utils.InputVariables;
 import com.honeywell.lyric.utils.LyricUtils;
 
@@ -47,17 +46,17 @@ public class HoldScheduleUntil extends Keyword {
 			SimpleDateFormat time12Format = new SimpleDateFormat("hh:mm a");
 			flag = flag & JasperAdhocOverride.holdSetPointsUntilFromAdHoc(testCase);
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				SimpleDateFormat androidDateFormat ;
-				String currentTime ;
+				SimpleDateFormat androidDateFormat;
+				String currentTime;
 				if (inputs.isRunningOn("Saucelabs")) {
-					currentTime= LyricUtils.getDeviceTime(testCase, inputs);
-					ReportStep_Pass(testCase,"Current suace lab time"+currentTime);
+					currentTime = LyricUtils.getDeviceTime(testCase, inputs);
+					ReportStep_Pass(testCase, "Current suace lab time" + currentTime);
 					androidDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm a");
-				}else{
+				} else {
 					currentTime = JasperAdhocOverride.getAndroidDeviceTime(testCase).trim();
 					androidDateFormat = new SimpleDateFormat("EEE MMM dd hh:mm:ss zzz yyyy");
 				}
-				ReportStep_Pass(testCase, "Current time on device is "+currentTime);
+				ReportStep_Pass(testCase, "Current time on device is " + currentTime);
 				Date date = androidDateFormat.parse(currentTime);
 
 				Calendar c1 = Calendar.getInstance();
@@ -66,27 +65,27 @@ public class HoldScheduleUntil extends Keyword {
 				c1.setTime(date);
 				c2.setTime(date);
 				if (exampleData.get(0).equals("greater than 12 hours")) {
-					//c2.add(Calendar.HOUR, 14);
+					// c2.add(Calendar.HOUR, 14);
 					c2.add(Calendar.MINUTE, 840);
 					c2.set(Calendar.MINUTE, 0);
 				} else if (exampleData.get(0).equals("lesser than 12 hours")) {
-					ReportStep_Pass(testCase,"Current instance "+c2.getTime());
-					ReportStep_Pass(testCase, "Current hour : "+Calendar.HOUR);
+					ReportStep_Pass(testCase, "Current instance " + c2.getTime());
+					ReportStep_Pass(testCase, "Current hour : " + Calendar.HOUR);
 					c2.add(Calendar.MINUTE, 120);
 					c2.set(Calendar.MINUTE, 0);
 					ReportStep_Pass(testCase, "Added 2 hrs");
-				} else{
+				} else {
 					int minutes = c2.get(Calendar.MINUTE);
-					if (jasperStatType.equalsIgnoreCase("EMEA")){
-						int mod =  10- (minutes % 10);
-						if(mod==0){
-							mod=10;
+					if (jasperStatType.equalsIgnoreCase("EMEA")) {
+						int mod = 10 - (minutes % 10);
+						if (mod == 0) {
+							mod = 10;
 						}
 						c2.add(Calendar.MINUTE, mod);
-					}else{
-						int mod = 15-(minutes % 15);
-						if(mod==0){
-							mod=15;
+					} else {
+						int mod = 15 - (minutes % 15);
+						if (mod == 0) {
+							mod = 15;
 						}
 						c2.add(Calendar.MINUTE, mod);
 					}
@@ -99,16 +98,16 @@ public class HoldScheduleUntil extends Keyword {
 				} else {
 					day = "Today";
 				}
-				ReportStep_Pass(testCase,"After adding time"+c2.getTime());
+				ReportStep_Pass(testCase, "After adding time" + c2.getTime());
 				String time = time12Format.format(c2.getTime());
-				ReportStep_Pass(testCase,"After converting to 12 hr format"+time);
+				ReportStep_Pass(testCase, "After converting to 12 hr format" + time);
 				flag = flag & JasperAdhocOverride.setHoldUntilTime(testCase, inputs, day, time);
 				if (flag) {
 					inputs.setInputValue(InputVariables.HOLD_UNTIL_TIME, time);
 				}
 			} else {
 				SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d");
-				String IOSTime =JasperAdhocOverride.getIOSSimulatorTime(testCase);
+				String IOSTime = JasperAdhocOverride.getIOSSimulatorTime(testCase);
 				SimpleDateFormat IOSDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 				Date date = IOSDateFormat.parse(IOSTime);
 				Calendar c1 = Calendar.getInstance();
@@ -132,10 +131,10 @@ public class HoldScheduleUntil extends Keyword {
 				}
 			}
 			if (exampleData.get(0).equals("greater than 12 hours")) {
-				if(testCase.getPlatform().contains("IOS")){
-					//Nothing to do as autocorrection will happen
-				}else{
-					MobileUtils.clickOnElement(testCase, "id","button1");
+				if (testCase.getPlatform().contains("IOS")) {
+					// Nothing to do as autocorrection will happen
+				} else {
+					MobileUtils.clickOnElement(testCase, "id", "button1");
 				}
 			}
 

@@ -16,6 +16,7 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.AddressUtils;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
+import com.honeywell.lyric.das.utils.WeatherForecastUtils;
 import com.honeywell.screens.AboutTheAppScreen;
 import com.honeywell.screens.ActivateAccountScreen;
 import com.honeywell.screens.ActivityHistoryScreen;
@@ -42,9 +43,11 @@ import com.honeywell.screens.WLDConfigurationScreen;
 import com.honeywell.screens.WLDLeakDetectorSettings;
 import com.honeywell.screens.WLDManageAlerts;
 import com.honeywell.screens.WLDSolutionCard;
+import com.honeywell.screens.WeatherForecastScreen;
 import com.honeywell.lyric.utils.LyricUtils;
 
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 import java.util.Random;
 
@@ -645,6 +648,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 		case "MOTION SENSITIVITY SETTINGS": {
 			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+			@SuppressWarnings("rawtypes")
 			TouchAction action = new TouchAction(testCase.getMobileDriver());
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				int startx = (dimension.width * 20) / 100;
@@ -654,10 +658,16 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 			} else {
-				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-						.release().perform();
-				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-						.release().perform();
+				/*
+				 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
+				 * (dimension.getHeight() * .6)) .release().perform(); action.press(10, (int)
+				 * (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+				 * .release().perform();
+				 */
+				action.press(point(10, (int) (dimension.getHeight() * .9)))
+						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+				action.press(point(10, (int) (dimension.getHeight() * .9)))
+						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 			}
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldToBeVerified = data.getData(i, "MotionSensitivityOptionsSettings");
@@ -1803,10 +1813,15 @@ public class VerifyOptionsOnAScreen extends Keyword {
 		case "OSMV SECURITY SETTINGS": {
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+			@SuppressWarnings("rawtypes")
 			TouchAction action = new TouchAction(testCase.getMobileDriver());
 			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-						.release().perform();
+				/*
+				 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
+				 * (dimension.getHeight() * .6)) .release().perform();
+				 */
+				action.press(point(10, (int) (dimension.getHeight() * .9)))
+						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 			}
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldToBeVerified = data.getData(i, "OSMVSecuritySettingsOptions");
@@ -2056,6 +2071,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 				case "ABOUT THE APP": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						int startx = (dimension.width * 20) / 100;
@@ -2064,8 +2080,12 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						int endy = (dimension.height * 35) / 100;
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= gd.isAboutTheAppOptionVisible();
 					if (flag) {
@@ -2195,6 +2215,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 				case "ABOUT THE APP": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						int startx = (dimension.width * 20) / 100;
@@ -2203,8 +2224,12 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						int endy = (dimension.height * 35) / 100;
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= gd.isAboutTheAppOptionVisible();
 					if (flag) {
@@ -2352,6 +2377,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 				case "ABOUT THE APP": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						int startx = (dimension.width * 20) / 100;
@@ -2360,8 +2386,12 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						int endy = (dimension.height * 35) / 100;
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= gd.isAboutTheAppOptionVisible();
 					if (flag) {
@@ -2510,6 +2540,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 				case "ABOUT THE APP": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						int startx = (dimension.width * 20) / 100;
@@ -2518,8 +2549,12 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						int endy = (dimension.height * 35) / 100;
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= gd.isAboutTheAppOptionVisible();
 					if (flag) {
@@ -2657,6 +2692,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 				case "ABOUT THE APP": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						int startx = (dimension.width * 20) / 100;
@@ -2665,8 +2701,12 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						int endy = (dimension.height * 35) / 100;
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= gd.isAboutTheAppOptionVisible();
 					if (flag) {
@@ -2795,6 +2835,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 				case "EDIT ACCOUNT": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						int startx = (dimension.width * 20) / 100;
@@ -2803,8 +2844,12 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						int endy = (dimension.height * 35) / 100;
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= gd.isEditAccountOptionVisible();
 					if (flag) {
@@ -3561,6 +3606,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						Keyword.ReportStep_Pass(testCase, parameter + " text is displayed");
 					} else {
 						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+						@SuppressWarnings("rawtypes")
 						TouchAction action = new TouchAction(testCase.getMobileDriver());
 						System.out.println("$$$$$$$$$$$$$$: " + testCase.getPlatform());
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -3570,8 +3616,12 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							int endy = (dimensions.height * 35) / 100;
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
-							action.press(10, (int) (dimensions.getHeight() * .9))
-									.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
+							/*
+							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimensions.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimensions.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 						}
 						if (cas.isCreateAccountByTappingCreateBelowTextDisplayed()) {
 							Keyword.ReportStep_Pass(testCase, parameter + " text is displayed");
@@ -3588,6 +3638,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						Keyword.ReportStep_Pass(testCase, parameter + "link is displayed");
 					} else {
 						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+						@SuppressWarnings("rawtypes")
 						TouchAction action = new TouchAction(testCase.getMobileDriver());
 						System.out.println("$$$$$$$$$$$$$$: " + testCase.getPlatform());
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -3597,8 +3648,12 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							int endy = (dimensions.height * 35) / 100;
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
-							action.press(10, (int) (dimensions.getHeight() * .9))
-									.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
+							/*
+							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimensions.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimensions.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 						}
 						if (cas.isCreateAccountPrivacyStatementLinkDisplayed()) {
 							Keyword.ReportStep_Pass(testCase, parameter + " link is displayed");
@@ -3751,6 +3806,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, parameter + " text is displayed");
 						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+						@SuppressWarnings("rawtypes")
 						TouchAction action = new TouchAction(testCase.getMobileDriver());
 						System.out.println("$$$$$$$$$$$$$$: " + testCase.getPlatform());
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -3760,8 +3816,12 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							int endy = (dimensions.height * 35) / 100;
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
-							action.press(10, (int) (dimensions.getHeight() * .9))
-									.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
+							/*
+							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimensions.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimensions.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 						}
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -4097,6 +4157,151 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								parameter + " link is not displayed");
+					}
+					break;
+				}
+				}
+			}
+		}
+		case "WEATHER": {
+			boolean flag = true;
+			String locationValue1 = null;
+			Dashboard d = new Dashboard(testCase);
+			WeatherForecastScreen w = new WeatherForecastScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "WeatherOptions");
+				switch (parameter.toUpperCase()) {
+				case "WEATHER ICON": {
+					flag &= d.isWeatherIconDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not displayed");
+					}
+					break;
+				}
+				case "WEATHER TEMP IN DASHBOARD SCREEN": {
+					try {
+						chUtil = new CHILUtil(inputs);
+						long locationID;
+						double weatherTemperatureFromCHIL, weatherTemperatureDisplayedInTheApp;
+						String defaultWeatherTempUnit = null;
+						if (chUtil.getConnection()) {
+							locationID = chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME"));
+							System.out.println("The CHIL location ID is: " + locationID);
+							weatherTemperatureFromCHIL = Double.parseDouble(chUtil.getWeather(locationID));
+							System.out.println("########weatherTemperatureFromCHIL: " + weatherTemperatureFromCHIL);
+							if (flag &= d.isDashboardWeatherForecastDisplayed(100)) {
+								Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+								defaultWeatherTempUnit = d.getWeatherTempValue();
+								weatherTemperatureDisplayedInTheApp = Double.parseDouble(defaultWeatherTempUnit);
+								flag &= d.clickOnWeatherTempValue();
+								if (w.isWeatherScreenTitleDisplayed()) {
+									String tempUnitEnabled = w.whichWeatherTempUnitIsEnabled();
+									if (tempUnitEnabled.contains("C")) {
+										w.clickOnBackIcon();
+									} else {
+										w.clickOnCelsiusUnit();
+										w.clickOnBackIcon();
+									}
+									/*
+									 * if(tempUnitEnabled.contains("F")) { w.clickOnFarenheitUnit();
+									 * w.clickOnBackIcon(); }else { w.clickOnBackIcon(); }
+									 */
+								}
+								if ((Double.compare(weatherTemperatureFromCHIL,
+										weatherTemperatureDisplayedInTheApp) == 0)
+										|| (Double.compare(weatherTemperatureFromCHIL,
+												weatherTemperatureDisplayedInTheApp) >= 2)
+										|| (Double.compare(weatherTemperatureFromCHIL,
+												weatherTemperatureDisplayedInTheApp) <= 2)) {
+									Keyword.ReportStep_Pass(testCase, parameter
+											+ "Weather displayed in app is same as the Weather Temperature in CHIL");
+								} else {
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Weather displayed in app: " + weatherTemperatureDisplayedInTheApp
+													+ "is not same as the weather displayed in CHIL"
+													+ weatherTemperatureFromCHIL);
+								}
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										parameter + " is not displayed");
+							}
+						}
+					} catch (Exception e) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Error Occured : " + e.getMessage());
+					}
+					break;
+				}
+				case "HUMIDITY": {
+					try {
+						chUtil = new CHILUtil(inputs);
+						w = new WeatherForecastScreen(testCase);
+						long locationID;
+						int humidityFromCHIL, humidityDisplayedInTheApp;
+						String getWeatherHumidity = null;
+						if (chUtil.getConnection()) {
+							locationID = chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME"));
+							System.out.println("The CHIL location ID is: " + locationID);
+							humidityFromCHIL = Integer.parseInt(chUtil.getHumidty(locationID));
+							System.out.println("########HumidityFromCHIL: " + humidityFromCHIL);
+							if (flag &= w.isHumidityDisplayed(50)) {
+								Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+								getWeatherHumidity = w.getHumidity();
+								humidityDisplayedInTheApp = Integer.parseInt(getWeatherHumidity);
+								if ((Integer.compare(humidityFromCHIL, humidityDisplayedInTheApp) == 0)
+										|| (Integer.compare(humidityFromCHIL, humidityDisplayedInTheApp) < 15)) {
+									Keyword.ReportStep_Pass(testCase,
+											parameter + " displayed in app " + humidityDisplayedInTheApp
+													+ " is same as the Humidity in CHIL: " + humidityFromCHIL);
+								} else {
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Humidity displayed in app: " + humidityDisplayedInTheApp
+													+ "is not same as the weather displayed in CHIL: "
+													+ humidityFromCHIL);
+								}
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										parameter + " is not displayed");
+							}
+						}
+					} catch (Exception e) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Error Occured : " + e.getMessage());
+					}
+					break;
+				}
+
+				case "MAX WEATHER TEMPERATURE": {
+					String getMaxWeather = null;
+					if (w.isWeatherMaxTempDisplayed()) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+						getMaxWeather = w.getWeatherMaxTemp();
+						flag &= WeatherForecastUtils.compareMaxTempWithCHIL(testCase, inputs, getMaxWeather);
+					}
+					break;
+				}
+
+				case "MIN WEATHER TEMPERATURE": {
+					String getMinWeather = null;
+					if (w.isWeatherMinTempDisplayed()) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+						getMinWeather = w.getWeatherMinTemp();
+						flag &= WeatherForecastUtils.compareMinTempWithCHIL(testCase, inputs, getMinWeather);
+					}
+					break;
+				}
+
+				case "WEATHER TEMP IN FORECAST SCREEN": {
+					String getWeatherForecastTemp = null;
+					if (w.isWeatherForecastValueDisplayed()) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+						getWeatherForecastTemp = w.getWeatherForecastValue();
+						flag &= WeatherForecastUtils.compareWeatherForecastTempWithCHIL(testCase, inputs,
+								getWeatherForecastTemp);
 					}
 					break;
 				}

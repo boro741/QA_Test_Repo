@@ -18,6 +18,7 @@ import com.honeywell.screens.EditAccountScreen;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.ManageUsersScreen;
+import com.honeywell.screens.OSPopUps;
 import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
@@ -603,6 +604,28 @@ public class VerifyDisplayedPopUp extends Keyword {
 			}
 			break;
 		}
+		case "TURN ON LOCATION SERVICES" : {
+			OSPopUps ops = new OSPopUps(testCase);
+			if(ops.isTurnOnLocationServicesPopupVisible() && ops.isSettingsButtonVisibleInTurnOnLocationServicesPopup() && ops.isSkipButtonVisibleInTurnOnLocationServicesPopup()) {
+				Keyword.ReportStep_Pass(testCase, "Turn On Location Services to allow Honeywell to determine your location popup is visible");
+			}else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Turn On Location Services to allow Honeywell to determine your location popup is not visible");
+			}
+			break;
+		}
+		
+		case "ALLOW HONEYWELL TO ACCESS THIS DEVICES LOCATION" :{
+			OSPopUps ops = new OSPopUps(testCase);
+			if(ops.isAllowHoneywellToAccessDeviceLocationPopupVisible() && ops.isAllowHoneywellToAccessDeviceLocationPopupVisible() && ops.isDenyAccessToDeviceLocationButtonVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Allow Honeywell to access this devices location popup is visible");
+			}else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Allow Honeywell to access this devices location popup is not visible");
+			}
+			break;
+		}
+		
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));

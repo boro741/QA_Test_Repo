@@ -11,6 +11,7 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class WLDEmailNotificationsScreen extends MobileScreens {
 	private static final String screenName = "WLD_EmailNotifications";
@@ -31,7 +32,7 @@ public class WLDEmailNotificationsScreen extends MobileScreens {
 			return MobileUtils.clearTextField(objectDefinition, testCase, "EnterEmailEditTextBox");
 		} else {
 			testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypeCell[1]/XCUIElementTypeTextField"))
-			.clear();
+					.clear();
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "EnterEmailEditTextBox");
 		}
 	}
@@ -40,13 +41,18 @@ public class WLDEmailNotificationsScreen extends MobileScreens {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "EnterEmailEditTextBox", Email);
+			@SuppressWarnings("rawtypes")
 			TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 			Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
-			//System.out.println("######dimensions.width:- " + dimensions.width);
-			//System.out.println("######dimensions.height:- " + dimensions.height);
-			//System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
-			//System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
-			touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			// System.out.println("######dimensions.width:- " + dimensions.width);
+			// System.out.println("######dimensions.height:- " + dimensions.height);
+			// System.out.println("######(dimensions.width - 100):- " + (dimensions.width -
+			// 100));
+			// System.out.println("######(dimensions.height - 100):- " + (dimensions.height
+			// - 100));
+			// touchAction.tap((dimensions.width - 100), (dimensions.height -
+			// 100)).perform();
+			touchAction.tap(point((dimensions.width - 100), (dimensions.height - 100))).perform();
 		} else {
 			flag = flag & MobileUtils.setValueToElement(testCase, "XPATH", "//XCUIElementTypeTextField", Email);
 			MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonOnKeyboard");
@@ -62,8 +68,9 @@ public class WLDEmailNotificationsScreen extends MobileScreens {
 	}
 
 	public boolean verifyEmailPresentinList(String randomEmail) {
-		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+			@SuppressWarnings("rawtypes")
 			TouchAction action = new TouchAction(testCase.getMobileDriver());
 			String foundString = "";
 			List<WebElement> toggleSwitch = null;
@@ -76,22 +83,25 @@ public class WLDEmailNotificationsScreen extends MobileScreens {
 					if (foundString.equalsIgnoreCase(randomEmail)) {
 						found = true;
 						break;
-					} 
+					}
 				}
 				if (!found) {
-					action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, (int) (dimension.getHeight() * -.7))
-					.release().perform();
+					/*
+					 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, (int)
+					 * (dimension.getHeight() * -.7)) .release().perform();
+					 */
+					action.press(point(10, (int) (dimension.getHeight() * .9)))
+							.moveTo(point(0, (int) (dimension.getHeight() * -.7))).release().perform();
 				}
 			}
-			if(found)
-			{
+			if (found) {
 				Keyword.ReportStep_Pass(testCase, "Email Added to the Pending Accept  List");
-			}else {
+			} else {
 				flag = false;
 			}
-		}
-		else {
+		} else {
 			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+			@SuppressWarnings("rawtypes")
 			TouchAction action = new TouchAction(testCase.getMobileDriver());
 			String foundString = "";
 			List<WebElement> toggleSwitch = null;
@@ -104,32 +114,34 @@ public class WLDEmailNotificationsScreen extends MobileScreens {
 					if (foundString.equalsIgnoreCase(randomEmail)) {
 						found = true;
 						break;
-					} 
+					}
 				}
 				if (!found) {
-					action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, (int) (dimension.getHeight() * -.7))
-					.release().perform();
+					/*
+					 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, (int)
+					 * (dimension.getHeight() * -.7)) .release().perform();
+					 */
+					action.press(point(10, (int) (dimension.getHeight() * .9)))
+							.moveTo(point(0, (int) (dimension.getHeight() * -.7))).release().perform();
 				}
 			}
-			if(found)
-			{
+			if (found) {
 				Keyword.ReportStep_Pass(testCase, "Email Added to the Pending Accept  List");
-			}else {
+			} else {
 				flag = false;
 			}
 		}
 		return flag;
 	}
-	
+
 	public boolean incorrectEmailPopup() {
-		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			flag=true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			flag = true;
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "validEmailText");
-		}
-		else {
-			if(MobileUtils.getMobElement(objectDefinition, testCase, "validEmailText").equals("Please enter a valid email.")) 
-			{
-				flag=true;
+		} else {
+			if (MobileUtils.getMobElement(objectDefinition, testCase, "validEmailText")
+					.equals("Please enter a valid email.")) {
+				flag = true;
 			}
 		}
 		return flag;
@@ -137,9 +149,9 @@ public class WLDEmailNotificationsScreen extends MobileScreens {
 
 	public boolean navigateBackAndForth() {
 		WLDManageAlerts wld = new WLDManageAlerts(testCase);
-		flag = flag && MobileUtils.clickOnElement(objectDefinition, testCase, "NavigateBackButton");	
+		flag = flag && MobileUtils.clickOnElement(objectDefinition, testCase, "NavigateBackButton");
 		flag = flag && wld.clickEmailContacts();
 		return flag;
-		
+
 	}
 }

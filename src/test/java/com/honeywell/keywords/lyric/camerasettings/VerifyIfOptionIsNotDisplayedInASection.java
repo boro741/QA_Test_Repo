@@ -2,8 +2,6 @@ package com.honeywell.keywords.lyric.camerasettings;
 
 import java.util.ArrayList;
 
-import org.json.JSONObject;
-
 import com.honeywell.commons.bddinterface.DataTable;
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.Keyword;
@@ -46,29 +44,33 @@ public class VerifyIfOptionIsNotDisplayedInASection extends Keyword {
 			break;
 		}
 		case "COVER TAMPER STATUS": {
-			SensorSettingScreen ssc = new SensorSettingScreen(testCase);			
+			SensorSettingScreen ssc = new SensorSettingScreen(testCase);
 			if (!ssc.isClearTamperOptionVisible()) {
 				Keyword.ReportStep_Pass(testCase, "Cover Tampered Text Not Found");
 			}
 			break;
-		}	case "OFFLINE STATUS": {
-			SensorSettingScreen ssc = new SensorSettingScreen(testCase);			
+		}
+		case "OFFLINE STATUS": {
+			SensorSettingScreen ssc = new SensorSettingScreen(testCase);
 			if (!ssc.isSensorOffScreenDisplayed()) {
 				Keyword.ReportStep_Pass(testCase, "Offline Status Text Not Found");
 			}
 			break;
-		} case "Away":{
+		}
+		case "Away": {
 			SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
-			if(!ssc.verifystate("Away")) {
+			if (!ssc.verifystate("Away")) {
 				Keyword.ReportStep_Pass(testCase, "Away Text Not Found");
 			}
 			break;
-		} case "Night":{
+		}
+		case "Night": {
 			SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
-			if(!ssc.verifystate("Night")) {
+			if (!ssc.verifystate("Night")) {
 				Keyword.ReportStep_Pass(testCase, "Night Text Not Found");
 			}
-		}case "DETERRENCE SETTINGS": {
+		}
+		case "DETERRENCE SETTINGS": {
 			BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String parameter = data.getData(i, "Settings");
@@ -76,7 +78,8 @@ public class VerifyIfOptionIsNotDisplayedInASection extends Keyword {
 				case "SELECT CHIME": {
 					flag &= !bs.isSelectChimeVisible();
 					break;
-				}case "PLAY DOG BARK SOUND": {
+				}
+				case "PLAY DOG BARK SOUND": {
 					flag &= !bs.isPlayDogBarkSoundVisible();
 					break;
 				}
@@ -95,7 +98,8 @@ public class VerifyIfOptionIsNotDisplayedInASection extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "The " + parameter + " has found");
 				}
 				flag = true;
-			}break;
+			}
+			break;
 		}
 		}
 		return flag;

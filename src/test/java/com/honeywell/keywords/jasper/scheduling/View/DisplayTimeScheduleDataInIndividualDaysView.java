@@ -1,6 +1,5 @@
 package com.honeywell.keywords.jasper.scheduling.View;
 
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +21,10 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.DashboardUtils;
+
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class DisplayTimeScheduleDataInIndividualDaysView extends Keyword {
 
@@ -68,6 +70,7 @@ public class DisplayTimeScheduleDataInIndividualDaysView extends Keyword {
 			Dimension dimension = driver.manage().window().getSize();
 			int height = dimension.getHeight();
 			int width = dimension.getWidth();
+			@SuppressWarnings("rawtypes")
 			TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 
 			for (int i = 0; i < days.length; i++) {
@@ -80,8 +83,14 @@ public class DisplayTimeScheduleDataInIndividualDaysView extends Keyword {
 					for (int j = 0; j < schedulePeriods.length; j++) {
 						while (!MobileUtils.isMobElementExists("XPATH",
 								"//*[@content-desc='" + schedulePeriods[j] + "_" + days[i] + "']", testCase, 5)) {
-							touchAction.press(width / 2, height / 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82).release();
-							touchAction.perform();
+							/*
+							 * touchAction.press(width / 2, height /
+							 * 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82).release();
+							 * touchAction.perform();
+							 */
+							touchAction.press(point(width / 2, height / 2))
+									.waitAction(waitOptions(MobileUtils.getDuration(2000))).moveTo(point(width / 2, 82))
+									.release().perform();
 						}
 						if (!MobileUtils.isMobElementExists("XPATH",
 								"//*[@content-desc='" + schedulePeriods[j] + "_" + days[i] + "']", testCase, 5)) {
@@ -160,20 +169,31 @@ public class DisplayTimeScheduleDataInIndividualDaysView extends Keyword {
 									scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));
 						}
 						int m = 0;
-						while ((!MobileUtils.isMobElementExists("name",days[i] + "_"
-										+ schedulePeriods[j] + "_cell",
+						while ((!MobileUtils.isMobElementExists("name", days[i] + "_" + schedulePeriods[j] + "_cell",
 								testCase, 5)) && m < 10) {
 							if (desiredDayIndex > greaterDayIndex) {
-								touchAction.press(10, (int) (dimension.getHeight() * .5))
-										.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+								/*
+								 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+								 * (dimension.getHeight() * -.4)).release().perform();
+								 */
+								touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+										.moveTo(point(0, (int) (dimension.getHeight() * -.4))).release().perform();
 								m++;
 							} else if (desiredDayIndex < lesserDayIndex) {
-								touchAction.press(10, (int) (dimension.getHeight() * .5))
-										.moveTo(0, (int) (dimension.getHeight() * .4)).release().perform();
+								/*
+								 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+								 * (dimension.getHeight() * .4)).release().perform();
+								 */
+								touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+										.moveTo(point(0, (int) (dimension.getHeight() * .4))).release().perform();
 								m++;
 							} else {
-								touchAction.press(10, (int) (dimension.getHeight() * .5))
-										.moveTo(0, (int) (dimension.getHeight() * -.9)).release().perform();
+								/*
+								 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+								 * (dimension.getHeight() * -.9)).release().perform();
+								 */
+								touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+										.moveTo(point(0, (int) (dimension.getHeight() * -.9))).release().perform();
 								m++;
 							}
 						}

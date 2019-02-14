@@ -13,6 +13,7 @@ import com.honeywell.lyric.utils.LyricUtils;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class DASDIYRegistrationScreens extends MobileScreens {
 
@@ -137,13 +138,15 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "CustomeLocationTextField",
 					customLocationNameText);
+			@SuppressWarnings("rawtypes")
 			TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 			Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 			System.out.println("######dimensions.width:- " + dimensions.width);
 			System.out.println("######dimensions.height:- " + dimensions.height);
 			System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
 			System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
-			touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			//touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			touchAction.tap(point((dimensions.width - 100), (dimensions.height - 100))).perform();
 			if (inputs.isRunningOn("Perfecto")) {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					testCase.getMobileDriver().findElement(By.xpath("//*[@text='English (US)']")).click();
@@ -151,8 +154,10 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 					System.out.println("######dimensions.height:- " + dimensions.height);
 					System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
 					System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
-					touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
-					touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+					//touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+					//touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+					touchAction.tap(point((dimensions.width - 100), (dimensions.height - 100))).perform();
+					touchAction.tap(point((dimensions.width - 100), (dimensions.height - 100))).perform();
 				}
 			}
 			return flag;
@@ -200,13 +205,15 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		boolean flag = true;
 		flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "ZipCodeTextField", zipCodeText);
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			@SuppressWarnings("rawtypes")
 			TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 			Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 			System.out.println("######dimensions.width:- " + dimensions.width);
 			System.out.println("######dimensions.height:- " + dimensions.height);
 			System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
 			System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
-			touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			//touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			touchAction.tap(point((dimensions.width - 100), (dimensions.height - 100))).perform();
 			return flag;
 		} else {
 			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonInKeyboard");
@@ -448,13 +455,15 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			flag = flag
 					& MobileUtils.setValueToElement(objectDefinition, testCase, "CustomNameTextField", customNameText);
+			@SuppressWarnings("rawtypes")
 			TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 			Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 			System.out.println("######dimensions.width:- " + dimensions.width);
 			System.out.println("######dimensions.height:- " + dimensions.height);
 			System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
 			System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
-			touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			//touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			touchAction.tap(point((dimensions.width - 100), (dimensions.height - 100))).perform();
 			return flag;
 		} else {
 			flag = flag
@@ -479,13 +488,15 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	public boolean clickOnDoneButtonInVirtualKeyboard(TestCases testCase) {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			@SuppressWarnings("rawtypes")
 			TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 			Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 			System.out.println("######dimensions.width:- " + dimensions.width);
 			System.out.println("######dimensions.height:- " + dimensions.height);
 			System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
 			System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
-			touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			//touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			touchAction.tap(point((dimensions.width - 100), (dimensions.height - 100))).perform();
 		} else {
 			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonInKeyboard");
 		}
@@ -957,10 +968,12 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	}
 
 	public boolean clickOnJoinButtonInConnectToNetworkScreen() {
+		@SuppressWarnings("rawtypes")
 		TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 		Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			//touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			touchAction.tap(point((dimensions.width - 100), (dimensions.height - 100))).perform();
 			return true;
 		} else {
 			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "JoinButtonInConnectToNetworkScreen", 5)) {
@@ -1458,13 +1471,15 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "SignInToAmazonPasswordTextField",
 				amazonPassword);
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			@SuppressWarnings("rawtypes")
 			TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 			Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 			System.out.println("######dimensions.width:- " + dimensions.width);
 			System.out.println("######dimensions.height:- " + dimensions.height);
 			System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
 			System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
-			touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			//touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			touchAction.tap(point((dimensions.width - 100), (dimensions.height - 100))).perform();
 			return flag;
 		} else {
 			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "GoButtonInKeyboard");

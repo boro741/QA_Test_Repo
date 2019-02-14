@@ -1,4 +1,3 @@
-
 package com.honeywell.keywords.lyric.common;
 
 import java.time.Duration;
@@ -45,6 +44,7 @@ import com.honeywell.screens.FAQsScreen;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.GlobalDrawerScreen;
 import com.honeywell.screens.LoginScreen;
+import com.honeywell.screens.MobileDeviceSettingsScreen;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.PrivacyStatementScreen;
 import com.honeywell.screens.SchedulingScreen;
@@ -52,9 +52,13 @@ import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.screens.WLDLeakDetectorSettings;
 import com.honeywell.screens.WLDManageAlerts;
+import com.honeywell.screens.WeatherForecastScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
+import static io.appium.java_client.touch.offset.ElementOption.element;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class SelectElementOnAScreen extends Keyword {
 
@@ -291,11 +295,14 @@ public class SelectElementOnAScreen extends Keyword {
 
 				}
 				case "TALKMIC": {
+					@SuppressWarnings("rawtypes")
 					TouchAction tAction = new TouchAction(testCase.getMobileDriver());
 					Duration oneHours = Duration.ofSeconds(8);
 					Thread th = new Thread() {
 						public void run() {
-							tAction.longPress(cs.getMicrophonePushToTalk()).waitAction(oneHours).release().perform();
+							// tAction.longPress(cs.getMicrophonePushToTalk()).waitAction(oneHours).release().perform();
+							tAction.longPress(longPressOptions().withElement(element(cs.getMicrophonePushToTalk()))
+									.withDuration(oneHours)).release().perform();
 						}
 					};
 					th.start();
@@ -737,6 +744,7 @@ public class SelectElementOnAScreen extends Keyword {
 				case "MODEL AND FIRMWARE DETAILS": {
 					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
 					Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						int startx = (dimensions.width * 20) / 100;
@@ -746,10 +754,16 @@ public class SelectElementOnAScreen extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimensions.getHeight() * .9))
-								.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
-						action.press(10, (int) (dimensions.getHeight() * .9))
-								.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimensions.getHeight() * .6)).release().perform(); action.press(10, (int)
+						 * (dimensions.getHeight() * .9)) .moveTo(0, -(int) (dimensions.getHeight() *
+						 * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimensions.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+						action.press(point(10, (int) (dimensions.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 					}
 					flag = flag & settingScreen.clickOnFirmwareDetailsOption();
 					break;
@@ -762,6 +776,7 @@ public class SelectElementOnAScreen extends Keyword {
 				case "SIGNAL STRENGTH AND TEST": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						int startx = (dimensions.width * 20) / 100;
@@ -771,10 +786,16 @@ public class SelectElementOnAScreen extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimensions.getHeight() * .9))
-								.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
-						action.press(10, (int) (dimensions.getHeight() * .9))
-								.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimensions.getHeight() * .6)).release().perform(); action.press(10, (int)
+						 * (dimensions.getHeight() * .9)) .moveTo(0, -(int) (dimensions.getHeight() *
+						 * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimensions.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+						action.press(point(10, (int) (dimensions.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 					}
 					flag = flag & bs.clickOnSignalStrengthandTestOption();
 					break;
@@ -1467,6 +1488,7 @@ public class SelectElementOnAScreen extends Keyword {
 			else if (parameters.get(1).equalsIgnoreCase("Security Settings")) {
 				BaseStationSettingsScreen click = new BaseStationSettingsScreen(testCase);
 				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+				@SuppressWarnings("rawtypes")
 				TouchAction action = new TouchAction(testCase.getMobileDriver());
 				switch (parameters.get(0).toUpperCase()) {
 				case "MANAGE ALERTS": {
@@ -1495,8 +1517,12 @@ public class SelectElementOnAScreen extends Keyword {
 						int endy = (dimension.height * 35) / 100;
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= !click.isOutdoorMotionViewerOnInHomeModeEnabled();
 					flag &= click.toggleOutdoorMotionViewersOnInHomeModeSwitch(testCase);
@@ -1510,8 +1536,12 @@ public class SelectElementOnAScreen extends Keyword {
 						int endy = (dimension.height * 35) / 100;
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= !click.isEntryExitDelayEnabled();
 					flag &= click.clickonEntryExistDelayoption();
@@ -1528,14 +1558,23 @@ public class SelectElementOnAScreen extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform(); action.press(10, (int)
+						 * (dimension.getHeight() * .9)) .moveTo(0, -(int) (dimension.getHeight() *
+						 * .6)).release().perform(); action.press(10, (int) (dimension.getHeight() *
+						 * .9)) .moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= !click.isBaseStationVolumeEnabled();
 					flag &= click.clickonbasestationvolumeoption();
@@ -1552,10 +1591,16 @@ public class SelectElementOnAScreen extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform(); action.press(10, (int)
+						 * (dimension.getHeight() * .9)) .moveTo(0, -(int) (dimension.getHeight() *
+						 * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= !click.isBaseStationResetWifiEnabled();
 					flag &= click.clickonbasestationresetwifioption();
@@ -1715,6 +1760,7 @@ public class SelectElementOnAScreen extends Keyword {
 						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
 					} else {
 						Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+						@SuppressWarnings("rawtypes")
 						TouchAction action = new TouchAction(testCase.getMobileDriver());
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimension.width * 20) / 100;
@@ -1723,8 +1769,12 @@ public class SelectElementOnAScreen extends Keyword {
 							int endy = (dimension.height * 35) / 100;
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
-							action.press(10, (int) (dimension.getHeight() * .9))
-									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+							/*
+							 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimension.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimension.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						}
 						if (gd.isLogoutOptionVisible()) {
 							gd.clickOnLogoutOption();
@@ -2480,6 +2530,7 @@ public class SelectElementOnAScreen extends Keyword {
 						flag &= cas.isCreateAccountClickOnPrivacyStatementLink();
 					} else {
 						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+						@SuppressWarnings("rawtypes")
 						TouchAction action = new TouchAction(testCase.getMobileDriver());
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimensions.width * 20) / 100;
@@ -2488,8 +2539,12 @@ public class SelectElementOnAScreen extends Keyword {
 							int endy = (dimensions.height * 35) / 100;
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
-							action.press(10, (int) (dimensions.getHeight() * .9))
-									.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
+							/*
+							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimensions.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimensions.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 						}
 						if (cas.isCreateAccountPrivacyStatementLinkDisplayed()) {
 							flag &= cas.isCreateAccountClickOnPrivacyStatementLink();
@@ -2511,6 +2566,7 @@ public class SelectElementOnAScreen extends Keyword {
 						flag &= cas.isCreateAccountClickOnEULALink();
 					} else {
 						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+						@SuppressWarnings("rawtypes")
 						TouchAction action = new TouchAction(testCase.getMobileDriver());
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimensions.width * 20) / 100;
@@ -2519,8 +2575,12 @@ public class SelectElementOnAScreen extends Keyword {
 							int endy = (dimensions.height * 35) / 100;
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
-							action.press(10, (int) (dimensions.getHeight() * .9))
-									.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
+							/*
+							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimensions.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimensions.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 						}
 						if (cas.isCreateAccountEULALinkDisplayed()) {
 							flag &= cas.isCreateAccountClickOnEULALink();
@@ -2541,6 +2601,7 @@ public class SelectElementOnAScreen extends Keyword {
 						flag &= cas.clickOnCreateAccountRegisterButton();
 					} else {
 						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+						@SuppressWarnings("rawtypes")
 						TouchAction action = new TouchAction(testCase.getMobileDriver());
 						System.out.println("$$$$$$$$$$$$$$: " + testCase.getPlatform());
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -2550,8 +2611,12 @@ public class SelectElementOnAScreen extends Keyword {
 							int endy = (dimensions.height * 35) / 100;
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
-							action.press(10, (int) (dimensions.getHeight() * .9))
-									.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
+							/*
+							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimensions.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimensions.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 						}
 						if (cas.isCreateAccountRegisterButtonDisplayed()) {
 							flag &= cas.clickOnCreateAccountRegisterButton();
@@ -2677,7 +2742,66 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				}
+			} else if (parameters.get(1).equalsIgnoreCase("WEATHER FORECAST")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "FARENHEIT": {
+					WeatherForecastScreen w = new WeatherForecastScreen(testCase);
+					if (w.whichWeatherTempUnitIsEnabled().contains("F")) {
+						Keyword.ReportStep_Pass(testCase, "Farenheit Unit is already enabled");
+					} else {
+						w.clickOnFarenheitUnit();
+						Keyword.ReportStep_Pass(testCase, "Farenheit Unit is selected and enabled");
+					}
+					break;
+				}
+				case "CELSIUS": {
+					WeatherForecastScreen w = new WeatherForecastScreen(testCase);
+					if (w.whichWeatherTempUnitIsEnabled().contains("C")) {
+						Keyword.ReportStep_Pass(testCase, "Celsius Unit is already enabled");
+					} else {
+						w.clickOnCelsiusUnit();
+						Keyword.ReportStep_Pass(testCase, "Celsius Unit is selected and enabled");
+					}
+					break;
+				}
+				case "BACK BUTTON": {
+					WeatherForecastScreen w = new WeatherForecastScreen(testCase);
+					flag &= w.clickOnBackIcon();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Back button is clicked");
+					} else {
+						w.clickOnCelsiusUnit();
+						Keyword.ReportStep_Pass(testCase, "CBack button is not clicked");
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("MOBILE DEVICE LOCATION SETTINGS")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "ENABLE LOCATION": {
+					MobileDeviceSettingsScreen mdls = new MobileDeviceSettingsScreen(testCase);
+					if (mdls.isMobileDeviceLocationDisabled()) {
+						flag &= mdls.clickOnMobileDeviceLocationToEnable();
+						if (flag) {
+							if (mdls.isAgreeLocationAccracyDisplayed(50)) {
+								mdls.clickToAgreeLocationAccuracy();
+								Keyword.ReportStep_Pass(testCase, "Clicked to enable Mobile device location service");
+							} else if (!mdls.isAgreeLocationAccracyDisplayed(50)) {
+								Keyword.ReportStep_Pass(testCase, "Mobile device location service is enabled");
+							}
+
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Mobile device location service is disabled");
+						}
+					} else if (mdls.isMobileDeviceLocationEnabled()) {
+						Keyword.ReportStep_Pass(testCase, "Mobile device location service is already enabled");
+					}
+					break;
+				}
+				}
 			}
+
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());

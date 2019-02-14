@@ -296,7 +296,7 @@ public class CHILUtil implements AutoCloseable {
 			os.write(headerData.getBytes("UTF-8"));
 			os.flush();
 		}
-		
+
 		if (postResponse.getResponseCode() == HttpURLConnection.HTTP_CREATED
 				|| postResponse.getResponseCode() == HttpURLConnection.HTTP_OK) {
 			System.out.println("Success");
@@ -3957,7 +3957,7 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
-	
+
 	public String getWeather(long locationID) throws Exception {
 		JSONObject weather = new JSONObject();
 		JSONObject realFeelTemperature = new JSONObject();
@@ -3983,5 +3983,90 @@ public class CHILUtil implements AutoCloseable {
 			}
 		}
 		return weatherTemperature;
+	}
+
+	public String getHumidty(long locationID) throws Exception {
+		JSONObject weather = new JSONObject();
+		// JSONObject relativeHumidity = new JSONObject();
+		String humidity = null;
+		if (isConnected) {
+			String url = chilURL + String.format("api/locations/%s/Weather", String.valueOf(locationID));
+			HttpURLConnection connection = doGetRequest(url);
+			if (connection != null) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+				String inputLine;
+				StringBuffer html = new StringBuffer();
+				while (!in.ready()) {
+				}
+				while ((inputLine = in.readLine()) != null) {
+					html.append(inputLine);
+				}
+				in.close();
+				weather = new JSONObject(html.toString().trim());
+				humidity = weather.get("relativeHumidity").toString();
+				// humidity = relativeHumidity.toString();
+				System.out.println(humidity);
+				inputs.setInputValue("WEATHER_HUMIDITY_FROM_CHIL", humidity);
+			} else {
+				throw new Exception("Unable to connect to CHIL");
+			}
+		}
+		return humidity;
+	}
+
+	public String getMinTemperature(long locationID) throws Exception {
+		JSONObject weather = new JSONObject();
+		JSONObject weatherMinTemperature = new JSONObject();
+		String minTemperature = null;
+		if (isConnected) {
+			String url = chilURL + String.format("api/locations/%s/Weather", String.valueOf(locationID));
+			HttpURLConnection connection = doGetRequest(url);
+			if (connection != null) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+				String inputLine;
+				StringBuffer html = new StringBuffer();
+				while (!in.ready()) {
+				}
+				while ((inputLine = in.readLine()) != null) {
+					html.append(inputLine);
+				}
+				in.close();
+				weather = new JSONObject(html.toString().trim());
+				weatherMinTemperature = weather.getJSONObject("minimum");
+				minTemperature = weatherMinTemperature.get("value").toString();
+				inputs.setInputValue("WEATHER_MIN_TEMP_IN_CELSIUS_FROM_CHIL", minTemperature);
+			} else {
+				throw new Exception("Unable to connect to CHIL");
+			}
+		}
+		return minTemperature;
+	}
+
+	public String getMaxTemperature(long locationID) throws Exception {
+		JSONObject weather = new JSONObject();
+		JSONObject weatherMaxTemperature = new JSONObject();
+		String maxTemperature = null;
+		if (isConnected) {
+			String url = chilURL + String.format("api/locations/%s/Weather", String.valueOf(locationID));
+			HttpURLConnection connection = doGetRequest(url);
+			if (connection != null) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+				String inputLine;
+				StringBuffer html = new StringBuffer();
+				while (!in.ready()) {
+				}
+				while ((inputLine = in.readLine()) != null) {
+					html.append(inputLine);
+				}
+				in.close();
+				weather = new JSONObject(html.toString().trim());
+				weatherMaxTemperature = weather.getJSONObject("maximum");
+				maxTemperature = weatherMaxTemperature.get("value").toString();
+				inputs.setInputValue("WEATHER_MIN_TEMP_IN_CELSIUS_FROM_CHIL", maxTemperature);
+			} else {
+				throw new Exception("Unable to connect to CHIL");
+			}
+		}
+		return maxTemperature;
 	}
 }

@@ -1,8 +1,8 @@
 package com.honeywell.lyric.das.utils;
 
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.TouchAction;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -23,6 +23,9 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.perfecto.PerfectoConstants.PerfectoConstant;
 import com.honeywell.commons.report.FailType;
 
+import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.offset.PointOption.point;
+
 public class DASSolutionCardUtils {
 
 	public static boolean waitForEntryTimerToComplete(TestCases testCase) {
@@ -31,8 +34,10 @@ public class DASSolutionCardUtils {
 		try {
 			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "Das_AlarmScreen");
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(2, TimeUnit.MINUTES);
+			// fWait.pollingEvery(3, TimeUnit.SECONDS);
+			// fWait.withTimeout(2, TimeUnit.MINUTES);
+			fWait.pollingEvery(Duration.ofSeconds(3));
+			fWait.withTimeout(Duration.ofMinutes(2));
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				private int waitingPresentTimerValue;
 				private int presentTimerValue = 0;
@@ -93,8 +98,10 @@ public class DASSolutionCardUtils {
 		try {
 			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "Das_AlarmScreen");
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(2, TimeUnit.MINUTES);
+			// fWait.pollingEvery(3, TimeUnit.SECONDS);
+			// fWait.withTimeout(2, TimeUnit.MINUTES);
+			fWait.pollingEvery(Duration.ofSeconds(3));
+			fWait.withTimeout(Duration.ofMinutes(2));
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
 					try {
@@ -128,8 +135,10 @@ public class DASSolutionCardUtils {
 		try {
 			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "Das_AlarmScreen");
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(2, TimeUnit.MINUTES);
+			// fWait.pollingEvery(3, TimeUnit.SECONDS);
+			// fWait.withTimeout(2, TimeUnit.MINUTES);
+			fWait.pollingEvery(Duration.ofSeconds(3));
+			fWait.withTimeout(Duration.ofMinutes(2));
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
 					try {
@@ -163,8 +172,10 @@ public class DASSolutionCardUtils {
 		try {
 			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "Das_AlarmScreen");
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(2, TimeUnit.MINUTES);
+			// fWait.pollingEvery(3, TimeUnit.SECONDS);
+			// fWait.withTimeout(2, TimeUnit.MINUTES);
+			fWait.pollingEvery(Duration.ofSeconds(3));
+			fWait.withTimeout(Duration.ofMinutes(2));
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
 					try {
@@ -286,6 +297,7 @@ public class DASSolutionCardUtils {
 
 				int currentCircleXPoint = point.getX() + ((currentValueInteger - min) / gradient) * eachBlockLength;
 				int currentCircleYPoint = point.getY() + height;
+				@SuppressWarnings("rawtypes")
 				TouchAction tAction = new TouchAction(testCase.getMobileDriver());
 				// x = 16, x = 159 , x = 312
 				int difference = 0;
@@ -302,8 +314,12 @@ public class DASSolutionCardUtils {
 
 				for (int counter = 0; counter < difference; counter++) {
 					try {
-						tAction.press(currentCircleXPoint, currentCircleYPoint)
-								.moveTo((int) (Math.round(eachBlockLength * direction)), 0).release().perform();
+						/*
+						 * tAction.press(currentCircleXPoint, currentCircleYPoint) .moveTo((int)
+						 * (Math.round(eachBlockLength * direction)), 0).release().perform();
+						 */
+						tAction.press(point(currentCircleXPoint, currentCircleYPoint))
+								.moveTo(point((int) (Math.round(eachBlockLength * direction)), 0)).release().perform();
 						Keyword.ReportStep_Pass(testCase, "Slided the volume");
 					} catch (Exception e) {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -409,8 +425,10 @@ public class DASSolutionCardUtils {
 		try {
 			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "DASSecurityCard");
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(1, TimeUnit.MINUTES);
+			// fWait.pollingEvery(3, TimeUnit.SECONDS);
+			// fWait.withTimeout(1, TimeUnit.MINUTES);
+			fWait.pollingEvery(Duration.ofSeconds(3));
+			fWait.withTimeout(Duration.ofMinutes(1));
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				/*
 				 * private int waitingPresentTimerValue; private int presentTimerValue = 0;
@@ -469,8 +487,10 @@ public class DASSolutionCardUtils {
 	public static Boolean waitForElementToDisappear(TestCases testCase, HashMap<String, MobileObject> fieldObjects,
 			String elementToLookFor, int timeLimit, int pollTime) {
 		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
-		fWait.pollingEvery(pollTime, TimeUnit.SECONDS);
-		fWait.withTimeout(timeLimit, TimeUnit.SECONDS);
+		// fWait.pollingEvery(pollTime, TimeUnit.SECONDS);
+		// fWait.withTimeout(timeLimit, TimeUnit.SECONDS);
+		fWait.pollingEvery(Duration.ofSeconds(pollTime));
+		fWait.withTimeout(Duration.ofSeconds(timeLimit));
 		Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 			@Override
 			public Boolean apply(CustomDriver driver) {

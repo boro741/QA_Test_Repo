@@ -1,6 +1,7 @@
 package com.honeywell.keywords.lyric.common;
 
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 import java.util.ArrayList;
 
@@ -83,6 +84,7 @@ public class NavigateBackAndForthInAScreen extends Keyword {
 			flag &= pc.clickOnCogIcon();
 			if (flag) {
 				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+				@SuppressWarnings("rawtypes")
 				TouchAction action = new TouchAction(testCase.getMobileDriver());
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					int startx = (dimension.width * 20) / 100;
@@ -91,8 +93,12 @@ public class NavigateBackAndForthInAScreen extends Keyword {
 					int endy = (dimension.height * 35) / 100;
 					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				} else {
-					action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-							.release().perform();
+					/*
+					 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
+					 * (dimension.getHeight() * .6)) .release().perform();
+					 */
+					action.press(point(10, (int) (dimension.getHeight() * .9)))
+							.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 				}
 			}
 			break;

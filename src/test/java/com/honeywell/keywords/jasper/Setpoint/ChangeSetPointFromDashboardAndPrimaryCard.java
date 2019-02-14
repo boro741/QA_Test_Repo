@@ -1,7 +1,6 @@
 package com.honeywell.keywords.jasper.Setpoint;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.honeywell.CHIL.CHILUtil;
 import com.honeywell.account.information.DeviceInformation;
@@ -26,7 +25,8 @@ public class ChangeSetPointFromDashboardAndPrimaryCard extends Keyword {
 	public TestCaseInputs inputs;
 	public ArrayList<String> exampleData;
 
-	public ChangeSetPointFromDashboardAndPrimaryCard(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
+	public ChangeSetPointFromDashboardAndPrimaryCard(TestCases testCase, TestCaseInputs inputs,
+			ArrayList<String> exampleData) {
 		this.testCase = testCase;
 		this.inputs = inputs;
 		this.exampleData = exampleData;
@@ -36,6 +36,7 @@ public class ChangeSetPointFromDashboardAndPrimaryCard extends Keyword {
 	@BeforeKeyword
 	public boolean preCondition() throws KeywordException {
 		try {
+			@SuppressWarnings("resource")
 			CHILUtil chUtil = new CHILUtil(inputs);
 			LocationInformation locInfo = new LocationInformation(testCase, inputs);
 			long locationID = locInfo.getLocationID();
@@ -119,56 +120,54 @@ public class ChangeSetPointFromDashboardAndPrimaryCard extends Keyword {
 						flag = flag & DashboardUtils.waitForOptionOnScreen(testCase,
 								"HEATINGORCOOLING TEXT TO DISAPPEAR", 2);
 						double CurrentSetPoint = Dashboard.getCurrentSetPointInDashboard(testCase);
-						while (CurrentSetPoint <= IndoorTemperature+2) {
+						while (CurrentSetPoint <= IndoorTemperature + 2) {
 							flag = flag & dsp.clickOnUpStepper();
 							CurrentSetPoint = Dashboard.getCurrentSetPointInDashboard(testCase);
 						}
 						flag = flag & dsp.clickOnUpStepper();
-					}
-				 else if (exampleData.get(2).toUpperCase().equals("PRIMARY CARD")) {
-					double CurrentSetPoint = JasperSetPoint.getCurrentSetPointInDialer(testCase);
-					while (CurrentSetPoint <= IndoorTemperature+2) {
+					} else if (exampleData.get(2).toUpperCase().equals("PRIMARY CARD")) {
+						double CurrentSetPoint = JasperSetPoint.getCurrentSetPointInDialer(testCase);
+						while (CurrentSetPoint <= IndoorTemperature + 2) {
+							flag = flag & PC.clickOnUpStepper();
+							CurrentSetPoint = JasperSetPoint.getCurrentSetPointInDialer(testCase);
+						}
 						flag = flag & PC.clickOnUpStepper();
-						CurrentSetPoint = JasperSetPoint.getCurrentSetPointInDialer(testCase);
 					}
-					flag = flag & PC.clickOnUpStepper();
-				}
 				}
 			} else if (exampleData.get(0).toUpperCase().equals("DECREASE")) {
 				if (exampleData.get(1).toUpperCase().equals("BELOW")) {
 					if (exampleData.get(2).toUpperCase().equals("DASHBOARD")) {
-						flag = flag & DashboardUtils.waitForOptionOnScreen(testCase,"HEATINGORCOOLING TEXT TO DISAPPEAR", 2);
+						flag = flag & DashboardUtils.waitForOptionOnScreen(testCase,
+								"HEATINGORCOOLING TEXT TO DISAPPEAR", 2);
 						double CurrentSetPoint = Dashboard.getCurrentSetPointInDashboard(testCase);
-						while (IndoorTemperature <= CurrentSetPoint+2) {
+						while (IndoorTemperature <= CurrentSetPoint + 2) {
 							flag = flag & dsp.clickOnDownStepper();
 							CurrentSetPoint = Dashboard.getCurrentSetPointInDashboard(testCase);
 						}
 						flag = flag & dsp.clickOnDownStepper();
 
-					}
-					else if (exampleData.get(2).toUpperCase().equals("PRIMARY CARD")) {
+					} else if (exampleData.get(2).toUpperCase().equals("PRIMARY CARD")) {
 						double CurrentSetPoint = JasperSetPoint.getCurrentSetPointInDialer(testCase);
-						while (IndoorTemperature <= CurrentSetPoint+2) {
+						while (IndoorTemperature <= CurrentSetPoint + 2) {
 							flag = flag & PC.clickOnDownStepper();
 							CurrentSetPoint = JasperSetPoint.getCurrentSetPointInDialer(testCase);
 						}
 						flag = flag & PC.clickOnDownStepper();
 					}
 				}
-			}else if (exampleData.get(0).toUpperCase().equals("DECREASE WITHOUT WAIT")) {
+			} else if (exampleData.get(0).toUpperCase().equals("DECREASE WITHOUT WAIT")) {
 				if (exampleData.get(1).toUpperCase().equals("BELOW")) {
 					if (exampleData.get(2).toUpperCase().equals("DASHBOARD")) {
 						double CurrentSetPoint = Dashboard.getCurrentSetPointInDashboard(testCase);
-						while (IndoorTemperature <= CurrentSetPoint+2) {
+						while (IndoorTemperature <= CurrentSetPoint + 2) {
 							flag = flag & dsp.clickOnDownStepper();
 							CurrentSetPoint = Dashboard.getCurrentSetPointInDashboard(testCase);
 						}
 						flag = flag & dsp.clickOnDownStepper();
 
-					}
-					else if (exampleData.get(2).toUpperCase().equals("PRIMARY CARD")) {
+					} else if (exampleData.get(2).toUpperCase().equals("PRIMARY CARD")) {
 						double CurrentSetPoint = JasperSetPoint.getCurrentSetPointInDialer(testCase);
-						while (IndoorTemperature <= CurrentSetPoint+2) {
+						while (IndoorTemperature <= CurrentSetPoint + 2) {
 							flag = flag & PC.clickOnDownStepper();
 							CurrentSetPoint = JasperSetPoint.getCurrentSetPointInDialer(testCase);
 						}

@@ -9,6 +9,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.AboutTheAppScreen;
+import com.honeywell.screens.OSPopUps;
 
 public class VerifyIfPopUpIsNotDisplayed extends Keyword {
 
@@ -53,6 +54,32 @@ public class VerifyIfPopUpIsNotDisplayed extends Keyword {
 			}
 			break;
 		}
+		case "TURN ON LOCATION SERVICES" : {
+			OSPopUps ops= new OSPopUps(testCase);
+			if(!ops.isTurnOnLocationServicesPopupVisible()) {
+				Keyword.ReportStep_Pass(testCase,
+						"Turn On Location Services popup is not displayed");
+			}else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Turn On Location Services pop up is displayed");
+			}
+			break;
+		}
+		
+		case "ALLOW HONEYWELL TO ACCESS THIS DEVICES LOCATION" :{
+			OSPopUps ops= new OSPopUps(testCase);
+			if(!ops.isAllowHoneywellToAccessDeviceLocationPopupVisible()) {
+				Keyword.ReportStep_Pass(testCase,
+						"Allow Honeywell to access this devices location popup is not displayed");
+			}else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Allow Honeywell to access this devices location pop up is displayed");
+			}
+			break;
+		}
+		
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));

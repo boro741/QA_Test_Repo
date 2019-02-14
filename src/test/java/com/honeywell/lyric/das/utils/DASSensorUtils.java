@@ -1,7 +1,7 @@
 package com.honeywell.lyric.das.utils;
 
+import java.time.Duration;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -234,12 +234,11 @@ public class DASSensorUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean openISMV(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		inputs.setInputValue("DOOR_OPENED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
-		inputs.setInputValue("ISMV_OPENED_TIME",
-				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		inputs.setInputValue("ISMV_OPENED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
 			// TODO
 		} catch (Exception e) {
@@ -247,12 +246,11 @@ public class DASSensorUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean closeISMV(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		inputs.setInputValue("DOOR_OPENED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
-		inputs.setInputValue("ISMV_CLOSED_TIME",
-				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		inputs.setInputValue("ISMV_CLOSED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
 			// TODO
 		} catch (Exception e) {
@@ -285,12 +283,11 @@ public class DASSensorUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean openOSMV(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		inputs.setInputValue("DOOR_OPENED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
-		inputs.setInputValue("OSMV_OPENED_TIME",
-				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		inputs.setInputValue("OSMV_OPENED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
 			// TODO
 		} catch (Exception e) {
@@ -298,12 +295,11 @@ public class DASSensorUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean closeOSMV(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		inputs.setInputValue("DOOR_OPENED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
-		inputs.setInputValue("OSMV_CLOSED_TIME",
-				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		inputs.setInputValue("OSMV_CLOSED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
 			// TODO
 		} catch (Exception e) {
@@ -374,7 +370,7 @@ public class DASSensorUtils {
 	}
 
 	public boolean verifySensorState(TestCases testCase, TestCaseInputs inputs, String sensor, String states) {
-		//SensorStatusScreen sensorStatusScreen = new SensorStatusScreen(testCase);
+		// SensorStatusScreen sensorStatusScreen = new SensorStatusScreen(testCase);
 		String sensorName = "";
 		String sensorState = "";
 		if (sensor.equalsIgnoreCase("Door") || sensor.equalsIgnoreCase("Door Sensor")) {
@@ -438,11 +434,12 @@ public class DASSensorUtils {
 					System.out.println("Sensor status");
 					// Sensor status
 					if (states.contains("tamper cleared")) {
-						if (testCase.getMobileDriver().findElementByXPath("//*[contains(@name,'SensorStatus_" + i + "_Image')]") != null) {
-//							MobileUtils.isMobElementExists("xpath",
-//									"]", testCase, 10)
-							testCase.getMobileDriver().findElementByXPath(
-									"//*[contains(@name,'SensorStatus_" + i + "_Image')]").click();
+						if (testCase.getMobileDriver()
+								.findElementByXPath("//*[contains(@name,'SensorStatus_" + i + "_Image')]") != null) {
+							// MobileUtils.isMobElementExists("xpath",
+							// "]", testCase, 10)
+							testCase.getMobileDriver()
+									.findElementByXPath("//*[contains(@name,'SensorStatus_" + i + "_Image')]").click();
 							// code to click on clear tamper
 							SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
 							flag = flag & settingScreen.clickOnClearCoverTamperOption();
@@ -451,9 +448,9 @@ public class DASSensorUtils {
 							} catch (InterruptedException e) {
 								e.printStackTrace();
 							}
-//							if (settingScreen.isSensorTamperClearPopupDisplayed(30)) {
-//								flag = flag & settingScreen.clickOnOkTamperClearPopup();
-//							}
+							// if (settingScreen.isSensorTamperClearPopupDisplayed(30)) {
+							// flag = flag & settingScreen.clickOnOkTamperClearPopup();
+							// }
 						}
 						if (sensor.equalsIgnoreCase("Door")) {
 							inputs.setInputValue("DOOR_TAMPER_CLEARED_TIME",
@@ -513,7 +510,7 @@ public class DASSensorUtils {
 						if (sensorNameList.get(k).getAttribute("value").equalsIgnoreCase(sensorName)) {
 							if (states.contains("tamper cleared")) {
 								sensorStatusList.get(k).click();
-								
+
 								if (sensor.equalsIgnoreCase("Door")) {
 									inputs.setInputValue("DOOR_TAMPER_CLEARED_TIME",
 											LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
@@ -631,10 +628,10 @@ public class DASSensorUtils {
 				}
 			}
 		}
-//		if (sensorStatusScreen.isSensorStatusVisible()
-//				&& sensorStatusScreen.isAddButtonNotVisibleInSensorStatusScreen()) {
-//			flag = flag & sensorStatusScreen.clickOnSensorStatusScreenBack(testCase);
-//		}
+		// if (sensorStatusScreen.isSensorStatusVisible()
+		// && sensorStatusScreen.isAddButtonNotVisibleInSensorStatusScreen()) {
+		// flag = flag & sensorStatusScreen.clickOnSensorStatusScreenBack(testCase);
+		// }
 		if (list.size() == 0) {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "not able to read Sensor list");
 		}
@@ -767,9 +764,9 @@ public class DASSensorUtils {
 		}
 		return flag;
 	}
-	
-	public static boolean navigateToSensorTypeSettingsFromSecuritySettingsScreen(String SensorType, TestCaseInputs inputs,
-			TestCases testCase) {
+
+	public static boolean navigateToSensorTypeSettingsFromSecuritySettingsScreen(String SensorType,
+			TestCaseInputs inputs, TestCases testCase) {
 		boolean flag = false;
 		SensorSettingScreen sensorScreen = new SensorSettingScreen(testCase);
 		try {
@@ -827,7 +824,7 @@ public class DASSensorUtils {
 		}
 		return flag;
 	}
-	
+
 	/**
 	 * <h1>Wait for until progress bar to complete</h1>
 	 * <p>
@@ -844,8 +841,12 @@ public class DASSensorUtils {
 		boolean flag = true;
 		try {
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(duration, TimeUnit.MINUTES);
+			/*
+			 * fWait.pollingEvery(3, TimeUnit.SECONDS); fWait.withTimeout(duration,
+			 * TimeUnit.MINUTES);
+			 */
+			fWait.pollingEvery(Duration.ofSeconds(3));
+			fWait.withTimeout(Duration.ofMinutes(duration));
 			SensorSettingScreen ss = new SensorSettingScreen(testCase);
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {

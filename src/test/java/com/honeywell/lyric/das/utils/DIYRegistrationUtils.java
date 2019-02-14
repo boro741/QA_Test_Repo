@@ -4,7 +4,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -624,8 +624,12 @@ public class DIYRegistrationUtils {
 		boolean flag = true;
 		try {
 			FluentWait<String> fWait = new FluentWait<String>("");
-			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(90, TimeUnit.SECONDS);
+			/*
+			 * fWait.pollingEvery(3, TimeUnit.SECONDS); fWait.withTimeout(90,
+			 * TimeUnit.SECONDS);
+			 */
+			fWait.pollingEvery(Duration.ofSeconds(3));
+			fWait.withTimeout(Duration.ofSeconds(90));
 			@SuppressWarnings("resource")
 			CHILUtil chUtil = new CHILUtil(inputs);
 			// inputs.setInputValue("LOCATION1_NAME", locationName, false);
@@ -657,7 +661,8 @@ public class DIYRegistrationUtils {
 							if (isEventReceived) {
 								Keyword.ReportStep_Pass(testCase,
 										"Device successfully deleted through CHIL without Client header");
-								fWait.withTimeout(30, TimeUnit.SECONDS);
+								// fWait.withTimeout(30, TimeUnit.SECONDS);
+								fWait.withTimeout(Duration.ofSeconds(30));
 								try {
 									fWait.until(new Function<String, Boolean>() {
 										public Boolean apply(String a) {
@@ -753,8 +758,12 @@ public class DIYRegistrationUtils {
 		boolean flag = true;
 		try {
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(duration, TimeUnit.MINUTES);
+			/*
+			 * fWait.pollingEvery(3, TimeUnit.SECONDS); fWait.withTimeout(duration,
+			 * TimeUnit.MINUTES);
+			 */
+			fWait.pollingEvery(Duration.ofSeconds(3));
+			fWait.withTimeout(Duration.ofMinutes(duration));
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
@@ -1023,8 +1032,12 @@ public class DIYRegistrationUtils {
 			frame.setVisible(true);
 
 			FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
-			fWait.pollingEvery(5, TimeUnit.SECONDS);
-			fWait.withTimeout(1, TimeUnit.MINUTES);
+			/*
+			 * fWait.pollingEvery(5, TimeUnit.SECONDS); fWait.withTimeout(1,
+			 * TimeUnit.MINUTES);
+			 */
+			fWait.pollingEvery(Duration.ofSeconds(5));
+			fWait.withTimeout(Duration.ofMinutes(1));
 			Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 				public Boolean apply(CustomDriver driver) {
 					try {
@@ -1101,8 +1114,12 @@ public class DIYRegistrationUtils {
 				testCase.startTimer("QRCodeScanningTimer");
 
 				FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
-				fWait.pollingEvery(5, TimeUnit.SECONDS);
-				fWait.withTimeout(1, TimeUnit.MINUTES);
+				/*
+				 * fWait.pollingEvery(5, TimeUnit.SECONDS); fWait.withTimeout(1,
+				 * TimeUnit.MINUTES);
+				 */
+				fWait.pollingEvery(Duration.ofSeconds(5));
+				fWait.withTimeout(Duration.ofMinutes(1));
 				Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 					public Boolean apply(CustomDriver driver) {
 						try {

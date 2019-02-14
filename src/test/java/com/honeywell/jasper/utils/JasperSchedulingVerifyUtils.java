@@ -2,12 +2,12 @@ package com.honeywell.jasper.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -30,9 +30,10 @@ import com.honeywell.lyric.utils.InputVariables;
 import com.honeywell.screens.SchedulingScreen;
 
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class JasperSchedulingVerifyUtils {
-
 
 	public static boolean verifyTemperatureWithInRange(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
@@ -54,18 +55,22 @@ public class JasperSchedulingVerifyUtils {
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						if (ss.isSchedulePeriodHeatSetPointVisible(5)) {
 							schedule_heatsetpoints = ss.getSchedulePeriodHeatSetPointElement();
-							for (int i=0;i<=schedule_heatsetpoints.size()-1;i++) {
+							for (int i = 0; i <= schedule_heatsetpoints.size() - 1; i++) {
 								if (schedule_heatsetpoints != null) {
-									if (Double.parseDouble(schedule_heatsetpoints.get(i).getText().replaceAll("°","")) <= maxHeat
-											&& Double.parseDouble(schedule_heatsetpoints.get(i).getText().replaceAll("°","")) >= minHeat) {
-										Keyword.ReportStep_Pass(testCase,
-												"Set Point value: " + Double.parseDouble(schedule_heatsetpoints.get(i).getText().replaceAll("°",""))
+									if (Double.parseDouble(
+											schedule_heatsetpoints.get(i).getText().replaceAll("°", "")) <= maxHeat
+											&& Double.parseDouble(schedule_heatsetpoints.get(i).getText()
+													.replaceAll("°", "")) >= minHeat) {
+										Keyword.ReportStep_Pass(testCase, "Set Point value: "
+												+ Double.parseDouble(
+														schedule_heatsetpoints.get(i).getText().replaceAll("°", ""))
 												+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[TemperatureInMaxMinRange] Set Point value: "
-														+ Double.parseDouble(schedule_heatsetpoints.get(i).getText().replaceAll("°",""))
+														+ Double.parseDouble(schedule_heatsetpoints.get(i).getText()
+																.replaceAll("°", ""))
 														+ " is not set within or at the maximum and minimum range");
 									}
 								}
@@ -73,18 +78,22 @@ public class JasperSchedulingVerifyUtils {
 						}
 						if (ss.isSchedulePeriodCoolSetPointVisible(5)) {
 							schedule_coolsetpoints = ss.getSchedulePeriodCoolSetPointElement();
-							for (int i=0;i<=schedule_coolsetpoints.size()-1;i++) {
+							for (int i = 0; i <= schedule_coolsetpoints.size() - 1; i++) {
 								if (schedule_coolsetpoints != null) {
-									if (Double.parseDouble(schedule_coolsetpoints.get(i).getText().replaceAll("°","")) <= maxCool
-											&& Double.parseDouble(schedule_coolsetpoints.get(i).getText().replaceAll("°","")) >= minCool) {
-										Keyword.ReportStep_Pass(testCase,
-												"Set Point value: " + Double.parseDouble(schedule_coolsetpoints.get(i).getText().replaceAll("°",""))
+									if (Double.parseDouble(
+											schedule_coolsetpoints.get(i).getText().replaceAll("°", "")) <= maxCool
+											&& Double.parseDouble(schedule_coolsetpoints.get(i).getText()
+													.replaceAll("°", "")) >= minCool) {
+										Keyword.ReportStep_Pass(testCase, "Set Point value: "
+												+ Double.parseDouble(
+														schedule_coolsetpoints.get(i).getText().replaceAll("°", ""))
 												+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 												"[TemperatureInMaxMinRange] Set Point value: "
-														+ Double.parseDouble(schedule_coolsetpoints.get(i).getText().replaceAll("°",""))
+														+ Double.parseDouble(schedule_coolsetpoints.get(i).getText()
+																.replaceAll("°", ""))
 														+ " is not set within or at the maximum and minimum range");
 									}
 								}
@@ -93,97 +102,115 @@ public class JasperSchedulingVerifyUtils {
 					} else {
 						if (ss.isGeofenceHomeCoolElementVisible(5)) {
 							coolSetPoint = ss.getGeofenceHomeCoolElement();
-							if (Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚","")) <= maxHeat
-									&& Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚","")) >= minHeat) {
+							if (Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚", "")) <= maxHeat
+									&& Double.parseDouble(
+											coolSetPoint.getAttribute("value").replaceAll("˚", "")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
 										"Home Set Point value: "
-												+ Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚",""))
+												+ Double.parseDouble(
+														coolSetPoint.getAttribute("value").replaceAll("˚", ""))
 												+ " is set within or at the maximum and minimum range");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[TemperatureInMaxMinRange] Home Set Point value: "
-												+ Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚",""))
+												+ Double.parseDouble(
+														coolSetPoint.getAttribute("value").replaceAll("˚", ""))
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
 						if (ss.isGeofenceHomeHeatElementVisible(5)) {
 							heatSetPoint = ss.getGeofenceHomeHeatElement();
-							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) <= maxHeat
-									&& Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) >= minHeat) {
+							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚", "")) <= maxHeat
+									&& Double.parseDouble(
+											heatSetPoint.getAttribute("value").replaceAll("˚", "")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
 										"Home Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚",""))
+												+ Double.parseDouble(
+														heatSetPoint.getAttribute("value").replaceAll("˚", ""))
 												+ " is set within or at the maximum and minimum range");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[TemperatureInMaxMinRange] Home Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚",""))
+												+ Double.parseDouble(
+														heatSetPoint.getAttribute("value").replaceAll("˚", ""))
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
 						if (ss.isGeofenceSleepCoolElementVisible(5)) {
 							coolSetPoint = ss.getGeofenceSleepCoolElement();
-							if (Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚","")) <= maxHeat
-									&& Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚","")) >= minHeat) {
+							if (Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚", "")) <= maxHeat
+									&& Double.parseDouble(
+											coolSetPoint.getAttribute("value").replaceAll("˚", "")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
 										"Sleep Set Point value: "
-												+ Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚",""))
+												+ Double.parseDouble(
+														coolSetPoint.getAttribute("value").replaceAll("˚", ""))
 												+ " is set within or at the maximum and minimum range");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[TemperatureInMaxMinRange] Sleep Set Point value: "
-												+ Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚",""))
+												+ Double.parseDouble(
+														coolSetPoint.getAttribute("value").replaceAll("˚", ""))
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
 						if (ss.isGeofenceSleepHeatElementVisible(5)) {
 							heatSetPoint = ss.getGeofenceSleepHeatElement();
-							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) <= maxHeat
-									&& Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) >= minHeat) {
+							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚", "")) <= maxHeat
+									&& Double.parseDouble(
+											heatSetPoint.getAttribute("value").replaceAll("˚", "")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
 										"Sleep Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚",""))
+												+ Double.parseDouble(
+														heatSetPoint.getAttribute("value").replaceAll("˚", ""))
 												+ " is set within or at the maximum and minimum range");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[TemperatureInMaxMinRange] Sleep Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚",""))
+												+ Double.parseDouble(
+														heatSetPoint.getAttribute("value").replaceAll("˚", ""))
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
 						if (ss.isGeofenceAwayCoolElementVisible(5)) {
 							coolSetPoint = ss.getGeofenceAwayCoolElement();
-							if (Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚","")) <= maxHeat
-									&& Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚","")) >= minHeat) {
+							if (Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚", "")) <= maxHeat
+									&& Double.parseDouble(
+											coolSetPoint.getAttribute("value").replaceAll("˚", "")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
 										"Home Set Point value: "
-												+ Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚",""))
+												+ Double.parseDouble(
+														coolSetPoint.getAttribute("value").replaceAll("˚", ""))
 												+ " is set within or at the maximum and minimum range");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[TemperatureInMaxMinRange] Home Set Point value: "
-												+ Double.parseDouble(coolSetPoint.getAttribute("value").replaceAll("˚",""))
+												+ Double.parseDouble(
+														coolSetPoint.getAttribute("value").replaceAll("˚", ""))
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
 						if (ss.isGeofenceAwayHeatElementVisible(5)) {
 							heatSetPoint = ss.getGeofenceAwayHeatElement();
-							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) <= maxHeat
-									&& Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) >= minHeat) {
+							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚", "")) <= maxHeat
+									&& Double.parseDouble(
+											heatSetPoint.getAttribute("value").replaceAll("˚", "")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
 										"Home Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚",""))
+												+ Double.parseDouble(
+														heatSetPoint.getAttribute("value").replaceAll("˚", ""))
 												+ " is set within or at the maximum and minimum range");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[TemperatureInMaxMinRange] Home Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚",""))
+												+ Double.parseDouble(
+														heatSetPoint.getAttribute("value").replaceAll("˚", ""))
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
@@ -195,19 +222,23 @@ public class JasperSchedulingVerifyUtils {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							if (ss.isSchedulePeriodHeatSetPointVisible(5)) {
 								schedule_heatsetpoints = ss.getSchedulePeriodHeatSetPointElement();
-								for (int i=0;i<=schedule_heatsetpoints.size()-1;i++) {
+								for (int i = 0; i <= schedule_heatsetpoints.size() - 1; i++) {
 									if (schedule_heatsetpoints != null) {
-										if (Double.parseDouble(schedule_heatsetpoints.get(i).getText().replaceAll("°","")) <= maxHeat
-												&& Double.parseDouble(schedule_heatsetpoints.get(i).getText().replaceAll("°","")) >= minHeat) {
-											Keyword.ReportStep_Pass(testCase,
-													"Set Point value: " + Double.parseDouble(schedule_heatsetpoints.get(i).getText().replaceAll("°",""))
+										if (Double.parseDouble(
+												schedule_heatsetpoints.get(i).getText().replaceAll("°", "")) <= maxHeat
+												&& Double.parseDouble(schedule_heatsetpoints.get(i).getText()
+														.replaceAll("°", "")) >= minHeat) {
+											Keyword.ReportStep_Pass(testCase, "Set Point value: "
+													+ Double.parseDouble(
+															schedule_heatsetpoints.get(i).getText().replaceAll("°", ""))
 													+ " is set within or at the maximum and minimum range");
 											return true;
 										} else {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"[TemperatureInMaxMinRange] Set Point value: "
-															+ Double.parseDouble(schedule_heatsetpoints.get(i).getText().replaceAll("°",""))
+															+ Double.parseDouble(schedule_heatsetpoints.get(i).getText()
+																	.replaceAll("°", ""))
 															+ " is not set within or at the maximum and minimum range");
 										}
 									}
@@ -215,19 +246,23 @@ public class JasperSchedulingVerifyUtils {
 							}
 							if (ss.isSchedulePeriodCoolSetPointVisible(5)) {
 								schedule_coolsetpoints = ss.getSchedulePeriodCoolSetPointElement();
-								for (int i=0;i<=schedule_coolsetpoints.size()-1;i++) {
+								for (int i = 0; i <= schedule_coolsetpoints.size() - 1; i++) {
 									if (schedule_coolsetpoints != null) {
-										if (Double.parseDouble(schedule_coolsetpoints.get(i).getText().replaceAll("°","")) <= maxCool
-												&& Double.parseDouble(schedule_coolsetpoints.get(i).getText().replaceAll("°","")) >= minCool) {
-											Keyword.ReportStep_Pass(testCase,
-													"Set Point value: " + Double.parseDouble(schedule_coolsetpoints.get(i).getText().replaceAll("°",""))
+										if (Double.parseDouble(
+												schedule_coolsetpoints.get(i).getText().replaceAll("°", "")) <= maxCool
+												&& Double.parseDouble(schedule_coolsetpoints.get(i).getText()
+														.replaceAll("°", "")) >= minCool) {
+											Keyword.ReportStep_Pass(testCase, "Set Point value: "
+													+ Double.parseDouble(
+															schedule_coolsetpoints.get(i).getText().replaceAll("°", ""))
 													+ " is set within or at the maximum and minimum range");
-											return true ;
+											return true;
 										} else {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"[TemperatureInMaxMinRange] Set Point value: "
-															+ Double.parseDouble(schedule_coolsetpoints.get(i).getText().replaceAll("°",""))
+															+ Double.parseDouble(schedule_coolsetpoints.get(i).getText()
+																	.replaceAll("°", ""))
 															+ " is not set within or at the maximum and minimum range");
 										}
 									}
@@ -243,36 +278,46 @@ public class JasperSchedulingVerifyUtils {
 								return flag;
 							}
 							for (int i = 0; i < schedule_period_time.size(); i++) {
-								if (Double.parseDouble(
-										ss.getCoolSetPointsOfGivenEverydayPeriod(schedulePeriods[i]).replace("˚","")) <= maxCool
-										&& Double.parseDouble(ss.getCoolSetPointsOfGivenEverydayPeriod(
-												schedulePeriods[i]).replace("˚", "")) >= minCool) {
-									Keyword.ReportStep_Pass(testCase, "Set Point value: "
-											+ Double.parseDouble(
-													ss.getCoolSetPointsOfGivenEverydayPeriod(schedulePeriods[i]).replace("˚",""))
-											+ " is set within or at the maximum and minimum range");
+								if (Double
+										.parseDouble(ss.getCoolSetPointsOfGivenEverydayPeriod(schedulePeriods[i])
+												.replace("˚", "")) <= maxCool
+										&& Double.parseDouble(
+												ss.getCoolSetPointsOfGivenEverydayPeriod(schedulePeriods[i])
+														.replace("˚", "")) >= minCool) {
+									Keyword.ReportStep_Pass(testCase,
+											"Set Point value: "
+													+ Double.parseDouble(
+															ss.getCoolSetPointsOfGivenEverydayPeriod(schedulePeriods[i])
+																	.replace("˚", ""))
+													+ " is set within or at the maximum and minimum range");
 								} else {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[TemperatureInMaxMinRange] Set Point value: "
-													+ Double.parseDouble(ss
-															.getCoolSetPointsOfGivenEverydayPeriod(schedulePeriods[i]).replace("˚",""))
+													+ Double.parseDouble(
+															ss.getCoolSetPointsOfGivenEverydayPeriod(schedulePeriods[i])
+																	.replace("˚", ""))
 													+ " is not set within or at the maximum and minimum range");
 								}
-								if (Double.parseDouble(
-										ss.getHeatSetPointsOfGivenEverydayPeriod(schedulePeriods[i]).replace("˚", "")) <= maxHeat
-										&& Double.parseDouble(ss.getHeatSetPointsOfGivenEverydayPeriod(
-												schedulePeriods[i]).replace("˚", "")) >= minHeat) {
-									Keyword.ReportStep_Pass(testCase, "Set Point value: "
-											+ Double.parseDouble(
-													ss.getHeatSetPointsOfGivenEverydayPeriod(schedulePeriods[i]).replace("˚",""))
-											+ " is set within or at the maximum and minimum range");
+								if (Double
+										.parseDouble(ss.getHeatSetPointsOfGivenEverydayPeriod(schedulePeriods[i])
+												.replace("˚", "")) <= maxHeat
+										&& Double.parseDouble(
+												ss.getHeatSetPointsOfGivenEverydayPeriod(schedulePeriods[i])
+														.replace("˚", "")) >= minHeat) {
+									Keyword.ReportStep_Pass(testCase,
+											"Set Point value: "
+													+ Double.parseDouble(
+															ss.getHeatSetPointsOfGivenEverydayPeriod(schedulePeriods[i])
+																	.replace("˚", ""))
+													+ " is set within or at the maximum and minimum range");
 								} else {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[TemperatureInMaxMinRange] Set Point value: "
-													+ Double.parseDouble(ss
-															.getHeatSetPointsOfGivenEverydayPeriod(schedulePeriods[i]).replace("˚",""))
+													+ Double.parseDouble(
+															ss.getHeatSetPointsOfGivenEverydayPeriod(schedulePeriods[i])
+																	.replace("˚", ""))
 													+ " is not set within or at the maximum and minimum range");
 								}
 							}
@@ -285,16 +330,20 @@ public class JasperSchedulingVerifyUtils {
 								schedule_heatsetpoints = ss.getSchedulePeriodHeatSetPointElement();
 								for (WebElement setpoints : schedule_heatsetpoints) {
 									if (setpoints != null) {
-										if (Double.parseDouble(setpoints.getText().replaceAll("°","")) <= maxHeat
-												&& Double.parseDouble(setpoints.getText().replaceAll("°","")) >= minHeat) {
+										if (Double.parseDouble(setpoints.getText().replaceAll("°", "")) <= maxHeat
+												&& Double.parseDouble(
+														setpoints.getText().replaceAll("°", "")) >= minHeat) {
 											Keyword.ReportStep_Pass(testCase,
-													"Set Point value: " + Double.parseDouble(setpoints.getText().replaceAll("°",""))
-													+ " is set within or at the maximum and minimum range");
+													"Set Point value: "
+															+ Double.parseDouble(
+																	setpoints.getText().replaceAll("°", ""))
+															+ " is set within or at the maximum and minimum range");
 										} else {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"[TemperatureInMaxMinRange] Set Point value: "
-															+ Double.parseDouble(setpoints.getText().replaceAll("°",""))
+															+ Double.parseDouble(
+																	setpoints.getText().replaceAll("°", ""))
 															+ " is not set within or at the maximum and minimum range");
 										}
 									}
@@ -304,16 +353,20 @@ public class JasperSchedulingVerifyUtils {
 								schedule_heatsetpoints = ss.getSchedulePeriodCoolSetPointElement();
 								for (WebElement setpoints : schedule_coolsetpoints) {
 									if (setpoints != null) {
-										if (Double.parseDouble(setpoints.getText().replaceAll("°","")) <= maxCool
-												&& Double.parseDouble(setpoints.getText().replaceAll("°","")) >= minCool) {
+										if (Double.parseDouble(setpoints.getText().replaceAll("°", "")) <= maxCool
+												&& Double.parseDouble(
+														setpoints.getText().replaceAll("°", "")) >= minCool) {
 											Keyword.ReportStep_Pass(testCase,
-													"Set Point value: " + Double.parseDouble(setpoints.getText().replaceAll("°",""))
-													+ " is set within or at the maximum and minimum range");
+													"Set Point value: "
+															+ Double.parseDouble(
+																	setpoints.getText().replaceAll("°", ""))
+															+ " is set within or at the maximum and minimum range");
 										} else {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 													"[TemperatureInMaxMinRange] Set Point value: "
-															+ Double.parseDouble(setpoints.getText().replaceAll("°",""))
+															+ Double.parseDouble(
+																	setpoints.getText().replaceAll("°", ""))
 															+ " is not set within or at the maximum and minimum range");
 										}
 									}
@@ -329,41 +382,47 @@ public class JasperSchedulingVerifyUtils {
 								return flag;
 							}
 							for (int i = 0; i < schedule_period_time.size(); i++) {
-								if (Double
-										.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
-												schedulePeriods[i]).replace("˚","")) <= maxHeat
-												&& Double.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
-														schedulePeriods[i]).replace("˚","")) >= minHeat) {
-									Keyword.ReportStep_Pass(testCase, "[Monday - Friday] Heat Set Point value: "
-											+ Double.parseDouble(ss
-													.getValueOfWeekdayHeatTemperatureElementAtIndex(schedulePeriods[i]).replace("˚",""))
-											+ " is set within or at the maximum and minimum range");
+								if (Double.parseDouble(
+										ss.getValueOfWeekdayHeatTemperatureElementAtIndex(schedulePeriods[i])
+												.replace("˚", "")) <= maxHeat
+										&& Double.parseDouble(
+												ss.getValueOfWeekdayHeatTemperatureElementAtIndex(schedulePeriods[i])
+														.replace("˚", "")) >= minHeat) {
+									Keyword.ReportStep_Pass(testCase,
+											"[Monday - Friday] Heat Set Point value: "
+													+ Double.parseDouble(
+															ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
+																	schedulePeriods[i]).replace("˚", ""))
+													+ " is set within or at the maximum and minimum range");
 								} else {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Monday - Friday] Heat Set Point value: "
 													+ Double.parseDouble(
 															ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
-																	schedulePeriods[i]).replace("˚",""))
+																	schedulePeriods[i]).replace("˚", ""))
 
 													+ " is not set within or at the maximum and minimum range");
 								}
-								if (Double
-										.parseDouble(ss.getValueOfWeekdayCoolTemperatureElementAtIndex(
-												schedulePeriods[i]).replace("˚","")) <= maxHeat
-												&& Double.parseDouble(ss.getValueOfWeekdayCoolTemperatureElementAtIndex(
-														schedulePeriods[i]).replace("˚","")) >= minHeat) {
-									Keyword.ReportStep_Pass(testCase, "[Monday - Friday]Cool Set Point value: "
-											+ Double.parseDouble(ss
-													.getValueOfWeekdayCoolTemperatureElementAtIndex(schedulePeriods[i]).replace("˚",""))
-											+ " is set within or at the maximum and minimum range");
+								if (Double.parseDouble(
+										ss.getValueOfWeekdayCoolTemperatureElementAtIndex(schedulePeriods[i])
+												.replace("˚", "")) <= maxHeat
+										&& Double.parseDouble(
+												ss.getValueOfWeekdayCoolTemperatureElementAtIndex(schedulePeriods[i])
+														.replace("˚", "")) >= minHeat) {
+									Keyword.ReportStep_Pass(testCase,
+											"[Monday - Friday]Cool Set Point value: "
+													+ Double.parseDouble(
+															ss.getValueOfWeekdayCoolTemperatureElementAtIndex(
+																	schedulePeriods[i]).replace("˚", ""))
+													+ " is set within or at the maximum and minimum range");
 								} else {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Monday - Friday]Cool Set Point value: "
 													+ Double.parseDouble(
 															ss.getValueOfWeekdayCoolTemperatureElementAtIndex(
-																	schedulePeriods[i]).replace("˚",""))
+																	schedulePeriods[i]).replace("˚", ""))
 													+ " is not set within or at the maximum and minimum range");
 								}
 							}
@@ -376,40 +435,46 @@ public class JasperSchedulingVerifyUtils {
 								return flag;
 							}
 							for (int i = 0; i < schedule_period_time.size(); i++) {
-								if (Double
-										.parseDouble(ss.getValueOfWeekendHeatTemperatureElementAtIndex(
-												schedulePeriods[i]).replace("˚","")) <= maxHeat
-												&& Double.parseDouble(ss.getValueOfWeekendHeatTemperatureElementAtIndex(
-														schedulePeriods[i]).replace("˚","")) >= minHeat) {
-									Keyword.ReportStep_Pass(testCase, "[Saturday - Sunday]Heat Set Point value: "
-											+ Double.parseDouble(ss
-													.getValueOfWeekendHeatTemperatureElementAtIndex(schedulePeriods[i]).replace("˚",""))
-											+ " is set within or at the maximum and minimum range");
+								if (Double.parseDouble(
+										ss.getValueOfWeekendHeatTemperatureElementAtIndex(schedulePeriods[i])
+												.replace("˚", "")) <= maxHeat
+										&& Double.parseDouble(
+												ss.getValueOfWeekendHeatTemperatureElementAtIndex(schedulePeriods[i])
+														.replace("˚", "")) >= minHeat) {
+									Keyword.ReportStep_Pass(testCase,
+											"[Saturday - Sunday]Heat Set Point value: "
+													+ Double.parseDouble(
+															ss.getValueOfWeekendHeatTemperatureElementAtIndex(
+																	schedulePeriods[i]).replace("˚", ""))
+													+ " is set within or at the maximum and minimum range");
 								} else {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Saturday - Sunday]Heat Set Point value: "
 													+ Double.parseDouble(
 															ss.getValueOfWeekendHeatTemperatureElementAtIndex(
-																	schedulePeriods[i]).replace("˚",""))
+																	schedulePeriods[i]).replace("˚", ""))
 													+ " is not set within or at the maximum and minimum range");
 								}
-								if (Double
-										.parseDouble(ss.getValueOfWeekendCoolTemperatureElementAtIndex(
-												schedulePeriods[i]).replace("˚","")) <= maxHeat
-												&& Double.parseDouble(ss.getValueOfWeekendCoolTemperatureElementAtIndex(
-														schedulePeriods[i]).replace("˚","")) >= minHeat) {
-									Keyword.ReportStep_Pass(testCase, "[Saturday - Sunday]Cool Set Point value: "
-											+ Double.parseDouble(ss
-													.getValueOfWeekendCoolTemperatureElementAtIndex(schedulePeriods[i]).replace("˚",""))
-											+ " is set within or at the maximum and minimum range");
+								if (Double.parseDouble(
+										ss.getValueOfWeekendCoolTemperatureElementAtIndex(schedulePeriods[i])
+												.replace("˚", "")) <= maxHeat
+										&& Double.parseDouble(
+												ss.getValueOfWeekendCoolTemperatureElementAtIndex(schedulePeriods[i])
+														.replace("˚", "")) >= minHeat) {
+									Keyword.ReportStep_Pass(testCase,
+											"[Saturday - Sunday]Cool Set Point value: "
+													+ Double.parseDouble(
+															ss.getValueOfWeekendCoolTemperatureElementAtIndex(
+																	schedulePeriods[i]).replace("˚", ""))
+													+ " is set within or at the maximum and minimum range");
 								} else {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[Saturday - Sunday]Cool Set Point value: "
 													+ Double.parseDouble(
 															ss.getValueOfWeekendCoolTemperatureElementAtIndex(
-																	schedulePeriods[i]).replace("˚",""))
+																	schedulePeriods[i]).replace("˚", ""))
 													+ " is not set within or at the maximum and minimum range");
 								}
 							}
@@ -430,7 +495,7 @@ public class JasperSchedulingVerifyUtils {
 											&& Double.parseDouble(setpoints.getText()) >= minCool) {
 										Keyword.ReportStep_Pass(testCase,
 												"Set Point value: " + Double.parseDouble(setpoints.getText())
-												+ " is set within or at the maximum and minimum range");
+														+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -504,7 +569,7 @@ public class JasperSchedulingVerifyUtils {
 												&& Double.parseDouble(setpoints.getText()) >= minCool) {
 											Keyword.ReportStep_Pass(testCase,
 													"Set Point value: " + Double.parseDouble(setpoints.getText())
-													+ " is set within or at the maximum and minimum range");
+															+ " is set within or at the maximum and minimum range");
 										} else {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -573,7 +638,7 @@ public class JasperSchedulingVerifyUtils {
 												&& Double.parseDouble(setpoints.getText()) >= minCool) {
 											Keyword.ReportStep_Pass(testCase,
 													"Set Point value: " + Double.parseDouble(setpoints.getText())
-													+ " is set within or at the maximum and minimum range");
+															+ " is set within or at the maximum and minimum range");
 										} else {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -685,12 +750,14 @@ public class JasperSchedulingVerifyUtils {
 							schedule_heatsetpoints = ss.getSchedulePeriodHeatSetPointElement();
 							for (WebElement setpoints : schedule_heatsetpoints) {
 								if (setpoints != null) {
-									Keyword.ReportStep_Pass(testCase,maxHeat.toString()+"<="+setpoints.getText().replace("°", "")+">="+minHeat.toString());
+									Keyword.ReportStep_Pass(testCase, maxHeat.toString() + "<="
+											+ setpoints.getText().replace("°", "") + ">=" + minHeat.toString());
 									if (Double.parseDouble(setpoints.getText().replace("°", "")) <= maxHeat
 											&& Double.parseDouble(setpoints.getText().replace("°", "")) >= minHeat) {
 										Keyword.ReportStep_Pass(testCase,
-												"Set Point value: " + Double.parseDouble(setpoints.getText().replace("°", ""))
-												+ " is set within or at the maximum and minimum range");
+												"Set Point value: "
+														+ Double.parseDouble(setpoints.getText().replace("°", ""))
+														+ " is set within or at the maximum and minimum range");
 									} else {
 										flag = false;
 										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -704,49 +771,58 @@ public class JasperSchedulingVerifyUtils {
 					} else {
 						if (ss.isGeofenceHomeHeatElementVisible(5)) {
 							heatSetPoint = ss.getGeofenceHomeHeatElement();
-							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) <= maxHeat
-									&& Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) >= minHeat) {
+							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚", "")) <= maxHeat
+									&& Double.parseDouble(
+											heatSetPoint.getAttribute("value").replaceAll("˚", "")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
 										"Home Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚",""))
+												+ Double.parseDouble(
+														heatSetPoint.getAttribute("value").replaceAll("˚", ""))
 												+ " is set within or at the maximum and minimum range");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[TemperatureInMaxMinRange] Home Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚",""))
+												+ Double.parseDouble(
+														heatSetPoint.getAttribute("value").replaceAll("˚", ""))
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
 						if (ss.isGeofenceSleepHeatElementVisible(5)) {
 							heatSetPoint = ss.getGeofenceSleepHeatElement();
-							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) <= maxHeat
-									&& Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) >= minHeat) {
+							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚", "")) <= maxHeat
+									&& Double.parseDouble(
+											heatSetPoint.getAttribute("value").replaceAll("˚", "")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
 										"Sleep Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚",""))
+												+ Double.parseDouble(
+														heatSetPoint.getAttribute("value").replaceAll("˚", ""))
 												+ " is set within or at the maximum and minimum range");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[TemperatureInMaxMinRange] Sleep Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚",""))
+												+ Double.parseDouble(
+														heatSetPoint.getAttribute("value").replaceAll("˚", ""))
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
 						if (ss.isGeofenceAwayHeatElementVisible(5)) {
 							heatSetPoint = ss.getGeofenceAwayHeatElement();
-							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) <= maxHeat
-									&& Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚","")) >= minHeat) {
+							if (Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚", "")) <= maxHeat
+									&& Double.parseDouble(
+											heatSetPoint.getAttribute("value").replaceAll("˚", "")) >= minHeat) {
 								Keyword.ReportStep_Pass(testCase,
 										"Home Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚",""))
+												+ Double.parseDouble(
+														heatSetPoint.getAttribute("value").replaceAll("˚", ""))
 												+ " is set within or at the maximum and minimum range");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[TemperatureInMaxMinRange] Home Set Point value: "
-												+ Double.parseDouble(heatSetPoint.getAttribute("value").replaceAll("˚",""))
+												+ Double.parseDouble(
+														heatSetPoint.getAttribute("value").replaceAll("˚", ""))
 												+ " is not set within or at the maximum and minimum range");
 							}
 						}
@@ -764,7 +840,7 @@ public class JasperSchedulingVerifyUtils {
 												&& Double.parseDouble(setpoints.getText()) >= minHeat) {
 											Keyword.ReportStep_Pass(testCase,
 													"Set Point value: " + Double.parseDouble(setpoints.getText())
-													+ " is set within or at the maximum and minimum range");
+															+ " is set within or at the maximum and minimum range");
 										} else {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -833,7 +909,7 @@ public class JasperSchedulingVerifyUtils {
 												&& Double.parseDouble(setpoints.getText()) >= minHeat) {
 											Keyword.ReportStep_Pass(testCase,
 													"Set Point value: " + Double.parseDouble(setpoints.getText())
-													+ " is set within or at the maximum and minimum range");
+															+ " is set within or at the maximum and minimum range");
 										} else {
 											flag = false;
 											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -853,8 +929,8 @@ public class JasperSchedulingVerifyUtils {
 									if (Double
 											.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
 													String.valueOf(i + 1))) <= maxHeat
-													&& Double.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
-															String.valueOf(i + 1))) >= minHeat) {
+											&& Double.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
+													String.valueOf(i + 1))) >= minHeat) {
 										Keyword.ReportStep_Pass(testCase, "Set Point value: "
 												+ Double.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
 														String.valueOf(i + 1)))
@@ -898,8 +974,8 @@ public class JasperSchedulingVerifyUtils {
 									if (Double
 											.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
 													schedulePeriods[i])) <= maxHeat
-													&& Double.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
-															schedulePeriods[i])) >= minHeat) {
+											&& Double.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
+													schedulePeriods[i])) >= minHeat) {
 										Keyword.ReportStep_Pass(testCase, "Set Point value: "
 												+ Double.parseDouble(ss.getValueOfWeekdayHeatTemperatureElementAtIndex(
 														schedulePeriods[i]))
@@ -921,8 +997,8 @@ public class JasperSchedulingVerifyUtils {
 									if (Double
 											.parseDouble(ss.getValueOfWeekendHeatTemperatureElementAtIndex(
 													schedulePeriods[i])) <= maxHeat
-													&& Double.parseDouble(ss.getValueOfWeekendHeatTemperatureElementAtIndex(
-															schedulePeriods[i])) >= minHeat) {
+											&& Double.parseDouble(ss.getValueOfWeekendHeatTemperatureElementAtIndex(
+													schedulePeriods[i])) >= minHeat) {
 										Keyword.ReportStep_Pass(testCase, "Set Point value: "
 												+ Double.parseDouble(ss.getValueOfWeekendHeatTemperatureElementAtIndex(
 														schedulePeriods[i]))
@@ -973,7 +1049,7 @@ public class JasperSchedulingVerifyUtils {
 		} else if (timeInterval.equalsIgnoreCase("15")) {
 			i = 15;
 		}
-		if (ss.isTimeScheduleButtonVisible(5)){
+		if (ss.isTimeScheduleButtonVisible(5)) {
 			flag = flag & ss.clickOnTimeScheduleButton();
 		}
 
@@ -1051,21 +1127,28 @@ public class JasperSchedulingVerifyUtils {
 					Dimension dimension = driver.manage().window().getSize();
 					int height = dimension.getHeight();
 					int width = dimension.getWidth();
+					@SuppressWarnings("rawtypes")
 					TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						if (!MobileUtils.isMobElementExists(
 								"XPATH", "//*[@content-desc='"
 										+ inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED) + "']",
-										testCase, 5)) {
+								testCase, 5)) {
 							testCase.getMobileDriver().scrollToExact(
 									inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED).split("_")[1]);
 							while (!MobileUtils.isMobElementExists(
 									"XPATH", "//*[@content-desc='"
 											+ inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED) + "']",
-											testCase, 5)) {
-								touchAction.press(width / 2, height / 2).waitAction(MobileUtils.getDuration(2000))
-								.moveTo(width / 2, 82).release();
+									testCase, 5)) {
+								/*
+								 * touchAction.press(width / 2, height /
+								 * 2).waitAction(MobileUtils.getDuration(2000)) .moveTo(width / 2,
+								 * 82).release();
+								 */
+								touchAction.press(point(width / 2, height / 2))
+										.waitAction(waitOptions(MobileUtils.getDuration(2000)))
+										.moveTo(point(width / 2, 82)).release().perform();
 
 								touchAction.perform();
 							}
@@ -1075,8 +1158,9 @@ public class JasperSchedulingVerifyUtils {
 						period.findElement(By.id("scheduling_period_time")).click();
 
 						if (ss.isTimeChooserHeaderVisible(5)) {
-							//							everydayStartTime = MobileUtils.getMobElement(fieldObjects, testCase, "TimeChooser")
-							//									.getText().split("\\s+")[0];
+							// everydayStartTime = MobileUtils.getMobElement(fieldObjects, testCase,
+							// "TimeChooser")
+							// .getText().split("\\s+")[0];
 							everydayStartTime = ss.getTimeChooserEndTimeValue().split("\\s+")[0];
 						} else {
 							flag = false;
@@ -1085,8 +1169,7 @@ public class JasperSchedulingVerifyUtils {
 						}
 						if (jasperStatType.equalsIgnoreCase("EMEA")) {
 							if (ss.isTimeChooserEndTimeVisible(5)) {
-								everydayEndTime = ss.getTimeChooserEndTimeValue()
-										.split("\\s+")[0];
+								everydayEndTime = ss.getTimeChooserEndTimeValue().split("\\s+")[0];
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1097,28 +1180,28 @@ public class JasperSchedulingVerifyUtils {
 						if (temp.intValue() % i == 0) {
 							Keyword.ReportStep_Pass(testCase,
 									"[Period-" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED)
-									+ "]Start time: " + everydayStartTime + " is set in intervals of " + i
-									+ " minutes");
+											+ "]Start time: " + everydayStartTime + " is set in intervals of " + i
+											+ " minutes");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"[Period-" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED)
-									+ "]Start time: " + everydayStartTime + " is not set in intervals of " + i
-									+ " minutes");
+											+ "]Start time: " + everydayStartTime + " is not set in intervals of " + i
+											+ " minutes");
 						}
 						if (jasperStatType.equalsIgnoreCase("EMEA")) {
 							temp = Double.parseDouble(everydayEndTime.split(":")[1]);
 							if (temp.intValue() % i == 0) {
 								Keyword.ReportStep_Pass(testCase,
 										"[Period-" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED)
-										+ "]End time: " + everydayEndTime + " is set in intervals of " + i
-										+ " minutes");
+												+ "]End time: " + everydayEndTime + " is set in intervals of " + i
+												+ " minutes");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[Period-" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED)
-										+ "]End time: " + everydayEndTime + " is not set in intervals of " + i
-										+ " minutes");
+												+ "]End time: " + everydayEndTime + " is not set in intervals of " + i
+												+ " minutes");
 							}
 						}
 					} else {
@@ -1136,18 +1219,30 @@ public class JasperSchedulingVerifyUtils {
 						while ((!MobileUtils.isMobElementExists("XPATH",
 								"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='"
 										+ inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED) + "']",
-										testCase, 5) && m < 10)) {
+								testCase, 5) && m < 10)) {
 							if (desiredDayIndex > greaterDayIndex) {
-								touchAction.press(10, (int) (dimension.getHeight() * .5))
-								.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+								/*
+								 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+								 * (dimension.getHeight() * -.4)).release().perform();
+								 */
+								touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+										.moveTo(point(0, (int) (dimension.getHeight() * -.4))).release().perform();
 								m++;
 							} else if (desiredDayIndex < lesserDayIndex) {
-								touchAction.press(10, (int) (dimension.getHeight() * .5))
-								.moveTo(0, (int) (dimension.getHeight() * .4)).release().perform();
+								/*
+								 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+								 * (dimension.getHeight() * .4)).release().perform();
+								 */
+								touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+										.moveTo(point(0, (int) (dimension.getHeight() * .4))).release().perform();
 								m++;
 							} else {
-								touchAction.press(10, (int) (dimension.getHeight() * .5))
-								.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+								/*
+								 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+								 * (dimension.getHeight() * -.4)).release().perform();
+								 */
+								touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+										.moveTo(point(0, (int) (dimension.getHeight() * -.4))).release().perform();
 								m++;
 							}
 						}
@@ -1188,28 +1283,28 @@ public class JasperSchedulingVerifyUtils {
 						if (temp.intValue() % i == 0) {
 							Keyword.ReportStep_Pass(testCase,
 									"[Period-" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED)
-									+ "]Start time: " + everydayStartTime + " is set in intervals of " + i
-									+ " minutes");
+											+ "]Start time: " + everydayStartTime + " is set in intervals of " + i
+											+ " minutes");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"[Period-" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED)
-									+ "]Start time: " + everydayStartTime + " is not set in intervals of " + i
-									+ " minutes");
+											+ "]Start time: " + everydayStartTime + " is not set in intervals of " + i
+											+ " minutes");
 						}
 						if (jasperStatType.equalsIgnoreCase("EMEA")) {
 							temp = Double.parseDouble(everydayEndTime.split(":")[1]);
 							if (temp.intValue() % i == 0) {
 								Keyword.ReportStep_Pass(testCase,
 										"[Period-" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED)
-										+ "]End time: " + everydayEndTime + " is set in intervals of " + i
-										+ " minutes");
+												+ "]End time: " + everydayEndTime + " is set in intervals of " + i
+												+ " minutes");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[Period-" + inputs.getInputValue(InputVariables.SCHEDULE_PERIOD_EDITED)
-										+ "]End time: " + everydayEndTime + " is not set in intervals of " + i
-										+ " minutes");
+												+ "]End time: " + everydayEndTime + " is not set in intervals of " + i
+												+ " minutes");
 							}
 						}
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -1285,7 +1380,7 @@ public class JasperSchedulingVerifyUtils {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"[Period-" + (e + 1) + "]Start time: " + everydayStartTime
-									+ " is not set in intervals of " + i + " minutes");
+											+ " is not set in intervals of " + i + " minutes");
 						}
 						if (jasperStatType.equalsIgnoreCase("EMEA")) {
 							temp = Double.parseDouble(everydayEndTime.split(":")[1]);
@@ -1296,7 +1391,7 @@ public class JasperSchedulingVerifyUtils {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[Period-" + (e + 1) + "]End time: " + everydayEndTime
-										+ " is not set in intervals of " + i + " minutes");
+												+ " is not set in intervals of " + i + " minutes");
 							}
 						}
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -1347,8 +1442,7 @@ public class JasperSchedulingVerifyUtils {
 							periodTime.get(e).click();
 						}
 						if (ss.isTimeChooserHeaderVisible(5)) {
-							startTime = ss.getTimeChooserValue()
-									.split("\\s+")[0];
+							startTime = ss.getTimeChooserValue().split("\\s+")[0];
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1609,7 +1703,7 @@ public class JasperSchedulingVerifyUtils {
 			String[] scheduleDays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 			List<WebElement> scheduleDayHeaders = null;
 			int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
-			if (schl.isTimeScheduleButtonVisible(5)){
+			if (schl.isTimeScheduleButtonVisible(5)) {
 				flag = flag & schl.clickOnTimeScheduleButton();
 			}
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
@@ -1625,7 +1719,8 @@ public class JasperSchedulingVerifyUtils {
 							if (schedule_setpoints.get(0).getText().contains(".0")) {
 								tempHeatSetPointApp = schedule_setpoints.get(0).getText().split("\\.")[0];
 							}
-							tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT);
+							tempHeatSetPointFromInputs = inputs
+									.getInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT);
 							if (tempHeatSetPointFromInputs.contains(".0")) {
 								tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
 							}
@@ -1637,7 +1732,7 @@ public class JasperSchedulingVerifyUtils {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[HomeSettings] Home heat set point: " + tempHeatSetPointFromInputs
-										+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
+												+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
 							}
 						} else {
 							flag = false;
@@ -1651,7 +1746,8 @@ public class JasperSchedulingVerifyUtils {
 							if (schedule_setpoints.get(0).getText().contains(".0")) {
 								tempCoolSetPointApp = schedule_setpoints.get(0).getText().split("\\.")[0];
 							}
-							tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT);
+							tempCoolSetPointFromInputs = inputs
+									.getInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT);
 							if (tempCoolSetPointFromInputs.contains(".0")) {
 								tempCoolSetPointFromInputs = tempCoolSetPointFromInputs.split("\\.")[0];
 							}
@@ -1663,7 +1759,7 @@ public class JasperSchedulingVerifyUtils {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[HomeSettings] Home cool set point: " + tempCoolSetPointFromInputs
-										+ " is not shown correctly in solution card: " + tempCoolSetPointApp);
+												+ " is not shown correctly in solution card: " + tempCoolSetPointApp);
 							}
 						} else {
 							flag = false;
@@ -1678,7 +1774,8 @@ public class JasperSchedulingVerifyUtils {
 							if (schedule_setpoints.get(0).getText().contains(".0")) {
 								tempCoolSetPointApp = schedule_setpoints.get(0).getText().split("\\.")[0];
 							}
-							tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT);
+							tempCoolSetPointFromInputs = inputs
+									.getInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT);
 							if (tempCoolSetPointFromInputs.contains(".0")) {
 								tempCoolSetPointFromInputs = tempCoolSetPointFromInputs.split("\\.")[0];
 							}
@@ -1690,7 +1787,7 @@ public class JasperSchedulingVerifyUtils {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[HomeSettings] Home cool set point: " + tempCoolSetPointFromInputs
-										+ " is not shown correctly in solution card: " + tempCoolSetPointApp);
+												+ " is not shown correctly in solution card: " + tempCoolSetPointApp);
 							}
 						} else {
 							flag = false;
@@ -1705,7 +1802,8 @@ public class JasperSchedulingVerifyUtils {
 							if (schedule_setpoints.get(0).getText().contains(".0")) {
 								tempHeatSetPointApp = schedule_setpoints.get(0).getText().split("\\.")[0];
 							}
-							tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT);
+							tempHeatSetPointFromInputs = inputs
+									.getInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT);
 							if (tempHeatSetPointFromInputs.contains(".0")) {
 								tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
 							}
@@ -1717,7 +1815,7 @@ public class JasperSchedulingVerifyUtils {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[HomeSettings] Home heat set point: " + tempHeatSetPointFromInputs
-										+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
+												+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
 							}
 						} else {
 							flag = false;
@@ -1734,7 +1832,8 @@ public class JasperSchedulingVerifyUtils {
 							if (tempHeatSetPointApp.contains(".0")) {
 								tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 							}
-							tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT);
+							tempHeatSetPointFromInputs = inputs
+									.getInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT);
 							if (tempHeatSetPointFromInputs.contains(".0")) {
 								tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
 							}
@@ -1746,7 +1845,7 @@ public class JasperSchedulingVerifyUtils {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[HomeSettings] Home heat set point: " + tempHeatSetPointFromInputs
-										+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
+												+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
 							}
 						} else {
 							flag = false;
@@ -1759,7 +1858,8 @@ public class JasperSchedulingVerifyUtils {
 							if (tempCoolSetPointApp.contains(".0")) {
 								tempCoolSetPointApp = tempCoolSetPointApp.split("\\.")[0];
 							}
-							tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT);
+							tempCoolSetPointFromInputs = inputs
+									.getInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT);
 							if (tempCoolSetPointFromInputs.contains(".0")) {
 								tempCoolSetPointFromInputs = tempCoolSetPointFromInputs.split("\\.")[0];
 							}
@@ -1771,7 +1871,7 @@ public class JasperSchedulingVerifyUtils {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[HomeSettings] Home cool set point: " + tempCoolSetPointFromInputs
-										+ " is not shown correctly in solution card: " + tempCoolSetPointApp);
+												+ " is not shown correctly in solution card: " + tempCoolSetPointApp);
 							}
 						} else {
 							flag = false;
@@ -1785,7 +1885,8 @@ public class JasperSchedulingVerifyUtils {
 							if (tempCoolSetPointApp.contains(".0")) {
 								tempCoolSetPointApp = tempCoolSetPointApp.split("\\.")[0];
 							}
-							tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT);
+							tempCoolSetPointFromInputs = inputs
+									.getInputValue(InputVariables.GEOFENCE_HOME_COOL_SETPOINT);
 							if (tempCoolSetPointFromInputs.contains(".0")) {
 								tempCoolSetPointFromInputs = tempCoolSetPointFromInputs.split("\\.")[0];
 							}
@@ -1797,7 +1898,7 @@ public class JasperSchedulingVerifyUtils {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[HomeSettings] Home cool set point: " + tempCoolSetPointFromInputs
-										+ " is not shown correctly in solution card: " + tempCoolSetPointApp);
+												+ " is not shown correctly in solution card: " + tempCoolSetPointApp);
 							}
 						} else {
 							flag = false;
@@ -1811,7 +1912,8 @@ public class JasperSchedulingVerifyUtils {
 							if (tempHeatSetPointApp.contains(".0")) {
 								tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 							}
-							tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT);
+							tempHeatSetPointFromInputs = inputs
+									.getInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT);
 							if (tempHeatSetPointFromInputs.contains(".0")) {
 								tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
 							}
@@ -1823,7 +1925,7 @@ public class JasperSchedulingVerifyUtils {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[HomeSettings] Home heat set point: " + tempHeatSetPointFromInputs
-										+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
+												+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
 							}
 						} else {
 							flag = false;
@@ -1851,7 +1953,8 @@ public class JasperSchedulingVerifyUtils {
 								if (schedule_setpoints.get(1).getText().contains(".0")) {
 									tempHeatSetPointApp = schedule_setpoints.get(1).getText().split("\\.")[0];
 								}
-								tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT);
+								tempHeatSetPointFromInputs = inputs
+										.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT);
 								if (tempHeatSetPointFromInputs.contains(".0")) {
 									tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
 								}
@@ -1863,7 +1966,8 @@ public class JasperSchedulingVerifyUtils {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[SleepSettings] Sleep heat set point: " + tempHeatSetPointFromInputs
-											+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
+													+ " is not shown correctly in solution card: "
+													+ tempHeatSetPointApp);
 								}
 							} else {
 								flag = false;
@@ -1877,7 +1981,8 @@ public class JasperSchedulingVerifyUtils {
 								if (schedule_setpoints.get(1).getText().contains(".0")) {
 									tempCoolSetPointApp = schedule_setpoints.get(1).getText().split("\\.")[0];
 								}
-								tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT);
+								tempCoolSetPointFromInputs = inputs
+										.getInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT);
 								if (tempCoolSetPointFromInputs.contains(".0")) {
 									tempCoolSetPointFromInputs = tempCoolSetPointFromInputs.split("\\.")[0];
 								}
@@ -1889,7 +1994,8 @@ public class JasperSchedulingVerifyUtils {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[SleepSettings] Sleep cool set point: " + tempCoolSetPointFromInputs
-											+ " is not shown correctly in solution card: " + tempCoolSetPointApp);
+													+ " is not shown correctly in solution card: "
+													+ tempCoolSetPointApp);
 								}
 							} else {
 								flag = false;
@@ -1904,7 +2010,8 @@ public class JasperSchedulingVerifyUtils {
 								if (schedule_setpoints.get(1).getText().contains(".0")) {
 									tempCoolSetPointApp = schedule_setpoints.get(1).getText().split("\\.")[0];
 								}
-								tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT);
+								tempCoolSetPointFromInputs = inputs
+										.getInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT);
 								if (tempCoolSetPointFromInputs.contains(".0")) {
 									tempCoolSetPointFromInputs = tempCoolSetPointFromInputs.split("\\.")[0];
 								}
@@ -1916,7 +2023,8 @@ public class JasperSchedulingVerifyUtils {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[SleepSettings] Sleep cool set point: " + tempCoolSetPointFromInputs
-											+ " is not shown correctly in solution card: " + tempCoolSetPointApp);
+													+ " is not shown correctly in solution card: "
+													+ tempCoolSetPointApp);
 								}
 							} else {
 								flag = false;
@@ -1931,7 +2039,8 @@ public class JasperSchedulingVerifyUtils {
 								if (schedule_setpoints.get(1).getText().contains(".0")) {
 									tempHeatSetPointApp = schedule_setpoints.get(1).getText().split("\\.")[0];
 								}
-								tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT);
+								tempHeatSetPointFromInputs = inputs
+										.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT);
 								if (tempHeatSetPointFromInputs.contains(".0")) {
 									tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
 								}
@@ -1943,7 +2052,8 @@ public class JasperSchedulingVerifyUtils {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[SleepSettings] Sleep heat set point: " + tempHeatSetPointFromInputs
-											+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
+													+ " is not shown correctly in solution card: "
+													+ tempHeatSetPointApp);
 								}
 							} else {
 								flag = false;
@@ -1981,7 +2091,9 @@ public class JasperSchedulingVerifyUtils {
 
 						SleepStartTime = SleepStartEndTime.split("\\s+")[0] + " " + SleepStartEndTime.split("\\s+")[1];
 						SleepEndTime = SleepStartEndTime.split("\\s+")[3] + " " + SleepStartEndTime.split("\\s+")[4];
-						if (SleepStartTime.equalsIgnoreCase(inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_START_TIME).toLowerCase().replaceAll("^0*", ""))) {
+						if (SleepStartTime
+								.equalsIgnoreCase(inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_START_TIME)
+										.toLowerCase().replaceAll("^0*", ""))) {
 							Keyword.ReportStep_Pass(testCase,
 									"[SleepSettings] Sleep Start time is shown correctly in solution card: "
 											+ SleepStartTime);
@@ -1992,9 +2104,11 @@ public class JasperSchedulingVerifyUtils {
 											+ inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_START_TIME)
 											+ " is not shown correctly in solution card: " + SleepStartTime);
 						}
-						if (SleepEndTime.equalsIgnoreCase(inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_END_TIME).toLowerCase().replaceAll("^0*", ""))) {
+						if (SleepEndTime.equalsIgnoreCase(inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_END_TIME)
+								.toLowerCase().replaceAll("^0*", ""))) {
 							Keyword.ReportStep_Pass(testCase,
-									"[SleepSettings] Sleep End time is shown correctly in solution card: " + SleepEndTime);
+									"[SleepSettings] Sleep End time is shown correctly in solution card: "
+											+ SleepEndTime);
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -2006,12 +2120,14 @@ public class JasperSchedulingVerifyUtils {
 						// ==================================================IOS========================================================
 						if (allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
 							if (MobileUtils.isMobElementExists("name", "Geofence_Sleep_HeatTemperature", testCase, 5)) {
-								setPointIOS = MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_HeatTemperature");
+								setPointIOS = MobileUtils.getMobElement(testCase, "name",
+										"Geofence_Sleep_HeatTemperature");
 								tempHeatSetPointApp = setPointIOS.getAttribute("value");
 								if (tempHeatSetPointApp.contains(".0")) {
 									tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 								}
-								tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT);
+								tempHeatSetPointFromInputs = inputs
+										.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT);
 								if (tempHeatSetPointFromInputs.contains(".0")) {
 									tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
 								}
@@ -2023,7 +2139,8 @@ public class JasperSchedulingVerifyUtils {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[SleepSettings] Sleep heat set point: " + tempHeatSetPointFromInputs
-											+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
+													+ " is not shown correctly in solution card: "
+													+ tempHeatSetPointApp);
 								}
 							} else {
 								flag = false;
@@ -2031,12 +2148,14 @@ public class JasperSchedulingVerifyUtils {
 										"Failed to locate schedule heat set points");
 							}
 							if (MobileUtils.isMobElementExists("name", "Geofence_Sleep_CoolTemperature", testCase, 5)) {
-								setPointIOS = MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_CoolTemperature");
+								setPointIOS = MobileUtils.getMobElement(testCase, "name",
+										"Geofence_Sleep_CoolTemperature");
 								tempCoolSetPointApp = setPointIOS.getAttribute("value");
 								if (tempCoolSetPointApp.contains(".0")) {
 									tempCoolSetPointApp = tempCoolSetPointApp.split("\\.")[0];
 								}
-								tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT);
+								tempCoolSetPointFromInputs = inputs
+										.getInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT);
 								if (tempCoolSetPointFromInputs.contains(".0")) {
 									tempCoolSetPointFromInputs = tempCoolSetPointFromInputs.split("\\.")[0];
 								}
@@ -2048,7 +2167,8 @@ public class JasperSchedulingVerifyUtils {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[SleepSettings] Sleep cool set point: " + tempCoolSetPointFromInputs
-											+ " is not shown correctly in solution card: " + tempCoolSetPointApp);
+													+ " is not shown correctly in solution card: "
+													+ tempCoolSetPointApp);
 								}
 							} else {
 								flag = false;
@@ -2057,12 +2177,14 @@ public class JasperSchedulingVerifyUtils {
 							}
 						} else if (allowedModes.contains("Cool") && !allowedModes.contains("Heat")) {
 							if (MobileUtils.isMobElementExists("name", "Geofence_Sleep_CoolTemperature", testCase, 5)) {
-								setPointIOS = MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_CoolTemperature");
+								setPointIOS = MobileUtils.getMobElement(testCase, "name",
+										"Geofence_Sleep_CoolTemperature");
 								tempCoolSetPointApp = setPointIOS.getAttribute("value");
 								if (tempCoolSetPointApp.contains(".0")) {
 									tempCoolSetPointApp = tempCoolSetPointApp.split("\\.")[0];
 								}
-								tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT);
+								tempCoolSetPointFromInputs = inputs
+										.getInputValue(InputVariables.GEOFENCE_SLEEP_COOL_SETPOINT);
 								if (tempCoolSetPointFromInputs.contains(".0")) {
 									tempCoolSetPointFromInputs = tempCoolSetPointFromInputs.split("\\.")[0];
 								}
@@ -2074,7 +2196,8 @@ public class JasperSchedulingVerifyUtils {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[SleepSettings] Sleep cool set point: " + tempCoolSetPointFromInputs
-											+ " is not shown correctly in solution card: " + tempCoolSetPointApp);
+													+ " is not shown correctly in solution card: "
+													+ tempCoolSetPointApp);
 								}
 							} else {
 								flag = false;
@@ -2083,12 +2206,14 @@ public class JasperSchedulingVerifyUtils {
 							}
 						} else if (!allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
 							if (MobileUtils.isMobElementExists("name", "Geofence_Sleep_HeatTemperature", testCase, 5)) {
-								setPointIOS = MobileUtils.getMobElement(testCase, "name", "Geofence_Sleep_HeatTemperature");
+								setPointIOS = MobileUtils.getMobElement(testCase, "name",
+										"Geofence_Sleep_HeatTemperature");
 								tempHeatSetPointApp = setPointIOS.getAttribute("value");
 								if (tempHeatSetPointApp.contains(".0")) {
 									tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 								}
-								tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT);
+								tempHeatSetPointFromInputs = inputs
+										.getInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT);
 								if (tempHeatSetPointFromInputs.contains(".0")) {
 									tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
 								}
@@ -2100,7 +2225,8 @@ public class JasperSchedulingVerifyUtils {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"[SleepSettings] Sleep heat set point: " + tempHeatSetPointFromInputs
-											+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
+													+ " is not shown correctly in solution card: "
+													+ tempHeatSetPointApp);
 								}
 							} else {
 								flag = false;
@@ -2112,7 +2238,9 @@ public class JasperSchedulingVerifyUtils {
 								.getAttribute("value");
 						SleepStartTime = SleepStartEndTime.split("\\s+")[0] + " " + SleepStartEndTime.split("\\s+")[1];
 						SleepEndTime = SleepStartEndTime.split("\\s+")[3] + " " + SleepStartEndTime.split("\\s+")[4];
-						if (SleepStartTime.equalsIgnoreCase(inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_START_TIME).toLowerCase().replaceAll("^0*", ""))) {
+						if (SleepStartTime
+								.equalsIgnoreCase(inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_START_TIME)
+										.toLowerCase().replaceAll("^0*", ""))) {
 							Keyword.ReportStep_Pass(testCase,
 									"[SleepSettings] Sleep Start time is shown correctly in solution card: "
 											+ SleepStartTime);
@@ -2123,9 +2251,11 @@ public class JasperSchedulingVerifyUtils {
 											+ inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_START_TIME)
 											+ " is not shown correctly in solution card: " + SleepStartTime);
 						}
-						if (SleepEndTime.equalsIgnoreCase(inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_END_TIME).toLowerCase().replaceAll("^0*", ""))) {
+						if (SleepEndTime.equalsIgnoreCase(inputs.getInputValue(InputVariables.GEOFENCE_SLEEP_END_TIME)
+								.toLowerCase().replaceAll("^0*", ""))) {
 							Keyword.ReportStep_Pass(testCase,
-									"[SleepSettings] Sleep End time is shown correctly in solution card: " + SleepEndTime);
+									"[SleepSettings] Sleep End time is shown correctly in solution card: "
+											+ SleepEndTime);
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -2151,7 +2281,8 @@ public class JasperSchedulingVerifyUtils {
 							if (schedule_setpoints.get(i).getText().contains(".0")) {
 								tempHeatSetPointApp = schedule_setpoints.get(i).getText().split("\\.")[0];
 							}
-							tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT);
+							tempHeatSetPointFromInputs = inputs
+									.getInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT);
 							if (tempHeatSetPointFromInputs.contains(".0")) {
 								tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
 							}
@@ -2163,7 +2294,7 @@ public class JasperSchedulingVerifyUtils {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[AwaySettings] Away heat set point: " + tempHeatSetPointFromInputs
-										+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
+												+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
 							}
 						} else {
 							flag = false;
@@ -2177,7 +2308,8 @@ public class JasperSchedulingVerifyUtils {
 							if (schedule_setpoints.get(i).getText().contains(".0")) {
 								tempCoolSetPointApp = schedule_setpoints.get(i).getText().split("\\.")[0];
 							}
-							tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT);
+							tempCoolSetPointFromInputs = inputs
+									.getInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT);
 							if (tempCoolSetPointFromInputs.contains(".0")) {
 								tempCoolSetPointFromInputs = tempCoolSetPointFromInputs.split("\\.")[0];
 							}
@@ -2189,7 +2321,7 @@ public class JasperSchedulingVerifyUtils {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[AwaySettings] Away cool set point: " + tempCoolSetPointFromInputs
-										+ " is not shown correctly in solution card: " + tempCoolSetPointApp);
+												+ " is not shown correctly in solution card: " + tempCoolSetPointApp);
 							}
 						} else {
 							flag = false;
@@ -2204,7 +2336,8 @@ public class JasperSchedulingVerifyUtils {
 							if (schedule_setpoints.get(i).getText().contains(".0")) {
 								tempCoolSetPointApp = schedule_setpoints.get(i).getText().split("\\.")[0];
 							}
-							tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT);
+							tempCoolSetPointFromInputs = inputs
+									.getInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT);
 							if (tempCoolSetPointFromInputs.contains(".0")) {
 								tempCoolSetPointFromInputs = tempCoolSetPointFromInputs.split("\\.")[0];
 							}
@@ -2216,7 +2349,7 @@ public class JasperSchedulingVerifyUtils {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[AwaySettings] Away cool set point: " + tempCoolSetPointFromInputs
-										+ " is not shown correctly in solution card: " + tempCoolSetPointApp);
+												+ " is not shown correctly in solution card: " + tempCoolSetPointApp);
 							}
 						} else {
 							flag = false;
@@ -2231,7 +2364,8 @@ public class JasperSchedulingVerifyUtils {
 							if (schedule_setpoints.get(i).getText().contains(".0")) {
 								tempHeatSetPointApp = schedule_setpoints.get(i).getText().split("\\.")[0];
 							}
-							tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT);
+							tempHeatSetPointFromInputs = inputs
+									.getInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT);
 							if (tempHeatSetPointFromInputs.contains(".0")) {
 								tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
 							}
@@ -2243,7 +2377,7 @@ public class JasperSchedulingVerifyUtils {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[AwaySettings] Away heat set point: " + tempHeatSetPointFromInputs
-										+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
+												+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
 							}
 						} else {
 							flag = false;
@@ -2260,7 +2394,8 @@ public class JasperSchedulingVerifyUtils {
 							if (tempHeatSetPointApp.contains(".0")) {
 								tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 							}
-							tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT);
+							tempHeatSetPointFromInputs = inputs
+									.getInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT);
 							if (tempHeatSetPointFromInputs.contains(".0")) {
 								tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
 							}
@@ -2272,7 +2407,7 @@ public class JasperSchedulingVerifyUtils {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[AwaySettings] Away heat set point: " + tempHeatSetPointFromInputs
-										+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
+												+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
 							}
 						} else {
 							flag = false;
@@ -2285,7 +2420,8 @@ public class JasperSchedulingVerifyUtils {
 							if (tempCoolSetPointApp.contains(".0")) {
 								tempCoolSetPointApp = tempCoolSetPointApp.split("\\.")[0];
 							}
-							tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT);
+							tempCoolSetPointFromInputs = inputs
+									.getInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT);
 							if (tempCoolSetPointFromInputs.contains(".0")) {
 								tempCoolSetPointFromInputs = tempCoolSetPointFromInputs.split("\\.")[0];
 							}
@@ -2297,7 +2433,7 @@ public class JasperSchedulingVerifyUtils {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[AwaySettings] Away cool set point: " + tempCoolSetPointFromInputs
-										+ " is not shown correctly in solution card: " + tempCoolSetPointApp);
+												+ " is not shown correctly in solution card: " + tempCoolSetPointApp);
 							}
 						} else {
 							flag = false;
@@ -2311,7 +2447,8 @@ public class JasperSchedulingVerifyUtils {
 							if (tempCoolSetPointApp.contains(".0")) {
 								tempCoolSetPointApp = tempCoolSetPointApp.split("\\.")[0];
 							}
-							tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT);
+							tempCoolSetPointFromInputs = inputs
+									.getInputValue(InputVariables.GEOFENCE_AWAY_COOL_SETPOINT);
 							if (tempCoolSetPointFromInputs.contains(".0")) {
 								tempCoolSetPointFromInputs = tempCoolSetPointFromInputs.split("\\.")[0];
 							}
@@ -2323,7 +2460,7 @@ public class JasperSchedulingVerifyUtils {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[AwaySettings] Away cool set point: " + tempCoolSetPointFromInputs
-										+ " is not shown correctly in solution card: " + tempCoolSetPointApp);
+												+ " is not shown correctly in solution card: " + tempCoolSetPointApp);
 							}
 						} else {
 							flag = false;
@@ -2337,7 +2474,8 @@ public class JasperSchedulingVerifyUtils {
 							if (tempHeatSetPointApp.contains(".0")) {
 								tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 							}
-							tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT);
+							tempHeatSetPointFromInputs = inputs
+									.getInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT);
 							if (tempHeatSetPointFromInputs.contains(".0")) {
 								tempHeatSetPointFromInputs = tempHeatSetPointFromInputs.split("\\.")[0];
 							}
@@ -2349,7 +2487,7 @@ public class JasperSchedulingVerifyUtils {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"[AwaySettings] Away heat set point: " + tempHeatSetPointFromInputs
-										+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
+												+ " is not shown correctly in solution card: " + tempHeatSetPointApp);
 							}
 						} else {
 							flag = false;
@@ -2360,9 +2498,11 @@ public class JasperSchedulingVerifyUtils {
 				}
 			} else if (scheduleType.equalsIgnoreCase("Everyday")) {
 				if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Grouped Days")) {
-					flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Grouped Days");
+					flag = flag
+							& JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Grouped Days");
 				} else if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
-					flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Individual Days");
+					flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase,
+							"Individual Days");
 				}
 
 				WebElement period = null;
@@ -2370,26 +2510,35 @@ public class JasperSchedulingVerifyUtils {
 				Dimension dimension = driver.manage().window().getSize();
 				int height = dimension.getHeight();
 				int width = dimension.getWidth();
+				@SuppressWarnings("rawtypes")
 				TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 
 				for (int i = 1; i <= 4; i++) {
 					if (!inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i).isEmpty()
 							&& inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i) != null) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-							if (!MobileUtils.isMobElementExists("XPATH",
-									"//*[@content-desc='" + inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i) + "']", testCase, 5)) {
-								testCase.getMobileDriver()
-								.scrollToExact(inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i).split("_")[1]);
-								while (!MobileUtils.isMobElementExists("XPATH",
-										"//*[@content-desc='" + inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i) + "']", testCase,
-										5)) {
-									touchAction.press(width / 2, height / 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82)
-									.release();
-									touchAction.perform();
+							if (!MobileUtils.isMobElementExists(
+									"XPATH", "//*[@content-desc='"
+											+ inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i) + "']",
+									testCase, 5)) {
+								testCase.getMobileDriver().scrollToExact(
+										inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i).split("_")[1]);
+								while (!MobileUtils.isMobElementExists(
+										"XPATH", "//*[@content-desc='"
+												+ inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i) + "']",
+										testCase, 5)) {
+									/*
+									 * touchAction.press(width / 2, height /
+									 * 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82)
+									 * .release(); touchAction.perform();
+									 */
+									touchAction.press(point(width / 2, height / 2))
+											.waitAction(waitOptions(MobileUtils.getDuration(2000)))
+											.moveTo(point(width / 2, 82)).release().perform();
 								}
 							}
-							period = testCase.getMobileDriver().findElement(
-									By.xpath("//*[@content-desc='" + inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i) + "']"));
+							period = testCase.getMobileDriver().findElement(By.xpath("//*[@content-desc='"
+									+ inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i) + "']"));
 
 							if (period.findElement(By.id("scheduling_period_time")) != null) {
 								periodStartTimeApp = period.findElement(By.id("scheduling_period_time")).getText();
@@ -2419,48 +2568,64 @@ public class JasperSchedulingVerifyUtils {
 								if (statInfo.getJasperDeviceType().equalsIgnoreCase("HoneyBadger")
 										|| statInfo.getJasperDeviceType().equalsIgnoreCase("NA")) {
 									periodStartTimeInputs = inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME);
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_WAKE_HEAT_SETPOINT);
-									tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_WAKE_COOL_SETPOINT);
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_WAKE_HEAT_SETPOINT);
+									tempCoolSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_WAKE_COOL_SETPOINT);
 								} else {
 									periodStartTimeInputs = inputs.getInputValue(InputVariables.EVERYDAY_1_TIME);
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_1_HEAT_SETPOINT);
-									tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_1_COOL_SETPOINT);
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_1_HEAT_SETPOINT);
+									tempCoolSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_1_COOL_SETPOINT);
 								}
 							} else if (inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i).contains("Away")
 									|| inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i).contains("2")) {
 								if (statInfo.getJasperDeviceType().equalsIgnoreCase("HoneyBadger")
 										|| statInfo.getJasperDeviceType().equalsIgnoreCase("NA")) {
 									periodStartTimeInputs = inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME);
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_AWAY_HEAT_SETPOINT);
-									tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_AWAY_COOL_SETPOINT);
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_AWAY_HEAT_SETPOINT);
+									tempCoolSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_AWAY_COOL_SETPOINT);
 								} else {
 									periodStartTimeInputs = inputs.getInputValue(InputVariables.EVERYDAY_2_TIME);
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT);
-									tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_2_COOL_SETPOINT);
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT);
+									tempCoolSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_2_COOL_SETPOINT);
 								}
 							} else if (inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i).contains("Home")
 									|| inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i).contains("3")) {
 								if (statInfo.getJasperDeviceType().equalsIgnoreCase("HoneyBadger")
 										|| statInfo.getJasperDeviceType().equalsIgnoreCase("NA")) {
 									periodStartTimeInputs = inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME);
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_HOME_HEAT_SETPOINT);
-									tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_HOME_COOL_SETPOINT);
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_HOME_HEAT_SETPOINT);
+									tempCoolSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_HOME_COOL_SETPOINT);
 								} else {
 									periodStartTimeInputs = inputs.getInputValue(InputVariables.EVERYDAY_3_TIME);
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT);
-									tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_3_COOL_SETPOINT);
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT);
+									tempCoolSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_3_COOL_SETPOINT);
 								}
 							} else if (inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i).contains("Sleep")
 									|| inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i).contains("4")) {
 								if (statInfo.getJasperDeviceType().equalsIgnoreCase("HoneyBadger")
 										|| statInfo.getJasperDeviceType().equalsIgnoreCase("NA")) {
 									periodStartTimeInputs = inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME);
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_HEAT_SETPOINT);
-									tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_COOL_SETPOINT);
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_SLEEP_HEAT_SETPOINT);
+									tempCoolSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_SLEEP_COOL_SETPOINT);
 								} else {
 									periodStartTimeInputs = inputs.getInputValue(InputVariables.EVERYDAY_4_TIME);
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT);
-									tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_4_COOL_SETPOINT);
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT);
+									tempCoolSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_4_COOL_SETPOINT);
 								}
 							}
 
@@ -2504,43 +2669,57 @@ public class JasperSchedulingVerifyUtils {
 							}
 							int m = 0;
 
-							while ((!MobileUtils
-									.isMobElementExists("XPATH",
-											"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='"
-													+ inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i) + "_subTitle" + "']",
-													testCase, 5))
-									&& m < 10) {
-								System.out.println(" Value : " + inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i )+ "_subTitle");
+							while ((!MobileUtils.isMobElementExists("XPATH",
+									"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='"
+											+ inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i) + "_subTitle"
+											+ "']",
+									testCase, 5)) && m < 10) {
+								System.out.println(" Value : " + inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i)
+										+ "_subTitle");
 								if (desiredDayIndex > greaterDayIndex) {
-									touchAction.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+									/*
+									 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+									 * (dimension.getHeight() * -.4)).release().perform();
+									 */
+									touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+											.moveTo(point(0, (int) (dimension.getHeight() * -.4))).release().perform();
 									m++;
 								} else if (desiredDayIndex < lesserDayIndex) {
-									touchAction.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * .4)).release().perform();
+									/*
+									 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+									 * (dimension.getHeight() * .4)).release().perform();
+									 */
+									touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+											.moveTo(point(0, (int) (dimension.getHeight() * .4))).release().perform();
 									m++;
 								} else {
-									touchAction.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+									/*
+									 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+									 * (dimension.getHeight() * -.4)).release().perform();
+									 */
+									touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+											.moveTo(point(0, (int) (dimension.getHeight() * -.4))).release().perform();
 									m++;
 								}
 							}
 							if (!MobileUtils.isMobElementExists("XPATH",
 									"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='"
-											+ inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i ) + "_subTitle" + "']",
-											testCase, 5)) {
+											+ inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i) + "_subTitle"
+											+ "']",
+									testCase, 5)) {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Failed to locate the period: " + inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i));
+										"Failed to locate the period: "
+												+ inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i));
 							} else {
-								period = testCase.getMobileDriver()
-										.findElement(By.name(inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i) +"_subTitle"));
+								period = testCase.getMobileDriver().findElement(
+										By.name(inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i) + "_subTitle"));
 							}
 
 							String cp = inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i) + "_CoolTemperature";
 							String hp = inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i) + "_HeatTemperature";
-							WebElement elemTime = testCase.getMobileDriver()
-									.findElement(By.name(inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i) + "_Time"));
+							WebElement elemTime = testCase.getMobileDriver().findElement(
+									By.name(inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i) + "_Time"));
 							System.out.println(elemTime.getAttribute("value"));
 							if (elemTime != null) {
 								periodStartTimeApp = elemTime.getAttribute("value");
@@ -2569,48 +2748,64 @@ public class JasperSchedulingVerifyUtils {
 								if (statInfo.getJasperDeviceType().equalsIgnoreCase("HoneyBadger")
 										|| statInfo.getJasperDeviceType().equalsIgnoreCase("NA")) {
 									periodStartTimeInputs = inputs.getInputValue(InputVariables.EVERYDAY_WAKE_TIME);
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_WAKE_HEAT_SETPOINT);
-									tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_WAKE_COOL_SETPOINT);
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_WAKE_HEAT_SETPOINT);
+									tempCoolSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_WAKE_COOL_SETPOINT);
 								} else {
 									periodStartTimeInputs = inputs.getInputValue(InputVariables.EVERYDAY_1_TIME);
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_1_HEAT_SETPOINT);
-									tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_1_COOL_SETPOINT);
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_1_HEAT_SETPOINT);
+									tempCoolSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_1_COOL_SETPOINT);
 								}
 							} else if (inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i).contains("Away")
 									|| inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i).contains("2")) {
 								if (statInfo.getJasperDeviceType().equalsIgnoreCase("HoneyBadger")
 										|| statInfo.getJasperDeviceType().equalsIgnoreCase("NA")) {
 									periodStartTimeInputs = inputs.getInputValue(InputVariables.EVERYDAY_AWAY_TIME);
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_AWAY_HEAT_SETPOINT);
-									tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_AWAY_COOL_SETPOINT);
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_AWAY_HEAT_SETPOINT);
+									tempCoolSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_AWAY_COOL_SETPOINT);
 								} else {
 									periodStartTimeInputs = inputs.getInputValue(InputVariables.EVERYDAY_2_TIME);
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT);
-									tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_2_COOL_SETPOINT);
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_2_HEAT_SETPOINT);
+									tempCoolSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_2_COOL_SETPOINT);
 								}
 							} else if (inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i).contains("Home")
 									|| inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i).contains("3")) {
 								if (statInfo.getJasperDeviceType().equalsIgnoreCase("HoneyBadger")
 										|| statInfo.getJasperDeviceType().equalsIgnoreCase("NA")) {
 									periodStartTimeInputs = inputs.getInputValue(InputVariables.EVERYDAY_HOME_TIME);
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_HOME_HEAT_SETPOINT);
-									tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_HOME_COOL_SETPOINT);
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_HOME_HEAT_SETPOINT);
+									tempCoolSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_HOME_COOL_SETPOINT);
 								} else {
 									periodStartTimeInputs = inputs.getInputValue(InputVariables.EVERYDAY_3_TIME);
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT);
-									tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_3_COOL_SETPOINT);
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_3_HEAT_SETPOINT);
+									tempCoolSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_3_COOL_SETPOINT);
 								}
 							} else if (inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i).contains("Sleep")
 									|| inputs.getInputValue(InputVariables.PERIOD_NAME_NA + i).contains("4")) {
 								if (statInfo.getJasperDeviceType().equalsIgnoreCase("HoneyBadger")
 										|| statInfo.getJasperDeviceType().equalsIgnoreCase("NA")) {
 									periodStartTimeInputs = inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_TIME);
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_HEAT_SETPOINT);
-									tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_SLEEP_COOL_SETPOINT);
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_SLEEP_HEAT_SETPOINT);
+									tempCoolSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_SLEEP_COOL_SETPOINT);
 								} else {
 									periodStartTimeInputs = inputs.getInputValue(InputVariables.EVERYDAY_4_TIME);
-									tempHeatSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT);
-									tempCoolSetPointFromInputs = inputs.getInputValue(InputVariables.EVERYDAY_4_COOL_SETPOINT);
+									tempHeatSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_4_HEAT_SETPOINT);
+									tempCoolSetPointFromInputs = inputs
+											.getInputValue(InputVariables.EVERYDAY_4_COOL_SETPOINT);
 								}
 							}
 
@@ -2648,8 +2843,8 @@ public class JasperSchedulingVerifyUtils {
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-										"Period time in app: " + periodStartTimeApp + " is not changed to expected value: "
-												+ periodStartTimeInputs);
+										"Period time in app: " + periodStartTimeApp
+												+ " is not changed to expected value: " + periodStartTimeInputs);
 							}
 						}
 						if (!tempCoolSetPointApp.isEmpty()) {
@@ -2666,7 +2861,7 @@ public class JasperSchedulingVerifyUtils {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Period cool point in app: " + tempCoolSetPointApp
-										+ " is not changed to expected value: " + tempCoolSetPointFromInputs);
+												+ " is not changed to expected value: " + tempCoolSetPointFromInputs);
 							}
 						}
 						if (!tempHeatSetPointApp.isEmpty()) {
@@ -2683,7 +2878,7 @@ public class JasperSchedulingVerifyUtils {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Period heat point in app: " + tempHeatSetPointApp
-										+ " is not changed to expected value: " + tempHeatSetPointFromInputs);
+												+ " is not changed to expected value: " + tempHeatSetPointFromInputs);
 							}
 						}
 					}
@@ -2725,7 +2920,7 @@ public class JasperSchedulingVerifyUtils {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Verify Primary Card Elements : Indoor temperature is not the same in CHIL and app. App : "
 								+ MobileUtils.getMobElement(fieldObjects, testCase, "IndoorTemperature")
-								.getAttribute("value")
+										.getAttribute("value")
 								+ " ,CHIL : " + chilDeviceIndoorTemperature);
 			}
 		}
@@ -2751,16 +2946,17 @@ public class JasperSchedulingVerifyUtils {
 				dialer = MobileUtils.getMobElement(fieldObjects, testCase, "Dialer");
 				appDeviceSystemMode = MobileUtils.getMobElement(fieldObjects, testCase, "SystemModeButton")
 						.getAttribute("name");
-				appDeviceDialerSystemMode = MobileUtils.getMobElement(fieldObjects, testCase, "Dialer").getAttribute("name")
-						.split(",")[0];
+				appDeviceDialerSystemMode = MobileUtils.getMobElement(fieldObjects, testCase, "Dialer")
+						.getAttribute("name").split(",")[0];
 			}
 			if (chilDeviceSystemMode.equals(appDeviceSystemMode)) {
 				Keyword.ReportStep_Pass(testCase,
 						"Verify System Mode : System mode icon is in " + appDeviceSystemMode + " in both app and CHIL");
 			} else {
 				flag = false;
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Verify System Mode : System mode is "
-						+ chilDeviceSystemMode + " in CHIL but system mode icon is in " + appDeviceSystemMode + " mode");
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Verify System Mode : System mode is " + chilDeviceSystemMode
+								+ " in CHIL but system mode icon is in " + appDeviceSystemMode + " mode");
 			}
 
 			if (chilDeviceSystemMode.equalsIgnoreCase("Off")) {
@@ -2798,10 +2994,11 @@ public class JasperSchedulingVerifyUtils {
 	public static boolean verifySystemMode(TestCases testCase, TestCaseInputs inputs, String expectedMode) {
 		boolean flag = true;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "PrimaryCard");
-		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(
-				testCase.getMobileDriver());
-		fWait.pollingEvery(1, TimeUnit.SECONDS);
-		fWait.withTimeout(60, TimeUnit.SECONDS);
+		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
+		// fWait.pollingEvery(1, TimeUnit.SECONDS);
+		// fWait.withTimeout(60, TimeUnit.SECONDS);
+		fWait.pollingEvery(Duration.ofSeconds(1));
+		fWait.withTimeout(Duration.ofSeconds(60));
 		Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 			public Boolean apply(CustomDriver driver) {
 				String changedMode = "";
@@ -2830,18 +3027,16 @@ public class JasperSchedulingVerifyUtils {
 		}
 
 		/*
-		 * String isEventReceived1 = fWait.until(new
-		 * Function<CustomDriver, String>() { public String
-		 * apply(CustomDriver driver) { String changedMode = "";
-		 * DeviceInformation statInfo = new DeviceInformation(testCase,
-		 * inputs); if (statInfo.getThermoStatMode().equals(expectedMode)) {
-		 * changedMode = statInfo.getThermoStatMode(); return changedMode; }
-		 * else { return null; } } });
+		 * String isEventReceived1 = fWait.until(new Function<CustomDriver, String>() {
+		 * public String apply(CustomDriver driver) { String changedMode = "";
+		 * DeviceInformation statInfo = new DeviceInformation(testCase, inputs); if
+		 * (statInfo.getThermoStatMode().equals(expectedMode)) { changedMode =
+		 * statInfo.getThermoStatMode(); return changedMode; } else { return null; } }
+		 * });
 		 * 
 		 * if (isEventReceived1.equals(expectedMode)) {
-		 * Keyword.ReportStep_Pass(testCase,
-		 * "Verify System Mode : Thermostat Mode is " + expectedMode +
-		 * "ing in CHIL"); } else { flag = false;
+		 * Keyword.ReportStep_Pass(testCase, "Verify System Mode : Thermostat Mode is "
+		 * + expectedMode + "ing in CHIL"); } else { flag = false;
 		 * Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 		 * "Verify System Mode : Thermostat Mode is not in " + expectedMode +
 		 * "ing in CHIL"); }
@@ -2869,8 +3064,8 @@ public class JasperSchedulingVerifyUtils {
 					appDeviceSetPoints = dialer.getAttribute("value");
 				} else {
 					dialer = MobileUtils.getMobElement(fieldObjects, testCase, "Dialer");
-					appDeviceSetPoints = MobileUtils.getMobElement(fieldObjects, testCase, "Dialer").getAttribute("name")
-							.split(",")[1];
+					appDeviceSetPoints = MobileUtils.getMobElement(fieldObjects, testCase, "Dialer")
+							.getAttribute("name").split(",")[1];
 				}
 				if (chilDeviceSystemMode.equalsIgnoreCase("Auto")) {
 					chilDeviceSystemMode = statInfo.getThermostatModeWhenAutoChangeOverActive();
@@ -3122,6 +3317,7 @@ public class JasperSchedulingVerifyUtils {
 			Dimension dimension = driver.manage().window().getSize();
 			int height = dimension.getHeight();
 			int width = dimension.getWidth();
+			@SuppressWarnings("rawtypes")
 			TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 
 			flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Individual Days");
@@ -3157,14 +3353,24 @@ public class JasperSchedulingVerifyUtils {
 								flag = false;
 							}
 						}
-						touchAction.press(width / 2, height / 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82).release();
-						touchAction.perform();
+						/*
+						 * touchAction.press(width / 2, height /
+						 * 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82).release();
+						 * touchAction.perform();
+						 */
+						touchAction.press(point(width / 2, height / 2))
+								.waitAction(waitOptions(MobileUtils.getDuration(2000))).moveTo(point(width / 2, 82))
+								.release().perform();
 						tries++;
 					}
 				} else {
 					if (i == 5 || i == 6) {
-						touchAction.press(10, (int) (dimension.getHeight() * .5))
-						.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+						/*
+						 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+						 * (dimension.getHeight() * -.4)).release().perform();
+						 */
+						touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+								.moveTo(point(0, (int) (dimension.getHeight() * -.4))).release().perform();
 					}
 					desiredDayIndex = Arrays.asList(days).indexOf(days[i]);
 					if (schl.isScheduleDayHeaderVisible(5)) {
@@ -3177,10 +3383,14 @@ public class JasperSchedulingVerifyUtils {
 					while ((!MobileUtils.isMobElementExists("XPATH",
 							"//XCUIElementTypeStaticText[@name='Add Period']/preceding-sibling::XCUIElementTypeStaticText[@value='"
 									+ days[i] + "']",
-									testCase, 5)) && m < 10) {
+							testCase, 5)) && m < 10) {
 						if (desiredDayIndex > greaterDayIndex) {
-							touchAction.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+							/*
+							 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+							 * (dimension.getHeight() * -.4)).release().perform();
+							 */
+							touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+									.moveTo(point(0, (int) (dimension.getHeight() * -.4))).release().perform();
 							m++;
 							scheduleDayHeaders = MobileUtils.getMobElements(fieldObjects, testCase,
 									"ScheduleDayHeader");
@@ -3192,8 +3402,12 @@ public class JasperSchedulingVerifyUtils {
 							System.out.println(
 									scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));
 						} else if (desiredDayIndex < lesserDayIndex) {
-							touchAction.press(10, (int) (dimension.getHeight() * .5))
-							.moveTo(0, (int) (dimension.getHeight() * .4)).release().perform();
+							/*
+							 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+							 * (dimension.getHeight() * .4)).release().perform();
+							 */
+							touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+									.moveTo(point(0, (int) (dimension.getHeight() * .4))).release().perform();
 							m++;
 							scheduleDayHeaders = MobileUtils.getMobElements(fieldObjects, testCase,
 									"ScheduleDayHeader");
@@ -3276,6 +3490,7 @@ public class JasperSchedulingVerifyUtils {
 		Dimension dimension = driver.manage().window().getSize();
 		int height = dimension.getHeight();
 		int width = dimension.getWidth();
+		@SuppressWarnings("rawtypes")
 		TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 
 		for (int i = 1; i <= 6; i++) {
@@ -3289,21 +3504,31 @@ public class JasperSchedulingVerifyUtils {
 								arrlist.add(scheduleDayHeaders.get(j).getText());
 							}
 						}
-						touchAction.press(width / 2, height / 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82).release();
-						touchAction.perform();
+						/*
+						 * touchAction.press(width / 2, height /
+						 * 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82).release();
+						 * touchAction.perform();
+						 */
+						touchAction.press(point(width / 2, height / 2))
+								.waitAction(waitOptions(MobileUtils.getDuration(2000))).moveTo(point(width / 2, 82))
+								.release().perform();
 					}
 				} else {
 					if (schl.isScheduleDayHeaderVisible(5)) {
 						scheduleDayHeaders = schl.getScheduleDayHeaderElements();
 						for (int j = 0; j < scheduleDayHeaders.size(); j++) {
-							if (scheduleDayHeaders.get(j).getAttribute("value")!= null){
+							if (scheduleDayHeaders.get(j).getAttribute("value") != null) {
 								System.out.println(scheduleDayHeaders.get(j).getAttribute("value"));
 								if (!arrlist.contains(scheduleDayHeaders.get(j).getAttribute("value"))) {
 									arrlist.add(scheduleDayHeaders.get(j).getAttribute("value"));
 								}
 
-								touchAction.press(10, (int) (dimension.getHeight() * .5))
-								.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+								/*
+								 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+								 * (dimension.getHeight() * -.4)).release().perform();
+								 */
+								touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+										.moveTo(point(0, (int) (dimension.getHeight() * -.4))).release().perform();
 							}
 						}
 					}
@@ -3369,13 +3594,15 @@ public class JasperSchedulingVerifyUtils {
 			if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Grouped Days")) {
 				flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Grouped Days");
 			} else if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
-				flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Individual Days");
+				flag = flag
+						& JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Individual Days");
 			}
 
 			CustomDriver driver = testCase.getMobileDriver();
 			Dimension dimension = driver.manage().window().getSize();
 			int height = dimension.getHeight();
 			int width = dimension.getWidth();
+			@SuppressWarnings("rawtypes")
 			TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -3384,9 +3611,16 @@ public class JasperSchedulingVerifyUtils {
 					testCase.getMobileDriver().scrollToExact(periodName.split("_")[1]);
 				}
 
-				while (!MobileUtils.isMobElementExists("XPATH", "//*[@content-desc='" + periodName + "']", testCase, 5)) {
-					touchAction.press(width / 2, height / 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82).release();
-					touchAction.perform();
+				while (!MobileUtils.isMobElementExists("XPATH", "//*[@content-desc='" + periodName + "']", testCase,
+						5)) {
+					/*
+					 * touchAction.press(width / 2, height /
+					 * 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82).release();
+					 * touchAction.perform();
+					 */
+					touchAction.press(point(width / 2, height / 2))
+							.waitAction(waitOptions(MobileUtils.getDuration(2000))).moveTo(point(width / 2, 82))
+							.release().perform();
 				}
 				if (!MobileUtils.isMobElementExists("XPATH", "//*[@content-desc='" + periodName + "']", testCase, 5)) {
 					flag = false;
@@ -3407,7 +3641,7 @@ public class JasperSchedulingVerifyUtils {
 								&& Double.parseDouble(periodCoolPoint.getText()) >= minCool) {
 							Keyword.ReportStep_Pass(testCase,
 									"Cool Set Point value: " + Double.parseDouble(periodCoolPoint.getText())
-									+ " is set within or at the maximum and minimum range");
+											+ " is set within or at the maximum and minimum range");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -3419,7 +3653,7 @@ public class JasperSchedulingVerifyUtils {
 								&& Double.parseDouble(periodHeatPoint.getText()) >= minHeat) {
 							Keyword.ReportStep_Pass(testCase,
 									"Heat Set Point value: " + Double.parseDouble(periodHeatPoint.getText())
-									+ " is set within or at the maximum and minimum range");
+											+ " is set within or at the maximum and minimum range");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -3438,7 +3672,7 @@ public class JasperSchedulingVerifyUtils {
 								&& Double.parseDouble(periodHeatPoint.getText()) >= minHeat) {
 							Keyword.ReportStep_Pass(testCase,
 									"Heat Set Point value: " + Double.parseDouble(periodHeatPoint.getText())
-									+ " is set within or at the maximum and minimum range");
+											+ " is set within or at the maximum and minimum range");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -3457,7 +3691,7 @@ public class JasperSchedulingVerifyUtils {
 								&& Double.parseDouble(periodCoolPoint.getText()) >= minCool) {
 							Keyword.ReportStep_Pass(testCase,
 									"Cool Set Point value: " + Double.parseDouble(periodCoolPoint.getText())
-									+ " is set within or at the maximum and minimum range");
+											+ " is set within or at the maximum and minimum range");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -3471,25 +3705,38 @@ public class JasperSchedulingVerifyUtils {
 				desiredDayIndex = Arrays.asList(scheduleDays).indexOf(periodName.split("_")[0]);
 				if (schl.isScheduleDayHeaderVisible(5)) {
 					scheduleDayHeaders = schl.getScheduleDayHeaderElements();
-					lesserDayIndex = Arrays.asList(scheduleDays).indexOf(scheduleDayHeaders.get(0).getAttribute("value"));
+					lesserDayIndex = Arrays.asList(scheduleDays)
+							.indexOf(scheduleDayHeaders.get(0).getAttribute("value"));
 					greaterDayIndex = Arrays.asList(scheduleDays)
 							.indexOf(scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));
 				}
 				int i = 0;
 				while ((!MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "_subTitle"+"']", testCase, 5))
-						&& i < 10) {
+						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "_subTitle" + "']",
+						testCase, 5)) && i < 10) {
 					if (desiredDayIndex > greaterDayIndex) {
-						touchAction.press(10, (int) (dimension.getHeight() * .5))
-						.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+						/*
+						 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+						 * (dimension.getHeight() * -.4)).release().perform();
+						 */
+						touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+								.moveTo(point(0, (int) (dimension.getHeight() * -.4))).release().perform();
 						i++;
 					} else if (desiredDayIndex < lesserDayIndex) {
-						touchAction.press(10, (int) (dimension.getHeight() * .5))
-						.moveTo(0, (int) (dimension.getHeight() * .4)).release().perform();
+						/*
+						 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+						 * (dimension.getHeight() * .4)).release().perform();
+						 */
+						touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+								.moveTo(point(0, (int) (dimension.getHeight() * .4))).release().perform();
 						i++;
 					} else {
-						touchAction.press(10, (int) (dimension.getHeight() * .5))
-						.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+						/*
+						 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+						 * (dimension.getHeight() * -.4)).release().perform();
+						 */
+						touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+								.moveTo(point(0, (int) (dimension.getHeight() * -.4))).release().perform();
 						i++;
 					}
 				}
@@ -3498,12 +3745,13 @@ public class JasperSchedulingVerifyUtils {
 				WebElement elemTime = testCase.getMobileDriver().findElement(By.name(periodName + "_Time"));
 				System.out.println(elemTime.getAttribute("value"));
 				if (!MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "_subTitle"+ "']", testCase, 5)) {
+						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "_subTitle" + "']",
+						testCase, 5)) {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Failed to locate the period: " + periodName);
 				} else {
-					period = testCase.getMobileDriver().findElement(By.name(periodName+"_subTitle"));
+					period = testCase.getMobileDriver().findElement(By.name(periodName + "_subTitle"));
 					if (allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
 						maxHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxHeat"));
 						minHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinHeat"));
@@ -3517,7 +3765,7 @@ public class JasperSchedulingVerifyUtils {
 								&& Double.parseDouble(periodCoolPoint.getAttribute("value")) >= minCool) {
 							Keyword.ReportStep_Pass(testCase,
 									"Cool Set Point value: " + Double.parseDouble(periodCoolPoint.getAttribute("value"))
-									+ " is set within or at the maximum and minimum range");
+											+ " is set within or at the maximum and minimum range");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -3529,7 +3777,7 @@ public class JasperSchedulingVerifyUtils {
 								&& Double.parseDouble(periodHeatPoint.getAttribute("value")) >= minHeat) {
 							Keyword.ReportStep_Pass(testCase,
 									"Heat Set Point value: " + Double.parseDouble(periodHeatPoint.getAttribute("value"))
-									+ " is set within or at the maximum and minimum range");
+											+ " is set within or at the maximum and minimum range");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -3548,7 +3796,7 @@ public class JasperSchedulingVerifyUtils {
 								&& Double.parseDouble(periodHeatPoint.getAttribute("value")) >= minHeat) {
 							Keyword.ReportStep_Pass(testCase,
 									"Heat Set Point value: " + Double.parseDouble(periodHeatPoint.getAttribute("value"))
-									+ " is set within or at the maximum and minimum range");
+											+ " is set within or at the maximum and minimum range");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -3567,7 +3815,7 @@ public class JasperSchedulingVerifyUtils {
 								&& Double.parseDouble(periodCoolPoint.getAttribute("value")) >= minCool) {
 							Keyword.ReportStep_Pass(testCase,
 									"Cool Set Point value: " + Double.parseDouble(periodCoolPoint.getAttribute("value"))
-									+ " is set within or at the maximum and minimum range");
+											+ " is set within or at the maximum and minimum range");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -3578,7 +3826,7 @@ public class JasperSchedulingVerifyUtils {
 					}
 				}
 			}
-		}catch (Exception e){
+		} catch (Exception e) {
 
 		}
 
@@ -3608,6 +3856,7 @@ public class JasperSchedulingVerifyUtils {
 			Dimension dimension = driver.manage().window().getSize();
 			int height = dimension.getHeight();
 			int width = dimension.getWidth();
+			@SuppressWarnings("rawtypes")
 			TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -3616,9 +3865,16 @@ public class JasperSchedulingVerifyUtils {
 					testCase.getMobileDriver().scrollToExact(periodName.split("_")[1]);
 				}
 
-				while (!MobileUtils.isMobElementExists("XPATH", "//*[@content-desc='" + periodName + "']", testCase, 5)) {
-					touchAction.press(width / 2, height / 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82).release();
-					touchAction.perform();
+				while (!MobileUtils.isMobElementExists("XPATH", "//*[@content-desc='" + periodName + "']", testCase,
+						5)) {
+					/*
+					 * touchAction.press(width / 2, height /
+					 * 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82).release();
+					 * touchAction.perform();
+					 */
+					touchAction.press(point(width / 2, height / 2))
+							.waitAction(waitOptions(MobileUtils.getDuration(2000))).moveTo(point(width / 2, 82))
+							.release().perform();
 				}
 				if (!MobileUtils.isMobElementExists("XPATH", "//*[@content-desc='" + periodName + "']", testCase, 5)) {
 					flag = false;
@@ -3634,7 +3890,7 @@ public class JasperSchedulingVerifyUtils {
 						if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.CELSIUS)) {
 							if (periodCoolPoint.getText().contains(".")) {
 								Keyword.ReportStep_Pass(testCase, "Cool set point: " + periodCoolPoint.getText()
-								+ " is in 0.5C increments for Celsius mode");
+										+ " is in 0.5C increments for Celsius mode");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cool set point: "
@@ -3642,16 +3898,17 @@ public class JasperSchedulingVerifyUtils {
 							}
 							if (periodHeatPoint.getText().contains(".")) {
 								Keyword.ReportStep_Pass(testCase, "Heat set point: " + periodHeatPoint.getText()
-								+ " is in 0.5C increments for Celsius mode");
+										+ " is in 0.5C increments for Celsius mode");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Heat set point: "
 										+ periodHeatPoint.getText() + " is not in 0.5C increments for Celsius mode");
 							}
-						} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+						} else if (inputs.getInputValue(InputVariables.UNITS)
+								.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
 							if (!periodCoolPoint.getText().contains(".")) {
 								Keyword.ReportStep_Pass(testCase, "Cool set point: " + periodCoolPoint.getText()
-								+ " is in 1F increments for Fahrenheit mode");
+										+ " is in 1F increments for Fahrenheit mode");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cool set point: "
@@ -3659,7 +3916,7 @@ public class JasperSchedulingVerifyUtils {
 							}
 							if (!periodHeatPoint.getText().contains(".")) {
 								Keyword.ReportStep_Pass(testCase, "Heat set point: " + periodHeatPoint.getText()
-								+ " is in 1F increments for Fahrenheit mode");
+										+ " is in 1F increments for Fahrenheit mode");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Heat set point: "
@@ -3673,16 +3930,17 @@ public class JasperSchedulingVerifyUtils {
 						if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.CELSIUS)) {
 							if (periodHeatPoint.getText().contains(".")) {
 								Keyword.ReportStep_Pass(testCase, "Heat set point: " + periodHeatPoint.getText()
-								+ " is in 0.5C increments for Celsius mode");
+										+ " is in 0.5C increments for Celsius mode");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Heat set point: "
 										+ periodHeatPoint.getText() + " is not in 0.5C increments for Celsius mode");
 							}
-						} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+						} else if (inputs.getInputValue(InputVariables.UNITS)
+								.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
 							if (!periodHeatPoint.getText().contains(".")) {
 								Keyword.ReportStep_Pass(testCase, "Heat set point: " + periodHeatPoint.getText()
-								+ " is in 1F increments for Fahrenheit mode");
+										+ " is in 1F increments for Fahrenheit mode");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Heat set point: "
@@ -3696,16 +3954,17 @@ public class JasperSchedulingVerifyUtils {
 						if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.CELSIUS)) {
 							if (periodCoolPoint.getText().contains(".")) {
 								Keyword.ReportStep_Pass(testCase, "Cool set point: " + periodCoolPoint.getText()
-								+ " is in 0.5C increments for Celsius mode");
+										+ " is in 0.5C increments for Celsius mode");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cool set point: "
 										+ periodCoolPoint.getText() + " is not in 0.5C increments for Celsius mode");
 							}
-						} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+						} else if (inputs.getInputValue(InputVariables.UNITS)
+								.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
 							if (!periodCoolPoint.getText().contains(".")) {
 								Keyword.ReportStep_Pass(testCase, "Cool set point: " + periodCoolPoint.getText()
-								+ " is in 1F increments for Fahrenheit mode");
+										+ " is in 1F increments for Fahrenheit mode");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cool set point: "
@@ -3718,25 +3977,38 @@ public class JasperSchedulingVerifyUtils {
 				desiredDayIndex = Arrays.asList(scheduleDays).indexOf(periodName.split("_")[0]);
 				if (schl.isScheduleDayHeaderVisible(5)) {
 					scheduleDayHeaders = schl.getScheduleDayHeaderElements();
-					lesserDayIndex = Arrays.asList(scheduleDays).indexOf(scheduleDayHeaders.get(0).getAttribute("value"));
+					lesserDayIndex = Arrays.asList(scheduleDays)
+							.indexOf(scheduleDayHeaders.get(0).getAttribute("value"));
 					greaterDayIndex = Arrays.asList(scheduleDays)
 							.indexOf(scheduleDayHeaders.get(scheduleDayHeaders.size() - 1).getAttribute("value"));
 				}
 				int i = 0;
 				while ((!MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName +"_subTitle"+ "']", testCase, 5))
-						&& i < 10) {
+						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "_subTitle" + "']",
+						testCase, 5)) && i < 10) {
 					if (desiredDayIndex > greaterDayIndex) {
-						touchAction.press(10, (int) (dimension.getHeight() * .5))
-						.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+						/*
+						 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+						 * (dimension.getHeight() * -.4)).release().perform();
+						 */
+						touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+								.moveTo(point(0, (int) (dimension.getHeight() * -.4))).release().perform();
 						i++;
 					} else if (desiredDayIndex < lesserDayIndex) {
-						touchAction.press(10, (int) (dimension.getHeight() * .5))
-						.moveTo(0, (int) (dimension.getHeight() * .4)).release().perform();
+						/*
+						 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+						 * (dimension.getHeight() * .4)).release().perform();
+						 */
+						touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+								.moveTo(point(0, (int) (dimension.getHeight() * .4))).release().perform();
 						i++;
 					} else {
-						touchAction.press(10, (int) (dimension.getHeight() * .5))
-						.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+						/*
+						 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+						 * (dimension.getHeight() * -.4)).release().perform();
+						 */
+						touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+								.moveTo(point(0, (int) (dimension.getHeight() * -.4))).release().perform();
 						i++;
 					}
 				}
@@ -3745,7 +4017,8 @@ public class JasperSchedulingVerifyUtils {
 				WebElement elemTime = testCase.getMobileDriver().findElement(By.name(periodName + "_Time"));
 				System.out.println(elemTime.getAttribute("value"));
 				if (!MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "_subTitle"+"']", testCase, 5)) {
+						"//XCUIElementTypeCell/XCUIElementTypeStaticText[@name='" + periodName + "_subTitle" + "']",
+						testCase, 5)) {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Failed to locate the period: " + periodName);
@@ -3758,40 +4031,45 @@ public class JasperSchedulingVerifyUtils {
 
 						if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.CELSIUS)) {
 							if (periodCoolPoint.getAttribute("value").contains(".")) {
-								Keyword.ReportStep_Pass(testCase, "Cool set point: " + periodCoolPoint.getAttribute("value")
-								+ " is in 0.5C increments for Celsius mode");
+								Keyword.ReportStep_Pass(testCase,
+										"Cool set point: " + periodCoolPoint.getAttribute("value")
+												+ " is in 0.5C increments for Celsius mode");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cool set point: "
 										+ periodCoolPoint.getText() + " is not in 0.5C increments for Celsius mode");
 							}
 							if (periodHeatPoint.getAttribute("value").contains(".")) {
-								Keyword.ReportStep_Pass(testCase, "Heat set point: " + periodHeatPoint.getAttribute("value")
-								+ " is in 0.5C increments for Celsius mode");
+								Keyword.ReportStep_Pass(testCase,
+										"Heat set point: " + periodHeatPoint.getAttribute("value")
+												+ " is in 0.5C increments for Celsius mode");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Heat set point: " + periodHeatPoint.getAttribute("value")
-										+ " is not in 0.5C increments for Celsius mode");
+												+ " is not in 0.5C increments for Celsius mode");
 							}
-						} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+						} else if (inputs.getInputValue(InputVariables.UNITS)
+								.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
 							if (!periodCoolPoint.getAttribute("value").contains(".")) {
-								Keyword.ReportStep_Pass(testCase, "Cool set point: " + periodCoolPoint.getAttribute("value")
-								+ " is in 1F increments for Fahrenheit mode");
+								Keyword.ReportStep_Pass(testCase,
+										"Cool set point: " + periodCoolPoint.getAttribute("value")
+												+ " is in 1F increments for Fahrenheit mode");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Cool set point: " + periodCoolPoint.getAttribute("value")
-										+ " is not in 1F increments for Fahrenheit mode");
+												+ " is not in 1F increments for Fahrenheit mode");
 							}
 							if (!periodHeatPoint.getAttribute("value").contains(".")) {
-								Keyword.ReportStep_Pass(testCase, "Heat set point: " + periodHeatPoint.getAttribute("value")
-								+ " is in 1F increments for Fahrenheit mode");
+								Keyword.ReportStep_Pass(testCase,
+										"Heat set point: " + periodHeatPoint.getAttribute("value")
+												+ " is in 1F increments for Fahrenheit mode");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Heat set point: " + periodHeatPoint.getAttribute("value")
-										+ " is not in 1F increments for Fahrenheit mode");
+												+ " is not in 1F increments for Fahrenheit mode");
 							}
 						}
 
@@ -3800,23 +4078,26 @@ public class JasperSchedulingVerifyUtils {
 
 						if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.CELSIUS)) {
 							if (periodHeatPoint.getAttribute("value").contains(".")) {
-								Keyword.ReportStep_Pass(testCase, "Heat set point: " + periodHeatPoint.getAttribute("value")
-								+ " is in 0.5C increments for Celsius mode");
+								Keyword.ReportStep_Pass(testCase,
+										"Heat set point: " + periodHeatPoint.getAttribute("value")
+												+ " is in 0.5C increments for Celsius mode");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Heat set point: " + periodHeatPoint.getAttribute("value")
-										+ " is not in 0.5C increments for Celsius mode");
+												+ " is not in 0.5C increments for Celsius mode");
 							}
-						} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+						} else if (inputs.getInputValue(InputVariables.UNITS)
+								.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
 							if (!periodHeatPoint.getAttribute("value").contains(".")) {
-								Keyword.ReportStep_Pass(testCase, "Heat set point: " + periodHeatPoint.getAttribute("value")
-								+ " is in 1F increments for Fahrenheit mode");
+								Keyword.ReportStep_Pass(testCase,
+										"Heat set point: " + periodHeatPoint.getAttribute("value")
+												+ " is in 1F increments for Fahrenheit mode");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Heat set point: " + periodHeatPoint.getAttribute("value")
-										+ " is not in 1F increments for Fahrenheit mode");
+												+ " is not in 1F increments for Fahrenheit mode");
 							}
 						}
 
@@ -3825,29 +4106,32 @@ public class JasperSchedulingVerifyUtils {
 
 						if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.CELSIUS)) {
 							if (periodCoolPoint.getAttribute("value").contains(".")) {
-								Keyword.ReportStep_Pass(testCase, "Cool set point: " + periodCoolPoint.getAttribute("value")
-								+ " is in 0.5C increments for Celsius mode");
+								Keyword.ReportStep_Pass(testCase,
+										"Cool set point: " + periodCoolPoint.getAttribute("value")
+												+ " is in 0.5C increments for Celsius mode");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Cool set point: " + periodCoolPoint.getAttribute("value")
-										+ " is not in 0.5C increments for Celsius mode");
+												+ " is not in 0.5C increments for Celsius mode");
 							}
-						} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+						} else if (inputs.getInputValue(InputVariables.UNITS)
+								.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
 							if (!periodCoolPoint.getAttribute("value").contains(".")) {
-								Keyword.ReportStep_Pass(testCase, "Cool set point: " + periodCoolPoint.getAttribute("value")
-								+ " is in 1F increments for Fahrenheit mode");
+								Keyword.ReportStep_Pass(testCase,
+										"Cool set point: " + periodCoolPoint.getAttribute("value")
+												+ " is in 1F increments for Fahrenheit mode");
 							} else {
 								flag = false;
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Cool set point: " + periodCoolPoint.getAttribute("value")
-										+ " is not in 1F increments for Fahrenheit mode");
+												+ " is not in 1F increments for Fahrenheit mode");
 							}
 						}
 					}
 				}
 			}
-		} catch (Exception e){
+		} catch (Exception e) {
 
 		}
 		return flag;
@@ -3929,7 +4213,6 @@ public class JasperSchedulingVerifyUtils {
 			List<String> allowedModes = statInfo.getAllowedModes();
 
 			flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
-			
 
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				if (allowedModes.contains("Cool") && allowedModes.contains("Heat")) {
@@ -3941,23 +4224,24 @@ public class JasperSchedulingVerifyUtils {
 								if (schedule_heatsetpoints.get(i).getText().contains(".")) {
 									Keyword.ReportStep_Pass(testCase,
 											"Set point: " + schedule_heatsetpoints.get(i).getText()
-											+ " is in 0.5C increments for Celsius mode");
+													+ " is in 0.5C increments for Celsius mode");
 								} else {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"Set point: " + schedule_heatsetpoints.get(i).getText()
-											+ " is not in 0.5C increments for Celsius mode");
+													+ " is not in 0.5C increments for Celsius mode");
 								}
-							} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+							} else if (inputs.getInputValue(InputVariables.UNITS)
+									.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
 								if (!schedule_heatsetpoints.get(i).getText().contains(".")) {
 									Keyword.ReportStep_Pass(testCase,
 											"Set point: " + schedule_heatsetpoints.get(i).getText()
-											+ " is in 1F increments for Fahrenheit mode");
+													+ " is in 1F increments for Fahrenheit mode");
 								} else {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"Set point: " + schedule_heatsetpoints.get(i).getText()
-											+ " is not in 1F increments for Fahrenheit mode");
+													+ " is not in 1F increments for Fahrenheit mode");
 								}
 							}
 						}
@@ -3974,23 +4258,24 @@ public class JasperSchedulingVerifyUtils {
 								if (schedule_coolsetpoints.get(i).getText().contains(".")) {
 									Keyword.ReportStep_Pass(testCase,
 											"Set point: " + schedule_coolsetpoints.get(i).getText()
-											+ " is in 0.5C increments for Celsius mode");
+													+ " is in 0.5C increments for Celsius mode");
 								} else {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"Set point: " + schedule_coolsetpoints.get(i).getText()
-											+ " is not in 0.5C increments for Celsius mode");
+													+ " is not in 0.5C increments for Celsius mode");
 								}
-							} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+							} else if (inputs.getInputValue(InputVariables.UNITS)
+									.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
 								if (!schedule_coolsetpoints.get(i).getText().contains(".")) {
 									Keyword.ReportStep_Pass(testCase,
 											"Set point: " + schedule_coolsetpoints.get(i).getText()
-											+ " is in 1F increments for Fahrenheit mode");
+													+ " is in 1F increments for Fahrenheit mode");
 								} else {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"Set point: " + schedule_coolsetpoints.get(i).getText()
-											+ " is not in 1F increments for Fahrenheit mode");
+													+ " is not in 1F increments for Fahrenheit mode");
 								}
 							}
 						}
@@ -4008,23 +4293,24 @@ public class JasperSchedulingVerifyUtils {
 								if (schedule_coolsetpoints.get(i).getText().contains(".")) {
 									Keyword.ReportStep_Pass(testCase,
 											"Set point: " + schedule_coolsetpoints.get(i).getText()
-											+ " is in 0.5C increments for Celsius mode");
+													+ " is in 0.5C increments for Celsius mode");
 								} else {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"Set point: " + schedule_coolsetpoints.get(i).getText()
-											+ " is not in 0.5C increments for Celsius mode");
+													+ " is not in 0.5C increments for Celsius mode");
 								}
-							} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+							} else if (inputs.getInputValue(InputVariables.UNITS)
+									.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
 								if (!schedule_coolsetpoints.get(i).getText().contains(".")) {
 									Keyword.ReportStep_Pass(testCase,
 											"Set point: " + schedule_coolsetpoints.get(i).getText()
-											+ " is in 1F increments for Fahrenheit mode");
+													+ " is in 1F increments for Fahrenheit mode");
 								} else {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"Set point: " + schedule_coolsetpoints.get(i).getText()
-											+ " is not in 1F increments for Fahrenheit mode");
+													+ " is not in 1F increments for Fahrenheit mode");
 								}
 							}
 						}
@@ -4042,23 +4328,24 @@ public class JasperSchedulingVerifyUtils {
 								if (schedule_heatsetpoints.get(i).getText().contains(".")) {
 									Keyword.ReportStep_Pass(testCase,
 											"Set point: " + schedule_heatsetpoints.get(i).getText()
-											+ " is in 0.5C increments for Celsius mode");
+													+ " is in 0.5C increments for Celsius mode");
 								} else {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"Set point: " + schedule_heatsetpoints.get(i).getText()
-											+ " is not in 0.5C increments for Celsius mode");
+													+ " is not in 0.5C increments for Celsius mode");
 								}
-							} else if (inputs.getInputValue(InputVariables.UNITS).equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
+							} else if (inputs.getInputValue(InputVariables.UNITS)
+									.equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
 								if (!schedule_heatsetpoints.get(i).getText().contains(".")) {
 									Keyword.ReportStep_Pass(testCase,
 											"Set point: " + schedule_heatsetpoints.get(i).getText()
-											+ " is in 1F increments for Fahrenheit mode");
+													+ " is in 1F increments for Fahrenheit mode");
 								} else {
 									flag = false;
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"Set point: " + schedule_heatsetpoints.get(i).getText()
-											+ " is not in 1F increments for Fahrenheit mode");
+													+ " is not in 1F increments for Fahrenheit mode");
 								}
 							}
 						}
@@ -4089,7 +4376,7 @@ public class JasperSchedulingVerifyUtils {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Failed to locate Back button");
 				}
 			}
-		}catch (Exception e){
+		} catch (Exception e) {
 
 		}
 		return flag;
@@ -4101,7 +4388,8 @@ public class JasperSchedulingVerifyUtils {
 		String tempHeatSetPointApp = "", tempCoolSetPointApp = "";
 		SchedulingScreen schl = new SchedulingScreen(testCase);
 		flag = flag & JasperSchedulingUtils.viewScheduleOnPrimaryCard(testCase);
-		if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE).equalsIgnoreCase(InputVariables.GEOFENCE_BASED_SCHEDULE)) {
+		if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE)
+				.equalsIgnoreCase(InputVariables.GEOFENCE_BASED_SCHEDULE)) {
 			// ============================================ANDROID============================================================
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				if (schl.isSchedulePeriodHeatSetPointVisible(5)) {
@@ -4117,15 +4405,17 @@ public class JasperSchedulingVerifyUtils {
 					if (schedule_coolsetpoints.get(0).getText().contains(".0")) {
 						tempCoolSetPointApp = schedule_coolsetpoints.get(0).getText().split("\\.")[0];
 					}
-					if (Integer.valueOf(tempCoolSetPointApp.replaceAll("°","")) >= Integer.valueOf(tempHeatSetPointApp.replaceAll("°",""))) {
+					if (Integer.valueOf(tempCoolSetPointApp.replaceAll("°", "")) >= Integer
+							.valueOf(tempHeatSetPointApp.replaceAll("°", ""))) {
 						Keyword.ReportStep_Pass(testCase,
 								"[HomeSettings] Home set points are following Auto changeover logic");
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"[HomeSettings] Home set points are not following Auto changeover logic with Cool temperature: "
-										+ Integer.valueOf(tempCoolSetPointApp.replaceAll("°","")) + " and Heat temperature: "
-										+ Integer.valueOf(tempHeatSetPointApp.replaceAll("°","")));
+										+ Integer.valueOf(tempCoolSetPointApp.replaceAll("°", ""))
+										+ " and Heat temperature: "
+										+ Integer.valueOf(tempHeatSetPointApp.replaceAll("°", "")));
 					}
 					// =================================Geofence SLEEP
 					// Period===============================
@@ -4138,15 +4428,17 @@ public class JasperSchedulingVerifyUtils {
 						if (schedule_coolsetpoints.get(1).getText().contains(".0")) {
 							tempCoolSetPointApp = schedule_coolsetpoints.get(1).getText().split("\\.")[0];
 						}
-						if (Integer.valueOf(tempCoolSetPointApp.replaceAll("°","")) >= Integer.valueOf(tempHeatSetPointApp.replaceAll("°",""))) {
+						if (Integer.valueOf(tempCoolSetPointApp.replaceAll("°", "")) >= Integer
+								.valueOf(tempHeatSetPointApp.replaceAll("°", ""))) {
 							Keyword.ReportStep_Pass(testCase,
 									"[SleepSettings] Sleep set points are following Auto changeover logic");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"[SleepSettings] Sleep set points are not following Auto changeover logic with Cool temperature: "
-											+ Integer.valueOf(tempCoolSetPointApp.replaceAll("°","")) + " and Heat temperature: "
-											+ Integer.valueOf(tempHeatSetPointApp.replaceAll("°","")));
+											+ Integer.valueOf(tempCoolSetPointApp.replaceAll("°", ""))
+											+ " and Heat temperature: "
+											+ Integer.valueOf(tempHeatSetPointApp.replaceAll("°", "")));
 						}
 
 						tempHeatSetPointApp = schedule_heatsetpoints.get(2).getText();
@@ -4157,15 +4449,17 @@ public class JasperSchedulingVerifyUtils {
 						if (schedule_coolsetpoints.get(2).getText().contains(".0")) {
 							tempCoolSetPointApp = schedule_coolsetpoints.get(2).getText().split("\\.")[0];
 						}
-						if (Integer.valueOf(tempCoolSetPointApp.replaceAll("°","")) >= Integer.valueOf(tempHeatSetPointApp.replaceAll("°",""))) {
+						if (Integer.valueOf(tempCoolSetPointApp.replaceAll("°", "")) >= Integer
+								.valueOf(tempHeatSetPointApp.replaceAll("°", ""))) {
 							Keyword.ReportStep_Pass(testCase,
 									"[AwaySettings] Away set points are following Auto changeover logic");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"[AwaySettings] Away set points are not following Auto changeover logic with Cool temperature: "
-											+ Integer.valueOf(tempCoolSetPointApp.replaceAll("°","")) + " and Heat temperature: "
-											+ Integer.valueOf(tempHeatSetPointApp.replaceAll("°","")));
+											+ Integer.valueOf(tempCoolSetPointApp.replaceAll("°", ""))
+											+ " and Heat temperature: "
+											+ Integer.valueOf(tempHeatSetPointApp.replaceAll("°", "")));
 						}
 					} else {
 						tempHeatSetPointApp = schedule_heatsetpoints.get(1).getText();
@@ -4176,15 +4470,17 @@ public class JasperSchedulingVerifyUtils {
 						if (schedule_coolsetpoints.get(1).getText().contains(".0")) {
 							tempCoolSetPointApp = schedule_coolsetpoints.get(1).getText().split("\\.")[0];
 						}
-						if (Integer.valueOf(tempCoolSetPointApp.replaceAll("°","")) >= Integer.valueOf(tempHeatSetPointApp.replaceAll("°",""))) {
+						if (Integer.valueOf(tempCoolSetPointApp.replaceAll("°", "")) >= Integer
+								.valueOf(tempHeatSetPointApp.replaceAll("°", ""))) {
 							Keyword.ReportStep_Pass(testCase,
 									"[AwaySettings] Away set points are following Auto changeover logic");
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"[AwaySettings] Away set points are not following Auto changeover logic with Cool temperature: "
-											+ Integer.valueOf(tempCoolSetPointApp.replaceAll("°","")) + " and Heat temperature: "
-											+ Integer.valueOf(tempHeatSetPointApp.replaceAll("°","")));
+											+ Integer.valueOf(tempCoolSetPointApp.replaceAll("°", ""))
+											+ " and Heat temperature: "
+											+ Integer.valueOf(tempHeatSetPointApp.replaceAll("°", "")));
 						}
 					}
 
@@ -4203,13 +4499,13 @@ public class JasperSchedulingVerifyUtils {
 					}
 				}
 				if (schl.isGeofenceHomeCoolElementVisible(10)) {
-					tempCoolSetPointApp = schl.getGeofenceHomeCoolElement()
-							.getAttribute("value");
+					tempCoolSetPointApp = schl.getGeofenceHomeCoolElement().getAttribute("value");
 					if (tempCoolSetPointApp.contains(".0")) {
 						tempCoolSetPointApp = tempCoolSetPointApp.split("\\.")[0];
 					}
 				}
-				if (Integer.valueOf(tempCoolSetPointApp.replaceAll("˚","")) >= Integer.valueOf(tempHeatSetPointApp.replaceAll("˚",""))) {
+				if (Integer.valueOf(tempCoolSetPointApp.replaceAll("˚", "")) >= Integer
+						.valueOf(tempHeatSetPointApp.replaceAll("˚", ""))) {
 					Keyword.ReportStep_Pass(testCase,
 							"[HomeSettings] Home set points are following Auto changeover logic");
 				} else {
@@ -4221,17 +4517,16 @@ public class JasperSchedulingVerifyUtils {
 				}
 
 				if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("Yes")) {
-					tempHeatSetPointApp = schl.getGeofenceSleepHeatElement()
-							.getAttribute("value");
+					tempHeatSetPointApp = schl.getGeofenceSleepHeatElement().getAttribute("value");
 					if (tempHeatSetPointApp.contains(".0")) {
 						tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 					}
-					tempCoolSetPointApp = schl.getGeofenceSleepCoolElement()
-							.getAttribute("value");
+					tempCoolSetPointApp = schl.getGeofenceSleepCoolElement().getAttribute("value");
 					if (tempCoolSetPointApp.contains(".0")) {
 						tempCoolSetPointApp = tempCoolSetPointApp.split("\\.")[0];
 					}
-					if (Integer.valueOf(tempCoolSetPointApp.replaceAll("˚","")) >= Integer.valueOf(tempHeatSetPointApp.replaceAll("˚",""))) {
+					if (Integer.valueOf(tempCoolSetPointApp.replaceAll("˚", "")) >= Integer
+							.valueOf(tempHeatSetPointApp.replaceAll("˚", ""))) {
 						Keyword.ReportStep_Pass(testCase,
 								"[SleepSettings] Sleep set points are following Auto changeover logic");
 					} else {
@@ -4243,17 +4538,16 @@ public class JasperSchedulingVerifyUtils {
 					}
 				}
 
-				tempHeatSetPointApp = schl.getGeofenceAwayHeatElement()
-						.getAttribute("value");
+				tempHeatSetPointApp = schl.getGeofenceAwayHeatElement().getAttribute("value");
 				if (tempHeatSetPointApp.contains(".0")) {
 					tempHeatSetPointApp = tempHeatSetPointApp.split("\\.")[0];
 				}
-				tempCoolSetPointApp = schl.getGeofenceAwayCoolElement()
-						.getAttribute("value");
+				tempCoolSetPointApp = schl.getGeofenceAwayCoolElement().getAttribute("value");
 				if (tempCoolSetPointApp.contains(".0")) {
 					tempCoolSetPointApp = tempCoolSetPointApp.split("\\.")[0];
 				}
-				if (Integer.valueOf(tempCoolSetPointApp.replaceAll("˚","")) >= Integer.valueOf(tempHeatSetPointApp.replaceAll("˚",""))) {
+				if (Integer.valueOf(tempCoolSetPointApp.replaceAll("˚", "")) >= Integer
+						.valueOf(tempHeatSetPointApp.replaceAll("˚", ""))) {
 					Keyword.ReportStep_Pass(testCase,
 							"[AwaySettings] Away set points are following Auto changeover logic");
 				} else {
@@ -4264,10 +4558,13 @@ public class JasperSchedulingVerifyUtils {
 									+ Integer.valueOf(tempHeatSetPointApp));
 				}
 			}
-		} else if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE).equalsIgnoreCase(InputVariables.TIME_BASED_SCHEDULE)) {
-			if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE).equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
+		} else if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE)
+				.equalsIgnoreCase(InputVariables.TIME_BASED_SCHEDULE)) {
+			if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
+					.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
 
-			} else if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE).equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
+			} else if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
+					.equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
 
 			}
 		}
@@ -4298,17 +4595,26 @@ public class JasperSchedulingVerifyUtils {
 		String[] scheduleDays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 		List<WebElement> scheduleDayHeaders = null;
 		int desiredDayIndex = 0, lesserDayIndex = 0, greaterDayIndex = 0;
-		//		if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Grouped Days")) {
-		//			flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Grouped Days");
-		//		} else if (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual Days")) {
-		//			flag = flag & JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Individual Days");
-		//		}
+		// if
+		// (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Grouped
+		// Days")) {
+		// flag = flag &
+		// JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase,
+		// "Grouped Days");
+		// } else if
+		// (inputs.getInputValue(InputVariables.SHOW_VIEW_TYPE).equalsIgnoreCase("Individual
+		// Days")) {
+		// flag = flag &
+		// JasperSchedulingUtils.selectIndividualDaysViewOrGroupedDaysView(testCase,
+		// "Individual Days");
+		// }
 
 		WebElement period = null;
 		CustomDriver driver = testCase.getMobileDriver();
 		Dimension dimension = driver.manage().window().getSize();
 		int height = dimension.getHeight();
 		int width = dimension.getWidth();
+		@SuppressWarnings("rawtypes")
 		TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -4316,8 +4622,14 @@ public class JasperSchedulingVerifyUtils {
 				testCase.getMobileDriver().scrollToExact(periodName.split("_")[1]);
 				while (!MobileUtils.isMobElementExists("XPATH", "//*[@content-desc='" + periodName + "']", testCase,
 						5)) {
-					touchAction.press(width / 2, height / 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82).release();
-					touchAction.perform();
+					/*
+					 * touchAction.press(width / 2, height /
+					 * 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82).release();
+					 * touchAction.perform();
+					 */
+					touchAction.press(point(width / 2, height / 2))
+							.waitAction(waitOptions(MobileUtils.getDuration(2000))).moveTo(point(width / 2, 82))
+							.release().perform();
 				}
 			}
 			period = testCase.getMobileDriver().findElement(By.xpath("//*[@content-desc='" + periodName + "']"));
@@ -4338,28 +4650,46 @@ public class JasperSchedulingVerifyUtils {
 			}
 			int i = 0;
 			while ((!MobileUtils.isMobElementExists("XPATH",
-					"//XCUIElementTypeCell/XCUIElementTypeStaticText[contains(@name,'"+ periodName + "_subTitle"+"')]", testCase, 5))
-					&& i < 10) {
+					"//XCUIElementTypeCell/XCUIElementTypeStaticText[contains(@name,'" + periodName + "_subTitle"
+							+ "')]",
+					testCase, 5)) && i < 10) {
 				System.out.println();
 				if (desiredDayIndex > greaterDayIndex) {
-					touchAction.press(10, (int) (dimension.getHeight() * .5))
-					.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+					/*
+					 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+					 * (dimension.getHeight() * -.4)).release().perform();
+					 */
+					touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+							.moveTo(point(0, (int) (dimension.getHeight() * -.4))).release().perform();
 					i++;
 				} else if (desiredDayIndex < lesserDayIndex) {
-					touchAction.press(10, (int) (dimension.getHeight() * .5))
-					.moveTo(0, (int) (dimension.getHeight() * .4)).release().perform();
+					/*
+					 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+					 * (dimension.getHeight() * .4)).release().perform();
+					 */
+					touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+							.moveTo(point(0, (int) (dimension.getHeight() * .4))).release().perform();
 					i++;
 				} else {
-					touchAction.press(10, (int) (dimension.getHeight() * .5))
-					.moveTo(0, (int) (dimension.getHeight() * -.9)).release().perform();
+					/*
+					 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+					 * (dimension.getHeight() * -.9)).release().perform();
+					 */
+					touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+							.moveTo(point(0, (int) (dimension.getHeight() * -.9))).release().perform();
 					i++;
 				}
 			}
-			period = MobileUtils.getMobElement(testCase, "xpath"," //XCUIElementTypeCell/XCUIElementTypeStaticText[contains(@name,'"+ periodName + "_subTitle"+"')]");
+			period = MobileUtils.getMobElement(testCase, "xpath",
+					" //XCUIElementTypeCell/XCUIElementTypeStaticText[contains(@name,'" + periodName + "_subTitle"
+							+ "')]");
 			if (period != null) {
-				periodTime = MobileUtils.getMobElement(testCase, "xpath","//XCUIElementTypeCell/XCUIElementTypeStaticText[contains(@name,'"+ periodName + "_Time"+"')]").getAttribute("value");
-				//						testCase.getMobileDriver().findElement(By.name(periodName + "_Time"))
-				//						.getAttribute("value");
+				periodTime = MobileUtils.getMobElement(testCase, "xpath",
+						"//XCUIElementTypeCell/XCUIElementTypeStaticText[contains(@name,'" + periodName + "_Time"
+								+ "')]")
+						.getAttribute("value");
+				// testCase.getMobileDriver().findElement(By.name(periodName + "_Time"))
+				// .getAttribute("value");
 			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -4382,12 +4712,11 @@ public class JasperSchedulingVerifyUtils {
 			String scheduleTypeToBeValidated) {
 		boolean flag = true;
 		SchedulingScreen schl = new SchedulingScreen(testCase);
-		if (schl.isTimeScheduleButtonVisible(5)){
+		if (schl.isTimeScheduleButtonVisible(5)) {
 			flag = flag & schl.clickOnTimeScheduleButton();
 		}
 		if (scheduleTypeToBeValidated.equalsIgnoreCase("No")) {
-			if (schl.isCreateScheduleButtonVisible(10)
-					&& schl.isNoScheduleTextVisible(10)) {
+			if (schl.isCreateScheduleButtonVisible(10) && schl.isNoScheduleTextVisible(10)) {
 				Keyword.ReportStep_Pass(testCase, "No Schedule screen is shown in View schedule screen");
 			} else {
 				flag = false;
@@ -4462,10 +4791,11 @@ public class JasperSchedulingVerifyUtils {
 			String scheduleType, String overrideSetPoints) {
 		boolean flag = true;
 		try {
-			FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(
-					testCase.getMobileDriver());
-			fWait.pollingEvery(5, TimeUnit.SECONDS);
-			fWait.withTimeout(60, TimeUnit.SECONDS);
+			FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
+			// fWait.pollingEvery(5, TimeUnit.SECONDS);
+			// fWait.withTimeout(60, TimeUnit.SECONDS);
+			fWait.pollingEvery(Duration.ofSeconds(5));
+			fWait.withTimeout(Duration.ofSeconds(60));
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "AdHocOverride");
 			Double overrideTemp = Double.parseDouble(overrideSetPoints);
@@ -4505,44 +4835,44 @@ public class JasperSchedulingVerifyUtils {
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Verify Geofence Schedule Status on Primary Card : Expected Ad hoc status:" + status
-								+ " is not correctly displayed in the primary card with overridden set points:"
-								+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-								.getAttribute("text"));
+										+ " is not correctly displayed in the primary card with overridden set points:"
+										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("text"));
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Verify Geofence Schedule Status on Primary Card : Expected Ad hoc status:" + status
-								+ " is not correctly displayed in the primary card with overridden set points:"
-								+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-								.getAttribute("label"));
+										+ " is not correctly displayed in the primary card with overridden set points:"
+										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("label"));
 					}
 				}
 				if (flag) {
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						Keyword.ReportStep_Pass(testCase,
 								"Verify Geofence Schedule Status on Primary Card : Expected Ad hoc status:" + status
-								+ " is correctly displayed in the primary card with overridden set points:"
-								+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-								.getAttribute("text"));
+										+ " is correctly displayed in the primary card with overridden set points:"
+										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("text"));
 					} else {
 						Keyword.ReportStep_Pass(testCase,
 								"Verify Geofence Schedule Status on Primary Card : Expected Ad hoc status:" + status
-								+ " is correctly displayed in the primary card with overridden set points:"
-								+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-								.getAttribute("label"));
+										+ " is correctly displayed in the primary card with overridden set points:"
+										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("label"));
 					}
 				} else {
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Verify Geofence Schedule Status on Primary Card : Expected Ad hoc status:" + status
-								+ " is not correctly displayed in the primary card with overridden set points:"
-								+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-								.getAttribute("text"));
+										+ " is not correctly displayed in the primary card with overridden set points:"
+										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("text"));
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Verify Geofence Schedule Status on Primary Card : Expected Ad hoc status:" + status
-								+ " is not correctly displayed in the primary card with overridden set points:"
-								+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-								.getAttribute("label"));
+										+ " is not correctly displayed in the primary card with overridden set points:"
+										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+												.getAttribute("label"));
 					}
 				}
 			} else if (scheduleType.equalsIgnoreCase("Time")) {
@@ -4580,45 +4910,45 @@ public class JasperSchedulingVerifyUtils {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:" + status
-									+ " is not correctly displayed in the primary card with overridden set points and time:"
-									+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-									.getAttribute("text"));
+											+ " is not correctly displayed in the primary card with overridden set points and time:"
+											+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+													.getAttribute("text"));
 						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:" + status
-									+ " is not correctly displayed in the primary card with overridden set points and time:"
-									+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-									.getAttribute("label"));
+											+ " is not correctly displayed in the primary card with overridden set points and time:"
+											+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+													.getAttribute("label"));
 						}
 					}
 					if (flag) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							Keyword.ReportStep_Pass(testCase,
 									"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:" + status
-									+ " is correctly displayed in the primary card with overridden set points and time:"
-									+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-									.getAttribute("text"));
+											+ " is correctly displayed in the primary card with overridden set points and time:"
+											+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+													.getAttribute("text"));
 						} else {
 							Keyword.ReportStep_Pass(testCase,
 									"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:" + status
-									+ " is correctly displayed in the primary card with overridden set points and time:"
-									+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-									.getAttribute("label"));
+											+ " is correctly displayed in the primary card with overridden set points and time:"
+											+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+													.getAttribute("label"));
 						}
 					} else {
 						flag = false;
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:" + status
-									+ " is not correctly displayed in the primary card with overridden set points and time:"
-									+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-									.getAttribute("text"));
+											+ " is not correctly displayed in the primary card with overridden set points and time:"
+											+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+													.getAttribute("text"));
 						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:" + status
-									+ " is not correctly displayed in the primary card with overridden set points and time:"
-									+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-									.getAttribute("label"));
+											+ " is not correctly displayed in the primary card with overridden set points and time:"
+											+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
+													.getAttribute("label"));
 						}
 					}
 				} else if (thermostatSetPointStatus.equalsIgnoreCase("HoldUntil")) {
@@ -4633,11 +4963,15 @@ public class JasperSchedulingVerifyUtils {
 					String status24Hours;
 
 					if (statInfo.getThermostatUnits().equalsIgnoreCase(GlobalVariables.FAHRENHEIT)) {
-						status12Hours = "Hold " + overrideTemp.intValue() + "\u00B0 until " + nextPeriodTime12Hours.toLowerCase().replaceAll("^0*", "");
-						status24Hours = "Hold " + overrideTemp.intValue() + "\u00B0 until " + nextPeriodTime24Hours.toLowerCase().replaceAll("^0*", "");
+						status12Hours = "Hold " + overrideTemp.intValue() + "\u00B0 until "
+								+ nextPeriodTime12Hours.toLowerCase().replaceAll("^0*", "");
+						status24Hours = "Hold " + overrideTemp.intValue() + "\u00B0 until "
+								+ nextPeriodTime24Hours.toLowerCase().replaceAll("^0*", "");
 					} else {
-						status12Hours = "Hold " + overrideTemp + "\u00B0 until " + nextPeriodTime12Hours.toLowerCase().replaceAll("^0*", "");
-						status24Hours = "Hold " + overrideTemp + "\u00B0 until " + nextPeriodTime24Hours.toLowerCase().replaceAll("^0*", "");
+						status12Hours = "Hold " + overrideTemp + "\u00B0 until "
+								+ nextPeriodTime12Hours.toLowerCase().replaceAll("^0*", "");
+						status24Hours = "Hold " + overrideTemp + "\u00B0 until "
+								+ nextPeriodTime24Hours.toLowerCase().replaceAll("^0*", "");
 					}
 					try {
 						Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
@@ -4667,40 +5001,41 @@ public class JasperSchedulingVerifyUtils {
 							if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text")
 									.contains("M")
 									|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-									.getAttribute("text").contains("m")) {
+											.getAttribute("text").contains("m")) {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:"
 												+ status12Hours
 												+ " is not correctly displayed in the primary card with overridden set points and time:"
 												+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-												.getAttribute("text"));
+														.getAttribute("text"));
 							} else {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:"
 												+ status24Hours
 												+ " is not correctly displayed in the primary card with overridden set points and time:"
 												+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-												.getAttribute("text"));
+														.getAttribute("text"));
 							}
 						} else {
-							System.out.println("Element : " + MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("value"));
+							System.out.println("Element : " + MobileUtils
+									.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("value"));
 							if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label")
 									.contains("M")
 									|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-									.getAttribute("label").contains("m")) {
+											.getAttribute("label").contains("m")) {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:"
 												+ status12Hours
 												+ " is not correctly displayed in the primary card with overridden set points and time:"
 												+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-												.getAttribute("label"));
+														.getAttribute("label"));
 							} else {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:"
 												+ status24Hours
 												+ " is not correctly displayed in the primary card with overridden set points and time:"
 												+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-												.getAttribute("label"));
+														.getAttribute("label"));
 							}
 						}
 					}
@@ -4709,39 +5044,39 @@ public class JasperSchedulingVerifyUtils {
 							if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text")
 									.contains("M")
 									|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-									.getAttribute("text").contains("m")) {
+											.getAttribute("text").contains("m")) {
 								Keyword.ReportStep_Pass(testCase,
 										"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:"
 												+ status12Hours
 												+ " is correctly displayed in the primary card with overridden set points and time:"
 												+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-												.getAttribute("text"));
+														.getAttribute("text"));
 							} else {
 								Keyword.ReportStep_Pass(testCase,
 										"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:"
 												+ status24Hours
 												+ " is correctly displayed in the primary card with overridden set points and time:"
 												+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-												.getAttribute("text"));
+														.getAttribute("text"));
 							}
 						} else {
 							if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label")
 									.contains("M")
 									|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-									.getAttribute("label").contains("m")) {
+											.getAttribute("label").contains("m")) {
 								Keyword.ReportStep_Pass(testCase,
 										"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:"
 												+ status12Hours
 												+ " is correctly displayed in the primary card with overridden set points and time:"
 												+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-												.getAttribute("label"));
+														.getAttribute("label"));
 							} else {
 								Keyword.ReportStep_Pass(testCase,
 										"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:"
 												+ status24Hours
 												+ " is correctly displayed in the primary card with overridden set points and time:"
 												+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-												.getAttribute("label"));
+														.getAttribute("label"));
 							}
 
 						}
@@ -4751,46 +5086,45 @@ public class JasperSchedulingVerifyUtils {
 							if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text")
 									.contains("M")
 									|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-									.getAttribute("text").contains("m")) {
+											.getAttribute("text").contains("m")) {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:"
 												+ status12Hours
 												+ " is not correctly displayed in the primary card with overridden set points and time:"
 												+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-												.getAttribute("text"));
+														.getAttribute("text"));
 							} else {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:"
 												+ status24Hours
 												+ " is not correctly displayed in the primary card with overridden set points and time:"
 												+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-												.getAttribute("text"));
+														.getAttribute("text"));
 							}
 						} else {
 							if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label")
 									.contains("M")
 									|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-									.getAttribute("label").contains("m")) {
+											.getAttribute("label").contains("m")) {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:"
 												+ status12Hours
 												+ " is not correctly displayed in the primary card with overridden set points and time:"
 												+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-												.getAttribute("label"));
+														.getAttribute("label"));
 							} else {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Verify Time Schedule Status on Primary Card : Expected Ad hoc status:"
 												+ status24Hours
 												+ " is not correctly displayed in the primary card with overridden set points and time:"
 												+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-												.getAttribute("label"));
+														.getAttribute("label"));
 							}
 						}
 					}
 				}
 			}
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 		}
@@ -4801,10 +5135,11 @@ public class JasperSchedulingVerifyUtils {
 			String holdUntilTime) {
 		boolean flag = true;
 		try {
-			FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(
-					testCase.getMobileDriver());
-			fWait.pollingEvery(5, TimeUnit.SECONDS);
-			fWait.withTimeout(60, TimeUnit.SECONDS);
+			FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
+			// fWait.pollingEvery(5, TimeUnit.SECONDS);
+			// fWait.withTimeout(60, TimeUnit.SECONDS);
+			fWait.pollingEvery(Duration.ofSeconds(5));
+			fWait.withTimeout(Duration.ofSeconds(60));
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			String overrideTemp = "";
 			String systemMode = statInfo.getThermoStatMode();
@@ -4866,39 +5201,39 @@ public class JasperSchedulingVerifyUtils {
 					if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text")
 							.contains("M")
 							|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text")
-							.contains("m")) {
+									.contains("m")) {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
 										+ status12Hours
 										+ " is not correctly displayed in the primary card with overridden set points and time:"
 										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-										.getAttribute("text"));
+												.getAttribute("text"));
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
 										+ status24Hours
 										+ " is not correctly displayed in the primary card with overridden set points and time:"
 										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-										.getAttribute("text"));
+												.getAttribute("text"));
 					}
 				} else {
 					if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label")
 							.contains("M")
 							|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label")
-							.contains("m")) {
+									.contains("m")) {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
 										+ status12Hours
 										+ " is not correctly displayed in the primary card with overridden set points and time:"
 										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-										.getAttribute("label"));
+												.getAttribute("label"));
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
 										+ status24Hours
 										+ " is not correctly displayed in the primary card with overridden set points and time:"
 										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-										.getAttribute("label"));
+												.getAttribute("label"));
 					}
 				}
 			}
@@ -4907,39 +5242,39 @@ public class JasperSchedulingVerifyUtils {
 					if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text")
 							.contains("M")
 							|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text")
-							.contains("m")) {
+									.contains("m")) {
 						Keyword.ReportStep_Pass(testCase,
 								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
 										+ status12Hours
 										+ " is correctly displayed in the primary card with overridden set points and time:"
 										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-										.getAttribute("text"));
+												.getAttribute("text"));
 					} else {
 						Keyword.ReportStep_Pass(testCase,
 								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
 										+ status24Hours
 										+ " is correctly displayed in the primary card with overridden set points and time:"
 										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-										.getAttribute("text"));
+												.getAttribute("text"));
 					}
 				} else {
 					if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label")
 							.contains("M")
 							|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label")
-							.contains("m")) {
+									.contains("m")) {
 						Keyword.ReportStep_Pass(testCase,
 								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
 										+ status12Hours
 										+ " is correctly displayed in the primary card with overridden set points and time:"
 										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-										.getAttribute("label"));
+												.getAttribute("label"));
 					} else {
 						Keyword.ReportStep_Pass(testCase,
 								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
 										+ status24Hours
 										+ " is correctly displayed in the primary card with overridden set points and time:"
 										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-										.getAttribute("label"));
+												.getAttribute("label"));
 					}
 
 				}
@@ -4949,39 +5284,39 @@ public class JasperSchedulingVerifyUtils {
 					if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text")
 							.contains("M")
 							|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("text")
-							.contains("m")) {
+									.contains("m")) {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
 										+ status12Hours
 										+ " is not correctly displayed in the primary card with overridden set points and time:"
 										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-										.getAttribute("text"));
+												.getAttribute("text"));
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
 										+ status24Hours
 										+ " is not correctly displayed in the primary card with overridden set points and time:"
 										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-										.getAttribute("text"));
+												.getAttribute("text"));
 					}
 				} else {
 					if (MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label")
 							.contains("M")
 							|| MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus").getAttribute("label")
-							.contains("m")) {
+									.contains("m")) {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
 										+ status12Hours
 										+ " is not correctly displayed in the primary card with overridden set points and time:"
 										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-										.getAttribute("label"));
+												.getAttribute("label"));
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Verify Hold Until Schedule Status on Primary Card : Expected Ad hoc status:"
 										+ status24Hours
 										+ " is not correctly displayed in the primary card with overridden set points and time:"
 										+ MobileUtils.getMobElement(fieldObjects, testCase, "AdHocStatus")
-										.getAttribute("label"));
+												.getAttribute("label"));
 					}
 				}
 			}

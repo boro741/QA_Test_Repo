@@ -1,10 +1,15 @@
 package com.honeywell.screens;
 
-import org.openqa.selenium.By;
+import java.util.HashMap;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+
+import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
+import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
 
 import io.appium.java_client.MobileElement;
@@ -38,19 +43,36 @@ public class SecretMenu extends MobileScreens {
 	}
 
 	public boolean clickOnSetAccessibilityToggle() {
-		if (testCase.getMobileDriver().findElements(By.name("SetAccessibilityAttributes_subTitle")).size() > 0) {
-			testCase.getMobileDriver().scrollTo("SetAccessibilityAttributes_subTitle");
-		} else if (testCase.getMobileDriver().findElements(By.name("SetAccessibilityAttributes")).size() > 0) {
-			testCase.getMobileDriver().scrollTo("SetAccessibilityAttributes");
-		}
-
-		if (testCase.getMobileDriver().findElements(By.name("SetAccessibilityAttributes_toggle")).size() > 0) {
-			return true;
+		boolean flag = true;
+		if (testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypeStaticText[@value='Feature Tweaks']"))
+				.isEnabled()) {
+			System.out.println("####INSIDE FEATURE TWEAKS SCREEN");
+			if (testCase.getMobileDriver().findElements(By.name("SetAccessibilityAttributes")).size() > 0) {
+				//testCase.getMobileDriver().scrollTo("SetAccessibilityAttributes");
+				JavascriptExecutor js = (JavascriptExecutor) testCase.getMobileDriver();
+				HashMap<Object, Object> scrollObject = new HashMap<>();
+				try {
+					scrollObject.put("predicateString", "name == '" + "SetAccessibilityAttributes" + "'");
+					js.executeScript("mobile:scroll", scrollObject);
+				} catch (Exception e) {
+					scrollObject.clear();
+					scrollObject.put("direction", "down");
+					js.executeScript("mobile:scroll", scrollObject);
+				}
+				System.out.println("####" + MobileUtils
+						.getMobElement(testCase, "name", "SetAccessibilityAttributes_toggle").getAttribute("value"));
+				if (MobileUtils.getMobElement(testCase, "name", "SetAccessibilityAttributes_toggle")
+						.getAttribute("value").equalsIgnoreCase("1")) {
+					return flag;
+				} else {
+					flag &= MobileUtils.clickOnElement(testCase, "name", "SetAccessibilityAttributes_toggle");
+				}
+			}
 		} else {
-			MobileElement ele = testCase.getMobileDriver().findElements(By.name("SetAccessibilityAttributes")).get(1);
-			return MobileUtils.clickOnElement(testCase, ele, "Accessibility Attribute enable/Disbale");
-
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Feature Tweaks Screen is not displayed in iOS");
 		}
+		return flag;
 	}
 
 	public boolean clickOnSetDasDIYV2Toggle() {
