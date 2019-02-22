@@ -127,6 +127,12 @@ public class VerifyStatusOnScreen extends Keyword {
 		case "SENSOR LIST":
 		case "SENSOR STATUS": {
 			flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 2);
+			try {
+				Thread.sleep(15000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "DOOR SENSOR":
 			case "DOOR": {

@@ -433,7 +433,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 		 if (testCase.getMobileDriver().getPlatformName().contains("Android")){
 			 return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInSwitchingModes");
 		 } else{
-			 testCase.getMobileDriver().findElementByName("cancelCommand").click();
+			 testCase.getMobileDriver().findElementByName("countDownTimer").click();
 			 return true;
 		 }
 	}

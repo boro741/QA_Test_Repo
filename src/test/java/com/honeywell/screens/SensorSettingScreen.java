@@ -405,7 +405,7 @@ public class SensorSettingScreen extends MobileScreens {
 					&& MobileUtils.isMobElementExists(objectDefinition, testCase, "ClearTamperButton")) {
 				flag = true;
 			}
-		}else if (testCase.getMobileDriver().findElementByXPath("//XCUIElementTypeStaticText[@value='Cover Tampered']") != null
+		}else if (testCase.getMobileDriver().findElementByXPath("//*[contains(@name,'RightButton')]") != null
 				) {
 			flag = true;
 		} 
