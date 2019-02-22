@@ -1,7 +1,7 @@
 package com.honeywell.screens;
 
+import java.time.Duration;
 import java.util.NoSuchElementException;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -20,6 +20,8 @@ import com.honeywell.lyric.das.utils.DASAlarmUtils;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.MultiTouchAction;
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.offset.ElementOption.element;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class AlarmScreen extends MobileScreens {
 	private TestCases testCase;
@@ -34,9 +36,9 @@ public class AlarmScreen extends MobileScreens {
 	}
 
 	public boolean isAlarmScreenDisplayed(int timeout) {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "Alarm_Title",timeout)
-				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "Alarm_Subtitle",timeout)
-				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "AlarmDismissButton",timeout);
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "Alarm_Title", timeout)
+				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "Alarm_Subtitle", timeout)
+				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "AlarmDismissButton", timeout);
 	}
 
 	public boolean isPleaseWaitDisplayed() {
@@ -66,11 +68,12 @@ public class AlarmScreen extends MobileScreens {
 	public boolean clickOnSwitchToHome() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchToHomeButton");
 	}
-	
+
 	public boolean clickOnSwitchToHome(int timeout) {
 		boolean flag = true;
-		if( MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchToHomeButton", timeout)){;
-		flag = flag &  MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchToHomeButton");
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchToHomeButton", timeout)) {
+			;
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchToHomeButton");
 		}
 		return flag;
 	}
@@ -95,7 +98,7 @@ public class AlarmScreen extends MobileScreens {
 	}
 
 	public boolean isWaitingToCloseScreenDisplayed(int timeout) {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WaitingToCloseDoor",timeout);
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WaitingToCloseDoor", timeout);
 	}
 
 	public boolean isCallScreenDisplayed() {
@@ -127,11 +130,13 @@ public class AlarmScreen extends MobileScreens {
 		boolean flag = true;
 		WebElement History_BottomArrow = null;
 		WebElement Alarm = null;
+		@SuppressWarnings("rawtypes")
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			History_BottomArrow = MobileUtils.getMobElement(objectDefinition, testCase, "History_BottomArrow");
 			Alarm = MobileUtils.getMobElement(objectDefinition, testCase, "Alarm_Title");
-			action = action.press(History_BottomArrow).moveTo(Alarm).release().perform();
+			// action = action.press(History_BottomArrow).moveTo(Alarm).release().perform();
+			action = action.press(element(History_BottomArrow)).moveTo(element(Alarm)).release().perform();
 		}
 		// For IOS device
 		else {
@@ -142,9 +147,16 @@ public class AlarmScreen extends MobileScreens {
 				Alarm = driver.findElement(By.name("Alarm_Navigation_Title"));// MobileUtils.getMobElement(objectDefinition,
 																				// testCase, "Alarm_Title");
 				if (driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON)).isEnabled()) {
-					action.press(History_BottomArrow.getLocation().getX(), History_BottomArrow.getLocation().getY())
-							.moveTo(0, -History_BottomArrow.getLocation().getY() + Alarm.getLocation().getY()).release()
-							.perform();
+					/*
+					 * action.press(History_BottomArrow.getLocation().getX(),
+					 * History_BottomArrow.getLocation().getY()) .moveTo(0,
+					 * -History_BottomArrow.getLocation().getY() +
+					 * Alarm.getLocation().getY()).release() .perform();
+					 */
+					action.press(
+							point(History_BottomArrow.getLocation().getX(), History_BottomArrow.getLocation().getY()))
+							.moveTo(point(0, -History_BottomArrow.getLocation().getY() + Alarm.getLocation().getY()))
+							.release().perform();
 				}
 			}
 
@@ -170,10 +182,14 @@ public class AlarmScreen extends MobileScreens {
 	public boolean closeAlarmHistory() throws Exception {
 		boolean flag = true;
 		WebElement activityDay = null;
+		@SuppressWarnings("rawtypes")
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			activityDay = MobileUtils.getMobElement(objectDefinition, testCase, "AcitvityLogScrollDown");
-			action = action.press(activityDay).moveTo(activityDay.getLocation().getX(), 300).release().perform();
+			// action = action.press(activityDay).moveTo(activityDay.getLocation().getX(),
+			// 300).release().perform();
+			action = action.press(element(activityDay)).moveTo(point(activityDay.getLocation().getX(), 300)).release()
+					.perform();
 			if (action != null) {
 				Keyword.ReportStep_Pass(testCase, "Successfully closed activity logs");
 			} else {
@@ -189,7 +205,10 @@ public class AlarmScreen extends MobileScreens {
 					CustomDriver driver = testCase.getMobileDriver();
 					if (driver.findElement(By.name(ACTIVITYLOGSCROLLDOWNICON)).isEnabled()) {
 						activityDay = driver.findElement(By.name(ACTIVITYLOGSCROLLDOWNICON));
-						action.press(activityDay).moveTo(activityDay.getLocation().getX(), 300).release().perform();
+						// action.press(activityDay).moveTo(activityDay.getLocation().getX(),
+						// 300).release().perform();
+						action.press(element(activityDay)).moveTo(point(activityDay.getLocation().getX(), 300))
+								.release().perform();
 						Keyword.ReportStep_Pass(testCase, "Successfully closed activity logs");
 					}
 				} catch (NoSuchElementException e) {
@@ -218,8 +237,10 @@ public class AlarmScreen extends MobileScreens {
 	public boolean clickPauseStreaming() {
 		boolean flag = true;
 		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
-		fWait.pollingEvery(5, TimeUnit.SECONDS);
-		fWait.withTimeout(3, TimeUnit.MINUTES);
+		// fWait.pollingEvery(5, TimeUnit.SECONDS);
+		// fWait.withTimeout(3, TimeUnit.MINUTES);
+		fWait.pollingEvery(Duration.ofSeconds(5));
+		fWait.withTimeout(Duration.ofMinutes(3));
 		Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 			public Boolean apply(CustomDriver driver) {
 				clickLiveStreamingArea();
@@ -246,8 +267,10 @@ public class AlarmScreen extends MobileScreens {
 		boolean flag = false;
 
 		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
-		fWait.pollingEvery(5, TimeUnit.SECONDS);
-		fWait.withTimeout(3, TimeUnit.MINUTES);
+		// fWait.pollingEvery(5, TimeUnit.SECONDS);
+		// fWait.withTimeout(3, TimeUnit.MINUTES);
+		fWait.pollingEvery(Duration.ofSeconds(5));
+		fWait.withTimeout(Duration.ofMinutes(3));
 		Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 			public Boolean apply(CustomDriver driver) {
 				if (MobileUtils.isMobElementExists(objectDefinition, testCase, "playStreaming")) {
@@ -274,8 +297,10 @@ public class AlarmScreen extends MobileScreens {
 		boolean flag = true;
 
 		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
-		fWait.pollingEvery(5, TimeUnit.SECONDS);
-		fWait.withTimeout(3, TimeUnit.MINUTES);
+		// fWait.pollingEvery(5, TimeUnit.SECONDS);
+		// fWait.withTimeout(3, TimeUnit.MINUTES);
+		fWait.pollingEvery(Duration.ofSeconds(5));
+		fWait.withTimeout(Duration.ofMinutes(3));
 		Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 			public Boolean apply(CustomDriver driver) {
 				if (MobileUtils.isMobElementExists(objectDefinition, testCase, "playStreaming")) {
@@ -297,10 +322,10 @@ public class AlarmScreen extends MobileScreens {
 	public void swipe(String locatorValue) {
 
 		MobileElement notificationLocation;
-		if (testCase.getMobileDriver().getPlatformName().contains("Android")){
-			 notificationLocation = MobileUtils.getMobElement(testCase, "xpath", locatorValue);
-		} else{
-			notificationLocation =  testCase.getMobileDriver().findElementsByXPath(locatorValue).get(0);
+		if (testCase.getMobileDriver().getPlatformName().contains("Android")) {
+			notificationLocation = MobileUtils.getMobElement(testCase, "xpath", locatorValue);
+		} else {
+			notificationLocation = testCase.getMobileDriver().findElementsByXPath(locatorValue).get(0);
 		}
 
 		int NotificationStartX = notificationLocation.getLocation().getX();
@@ -309,20 +334,32 @@ public class AlarmScreen extends MobileScreens {
 		int rightsidePoint = 600;
 
 		try {
+			@SuppressWarnings("rawtypes")
 			TouchAction action1 = new TouchAction(testCase.getMobileDriver());
+			@SuppressWarnings("rawtypes")
 			TouchAction action2 = new TouchAction(testCase.getMobileDriver());
 			MultiTouchAction action = new MultiTouchAction(testCase.getMobileDriver());
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				action1 = action1.press(NotificationStartX, NotificationStartY).moveTo(-leftsidePoint, 0).release();
-				action2 = action2.press(NotificationStartX + rightsidePoint, NotificationStartY)
-						.moveTo(rightsidePoint, 0).release();
+				/*
+				 * action1 = action1.press(NotificationStartX,
+				 * NotificationStartY).moveTo(-leftsidePoint, 0).release(); action2 =
+				 * action2.press(NotificationStartX + rightsidePoint, NotificationStartY)
+				 * .moveTo(rightsidePoint, 0).release();
+				 */
+				action1 = action1.press(point(NotificationStartX, NotificationStartY)).moveTo(point(-leftsidePoint, 0))
+						.release();
+				action2 = action2.press(point(NotificationStartX + rightsidePoint, NotificationStartY))
+						.moveTo(point(rightsidePoint, 0)).release();
 				action.add(action1).add(action2).perform();
 				Keyword.ReportStep_Pass(testCase, "Swiped to view the options");
 			} else {
 				NotificationStartX = notificationLocation.getSize().getWidth() / 2;
-				action1 = action1.press(NotificationStartX, NotificationStartY).moveTo(-80, 0).release();
+				// action1 = action1.press(NotificationStartX, NotificationStartY).moveTo(-80,
+				// 0).release();
+				action1 = action1.press(point(NotificationStartX, NotificationStartY)).moveTo(point(-80, 0)).release();
 				action1.perform();
-				action1.tap(NotificationStartX, NotificationStartY).release().perform();
+				// action1.tap(NotificationStartX, NotificationStartY).release().perform();
+				action1.tap(point(NotificationStartX, NotificationStartY)).release().perform();
 				Keyword.ReportStep_Pass(testCase, "Swiped to view the options");
 
 			}
@@ -356,7 +393,8 @@ public class AlarmScreen extends MobileScreens {
 					"//android.widget.Button[@resource-id='android:id/action0' and @content-desc='SWITCH TO HOME']"))
 					.click();
 		} else {
-//			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchHomeNotificationButton");
+			// flag &= MobileUtils.clickOnElement(objectDefinition, testCase,
+			// "SwitchHomeNotificationButton");
 			testCase.getMobileDriver().findElementByName("Switch to Home").click();
 			flag = true;
 		}
@@ -365,7 +403,8 @@ public class AlarmScreen extends MobileScreens {
 					"Failed to click on SWITCH TO HOME button in PUSH NOTIFICATION. Hence clicking on SWITCH TO HOME button in Entry Delay screen");
 			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchToHomeButton");
 		}
-		//flag &= DASAlarmUtils.waitForProgressBarToComplete(testCase, "PROGRESS BAR", 2);
+		// flag &= DASAlarmUtils.waitForProgressBarToComplete(testCase, "PROGRESS BAR",
+		// 2);
 		return flag;
 	}
 
@@ -377,7 +416,8 @@ public class AlarmScreen extends MobileScreens {
 					"//android.widget.Button[@resource-id='android:id/action0' and @content-desc='SWITCH TO NIGHT']"))
 					.click();
 		} else {
-//			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchNightNotificationButton");
+			// flag &= MobileUtils.clickOnElement(objectDefinition, testCase,
+			// "SwitchNightNotificationButton");
 			testCase.getMobileDriver().findElementByName("Switch to Night").click();
 			flag = true;
 		}

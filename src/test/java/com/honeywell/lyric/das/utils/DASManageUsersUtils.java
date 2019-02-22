@@ -1,6 +1,6 @@
 package com.honeywell.lyric.das.utils;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -25,8 +25,12 @@ public class DASManageUsersUtils {
 		boolean flag = true;
 		try {
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(duration, TimeUnit.MINUTES);
+			/*
+			 * fWait.pollingEvery(3, TimeUnit.SECONDS); fWait.withTimeout(duration,
+			 * TimeUnit.MINUTES);
+			 */
+			fWait.pollingEvery(Duration.ofSeconds(3));
+			fWait.withTimeout(Duration.ofMinutes(duration));
 			ManageUsersScreen mus = new ManageUsersScreen(testCase);
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {

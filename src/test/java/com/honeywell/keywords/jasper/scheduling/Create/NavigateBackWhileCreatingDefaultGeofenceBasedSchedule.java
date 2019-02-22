@@ -2,7 +2,6 @@ package com.honeywell.keywords.jasper.scheduling.Create;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
@@ -15,7 +14,6 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperSchedulingUtils;
 import com.honeywell.lyric.utils.InputVariables;
-
 
 public class NavigateBackWhileCreatingDefaultGeofenceBasedSchedule extends Keyword {
 
@@ -36,15 +34,16 @@ public class NavigateBackWhileCreatingDefaultGeofenceBasedSchedule extends Keywo
 	public boolean preCondition() throws KeywordException {
 		return flag;
 	}
+
 	@Override
 	@KeywordStep(gherkins = "^user navigates back while creating \"(.+)\" scheduling with default values \"(.+)\" sleep settings$")
 	public boolean keywordSteps() throws KeywordException {
-		try
-		{
+		try {
 			HashMap<String, String> defaultValues = new HashMap<String, String>();
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			if (!statInfo.isOnline()) {
-				Keyword.ReportStep_Pass(testCase, "Create Schedule : Cannot create schedule because thermostat is offline");
+				Keyword.ReportStep_Pass(testCase,
+						"Create Schedule : Cannot create schedule because thermostat is offline");
 				return true;
 			}
 			String temp = " ";
@@ -58,7 +57,7 @@ public class NavigateBackWhileCreatingDefaultGeofenceBasedSchedule extends Keywo
 				inputs.setInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER, "No");
 			}
 			String sleepHeatSetPoints = " ";
-			
+
 			if (statInfo.getThermostatType().equals("Jasper")) {
 				Double minHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MinHeat"));
 				Double maxHeat = Double.parseDouble(statInfo.getDeviceMaxMinSetPoints().get("MaxHeat"));
@@ -67,14 +66,14 @@ public class NavigateBackWhileCreatingDefaultGeofenceBasedSchedule extends Keywo
 				inputs.setInputValue(InputVariables.UNITS, statInfo.getThermostatUnits());
 				inputs.setInputValue(InputVariables.JASPER_STAT_TYPE, JasperStatType);
 				if (inputs.getInputValue(InputVariables.JASPER_STAT_TYPE).equalsIgnoreCase("EMEA")) {
-					sleepHeatSetPoints = JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, maxHeat,
-							minHeat);
+					sleepHeatSetPoints = JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs,
+							maxHeat, minHeat);
 					inputs.setInputValue(InputVariables.GEOFENCE_HOME_HEAT_SETPOINT, sleepHeatSetPoints);
-					sleepHeatSetPoints = JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, maxHeat,
-							minHeat);
+					sleepHeatSetPoints = JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs,
+							maxHeat, minHeat);
 					inputs.setInputValue(InputVariables.GEOFENCE_AWAY_HEAT_SETPOINT, sleepHeatSetPoints);
-					sleepHeatSetPoints = JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs, maxHeat,
-							minHeat);
+					sleepHeatSetPoints = JasperSchedulingUtils.getRandomSetPointValueBetweenMinandMax(testCase, inputs,
+							maxHeat, minHeat);
 					inputs.setInputValue(InputVariables.GEOFENCE_SLEEP_HEAT_SETPOINT, sleepHeatSetPoints);
 					if (inputs.getInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER).equalsIgnoreCase("Yes")) {
 						temp = parseValue(defaultValues.get("GeofenceSleepHeatTemp"));
@@ -105,11 +104,9 @@ public class NavigateBackWhileCreatingDefaultGeofenceBasedSchedule extends Keywo
 					}
 				}
 				inputs.setInputValueWithoutTarget("NaviagateBackAtSleep", "true");
-				flag = flag & JasperSchedulingUtils.createGeofenceBasedSchedule(testCase, inputs,true);
+				flag = flag & JasperSchedulingUtils.createGeofenceBasedSchedule(testCase, inputs, true);
 			}
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 		}
 		return flag;
@@ -138,4 +135,3 @@ public class NavigateBackWhileCreatingDefaultGeofenceBasedSchedule extends Keywo
 		}
 	}
 }
-

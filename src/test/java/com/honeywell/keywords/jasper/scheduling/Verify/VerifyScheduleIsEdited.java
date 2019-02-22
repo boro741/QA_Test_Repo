@@ -10,7 +10,6 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperSchedulingVerifyUtils;
-import com.honeywell.lyric.das.utils.DashboardUtils;
 
 public class VerifyScheduleIsEdited extends Keyword {
 
@@ -37,10 +36,10 @@ public class VerifyScheduleIsEdited extends Keyword {
 		try {
 			if (exampleData.get(0).equalsIgnoreCase("geofence")) {
 				flag = flag & JasperSchedulingVerifyUtils.verifyScheduleEdited(testCase, inputs, "geofence");
-				
+
 			} else if (exampleData.get(0).equalsIgnoreCase("time")) {
 				flag = flag & JasperSchedulingVerifyUtils.verifyScheduleEdited(testCase, inputs, "everyday");
-				
+
 			}
 
 		} catch (Exception e) {

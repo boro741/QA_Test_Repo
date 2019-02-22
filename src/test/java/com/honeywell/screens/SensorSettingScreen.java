@@ -1,5 +1,6 @@
 package com.honeywell.screens;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -21,6 +22,7 @@ import com.honeywell.lyric.utils.DASInputVariables;
 import com.honeywell.lyric.utils.LyricUtils;
 
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class SensorSettingScreen extends MobileScreens {
 
@@ -121,8 +123,10 @@ public class SensorSettingScreen extends MobileScreens {
 	public boolean isTestSensorHeadingDisplayed() {
 		DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 2);
 		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
-		fWait.pollingEvery(5, TimeUnit.SECONDS);
-		fWait.withTimeout(2, TimeUnit.MINUTES);
+		// fWait.pollingEvery(5, TimeUnit.SECONDS);
+		// fWait.withTimeout(2, TimeUnit.MINUTES);
+		fWait.pollingEvery(Duration.ofSeconds(5));
+		fWait.withTimeout(Duration.ofMinutes(2));
 		Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 			public Boolean apply(CustomDriver driver) {
 				if (MobileUtils.isMobElementExists(objectDefinition, testCase, "TestSensorHeading")) {
@@ -143,8 +147,10 @@ public class SensorSettingScreen extends MobileScreens {
 	public boolean isTestMotionSensorHeadingDisplayed() {
 		DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 2);
 		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
-		fWait.pollingEvery(5, TimeUnit.SECONDS);
-		fWait.withTimeout(2, TimeUnit.MINUTES);
+		// fWait.pollingEvery(5, TimeUnit.SECONDS);
+		// fWait.withTimeout(2, TimeUnit.MINUTES);
+		fWait.pollingEvery(Duration.ofSeconds(5));
+		fWait.withTimeout(Duration.ofMinutes(2));
 		Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 			public Boolean apply(CustomDriver driver) {
 				if (MobileUtils.isMobElementExists(objectDefinition, testCase, "TestMotionViewerHeading")) {
@@ -171,8 +177,10 @@ public class SensorSettingScreen extends MobileScreens {
 
 	public boolean isMotionSensorHelpScreenDisplayed() {
 		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
-		fWait.pollingEvery(5, TimeUnit.SECONDS);
-		fWait.withTimeout(2, TimeUnit.MINUTES);
+		// fWait.pollingEvery(5, TimeUnit.SECONDS);
+		// fWait.withTimeout(2, TimeUnit.MINUTES);
+		fWait.pollingEvery(Duration.ofSeconds(5));
+		fWait.withTimeout(Duration.ofMinutes(2));
 		Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 			public Boolean apply(CustomDriver driver) {
 				if (MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionSensorHelpTitle")) {
@@ -193,8 +201,10 @@ public class SensorSettingScreen extends MobileScreens {
 
 	public boolean isAccessSensorHelpScreenDisplayed() {
 		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
-		fWait.pollingEvery(5, TimeUnit.SECONDS);
-		fWait.withTimeout(2, TimeUnit.MINUTES);
+		// fWait.pollingEvery(5, TimeUnit.SECONDS);
+		// fWait.withTimeout(2, TimeUnit.MINUTES);
+		fWait.pollingEvery(Duration.ofSeconds(5));
+		fWait.withTimeout(Duration.ofMinutes(2));
 		Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 			public Boolean apply(CustomDriver driver) {
 				if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AccessSensorHelpTitle")) {
@@ -216,10 +226,15 @@ public class SensorSettingScreen extends MobileScreens {
 	public boolean isGetAdditionalHelpOnSensorHelpDisplayed() {
 
 		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+		@SuppressWarnings("rawtypes")
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		try {
-			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-			.release().perform();
+			/*
+			 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
+			 * (dimension.getHeight() * .6)) .release().perform();
+			 */
+			action.press(point(10, (int) (dimension.getHeight() * .9)))
+					.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", "Get additional help");
 			} else {
@@ -281,9 +296,14 @@ public class SensorSettingScreen extends MobileScreens {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "text", "Get additional help");
 			} else {
 				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+				@SuppressWarnings("rawtypes")
 				TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
-				touchAction.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-				.release().perform();
+				/*
+				 * touchAction.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
+				 * (dimension.getHeight() * .6)) .release().perform();
+				 */
+				touchAction.press(point(10, (int) (dimension.getHeight() * .9)))
+						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase, "name", "Get Additional Help");
 			}
 		} catch (Exception e) {
@@ -321,8 +341,10 @@ public class SensorSettingScreen extends MobileScreens {
 			return false;
 		}
 		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
-		fWait.pollingEvery(5, TimeUnit.SECONDS);
-		fWait.withTimeout(1, TimeUnit.MINUTES);
+		// fWait.pollingEvery(5, TimeUnit.SECONDS);
+		// fWait.withTimeout(1, TimeUnit.MINUTES);
+		fWait.pollingEvery(Duration.ofSeconds(5));
+		fWait.withTimeout(Duration.ofMinutes(1));
 		Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 			public Boolean apply(CustomDriver driver) {
 				if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SignalStrengthHeading")) {
@@ -346,9 +368,10 @@ public class SensorSettingScreen extends MobileScreens {
 		WebElement ele = MobileUtils.getMobElement(objectDefinition, testCase, "SignalStrengthStatus");
 		if (ele != null) {
 			FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
-			fWait.pollingEvery(5, TimeUnit.SECONDS);
-			fWait.withTimeout(2, TimeUnit.MINUTES);
-
+			// fWait.pollingEvery(5, TimeUnit.SECONDS);
+			// fWait.withTimeout(2, TimeUnit.MINUTES);
+			fWait.pollingEvery(Duration.ofSeconds(5));
+			fWait.withTimeout(Duration.ofMinutes(2));
 			Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 				public Boolean apply(CustomDriver driver) {
 					if (ele.getText().toUpperCase().contains(string.toUpperCase())) {
@@ -400,15 +423,15 @@ public class SensorSettingScreen extends MobileScreens {
 
 	public boolean isSensorTamperedScreenDisplayed() {
 		boolean flag = false;
-		if (testCase.getMobileDriver().getPlatformName().contains("Android")){
+		if (testCase.getMobileDriver().getPlatformName().contains("Android")) {
 			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorTamperScreen")
 					&& MobileUtils.isMobElementExists(objectDefinition, testCase, "ClearTamperButton")) {
 				flag = true;
 			}
-		}else if (testCase.getMobileDriver().findElementByXPath("//XCUIElementTypeStaticText[@value='Cover Tampered']") != null
-				) {
+		} else if (testCase.getMobileDriver()
+				.findElementByXPath("//XCUIElementTypeStaticText[@value='Cover Tampered']") != null) {
 			flag = true;
-		} 
+		}
 		return flag;
 	}
 
@@ -499,18 +522,18 @@ public class SensorSettingScreen extends MobileScreens {
 			SensorName = "Motion Sensor";
 			inputs.setInputValue(DASInputVariables.MOTIONSENSORTYPE, DASInputVariables.MOTIONSENSOR);
 		} /*
-		 * else if (SensorType.toLowerCase().contains("access sensor")) { SensorName =
-		 * "Access Sensor"; inputs.setInputValue(DASInputVariables.ACCESSSENSORTYPE,
-		 * DASInputVariables.ACCESSSENSOR); serialNo =
-		 * RelayConstants.RSI_Contact_Sensor_1_SerialNO; SensorName = "Access Sensor";
-		 * System.out.println("###########Access Sensor Serial No: " + serialNo); }
-		 */ else if (SensorType.toLowerCase().contains("ismv")) {
-			 SensorName = "Indoor Motion Viewers";
-			 inputs.setInputValue(DASInputVariables.ISMVMOTIONSENSORTYPE, DASInputVariables.ISMVMOTIONSENSOR);
-		 } else if (SensorType.toLowerCase().contains("osmv")) {
-			 SensorName = "Outdoor Motion Viewers";
-			 inputs.setInputValue(DASInputVariables.OSMVMOTIONSENSORTYPE, DASInputVariables.OSMVMOTIONSENSOR);
-		 }
+			 * else if (SensorType.toLowerCase().contains("access sensor")) { SensorName =
+			 * "Access Sensor"; inputs.setInputValue(DASInputVariables.ACCESSSENSORTYPE,
+			 * DASInputVariables.ACCESSSENSOR); serialNo =
+			 * RelayConstants.RSI_Contact_Sensor_1_SerialNO; SensorName = "Access Sensor";
+			 * System.out.println("###########Access Sensor Serial No: " + serialNo); }
+			 */ else if (SensorType.toLowerCase().contains("ismv")) {
+			SensorName = "Indoor Motion Viewers";
+			inputs.setInputValue(DASInputVariables.ISMVMOTIONSENSORTYPE, DASInputVariables.ISMVMOTIONSENSOR);
+		} else if (SensorType.toLowerCase().contains("osmv")) {
+			SensorName = "Outdoor Motion Viewers";
+			inputs.setInputValue(DASInputVariables.OSMVMOTIONSENSORTYPE, DASInputVariables.OSMVMOTIONSENSOR);
+		}
 		if (SensorType.toLowerCase().contains("keyfob")) {
 			SensorName = "Key Fob";
 			serialNo = RelayConstants.RSI_Keyfob_1_SerialNO;
@@ -549,6 +572,7 @@ public class SensorSettingScreen extends MobileScreens {
 		}
 
 		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+		@SuppressWarnings("rawtypes")
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		try {
 			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
@@ -557,10 +581,16 @@ public class SensorSettingScreen extends MobileScreens {
 				if (MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeTable", testCase)) {
 					while ((MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeTable", testCase))
 							&& counter < 10) {
-						action.press(10, (int) (dimension.getHeight() * .9))
-						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
-						action.press(10, (int) (dimension.getHeight() * .9))
-						.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform(); action.press(10, (int)
+						 * (dimension.getHeight() * .9)) .moveTo(0, -(int) (dimension.getHeight() *
+						 * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						try {
 							TimeUnit.SECONDS.sleep(3);
 						} catch (InterruptedException e) {
@@ -571,16 +601,16 @@ public class SensorSettingScreen extends MobileScreens {
 
 						if (MobileUtils.isMobElementExists("xpath",
 								"//*[contains(@" + locator + ",'" + SensorName
-								+ "')]/following-sibling::XCUIElementTypeStaticText[contains(@value,'"
-								+ serialNo + "')]",
+										+ "')]/following-sibling::XCUIElementTypeStaticText[contains(@value,'"
+										+ serialNo + "')]",
 								testCase, 10)) {
 							MobileUtils.clickOnElement(testCase, "xpath",
 									"//*[contains(@" + locator + ",'" + SensorName + "')]");
 							Keyword.ReportStep_Pass(testCase, "Clicked on sensor");
 							if (MobileUtils.clickOnElement(testCase, "xpath",
 									"//*[contains(@" + locator + ",'" + SensorName
-									+ "')]/following-sibling::XCUIElementTypeStaticText[contains(@value,'"
-									+ serialNo + "')]")) {
+											+ "')]/following-sibling::XCUIElementTypeStaticText[contains(@value,'"
+											+ serialNo + "')]")) {
 								System.out.println("located sensor with serial number");
 
 								if (MobileUtils.isMobElementExists("xpath", "//*[contains(@" + locator + ",'"
@@ -662,13 +692,16 @@ public class SensorSettingScreen extends MobileScreens {
 			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonOnKeyboard");
 			} else {
+				@SuppressWarnings("rawtypes")
 				TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 				Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 				System.out.println("######dimensions.width:- " + dimensions.width);
 				System.out.println("######dimensions.height:- " + dimensions.height);
 				System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
 				System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
-				touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+				// touchAction.tap((dimensions.width - 100), (dimensions.height -
+				// 100)).perform();
+				touchAction.tap(point((dimensions.width - 100), (dimensions.height - 100))).perform();
 			}
 		}
 		return flag;
@@ -715,12 +748,19 @@ public class SensorSettingScreen extends MobileScreens {
 	public boolean clickOnDoneButton() {
 		boolean flag = true;
 		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+		@SuppressWarnings("rawtypes")
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		try {
-			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-			.release().perform();
-			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-			.release().perform();
+			/*
+			 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
+			 * (dimension.getHeight() * .6)) .release().perform(); action.press(10, (int)
+			 * (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+			 * .release().perform();
+			 */
+			action.press(point(10, (int) (dimension.getHeight() * .9)))
+					.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+			action.press(point(10, (int) (dimension.getHeight() * .9)))
+					.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 				try {
 					TimeUnit.SECONDS.sleep(4);
@@ -846,13 +886,20 @@ public class SensorSettingScreen extends MobileScreens {
 		} else {
 			locator = "text";
 		}
+		@SuppressWarnings("rawtypes")
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 		if (testCase.getPlatform().contains("IOS")) {
-			action.press(10, (int) (dimensions.getHeight() * .9)).moveTo(0, -(int) (dimensions.getHeight() * .6))
-			.release().perform();
-			action.press(10, (int) (dimensions.getHeight() * .9)).moveTo(0, -(int) (dimensions.getHeight() * .6))
-			.release().perform();
+			/*
+			 * action.press(10, (int) (dimensions.getHeight() * .9)).moveTo(0, -(int)
+			 * (dimensions.getHeight() * .6)) .release().perform(); action.press(10, (int)
+			 * (dimensions.getHeight() * .9)).moveTo(0, -(int) (dimensions.getHeight() *
+			 * .6)) .release().perform();
+			 */
+			action.press(point(10, (int) (dimensions.getHeight() * .9)))
+					.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+			action.press(point(10, (int) (dimensions.getHeight() * .9)))
+					.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 			return MobileUtils.isMobElementExists("xpath", "//*[@" + locator + "='" + SensorName
 					+ "']/following-sibling::XCUIElementTypeStaticText[contains(@" + locator + ",'" + state + "')]",
 					testCase, 10);
@@ -888,13 +935,16 @@ public class SensorSettingScreen extends MobileScreens {
 		boolean flag = false;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if (MobileUtils.setValueToElement(objectDefinition, testCase, "CustomNameSensor", customName)) {
+				@SuppressWarnings("rawtypes")
 				TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 				Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 				System.out.println("######dimensions.width:- " + dimensions.width);
 				System.out.println("######dimensions.height:- " + dimensions.height);
 				System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
 				System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
-				touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+				// touchAction.tap((dimensions.width - 100), (dimensions.height -
+				// 100)).perform();
+				touchAction.tap(point((dimensions.width - 100), (dimensions.height - 100))).perform();
 				// MobileUtils.clickOnCoordinate(testCase, 991, 1804);
 				flag = true;
 				if (sensor.toUpperCase().contains("DOOR")) {
@@ -1007,8 +1057,10 @@ public class SensorSettingScreen extends MobileScreens {
 	public boolean isTimeOutErrorForDiscoveryDisplayed() {
 		System.out.println("Entered into time out popup verification");
 		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
-		fWait.pollingEvery(5, TimeUnit.SECONDS);
-		fWait.withTimeout(10, TimeUnit.MINUTES);
+		// fWait.pollingEvery(5, TimeUnit.SECONDS);
+		// fWait.withTimeout(10, TimeUnit.MINUTES);
+		fWait.pollingEvery(Duration.ofSeconds(5));
+		fWait.withTimeout(Duration.ofMinutes(10));
 		Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 			public Boolean apply(CustomDriver driver) {
 				if (MobileUtils.isMobElementExists(objectDefinition, testCase, "TimeOutErrorForDiscovery")) {

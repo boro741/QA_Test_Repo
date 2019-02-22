@@ -1,4 +1,3 @@
-
 package com.honeywell.keywords.lyric.common;
 
 import java.time.Duration;
@@ -24,27 +23,42 @@ import com.honeywell.lyric.das.utils.DASSolutionCardUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
+import com.honeywell.lyric.das.utils.EditAccountUtils;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.lyric.utils.LyricUtils;
+import com.honeywell.screens.AboutTheAppScreen;
+import com.honeywell.screens.ActivateAccountScreen;
 import com.honeywell.screens.ActivityHistoryScreen;
 import com.honeywell.screens.ActivityLogsScreen;
 import com.honeywell.screens.AddNewDeviceScreen;
+import com.honeywell.screens.AddressScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.CameraSolutionCardScreen;
+import com.honeywell.screens.CreateAccountScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
+import com.honeywell.screens.EditAccountScreen;
+import com.honeywell.screens.EndUserLicenseAgreementScreen;
+import com.honeywell.screens.FAQsScreen;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.GlobalDrawerScreen;
+import com.honeywell.screens.LoginScreen;
+import com.honeywell.screens.MobileDeviceSettingsScreen;
 import com.honeywell.screens.PrimaryCard;
+import com.honeywell.screens.PrivacyStatementScreen;
 import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
 import com.honeywell.screens.WLDLeakDetectorSettings;
 import com.honeywell.screens.WLDManageAlerts;
+import com.honeywell.screens.WeatherForecastScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
+import static io.appium.java_client.touch.offset.ElementOption.element;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class SelectElementOnAScreen extends Keyword {
 
@@ -281,11 +295,14 @@ public class SelectElementOnAScreen extends Keyword {
 
 				}
 				case "TALKMIC": {
+					@SuppressWarnings("rawtypes")
 					TouchAction tAction = new TouchAction(testCase.getMobileDriver());
 					Duration oneHours = Duration.ofSeconds(8);
 					Thread th = new Thread() {
 						public void run() {
-							tAction.longPress(cs.getMicrophonePushToTalk()).waitAction(oneHours).release().perform();
+							// tAction.longPress(cs.getMicrophonePushToTalk()).waitAction(oneHours).release().perform();
+							tAction.longPress(longPressOptions().withElement(element(cs.getMicrophonePushToTalk()))
+									.withDuration(oneHours)).release().perform();
 						}
 					};
 					th.start();
@@ -545,6 +562,13 @@ public class SelectElementOnAScreen extends Keyword {
 					flag = flag & dasDIY.selectDeviceToInstall(parameters.get(0));
 					break;
 				}
+				case "CLOSE BUTTON": {
+					AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
+					if (ads.isCloseButtonInAddNewDeviceScreenVisible()) {
+						flag &= ads.clickOnCloseButtonInAddNewDeviceScreen();
+					}
+					break;
+				}
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("CHOOSE LOCATION")) {
 				switch (parameters.get(0).toUpperCase()) {
@@ -720,6 +744,7 @@ public class SelectElementOnAScreen extends Keyword {
 				case "MODEL AND FIRMWARE DETAILS": {
 					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
 					Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						int startx = (dimensions.width * 20) / 100;
@@ -729,10 +754,16 @@ public class SelectElementOnAScreen extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimensions.getHeight() * .9))
-								.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
-						action.press(10, (int) (dimensions.getHeight() * .9))
-								.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimensions.getHeight() * .6)).release().perform(); action.press(10, (int)
+						 * (dimensions.getHeight() * .9)) .moveTo(0, -(int) (dimensions.getHeight() *
+						 * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimensions.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+						action.press(point(10, (int) (dimensions.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 					}
 					flag = flag & settingScreen.clickOnFirmwareDetailsOption();
 					break;
@@ -745,6 +776,7 @@ public class SelectElementOnAScreen extends Keyword {
 				case "SIGNAL STRENGTH AND TEST": {
 					BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 					Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						int startx = (dimensions.width * 20) / 100;
@@ -754,10 +786,16 @@ public class SelectElementOnAScreen extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimensions.getHeight() * .9))
-								.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
-						action.press(10, (int) (dimensions.getHeight() * .9))
-								.moveTo(0, -(int) (dimensions.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimensions.getHeight() * .6)).release().perform(); action.press(10, (int)
+						 * (dimensions.getHeight() * .9)) .moveTo(0, -(int) (dimensions.getHeight() *
+						 * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimensions.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+						action.press(point(10, (int) (dimensions.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 					}
 					flag = flag & bs.clickOnSignalStrengthandTestOption();
 					break;
@@ -1450,6 +1488,7 @@ public class SelectElementOnAScreen extends Keyword {
 			else if (parameters.get(1).equalsIgnoreCase("Security Settings")) {
 				BaseStationSettingsScreen click = new BaseStationSettingsScreen(testCase);
 				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+				@SuppressWarnings("rawtypes")
 				TouchAction action = new TouchAction(testCase.getMobileDriver());
 				switch (parameters.get(0).toUpperCase()) {
 				case "MANAGE ALERTS": {
@@ -1478,8 +1517,12 @@ public class SelectElementOnAScreen extends Keyword {
 						int endy = (dimension.height * 35) / 100;
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= !click.isOutdoorMotionViewerOnInHomeModeEnabled();
 					flag &= click.toggleOutdoorMotionViewersOnInHomeModeSwitch(testCase);
@@ -1493,8 +1536,12 @@ public class SelectElementOnAScreen extends Keyword {
 						int endy = (dimension.height * 35) / 100;
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= !click.isEntryExitDelayEnabled();
 					flag &= click.clickonEntryExistDelayoption();
@@ -1511,14 +1558,23 @@ public class SelectElementOnAScreen extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform(); action.press(10, (int)
+						 * (dimension.getHeight() * .9)) .moveTo(0, -(int) (dimension.getHeight() *
+						 * .6)).release().perform(); action.press(10, (int) (dimension.getHeight() *
+						 * .9)) .moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= !click.isBaseStationVolumeEnabled();
 					flag &= click.clickonbasestationvolumeoption();
@@ -1535,10 +1591,16 @@ public class SelectElementOnAScreen extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform(); action.press(10, (int)
+						 * (dimension.getHeight() * .9)) .moveTo(0, -(int) (dimension.getHeight() *
+						 * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= !click.isBaseStationResetWifiEnabled();
 					flag &= click.clickonbasestationresetwifioption();
@@ -1692,6 +1754,37 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					break;
 				}
+				case "LOG OUT": {
+					if (gd.isLogoutOptionVisible()) {
+						gd.clickOnLogoutOption();
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+					} else {
+						Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+						@SuppressWarnings("rawtypes")
+						TouchAction action = new TouchAction(testCase.getMobileDriver());
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							int startx = (dimension.width * 20) / 100;
+							int starty = (dimension.height * 62) / 100;
+							int endx = (dimension.width * 22) / 100;
+							int endy = (dimension.height * 35) / 100;
+							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						} else {
+							/*
+							 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimension.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimension.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+						}
+						if (gd.isLogoutOptionVisible()) {
+							gd.clickOnLogoutOption();
+							Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+						}
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to clicked on " + parameters.get(0));
+					}
+					break;
+				}
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1809,8 +1902,29 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
 				AddNewDeviceScreen adn = new AddNewDeviceScreen(testCase);
+				String getFooterTextDisplayedInAddNewDeviceScreen = null;
+				String getCurrentCountryFromAddNewDeviceScreen = null;
 				switch (parameters.get(0).toUpperCase()) {
 				case "CHANGE COUNTRY": {
+					if (adn.isFooterTextInAddNewDeviceScreenVisible()) {
+						getFooterTextDisplayedInAddNewDeviceScreen = adn.getFooterTextDisplayedInAddNewDeviceScreen();
+						String[] footerText = getFooterTextDisplayedInAddNewDeviceScreen.split("\\W+");
+						getCurrentCountryFromAddNewDeviceScreen = footerText[footerText.length - 2] + " "
+								+ footerText[footerText.length - 1];
+						System.out.println(
+								"getCurrentCountryFromAddNewDeviceScreen: " + getCurrentCountryFromAddNewDeviceScreen);
+						if (getCurrentCountryFromAddNewDeviceScreen.contains("for")) {
+							String[] currentCountryName = getCurrentCountryFromAddNewDeviceScreen.split("\\W+");
+							getCurrentCountryFromAddNewDeviceScreen = currentCountryName[currentCountryName.length - 1];
+							System.out.println("getCurrentCountryFromAddNewDeviceScreen after removing for: "
+									+ getCurrentCountryFromAddNewDeviceScreen);
+							inputs.setInputValue("COUNTRY_DISPLAYED_IN_ADD_NEW_DEVICE_SCREEN",
+									getCurrentCountryFromAddNewDeviceScreen);
+						} else {
+							inputs.setInputValue("COUNTRY_DISPLAYED_IN_ADD_NEW_DEVICE_SCREEN",
+									getCurrentCountryFromAddNewDeviceScreen);
+						}
+					}
 					if (adn.isChangeCountryLinkVisible()) {
 						flag &= adn.clickOnChangeCountryLink();
 					} else {
@@ -1829,17 +1943,865 @@ public class SelectElementOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
-			}
+				}
 			} else if (parameters.get(1).equalsIgnoreCase("PLEASE CONFIRM YOUR COUNTRY")) {
-				/*flag &= DashboardUtils.enterCountryNameAndSelectItInConfirmYourCountryScreen(testCase, inputs,
-						parameters.get(0));*/
+				// Write code for selecting country from the list of countries displayed in
+				// Please confirm your country screen
+				/*
+				 * flag &= DashboardUtils.enterCountryNameAndSelectItInConfirmYourCountryScreen(
+				 * testCase, inputs, parameters.get(0));
+				 */
+				switch (parameters.get(0).toUpperCase()) {
+				case "CURRENT COUNTRY":
+				case "DEFAULT COUNTRY": {
+					AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
+					if (ads.isCurrentCountryButtonVisible()) {
+						flag &= ads.clickOnCurrentCountryButton();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click on " + parameters.get(0));
+						}
+					}
+					break;
+				}
+
+				}
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Failed to click on " + parameters.get(0));
 				}
+			} else if (parameters.get(1).equalsIgnoreCase("EDIT ADDRESS")) {
+				AddressScreen ads = new AddressScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "CHANGE COUNTRY": {
+					if (ads.isChangeCountryButtonInEditAddressScreenVisible()) {
+						flag &= ads.clickOnChangeCountryButtonInEditAddressScreen();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				case "SAVE BUTTON": {
+					if (ads.isSaveButtonEnabledInEditAddressScreen()) {
+						flag &= ads.clickOnSaveButtonInEditAddressScreen();
+						if (ads.isEditAddressScreenTitleVisible()
+								&& ads.isChangeCountryButtonInEditAddressScreenVisible()
+								&& ads.isSaveButtonEnabledInEditAddressScreen()) {
+							Keyword.ReportStep_Pass(testCase, "User is still in Edit Address Screen. Clicking on the "
+									+ parameters.get(0) + " again.");
+							flag &= ads.clickOnSaveButtonInEditAddressScreen();
+						} else {
+							Keyword.ReportStep_Pass(testCase, "User is not in Edit Address Screen.");
+						}
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in Edit Address Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("EDIT ACCOUNT")) {
+				EditAccountScreen eas = new EditAccountScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "SAVE BUTTON": {
+					if (eas.isSaveButtonInEditAccountScreenVisible()) {
+						flag &= eas.clickOnSaveButtonInEditAccountScreen();
+						if (eas.isEditAccountScreenTitleVisible() && eas.isFirstNameLabelInEditAccountScreenVisible()
+								&& eas.isFirstNameValueInEditAccountScreenVisible()) {
+							Keyword.ReportStep_Pass(testCase, "User is still in Edit Account Screen. Clicking on the "
+									+ parameters.get(0) + " again.");
+							flag &= eas.clickOnSaveButtonInEditAccountScreen();
+						} else {
+							Keyword.ReportStep_Pass(testCase, "User is not in Edit Account Screen.");
+						}
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in Edit Account Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				case "CHANGE PASSWORD BUTTON": {
+					if (eas.isChangePasswordButtonInEditAccountScreenVisible()) {
+						flag &= eas.clickOnChangePasswordButtonInEditAccountScreen();
+						if (eas.isEditAccountScreenTitleVisible()) {
+							Keyword.ReportStep_Pass(testCase, "User is still in Edit Account Screen. Clicking on the "
+									+ parameters.get(0) + " again.");
+							flag &= eas.clickOnChangePasswordButtonInEditAccountScreen();
+						} else {
+							Keyword.ReportStep_Pass(testCase, "User is not in Edit Account Screen.");
+						}
+						// EditAccountUtils.waitForProgressBarToComplete(testCase, "PROGRESS BAR", 2);
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in Edit Account Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				case "DELETE ACCOUNT": {
+					if (eas.isDeleteAccountButtonInEditAccountScreenVisible()) {
+						flag &= eas.clickOnDeleteAccountButtonInEditAccountScreen();
+						flag &= EditAccountUtils.waitForProgressBarToComplete(testCase, "PROGRESS BAR", 2);
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in Edit Account Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("CHANGE PASSWORD")) {
+				EditAccountScreen eas = new EditAccountScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "SAVE BUTTON": {
+					if (eas.isSaveButtonInChangePasswordScreenVisible()) {
+						flag &= eas.clickOnSaveButtonInChangePasswordScreen();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in Change Password Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("DELETE ACCOUNT")) {
+				EditAccountScreen eas = new EditAccountScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "LEARN HOW TO DELETE A DEVICE": {
+					if (eas.isLearnHowToDeleteADeviceLinkVisible()) {
+						flag &= eas.clickOnLearnHowToDeleteADeviceLink();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in Delete Account Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				case "LEARN HOW TO CANCEL A MEMBERSHIP": {
+					if (eas.isLearnHowToCancelAMembershipLinkVisible()) {
+						flag &= eas.clickOnLearnHowToCancelAMembershipLink();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in Delete Account Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				case "CLOSE BUTTON": {
+					if (eas.isCloseButtonInDeleteAccountScreenVisible()) {
+						flag &= eas.clickOnCloseButtonInDeleteAccountScreen();
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in Delete Account Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				case "DELETE ACCOUNT BUTTON": {
+					if (eas.isDeleteAccountButtonInDeleteAccountScreenVisible()) {
+						flag &= eas.clickOnDeleteAccountButtonInDeleteAccountScreen();
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in Delete Account Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("LEARN HOW TO DELETE A DEVICE")) {
+				EditAccountScreen eas = new EditAccountScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "CLOSE BUTTON": {
+					if (eas.isCloseButtonInLearnHowToDeleteADeviceScreenVisible()) {
+						flag &= eas.clickOnCloseButtonInLearnHowToDeleteADeviceScreen();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0)
+								+ " in Learn How To Delete A Device Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("LEARN HOW TO CANCEL A MEMBERSHIP")) {
+				EditAccountScreen eas = new EditAccountScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "CLOSE BUTTON": {
+					if (eas.isCloseButtonInLearnHowToCancelAMembershipScreenVisible()) {
+						flag &= eas.clickOnCloseButtonInLearnHowToCancelAMembershipScreenScreen();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0)
+								+ " in Learn How To Cancel A Membership Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("ABOUT THE APP")) {
+				AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "PRIVACY POLICY AND EULA": {
+					if (atas.isPrivacyPolicyAndEULAOptionInAboutTheAppVisible()) {
+						flag &= atas.clickOnPrivacyPolicyAndEULAOptionInAboutTheApp();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in About the App Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				case "ACKNOWLEDGEMENTS": {
+					if (atas.isAcknowledgementsOptionInAboutTheAppVisible()) {
+						flag &= atas.clickOnAcknowledgementsOptionInAboutTheApp();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in About the App Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				case "GET HELP": {
+					if (atas.isGetHelpOptionInAboutTheAppVisible()) {
+						flag &= atas.clickOnGetHelpOptionInAboutTheApp();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in About the App Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				case "RATE THE APP": {
+					if (atas.isRateTheAppOptionInAboutTheAppVisible()) {
+						flag &= atas.clickOnRateTheAppOptionInAboutTheApp();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Successfully clicked on " + parameters.get(0) + " in About the App Screen.");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							parameters.get(0) + " - Input not handled in " + parameters.get(1));
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("RATE THE APP")) {
+				AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+				switch (parameters.get(0)) {
+				case "1": {
+					if (atas.isRateOneCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopupVisbile()) {
+						flag &= atas.clickOnRateOneCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopup();
+					}
+					break;
+				}
+				case "2": {
+					if (atas.isRateTwoCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopupVisbile()) {
+						flag &= atas.clickOnRateTwoCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopup();
+					}
+					break;
+				}
+				case "3": {
+					if (atas.isRateThreeCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopupVisbile()) {
+						flag &= atas.clickOnRateThreeCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopup();
+					}
+					break;
+				}
+				case "4": {
+					if (atas.isRateFourCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopupVisbile()) {
+						flag &= atas.clickOnRateFourCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopup();
+					}
+					break;
+				}
+				case "5": {
+					if (atas.isRateFiveCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopupVisbile()) {
+						flag &= atas.clickOnRateFiveCheckboxInWhatDoYouThinkOfHoneywellHomeAppPopup();
+					}
+					break;
+				}
+				}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase,
+							"Successfully clicked on " + parameters.get(0) + " in Rate the App Popup.");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to click on " + parameters.get(0));
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("APP FEEDBACK")) {
+				AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "SEND FEEDBACK BUTTON": {
+					if (atas.isSendFeedbackButtonEnabled()) {
+						flag &= atas.selectSendFeedbackButton();
+					}
+					break;
+				}
+				case "CLOSE BUTTON": {
+					if (atas.isCloseButtonInAppFeedbackScreenVisible()) {
+						flag &= atas.clickOnCloseButtonInAppFeedbackScreen();
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("FAQS")) {
+				FAQsScreen faqsScreen = new FAQsScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "GENERAL": {
+					if (faqsScreen.isGeneralOptionInFAQsScreenVisible()) {
+						flag &= faqsScreen.clickOnGeneralOptionInFAQsScreen();
+					}
+					break;
+				}
+				case "THERMOSTAT": {
+					if (faqsScreen.isThermostatOptionInFAQsScreenVisible()) {
+						flag &= faqsScreen.clickOnThermostatOptionInFAQsScreen();
+					}
+					break;
+				}
+				case "WATER LEAK DETECTOR": {
+					if (faqsScreen.isWaterLeakDetectorOptionInFAQsScreenVisible()) {
+						flag &= faqsScreen.clickOnWaterLeakDetectorOptionInFAQsScreen();
+					}
+					break;
+				}
+				case "CAMERA": {
+					if (faqsScreen.isCameraOptionInFAQsScreenVisible()) {
+						flag &= faqsScreen.clickOnCameraOptionInFAQsScreen();
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("GENERAL") || parameters.get(1).equalsIgnoreCase("THERMOSTAT")
+					|| parameters.get(1).equalsIgnoreCase("WATER LEAK DETECTOR")
+					|| parameters.get(1).equalsIgnoreCase("CAMERA")) {
+				FAQsScreen faqsScreen = new FAQsScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "A QUESTION": {
+					if (faqsScreen.isFirstQuestionDisplayedInTheScreen()
+							&& faqsScreen.isFirstQuestionDisplayedInTheScreen()) {
+						inputs.setInputValue("FIRST_QUESTION_IN_THE_SCREEN",
+								faqsScreen.getFirstQuestionDisplayedInTheScreen());
+						flag &= faqsScreen.clickOnFirstQuestionDisplayedInTheScreen();
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("QUESTION")) {
+				FAQsScreen faqsScreen = new FAQsScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "YES BUTTON FROM WAS THIS HELPFUL SECTION": {
+					if (faqsScreen.isYESButtonInWasThisHelpfulTextInQuestionScreenVisible()) {
+						flag &= faqsScreen.clickOnYESButtonInWasThisHelpfulTextInQuestionScreen();
+					}
+					break;
+				}
+				case "NO BUTTON FROM WAS THIS HELPFUL SECTION": {
+					if (faqsScreen.isNOButtonInWasThisHelpfulTextInQuestionScreenVisible()) {
+						flag &= faqsScreen.clickOnNOButtonInWasThisHelpfulTextInQuestionScreen();
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("HONEYWELL HOME")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "CREATE ACCOUNT": {
+					CreateAccountScreen cas = new CreateAccountScreen(testCase);
+					if (cas.isCreateAccountButtonDisplayed()) {
+						flag &= cas.clickOnCreateAccountButton();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Unable to click on Create Account button");
+						}
+
+						break;
+					}
+				}
+				case "LOGIN": {
+					CreateAccountScreen cas = new CreateAccountScreen(testCase);
+					if (cas.isCreateAccountLoginButtonDisplayed()) {
+						flag &= cas.clickOnLoginButton();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Unable to click on Login button");
+						}
+					}
+
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("LOGIN")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "CANCEL": {
+					LoginScreen ls = new LoginScreen(testCase);
+					if (ls.isLoginCancelButtonDisplayed()) {
+						flag &= ls.clickOnCancelButton();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Unable to click on Cancel button");
+						}
+						break;
+					}
+				}
+				// Login button in Login screen
+				case "LOGIN BUTTON": {
+					LoginScreen ls = new LoginScreen(testCase);
+					if (ls.isLoginButtonDisplayed()) {
+						flag &= ls.clickOnLoginButton();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Unable to click on Login button");
+						}
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("CREATE ACCOUNT")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "SIGN ME UP TOGGLE BUTTON": {
+					CreateAccountScreen cas = new CreateAccountScreen(testCase);
+					if (!cas.isCreateAccountSignMeUpToggleButtonEnabled()) {
+						flag &= cas.isCreateAccountClickOnSignMeUpToggleButton();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase,
+									"Sign me up for exclusive updates toggle button is clicked");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Sign me up for exclusive updates toggle button is not clicked");
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Sign me up for exclusive updates toggle button is enabled by default");
+					}
+					break;
+				}
+				case "CANCEL": {
+					CreateAccountScreen cas = new CreateAccountScreen(testCase);
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						flag &= cas.isCreateAccountClickOnBack();
+					} else {
+						// ios
+						flag &= cas.isCreateAccountClickOnCancelButtonOnIOS();
+
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Back or Cancel button is clicked");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Back or Cancel button not clicked");
+					}
+					break;
+				}
+				case "COUNTRY": {
+					CreateAccountScreen cas = new CreateAccountScreen(testCase);
+					if (cas.isCreateAccountCountrySelectionDisplayed()) {
+						flag &= cas.isCreateAccountClickOnCountrySelection();
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Country selection button is clicked");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Country selection button not clicked");
+					}
+					break;
+				}
+				case "PRIVACY STATEMENT": {
+					CreateAccountScreen cas = new CreateAccountScreen(testCase);
+					if (cas.isCreateAccountPrivacyStatementLinkDisplayed()) {
+						flag &= cas.isCreateAccountClickOnPrivacyStatementLink();
+					} else {
+						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+						@SuppressWarnings("rawtypes")
+						TouchAction action = new TouchAction(testCase.getMobileDriver());
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							int startx = (dimensions.width * 20) / 100;
+							int starty = (dimensions.height * 62) / 100;
+							int endx = (dimensions.width * 22) / 100;
+							int endy = (dimensions.height * 35) / 100;
+							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						} else {
+							/*
+							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimensions.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimensions.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+						}
+						if (cas.isCreateAccountPrivacyStatementLinkDisplayed()) {
+							flag &= cas.isCreateAccountClickOnPrivacyStatementLink();
+						} else {
+							flag = false;
+						}
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Privacy Statement link is clicked");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Privacy Statement link is not clicked");
+					}
+					break;
+				}
+				case "END USER LICENSE AGREEMENT": {
+					CreateAccountScreen cas = new CreateAccountScreen(testCase);
+					if (cas.isCreateAccountEULALinkDisplayed()) {
+						flag &= cas.isCreateAccountClickOnEULALink();
+					} else {
+						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+						@SuppressWarnings("rawtypes")
+						TouchAction action = new TouchAction(testCase.getMobileDriver());
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							int startx = (dimensions.width * 20) / 100;
+							int starty = (dimensions.height * 62) / 100;
+							int endx = (dimensions.width * 22) / 100;
+							int endy = (dimensions.height * 35) / 100;
+							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						} else {
+							/*
+							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimensions.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimensions.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+						}
+						if (cas.isCreateAccountEULALinkDisplayed()) {
+							flag &= cas.isCreateAccountClickOnEULALink();
+						} else {
+							flag = false;
+						}
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "EULA link is clicked");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "EULA link is not clicked");
+						}
+					}
+					break;
+				}
+				case "CREATE BUTTON": {
+					CreateAccountScreen cas = new CreateAccountScreen(testCase);
+					if (cas.isCreateAccountRegisterButtonDisplayed()) {
+						flag &= cas.clickOnCreateAccountRegisterButton();
+					} else {
+						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+						@SuppressWarnings("rawtypes")
+						TouchAction action = new TouchAction(testCase.getMobileDriver());
+						System.out.println("$$$$$$$$$$$$$$: " + testCase.getPlatform());
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							int startx = (dimensions.width * 20) / 100;
+							int starty = (dimensions.height * 62) / 100;
+							int endx = (dimensions.width * 22) / 100;
+							int endy = (dimensions.height * 35) / 100;
+							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						} else {
+							/*
+							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimensions.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimensions.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+						}
+						if (cas.isCreateAccountRegisterButtonDisplayed()) {
+							flag &= cas.clickOnCreateAccountRegisterButton();
+						} else {
+							flag &= false;
+						}
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Create Account Register button is clicked");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Create Account Register button is not clicked");
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("ACTIVATE ACCOUNT")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "CLOSE BUTTON": {
+					ActivateAccountScreen aas = new ActivateAccountScreen(testCase);
+					if (aas.isActivateAccountCloseButtonDisplayed()) {
+						flag &= aas.isActivateAccountClickOnCloseButton();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Close button is clicked");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Close button is not clicked");
+						}
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("PRIVACY STATEMENT")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "BACK": {
+					PrivacyStatementScreen pStatementScreen = new PrivacyStatementScreen(testCase);
+					if (pStatementScreen.isBackButtonInPrivacyStatmentScreenVisible()) {
+						flag &= pStatementScreen.clickOnBackButtonInPrivacyStatmentScreen();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Clicked on back button in Privacy statement screen");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click on back button in Privacy statement screen");
+						}
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("END USER LICENSE AGREEMENT")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "BACK": {
+					EndUserLicenseAgreementScreen eulaScreen = new EndUserLicenseAgreementScreen(testCase);
+					if (eulaScreen.isBackButtonInEULAScreenVisible()) {
+						flag &= eulaScreen.clickOnBackButtonInEULAScreen();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase,
+									"Clicked on back button in End user License Agreement screen");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click on back button in End user License Agreement screen");
+						}
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("NEW AGREEMENT")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "CANCEL": {
+					AddNewDeviceScreen and = new AddNewDeviceScreen(testCase);
+					if (and.isCancelButtonInNewAgreementScreenVisible()) {
+						flag &= and.clickOnCancelButtonInNewAgreementScreen();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Clicked on Cancel button in New Agreement screen");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click on Cancel button in New Agreement screen");
+						}
+					}
+					break;
+				}
+				case "ACCEPT": {
+					AddNewDeviceScreen and = new AddNewDeviceScreen(testCase);
+					if (and.isAcceptButtonInNewAgreementScreenVisible()) {
+						flag &= and.clickOnAcceptButtonInNewAgreementScreen();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, "Clicked on Accept button in New Agreement screen");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click on Accept button in New Agreement screen");
+						}
+					}
+					break;
+				}
+				case "PRIVACY POLICY AND EULA LINK": {
+					AddNewDeviceScreen and = new AddNewDeviceScreen(testCase);
+					if (and.isPrivacyPolicyAndEULALinkInNewAgreementScreenVisible()) {
+						flag &= and.clickOnPrivacyPolicyAndEULALinkInNewAgreementScreen();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase,
+									"Clicked on Privacy Policy and EULA Link in New Agreement screen");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click on Privacy Policy and EULA Link in New Agreement screen");
+						}
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("PRIVACY POLICY AND EULA FOR SELECTED COUNTRY")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "BACK": {
+					AddNewDeviceScreen and = new AddNewDeviceScreen(testCase);
+					if (and.isBackButtonVisible()) {
+						flag &= and.clickOnBackButton();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase,
+									"Clicked on Back button in Privacy Policy and EULA screen");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click on Back button in Privacy Policy and EULA screen");
+						}
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("WEATHER FORECAST")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "FARENHEIT": {
+					WeatherForecastScreen w = new WeatherForecastScreen(testCase);
+					if (w.whichWeatherTempUnitIsEnabled().contains("F")) {
+						Keyword.ReportStep_Pass(testCase, "Farenheit Unit is already enabled");
+					} else {
+						w.clickOnFarenheitUnit();
+						Keyword.ReportStep_Pass(testCase, "Farenheit Unit is selected and enabled");
+					}
+					break;
+				}
+				case "CELSIUS": {
+					WeatherForecastScreen w = new WeatherForecastScreen(testCase);
+					if (w.whichWeatherTempUnitIsEnabled().contains("C")) {
+						Keyword.ReportStep_Pass(testCase, "Celsius Unit is already enabled");
+					} else {
+						w.clickOnCelsiusUnit();
+						Keyword.ReportStep_Pass(testCase, "Celsius Unit is selected and enabled");
+					}
+					break;
+				}
+				case "BACK BUTTON": {
+					WeatherForecastScreen w = new WeatherForecastScreen(testCase);
+					flag &= w.clickOnBackIcon();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Back button is clicked");
+					} else {
+						w.clickOnCelsiusUnit();
+						Keyword.ReportStep_Pass(testCase, "CBack button is not clicked");
+					}
+					break;
+				}
+				}
+			} else if (parameters.get(1).equalsIgnoreCase("MOBILE DEVICE LOCATION SETTINGS")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "ENABLE LOCATION": {
+					MobileDeviceSettingsScreen mdls = new MobileDeviceSettingsScreen(testCase);
+					if (mdls.isMobileDeviceLocationDisabled()) {
+						flag &= mdls.clickOnMobileDeviceLocationToEnable();
+						if (flag) {
+							if (mdls.isAgreeLocationAccracyDisplayed(50)) {
+								mdls.clickToAgreeLocationAccuracy();
+								Keyword.ReportStep_Pass(testCase, "Clicked to enable Mobile device location service");
+							} else if (!mdls.isAgreeLocationAccracyDisplayed(50)) {
+								Keyword.ReportStep_Pass(testCase, "Mobile device location service is enabled");
+							}
+
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Mobile device location service is disabled");
+						}
+					} else if (mdls.isMobileDeviceLocationEnabled()) {
+						Keyword.ReportStep_Pass(testCase, "Mobile device location service is already enabled");
+					}
+					break;
+				}
+				}
 			}
+
 		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());

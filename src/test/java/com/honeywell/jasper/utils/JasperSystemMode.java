@@ -1,6 +1,6 @@
 package com.honeywell.jasper.utils;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 import org.openqa.selenium.support.ui.FluentWait;
 
@@ -16,11 +16,14 @@ public class JasperSystemMode {
 
 	public static boolean verifySystemMode(TestCases testCase, TestCaseInputs inputs, String expectedMode) {
 		boolean flag = true;
-		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(
-				testCase.getMobileDriver());
-		fWait.pollingEvery(1, TimeUnit.SECONDS);
-		fWait.withTimeout(60, TimeUnit.SECONDS);
-		FlyCatcherPrimaryCard fly = new  FlyCatcherPrimaryCard(testCase);
+		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
+		/*
+		 * fWait.pollingEvery(1, TimeUnit.SECONDS); fWait.withTimeout(60,
+		 * TimeUnit.SECONDS);
+		 */
+		fWait.pollingEvery(Duration.ofSeconds(1));
+		fWait.withTimeout(Duration.ofSeconds(60));
+		FlyCatcherPrimaryCard fly = new FlyCatcherPrimaryCard(testCase);
 		Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 			public Boolean apply(CustomDriver driver) {
 				String changedMode = "";
@@ -43,6 +46,5 @@ public class JasperSystemMode {
 		}
 		return flag;
 	}
-
 
 }

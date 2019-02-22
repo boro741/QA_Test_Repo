@@ -2,10 +2,10 @@ package com.honeywell.lyric.das.utils;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.offset.PointOption.point;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidKeyCode;
-
-import java.time.Duration;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 
 import org.openqa.selenium.Dimension;
 
@@ -17,7 +17,7 @@ public class DASNotificationUtils {
 	@SuppressWarnings("unchecked")
 	public static void openNotifications(TestCases testCase) {
 		MobileUtils.minimizeApp(testCase, -1);
-		//testCase.getMobileDriver().runAppInBackground(Duration.ofSeconds(-1));
+		// testCase.getMobileDriver().runAppInBackground(Duration.ofSeconds(-1));
 		try {
 			Thread.sleep(12000);
 		} catch (InterruptedException e) {
@@ -32,16 +32,20 @@ public class DASNotificationUtils {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void closeNotifications(TestCases testCase) {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			((AndroidDriver<MobileElement>) testCase.getMobileDriver()).pressKeyCode(AndroidKeyCode.BACK);
+			// ((AndroidDriver<MobileElement>)
+			// testCase.getMobileDriver()).pressKeyCode(AndroidKeyCode.BACK);
+			((AndroidDriver<MobileElement>) testCase.getMobileDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+			;
 		} else {
 			TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 			Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 			int startX = dimensions.width / 2;
 			int startY = (dimensions.height - 20);
-			touchAction.press(startX, startY).moveTo(0, -500).release().perform();
+			// touchAction.press(startX, startY).moveTo(0, -500).release().perform();
+			touchAction.press(point(startX, startY)).moveTo(point(0, -500)).release().perform();
 		}
 	}
 }

@@ -13,15 +13,19 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.screens.AboutTheAppScreen;
 import com.honeywell.screens.ActivityHistoryScreen;
+import com.honeywell.screens.AddressScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.EditAccountScreen;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
 
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class VerifyOptionsOnAScreenDisabled extends Keyword {
 
@@ -167,6 +171,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				}
 				case "OUTDOOR MOTION VIEWERS ON IN HOME MODE": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						int startx = (dimension.width * 20) / 100;
@@ -176,8 +181,12 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= !cs.isOutdoorMotionViewerOnInHomeModeEnabled();
 					flag &= !cs.isOutdoorMotionViewerOnInHomeModeDescriptionEnabled();
@@ -185,6 +194,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				}
 				case "ENTRY/EXIT DELAY": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (!cs.isEntryExitDelayVisible()) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -195,8 +205,12 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
-							action.press(10, (int) (dimension.getHeight() * .9))
-									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+							/*
+							 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimension.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimension.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						}
 					}
 					flag &= !cs.isEntryExitDelayEnabled();
@@ -204,6 +218,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				}
 				case "ABOUT SECURITY MODES": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (!cs.isAboutSecurityModesVisible()) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -214,8 +229,12 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
-							action.press(10, (int) (dimension.getHeight() * .9))
-									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+							/*
+							 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimension.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimension.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						}
 					}
 					flag &= !cs.isAboutSecurityModesEnabled();
@@ -223,6 +242,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				}
 				case "KEY FOB": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (!cs.isKeyFobVisible()) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -233,8 +253,12 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
-							action.press(10, (int) (dimension.getHeight() * .9))
-									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+							/*
+							 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimension.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimension.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						}
 					}
 					flag &= !cs.isKeyFobEnabled();
@@ -242,6 +266,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				}
 				case "SENSORS": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (!cs.isSensorsOptionVisible()) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -252,8 +277,12 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
-							action.press(10, (int) (dimension.getHeight() * .9))
-									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+							/*
+							 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimension.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimension.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						}
 					}
 					flag &= !cs.isSensorsOptionEnabled();
@@ -261,6 +290,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				}
 				case "Z-WAVE DEVICES": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (!cs.isZwaveDevicesVisible()) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -271,8 +301,12 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
-							action.press(10, (int) (dimension.getHeight() * .9))
-									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+							/*
+							 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimension.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimension.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						}
 					}
 					flag &= !cs.isZwaveDevicesEnabled();
@@ -280,6 +314,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				}
 				case "BASE STATION VOLUME": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (!cs.isBaseStationVolumeValueVisible()) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -290,8 +325,12 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
-							action.press(10, (int) (dimension.getHeight() * .9))
-									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+							/*
+							 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimension.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimension.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						}
 					}
 					flag &= !cs.isBaseStationVolumeEnabled();
@@ -299,6 +338,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				}
 				case "RESET WI-FI": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (!cs.isBaseStationResetWifiVisible()) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -309,8 +349,12 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
-							action.press(10, (int) (dimension.getHeight() * .9))
-									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+							/*
+							 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimension.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimension.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						}
 					}
 					flag &= !cs.isBaseStationResetWifiEnabled();
@@ -318,6 +362,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				}
 				case "BASE STATION CONFIGURATION": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (!cs.isBaseStationConfigurationsOptionVisible()) {
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -328,8 +373,12 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
-							action.press(10, (int) (dimension.getHeight() * .9))
-									.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+							/*
+							 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimension.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimension.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						}
 					}
 					flag &= !cs.isBaseStationConfigurationEnabled();
@@ -385,6 +434,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 		case "MOTION DETECTION": {
 			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+			@SuppressWarnings("rawtypes")
 			TouchAction action = new TouchAction(testCase.getMobileDriver());
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldToBeVerified = data.getData(i, "Options");
@@ -405,8 +455,12 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					if (!cs.isMotionSensitivityEnabled(testCase)) {
 						Keyword.ReportStep_Pass(testCase, "Motion Sensitivity section is disabled");
@@ -422,6 +476,7 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 		case "SOUND DETECTION": {
 			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+			@SuppressWarnings("rawtypes")
 			TouchAction action = new TouchAction(testCase.getMobileDriver());
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldToBeVerified = data.getData(i, "Options");
@@ -434,8 +489,12 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					if (!cs.isSoundSensitivityEnabled()) {
 						Keyword.ReportStep_Pass(testCase, "Sound Sensitivity section is disabled");
@@ -695,6 +754,62 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 				String fieldToBeVerified = data.getData(i, "ActivityHistoryOptions");
 				if (fieldToBeVerified.equalsIgnoreCase("DELETE")) {
 					if (!ah.isDeletelButtonEnabled()) {
+						Keyword.ReportStep_Pass(testCase, "Option: " + fieldToBeVerified + " is disabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option: " + fieldToBeVerified + " is enabled");
+					}
+				}
+			}
+			break;
+		}
+		case "EDIT ADDRESS": {
+			AddressScreen ads = new AddressScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "EditAddressOptions");
+				if (fieldToBeVerified.equalsIgnoreCase("SAVE")) {
+					if (!ads.isSaveButtonEnabledInEditAddressScreen()) {
+						Keyword.ReportStep_Pass(testCase, "Option: " + fieldToBeVerified + " is disabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option: " + fieldToBeVerified + " is enabled");
+					}
+				}
+			}
+			break;
+		}
+		case "EDIT ACCOUNT": {
+			EditAccountScreen eas = new EditAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "EditAccountOptions");
+				if (fieldToBeVerified.equalsIgnoreCase("SAVE")) {
+					if (!eas.isSaveButtonInEditAccountScreenEnabled()) {
+						Keyword.ReportStep_Pass(testCase, "Option: " + fieldToBeVerified + " is disabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option: " + fieldToBeVerified + " is enabled");
+					}
+				}
+			}
+			break;
+		}
+		case "APP FEEDBACK": {
+			AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "AppFeedbackOptions");
+				if (fieldToBeVerified.equalsIgnoreCase("ANONYMOUS TOGGLE BUTTON")) {
+					if (!atas.isAnonymousToggleButtonEnabled()) {
+						Keyword.ReportStep_Pass(testCase, "Option: " + fieldToBeVerified + " is disabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option: " + fieldToBeVerified + " is enabled");
+					}
+				} else if (fieldToBeVerified.equalsIgnoreCase("SEND FEEDBACK BUTTON")) {
+					if (!atas.isSendFeedbackButtonEnabled()) {
 						Keyword.ReportStep_Pass(testCase, "Option: " + fieldToBeVerified + " is disabled");
 					} else {
 						flag = false;

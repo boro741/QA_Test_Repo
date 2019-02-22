@@ -2,7 +2,6 @@ package com.honeywell.keywords.lyric.das.pushnotifications;
 
 import java.util.ArrayList;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 
@@ -22,7 +21,9 @@ import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AlarmScreen;
 
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.ios.IOSDriver;
+import static io.appium.java_client.touch.TapOptions.tapOptions;
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class ActionOnPushNotification extends Keyword {
 
@@ -243,12 +244,12 @@ public class ActionOnPushNotification extends Keyword {
 
 			int xAxix = ele.getLocation().getX();
 			int yAxix = ele.getLocation().getY();
-//			if (testCase.getMobileDriver().getPlatformName().contains("Android")){
+			// if (testCase.getMobileDriver().getPlatformName().contains("Android")){
 			System.out.println("In click Method");
-				testCase.getMobileDriver().findElementsByXPath(locatorValue).get(0).click();
-//			}else{
-//				testCase.getMobileDriver().launchApp();
-//			}
+			testCase.getMobileDriver().findElementsByXPath(locatorValue).get(0).click();
+			// }else{
+			// testCase.getMobileDriver().launchApp();
+			// }
 			testCase.getMobileDriver().swipe(xAxix, yAxix, 300, 0, 1);
 
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -258,12 +259,25 @@ public class ActionOnPushNotification extends Keyword {
 					Dimension dimension = driver.manage().window().getSize();
 					int height = dimension.getHeight();
 					int width = dimension.getWidth();
+					@SuppressWarnings("rawtypes")
 					TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
-					touchAction.press(width / 2, height / 2).waitAction(MobileUtils.getDuration(2000))
-							.moveTo(width / 2, 82).release();
-					touchAction.perform();
-					touchAction.tap(width / 2, height / 2).perform();
-					touchAction.tap(width / 2, height / 2).perform();
+					/*
+					 * touchAction.press(width / 2, height /
+					 * 2).waitAction(MobileUtils.getDuration(2000)) .moveTo(width / 2,
+					 * 82).release(); touchAction.perform();
+					 */
+					touchAction.press(point(width / 2, height / 2))
+							.waitAction(waitOptions(MobileUtils.getDuration(2000))).moveTo(point(width / 2, 82))
+							.release().perform();
+
+					/*
+					 * touchAction.tap(width / 2, height / 2).perform(); touchAction.tap(width / 2,
+					 * height / 2).perform();
+					 */
+
+					touchAction.tap(tapOptions().withPosition(point(width / 2, height / 2))).perform();
+					touchAction.tap(tapOptions().withPosition(point(width / 2, height / 2))).perform();
+
 				}
 			}
 		} else {

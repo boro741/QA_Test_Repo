@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
@@ -26,7 +25,8 @@ public class CreateDefaultScheduleWithSpecificPeriodEditTime extends Keyword {
 	public TestCaseInputs inputs;
 	ArrayList<String> exampleData;
 
-	public CreateDefaultScheduleWithSpecificPeriodEditTime(TestCases testCase, TestCaseInputs inputs, ArrayList<String> exampleData) {
+	public CreateDefaultScheduleWithSpecificPeriodEditTime(TestCases testCase, TestCaseInputs inputs,
+			ArrayList<String> exampleData) {
 		this.testCase = testCase;
 		this.inputs = inputs;
 		this.exampleData = exampleData;
@@ -41,20 +41,19 @@ public class CreateDefaultScheduleWithSpecificPeriodEditTime extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^user creates \"(.+)\" schedule following specific \"(.+)\" time$")
 	public boolean keywordSteps() throws KeywordException {
-		try
-		{
+		try {
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			String jasperStatType = statInfo.getJasperDeviceType();
 			if (!statInfo.isOnline()) {
-				Keyword.ReportStep_Pass(testCase, "Create Schedule : Cannot create schedule because thermostat is offline");
+				Keyword.ReportStep_Pass(testCase,
+						"Create Schedule : Cannot create schedule because thermostat is offline");
 				return true;
 			}
 			if (exampleData.get(0).equalsIgnoreCase("Geofence based")) {
-				if(exampleData.get(1).equalsIgnoreCase("With")){
-						inputs.setInputValue(InputVariables.TYPE_OF_SCHEDULE, InputVariables.GEOFENCE_BASED_SCHEDULE);
-						inputs.setInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER, "Yes");
-				}else
-				{
+				if (exampleData.get(1).equalsIgnoreCase("With")) {
+					inputs.setInputValue(InputVariables.TYPE_OF_SCHEDULE, InputVariables.GEOFENCE_BASED_SCHEDULE);
+					inputs.setInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER, "Yes");
+				} else {
 					inputs.setInputValue(InputVariables.TYPE_OF_SCHEDULE, InputVariables.GEOFENCE_BASED_SCHEDULE);
 					inputs.setInputValue(InputVariables.SET_GEOFENCE_SLEEP_TIMER, "No");
 				}
@@ -67,23 +66,24 @@ public class CreateDefaultScheduleWithSpecificPeriodEditTime extends Keyword {
 			}
 
 			if (statInfo.getThermostatType().equals("Jasper") || statInfo.getThermostatType().equals("FlyCatcher")) {
+				@SuppressWarnings("unused")
 				HashMap<String, String> defaultValues;
 				inputs.setInputValue(InputVariables.UNITS, statInfo.getThermostatUnits());
 				inputs.setInputValue(InputVariables.JASPER_STAT_TYPE, jasperStatType);
-				
+
 				String startTime = "";
 				String endTime = "";
 				String WWstartTime = "";
 				String WWendTime = "";
-	
-				if(statInfo.getJasperDeviceType().equals("EMEA")){
+
+				if (statInfo.getJasperDeviceType().equals("EMEA")) {
 					startTime = JasperSetPoint.CalculatePeriodStartEMEA(testCase);
 					endTime = JasperSetPoint.CalculatePeriodEndEMEA(testCase, 2);
-				}else {
+				} else {
 					startTime = JasperSetPoint.CalculatePeriodStartNAHB(testCase);
 					endTime = JasperSetPoint.CalculatePeriodEndNAHB(testCase, 2);
 				}
-				
+
 				if (!startTime.contains("M") && !startTime.contains("m")) {
 					Date tempStartTime, tempEndTime;
 					SimpleDateFormat df24 = new SimpleDateFormat("hh:mm");
@@ -109,11 +109,11 @@ public class CreateDefaultScheduleWithSpecificPeriodEditTime extends Keyword {
 								"[Exception] Error: " + e.getMessage());
 					}
 				}
-				
-				if(statInfo.getJasperDeviceType().equals("EMEA")){
+
+				if (statInfo.getJasperDeviceType().equals("EMEA")) {
 					WWstartTime = JasperSetPoint.CalculateNextPeriodStartEMEA(testCase);
 					WWendTime = JasperSetPoint.CalculateNextPeriodENDEMEA(testCase);
-				}else {
+				} else {
 					WWstartTime = JasperSetPoint.CalculateNextPeriodStartNAHB(testCase);
 					WWendTime = JasperSetPoint.CalculatePeriodEndNAHB(testCase, 2);
 				}
@@ -142,41 +142,47 @@ public class CreateDefaultScheduleWithSpecificPeriodEditTime extends Keyword {
 								"[Exception] Error: " + e.getMessage());
 					}
 				}
-				
+
 				if (inputs.getInputValue(InputVariables.TYPE_OF_SCHEDULE)
 						.equalsIgnoreCase(InputVariables.GEOFENCE_BASED_SCHEDULE)) {
 					defaultValues = JasperSchedulingUtils.getDefaultScheduleValues(testCase, inputs, "Geofence");
-					
-			
-					flag = flag & JasperSchedulingUtils.createGeofenceBasedwithsleepspeicfictime(testCase, inputs,startTime, endTime, true);
-					
+
+					flag = flag & JasperSchedulingUtils.createGeofenceBasedwithsleepspeicfictime(testCase, inputs,
+							startTime, endTime, true);
+
 				} else if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
 						.equalsIgnoreCase(InputVariables.EVERYDAY_SCHEDULE)) {
 					defaultValues = JasperSchedulingUtils.getDefaultScheduleValues(testCase, inputs, "Time");
 
 					if (jasperStatType.toUpperCase().contains("EMEA")) {
-					
-						flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), startTime, endTime);
-					} else if (jasperStatType.toUpperCase().contains("NA") || jasperStatType.toUpperCase().contains("FLYCATCHER")) {
-			
-						flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), startTime, endTime);
 
-				} else if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
-						.equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
-					defaultValues = JasperSchedulingUtils.getDefaultScheduleValues(testCase, inputs, "Time");
-					
+						flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs,
+								exampleData.get(1).toUpperCase(), startTime, endTime);
+					} else if (jasperStatType.toUpperCase().contains("NA")
+							|| jasperStatType.toUpperCase().contains("FLYCATCHER")) {
 
-					if (jasperStatType.toUpperCase().contains("EMEA")) {
-					
-						flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(),  WWstartTime, WWendTime);
-					} else if (jasperStatType.toUpperCase().contains("NA") || jasperStatType.toUpperCase().contains("FLYCATCHER")) {
+						flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs,
+								exampleData.get(1).toUpperCase(), startTime, endTime);
 
-						flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs, exampleData.get(1).toUpperCase(), WWstartTime, WWendTime);
+					} else if (inputs.getInputValue(InputVariables.TYPE_OF_TIME_SCHEDULE)
+							.equalsIgnoreCase(InputVariables.WEEKDAY_AND_WEEKEND_SCHEDULE)) {
+						defaultValues = JasperSchedulingUtils.getDefaultScheduleValues(testCase, inputs, "Time");
+
+						if (jasperStatType.toUpperCase().contains("EMEA")) {
+
+							flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs,
+									exampleData.get(1).toUpperCase(), WWstartTime, WWendTime);
+						} else if (jasperStatType.toUpperCase().contains("NA")
+								|| jasperStatType.toUpperCase().contains("FLYCATCHER")) {
+
+							flag = flag & JasperSchedulingUtils.createSpecificPeriodtimebaseschedule(testCase, inputs,
+									exampleData.get(1).toUpperCase(), WWstartTime, WWendTime);
 						}
 					}
-			
-					}}
-		}catch (Exception e) {
+
+				}
+			}
+		} catch (Exception e) {
 		}
 		return flag;
 	}

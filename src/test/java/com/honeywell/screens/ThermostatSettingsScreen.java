@@ -15,6 +15,7 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.lyric.utils.LyricUtils;
 
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class ThermostatSettingsScreen extends MobileScreens {
 
@@ -1228,6 +1229,7 @@ public class ThermostatSettingsScreen extends MobileScreens {
 	public boolean isThermostatAutoChangeOverSwitchEnabled(TestCases testCase) throws Exception {
 		boolean flag = true;
 		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+		@SuppressWarnings("rawtypes")
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatAutoChangeOverSwitch")) {
@@ -1260,8 +1262,12 @@ public class ThermostatSettingsScreen extends MobileScreens {
 					flag = false;
 				}
 			} else {
-				action.press(0, -(int) (dimension.getHeight() * .9)).moveTo(10, (int) (dimension.getHeight() * .6))
-						.release().perform();
+				/*
+				 * action.press(0, -(int) (dimension.getHeight() * .9)).moveTo(10, (int)
+				 * (dimension.getHeight() * .6)) .release().perform();
+				 */
+				action.press(point(0, -(int) (dimension.getHeight() * .9)))
+						.moveTo(point(10, (int) (dimension.getHeight() * .6))).release().perform();
 				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatAutoChangeOverSwitch")
 						.getAttribute("value").equalsIgnoreCase("1")) {
 					return flag;
@@ -1281,10 +1287,10 @@ public class ThermostatSettingsScreen extends MobileScreens {
 					.findElement(By.xpath("//XCUIElementTypeSwitch[@name='autoChangeOver_toggle']"));
 			if (element != null) {
 				element.click();
-					return true;
-				} else {
-					return false;
-				}
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 
@@ -1305,11 +1311,12 @@ public class ThermostatSettingsScreen extends MobileScreens {
 		} else {
 			if (MobileUtils.isMobElementExists("XPATH",
 					"//XCUIElementTypeStaticText[@value='" + fieldToBeVerified
-							+ "']/following-sibling::XCUIElementTypeSwitch[@name= "+fieldToBeVerified+"'_toggle']",
+							+ "']/following-sibling::XCUIElementTypeSwitch[@name= " + fieldToBeVerified + "'_toggle']",
 					testCase)
-					&& MobileUtils
-							.getMobElement(testCase, "XPATH", "//XCUIElementTypeStaticText[@value='" + fieldToBeVerified
-									+ "']/following-sibling::XCUIElementTypeSwitch[@name= "+fieldToBeVerified+"'_toggle']")
+					&& MobileUtils.getMobElement(testCase, "XPATH",
+							"//XCUIElementTypeStaticText[@value='" + fieldToBeVerified
+									+ "']/following-sibling::XCUIElementTypeSwitch[@name= " + fieldToBeVerified
+									+ "'_toggle']")
 							.getAttribute("value").equalsIgnoreCase("1")) {
 				return flag;
 			} else {
@@ -1322,6 +1329,7 @@ public class ThermostatSettingsScreen extends MobileScreens {
 	public boolean isThermostatEmergencyHeatSwitchEnabled(TestCases testCase) throws Exception {
 		boolean flag = true;
 		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+		@SuppressWarnings("rawtypes")
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatEmergencyHeatSwitch")) {
@@ -1351,8 +1359,12 @@ public class ThermostatSettingsScreen extends MobileScreens {
 					flag = false;
 				}
 			} else {
-				action.press(0, -(int) (dimension.getHeight() * .9)).moveTo(10, (int) (dimension.getHeight() * .6))
-				.release().perform();
+				/*
+				 * action.press(0, -(int) (dimension.getHeight() * .9)).moveTo(10, (int)
+				 * (dimension.getHeight() * .6)) .release().perform();
+				 */
+				action.press(point(0, -(int) (dimension.getHeight() * .9)))
+						.moveTo(point(10, (int) (dimension.getHeight() * .6))).release().perform();
 				if (MobileUtils.getMobElement(objectDefinition, testCase, "ThermostatEmergencyHeatSwitch")
 						.getAttribute("value").equalsIgnoreCase("1")) {
 					return flag;
@@ -1363,7 +1375,6 @@ public class ThermostatSettingsScreen extends MobileScreens {
 		}
 		return flag;
 	}
-	
 
 	public boolean isThermostatEmergencyHeatSwitchEnabled(TestCases testCase, String fieldToBeVerified)
 			throws Exception {
@@ -1382,11 +1393,12 @@ public class ThermostatSettingsScreen extends MobileScreens {
 		} else {
 			if (MobileUtils.isMobElementExists("XPATH",
 					"//XCUIElementTypeStaticText[@value='" + fieldToBeVerified
-							+ "']/following-sibling::XCUIElementTypeSwitch[@name= "+fieldToBeVerified+"'_toggle']",
+							+ "']/following-sibling::XCUIElementTypeSwitch[@name= " + fieldToBeVerified + "'_toggle']",
 					testCase)
-					&& MobileUtils
-							.getMobElement(testCase, "XPATH", "//XCUIElementTypeStaticText[@value='" + fieldToBeVerified
-									+ "']/following-sibling::XCUIElementTypeSwitch[@name= "+fieldToBeVerified+"'_toggle']")
+					&& MobileUtils.getMobElement(testCase, "XPATH",
+							"//XCUIElementTypeStaticText[@value='" + fieldToBeVerified
+									+ "']/following-sibling::XCUIElementTypeSwitch[@name= " + fieldToBeVerified
+									+ "'_toggle']")
 							.getAttribute("value").equalsIgnoreCase("1")) {
 				return flag;
 			} else {
@@ -1404,13 +1416,12 @@ public class ThermostatSettingsScreen extends MobileScreens {
 					.findElement(By.xpath("//XCUIElementTypeSwitch[@name='emergencyHeat_toggle']"));
 			if (element != null) {
 				element.click();
-					return true;
-				} else {
-					return false;
-				}
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
-	
 
 	public boolean isThermostatFrostProtectionOptionVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ThermostatFrostProtectionOption", 3);

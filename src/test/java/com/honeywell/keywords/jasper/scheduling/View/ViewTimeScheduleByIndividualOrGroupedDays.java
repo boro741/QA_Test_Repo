@@ -11,7 +11,6 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperSchedulingViewUtils;
 import com.honeywell.lyric.utils.InputVariables;
-import com.honeywell.screens.SchedulingScreen;
 
 public class ViewTimeScheduleByIndividualOrGroupedDays extends Keyword {
 
@@ -37,18 +36,20 @@ public class ViewTimeScheduleByIndividualOrGroupedDays extends Keyword {
 	@KeywordStep(gherkins = "^user selects \"(.+)\" view$")
 	public boolean keywordSteps() throws KeywordException {
 		try {
- 				if (exampleData.get(0).equalsIgnoreCase("SINGLE DAY")) {
-					flag = flag & JasperSchedulingViewUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "SINGLE DAY");
-					inputs.setInputValue(InputVariables.SHOW_VIEW_TYPE, "SINGLE DAY");
+			if (exampleData.get(0).equalsIgnoreCase("SINGLE DAY")) {
+				flag = flag
+						& JasperSchedulingViewUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "SINGLE DAY");
+				inputs.setInputValue(InputVariables.SHOW_VIEW_TYPE, "SINGLE DAY");
 
-				} else if (exampleData.get(0).equalsIgnoreCase("Grouped days")) {
-					flag = flag & JasperSchedulingViewUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Grouped Days");
-					inputs.setInputValue(InputVariables.SHOW_VIEW_TYPE, "Grouped Days");
+			} else if (exampleData.get(0).equalsIgnoreCase("Grouped days")) {
+				flag = flag
+						& JasperSchedulingViewUtils.selectIndividualDaysViewOrGroupedDaysView(testCase, "Grouped Days");
+				inputs.setInputValue(InputVariables.SHOW_VIEW_TYPE, "Grouped Days");
 
-				} else {
-					flag = false;
-					ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Inputs not handled");
-				}
+			} else {
+				flag = false;
+				ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Inputs not handled");
+			}
 
 		} catch (Exception e) {
 			flag = false;

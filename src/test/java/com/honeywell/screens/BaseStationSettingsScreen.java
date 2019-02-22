@@ -1,7 +1,7 @@
 package com.honeywell.screens;
 
+import java.time.Duration;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 import org.openqa.selenium.By;
@@ -20,6 +20,7 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
 
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class BaseStationSettingsScreen extends MobileScreens {
 
@@ -737,6 +738,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 	public boolean selectOptionFromBaseStationSettings(String option) throws Exception {
 		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+		@SuppressWarnings("rawtypes")
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		switch (option) {
 		case BaseStationSettingsScreen.BASESTATIONCONFIGURATION: {
@@ -771,8 +773,12 @@ public class BaseStationSettingsScreen extends MobileScreens {
 					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				} else {
-					action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-							.release().perform();
+					/*
+					 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
+					 * (dimension.getHeight() * .6)) .release().perform();
+					 */
+					action.press(point(10, (int) (dimension.getHeight() * .9)))
+							.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 				}
 				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
@@ -830,8 +836,12 @@ public class BaseStationSettingsScreen extends MobileScreens {
 				int endy = (dimension.height * 35) / 100;
 				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 			} else {
-				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-						.release().perform();
+				/*
+				 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
+				 * (dimension.getHeight() * .6)) .release().perform();
+				 */
+				action.press(point(10, (int) (dimension.getHeight() * .9)))
+						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 			}
 			return flag;
 		}
@@ -909,13 +919,16 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			flag = flag & MobileUtils.setValueToElement(objectDefinition, testCase, "DASNameTextbox", value);
+			@SuppressWarnings("rawtypes")
 			TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 			Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 			System.out.println("######dimensions.width:- " + dimensions.width);
 			System.out.println("######dimensions.height:- " + dimensions.height);
 			System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
 			System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
-			touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			// touchAction.tap((dimensions.width - 100), (dimensions.height -
+			// 100)).perform();
+			touchAction.tap(point((dimensions.width - 100), (dimensions.height - 100))).perform();
 		} else {
 			flag = flag & MobileUtils.setValueToElement(testCase, "XPATH", "//XCUIElementTypeTextField", value);
 			MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonOnKeyboard");
@@ -1521,8 +1534,10 @@ public class BaseStationSettingsScreen extends MobileScreens {
 				}
 			} else {
 				FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
-				fWait.pollingEvery(2, TimeUnit.SECONDS);
-				fWait.withTimeout(10, TimeUnit.SECONDS);
+				// fWait.pollingEvery(2, TimeUnit.SECONDS);
+				// fWait.withTimeout(10, TimeUnit.SECONDS);
+				fWait.pollingEvery(Duration.ofSeconds(2));
+				fWait.withTimeout(Duration.ofSeconds(10));
 				Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 					public Boolean apply(CustomDriver driver) {
 						if (MobileUtils.isMobElementExists(objectDefinition, testCase,
@@ -2146,6 +2161,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 	public boolean isSecurityModeNightiConVisible() {
 		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+		@SuppressWarnings("rawtypes")
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			int startx = (dimension.width * 20) / 100;
@@ -2155,8 +2171,12 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeNightiCon");
 		} else {
-			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-					.release().perform();
+			/*
+			 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
+			 * (dimension.getHeight() * .6)) .release().perform();
+			 */
+			action.press(point(10, (int) (dimension.getHeight() * .9)))
+					.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 			testCase.getMobileDriver()
 					.findElementByXPath("//XCUIElementTypeStaticText[@name='Mode_Settings_0_6_cell']");
 			return true;
@@ -2173,6 +2193,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 	public boolean isSecurityModeoffiConVisible() {
 		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+		@SuppressWarnings("rawtypes")
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			int startx = (dimension.width * 20) / 100;
@@ -2182,8 +2203,12 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeoffiCon");
 		} else {
-			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-					.release().perform();
+			/*
+			 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
+			 * (dimension.getHeight() * .6)) .release().perform();
+			 */
+			action.press(point(10, (int) (dimension.getHeight() * .9)))
+					.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 			testCase.getMobileDriver()
 					.findElementByXPath("//XCUIElementTypeStaticText[@name='Mode_Settings_0_9_cell']");
 			return true;

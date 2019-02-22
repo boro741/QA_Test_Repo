@@ -1,8 +1,8 @@
 package com.honeywell.lyric.das.utils;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -17,7 +17,6 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.ActivityHistoryScreen;
 import com.honeywell.screens.ActivityLogsScreen;
-import com.honeywell.screens.AlarmScreen;
 
 public class DASActivityLogsUtils {
 
@@ -39,7 +38,7 @@ public class DASActivityLogsUtils {
 		return flag;
 	}
 
-	public static String[][] fetchActivityList(TestCases testCase){
+	public static String[][] fetchActivityList(TestCases testCase) {
 		String[][] eventsList;
 		HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "ActivityLogs");
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -51,8 +50,7 @@ public class DASActivityLogsUtils {
 			List<WebElement> activityLogTimeElements = MobileUtils.getMobElements(fieldObjects, testCase,
 					"ActivityLogTime");
 			System.out.println("#########activityLogTitleElements.size(): " + activityLogTitleElements.size());
-			System.out
-			.println("#########activityLogSubTitleElements.size(): " + activityLogSubTitleElements.size());
+			System.out.println("#########activityLogSubTitleElements.size(): " + activityLogSubTitleElements.size());
 			System.out.println("#########activityLogTimeElements.size(): " + activityLogTimeElements.size());
 			eventsList = new String[activityLogTitleElements.size()][3];
 			int i = 0;
@@ -73,8 +71,9 @@ public class DASActivityLogsUtils {
 				i++;
 				// activityLogTime.add(ele.getAttribute("text"));
 			}
-			//expectedTime = hour12Format.parse(hour12Format.format(timeFormat.parse(deviceLocationTime)));
-			//System.out.println("#########1. expectedTime: " + expectedTime);
+			// expectedTime =
+			// hour12Format.parse(hour12Format.format(timeFormat.parse(deviceLocationTime)));
+			// System.out.println("#########1. expectedTime: " + expectedTime);
 		} else {
 
 			int events = 0;
@@ -84,12 +83,14 @@ public class DASActivityLogsUtils {
 			}
 			eventsList = new String[events][3];
 			for (int i = 0; i < events; i++) {
-				String[] cell= MobileUtils.getMobElements(testCase, "xpath", "//*[contains(@name,'_Cell')]").get(i).getAttribute("name").split("_");
-				System.out.println(cell[1]); 
+				String[] cell = MobileUtils.getMobElements(testCase, "xpath", "//*[contains(@name,'_Cell')]").get(i)
+						.getAttribute("name").split("_");
+				System.out.println(cell[1]);
 				try {
-					if(MobileUtils.isMobElementExists("name", "Events_"+cell[1]+"_" + i + "_Title",testCase,3 )){
-						eventsList[i][0] = MobileUtils.getFieldValue(testCase, "name", "Events_"+cell[1]+"_" + i + "_Title");
-					}else {
+					if (MobileUtils.isMobElementExists("name", "Events_" + cell[1] + "_" + i + "_Title", testCase, 3)) {
+						eventsList[i][0] = MobileUtils.getFieldValue(testCase, "name",
+								"Events_" + cell[1] + "_" + i + "_Title");
+					} else {
 						eventsList[i][0] = "";
 					}
 				} catch (NoSuchElementException e) {
@@ -100,9 +101,11 @@ public class DASActivityLogsUtils {
 					eventsList[i][0] = "";
 				}
 				try {
-					if(MobileUtils.isMobElementExists("name", "Events_"+cell[1]+"_" + i + "_Subtitle",testCase,3 )){
-						eventsList[i][1] = MobileUtils.getFieldValue(testCase, "name", "Events_"+cell[1]+"_" + i + "_Subtitle");
-					}else{
+					if (MobileUtils.isMobElementExists("name", "Events_" + cell[1] + "_" + i + "_Subtitle", testCase,
+							3)) {
+						eventsList[i][1] = MobileUtils.getFieldValue(testCase, "name",
+								"Events_" + cell[1] + "_" + i + "_Subtitle");
+					} else {
 						eventsList[i][1] = "";
 					}
 				} catch (NoSuchElementException e) {
@@ -113,9 +116,10 @@ public class DASActivityLogsUtils {
 					eventsList[i][0] = "";
 				}
 				try {
-					if(MobileUtils.isMobElementExists("name", "Events_"+cell[1]+"_" + i + "_Time",testCase,3 )){
-						eventsList[i][2] = MobileUtils.getFieldValue(testCase, "name", "Events_"+cell[1]+"_" + i + "_Time");
-					}else{
+					if (MobileUtils.isMobElementExists("name", "Events_" + cell[1] + "_" + i + "_Time", testCase, 3)) {
+						eventsList[i][2] = MobileUtils.getFieldValue(testCase, "name",
+								"Events_" + cell[1] + "_" + i + "_Time");
+					} else {
 						eventsList[i][2] = "";
 					}
 				} catch (NoSuchElementException e) {
@@ -151,8 +155,12 @@ public class DASActivityLogsUtils {
 		boolean flag = true;
 		try {
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(duration, TimeUnit.MINUTES);
+			/*
+			 * fWait.pollingEvery(3, TimeUnit.SECONDS); fWait.withTimeout(duration,
+			 * TimeUnit.MINUTES);
+			 */
+			fWait.pollingEvery(Duration.ofSeconds(3));
+			fWait.withTimeout(Duration.ofMinutes(duration));
 			ActivityHistoryScreen ah = new ActivityHistoryScreen(testCase);
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {

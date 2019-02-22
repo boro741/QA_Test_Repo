@@ -1,4 +1,4 @@
-package com.honeywell.keywords.lyric.das.diyregistration;
+package com.honeywell.keywords.lyric.common;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,9 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.screens.AddressScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
+import com.honeywell.screens.EditAccountScreen;
 
 public class ClickOnBackArrowInCurrentScreen extends Keyword {
 
@@ -37,6 +39,13 @@ public class ClickOnBackArrowInCurrentScreen extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		try {
 			switch (expectedScreen.get(0).toUpperCase()) {
+			case "ADD NEW DEVICE DASHBOARD": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isBackArrowInSelectADeviceScreenVisible(5)) {
+					flag = flag & dasDIY.clickOnBackArrowInSelectADeviceScreen();
+				}
+				break;
+			}
 			case "WHAT TO EXPECT": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isBackArrowInWhatToExpectScreenVisible()) {
@@ -76,6 +85,20 @@ public class ClickOnBackArrowInCurrentScreen extends Keyword {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isBackButtonInSetUpAccessoriesScreenVisible(20)) {
 					flag = flag & dasDIY.clickOnBackButtonInSetUpAccessoriesScreen();
+				}
+				break;
+			}
+			case "EDIT ADDRESS": {
+				AddressScreen ads = new AddressScreen(testCase);
+				if (ads.isBackButtonVisible()) {
+					flag &= ads.clickOnBackButton();
+				}
+				break;
+			}
+			case "EDIT ACCOUNT": {
+				EditAccountScreen eas = new EditAccountScreen(testCase);
+				if (eas.isBackButtonVisible()) {
+					flag &= eas.clickOnBackButton();
 				}
 				break;
 			}

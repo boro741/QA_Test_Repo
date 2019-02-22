@@ -1,8 +1,8 @@
 package com.honeywell.lyric.das.utils;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
@@ -138,8 +138,12 @@ public class DashboardUtils {
 		System.out.println("%%%%%%%%%%securityState: " + securityState);
 		try {
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(duration, TimeUnit.MINUTES);
+			/*
+			 * fWait.pollingEvery(3, TimeUnit.SECONDS); fWait.withTimeout(duration,
+			 * TimeUnit.MINUTES);
+			 */
+			fWait.pollingEvery(Duration.ofSeconds(3));
+			fWait.withTimeout(Duration.ofMinutes(duration));
 			Dashboard d = new Dashboard(testCase);
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
@@ -259,8 +263,12 @@ public class DashboardUtils {
 		boolean flag = true;
 		try {
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(duration, TimeUnit.MINUTES);
+			/*
+			 * fWait.pollingEvery(3, TimeUnit.SECONDS); fWait.withTimeout(duration,
+			 * TimeUnit.MINUTES);
+			 */
+			fWait.pollingEvery(Duration.ofSeconds(3));
+			fWait.withTimeout(Duration.ofMinutes(duration));
 			Dashboard d = new Dashboard(testCase);
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
@@ -268,6 +276,14 @@ public class DashboardUtils {
 						switch (elementProgressBar) {
 						case "LOADING SPINNER BAR": {
 							if (d.isLoadingSpinnerVisible()) {
+								System.out.println("Waiting for Verifying loading spinner text to disappear");
+								return false;
+							} else {
+								return true;
+							}
+						}
+						case "PROGRESS BAR": {
+							if (d.isProgressBarVisible()) {
 								System.out.println("Waiting for Verifying loading spinner text to disappear");
 								return false;
 							} else {
@@ -304,8 +320,12 @@ public class DashboardUtils {
 		boolean flag = true;
 		try {
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(duration, TimeUnit.MINUTES);
+			/*
+			 * fWait.pollingEvery(3, TimeUnit.SECONDS); fWait.withTimeout(duration,
+			 * TimeUnit.MINUTES);
+			 */
+			fWait.pollingEvery(Duration.ofSeconds(3));
+			fWait.withTimeout(Duration.ofMinutes(duration));
 			Dashboard d = new Dashboard(testCase);
 			PrimaryCard pc = new PrimaryCard(testCase);
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
@@ -417,11 +437,35 @@ public class DashboardUtils {
 		return flag;
 	}
 
+	public static boolean enterCountryNameAndSelectItInConfirmYourCountryScreenAndAcceptNewAgreement(TestCases testCase,
+			TestCaseInputs inputs, String countryName) {
+		boolean flag = true;
+		AddNewDeviceScreen adn = new AddNewDeviceScreen(testCase);
+		flag &= adn.enterCountryNameInCountryTextFieldAndAcceptNewAgreement(inputs, countryName);
+		return flag;
+	}
+
 	public static boolean enterCountryNameAndSelectItInConfirmYourCountryScreen(TestCases testCase,
 			TestCaseInputs inputs, String countryName) {
 		boolean flag = true;
 		AddNewDeviceScreen adn = new AddNewDeviceScreen(testCase);
 		flag &= adn.enterCountryNameInCountryTextField(inputs, countryName);
+		return flag;
+	}
+
+	public static boolean verifyDefaultCountryDisplayedInConfirmYourCountryScreen(TestCases testCase,
+			TestCaseInputs inputs, String countryName) {
+		boolean flag = true;
+		AddNewDeviceScreen adn = new AddNewDeviceScreen(testCase);
+		flag &= adn.verifyDefaultCountryDisplayedInConfirmYourCountryScreen(inputs, countryName);
+		return flag;
+	}
+
+	public static boolean verifyCountryDisplayedInAddNewDeviceScreen(TestCases testCase, String countryName) {
+		boolean flag = true;
+		System.out.println("##########COUNTRY NAME IS: " + countryName);
+		AddNewDeviceScreen adn = new AddNewDeviceScreen(testCase);
+		flag &= adn.isShowingDevicesForCountryLabelInAddNewDeviceScreenVisible(countryName);
 		return flag;
 	}
 }

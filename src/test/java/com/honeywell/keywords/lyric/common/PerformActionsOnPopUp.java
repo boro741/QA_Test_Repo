@@ -17,14 +17,19 @@ import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.lyric.das.utils.VacationSettingsUtils;
+import com.honeywell.screens.AboutTheAppScreen;
+import com.honeywell.screens.AddNewDeviceScreen;
+import com.honeywell.screens.AddressScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.DASCameraSolutionCard;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.DRScreens;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.EditAccountScreen;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.ManageUsersScreen;
+import com.honeywell.screens.OSPopUps;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
@@ -68,7 +73,26 @@ public class PerformActionsOnPopUp extends Keyword {
 			}
 			}
 
-		} else if (expectedPopUp.get(1).equalsIgnoreCase("CONTROLLER RESET")) {
+		} else if(expectedPopUp.get(1).equalsIgnoreCase("TURN ON LOCATION SERVICES")) {
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CLICKS ON SKIP BUTTON IN": {
+				OSPopUps osp= new OSPopUps(testCase);
+				osp.clickOnSkipButtonInTurnOnLocationServicesPopup();
+				break;
+			}
+			case "CLICKS ON SETTINGS BUTTON IN" : {
+				OSPopUps osp= new OSPopUps(testCase);
+				osp.clickOnSettingsButtonInTurnOnLocationServicesPopup();
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+		  }
+		}
+		else if (expectedPopUp.get(1).equalsIgnoreCase("CONTROLLER RESET")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "CANCELS": {
 				ZwaveScreen zScreen = new ZwaveScreen(testCase);
@@ -971,6 +995,281 @@ public class PerformActionsOnPopUp extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"YES button is not displayed in: " + expectedPopUp.get(0));
+				}
+				break;
+			}
+			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("CANCEL LOCATION CHANGES")) {
+			AddressScreen ads = new AddressScreen(testCase);
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				if (ads.isNoButtonInCancelLocationChangesPopupVisible()) {
+					Keyword.ReportStep_Pass(testCase, "No button in Cancel Location Changes Popup is displayed");
+					flag &= ads.clickOnNoButtonInCancelLocationChangesPopup();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on No button in Cancel Location Changes Popup");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on No button in Cancel Location Changes Popup");
+					}
+				}
+				break;
+			}
+			case "ACCEPTS": {
+				if (ads.isYesButtonInCancelLocationChangesPopupVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Yes button in Cancel Location Changes Popup is displayed");
+					flag &= ads.clickOnYesButtonInCancelLocationChangesPopup();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on No button in Cancel Location Changes Popup");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on No button in Cancel Location Changes Popup");
+					}
+				}
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("INVALID ZIPCODE")) {
+			AddressScreen ads = new AddressScreen(testCase);
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "DISMISSES": {
+				if (ads.isOKButtonInInvalidZipCodePopupVisible()) {
+					Keyword.ReportStep_Pass(testCase, "OK button in Invalid ZIPCode Popup is displayed");
+					flag &= ads.clickOnOKButtonInInvalidZipCodePopup();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on OK button in Invalid ZIPCode Popup");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on OK button in Invalid ZIPCode Popup");
+					}
+				}
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("NAME MUST START WITH LETTER OR NUMBER")) {
+			AddressScreen ads = new AddressScreen(testCase);
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "ACCEPTS": {
+				if (ads.isOKButtonInNameMustStartWithPopupVisible()) {
+					Keyword.ReportStep_Pass(testCase,
+							"OK button in Name Must Start With Letter or Number Popup is displayed");
+					flag &= ads.clickOnOKButtonInNameMustStartWithPopup();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Clicked on OK button in Name Must Start With Letter or Number Popup");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on OK button in Name Must Start With Letter or Number Popup");
+					}
+				}
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("FIRST NAME IS REQUIRED")
+				|| expectedPopUp.get(1).equalsIgnoreCase("LAST NAME IS REQUIRED")) {
+			EditAccountScreen eas = new EditAccountScreen(testCase);
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CLICKS ON OK IN": {
+				if (eas.isOKButtonInFirstNameOrLastNameRequiredErrorPopupVisible()) {
+					Keyword.ReportStep_Pass(testCase,
+							"OK button in First Name or Last Name is required Popup is displayed");
+					flag &= eas.clickOnOKButtonInFirstNameOrLastNameRequiredErrorPopup();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Clicked on OK button in First Name or Last Name is required Popup");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on OK button in First Name or Last Name is required Popup");
+					}
+				}
+				break;
+			}
+			default: {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));
+				return flag;
+			}
+			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("YOUR ACCOUNT AND DATA IS DELETED")) {
+			EditAccountScreen eas = new EditAccountScreen(testCase);
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "ACCEPTS": {
+				if (eas.isOKButtonInYourAccountAndDataIsDeletedPopupVisible()) {
+					flag &= eas.clickOnOKButtonInYourAccountAndDataIsDeletedPopup();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Clicked on OK button in Your account and data is delete Popup");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on OK button in Your account and data is delete Popup");
+					}
+				}
+				break;
+			}
+			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("EMAIL OR PASSWORD INCORRECT")) {
+			EditAccountScreen eas = new EditAccountScreen(testCase);
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "ACCEPTS": {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")
+						&& !eas.isOKButtonInEmailOrPwdIncorrectErrorPopupVisible()) {
+					Keyword.ReportStep_Pass(testCase,
+							"In Android, there is no popup displayed when deleted account credentials are entered.");
+				} else {
+					if (eas.isOKButtonInEmailOrPwdIncorrectErrorPopupVisible()) {
+						flag &= eas.clickOnOKButtonInEmailOrPwdIncorrectErrorPopup();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase,
+									"Clicked on OK button in Email or Password Incorrect Error Popup");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click on OK button in Email or Password Incorrect Error Popup");
+						}
+					}
+				}
+				break;
+			}
+			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("WHAT DO YOU THINK OF HONEYWELL HOME APP")) {
+			AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CLOSES": {
+				if (atas.isCloseButtonInWhatDoYouThinkOfHoneywellHomeAppPopupVisible()) {
+					flag &= atas.clickOnCloseButtonInWhatDoYouThinkOfHoneywellHomeAppPopup();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Clicked on Close button in What do you think of Honeywell Home App Popup");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on Close button in What do you think of Honeywell Home App Popup");
+					}
+				}
+				break;
+			}
+			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("THANKS FOR YOUR RATING")) {
+			AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CLICKS ON CLOSE BUTTON": {
+				if (atas.isCloseButtonInThanksForYourRatingPopupVisible()) {
+					flag &= atas.clickOnCloseButtonInThanksForYourRatingPopup();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on Close button in Thanks for your rating Popup");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on Close button in Thanks for your rating Popup");
+					}
+				}
+				break;
+			}
+			case "CLICKS ON CONTINUE BUTTON": {
+				if (atas.isContinueButtonInThanksForYourRatingPopupVisible()) {
+					flag &= atas.clickOnContinueButtonInThanksForYourRatingPopup();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on Continue button in Thanks for your rating Popup");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on Continue button in Thanks for your rating Popup");
+					}
+				}
+				break;
+			}
+			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("EXIT HONEYWELL HOME")) {
+			AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CLICKS ON SIGN OUT BUTTON IN": {
+				if (ads.isSignOutButtonInExitHoneywellHomePopupVisible()) {
+					flag &= ads.clickOnSignOutButtonInExitHoneywellHomePopup();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on Sign Out button in Exit Honeywell Home Popup");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on Sign Out button in Exit Honeywell Home Popup");
+					}
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Sign Out button in Exit Honeywell Home Popup is not displayed");
+				}
+				break;
+			}
+			case "CLICKS ON DELETE ACCOUNT BUTTON IN": {
+				if (ads.isDeleteAccountButtonInExitHoneywellHomePopupVisible()) {
+					flag &= ads.clickOnDeleteAccountButtonInExitHoneywellHomePopup();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								"Clicked on Delete Account button in Exit Honeywell Home Popup");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on Delete Account button in Exit Honeywell Home Popup");
+					}
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Delete Account button in Exit Honeywell Home Popup is not displayed");
+				}
+				break;
+			}
+			case "CLICKS ON CANCEL BUTTON IN": {
+				if (ads.isCancelButtonInExitHoneywellHomePopupVisible()) {
+					flag &= ads.clickOnCancelButtonInExitHoneywellHomePopup();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on Cancel button in Exit Honeywell Home Popup");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on Cancel button in Exit Honeywell Home Popup");
+					}
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Cancel button in Exit Honeywell Home Popup is not displayed");
+				}
+				break;
+			}
+			}
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("SORRY TO SEE YOU GO")) {
+			AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CLICKS ON NO BUTTON IN": {
+				if (ads.isNoButtonInSorryToSeeYouGoPopupVisible()) {
+					flag &= ads.clickOnNoButtonInSorryToSeeYouGoPopup();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on No button in Sorry To See You Go Popup");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on No button in Sorry To See You Go Popup");
+					}
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"No button in Sorry To See You Go Popup is not displayed");
+				}
+				break;
+			}
+			case "CLICKS ON YES BUTTON IN": {
+				if (ads.isYesButtonInSorryToSeeYouGoPopupVisible()) {
+					flag &= ads.clickOnYesButtonInSorryToSeeYouGoPopup();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on Yes button in Sorry To See You Go Popup");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on Yes button in Sorry To See You Go Popup");
+					}
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Yes button in Sorry To See You Go Popup is not displayed");
 				}
 				break;
 			}

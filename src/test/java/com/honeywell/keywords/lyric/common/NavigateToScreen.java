@@ -1,6 +1,7 @@
 package com.honeywell.keywords.lyric.common;
 
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 import java.util.ArrayList;
 /*
@@ -38,8 +39,10 @@ import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.lyric.utils.CoachMarkUtils;
 import com.honeywell.lyric.utils.DASInputVariables;
 import com.honeywell.lyric.utils.LyricUtils;
+import com.honeywell.screens.AboutTheAppScreen;
 import com.honeywell.screens.ActivityHistoryScreen;
 import com.honeywell.screens.AddNewDeviceScreen;
+import com.honeywell.screens.AddressScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
@@ -47,9 +50,11 @@ import com.honeywell.screens.CameraSolutionCardScreen;
 import com.honeywell.screens.CoachMarks;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.EditAccountScreen;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
 import com.honeywell.screens.GeofenceSettings;
+import com.honeywell.screens.GlobalDrawerScreen;
 import com.honeywell.screens.ManageUsersScreen;
 import com.honeywell.screens.OSPopUps;
 import com.honeywell.screens.SchedulingScreen;
@@ -63,6 +68,7 @@ import com.honeywell.screens.WLDConfigurationScreen;
 import com.honeywell.screens.WLDLeakDetectorSettings;
 import com.honeywell.screens.WLDManageAlerts;
 import com.honeywell.screens.WLDSolutionCard;
+import com.honeywell.screens.WeatherForecastScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 public class NavigateToScreen extends Keyword {
@@ -1004,9 +1010,12 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "GLOBAL DRAWER": {
 					Thread.sleep(5000);
-					Dashboard ds = new Dashboard(testCase);
+					Dashboard dScreen = new Dashboard(testCase);
+					ManageUsersScreen mus = new ManageUsersScreen(testCase);
 					OSPopUps os = new OSPopUps(testCase);
 					CoachMarks cm = new CoachMarks(testCase);
+					AddressScreen ads = new AddressScreen(testCase);
+					Thread.sleep(5000);
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 						if (os.isNotNowButtonVisible(1)) {
 							flag &= os.clickOnNotNowButton();
@@ -1018,10 +1027,8 @@ public class NavigateToScreen extends Keyword {
 							flag = flag & cm.clickOnDoneButton();
 						}
 					}
-					if (!ds.clickOnGlobalDrawerButton()) {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Could not click on Global drawer menu from dashboard");
-						flag = false;
+					if (dScreen.clickOnGlobalDrawerButton()) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on Global drawer menu from dashboard");
 					}
 					break;
 				}
@@ -1105,7 +1112,13 @@ public class NavigateToScreen extends Keyword {
 						if (cm.isDoneButtonVisible(1)) {
 							flag = flag & cm.clickOnDoneButton();
 						}
+					} else {
+						if (os.isCloseButtonVisible(1)) {
+							os.clickOnCloseButton();
+							return false;
+						}
 					}
+					System.out.println("%%%%%%%%%%%%%%%flag: " + flag);
 					if (dScreen.clickOnGlobalDrawerButton()) {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
 						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.MANAGEUSERS)) {
@@ -1150,6 +1163,173 @@ public class NavigateToScreen extends Keyword {
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Could not click on Add Button in Add Users Screen");
+					}
+					break;
+				}
+				case "ADDRESS": {
+					Dashboard dScreen = new Dashboard(testCase);
+					OSPopUps os = new OSPopUps(testCase);
+					CoachMarks cm = new CoachMarks(testCase);
+					AddressScreen ads = new AddressScreen(testCase);
+					Thread.sleep(5000);
+					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+						if (os.isNotNowButtonVisible(1)) {
+							flag &= os.clickOnNotNowButton();
+							if (os.isNotNowButtonVisible(1)) {
+								flag &= os.clickOnNotNowButton();
+							}
+						}
+						if (cm.isDoneButtonVisible(1)) {
+							flag = flag & cm.clickOnDoneButton();
+						}
+					}
+					if (dScreen.clickOnGlobalDrawerButton()) {
+						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ADDRESSDETAILS)) {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to Address from Global drawer");
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Global drawer menu from dashboard");
+					}
+					if (ads.isLocationNameInAddressScreenVisible()) {
+						inputs.setInputValue("LOCATION_NAME", ads.getLocationNameDisplayedInAddressScreen());
+						System.out.println("###########LOCATION_NAME: " + inputs.getInputValue("LOCATION_NAME"));
+						if (ads.isLocationAddressInAddressScreenVisible()) {
+							inputs.setInputValue("LOCATION_ADDRESS", ads.getLocationAddressDisplayedInAddressScreen());
+							System.out.println(
+									"###########LOCATION_ADDRESS: " + inputs.getInputValue("LOCATION_ADDRESS"));
+						}
+					}
+					break;
+				}
+				case "EDIT ACCOUNT": {
+					Dashboard dScreen = new Dashboard(testCase);
+					OSPopUps os = new OSPopUps(testCase);
+					CoachMarks cm = new CoachMarks(testCase);
+					EditAccountScreen eas = new EditAccountScreen(testCase);
+					Thread.sleep(5000);
+					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+						if (os.isNotNowButtonVisible(1)) {
+							flag &= os.clickOnNotNowButton();
+							if (os.isNotNowButtonVisible(1)) {
+								flag &= os.clickOnNotNowButton();
+							}
+						}
+						if (cm.isDoneButtonVisible(1)) {
+							flag = flag & cm.clickOnDoneButton();
+						}
+					}
+					if (dScreen.clickOnGlobalDrawerButton()) {
+						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.EDITACCOUNT)) {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to Edit Account from Global drawer");
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Global drawer menu from dashboard");
+					}
+					if (eas.isEditAccountScreenTitleVisible() && eas.isFirstNameValueInEditAccountScreenVisible()
+							&& eas.isLastNameValueInEditAccountScreenVisible()) {
+						inputs.setInputValue("FIRST_NAME_IN_EDIT_ACCOUNT", eas.getFirstNameValueInEditAccountScreen());
+						System.out.println("###########FIRST_NAME_IN_EDIT_ACCOUNT: "
+								+ inputs.getInputValue("FIRST_NAME_IN_EDIT_ACCOUNT"));
+						inputs.setInputValue("LAST_NAME_IN_EDIT_ACCOUNT", eas.getLastNameValueInEditAccountScreen());
+						System.out.println("###########LAST_NAME_IN_EDIT_ACCOUNT: "
+								+ inputs.getInputValue("LAST_NAME_IN_EDIT_ACCOUNT"));
+					}
+					break;
+				}
+				case "ABOUT THE APP": {
+					Dashboard dScreen = new Dashboard(testCase);
+					OSPopUps os = new OSPopUps(testCase);
+					CoachMarks cm = new CoachMarks(testCase);
+					Thread.sleep(5000);
+					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+						if (os.isNotNowButtonVisible(1)) {
+							flag &= os.clickOnNotNowButton();
+							if (os.isNotNowButtonVisible(1)) {
+								flag &= os.clickOnNotNowButton();
+							}
+						}
+						if (cm.isDoneButtonVisible(1)) {
+							flag = flag & cm.clickOnDoneButton();
+						}
+					}
+					if (dScreen.clickOnGlobalDrawerButton()) {
+						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+						Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+						@SuppressWarnings("rawtypes")
+						TouchAction action = new TouchAction(testCase.getMobileDriver());
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							int startx = (dimension.width * 20) / 100;
+							int starty = (dimension.height * 62) / 100;
+							int endx = (dimension.width * 22) / 100;
+							int endy = (dimension.height * 35) / 100;
+							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						} else {
+							/*
+							 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimension.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimension.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+						}
+						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ABOUTTHEAPP)) {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to About the app from Global drawer");
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Global drawer menu from dashboard");
+					}
+					break;
+				}
+				case "FAQS": {
+					Dashboard dScreen = new Dashboard(testCase);
+					OSPopUps os = new OSPopUps(testCase);
+					CoachMarks cm = new CoachMarks(testCase);
+					Thread.sleep(5000);
+					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+						if (os.isNotNowButtonVisible(1)) {
+							flag &= os.clickOnNotNowButton();
+							if (os.isNotNowButtonVisible(1)) {
+								flag &= os.clickOnNotNowButton();
+							}
+						}
+						if (cm.isDoneButtonVisible(1)) {
+							flag = flag & cm.clickOnDoneButton();
+						}
+					}
+					if (dScreen.clickOnGlobalDrawerButton()) {
+						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
+						Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+						@SuppressWarnings("rawtypes")
+						TouchAction action = new TouchAction(testCase.getMobileDriver());
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							int startx = (dimension.width * 20) / 100;
+							int starty = (dimension.height * 62) / 100;
+							int endx = (dimension.width * 22) / 100;
+							int endy = (dimension.height * 35) / 100;
+							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						} else {
+							/*
+							 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimension.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimension.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+
+						}
+						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.FAQS)) {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to FAQs from Global drawer");
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Could not click on Global drawer menu from dashboard");
 					}
 					break;
 				}
@@ -1500,6 +1680,20 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				case "EDIT ACCOUNT": {
+					GlobalDrawerScreen gds = new GlobalDrawerScreen(testCase);
+					EditAccountScreen eas = new EditAccountScreen(testCase);
+					if (gds.isEditAccountOptionVisible()) {
+						flag &= gds.clickEditAccountOption();
+						if (eas.isEditAccountScreenTitleInEditAccountVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Successfully navigated to " + screen.get(0) + " screen");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to " + screen.get(0) + " screen");
+						}
+					}
+					break;
+				}
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
@@ -1527,6 +1721,21 @@ public class NavigateToScreen extends Keyword {
 				}
 			} else if (screen.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
 				switch (screen.get(0).toUpperCase()) {
+				case "DASHBOARD": {
+					AddNewDeviceScreen addScreen = new AddNewDeviceScreen(testCase);
+					if (addScreen.isBackButtonVisible()) {
+						flag &= addScreen.clickOnBackButton();
+					} else {
+						flag = false;
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully navigated to " + screen.get(0) + " screen");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to navigate to " + screen.get(0) + " screen");
+					}
+					break;
+				}
 				case "GLOBAL DRAWER": {
 					AddNewDeviceScreen addScreen = new AddNewDeviceScreen(testCase);
 					if (addScreen.clickOnCancelButtonOfAddDeviceScreen()) {
@@ -1553,6 +1762,23 @@ public class NavigateToScreen extends Keyword {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					flag = flag & dasDIY.isAddNewDeviceScreenVisible(20);
 					flag = flag & dasDIY.selectDeviceToInstall(screen.get(0));
+					break;
+				}
+				case "WEATHER FORECAST": {
+					WeatherForecastScreen w = new WeatherForecastScreen(testCase);
+					Dashboard d = new Dashboard(testCase);
+					if (d.isDashboardWeatherForecastDisplayed(10)) {
+						d.clickOnWeatherTempValue();
+						if (w.isWeatherScreenTitleDisplayed()) {
+							ReportStep_Pass(testCase, "Weather Forecast screen is displayed");
+						} else {
+							ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Weather Forecast screen is not displayed");
+						}
+					} else {
+						ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Weather Forecast icon is not displayed in dashboard screen");
+					}
 					break;
 				}
 				default: {
@@ -3572,6 +3798,7 @@ public class NavigateToScreen extends Keyword {
 			} else if (screen.get(1).equalsIgnoreCase("DAS SECURITY SETTINGS")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+				@SuppressWarnings("rawtypes")
 				TouchAction action = new TouchAction(testCase.getMobileDriver());
 				switch (screen.get(0).toUpperCase()) {
 				case "DASHBOARD": {
@@ -3585,7 +3812,8 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "SECURITY SOLUTION CARD": {
 					flag &= bs.clickOnBackButton();
-					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
+					flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase,
+							inputs.getInputValue("LOCATION1_DEVICE1_NAME"));
 					break;
 				}
 				case "ENHANCED DETERRENCE": {
@@ -3603,8 +3831,12 @@ public class NavigateToScreen extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= bs.clickonAboutSecurityModesoption();
 					flag &= bs.isSecurityModesHeader();
@@ -3679,6 +3911,159 @@ public class NavigateToScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Invalid Input : " + screen.get(0) + " for " + screen.get(1));
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("ADDRESS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "EDIT ADDRESS": {
+					AddressScreen ads = new AddressScreen(testCase);
+					if (ads.isEditAddressInAddressScreenVisible()) {
+						flag &= ads.clickOnEditAddressInAddressScreen();
+						if (ads.isEditAddressScreenTitleVisible() && ads.isBackButtonVisible()) {
+							Keyword.ReportStep_Pass(testCase, screen.get(1) + " displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to: " + screen.get(1));
+						}
+					}
+					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("EDIT ADDRESS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "EDIT ACCOUNT": {
+					AddressScreen ads = new AddressScreen(testCase);
+					GlobalDrawerScreen gds = new GlobalDrawerScreen(testCase);
+					EditAccountScreen eas = new EditAccountScreen(testCase);
+					if (ads.isBackButtonVisible()) {
+						flag &= ads.clickOnBackButton();
+						if (ads.isCancelLocationChangesPopupVisible() && ads.isCancelLocationChangesPopupMsgVisible()
+								&& ads.isNoButtonInCancelLocationChangesPopupVisible()
+								&& ads.isYesButtonInCancelLocationChangesPopupVisible()) {
+							flag &= ads.clickOnYesButtonInCancelLocationChangesPopup();
+							if (ads.isAddressScreenTitleVisible() && ads.isBackButtonVisible()) {
+								flag &= ads.clickOnBackButton();
+								if (gds.isEditAccountOptionVisible()) {
+									flag &= gds.clickEditAccountOption();
+									if (eas.isEditAccountScreenTitleVisible()) {
+										Keyword.ReportStep_Pass(testCase, screen.get(1) + " displayed");
+									} else {
+										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+												"Failed to navigate to: " + screen.get(1));
+									}
+								} else {
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Failed to display Edit Account option in Global Drawer");
+								}
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to display Address Screen");
+							}
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to display Cancel Location Popup");
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to display Back button in Edit Address screen");
+					}
+					break;
+				}
+				case "DASHBOARD": {
+					AddressScreen ads = new AddressScreen(testCase);
+					Dashboard d = new Dashboard(testCase);
+					if (ads.isBackButtonVisible()) {
+						flag &= ads.clickOnBackButton();
+						if (ads.isCancelLocationChangesPopupVisible() && ads.isCancelLocationChangesPopupMsgVisible()
+								&& ads.isNoButtonInCancelLocationChangesPopupVisible()
+								&& ads.isYesButtonInCancelLocationChangesPopupVisible()) {
+							flag &= ads.clickOnYesButtonInCancelLocationChangesPopup();
+							if (ads.isAddressScreenTitleVisible() && ads.isBackButtonVisible()) {
+								flag &= ads.clickOnBackButton();
+								if (ads.isBackButtonVisible()) {
+									flag &= ads.clickOnBackButton();
+									if (d.isAddDeviceIconVisible(10)
+											|| d.isAddDeviceIconBelowExistingDevicesVisible(1)) {
+										Keyword.ReportStep_Pass(testCase, screen.get(1) + " Screen is displayed");
+									} else {
+										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+												"Failed to display the screen: " + screen.get(1));
+									}
+								} else {
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Failed to display Back button in Global Drawer");
+								}
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to display Back button in Address Screen");
+							}
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to display Cancel Location Popup");
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to display Back button in Edit Address screen");
+					}
+					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("PRIVACY POLICY AND EULA")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "ABOUT THE APP": {
+					AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+					if (atas.isDoneButtonInPrivacyPolicyAndEULAScreenVisible()) {
+						flag &= atas.clickOnDoneButtonInPrivacyPolicyAndEULAScreen();
+						if (atas.isAboutTheAppScreenTitleVisible()
+								&& atas.isPrivacyPolicyAndEULAOptionInAboutTheAppVisible()) {
+							Keyword.ReportStep_Pass(testCase, screen.get(1) + " displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to: " + screen.get(1));
+						}
+					}
+					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("ACKNOWLEDGEMENTS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "ABOUT THE APP": {
+					AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						testCase.getMobileDriver().navigate().back();
+					} else {
+						if (atas.isDoneButtonInAcknowledgementsScreenVisible()) {
+							flag &= atas.clickOnDoneButtonInAcknowledgementsScreen();
+							if (atas.isAboutTheAppScreenTitleVisible()
+									&& atas.isAcknowledgementsOptionInAboutTheAppArrowVisible()) {
+								Keyword.ReportStep_Pass(testCase, screen.get(1) + " displayed");
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to navigate to: " + screen.get(1));
+							}
+						}
+					}
+					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("GET HELP")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "ABOUT THE APP": {
+					AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						testCase.getMobileDriver().navigate().back();
+					} else {
+						if (atas.isNavBackToHoneywellButtonInGetHelpScreenVisible()) {
+							flag &= atas.clickOnNavBackToHoneywellButtonInGetHelpScreen();
+							if (atas.isAboutTheAppScreenTitleVisible() && atas.isGetHelpOptionInAboutTheAppVisible()) {
+								Keyword.ReportStep_Pass(testCase, screen.get(1) + " displayed");
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Failed to navigate to: " + screen.get(1));
+							}
+						}
+					}
+					break;
 				}
 				}
 			} else {

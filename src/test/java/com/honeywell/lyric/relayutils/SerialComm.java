@@ -49,16 +49,17 @@ public class SerialComm extends Glv {
 
 	public static void main(String[] args) {
 		new SerialComm();
-		int count = 0;
-		//enrollSensor("ISMV");
+		// int count = 0;
+		// enrollSensor("ISMV");
 		enrollSensor("OSMV");
 
-		//SerialComm.Trigger("OSMV");
+		// SerialComm.Trigger("OSMV");
 
 	}
 
 	public static String recieveData(SerialPort port) {
 		dataRead = null;
+		@SuppressWarnings("resource")
 		Scanner data = new Scanner(port.getInputStream());
 		// while(usePort.bytesAvailable()<=0);
 		while (data.hasNextLine()) {

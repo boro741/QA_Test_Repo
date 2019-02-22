@@ -1,6 +1,6 @@
-@GenralGlobalDrawerUnderScenarios @Platform
-Feature: Genral global drawer under scenarios 
-	As a user I want to verify under global drawer scenaios 
+@GeneralGlobalDrawerUnderScenarios @Platform
+Feature: General global drawer under scenarios 
+	As a user I want to verify under global drawer scenaios
 	
 	
 #Single location with out any solution for UK Location
@@ -15,12 +15,12 @@ Then user should be displayed with the following "Global Drawer Without Solution
 | Home Header												|
 | Activity history											|
 | Add Users													|
-| Home Address												| 
-| Account Header												|
+| Address													| 
+| Account Header											|
 | Edit Account												|
 | About the app												|
 | FAQs														|
-| Logout														|
+| Logout													|
 #And user logs out of the app
 
 
@@ -36,7 +36,7 @@ Then user should be displayed with the following "Global Drawer Without Solution
 | Home Header												|
 | Activity history											|
 | Add Users													|
-| Home Address												| 
+| Address													| 
 | Account Header												|
 | Edit Account												|
 | About the app												|
@@ -57,7 +57,7 @@ Then user should be displayed with the following "Global Drawer With WLD Solutio
 | Home Header												|
 | Activity history											|
 | Add Users													|
-| Home Address												| 
+| Address													| 
 | Account Header												|
 | Edit Account												|
 | About the app												|
@@ -78,7 +78,7 @@ Then user should be displayed with the following "Global Drawer With WLD Solutio
 | Home Header												|
 | Activity history											|
 | Add Users													|
-| Home Address												| 
+| Address													| 
 | Account Header												|
 | Edit Account												|
 | About the app												|
@@ -99,7 +99,7 @@ Then user should be displayed with the following "Global Drawer With DAS C1 C2 S
 | Home Header										| 
 | Activity history									|
 | Add Users											|
-| Home Address										| 
+| Address											| 
 | Account Header										|
 | Honeywell Membership For Android					|
 | Edit Account										|
@@ -121,7 +121,7 @@ Then user should be displayed with the following "Global Drawer With DAS C1 C2 S
 | Home Header										| 
 | Activity history									|
 | Add Users											|
-| Home Address										| 
+| Address											| 
 | Account Header										|
 | Honeywell Membership For Android					|
 | Edit Account										|
@@ -144,7 +144,7 @@ Then user should be displayed with the following "Global Drawer With JASPER EMEA
 | Home Header										|
 | Activity history									|
 | Add Users											|
-| Home Address										| 
+| Address											| 
 | Account Header										|
 | Edit Account										|
 | About the app										|
@@ -166,7 +166,7 @@ Then user should be displayed with the following "Global Drawer With JASPER NA S
 | Home Header										| 
 | Activity history									|
 | Add Users											|
-| Home Address										| 
+| Address											| 
 | Account Header										|
 | Edit Account										|
 | About the app										|
@@ -274,7 +274,7 @@ And user should be displayed with the following "Geofence this location" options
 
 #Geofence this location disabled and enabled when location serivce off 
 #Requirements : single location with jasperNA or JapserEMEA or C1 or C2 or DAS or all the solutions  with out Geofence 
-@GenralGlobalDrawerGoefnecedisabledEnablewhileDIYwhenlocationserviceoff				@NotAutomatable			@--xrayid:ATER-68224
+@GeneralGlobalDrawerGoefnecedisabledEnablewhileDIYwhenlocationserviceoff				@NotAutomatable			@--xrayid:ATER-68224
 Scenario Outline: As a user I want to verify the disabled and enabled geofence option when location service off under global drawer when configued solution with out geofence enable
 Given user launches and logs in to the Lyric Application
 And user turn off the "Location service" on the phone
@@ -311,7 +311,7 @@ Examples:
 
 #Geofence this location Permission pop up Dismiss
 #Requirements : single location with jasperNA or JapserEMEA or C1 or C2 or DAS  or all the solutions  with out Geofence 
-@GenralGlobalDrawerGoefnecedisabledEnablewhileDIYwhenlocationpermissionoffDismiss				@NotAutomatable			@--xrayid:ATER-68225
+@GeneralGlobalDrawerGoefnecedisabledEnablewhileDIYwhenlocationpermissionoffDismiss				@NotAutomatable			@--xrayid:ATER-68225
 Scenario Outline: As a user I want to verify the disabled and enabled geofence option when location permission off under global drawer when configued solution with out geofence enable
 Given user launches and logs in to the Lyric Application
 And user turn off the "locaiton permission" on the phone
@@ -336,7 +336,7 @@ Examples:
 
 #Geofence this location Permission pop up show me how
 #Requirements : single location with jasperNA or JapserEMEA or C1 or C2 or DAS  or all the solutions  with out Geofence 
-@GenralGlobalDrawerGoefnecedisabledEnablewhileDIYwhenlocationpermissionoffshowmehow				@NotAutomatable			@--xrayid:ATER-68226
+@GeneralGlobalDrawerGoefnecedisabledEnablewhileDIYwhenlocationpermissionoffshowmehow				@NotAutomatable			@--xrayid:ATER-68226
 Scenario Outline: As a user I want to verify the disabled and enabled geofence option when location permission off -- show me how , under global drawer when configued solution with out geofence enable
 Given user launches and logs in to the Lyric Application
 And user turn off the "locaiton permission" on the phone
@@ -378,7 +378,7 @@ Examples:
 
 #Geofence this location Permission pop up Go to settings
 #Requirements : single location with jasperNA or JapserEMEA or C1 or C2 or DAS  or all the solutions  with out Geofence 
-@GenralGlobalDrawerGoefnecedisabledEnablewhileDIYwhenlocationpermissionoffGoToSettings				@NotAutomatable			@--xrayid:ATER-68227
+@GeneralGlobalDrawerGoefnecedisabledEnablewhileDIYwhenlocationpermissionoffGoToSettings				@NotAutomatable			@--xrayid:ATER-68227
 Scenario Outline: As a user I want to verify the disabled and enabled geofence option when location permission off -- Go to settings , under global drawer when configued solution with out geofence enable
 Given user launches and logs in to the Lyric Application
 And user turn off the "locaiton permission" on the phone
@@ -415,7 +415,7 @@ Examples:
 #				 -- GeofenceSet.feature	 
 #Geofence Alert 
 #Requirements : single location with jasperNA or JapserEMEA or C1 or C2 or DAS  or all the solutions  with out Geofence 
-@GenralGlobalDrawerVerifyPushNotificationWhenGeofenceAlertIsEnabledAndDisabled				@Automated			@--xrayid:ATER-67861
+@GeneralGlobalDrawerVerifyPushNotificationWhenGeofenceAlertIsEnabledAndDisabled				@Automated			@--xrayid:ATER-67861
 Scenario Outline: As a user I want to verify if push notification is received when geofence alert toggle is enabled
 Given user has <Mode> system mode
 And user thermostat is set to "geofence based" schedule
@@ -445,13 +445,6 @@ Examples:
 | Heat	| Home			| UserArrived  	| Away			| UserDeparted	|
 #| Cool	| UserArrived  	| Home			| Away			| UserDeparted	|
 
-
-@GeneralGlobalDrawerLoginWithProductionEnv			@Automated
-Scenario: Verify Geofence Screen after login
-Given user launches and logs in to the Lyric Application
-And user navigates to "Global Drawer" screen from the "Dashboard" screen 
-When user selects "Geofence" from "Global Drawer" screen
-Then user should be displayed with the "Geofence Settings" screen
 
 #ActivityHistory
 #Requirements : single location with out any solution 
@@ -551,7 +544,7 @@ Then "deleted message" should not be displayed in the "Activity History" screen
 
 #Activity history Edit select all message  with all solutions
 #Requirements : single location with jasperNA or JapserEMEA or WLD or C1 or C2 or DAS or all the solutions  and trigged all the events 
-@GenralGlobalDrawerWithSolutionActivityHistoryDeleteAllMessages				@Automated			@--xrayid:ATER-67864
+@GeneralGlobalDrawerWithSolutionActivityHistoryDeleteAllMessages				@Automated			@--xrayid:ATER-67864
 Scenario: As a user i want to delete all messages from Activity history with jasperNA or JapserEMEA or C1 or C2 or DAS or all the solutions
 Given user launches and logs in to the Lyric Application
 When user navigates to "Activity History" screen from the "Dashboard" screen
@@ -598,35 +591,39 @@ When user selects "Delete" from "Activity History" screen
 Then user should be displayed with "No Messages label in Activity History screen"
 #And user logs out of the app
 
-#InviteUsers
+#ManageUsers
 #Requirements : single location with and with out any solution 
-@GenralGlobalDrawerAddDeleteUsersFromInviteList				@Automated			@--xrayid:ATER-67865
-Scenario Outline: As a user i want to Verify invite user functionality by adding and removing a user from invite list
+@GeneralGlobalDrawerAddDeleteUsersFromInviteList				@Automated	@--xrayid:ATER-67865  @NeedsToBeUpdated
+Scenario Outline: As a user I want to Verify invite user functionality by adding and removing a user from invite list
 Given user launches and logs in to the Lyric Application
-When user navigates to "Invite User" screen from the "Dashboard" screen
-And user inputs <invite users email address> in "Email Text Field" in the "Invite User" screen
+When user navigates to "Invite New User" screen from the "Dashboard" screen
+And user inputs <invite users email address> in "Email Text Field" in the "Invite New User" screen
 Then user should be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
 | das_stage5@grr.la		|
 When user logs out and logs in to the Lyric Application with <invite users email address>
-Then user navigates to "Add Users" screen from the "Dashboard" screen
+Then user navigates to "Manage Users" screen from the "Dashboard" screen
 And user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
 | das_stage5@grr.la		|
 Then user should be displayed with the following "Invited Users" options:
 | InvitedUsersList						|
 | User who invited the logged in user	|
+When user navigates to "Activity History" screen from the "Invite New Users" screen
+Then user should be displayed with the following "Activity History" options:
+| ActivityHistoryOptions						|
+| Invitation message for the Invited user	|
 #And user logs out of the app
 #When user launches and logs in to the Lyric Application
 When user logs out and logs in to the Lyric Application with "logged in users account"
-Then user navigates to "Add Users" screen from the "Dashboard" screen
+Then user navigates to "Manage Users" screen from the "Dashboard" screen
 And user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList	|
 | Logged in user		|
 Then user should be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
 | das_stage5@grr.la		|
-When user deletes the <invite users email address> from "Add Users" screen
+When user deletes the <invite users email address> from "Manage Users" screen
 Then user should receive a "Confirm Access Removal" popup
 And user "Clicks on Remove in" the "Confirm Access Removal" popup
 Then user should not be displayed with the following "Invited Users" options:
@@ -634,28 +631,29 @@ Then user should not be displayed with the following "Invited Users" options:
 | das_stage5@grr.la		|
 And user should be displayed with "No Invited Users label"
 When user logs out and logs in to the Lyric Application with <invite users email address>
-Then user navigates to "Add Users" screen from the "Dashboard" screen
+Then user navigates to "Manage Users" screen from the "Dashboard" screen
 And user should be displayed with "No Invited Users label"
 #And user logs out of the app
 
 Examples:
-| invite users email address		|
+| invite users email address	|
 | das_stage5@grr.la				|
 
 
 #Requirements : single location with and with out any solution and user should be invited 
-@GeneralGlobalDrawerInviteUserWithLoggedInUserEmail				@Automated			@--xrayid:ATER-67866
+@GeneralGlobalDrawerInviteUserWithLoggedInUserEmail				@Automated			@--xrayid:ATER-67866  @NeedsToBeUpdated
 Scenario: As a user i want to Verify if error message displays when logged in users email address in Add Users
 Given user launches and logs in to the Lyric Application
-When user navigates to "Add Users" screen from the "Dashboard" screen
+When user navigates to "Manage Users" screen from the "Dashboard" screen
 Then user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList	|
 | Logged in user		|
-When user navigates to "Invite User" screen from the "Add Users" screen
-Then user inputs "Logged in users email address" in "Email Text Field" in the "Invite User" screen
-And user should receive a "User already added to this account error" popup
-Then user "Clicks on OK in" the "User already added to this account error" popup
-When user navigates to "Add Users" screen from the "Invite User" screen
+When user navigates to "Invite New User" screen from the "Manage Users" screen
+Then user inputs "Logged in users email address" in "Email Text Field" in the "Invite New User" screen
+#And user should receive a "User already added to this account error" popup
+Then user should receive an error message as "User already added to this account error"
+#Then user "Clicks on OK in" the "User already added to this account error" popup
+When user navigates to "Manage Users" screen from the "Invite New User" screen
 Then user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList	|
 | Logged in user		|
@@ -663,20 +661,20 @@ Then user should not be displayed with the following "Invited Users" options:
 
 
 #Requirements : single location with and with out any solution and user should be invited 
-@GeneralGlobalDrawerInviteUserWithAlreadyInvitiedUsersEmail					@Automated			@--xrayid:ATER-67867
+@GeneralGlobalDrawerInviteUserWithAlreadyInvitiedUsersEmail			@Automated		@--xrayid:ATER-67867   @NeedsToBeUpdated
 Scenario Outline: As a user i want to Verify if error message displays when already existing invited users email address is entered in Add Users 
 Given user launches and logs in to the Lyric Application
-When user navigates to "Invite User" screen from the "Dashboard" screen
+When user navigates to "Invite New User" screen from the "Dashboard" screen
 And user inputs <invite users email address> in "Email Text Field" in the "Invite User" screen
 Then user should be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
 | das_stage5@grr.la		|
-When user navigates to "Invite User" screen from the "Add Users" screen
-And user inputs <invite users email address> in "Email Text Field" in the "Invite User" screen
-Then user should receive a "User already added to this account error" popup
-And user "Clicks on OK in" the "User already added to this account error" popup
-When user navigates to "Add Users" screen from the "Invite User" screen
-And user deletes the <invite users email address> from "Add Users" screen
+When user navigates to "Invite New User" screen from the "Manage Users" screen
+And user inputs <invite users email address> in "Email Text Field" in the "Invite New User" screen
+Then user should receive an error message as "User already added to this account error"
+#And user "Clicks on OK in" the "User already added to this account error" popup
+When user navigates to "Manage Users" screen from the "Invite New User" screen
+And user deletes the <invite users email address> from "Manage Users" screen
 Then user should receive a "Confirm Access Removal" popup
 And user "Cancels" the "Confirm Access Removal" popup
 Then user should be displayed with the following "Invited Users" options:
@@ -684,7 +682,7 @@ Then user should be displayed with the following "Invited Users" options:
 | das_stage5@grr.la		|
 When user deletes the <invite users email address> from "Add Users" screen
 Then user should receive a "Confirm Access Removal" popup
-And user "Clicks on Remove in" the "Confirm Access Removal" popup
+And user "Clicks on OK in" the "Confirm Access Removal" popup
 Then user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
 | das_stage5@grr.la		|
@@ -694,456 +692,869 @@ Examples:
 | invite users email address		|
 | das_stage5@grr.la				|
 
-      #Requirements : Single location with and with out any solution
-      @GeneralGlobalDrawerInvitNewUser				@NotAutomatable			@--xrayid:ATER-68240
-      Scenario Outline: As a user i want to verifry invite new user and with out activation the account user should not receive any alerts
-       Given user launches and logs in to the Lyric Application
-     When user navigates to "Invite User" screen from the "Dashboard" screen
-      Then user inputs <invite users email address> in "Email Text Field" in the "Invite User" screen
-     And user should be displayed with the following "Invited Users" options:
-      | InvitedUsersList  | 
-      | new account|
-      When user navigates to "New user" Eamil account
-      Then user trigger the events 
-      And new user should not be receive events mail
-      Then user should be displayed with invited mail 
-      When new user downlaod the app or open the app
-      Then user Activated accunt
-      And user should be displayed with invited location details
-      Examples:
-      |invite users email address |
-      |New account |
+#Requirements : Single location with and with out any solution
+@GeneralGlobalDrawerInvitNewUser				@NotAutomatable		@--xrayid:ATER-68240
+Scenario Outline: As a user i want to verify invite new user and with out activation the account user should not receive any alerts
+Given user launches and logs in to the Lyric Application
+When user navigates to "Invite New User" screen from the "Dashboard" screen
+Then user inputs <invite users email address> in "Email Text Field" in the "Invite New User" screen
+And user should be displayed with the following "Invited Users" options:
+| InvitedUsersList  | 
+| new account|
+When user navigates to "New user" Email account
+Then user trigger the events 
+And new user should not be receive events mail
+Then user should be displayed with invited mail 
+When new user download the app or open the app
+Then user Activated account
+And user should be displayed with invited location details
+Examples:
+|invite users email address |
+|New account |
 
   
-  #HomeAddress
+#HomeAddress
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerClearFieldsInEditAddressAndVerifyPlaceholdersTextDisplayed             @Automated			@--xrayid:ATER-68241
+Scenario: As a user i want to Verify placeholder text displayed for each field in Edit Address screen
+Given user launches and logs in to the Lyric Application
+When user navigates to "Address" screen from the "Dashboard" screen
+Then user should be displayed with the "Address" screen
+When user navigates to "Edit Address" screen from the "Address" screen 
+Then user should be displayed with the following "Edit Address" options:
+| EditAddressOptions			| 
+| Location Name Header		| 
+| Location Name Text Field	| 
+| Address Header				| 
+| Address Text Field			| 
+| City Text Field			| 
+| State Text Field			| 
+| Postal Code Text Field		| 
+| Change Country				|
+And the following "Edit Address" options should be disabled:
+| EditAddressOptions		|
+| Save					|
+When user clears the text displayed in the following text fields in the "Edit Address" screen:
+| TextFieldsInEditAddressScreen		|
+| Location Name Text Field			|
+| Address Text Field					| 
+| City Text Field					| 
+| State Text Field					| 
+| Postal Code Text Field				|
+Then user should be displayed with the placeholder text for the following fields in "Edit Address" screen:
+| TextFieldsInEditAddressScreen		|
+| Location Name Text Field			|
+| Address Text Field					| 
+| City Text Field					| 
+| State Text Field					| 
+| Postal Code Text Field				|
+
+ 
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerCancelsTheAddressLocationChanges             @Automated			@--xrayid:ATER-68242
+Scenario Outline: As a user i want to verify the app behavior by canceling the address location changes
+Given user launches and logs in to the Lyric Application
+When user navigates to "Address" screen from the "Dashboard" screen
+Then user should be displayed with the "Address" screen
+When user navigates to "Edit Address" screen from the "Address" screen 
+Then user should be displayed with the following "Edit Address" options:
+| EditAddressOptions			| 
+| Location Name Header		| 
+| Location Name Text Field	| 
+| Address Header				| 
+| Address Text Field			| 
+| City Text Field			| 
+| State Text Field			| 
+| Postal Code Text Field		| 
+| Change Country				|
+And the following "Edit Address" options should be disabled:
+| EditAddressOptions		|
+| Save					|
+When user inputs <Location Name> in "Location Name Text Field" in the "Edit Address" screen
+And the following "Edit Address" options should be enabled:
+| EditAddressOptions		|
+| Save					|
+When user inputs <Address> in "Address Text Field" in the "Edit Address" screen
+And the following "Edit Address" options should be enabled:
+| EditAddressOptions		|
+| Save					|
+When user inputs <City> in "City Text Field" in the "Edit Address" screen
+And the following "Edit Address" options should be enabled:
+| EditAddressOptions		|
+| Save					|
+When user inputs <State> in "State Text Field" in the "Edit Address" screen
+And the following "Edit Address" options should be enabled:
+| EditAddressOptions		|
+| Save					|
+When user inputs <Postal Code> in "Postal Code Text Field" in the "Edit Address" screen
+Then the following "Edit Address" options should be enabled:
+| EditAddressOptions		|
+| Save					|
+When user clicks on the back arrow in the "Edit Address" screen
+Then user should receive a "Cancel Location Changes" popup
+When user "dismisses" the "Cancel Location Changes" popup
+Then user should be displayed with the "Edit Address" screen
+And user should be displayed with <Location Name> in the "Location Name Text Field in Edit Address" screen
+And user should be displayed with <Address> in the "Address Text Field in Edit Address" screen
+And user should be displayed with <City> in the "City Text Field in Edit Address" screen
+And user should be displayed with <State> in the "State Text Field in Edit Address" screen
+And user should be displayed with <Postal Code> in the "Postal Code Text Field in Edit Address" screen
+When user clicks on the back arrow in the "Edit Address" screen
+Then user should receive a "Cancel Location Changes" popup
+When user "accepts" the "Cancel Location Changes" popup
+Then user should be displayed with the "Address" screen
+And user should be displayed with "Location Name" in the "Address" screen
+And user should be displayed with "Location Address" in the "Address" Screen
+
+Examples: 
+| Location Name	| Address	| City		| State		| Postal Code	| 
+| Warehouse		| Appleton	| Niagara	| New York	| 14008			| 
+
+  
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerVerifyUpdatedExistingAddress            @Automated			@--xrayid:ATER-68244
+Scenario Outline: As a user i want to verify if updated address is displayed after saving it
+Given user launches and logs in to the Lyric Application
+When user navigates to "Address" screen from the "Dashboard" screen
+Then user should be displayed with the "Address" screen
+When user navigates to "Edit Address" screen from the "Address" screen 
+Then user should be displayed with the following "Edit Address" options:
+| EditAddressOptions			| 
+| Location Name Header		| 
+| Location Name Text Field	| 
+| Address Header				| 
+| Address Text Field			| 
+| City Text Field			| 
+| State Text Field			| 
+| Postal Code Text Field		| 
+| Change Country				|
+And the following "Edit Address" options should be disabled:
+| EditAddressOptions		|
+| Save					|
+When user inputs <Address> in "Address Text Field" in the "Edit Address" screen
+And the following "Edit Address" options should be enabled:
+| EditAddressOptions		|
+| Save					|
+When user inputs <City> in "City Text Field" in the "Edit Address" screen
+And the following "Edit Address" options should be enabled:
+| EditAddressOptions		|
+| Save					|
+When user inputs <State> in "State Text Field" in the "Edit Address" screen
+And the following "Edit Address" options should be enabled:
+| EditAddressOptions		|
+| Save					|
+When user inputs <Postal Code> in "Postal Code Text Field" in the "Edit Address" screen
+Then the following "Edit Address" options should be enabled:
+| EditAddressOptions		|
+| Save					|
+When user selects "Save button" from "Edit Address" screen
+Then user should be displayed with the "Address" screen
+And user should be displayed with "Location Name" in the "Address" screen
+And user should be displayed with <Country> in the "Address" screen
+And user should be displayed with <State> in the "Address" screen
+And user should be displayed with <Postal Code> in the "Address" screen
+And user should be displayed with the following "Address" options:
+| AddressOptions				|
+| Edit Address Label			|
+| Delete Location Option		|
+
+Examples: 
+| Address	| City		| State		| Postal Code	| 
+| Nazdar		| Shawnee	| Kansas		| 66203			|
+  
+  
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerVerifyIfExistingAddressIsDisplayedWhenNavFromEditAddressWithoutUpdatingAddress             @Automated			@--xrayid:ATER-68246
+Scenario: As a user i want to verify if existing address is displayed when navigated from edit address screen without updating the address
+Given user launches and logs in to the Lyric Application
+When user navigates to "Address" screen from the "Dashboard" screen
+Then user should be displayed with the "Address" screen
+When user navigates to "Edit Address" screen from the "Address" screen 
+Then user should be displayed with the following "Edit Address" options:
+| EditAddressOptions			| 
+| Location Name Header		| 
+| Location Name Text Field	| 
+| Address Header				| 
+| Address Text Field			| 
+| City Text Field			| 
+| State Text Field			| 
+| Postal Code Text Field		| 
+| Change Country				|
+And the following "Edit Address" options should be disabled:
+| EditAddressOptions		|
+| Save					|
+When user clicks on the back arrow in the "Edit Address" screen
+Then user should be displayed with the "Address" screen
+And user should be displayed with "Location Name" in the "Address" screen
+And user should be displayed with "Location Address" in the "Address" Screen
+
+
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerEditAddressEditWithNewCountryStateAndZipcode             @Automated			@--xrayid:ATER-68247
+Scenario Outline: As a user i want to verify if address is getting saved when country is changed and saved by entering state and zip code
+Given user launches and logs in to the Lyric Application
+When user navigates to "Address" screen from the "Dashboard" screen
+Then user should be displayed with the "Address" screen
+When user navigates to "Edit Address" screen from the "Address" screen 
+Then user should be displayed with the following "Edit Address" options:
+| EditAddressOptions			| 
+| Location Name Header		| 
+| Location Name Text Field	| 
+| Address Header				| 
+| Address Text Field			| 
+| City Text Field			| 
+| State Text Field			| 
+| Postal Code Text Field		| 
+| Change Country				|
+And the following "Edit Address" options should be disabled:
+| EditAddressOptions		|
+| Save					|
+When user selects "Change Country" from "Edit Address" screen
+Then user should be displayed with the "Please confirm your country" screen
+When user inputs <Country> in "Search Text Field" in the "Please confirm your country" screen
+Then user should be displayed with the "Edit Address" screen
+And user should be displayed with the following "Address Fields For The Selected Country" options:
+| AddressFieldsForTheSelectedCountry		| 
+| Location Name Header					| 
+| Location Name Text Field				| 
+| Address Header							| 
+| Address Text Field						| 
+| City Text Field						| 
+| State Text Field						| 
+| Postal Code Text Field					| 
+| Change Country							|
+And the following "Edit Address" options should be disabled:
+| EditAddressOptions		|
+| Save					|
+When user inputs <State> in "State Text Field" in the "Edit Address" screen
+And the following "Edit Address" options should be disabled:
+| EditAddressOptions		|
+| Save					|
+When user inputs <Postal Code> in "Postal Code Text Field" in the "Edit Address" screen
+Then the following "Edit Address" options should be enabled:
+| EditAddressOptions		|
+| Save					|
+When user selects "Save button" from "Edit Address" screen
+Then user should be displayed with the "Address" screen
+And user should be displayed with "Location Name" in the "Address" screen
+And user should be displayed with <Country> in the "Address" screen
+And user should be displayed with <State> in the "Address" screen
+And user should be displayed with <Postal Code> in the "Address" screen
+And user should be displayed with the following "Address" options:
+| AddressOptions				|
+| Edit Address Label			|
+| Delete Location Option		|
+
+Examples: 
+| Country	| State				| Postal Code	| 
+#| Argentina	| Buenos Aires		| 1865			| 
+| Australia	| QLD				| 4822			| 
+#| Austria	| Vienna				| 1000			| 
+#| Belgium	| Brussels			| 1040			| 
+#| Brazil		| Amapa				| 68950-000		| 
+#| Bulgaria	| Plovdiv			| 4000			| 
+#| Canada		| ON					| M5H 2N2		| 
+#| Chile		| Santiago			| 8320000		| 
+#| China		| Beijing			| 100000			| 
+#| Colombia	| Antioquia			| 055038			|
+
+
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerEditAddressEditWithNewCountryStateAndInvalidZipcode             @Automated		@--xrayid:ATER-72295
+Scenario Outline: As a user i want to verify if address is getting saved when country is changed and saved by entering state and invalid zip code
+Given user launches and logs in to the Lyric Application
+When user navigates to "Address" screen from the "Dashboard" screen
+Then user should be displayed with the "Address" screen
+When user navigates to "Edit Address" screen from the "Address" screen 
+Then user should be displayed with the following "Edit Address" options:
+| EditAddressOptions			| 
+| Location Name Header		| 
+| Location Name Text Field	| 
+| Address Header				| 
+| Address Text Field			| 
+| City Text Field			| 
+| State Text Field			| 
+| Postal Code Text Field		| 
+| Change Country				|
+And the following "Edit Address" options should be disabled:
+| EditAddressOptions		|
+| Save					|
+When user selects "Change Country" from "Edit Address" screen
+Then user should be displayed with the "Please confirm your country" screen
+When user inputs <Country> in "Search Text Field" in the "Please confirm your country" screen
+Then user should be displayed with the "Edit Address" screen
+And user should be displayed with the following "Address Fields For The Selected Country" options:
+| AddressFieldsForTheSelectedCountry		| 
+| Location Name Header					| 
+| Location Name Text Field				| 
+| Address Header							| 
+| Address Text Field						| 
+| City Text Field						| 
+| State Text Field						| 
+| Postal Code Text Field					| 
+| Change Country							|
+And the following "Edit Address" options should be disabled:
+| EditAddressOptions		|
+| Save					|
+When user inputs <State> in "State Text Field" in the "Edit Address" screen
+And the following "Edit Address" options should be disabled:
+| EditAddressOptions		|
+| Save					|
+When user inputs <Invalid Postal Code> in "Postal Code Text Field" in the "Edit Address" screen
+Then the following "Edit Address" options should be enabled:
+| EditAddressOptions		|
+| Save					|
+When user selects "Save button" from "Edit Address" screen
+Then user should receive a "Invalid Zipcode" popup
+When user "dismisses" the "Invalid Zipcode" popup
+Then user should be displayed with the "Edit Address" screen 
+When user inputs <Postal Code> in "Postal Code Text Field" in the "Edit Address" screen
+Then the following "Edit Address" options should be enabled:
+| EditAddressOptions		|
+| Save					|
+When user selects "Save button" from "Edit Address" screen
+Then user should be displayed with the "Address" screen
+And user should be displayed with "Location Name" in the "Address" screen
+And user should be displayed with <Country> in the "Address" screen
+And user should be displayed with <State> in the "Address" screen
+And user should be displayed with <Postal Code> in the "Address" screen
+And user should be displayed with the following "Address" options:
+| AddressOptions				|
+| Edit Address Label			|
+| Delete Location Option		|
+	
+Examples: 
+| Country	| State				| Invalid Postal Code	| Postal Code	| 
+| Argentina	| Buenos Aires		| 055038					| 1865			| 
+#| Australia	| QLD				| 100000					| 4822			| 
+#| Austria	| Vienna				| 8320000				| 1000			| 
+#| Belgium	| Brussels			| M5H 2N2				| 1040			| 
+#| Brazil		| Amapa				| 4000					| 68950-000		| 
+#| Bulgaria	| Plovdiv			| 68950-000				| 4000			| 
+#| Canada		| ON					| 1040					| M5H 2N2		| 
+#| Chile		| Santiago			| 1000 					| 8320000		| 
+#| China		| Beijing			| 4822 					| 100000			| 
+#| Colombia	| Antioquia			| 1865					| 055038			|
+
+  
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerAddressValidateMaxCharsInLocationName             @Automated			@--xrayid:ATER-68248
+Scenario Outline: As a user i want to verify max characters that can be entered in Location name text field in Edit Address screen
+Given user launches and logs in to the Lyric Application
+When user navigates to "Address" screen from the "Dashboard" screen
+Then user should be displayed with the "Address" screen
+When user navigates to "Edit Address" screen from the "Address" screen
+When user inputs <max characters> in "Location Name Text Field" in the "Edit Address" screen
+Then user should not be allowed to enter more than "30" characters in "Location Name" in the "Edit Address" screen
+When user selects "Save button" from "Edit Address" screen
+Then user should be displayed with the "Address" screen
+And user should be displayed with "Updated Location Name" in the "Address" screen
+And user should be displayed with "Location Address" in the "Address" Screen
+When user navigates to "Edit Address" screen from the "Address" screen
+When user inputs "Previous value" in "Location Name Text Field" in the "Edit Address" screen
+And user selects "Save button" from "Edit Address" screen
+Then user should be displayed with the "Address" screen
+And user should be displayed with "Location Name" in the "Address" screen
+And user should be displayed with "Location Address" in the "Address" Screen
+
+Examples:
+| max characters                   	|
+| This is to test max character		|
+| This is to test max characters		|
+| This is to test max characterss	|
+  
+
+@GeneralGlobalDrawerAddressVerifyIfSpecialCharactersAreAllowedInLocationName             @Automated			@--xrayid:ATER-69066
+Scenario: As a user i want to verify is special characters can be saved in Location name text field in Edit Address screen 
+Given user launches and logs in to the Lyric Application
+When user navigates to "Address" screen from the "Dashboard" screen
+Then user should be displayed with the "Address" screen
+When user navigates to "Edit Address" screen from the "Address" screen
+When user inputs "special characters" in "Location Name Text Field" in the "Edit Address" screen
+Then user should not be displayed with "special characters" in "Location Name Text Field" in the "Edit Address" screen
+And user selects "Save button" from "Edit Address" screen
+Then user should be displayed with the "Address" screen
+And user should be displayed with "Location Name Without Special Characters" in the "Address" screen
+And user should be displayed with "Location Address" in the "Address" Screen
+When user navigates to "Edit Address" screen from the "Address" screen
+When user inputs "Previous value" in "Location Name Text Field" in the "Edit Address" screen
+And user selects "Save button" from "Edit Address" screen
+Then user should be displayed with the "Address" screen
+And user should be displayed with "Location Name" in the "Address" screen
+And user should be displayed with "Location Address" in the "Address" Screen
+
+
+#Enter space before and after location name
+@GeneralGlobalDrawerAddressVerifyIfEmptySpacesAreAllowedInLocationName             @Automated		@--xrayid:ATER-69067
+Scenario: As a user i want to verify is empty space can be saved in Location name text field in Edit Address screen
+Given user launches and logs in to the Lyric Application
+When user navigates to "Address" screen from the "Dashboard" screen
+Then user should be displayed with the "Address" screen
+When user navigates to "Edit Address" screen from the "Address" screen
+When user inputs "empty spaces" in "Location Name Text Field" in the "Edit Address" screen
+Then user selects "Save button" from "Edit Address" screen
+And user should receive a "Name Must Start With Letter or Number" popup
+When user "accepts" the "Name Must Start With Letter or Number" popup
+And user should be displayed with "Location Name With empty spaces" in the "Edit Address" screen
+When user clicks on the back arrow in the "Edit Address" screen
+Then user should receive a "Cancel Location Changes" popup
+When user "accepts" the "Cancel Location Changes" popup
+Then user should be displayed with the "Address" screen
+And user should be displayed with "Location Name" in the "Address" screen
+And user should be displayed with "Location Address" in the "Address" Screen
+  
+
+#Requirements : single location with out any solution
+@GeneralGlobalDrawerAddressDeleteLocationWithoutAnySoultion            @Automated		@--xrayid:ATER-69069
+Scenario Outline: As a user i want to Verify delete location for an account without any solution
+Given user launches and logs in to the Lyric application
+When user selects "Smart Home Security" from "Add New Device" screen
+Then user should be displayed with the "What To Expect" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects "Create New Location" from "Choose Location" screen
+Then user should be displayed with the "Create Location" screen
+When user inputs <new location name> in the "Create Location" screen
+Then user should be displayed with the "Confirm Your ZIP Code" screen
+When user inputs <valid zip code>
+Then user should be displayed with the "Name Your Base Station" screen
+When user "cancels the set up" by clicking on "cancel" button
+Then user should receive a "Cancel Setup" popup
+When user "accepts" the "Cancel Setup" popup
+Then user should be displayed with the "Add New Device Dashboard" screen
+When user clicks on the back arrow in the <Current Screen> screen
+Then user should be displayed with the <Previous Screen> screen
+And user "deletes default location details" by clicking on "delete" button
+    
+Examples: 
+| new location name		| valid zip code		| Current Screen					| Previous Screen	|
+| California				| 90001				| Add New Device Dashboard		| Dashboard			|
+
+  
+#Requirements : single location with any solution
+@GeneralGlobalDrawerAddressDeleteLocationWithAnySoultion             @Automated		@--xrayid:ATER-74327			#PendingForAutomation
+Scenario: As a user i want to Verify if error popup displays when tapped on delete location for an account with any solution
+Given user launches and logs in to the Lyric Application
+When user navigates to "Address" screen from the "Dashboard" screen
+Then user should be displayed with the "Address" screen
+When user "deletes location" by clicking on "Delete Location" button
+Then user should receive a "Delete Location" popup
+When user "Clicks on NO in" the "Delete Location" popup
+Then user should be displayed with the "Address" screen
+When user "deletes location" by clicking on "Delete Location" button
+Then user should receive a "Delete Location" popup
+When user "Clicks on YES in" the "Delete Location" popup
+Then user should be displayed with "Device is associated with account error" popup
+When user "accepts" the "Device is associated with account error" popup
+Then user should be displayed with the "Address" screen
+
+  
+#Requirements : Two location with out any solution
+@GeneralGlobalDrawerAddressDeletingMultipleLocationsWithoutAnySolution            @Automated			@--xrayid:ATER-69070
+Scenario Outline: As a user i want to verify if user is navigated to other locations dashboard when a location is deleted for an account without any solution
+Given user launches and logs in to the Lyric application
+When user selects "Smart Home Security" from "Add New Device" screen
+Then user should be displayed with the "What To Expect" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects "Create New Location" from "Choose Location" screen
+Then user should be displayed with the "Create Location" screen
+When user inputs <first location name> in the "Create Location" screen
+Then user should be displayed with the "Confirm Your ZIP Code" screen
+When user inputs <valid first locations zip code>
+Then user should be displayed with the "Name Your Base Station" screen
+When user "cancels the set up" by clicking on "cancel" button
+Then user should receive a "Cancel Setup" popup
+When user "accepts" the "Cancel Setup" popup
+Then user should be displayed with the "Add New Device Dashboard" screen
+When user selects "Smart Home Security" from "Add New Device" screen
+Then user should be displayed with the "What To Expect" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects "Create New Location" from "Choose Location" screen
+Then user should be displayed with the "Create Location" screen
+When user inputs <second location name> in the "Create Location" screen
+Then user should be displayed with the "Confirm Your ZIP Code" screen
+When user inputs <valid second locations zip code>
+Then user should be displayed with the "Name Your Base Station" screen
+When user "cancels the set up" by clicking on "cancel" button
+Then user should receive a "Cancel Setup" popup
+When user "accepts" the "Cancel Setup" popup
+Then user should be displayed with the "Add New Device Dashboard" screen
+When user clicks on the back arrow in the <Current Screen> screen
+Then user should be displayed with the <Previous Screen> screen
+#And user "deletes the existing location details" by clicking on "delete" button
+And user "deletes location details" by clicking on "delete" button
+Then user should be displayed with the "Dashboard" screen
+And user "deletes the existing location details" by clicking on "delete" button
+    
+Examples: 
+| first location name	| valid first locations zip code		| second location name	| valid second locations zip code		| Current Screen					| Previous Screen	|
+| California				| 90001								|  Texas					| 90002									| Add New Device Dashboard		| Dashboard			|
+
+  
+#@GeneralGlobalDrawerWithsolutiondeleteoption
+#@GeneralGlobalDrawerHomeaddressfieldvalidationwitherror
+#@GeneralGlobalDrawerCityfieldvalidatinmaxcharecters
+#@GeneralGlobalDrawerCityfieldvalidatinwitherror
+#@GeneralGlobalDrawerStatefieldvalidation
+#@GeneralGlobalDrawerStatefieldvalidationerror
+#@GeneralGlobalDrawerZipCodevalication
+#@GeneralGlobalDrawerZipCodevalicationwitherror
+
+  
+#Edit Account
+#Edit first name last name
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerEditAccountUpdateFirstNameAndLastName         @Automated	@--xrayid:ATER-69076   @NeedsToBeUpdated
+Scenario Outline: As a user i want to Verify if updated first name and last name is getting saved
+Given user launches and logs in to the Lyric Application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+#When user inputs <first name> in "First Name Text Field" in the "Edit Account" screen
+#Then user inputs <last name> in "Last Name Text Field" in the "Edit Account" screen
+Then user should be displayed with the following "Edit Account" options:
+|EditAccountOptions|
+|Name              |
+|Email			   |
+|Change Password   |
+|Delete Account    |
+|Use Passcode	   |
+And user should be displayed with the "First and Last Name" in "Edit Account" screen
+And user should be displayed with the "Logged in Email" in "Edit Account" screen
+#And user selects "Save button" from "Edit Account" screen
+Then user selects "Name" from "Edit Account" screen
+Then user should be displayed with the "Name Edit Account" screen
+Then user should be displayed with the following "Name Edit Account" options:
+|NameEditAccountOptions|
+|First Name			   |
+|Last Name			   |
+|Save button		   |
+Then user should be displayed with the "Save button" as disabled
+Then user should update the "First Name and Last Name" in the "Name Edit Account" screen
+Then user selects "Save button" from "Name Edit Account" screen
+Then user should be displayed with the "Edit Account" screen
+#Then user should be displayed with the "Global Drawer" screen
+#And user navigates to "Edit Account" screen from the "Global Drawer" screen
+Then user should be displayed with "updated first name" in the "Edit Account" screen
+Then user should be displayed with "updated last name" in the "Edit Account" screen
+
+Examples: 
+| first name | last name | 
+| giri       | THEJ      | 
+#| sami       | krishna   | 
+#| vijay      | Govda     | 
+#| anju       | Chandran   | 
+  
+
+#Edit first name last name with error
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerEditAccountErrorMsgWhenExistingFirstNameIsCleared    @Automated	@--xrayid:ATER-69079   @InvalidScenario
+Scenario: As a user i want to Verify if error message is displayed when tried to save account without first name 
+Given user launches and logs in to the Lyric Application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user clears the text displayed in the following text fields in the "Edit Account" screen:
+| TextFieldsInEditAccountScreen		|
+| First Name Text Field				|
+And user selects "Save button" from "Edit Account" screen
+Then user should receive a "First Name is required" popup
+When user "Clicks on OK in" the "First Name is required" popup
+Then user should be displayed with the "Edit Account" screen
+When user clicks on the back arrow in the "Edit Account" screen
+Then user should be displayed with the "Global Drawer" screen
+And user navigates to "Edit Account" screen from the "Global Drawer" screen
+Then user should be displayed with "existing first name" in the "Edit Account" screen
+And user should be displayed with "existing last name" in the "Edit Account" screen
+
+  
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerEditAccountErrorMsgWhenExistingLastNameIsCleared   @Automated	@--xrayid:ATER-69080   @InvalidScenario
+Scenario: As a user i want to Verify if error message is displayed when tried to save account without last name 
+Given user launches and logs in to the Lyric Application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user clears the text displayed in the following text fields in the "Edit Account" screen:
+| TextFieldsInEditAccountScreen		|
+| Last Name Text Field				|
+And user selects "Save button" from "Edit Account" screen
+Then user should receive a "Last Name is required" popup
+When user "Clicks on OK in" the "Last Name is required" popup
+Then user should be displayed with the "Edit Account" screen
+When user clicks on the back arrow in the "Edit Account" screen
+Then user should be displayed with the "Global Drawer" screen
+And user navigates to "Edit Account" screen from the "Global Drawer" screen
+Then user should be displayed with "existing first name" in the "Edit Account" screen
+And user should be displayed with "existing last name" in the "Edit Account" screen
+
+
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerEditAccountDisabledAndEnabledSaveButtonWhenFirstNameIsCleared    @Automated	@--xrayid:ATER-69081  @NeedsToBeUpdated
+Scenario: As a user i want to Verify if save button gets enabled when first name text field is cleared
+Given user launches and logs in to the Lyric Application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+Then user selects "Name" from "Edit Account" screen
+Then user should be displayed with the "Name Edit Account" screen
+Then user should be displayed with the following "Name Edit Account" options:
+|NameEditAccountOptions|
+|First Name			   |
+|Last Name			   |
+|Save button		   |
+Then user should be displayed with the "Save button" as disabled
+When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
+| TextFieldsInEditAccountScreen		|
+| First Name Text Field				|
+And the following "Name Edit Account" options should be disabled:
+| NameEditAccountOptions	| 
+| Save					    |
+When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
+| TextFieldsInEditAccountScreen		|
+| Last Name Text Field				|
+Then the following "Edit Account" options should be disabled:
+| EditAccountOptions		| 
+| Save						|
+Then user clicks on the back arrow in the "Name Edit Account" screen
+Then user should be displayed with "Cancel Name Changes" popup
+And user selects "No button" in the "Cancel Name Changes" popup
+Then user should be displayed with "Name Edit Account" screen without any changes
+Then user clicks on the back arrow in the "Name Edit Account" screen
+Then user should be displayed with "Cancel Name Changes" popup
+And user selects "Yes button" in the "Cancel Name Changes" popup
+Then user should be displayed with "Edit Account" screen
+Then user should be displayed with "existing first name" in the "Edit Account" screen
+And user should be displayed with "existing last name" in the "Edit Account" screen
+
+#Then user should receive a "First Name is required" popup
+#When user "Clicks on OK in" the "First Name is required" popup
+#Then user should be displayed with the "Edit Account" screen
+#Then the following "Edit Account" options should be enabled:
+#| EditAccountOptions		| 
+#| Save					|
+#When user clicks on the back arrow in the "Edit Account" screen
+#Then user should be displayed with the "Global Drawer" screen
+#And user navigates to "Edit Account" screen from the "Global Drawer" screen
+#Then user should be displayed with "existing first name" in the "Edit Account" screen
+#And user should be displayed with "existing last name" in the "Edit Account" screen
+
+
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerEditAccountDisabledAndEnabledSaveButtonWhenLastNameIsCleared   @Automated	@--xrayid:ATER-74334  @AlreadyCoveredInTheAboveScenario
+Scenario: As a user i want to Verify if save button gets enabled when last name text field is cleared
+Given user launches and logs in to the Lyric Application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+And the following "Edit Account" options should be disabled:
+| EditAccountOptions		| 
+| Save					|
+When user clears the text displayed in the following text fields in the "Edit Account" screen:
+| TextFieldsInEditAccountScreen		|
+| Last Name Text Field				|
+Then the following "Edit Account" options should be enabled:
+| EditAccountOptions		| 
+| Save					|
+And user selects "Save button" from "Edit Account" screen
+Then user should receive a "Last Name is required" popup
+When user "Clicks on OK in" the "Last Name is required" popup
+Then user should be displayed with the "Edit Account" screen
+Then the following "Edit Account" options should be enabled:
+| EditAccountOptions		| 
+| Save					|
+When user clicks on the back arrow in the "Edit Account" screen
+Then user should be displayed with the "Global Drawer" screen
+And user navigates to "Edit Account" screen from the "Global Drawer" screen
+Then user should be displayed with "existing first name" in the "Edit Account" screen
+And user should be displayed with "existing last name" in the "Edit Account" screen
+
+
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerEditAccountValidateMaxCharsInFirstNameAndLastNameTxtFields  @Automated @--xrayid:ATER-69082 @NeedsToBeUpdated
+Scenario Outline: As a user i want to verify max characters that can be entered in first name and last name text fields in Edit Account screen
+Given user launches and logs in to the Lyric Application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+Then user selects "Name" from "Edit Account" screen
+Then user should be displayed with the "Name Edit Account" screen
+Then user should be displayed with the following "Name Edit Account" options:
+|NameEditAccountOptions|
+|First Name			   |
+|Last Name			   |
+|Save button		   |
+When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
+| TextFieldsInEditAccountScreen		|
+| First Name Text Field				|
+When user inputs <max characters> in "First Name Text Field" in the "Name Edit Account" screen
+And user should not be allowed to enter more than "40" characters in "First Name" in the "Name Edit Account" screen
+When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
+| TextFieldsInEditAccountScreen		|
+| Last Name Text Field				|
+And user inputs <max characters> in "Last Name Text Field" in the "Name Edit Account" screen
+Then user should not be allowed to enter more than "40" characters in "Last Name" in the "Edit Account" screen
+And user selects "Save button" from "Name Edit Account" screen
+Then user should be displayed with the "Edit Account" screen
+#When user navigates to "Edit Account" screen from the "Global Drawer" screen
+Then user should be displayed with the "Updated First Name and Last Name" in the "Edit Account" screen
+#When user inputs "Previous value" in "First Name Text Field" in the "Edit Account" screen
+#And user inputs "Previous value" in "Last Name Text Field" in the "Edit Account" screen
+#And user selects "Save button" from "Edit Account" screen
+#Then user should be displayed with the "Global Drawer" screen
+#When user navigates to "Edit Account" screen from the "Global Drawer" screen
+#Then user should be displayed with "existing first name" in the "Edit Account" screen
+#And user should be displayed with "existing last name" in the "Edit Account" screen
+
+Examples:
+| max characters                   			|
+| Test maxm characters limit 40 character	|
+| Test maxm characters limit 40 characters	|
+| Test maxm characters limit 40 characterss	|
+
+  
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerEditAccountValidateSpecialCharsInFirstNameAndLastNameTxtFields  @Automated  @--xrayid:ATER-69083  @NeedsToBeUpdated
+Scenario: As a user i want to Verify if special characters can be saved in first name and last name text fields in Edit Account screen
+Given user launches and logs in to the Lyric Application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+Then user selects "Name" from "Edit Account" screen
+Then user should be displayed with the "Name Edit Account" screen
+Then user should be displayed with the following "Name Edit Account" options:
+|NameEditAccountOptions|
+|First Name			   |
+|Last Name			   |
+|Save button		   |
+When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
+| TextFieldsInEditAccountScreen		|
+| First Name Text Field				|
+When user inputs "special characters" in "First Name Text Field" in the "Name Edit Account" screen
+When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
+| TextFieldsInEditAccountScreen		|
+| Last Name Text Field				|
+And user inputs "special characters" in "Last Name Text Field" in the "Edit Account" screen
+And user selects "Save button" from "Name Edit Account" screen
+Then user should be displayed with the "Edit Account" screen
+#When user navigates to "Edit Account" screen from the "Global Drawer" screen
+Then user should be displayed with "updated first name" in the "Edit Account" screen
+And user should be displayed with "updated last name" in the "Edit Account" screen
+#When user inputs "Previous value" in "First Name Text Field" in the "Edit Account" screen
+#And user inputs "Previous value" in "Last Name Text Field" in the "Edit Account" screen
+#And user selects "Save button" from "Edit Account" screen
+#Then user should be displayed with the "Global Drawer" screen
+#When user navigates to "Edit Account" screen from the "Global Drawer" screen
+#Then user should be displayed with "existing first name" in the "Edit Account" screen
+#And user should be displayed with "existing last name" in the "Edit Account" screen
+  
+
+#Change Password in Edit Account Screen
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerEditAccountUpdatePassword    @Automated	 @--xrayid:ATER-69084	@NeedsToBeUpdated
+Scenario: As a user i want to Verify update password functionality in Edit Account screen
+Given user launches and logs in to the Lyric Application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Change Password" from "Edit Account" screen
+Then user should be displayed with the "Change Password" screen
+Then the following "Change Password" options should be enabled:
+| ChangePasswordOptions		| 
+| Save						|
+When user inputs "Valid Old Password" in "Old Password Text Field" in the "Change Password" screen
+And user inputs "Valid New Password Format" in "New Password Text Field" in the "Change Password" screen
+And user inputs "Valid Verify New Password Format" in "Verify New Password Text Field" in the "Change Password" screen
+And user selects "Save button" from "Change Password" screen
+Then user should be displayed with the "Honeywell Home" screen
+When user logs in to the Lyric Application with "updated password"
+And user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Change Password" from "Edit Account" screen
+Then user should be displayed with the "Change Password" screen
+Then the following "Change Password" options should be enabled:
+| ChangePasswordOptions		| 
+| Save						|
+When user inputs "Updated Old Password" in "Old Password Text Field" in the "Change Password" screen
+And user inputs "Previous New Password Format Value" in "New Password Text Field" in the "Change Password" screen
+And user inputs "Previous Verify New Password Format Value" in "Verify New Password Text Field" in the "Change Password" screen
+And user selects "Save button" from "Change Password" screen
+Then user should be displayed with the "Honeywell Home" screen
+When user logs in to the Lyric Application with "previous password"
+Then user navigates to "Edit Account" screen from the "Dashboard" screen
+And user should be displayed with the "Edit Account" screen
+
+
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerEditAccountChangePwdValidationWhenTappedOnSaveWithoutEnteringAnyText    @Automated	@--xrayid:ATER-69085  @NoUpdateRequired
+Scenario: Change password screen validations when user taps on Save button without entering text in Old Password, New Password and Verify New Password text fields
+Given user launches and logs in to the Lyric Application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Change Password" from "Edit Account" screen
+Then user should be displayed with the "Change Password" screen
+When user selects "Save button" from "Change Password" screen
+Then user should be displayed with "You must enter your password" error message in the "Old Password text field" in the "Change Password" screen
+And user should be displayed with "You must enter your new password" error message in the "New Password text field" in the "Change Password" screen
+
+
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerEditAccountChangePwdValidationWhenIncorrectOldPwdIsEntered  @Automated @--xrayid:ATER-69086 @NeedsToBeUpdated
+Scenario: Change password screen validations when user taps on Save button by entering incorrect Old Password, valid New Password and Verify New Password text fields
+Given user launches and logs in to the Lyric Application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Change Password" from "Edit Account" screen
+Then user should be displayed with the "Change Password" screen
+When user inputs "Incorrect Old Password" in "Old Password Text Field" in the "Change Password" screen
+And user inputs "Valid New Password Format" in "New Password Text Field" in the "Change Password" screen
+And user inputs "Valid Verify New Password Format" in "Verify New Password Text Field" in the "Change Password" screen
+And user selects "Save button" from "Change Password" screen
+Then user should be displayed with "Old Password is Invalid" error message in the "Old Password text field" in the "Change Password" screen
+
+
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerEditAccountChangePwdValidationWhenInvalidNewPwdIsEntered  @Automated @--xrayid:ATER-69087 @NeedsToBeUpdated
+Scenario: Change password screen validations when user taps on Save button by entering valid Old Password, invalid New Password and Verify New Password text fields
+Given user launches and logs in to the Lyric Application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Change Password" from "Edit Account" screen
+Then user should be displayed with the "Change Password" screen
+When user inputs "Valid Old Password" in "Old Password Text Field" in the "Change Password" screen
+And user inputs "Invalid New Password Format" in "New Password Text Field" in the "Change Password" screen
+And user inputs "Invalid Verify New Password Format" in "Verify New Password Text Field" in the "Change Password" screen
+And user selects "Save button" from "Change Password" screen
+Then user should be displayed with "Passwords dont match" error message in the "New Password Text Field" in the "Change Password" screen
+
+
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerEditAccountChangePwdValidationWithBlankVerifyNewPwd  @Automated	@--xrayid:ATER-74348  @NoUpdateRequired
+Scenario: Change password screen validations when user taps on Save button by entering valid Old Password, valid New Password and skip Verify New Password text fields
+Given user launches and logs in to the Lyric Application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Change Password" from "Edit Account" screen
+Then user should be displayed with the "Change Password" screen
+When user inputs "Valid Old Password" in "Old Password Text Field" in the "Change Password" screen
+And user inputs "Valid New Password Format" in "New Password Text Field" in the "Change Password" screen
+And user selects "Save button" from "Change Password" screen
+Then user should be displayed with "You must enter your verify password" error message in the "Verify New Password Text Field" in the "Change Password" screen
+
+ 
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerEditAccountChangePwdValidationWhenNewAndVerifyNewPwdDoesNotMatch   @Automated @--xrayid:ATER-69088 @NeedsToBeUpdated
+Scenario: Change password screen validations when user taps on Save button by entering valid Old Password, different text in New Password and Verify New Password text fields
+Given user launches and logs in to the Lyric Application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Change Password" from "Edit Account" screen
+Then user should be displayed with the "Change Password" screen
+When user inputs "Valid Old Password" in "Old Password Text Field" in the "Change Password" screen
+And user inputs "Valid New Password Format" in "New Password Text Field" in the "Change Password" screen
+And user inputs "Invalid Verify New Password Format" in "Verify New Password Text Field" in the "Change Password" screen
+And user selects "Save button" from "Change Password" screen
+Then user should be displayed with "Passwords do not match" error message in the "New Password text field" in the "Change Password" screen
+When user inputs "InValid New Password Format" in "New Password Text Field" in the "Change Password" screen
+And user inputs "Valid Verify New Password Format" in "Verify New Password Text Field" in the "Change Password" screen
+And user selects "Save button" from "Change Password" screen
+Then user should be displayed with "Passwords dont match" error message in the "New Password text field" in the "Change Password" screen
+
+  
+  #Same as above
   #Requirements : single location with and with out any solution
-  @GenralGlobalDrawerHomeAddressfieldsclearthetextandvalidation             @Automatable			@--xrayid:ATER-68241
-  Scenario: As a user i want to Verify the empty field text validation
-    Given user launches and logs in to the Lyric Application
-     When user Navigates to "Home Address" screen from the "Dashboard" screen
-     Then user should be displayed with “Home Address” header with location name
-     Then user should be displayed with "Existing Address" details 
-     When user navigates to "Edit Address" screen from "Home Address" screen 
-      And user should displayed with following field "Existing Address" details of "Edit Address" options :
-      | Edit Address           | 
-      | Location Name          | 
-      | Edit Box Location name | 
-      | Address                | 
-      | Edit Box Address       | 
-      | Edit Box City          | 
-      | Edit Box state         | 
-      | Edit Box Zipcode       | 
-      | Country Change?        | 
-      And user should displayed with disabled "SAVE" button
-     When user clear the following "Edit Address" fields: 
-      | Edit Address           | 
-      | Location Name          | 
-      | Edit Box Location name | 
-      | Address                | 
-      | Edit Box Address       | 
-      | Edit Box City          | 
-      | Edit Box state         | 
-      | Edit Box Zipcode       | 
-      And user should be displayed with in location edit box “Example : Home, cabin, office” text
-      And user should be displayed with in Address edit box “Address” text
-      And user should be displayed with in City edit box “City” text
-      And user should be displayed with in State edit box “state” text
-      And user should be displayed with in zip code edit box “zip code” text
-  
-  #Requirements : single location with and with out any solution
-  @GenralGlobalDrawerHomeAddressEditWithoutsavingWithandwithoutsolutionVerification             @Automatable			@--xrayid:ATER-68242
-  Scenario: As a user i want to Verify with out saving Edit existing address under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-     When user Navigates to "Home Address" screen from the "Dashboard" screen
-     Then user should be displayed with “Home Address” header with location name
-     Then user should be displayed with "Existing Address" details 
-     When user navigates to "Edit Address" screen from "Home Address" screen 
-      And user should displayed with following field "Existing Address" details of "Edit Address" options :
-      | Edit Address           | 
-      | Location Name          | 
-      | Edit Box Location name | 
-      | Address                | 
-      | Edit Box Address       | 
-      | Edit Box City          | 
-      | Edit Box stat          | 
-      | Edit Box Zipcode       | 
-      | Country Change?        | 
-      And user should displayed with disabled "SAVE" button
-     When user enter the following "Edit Address" fields: 
-      | Edit Address           | 
-      | Location Name          | 
-      | Edit Box Location name | 
-      | Address                | 
-      | Edit Box Address       | 
-      | Edit Box City          | 
-      | Edit Box stat          | 
-      | Edit Box Zipcode       | 
-      And user should be displayed with enabled "SAVE"  button
-     When user selects " BACK" button 
-     Then user should displayed with "Cancel Location Changes?" pop up 
-     When user "dismiss" the "Cancel Location Changes?" pop up 
-     Then user selects " BACK" button 
-     Then user should displayed with "Cancel Location Changes?" pop up 
-     When user "Accepts" the "Cancel Location Changes?" pop up 
-     Then user should navigates to "Home Address" screen
-      And user "Existing Address" should not be updated
-  
-  #Requirements : single location with and with out any solution
-  @GenralGlobalDrawerHomeAddressEditWithsavingWithandwithoutsolutionVerification            @Automatable			@--xrayid:ATER-68244
-  Scenario: As a user i want to Verify with saving Edit existing address under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-     When user Navigates to "Home Address" screen from the "Dashboard" screen
-     Then user should be displayed with "Exisiting Address" details 
-     When user navigates to "Edit Address" screen from "Home Address" screen 
-      And user should be displayed with following field "Exisiting Address" details of "Edit Address" options :
-      | Edit Address           | 
-      | Location Name          | 
-      | Edit Box Location name | 
-      | Address                | 
-      | Edit Box Address       | 
-      | Edit Box City          | 
-      | Edit Box stat          | 
-      | Edit Box Zipcode       | 
-      | Country Change?        | 
-      And user should displayed with disabled "SAVE" button
-     When user Edits the following "Edit Address" fields: 
-      | Edit Address           | 
-      | Location Name          | 
-      | Edit Box Location name | 
-      | Address                | 
-      | Edit Box Address       | 
-      | Edit Box City          | 
-      | Edit Box stat          | 
-      | Edit Box Zipcode       | 
-      And user should be displayed with enabled "SAVE"  button
-     When user selects "SAVE" button 
-     Then user should navigates to "Home Address" screen from "Edit Address" screen 
-      And user should be displayed with updated "Existing Address" details 
-  
-  #Requirements : single location with and with out any solution
-  @GenralGlobalDrawerHomeAddressWithoutEditWithandwithoutsolutionVerification             @Automatable			@--xrayid:ATER-68246
-  Scenario: As a user i want to Verify Cancel Location Changes? with out Edit existing address under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-     When user Navigates to "Home Address" screen from the "Dashboard" screen
-     Then user should be displayed with "Existing Address" details 
-     When user navigates to "Edit Address" screen from "Home Address" screen 
-      And user should displayed with following field "Existing Address" details of "Edit Address" options :
-      | Edit Address           | 
-      | Location Name          | 
-      | Edit Box Location name | 
-      | Address                | 
-      | Edit Box Address       | 
-      | Edit Box City          | 
-      | Edit Box stat          | 
-      | Edit Box Zipcode       | 
-      | Country Change?        | 
-     Then user should navigates to "Home Address" screen
-      And user should be displayed with "Existing Address" should not be updated
-  
-  #Requirements : single location with and with out any solution
-  @GenralGlobalDrawerHomeAddressEditwithchangecountryWithandwithoutsolutionVerification             @Automatable			@--xrayid:ATER-68247
-  Scenario Outline: As a user i want to Verify Edit existing address with change country under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-     When user Navigates to "Home Address" screen from the "Dashboard" screen
-     Then user should be displayed with "Exisitng Address" details 
-     When user navigates to "Edit Address" screen from "Home Address" screen 
-      And user should be displayed with following field "Exisiting Address" details of "Edit Address" options :
-      | Edit Address           | 
-      | Location Name          | 
-      | Edit Box Location name | 
-      | Address                | 
-      | Edit Box Address       | 
-      | Edit Box City          | 
-      | Edit Box stat          | 
-      | Edit Box Zipcode       | 
-      | Country Change?        | 
-     Then user should navigates to "Home Address" screen
-      And user should be displayed with disabled "SAVE" button
-     When user selects "Change Country?" button 
-     Then user should navigates to "Please confirm your country" screen 
-     When  user selects the <New Country> 
-     Then user navigates to "Edit Address" screen with following "Edit Address" fields "Empty"
-      | Edit Address           | 
-      | Location Name          | 
-      | Edit Box Location name | 
-      | Address                | 
-      | Edit Box Address       | 
-      | Edit Box City          | 
-      | Edit Box stat          | 
-      | Edit Box Zipcode       | 
-      And user should be displayed updated with <New Country> above "Change country" button 
-      And user should displayed with disabled "SAVE" button
-     When user Edits the following "Edit Address" fields: 
-      | Edit Address           | 
-      | Location Name          | 
-      | Edit Box Location name | 
-      | Address                | 
-      | Edit Box Address       | 
-      | Edit Box City          | 
-      | Edit Box <State>       | 
-      | Edit Box <Zipcode>     | 
-      And user should be displayed with enabled "SAVE"  button
-     When user selects "SAVE" button 
-     Then user should navigates to "Home Address" screen from "Edit Address" screen 
-      And user should be displayed with updated "Existing Address" details 
-    Examples: 
-      | New Country | State | ZipCode | 
-      | Argentina   |       |         | 
-      | Australia   |       |         | 
-      | Austria     |       |         | 
-      | Belgium     |       |         | 
-      | Brazil      |       |         | 
-      | Bulgaria    |       |         | 
-      | Canada      |       |         | 
-      | Chile       |       |         | 
-      | Chine       |       |         | 
-      | Colombia    | NY    | 11787   | 
-  
-  #Requirements : single location with and with out any solution
-  @GenralGlobalDrawerHomeAddressEditwithmaxalphanumericwithLocationname             @Automatable			@--xrayid:ATER-68248
-  Scenario: As a user i want to Verify Edit existing address with change country under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-     When user Navigates to "Home Address" screen from the "Dashboard" screen
-     Then user should be displayed with "Existing Address" details 
-     When user navigates to "Edit Address" screen from "Home Address" screen 
-     Then “Location Name” should allow to enter max 30 alphanumeric
-     When user selects "SAVE" button 
-     Then user should navigates to "Home Address" screen from "Edit Address" screen 
-      And user should be displayed with updated "Existing Address" details 
-  
-  @GenralGlobalDrawerHomeAddressEditwithspecialcharactorlocationname             @Automatable			@--xrayid:ATER-69066
-  Scenario: As a user i want to Verify Edit existing address with special characters under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-     When user Navigates to "Home Address" screen from the "Dashboard" screen
-     Then user should be displayed with "Existing Address" details 
-     When user navigates to "Edit Address" screen from "Home Address" screen 
-     Then “Location Name” should not allow to enter special characters
-     When user selects "SAVE" button 
-     Then user should navigates to "Home Address" screen from "Edit Address" screen 
-      And user should be displayed with updated "Existing Address" details 
-  
-  @GenralGlobalDrawerHomeaddressEditwithoutstartandendwithalphabeticorumeric             @Automatable			@--xrayid:ATER-69067
-  Scenario: As a user i want to Verify Edit existing address with social characters under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-     When user Navigates to "Home Address" screen from the "Dashboard" screen
-     Then user should be displayed with "Existing Address" details 
-     When user navigates to "Edit Address" screen from "Home Address" screen 
-     Then “Location Name” should be edits <Update>
-     When user selects "SAVE" button 
-     Then user should be displayed with “Name must start and end with a letter or number” error pop up
-     When user selects “OK” option
-     Then user should be navigates to “Edit Address” screen 
-  
-  #@GenralGlobalDrawerHomeaddressfieldvalidationwitherror
-  #@GenralGlobalDrawerCityfieldvalidatinmaxcharecters
-  #@GenralGlobalDrawerCityfieldvalidatinwitherror
-  #@GenralGlobalDrawerStatefieldvalidation
-  #@GenralGlobalDrawerStatefieldvalidationerror
-  #@GenralGlobalDrawerZipCodevalication
-  #@GenralGlobalDrawerZipCodevalicationwitherror
-  
-  #Requirements : single location with out any solution             @Automatable
-  @GenralGlobalDrawerHomeAddressDeleteLocationWithandwithoutsolutionVerification            @Automatable		@--xrayid:ATER-69069
-  Scenario: As a user i want to Verify delete location under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "Home Address" screen from the "Dashboard" screen
-     When user selects "Delete Location" button 
-     Then user should dispaly with "Delete Location?" pop up 
-     When user "dismiss" the "Delete Location?" pop up
-     Then user should be displayed with "HomeAddress" screen 
-     When user selects "Delete Location" button 
-     Then user should dispaly with "Delete Location?" pop up 
-     When user "accepts" the "Delete Location?" pop up
-     Then user navigates to "ADD New Device" screen 
-  
-  #Requirements : Two location with out any solution             @Automatable
-  @GenralGlobalDrawerHomeAddressDeleteLocationWithandwithoutsolutionVerification            @Automatable		@--xrayid:ATER-69070
-  Scenario: As a user i want to Verify delete location under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "Home Address" screen from the "Dashboard" screen of "Location1" 
-     When user selects "Delete Location" button 
-     Then user should dispaly with "Delete Location?" pop up 
-     When user "dismiss" the "Delete Location?" pop up
-     Then user should be displayed with "HomeAddress" screen 
-     When user selects "Delete Location" button 
-     Then user should dispaly with "Delete Location?" pop up 
-     When user "accepts" the "Delete Location?" pop up
-     Then user navigates to "Dashboard" screen of  "Location2" 
-  
-  #@GenralGlobalDrawerWithsolutiondeleteoption
-  
-  #Edit Account 
-  
-  # Edit first name last name
-  
-  #Requirements : single location with and with out any solution
-  @GenralGlobaldrawerEditAccountFirstandlastnameupdate             @Automatable		@--xrayid:ATER-69076
-  Scenario Outline: As a user i want to Verify Edit first name and last name in Edit account  under  global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-     Then navigates to "Edit Account" screen from "Dashboard" screen 
-      And user should be displayed with "Edit box" field with "Exists" details 
-      And user should be displayed with Disabled "SAVE" button 
-     When the user edits the <first name> and <last name>
-     Then user should displayed with enabled "SAVE button"
-     When user selects "SAVE" button
-     Then user navigates to "Global Drawer" screen
-     When user navigates to "Edit Account" screen from "Global Drawer" screen 
-     Then the first name and last name should get updated 
-    Examples: 
-      | first name | last name | 
-      | giri       | THEJ      | 
-      | sami       | krishna   | 
-      | vijay      | Govda     | 
-      | anju       | sweets    | 
-  
-  #Edit first name last name with error
-  
-  #Requirements : single location with and with out any solution
-  @GenralGlobaldrawerEditAccountFirstandlastnameupdatewitherrror             @Automatable		@--xrayid:ATER-69077
-  Scenario: As a user i want to Verify save with error first name and last name in Edit account  under  global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-     Then navigates to "Edit Account" screen from "Dashboard" screen 
-      And user should be displayed with "Edit box" field with "Exists" details 
-      And user should be displayed with Disabled "SAVE" button 
-     When the user clears the “first name” and “last name”
-     Then user should displayed with enabled "SAVE button"
-     When user selects "SAVE" button
-     Then user should be displayed with “The First and Last Name field is required” error pop up
-  
-  #Requirements : single location with and with out any solution
-  @GenralGlobaldrawerEditAccountFirstandlastnameupdatewitherrror             @Automatable		@--xrayid:ATER-69079
-  Scenario: As a user i want to Verify save with error first name in Edit account  under  global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-     Then navigates to "Edit Account" screen from "Dashboard" screen 
-      And user should be displayed with "Edit box" field with "Exists" details 
-      And user should be displayed with Disabled "SAVE" button 
-     When the user clear the “First name”
-     Then user should displayed with enabled "SAVE button"
-     When user selects "SAVE" button
-     Then user should be displayed with “The First Name field is required” error pop up 
-  
-  #Requirements : single location with and with out any solution
-  @GenralGlobaldrawerEditAccountFirstandlastnameupdatewitherrror             @Automatable		@--xrayid:ATER-69080
-  Scenario: As a user i want to Verify save with error last name in Edit account  under  global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-     Then navigates to "Edit Account" screen from "Dashboard" screen 
-      And user should be displayed with "Edit box" field with "Exists" details 
-      And user should be displayed with Disabled "SAVE" button 
-     When the user clear the “Last name”
-     Then user should displayed with enabled "SAVE button"
-     When user selects "SAVE" button
-     Then user should be displayed with “The Last Name field is required” error pop up 
-  
-  #Requirements : single location with and with out any solution
-  @GenralGlobaldrawerEditAccountFirstandlastnameupdatewitherrror             @Automatable		@--xrayid:ATER-69081
-  Scenario: As a user i want to Verify save with error first name in Edit account  under  global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-     Then navigates to "Edit Account" screen from "Dashboard" screen 
-      And user should be displayed with "Edit box" field with "Exists" details 
-      And user should be displayed with Disabled "SAVE" button 
-     When the user clear the “First name”
-     Then user should displayed with enabled "SAVE button"
-     When user selects "SAVE" button
-     Then user should be displayed with “The First Name field is required” error pop up 
-  
-  #Requirements : single location with and with out any solution
-  @GenralGlobaldrawerEditAccountFirstandlastnameupdatewitherrror             @Automatable		@--xrayid:ATER-69082
-  Scenario: As a user i want to Verify save with error first name in Edit account  under  global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-     Then navigates to "Edit Account" screen from "Dashboard" screen 
-      And user should be displayed with "Edit box" field with "Exists" details 
-      And user should be displayed with Disabled "SAVE" button 
-     When the user edits the “First name” and “Last name”
-     Then “First Name” and “Last Name” should allow to edit max 40 characters.
-     Then user should displayed with enabled "SAVE button"
-     When user selects "SAVE" button
-     Then user navigates to "Global Drawer" screen
-     When user navigates to "Edit Account" screen from "Global Drawer" screen 
-     Then the first name and last name should get updated
-  
-  #Requirements : single location with and with out any solution
-  @GenralGlobaldrawerEditAccountFirstandlastnameupdatewitherrror             @Automatable		@--xrayid:ATER-69083
-  Scenario: As a user i want to Verify save with error first name in Edit account  under  global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-     Then navigates to "Edit Account" screen from "Dashboard" screen 
-      And user should be displayed with "Edit box" field with "Exists" details 
-      And user should be displayed with Disabled "SAVE" button 
-     When the user edits the “First name” and “Last name”
-     Then “First Name” and “Last Name” should allow to edit max 40 characters
-      And “First Name” and “Last Name” should allow to enter special characters
-     Then user should displayed with enabled "SAVE button"
-     When user selects "SAVE" button
-     Then user navigates to "Global Drawer" screen
-     When user navigates to "Edit Account" screen from "Global Drawer" screen 
-     Then the first name and last name should get updated
-  
-  #Password change
-  
-  #Requirements : single location with and with out any solution
-  @GenralGlobaldrawerEditAccountChangepassword             @Automatable		@--xrayid:ATER-69084
-  Scenario Outline: As a user i want to Verify change password  under  global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-     Then navigates to "change password" screen from "Dashboard" screen 
-     When user navigates "Change password" screen from "Edit Account" screen 
-     Then user should be displayed with “Change Password” header with “Edit account” text
-     Then user should be displayed with disabled "SAVE" button
-     When user enters the <Old password> < New password> <Verify New password> edit fields
-     Then user should be displayed with enabled "SAVE" button 
-      And user should navigates to "Login" screen
-      And user should "login" with <Verify New password>
-    Examples: 
-      | Old password   | New password   | Verify new password | 
-      | Valid password | Valid password | Valid password      | 
-  
-  #change password with error
-  
-  #Requirements : single location with and with out any solution
-  @GenralGlobaldrawerChangepasswordwithoutenteringSAVEoption             @Automatable		@--xrayid:ATER-69085
-  Scenario: As a user i want to Verify change password  with error under  global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-     Then navigates to “Edit Account” screen from "Dashboard" screen 
-     When user navigates "Change password" screen from "Edit Account" screen 
-     Then user selects "SAVE" button
-      And user should be displayed with below “Old password” edit box text “You must enter your password” with red color
-      And user should be displayed with below “New Password” edit box text “You must enter your new password” with red color
-      And user should be displayed with “SAVE” option disabled
-  
-  #Requirements : single location with and with out any solution
-  @GenralGlobaldrawerChangepasswordwitholdpasswordwrong             @Automatable		@--xrayid:ATER-69086
-  Scenario: As a user i want to Verify change password  with error under  global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-     Then navigates to “Edit Account” screen from "Dashboard" screen 
-     When user navigates "Change password" screen from "Edit Account" screen 
-     Then user enter the wrong “Old Password” 
-      And user enters with “Valid New Password” and “Verify New Password” 
-     When user selects the “SAVE” option
-     Then user should be displayed with “Old password is invalid” text below “Old password” edit box with red color
-      And user should be displayed with “SAVE” option disabled
-  
-  #Requirements : single location with and with out any solution
-  @GenralGlobaldrawerChangepasswordwitholdpasswordInvalid             @Automatable		@--xrayid:ATER-69087
-  Scenario: As a user i want to Verify change password  with error under  global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-     Then navigates to “Edit Account” screen from "Dashboard" screen 
-     When user navigates "Change password" screen from "Edit Account" screen 
-     Then user enter the invalid “Old Password” 
-      And user enters with “Valid New Password” and “Verify New Password” 
-     When user selects the “SAVE” option
-     Then user should be displayed with “Invalid Password Format” text below “Old password” edit box with red color
-  
-  #Requirements : single location with and with out any solution
-  @GenralGlobaldrawerChangepasswordwithinvalidNewpasswordandverifyPassword             @Automatable		@--xrayid:ATER-69088
-  Scenario: As a user i want to Verify change password  with error under  global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-     Then navigates to “Edit Account” screen from "Dashboard" screen 
-     When user navigates "Change password" screen from "Edit Account" screen 
-     Then user enter the valid “Old Password” 
-      And user enters with “invalid New Password” and “valid Verify New Password” 
-     When user selects the “SAVE” option
-     Then user should be displayed with “Invalid Password Format” text below “New Password” edit box with red color
-  
-  #Requirements : single location with and with out any solution
-  @GenralGlobaldrawerChangepasswordwithNewpasswordandverifyPassworddontmatch             @Automatable		@--xrayid:ATER-69089
+  @GeneralGlobaldrawerChangepasswordwithNewpasswordandverifyPassworddontmatch         	@--xrayid:ATER-69089
   Scenario Outline: As a user i want to Verify change password  with error under  global drawer with and with out solution 
     Given user launches and logs in to the Lyric Application
      Then navigates to “Edit Account” screen from "Dashboard" screen 
@@ -1156,9 +1567,11 @@ Examples:
       | New Password | Verify New Password | 
       | Valid        | Invalid             | 
       | Invalid      | Valid               | 
-  
+
+
+#Covered in the above scenarios
   #Requirements : single location with and with out any solution
-  @GenralGlobaldrawerEditAccountChangepasswordwitherror             @Automatable		@--xrayid:ATER-69090
+  @GeneralGlobaldrawerEditAccountChangepasswordwitherror            @--xrayid:ATER-69090
   Scenario Outline: As a user i want to Verify change password  with error under  global drawer with and with out solution 
     Given user launches and logs in to the Lyric Application
      Then navigates to “Edit Account” screen from "Dashboard" screen 
@@ -1179,718 +1592,1084 @@ Examples:
       | Invalid password | Valid password         | Invalid/blank password | 
       | Invalid password | Invalid/blank password | Valid password         | 
   
-  #Delete account with oK
+
+
+#Delete Account in Edit Account Screen
+#Requirements : single location with out solution 
+@GeneralGlobalDrawerEditAccountDeleteAccountWithoutASolution             @Automated		@--xrayid:ATER-69091
+Scenario Outline: As a user i want to Verify the app behavior by deleting an account without any solution 
+Given user launches and logs in to the Lyric application with user account with location
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account Without Solution" screen
+And user should be displayed with the following "Delete Account" options:
+| DeleteAccountOptions				| 
+| We are sorry to see you go			|
+When user selects "Delete Account button" from "Delete Account" screen
+Then user should receive a "Your Account and Data is deleted" popup
+And user "Accepts" the "Your Account and Data is deleted" popup
+Then user should be displayed with the "Honeywell Home" screen
+When user logs in to the Lyric Application with "deleted account credentials"
+Then user should receive a "Email or Password incorrect" popup
+And user "Accepts" the "Email or Password incorrect" popup
+Then create the deleted user account through CHIL
+When user logs in to the Lyric Application with "deleted account credentials"
+Then user should be displayed with the "Add New Device" screen
+When user selects "Smart Home Security" from "Add New Device" screen
+Then user should be displayed with the "What To Expect" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects <Default Location> from "Choose Location" screen
+Then user should be displayed with the "Confirm Your ZIP Code" screen
+When user inputs <valid zip code>
+Then user should be displayed with the "Name Your Base Station" screen
+When user "cancels the set up" by clicking on "cancel" button
+Then user should receive a "Cancel Setup" popup
+When user "accepts" the "Cancel Setup" popup
+Then user should be displayed with the "Add New Device" screen
+
+Examples: 
+      | Default Location		| Default Device Name		| valid zip code        |
+      | Home					| Living Room				| 90001                 |
+
+
+#Delete account with learn how to delete a device #GDPR
   
-  #Requirements : single location with out solution 
-  @GenralGlobaldrawerEditAccountdeleteaccount             @Automatable		@--xrayid:ATER-69091
-  Scenario: As a user i want to Verify delete account  under  global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-     Then navigates to "Edit Account" screen from "Dashboard" screen 
-     When user selects "Delete Account" button 
-     Then user should be displayed with "We're sorry to see you Go." pop up 
-     When user selects the "NO" button
-     Then user should be display with  "Edit Account" screen
-     When user selects "Delete Account" button 
-     Then user should be displayed with "We're sorry to see you Go." pop up 
-     When user selects the "YES" button
-     Then user navigates to "Login" screen
-  
-  #Delete account with learn more, with solution 
-  
-  #Requirements : single location with solution 
-  @GenralGlobaldrawerEditAccountdeleteaccountwithSolution             @Automatable		@--xrayid:ATER-69092
-  Scenario: As a user i want to Verify delete account  under  global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-     Then navigates to "Edit Account" screen from "Dashboard" screen 
-     When user selects "Delete Account" button 
-     Then user should be displayed with "We're sorry to see you Go." pop up 
-     When user selects the "OK" button
-     Then user should be display with  "Edit Account" screen
-     When user selects "Delete Account" button 
-     Then user should be displayed with "We're sorry to see you Go." pop up 
-     When user selects the "Learn more" button
-     Then user navigates to "HELP" screen 
-     When user selects "YES" button 
-     Then user should be displayed with "You found this helpful" text  
-      And user should not displayed with the "Options" 
-     Then user should be display with  "Edit Account" screen
+#Requirements : single location with solution 
+@GeneralGlobalDrawerEditAccountDeleteAccountWithSolution             @Automated			@--xrayid:ATER-69092
+Scenario: As a user i want to Verify the app behavior by deleting an account with solution
+Given user launches and logs in to the Lyric Application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Delete A Device" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Delete A Device" screen
+And user should be displayed with the following "Learn How To Delete A Device" options:
+| LearnHowToDeleteADeviceOptions				| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Delete A Device" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Close button" from "Delete Account" screen
+Then user should be displayed with the "Edit Account" screen
+
   
   # PIN implementaion pending 
   
-  #@GenralEnaleDisableTogglebutton
+  #@GeneralEnaleDisableTogglebutton
   #@GenalMandetorypopup
-  #@GenralSecuritypopup
+  #@GeneralSecuritypopup
   #@GenalwrongPINvalidation
-  #@GenralWrongFingerPrintValication
-  #@GenralcorrectPINValication
-  #@GenralCorrectFingerPrintvalication
-  #@GenralEnableDisableTogglebutton
-  #@GenralEnableFingerPrintwithoutphonesecurity
+  #@GeneralWrongFingerPrintValication
+  #@GeneralcorrectPINValication
+  #@GeneralCorrectFingerPrintvalication
+  #@GeneralEnableDisableTogglebutton
+  #@GeneralEnableFingerPrintwithoutphonesecurity
   #@GernalForgetPIN
-  #@GenralCreatePINwithsecurity
-  #@GenralCreatePINWithoutsecurity
+  #@GeneralCreatePINwithsecurity
+  #@GeneralCreatePINWithoutsecurity
   
-  #About the app
   
-  #Requirements : single location with and with out any solution , US location 
-  @GenralGlobalDrawerAbouttheappUSLocationVerification             @Automatable		@--xrayid:ATER-69093
-  Scenario: As a user i want to Verify about the app with US Location under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-     When user Navigates to "About the app" screen from the "Dashboard" screen
-     Then user should be displayed with following "About the app" options:
-      | About the app        | 
-      | Get Help             | 
-      | Rate the app         | 
-      | Privacy Policy &EULA | 
-      | Acknowledgements     | 
-      | Version              | 
+#About the app Screen
   
+#Requirements : single location with and with out any solution , US location 
+@GeneralGlobalDrawerAboutTheAppVerifyOptionsDisplayedForUSLocation             @Automated		@--xrayid:ATER-69093
+Scenario: As a user i want to Verify the options displayed in about the app for US Location with and with out solution 
+Given user launches and logs in to the Lyric Application
+When user navigates to "About the app" screen from the "Dashboard" screen
+Then user should be displayed with the "About the app" screen
+And user should be displayed with the following "About the app" options:
+| AboutTheAppOptions			| 
+| Rate the app for Android	|
+| Get Help             		| 
+| Privacy Policy and EULA 	|
+| Acknowledgements     		| 
+| Version              		| 
+  
+
+#Requirements : single location with and with out any solution , UK location 
+@GeneralGlobalDrawerAboutTheAppVerifyOptionsDisplayedForUKLocation             @Automated		@--xrayid:ATER-69094
+Scenario: As a user i want to Verify the options displayed in about the app for UK Location with and with out solution
+Given user launches and logs in to the Lyric Application
+When user navigates to "About the app" screen from the "Dashboard" screen
+Then user should be displayed with the "About the app" screen
+And user should be displayed with the following "About the app" options:
+| AboutTheAppOptions			| 
+| Rate the app for Android	|
+| Without Get Help Option	| 
+| Privacy Policy and EULA 	|
+| Acknowledgements     		| 
+| Version              		|
+  
+
+#Privacy Policy & EULA
+  
+#Requirements : single location with and with out any solution , US location 
+@GeneralGlobalDrawerAboutTheAppVerifyPrivacyPolicyAndEULAScreen             @Automated		@--xrayid:ATER-69095
+Scenario: As a user i want to Verify Privacy policy and EULA screen present in About the App with and with out solution 
+Given user launches and logs in to the Lyric Application
+When user navigates to "About the app" screen from the "Dashboard" screen
+Then user should be displayed with the "About the app" screen
+When user selects "Privacy Policy and EULA" from "About the app" screen
+Then user should be displayed with the "Privacy Policy and EULA" screen
+And user navigates to "About the app" screen from the "Privacy Policy and EULA" screen 
+
+
+#Acknowledgements
+
+#Requirements : single location with and with out any solution , US location 
+@GeneralGlobalDrawerAboutTheAppVerifyAcknowledgementsScreen             @Automated		@--xrayid:ATER-69096
+Scenario: As a user i want to Verify Acknowledgements screen present in About the App with and with out solution
+Given user launches and logs in to the Lyric Application
+When user navigates to "About the app" screen from the "Dashboard" screen
+Then user should be displayed with the "About the app" screen
+When user selects "Acknowledgements" from "About the app" screen
+Then user should be displayed with the "Acknowledgements" screen
+And user navigates to "About the app" screen from the "Acknowledgements" screen
+  
+
+#App version
+  
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerAboutTheAppVerifyVersion             @Automated		@--xrayid:ATER-69097
+Scenario: As a user i want to Verify App Version present in About the App Screen with and with out solution
+Given user launches and logs in to the Lyric Application
+When user navigates to "About the app" screen from the "Dashboard" screen
+Then user should be displayed with the "About the app" screen
+And user should be displayed with the following "About the app" options:
+| AboutTheAppOptions			|
+| Version              		|
+  
+
+#GetHelp
+  
+#Requirements : single location with and with out any solution , US location 
+@GeneralGlobalDrawerAboutTheAppVerifyGetHelpScreen             @Automated			@--xrayid:ATER-69098
+Scenario: As a user i want to Verify Get Help screen present in About the App with and with out solution
+Given user launches and logs in to the Lyric Application
+When user navigates to "About the app" screen from the "Dashboard" screen
+Then user should be displayed with the "About the app" screen
+When user selects "Get Help" from "About the app" screen
+Then user should be displayed with the "Get Help" screen
+And user navigates to "About the app" screen from the "Get Help" screen
+
+
+#Covered in @GeneralGlobalDrawerAboutTheAppVerifyOptionsDisplayedForUKLocation
   #Requirements : single location with and with out any solution , UK location 
-  @GenralGlobalDrawerAbouttheappUKLocationVerification             @Automatable		@--xrayid:ATER-69094
-  Scenario: As a user i want to Verify about the app with UK Location under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-     When user Navigates to "About the app" screen from the "Dashboard" screen
-     Then user should be displayed with following "About the app" options:
-      | About the app        | 
-      | Privacy Policy &EULA | 
-      | Acknowledgements     | 
-      | Version              | 
-  
-  #Privacy Policy & EULA
-  
-  #Requirements : single location with and with out any solution , US location 
-  @GenralGlobalDrawerAboutthePrivacyPolicy&EULALocationVerification             @Automatable		@--xrayid:ATER-69095
-  Scenario: As a user i want to Verify Privacy policy and EULA under About the app with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "About the app" screen from the "Dashboard" screen
-     When user selects the "Privacy Policy & EULA" option
-     Then user should be display with "Privacy Policy & EULA" screen
-      And user navigates "About the app" screen from "Privacy Policy & EULA" screen
-  
-  #Requirements : single location with and with out any solution , US location 
-  @GenralGlobalDrawerAbouttheappAcknowledgements             @Automatable		@--xrayid:ATER-69096
-  Scenario: As a user i want to Verify Privacy policy and EULA under About the app with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "About the app" screen from the "Dashboard" screen
-     When user selects the "Acknowledgements" option
-     Then user should be display with "Acknowledgements" screen
-      And user navigates "About the app" screen from "Privacy Policy & EULA" screen
-  
-  #App version
-  
-  #Requirements : single location with and with out any solution
-  @GenralGlobalDrawerAbouttheappVersionLocationVerification             @Automatable		@--xrayid:ATER-69097
-  Scenario: As a user i want to Verify version Location under About the app with and with out solution 
-    Given user launches and logs in to the Lyric Application
-     When user Navigates to "About the app" screen from the "Dashboard" screen
-     Then user should be displayed with current app "Versioin x.x.x(xx)" 
-  
-  #GetHelp
-  
-  #Requirements : single location with and with out any solution , US location 
-  @GenralGlobalDrawerAbouttheappGetHelpUSLocationVerification             @Automatable		@--xrayid:ATER-69098
-  Scenario: As a user i want to Verify GetHelp US Location under About the app with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "About the app" screen from the "Dashboard" screen
-     When user selects the "GET HELP" option
-     Then user should open with "www.yourhome.honeywell.com/support" portal on browser 
-  
-  #Requirements : single location with and with out any solution , UK location 
-  @GenralGlobalDrawerAbouttheappGetHelpUKLocationVerification             @Automatable		@--xrayid:ATER-69099
+  @GeneralGlobalDrawerAbouttheappGetHelpUKLocationVerification          		@--xrayid:ATER-69099
   Scenario: As a user i want to Verify GetHelp US Location under About the app with and with out solution 
     Given user launches and logs in to the Lyric Application
      Then user Navigates to "About the app" screen from the "Dashboard" screen
       And user should not displayed "GET HELP" option
+
+
+#Rate the app only for android  
   
-  #Rate the app only for android  
+#Rate the app close option
   
-  #Rate the app close option
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerVerifyRateTheAppPopupForUSLocation             @Automated		@--xrayid:ATER-69100
+Scenario: As a user i want to Verify Rate the app with close option for US Location under About the app with and with out solution 
+Given user launches and logs in to the Lyric Application
+When user navigates to "About the app" screen from the "Dashboard" screen
+Then user should be displayed with the "About the app" screen
+When user selects "Rate the app" from "About the app" screen
+Then user should receive a "What do you think of Honeywell Home app" popup
+When user "closes" the "What do you think of Honeywell Home app" popup
+Then user should be displayed with the "About the app" screen
+
   
-  #Requirements : single location with and with out any solution
-  @GenralGlobalDrawerAbouttheappRatetheappClosestarUSLocationVerification             @Automatable		@--xrayid:ATER-69100
-  Scenario: As a user i want to Verify Rate the app with close option,  US Location under About the app with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "About the app" screen from the "Dashboard" screen
-     When user selects the "Rate the app" option
-     Then user should be displayed with "What do you think of Honeywell home app?" pop up 
-     When user selects "Close" button
-     Then user should be displayed with "About the app" option
+@GeneralGlobalDrawerVerifyFeedbackScreenWithBelowFourRating            @Automated		@--xrayid:ATER-69101
+Scenario Outline: As a user i want to Verify if Feedback screen displays when user gives rating less than four star 
+Given user launches and logs in to the Lyric Application
+When user navigates to "About the app" screen from the "Dashboard" screen
+Then user should be displayed with the "About the app" screen
+When user selects "Rate the app" from "About the app" screen
+Then user should receive a "What do you think of Honeywell Home app" popup
+When user selects <Star> from "Rate the app" screen
+Then user should be displayed with the "App Feedback" screen
+And the following "App Feedback" options should be disabled:
+| AppFeedbackOptions			|
+| Anonymous Toggle Button	|
+| Send Feedback Button		|
+When user inputs <max characters> in "Feedback Text Field" in the "App Feedback" screen
+Then user should not be allowed to enter more than "50" characters in "Feedback Text Field" in the "App Feedback" screen
+And the following "App Feedback" options should be enabled:
+| AppFeedbackOptions			|
+| Send Feedback Button		|
+And the following "App Feedback" options should be disabled:
+| AppFeedbackOptions			|
+| Anonymous Toggle Button	|
+
+Examples:
+| Star | max characters											|	
+| 1    | This is to test max characters in Feedback Text Field	|
+#| 2    | This is to test max characters in Feedback Text Field	|
+#| 3    | This is to test max characters in Feedback Text Field	| 
   
-  @GenralGlobalDrawerAbouttheappRatetheappbelow3starLocationVerificationwithfeedback             @Automatable		@--xrayid:ATER-69101
-  Scenario Outline: As a user i want to Verify Rate the app with below 3 starts,  US Location under About the app with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "About the app" screen from the "Dashboard" screen
-     When user selects the "Rate the app" option
-     Then user should be displayed with "What do you think of Honeywell home app?" pop up 
-     When user selects <star> button
-     Then user should be displayed with "App Feedback" screen
-      And user should be displayed with the disabled "SEND FEEDBACK" and "Toggle" button
-     When user enter the "Feedback" text in "Feedback Edit Box"
-     Then user should allow to enter max 50 character with alphanumeric 
-    Examples: 
-      | Star | 
-      | 1    | 
-      | 2    | 
-      | 3    | 
+
+#Rate the app below 3 stars 
   
-  #Rate the app below 3 stars 
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerVerifyWhatDoYouThinkOfHHAppPopupAfterTapingOnSendFeedBackWithEnabledAnonymousToggleButtonAndMinMaxAppThrice             @Automated		@--xrayid:ATER-69102
+Scenario Outline: What do you think of Honeywell Home app popup when user enables Anonymous toggle button, Sends Feedback, minimizes and maximizes the app three times 
+Given user launches and logs in to the Lyric Application
+When user navigates to "About the app" screen from the "Dashboard" screen
+Then user should be displayed with the "About the app" screen
+When user selects "Rate the app" from "About the app" screen
+Then user should receive a "What do you think of Honeywell Home app" popup
+When user selects <Star> from "Rate the app" screen
+Then user should be displayed with the "App Feedback" screen
+And the following "App Feedback" options should be disabled:
+| AppFeedbackOptions			|
+| Anonymous Toggle Button	|
+| Send Feedback Button		|
+When user inputs "some text" in "Feedback Text Field" in the "App Feedback" screen
+Then the following "App Feedback" options should be enabled:
+| AppFeedbackOptions			|
+| Send Feedback Button		|
+And the following "App Feedback" options should be disabled:
+| AppFeedbackOptions			|
+| Anonymous Toggle Button	|
+When user changes the "Anonymous Toggle Button" to "on"
+And user selects "Send Feedback Button" from "App Feedback" screen
+Then user should be displayed with the "About the app" screen
+When user minimizes and maximizes the app for "3" times
+Then user should not receive a "What do you think of Honeywell Home app" popup
+#Helpshift portal to check feedback
+
+Examples: 
+| Star | 
+#| 1    | 
+| 2    | 
+#| 3    |
   
-  #Requirements : single location with and with out any solution
-  @GenralGlobalDrawerAbouttheappRatetheappbelow3starLocationVerificationwithfeedback             @Automatable		@--xrayid:ATER-69102
-  Scenario Outline: As a user i want to Verify Rate the app with below 3 starts,  US Location under About the app with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "About the app" screen from the "Dashboard" screen
-     When user selects the "Rate the app" option
-     Then user should be displayed with "What do you think of Honeywell home app?" pop up 
-     When user selects <star> button
-     Then user should be displayed with "App Feedback" screen
-      And user should be displayed with the disabled "SEND FEEDBACK" and "Toggle" button
-     When user enter the "Feedback" text in "Feedback Edit Box"
-     Then user should be displayed with enabled "SEND FEEDBACK" button
-      And user enables the "Toggle" button 
-     When user selects the "SEND FEEDBACK" button
-     Then user should be displayed with "About the app" screen 
-      And user minimise and maximise the app for three times
-      And user should not be displayed "What do you think of Honeywell home app?" pop up
-  #Helpshift portal to check feedback
-    Examples: 
-      | Star | 
-      | 1    | 
-      | 2    | 
-      | 3    | 
+
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerVerifyWhatDoYouThinkOfHHAppPopupAfterTapingOnSendFeedBackWithDisabledAnonymousToggleButtonAndMinMaxAppThrice             @Automated		@--xrayid:ATER-69103
+Scenario Outline: Verify what do you think of Honeywell Home app popup when user disables Anonymous toggle button, Sends Feedback, minimizes and maximizes the app three times
+Given user launches and logs in to the Lyric Application
+When user navigates to "About the app" screen from the "Dashboard" screen
+Then user should be displayed with the "About the app" screen
+When user selects "Rate the app" from "About the app" screen
+Then user should receive a "What do you think of Honeywell Home app" popup
+When user selects <Star> from "Rate the app" screen
+Then user should be displayed with the "App Feedback" screen
+And the following "App Feedback" options should be disabled:
+| AppFeedbackOptions			|
+| Anonymous Toggle Button	|
+| Send Feedback Button		|
+When user inputs "some text" in "Feedback Text Field" in the "App Feedback" screen
+Then the following "App Feedback" options should be enabled:
+| AppFeedbackOptions			|
+| Send Feedback Button		|
+And the following "App Feedback" options should be disabled:
+| AppFeedbackOptions			|
+| Anonymous Toggle Button	|
+When user changes the "Anonymous Toggle Button" to "off"
+And user selects "Send Feedback Button" from "App Feedback" screen
+Then user should be displayed with the "About the app" screen
+When user minimizes and maximizes the app for "3" times
+Then user should not receive a "What do you think of Honeywell Home app" popup
+#Helpshift portal to check feedback
+
+Examples: 
+| Star | 
+#| 1    | 
+#| 2    | 
+| 3    |
+
+
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerVerifyWhatDoYouThinkOfHHAppPopupAfterCancellingSendFeedbackAndMinMaxAppThrice             @Automated		@--xrayid:ATER-69104
+Scenario Outline: Verify if what do you think of Honeywell Home app popup displays when user cancels Sends Feedback and minimizes and maximizes the app three times
+Given user launches and logs in to the Lyric Application
+When user navigates to "About the app" screen from the "Dashboard" screen
+Then user should be displayed with the "About the app" screen
+When user selects "Rate the app" from "About the app" screen
+Then user should receive a "What do you think of Honeywell Home app" popup
+When user selects <Star> from "Rate the app" screen
+Then user should be displayed with the "App Feedback" screen
+And the following "App Feedback" options should be disabled:
+| AppFeedbackOptions			|
+| Anonymous Toggle Button	|
+| Send Feedback Button		|
+When user inputs "some text" in "Feedback Text Field" in the "App Feedback" screen
+Then the following "App Feedback" options should be enabled:
+| AppFeedbackOptions			|
+| Send Feedback Button		|
+And the following "App Feedback" options should be disabled:
+| AppFeedbackOptions			|
+| Anonymous Toggle Button	|
+When user changes the "Anonymous Toggle Button" to "off"
+And user selects "Close Button" from "App Feedback" screen
+Then user should be displayed with the "About the app" screen
+When user minimizes and maximizes the app for "3" times
+Then user should receive a "What do you think of Honeywell Home app" popup
+#Helpshift portal to check feedback
+
+Examples: 
+| Star | 
+#| 1    | 
+#| 2    | 
+| 3    |
   
-  @GenralGlobalDrawerAbouttheappRatetheappbelow3starVerificationwithoutfeedback
-  #Requirements : single location with and with out any solution
-  @GenralGlobalDrawerAbouttheappRatetheappbelow3starLocationVerificationwithoutfeedback             @Automatable		@--xrayid:ATER-69103
-  Scenario Outline: As a user i want to Verify Rate the app with below 3 starts,  US Location under About the app with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "About the app" screen from the "Dashboard" screen
-     When user selects the "Rate the app" option
-     Then user should be displayed with "What do you think of Honeywell home app?" pop up 
-     When user selects <star> button
-     Then user should be displayed with "App Feedback" screen
-      And user should be displayed with the disabled "SEND FEEDBACK" and "Toggle" button
-     When user enter the "Feedback" text in "Feedback Edit Box"
-     Then user should be displayed with enabled "SEND FEEDBACK" button
-      And user disabled the "Toggle" button 
-     When user selects the "SEND FEEDBACK" button
-     Then user should be displayed with "About the app" screen 
-      And user minimise and maximise the app for three times
-      And user should not be displayed "What do you think of Honeywell home app?" pop up
-  #Helpshift portal to check feedback with any account and device information
-    Examples: 
-      | Star | 
-      | 1    | 
-      | 2    | 
-      | 3    | 
   
-  #Requirements : single location with and with out any solution
-  @GenralGlobalDrawerAbouttheappRatetheappFeedbackscreenbackVerification             @Automatable		@--xrayid:ATER-69104
-  Scenario Outline: As a user i want to Verify Feedback back button,  US Location under About the app with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "About the app" screen from the "Dashboard" screen
-     When user selects the "Rate the app" option
-     Then user should be displayed with "What do you think of Honeywell home app?" pop up 
-     When user selects <star> button
-     Then user should be displayed with "App Feedback" screen
-      And user should be displayed with the disabled "SEND FEEDBACK" and "Toggle" button
-     When user enter the "Feedback" text in "Feedback Edit Box"
-     Then user should be displayed with enabled "SEND FEEDBACK" button
-      And user disable the "Toggle" button 
-     When user selects the "Back" button 
-     Then user should be displayed with "About the app" screen  with out any error
-      And user minimise and maximise the app for three times
-      And user should be displayed "What do you think of Honeywell home app?" pop up
-    Examples: 
-      | Star | 
-      | 1    | 
-      | 2    | 
-      | 3    | 
+#Rate the app below 4-5 stars with close 
   
-  #Rate the app below 4-5 stars with close 
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerVerifyThanksForYourRatingPopupWithFourOrFiveRating             @Automated		@--xrayid:ATER-69105
+Scenario Outline: Verify if Thanks for your rating popup displays when user selects four or five rating in What do you think of Honeywell Home app popup
+Given user launches and logs in to the Lyric Application
+When user navigates to "About the app" screen from the "Dashboard" screen
+Then user should be displayed with the "About the app" screen
+When user selects "Rate the app" from "About the app" screen
+Then user should receive a "What do you think of Honeywell Home app" popup
+When user selects <Star> from "Rate the app" screen
+Then user should receive a "Thanks for your rating" popup
+When user "clicks on close button" the "Thanks for your rating" popup
+Then user should be displayed with the "About the app" screen
+
+Examples: 
+| Star | 
+| 4    | 
+#| 5	   |
   
-  #Requirements : single location with and with out any solution
-  @GenralGlobalDrawerAbouttheappRatetheapp4-5starcloseVerification             @Automatable		@--xrayid:ATER-69105
-  Scenario Outline: As a user i want to Verify Rate the app with 4-5 starts and verify close option,  US Location under About the app with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "About the app" screen from the "Dashboard" screen
-     When user selects the "Rate the app" option
-     Then user should be displayed with "What do you think of Honeywell home app?" pop up 
-     When user selects <star> button
-     Then user should be displayed with "Thanks for your rating" pop up
-     When user select the "Close" option 
-     Then user should be displayed with "About the app" screen 
-    Examples: 
-      | Star | 
-      | 4    | 
-      | 5    | 
+
+#Rate the app below 4-5 stars with continue 
   
-  #Rate the app below 4-5 stars with continue 
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerVerifyNavigationToGooglePlaystoreWithFourOrFiveRating             @Automated		@--xrayid:ATER-69106
+Scenario Outline: Verify navigation to Google Playstore when user taps on Continue button in Thanks for your rating popup
+Given user launches and logs in to the Lyric Application
+When user navigates to "About the app" screen from the "Dashboard" screen
+Then user should be displayed with the "About the app" screen
+When user selects "Rate the app" from "About the app" screen
+Then user should receive a "What do you think of Honeywell Home app" popup
+When user selects <Star> from "Rate the app" screen
+Then user should receive a "Thanks for your rating" popup
+When user "clicks on continue button" the "Thanks for your rating" popup
+Then user should be displayed with the "Honeywell Home in Google Playstore" screen
+
+Examples: 
+| Star | 
+#| 4    | 
+| 5	   |
+
   
-  #Requirements : single location with and with out any solution
-  @GenralGlobalDrawerAbouttheappRatetheapp4-5starcontinueVerification             @Automatable		@--xrayid:ATER-69106
-  Scenario Outline: As a user i want to Verify Rate the app with 4-5 starts and verify continue option,  US Location under About the app with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "About the app" screen from the "Dashboard" screen
-     When user selects the "Rate the app" option
-     Then user should be displayed with "What do you think of Honeywell home app?" pop up 
-     When user selects <star> button
-     Then user should be displayed with "Thanks for your rating" pop up
-     When user select the "Continue" option 
-     Then user should navigates to "Play-store" app 
-    Examples: 
-      | Star | 
-      | 4    | 
-      | 5    | 
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerVerifyNavToSendFeedbackScreenByMinMaxAppThriceInHomeScreen             @Automated		@--xrayid:ATER-69107
+Scenario Outline: Verify if what do you think of Honeywell Home app popup displays when user minimizes and maximizes the app three times in Home screen
+Given user launches and logs in to the Lyric Application
+When user minimizes and maximizes the app for "3" times
+Then user should receive a "What do you think of Honeywell Home app" popup
+When user selects <Star> from "Rate the app" screen
+Then user should be displayed with the "App Feedback" screen
+And the following "App Feedback" options should be disabled:
+| AppFeedbackOptions			|
+| Anonymous Toggle Button	|
+| Send Feedback Button		|
+When user inputs "some text" in "Feedback Text Field" in the "App Feedback" screen
+Then the following "App Feedback" options should be enabled:
+| AppFeedbackOptions			|
+| Send Feedback Button		|
+And the following "App Feedback" options should be disabled:
+| AppFeedbackOptions			|
+| Anonymous Toggle Button	|
+When user changes the "Anonymous Toggle Button" to "on"
+And user selects "Send Feedback Button" from "App Feedback" screen
+Then user should be displayed with the "About the app" screen
+#Helpshift portal to check feedback
+
+Examples: 
+| Star | 
+#| 1    | 
+#| 2    | 
+| 3    |
+
   
-  #Requirements : single location with and with out any solution
-  @GenralRatetheapppopup3timesminimzeandmaximizebelow3star             @Automatable		@--xrayid:ATER-69107
-  Scenario Outline: As a user I want to verify the pop up if app minimise and maximise the app for 3 times 
-    Given user launches and logs in to the Lyric Application
-     Then user Minimise and Maximise the app for three times
-      And user should be displayed with “"What do you think of Honeywell home app?" pop up
-     When user selects <star> button
-     Then user should be displayed with "App Feedback" screen
-      And user should be displayed with the disabled "SEND FEEDBACK" and "Toggle" button
-     When user enter the "Feedback" text in "Feedback Edit Box"
-     Then user should be displayed with enabled "SEND FEEDBACK" button
-      And user enables the "Toggle" button 
-     When user selects the "SEND FEEDBACK" button
-     Then user should be displayed with "About the app" screen 
-  #Helpshift portal to check feedback
-    Examples: 
-      | star | 
-      | 1    | 
-      | 2    | 
-      | 3    | 
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerVerifyNavToPlaystoreByMinMaxAppThriceInHomeScreenAndWithFourOrFiveRating            @Automated		@--xrayid:ATER-69108
+Scenario Outline: Navigation to Google Playstore when user minimizes and maximizes the app three times in Home screen and taps on Continue button in Thanks for your rating popup
+Given user launches and logs in to the Lyric Application
+When user minimizes and maximizes the app for "3" times
+Then user should receive a "What do you think of Honeywell Home app" popup
+When user selects <Star> from "Rate the app" screen
+Then user should receive a "Thanks for your rating" popup
+When user "clicks on continue button" the "Thanks for your rating" popup
+Then user should be displayed with the "Honeywell Home in Google Playstore" screen
+
+Examples: 
+| Star | 
+#| 4    | 
+| 5	   |  
+
+
+@GeneralGlobalDrawerLogoutAndLoginThriceAndVerifyFeedbackScreenWithBelowFourRating             @Automated		@--xrayid:ATER-69109
+Scenario Outline: Navigation to About the app screen by tapping on below four rating in what do you think of Honeywell Home app popup after logout and log into app thrice
+Given user launches and logs in to the Lyric Application
+When user logout and login to the app for "3" times
+And user should receive a "What do you think of Honeywell Home app" popup
+When user selects <Star> from "Rate the app" screen
+Then user should be displayed with the "App Feedback" screen
+And the following "App Feedback" options should be disabled:
+| AppFeedbackOptions			|
+| Anonymous Toggle Button	|
+| Send Feedback Button		|
+When user inputs "some text" in "Feedback Text Field" in the "App Feedback" screen
+Then the following "App Feedback" options should be enabled:
+| AppFeedbackOptions			|
+| Send Feedback Button		|
+And the following "App Feedback" options should be disabled:
+| AppFeedbackOptions			|
+| Anonymous Toggle Button	|
+When user changes the "Anonymous Toggle Button" to "on"
+And user selects "Send Feedback Button" from "App Feedback" screen
+Then user should be displayed with the "About the app" screen
+#Helpshift portal to check feedback
+
+Examples: 
+| Star | 
+#| 1    | 
+#| 2    | 
+| 3    |
+
   
-  #Requirements : single location with and with out any solution
-  @GenralRatetheapppopup3timesminimzeandmaximize4-5star             @Automatable		@--xrayid:ATER-69108
-  Scenario Outline: As a user I want to verify the pop up if app minimise and maximise the app for 3 times 
-    Given user launches and logs in to the Lyric Application
-     Then user Minimise and Maximise the app for three times
-     When user selects <star> button
-     Then user should be displayed with "Thanks for your rating" pop up
-     When user select the "Continue" option 
-     Then user should navigates to "Play-store" app 
-    Examples: 
-      | Star | 
-      | 4    | 
-      | 5    | 
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerLogoutAndLoginThriceAndVerifyNavToGooglePlaystoreWithFourOrFiveRating             @Automated		@--xrayid:ATER-69110
+Scenario Outline: Navigation to Google Playstore by tapping on Continue button in Thanks for your rating popup after logout and log into app thrice
+Given user launches and logs in to the Lyric Application
+When user logout and login to the app for "3" times
+Then user should receive a "What do you think of Honeywell Home app" popup
+When user selects <Star> from "Rate the app" screen
+Then user should receive a "Thanks for your rating" popup
+When user "clicks on continue button" the "Thanks for your rating" popup
+Then user should be displayed with the "Honeywell Home in Google Playstore" screen
+
+Examples: 
+| Star | 
+#| 4    | 
+| 5	   |
+
   
-  #Requirements : single location with and with out any solution
-  @GenralRatetheapppopup3timesLogoutandloginbelow3star             @Automatable		@--xrayid:ATER-69109
-  Scenario Outline: As a user I want to verify the pop up if app minimise and maximise the app for 3 times 
-    Given user launches and logs in to the Lyric Application
-     Then user Logout and login to the app for three times
-      And user should be displayed with "What do you think of Honeywell home app?" pop up
-     When user selects <star> button
-     Then user should be displayed with "App Feedback" screen
-      And user should be displayed with the disabled "SEND FEEDBACK" and "Toggle" button
-     When user enter the "Feedback" text in "Feedback Edit Box"
-     Then user should be displayed with enabled "SEND FEEDBACK" button
-      And user enables the "Toggle" button 
-     When user selects the "SEND FEEDBACK" button
-     Then user should be displayed with "About the app" screen 
-  #Helpshift portal to check feedback
-    Examples: 
-      | Star | 
-      | 1    | 
-      | 2    | 
-      | 3    | 
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerLogoutAndLoginThriceAndVerifyNavToAboutTheAppScreenWithFourOrFiveRating            @Automated		@--xrayid:ATER-69111
+Scenario Outline: Navigation to About the app screen by tapping on Close button in Thanks for your rating popup after logout and log into app thrice
+Given user launches and logs in to the Lyric Application
+When user logout and login to the app for "3" times
+Then user should receive a "What do you think of Honeywell Home app" popup
+When user selects <Star> from "Rate the app" screen
+Then user should receive a "Thanks for your rating" popup
+When user "clicks on close button" the "Thanks for your rating" popup
+Then user should be displayed with the "About the app" screen
+
+Examples: 
+| Star | 
+#| 4    |
+| 5	   |
+
   
-  #Requirements : single location with and with out any solution
-  @GenralRatetheapppopup3timesLogoutandlogin4-5starcontinueoption             @Automatable		@--xrayid:ATER-69110
-  Scenario Outline: As a user I want to verify the pop up if app minimise and maximise the app for 3 times 
-    Given user launches and logs in to the Lyric Application
-     Then user Logout and login to the app for three times
-     When user selects <star> button
-     Then user should be displayed with "Thanks for your rating" pop up
-     When user select the "Continue" option 
-     Then user should navigates to "Play-store" app 
-    Examples: 
-      | Star | 
-      | 4    | 
-      | 5    | 
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerVerifyNavToSendFeedbackScreenByMinMaxAppForTwelveTimes             @Automated		@--xrayid:ATER-69112
+Scenario Outline: Verify if what do you think of Honeywell Home app popup displays when user minimizes and maximizes the app twelve times in Home screen
+Given user launches and logs in to the Lyric Application
+When user minimizes and maximizes the app for "3" times
+Then user should receive a "What do you think of Honeywell Home app" popup
+When user "closes" the "What do you think of Honeywell Home app" popup
+Then user should be displayed with the "About the app" screen
+When user minimizes and maximizes the app for "12" times
+Then user should receive a "What do you think of Honeywell Home app" popup
+And user selects <Star> from "Rate the app" screen
+And user should be displayed with the "App Feedback" screen
+And the following "App Feedback" options should be disabled:
+| AppFeedbackOptions			|
+| Anonymous Toggle Button	|
+| Send Feedback Button		|
+When user inputs "some text" in "Feedback Text Field" in the "App Feedback" screen
+Then the following "App Feedback" options should be enabled:
+| AppFeedbackOptions			|
+| Send Feedback Button		|
+And the following "App Feedback" options should be disabled:
+| AppFeedbackOptions			|
+| Anonymous Toggle Button	|
+When user changes the "Anonymous Toggle Button" to "on"
+And user selects "Send Feedback Button" from "App Feedback" screen
+Then user should be displayed with the "About the app" screen
+#Helpshift portal to check feedback
+
+Examples: 
+| Star | 
+#| 1    | 
+#| 2    | 
+| 3    |
+
   
-  #Requirements : single location with and with out any solution
-  @GenralRatetheapppopup3timesLogoutandlogin4-5starcloseoption             @Automatable		@--xrayid:ATER-69111
-  Scenario Outline: As a user I want to verify the pop up if app minimise and maximise the app for 3 times 
-    Given user launches and logs in to the Lyric Application
-     Then user Logout and login to the app for three times
-     When user selects <star> button
-     Then user should be displayed with "Thanks for your rating" pop up
-     When user select the “Close” option 
-     Then user should navigates to “About the app” screen
-    Examples: 
-      | Star | 
-      | 4    | 
-      | 5    | 
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerVerifyNavToGooglePlaystoreByMinMaxAppForTwelveTimes             @Automated		@--xrayid:ATER-69113
+Scenario Outline: Verify if what do you think of Honeywell Home app popup displays when user minimizes and maximizes the app twelve times in Home screen
+Given user launches and logs in to the Lyric Application
+When user minimizes and maximizes the app for "3" times
+Then user should receive a "What do you think of Honeywell Home app" popup
+When user "closes" the "What do you think of Honeywell Home app" popup
+Then user should be displayed with the "About the app" screen
+When user minimizes and maximizes the app for "12" times
+Then user should receive a "What do you think of Honeywell Home app" popup
+And user selects <Star> from "Rate the app" screen
+Then user should receive a "Thanks for your rating" popup
+When user "clicks on continue button" the "Thanks for your rating" popup
+Then user should be displayed with the "Honeywell Home in Google Playstore" screen
+#Helpshift portal to check feedback
+
+Examples: 
+| Star | 
+#| 4    |
+| 5	   |
   
-  #Requirements : single location with and with out any solution
-  @GenralRatetheapppopup15timesminimzeandmaximizebelow3star             @Automatable		@--xrayid:ATER-69112
-  Scenario Outline: As a user I want to verify the pop up if app minimise and maximise the app for 3 times 
-    Given user launches and logs in to the Lyric Application
-     Then user Minimise and Maximise the app for three times
-      And user should be displayed with "What do you think of Honeywell home app?" pop up
-     When user selects “Dismiss” option
-     Then user should not be displayed with "What do you think of Honeywell home app?" pop up
-     Then user Minimise and Maximise the app for 12 times
-     Then user should be displayed with "App Feedback" screen
-      And user should be displayed with the disabled "SEND FEEDBACK" and "Toggle" button
-     When user enter the "Feedback" text in "Feedback Edit Box"
-     Then user should be displayed with enabled "SEND FEEDBACK" button
-      And user enables the "Toggle" button 
-     When user selects the "SEND FEEDBACK" button
-     Then user should be displayed with "About the app" screen 
-  #Helpshift portal to check feedback
-    Examples: 
-      | Star | 
-      | 1    | 
-      | 2    | 
-      | 3    | 
+
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerMinMaxAppForTwelveTimesAndCloseThanksForYourRatingPopup             @Automated		@--xrayid:ATER-69114
+Scenario Outline: Thanks for your rating popup should display when app is minimized and maximized for twelve times in Home screen with feedback above three star rating
+Given user launches and logs in to the Lyric Application
+When user minimizes and maximizes the app for "3" times
+Then user should receive a "What do you think of Honeywell Home app" popup
+When user "closes" the "What do you think of Honeywell Home app" popup
+Then user should be displayed with the "About the app" screen
+When user minimizes and maximizes the app for "12" times
+Then user should receive a "What do you think of Honeywell Home app" popup
+When user selects <Star> from "Rate the app" screen
+Then user should receive a "Thanks for your rating" popup
+When user "clicks on close button" the "Thanks for your rating" popup
+Then user should be displayed with the "About the app" screen
+
+Examples: 
+| Star | 
+#| 4    |
+| 5	   |
+ 
+ 
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerLogoutAndLoginThriceMinMaxAppForTwelveTimesAndVerifyFeedbackScreenWithBelowFourRating             @Automated			@--xrayid:ATER-69115
+Scenario Outline: Send Feedback after logout and log into app thrice, minimize and maximize app twelve times with feedback below four star rating
+Given user launches and logs in to the Lyric Application
+When user logout and login to the app for "3" times
+Then user should receive a "What do you think of Honeywell Home app" popup
+When user "closes" the "What do you think of Honeywell Home app" popup
+When user minimizes and maximizes the app for "12" times
+Then user should receive a "What do you think of Honeywell Home app" popup
+When user selects <Star> from "Rate the app" screen
+Then user should be displayed with the "App Feedback" screen
+And the following "App Feedback" options should be disabled:
+| AppFeedbackOptions			|
+| Anonymous Toggle Button	|
+| Send Feedback Button		|
+When user inputs "some text" in "Feedback Text Field" in the "App Feedback" screen
+Then the following "App Feedback" options should be enabled:
+| AppFeedbackOptions			|
+| Send Feedback Button		|
+And the following "App Feedback" options should be disabled:
+| AppFeedbackOptions			|
+| Anonymous Toggle Button	|
+When user changes the "Anonymous Toggle Button" to "on"
+And user selects "Send Feedback Button" from "App Feedback" screen
+Then user should be displayed with the "About the app" screen
+#Helpshift portal to check feedback
+
+Examples: 
+| Star | 
+#| 1    | 
+#| 2    | 
+| 3    |
+
+
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerLogoutAndLoginThriceMinMaxAppForTwelveTimesAndVerifyNavToGooglePlaystore            @Automated		@--xrayid:ATER-69116
+Scenario Outline: Navigate to Google Playstore after logout and log into app thrice, minimize and maximize app twelve times and with feedback four or five rating
+Given user launches and logs in to the Lyric Application
+When user logout and login to the app for "3" times
+Then user should receive a "What do you think of Honeywell Home app" popup
+When user "closes" the "What do you think of Honeywell Home app" popup
+When user minimizes and maximizes the app for "12" times
+Then user should receive a "What do you think of Honeywell Home app" popup
+When user selects <Star> from "Rate the app" screen
+Then user should receive a "Thanks for your rating" popup
+When user "clicks on continue button" the "Thanks for your rating" popup
+Then user should be displayed with the "Honeywell Home in Google Playstore" screen
+#Helpshift portal to check feedback
+
+Examples: 
+| Star | 
+#| 4    |
+| 5	   |
+
+
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerLogoutAndLoginThriceMinMaxAppForTwelveTimesAndCloseThanksForYourRatingPopup            @Automated		@--xrayid:ATER-69119
+Scenario Outline: Close Thanks for your rating popup after logout and log into app thrice, minimize and maximize app twelve times and with feedback four or five rating
+Given user launches and logs in to the Lyric Application
+When user logout and login to the app for "3" times
+Then user should receive a "What do you think of Honeywell Home app" popup
+When user "closes" the "What do you think of Honeywell Home app" popup
+When user minimizes and maximizes the app for "12" times
+Then user should receive a "What do you think of Honeywell Home app" popup
+When user selects <Star> from "Rate the app" screen
+Then user should receive a "Thanks for your rating" popup
+When user "clicks on close button" the "Thanks for your rating" popup
+Then user should be displayed with the "About the app" screen
+#Helpshift portal to check feedback
+
+Examples: 
+| Star | 
+#| 4    |
+| 5	   |
   
-  #Requirements : single location with and with out any solution
-  @GenralRatetheapppopup15timesminimzeandmaximize4-5starcontinueoption             @Automatable		@--xrayid:ATER-69113
-  Scenario Outline: As a user I want to verify the pop up if app minimise and maximise the app for 3 times 
-    Given user launches and logs in to the Lyric Application
-     Then user Minimise and Maximise the app for three times
-      And user should be displayed with "What do you think of Honeywell home app?" pop up
-     When user selects “Dismiss” option
-     Then user should not be displayed with "What do you think of Honeywell home app?" pop up
-     Then user Minimise and Maximise the app for 12 times
-     When user selects <star> button
-     Then user should be displayed with "Thanks for your rating" pop up
-     When user select the "Continue" option 
-     Then user should navigates to "Play-store" app 
-    Examples: 
-      | Star | 
-      | 4    | 
-      | 5    | 
+
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerLogoutAndLoginAndMinMaxAppIntermittentlyAndVerifyFeedbackScreenWithBelowFourRating             @Automated		@--xrayid:ATER-69120
+Scenario Outline: Send Feedback after logout and log into app, minimize and maximize app intermittently and with feedback below four rating
+Given user launches and logs in to the Lyric Application
+When user logout and login to the app for "2" times
+And user minimizes and maximizes the app for "1" times
+Then user should receive a "What do you think of Honeywell Home app" popup
+When user "closes" the "What do you think of Honeywell Home app" popup
+And user minimizes and maximizes the app for "11" times
+And user logout and login to the app for "1" times
+Then user should receive a "What do you think of Honeywell Home app" popup
+When user selects <Star> from "Rate the app" screen
+Then user should be displayed with the "App Feedback" screen
+And the following "App Feedback" options should be disabled:
+| AppFeedbackOptions			|
+| Anonymous Toggle Button	|
+| Send Feedback Button		|
+When user inputs "some text" in "Feedback Text Field" in the "App Feedback" screen
+Then the following "App Feedback" options should be enabled:
+| AppFeedbackOptions			|
+| Send Feedback Button		|
+And the following "App Feedback" options should be disabled:
+| AppFeedbackOptions			|
+| Anonymous Toggle Button	|
+When user changes the "Anonymous Toggle Button" to "on"
+And user selects "Send Feedback Button" from "App Feedback" screen
+Then user should be displayed with the "About the app" screen
+#Helpshift portal to check feedback
+
+Examples: 
+| Star | 
+#| 1    | 
+#| 2    | 
+| 3    |
+
+
+#FAQs
   
-  #Requirements : single location with and with out any solution
-  @GenralRatetheapppopup15timesminimzeandmaximize4-5starcloseoption             @Automatable		@--xrayid:ATER-69114
-  Scenario Outline: As a user I want to verify the pop up if app minimise and maximise the app for 3 times 
-    Given user launches and logs in to the Lyric Application
-     Then user Minimise and Maximise the app for three times
-      And user should be displayed with "What do you think of Honeywell home app?" pop up
-     When user selects “Dismiss” option
-     Then user should not be displayed with "What do you think of Honeywell home app?" pop up
-     Then user Minimise and Maximise the app for 12 times
-     When user selects <star> button
-     Then user should be displayed with "Thanks for your rating" pop up
-     When user select the “Close” option 
-     Then user should navigates to “About the app” screen 
-    Examples: 
-      | Star | 
-      | 4    | 
-      | 5    | 
+#Requirements : single location with and with out any solution , UK location 
+@GeneralGlobalDrawerVerifyIfFAQsDisplayedForUKLocation             @Automated		@--xrayid:ATER-69125
+Scenario: Navigation to FAQs screen for UK Location under global drawer with and with out solution
+Given user launches and logs in to the Lyric Application
+When user navigates to "FAQS" screen from the "Dashboard" screen
+Then user should be displayed with the "FAQS" screen
+And user should be displayed with the following "FAQS" options:
+| FAQsOptions			| 
+| General             	| 
+| Thermostat          	| 
+| Water leak detector 	| 
+| Camera              	|
+
+ 
+#FAQs General 
   
-  #Requirements : single location with and with out any solution
-  @GenralRatetheapppopup3timesLoginandlogoutbelow3star             @Automatable		@--xrayid:ATER-69115
-  Scenario Outline: As a user I want to verify the pop up if app minimise and maximise the app for 3 times 
-    Given user launches and logs in to the Lyric Application
-     Then user Logout and login to the app for three times
-      And user should be displayed with "What do you think of Honeywell home app?" pop up
-     When user selects “Dismiss” option
-     Then user should not be displayed with "What do you think of Honeywell home app?" pop up
-     Then user Minimise and Maximise the app for 12 times
-     When user selects <star> button
-     Then user should be displayed with "App Feedback" screen
-      And user should be displayed with the disabled "SEND FEEDBACK" and "Toggle" button
-     When user enter the "Feedback" text in "Feedback Edit Box"
-     Then user should be displayed with enabled "SEND FEEDBACK" button
-      And user enables the "Toggle" button 
-     When user selects the "SEND FEEDBACK" button
-     Then user should be displayed with "About the app" screen 
-  #Helpshift portal to check feedback
-    Examples: 
-      | Star | 
-      | 1    | 
-      | 2    | 
-      | 3    | 
+#Requirements : single location with and with out any solution , UK location 
+@GeneralGlobalDrawerTapOnYesButtonInWasThisHelpfulDIsplayedForAQuestionInGeneralFAQs            @Automated		@--xrayid:ATER-69126
+Scenario: Verify the app behavior by tapping on Yes button in Was this helpful displayed for a question in FAQs General questions list
+Given user launches and logs in to the Lyric Application
+When user navigates to "FAQS" screen from the "Dashboard" screen
+Then user should be displayed with the "FAQS" screen
+And user should be displayed with the following "FAQS" options:
+| FAQsOptions			| 
+| General             	| 
+| Thermostat          	| 
+| Water leak detector 	| 
+| Camera              	|
+When user selects "General" from "FAQS" screen 
+Then user should be displayed with the "General" screen
+When user selects "A Question" from "General" screen
+Then user should be displayed with the "Question" screen
+And user should be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Yes button from Was this helpful section" from "Question" screen
+Then user should be displayed with "You found this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user navigates back and forth in "Question" screen
+And user should be displayed with "You found this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+
+
+#Requirements : single location with and with out any solution , UK location 
+@GeneralGlobalDrawerTapOnNoButtonInWasThisHelpfulDIsplayedForAQuestionInGeneralFAQs            @Automated		@--xrayid:ATER-75786
+Scenario: Verify the app behavior by tapping on No button in Was this helpful displayed for a question in FAQs General questions list
+Given user launches and logs in to the Lyric Application
+When user navigates to "FAQS" screen from the "Dashboard" screen
+Then user should be displayed with the "FAQS" screen
+And user should be displayed with the following "FAQS" options:
+| FAQsOptions			| 
+| General             	| 
+| Thermostat          	| 
+| Water leak detector 	| 
+| Camera              	|
+When user selects "General" from "FAQS" screen 
+Then user should be displayed with the "General" screen
+When user selects "A Question" from "General" screen
+Then user should be displayed with the "Question" screen
+And user should be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user selects "No button from Was this helpful section" from "Question" screen
+Then user should be displayed with "You did not find this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user navigates back and forth in "Question" screen
+And user should be displayed with "You did not find this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+
+ 
+#FAQs Thermostat 
   
-  #Requirements : single location with and with out any solution
-  @GenralRatetheapppopup15timesloginandlogout4-5starcontinueoption             @Automatable		@--xrayid:ATER-69116
-  Scenario Outline: As a user I want to verify the pop up if app minimise and maximise the app for 3 times 
-    Given user launches and logs in to the Lyric Application
-     Then user Logout and login to the app for three times
-      And user should be displayed with "What do you think of Honeywell home app?" pop up
-     When user selects “Dismiss” option
-     Then user should not be displayed with "What do you think of Honeywell home app?" pop up
-     Then user Minimise and Maximise the app for 12 times
-     When user selects <star> button
-     Then user should be displayed with "Thanks for your rating" pop up
-     When user select the "Continue" option 
-     Then user should navigates to "Play-store" app 
-    Examples: 
-      | Star | 
-      | 4    | 
-      | 5    | 
+
+#Requirements : single location with and with out any solution , UK location 
+@GeneralGlobalDrawerTapOnYesButtonInWasThisHelpfulDIsplayedForAQuestionInThermostatFAQs             @Automated		@--xrayid:ATER-69127
+Scenario: Verify the app behavior by tapping on Yes button in Was this helpful displayed for a question in FAQs Thermostat questions list
+Given user launches and logs in to the Lyric Application
+When user navigates to "FAQS" screen from the "Dashboard" screen
+Then user should be displayed with the "FAQS" screen
+And user should be displayed with the following "FAQS" options:
+| FAQsOptions			| 
+| General             	| 
+| Thermostat          	| 
+| Water leak detector 	| 
+| Camera              	|
+When user selects "Thermostat" from "FAQS" screen 
+Then user should be displayed with the "Thermostat" screen
+When user selects "A Question" from "Thermostat" screen
+Then user should be displayed with the "Question" screen
+And user should be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Yes button from Was this helpful section" from "Question" screen
+Then user should be displayed with "You found this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user navigates back and forth in "Question" screen
+And user should be displayed with "You found this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+
+
+#Requirements : single location with and with out any solution , UK location 
+@GeneralGlobalDrawerTapOnNoButtonInWasThisHelpfulDIsplayedForAQuestionInThermostatFAQs            @Automated	@--xrayid:ATER-76410
+Scenario: Verify the app behavior by tapping on No button in Was this helpful displayed for a question in FAQs Thermostat questions list
+Given user launches and logs in to the Lyric Application
+When user navigates to "FAQS" screen from the "Dashboard" screen
+Then user should be displayed with the "FAQS" screen
+And user should be displayed with the following "FAQS" options:
+| FAQsOptions			| 
+| General             	| 
+| Thermostat          	| 
+| Water leak detector 	| 
+| Camera              	|
+When user selects "Thermostat" from "FAQS" screen 
+Then user should be displayed with the "Thermostat" screen
+When user selects "A Question" from "Thermostat" screen
+Then user should be displayed with the "Question" screen
+And user should be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user selects "No button from Was this helpful section" from "Question" screen
+Then user should be displayed with "You did not find this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user navigates back and forth in "Question" screen
+And user should be displayed with "You did not find this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+
   
-  #Requirements : single location with and with out any solution
-  @GenralRatetheapppopup15timesLogoutandlogin4-5starcloseoption             @Automatable		@--xrayid:ATER-69119
-  Scenario Outline: As a user I want to verify the pop up if app minimise and maximise the app for 3 times 
-    Given user launches and logs in to the Lyric Application
-     Then user Logout and Login the app for three times
-      And user should be displayed with "What do you think of Honeywell home app?" pop up
-     When user selects “Dismiss” option
-     Then user should not be displayed with "What do you think of Honeywell home app?" pop up
-     Then user Minimise and Maximise the app for 12 times
-     When user selects <star> button
-     Then user should be displayed with "Thanks for your rating" pop up
-     When user select the “Close” option 
-     Then user should navigates to “About the app” screen 
-    Examples: 
-      | Star | 
-      | 4    | 
-      | 5    | 
+#FAQs WLD 
+
+
+#Requirements : single location with and with out any solution , UK location 
+@GeneralGlobalDrawerTapOnYesButtonInWasThisHelpfulDIsplayedForAQuestionInWLDFAQs            @Automated		@--xrayid:ATER-69129
+Scenario: Verify the app behavior by tapping on Yes button in Was this helpful displayed for a question in FAQs Water Leak Detector questions list
+Given user launches and logs in to the Lyric Application
+When user navigates to "FAQS" screen from the "Dashboard" screen
+Then user should be displayed with the "FAQS" screen
+And user should be displayed with the following "FAQS" options:
+| FAQsOptions			| 
+| General             	| 
+| Thermostat          	| 
+| Water leak detector 	| 
+| Camera              	|
+When user selects "Water leak detector" from "FAQS" screen 
+Then user should be displayed with the "Water leak detector" screen
+When user selects "A Question" from "Water leak detector" screen
+Then user should be displayed with the "Question" screen
+And user should be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Yes button from Was this helpful section" from "Question" screen
+Then user should be displayed with "You found this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user navigates back and forth in "Question" screen
+And user should be displayed with "You found this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	| 
+
+
+#Requirements : single location with and with out any solution , UK location 
+@GeneralGlobalDrawerTapOnNoButtonInWasThisHelpfulDIsplayedForAQuestionInWLDFAQs            @Automated		@--xrayid:ATER-76411
+Scenario: Verify the app behavior by tapping on No button in Was this helpful displayed for a question in FAQs Water Leak Detector questions list
+Given user launches and logs in to the Lyric Application
+When user navigates to "FAQS" screen from the "Dashboard" screen
+Then user should be displayed with the "FAQS" screen
+And user should be displayed with the following "FAQS" options:
+| FAQsOptions			| 
+| General             	| 
+| Thermostat          	| 
+| Water leak detector 	| 
+| Camera              	|
+When user selects "Water leak detector" from "FAQS" screen 
+Then user should be displayed with the "Water leak detector" screen
+When user selects "A Question" from "Water leak detector" screen
+Then user should be displayed with the "Question" screen
+And user should be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user selects "No button from Was this helpful section" from "Question" screen
+Then user should be displayed with "You did not find this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user navigates back and forth in "Question" screen
+And user should be displayed with "You did not find this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+
+ 
+#FAQs CAMERA 
+
+ 
+#Requirements : single location with and with out any solution , UK location 
+@GeneralGlobalDrawerTapOnYesButtonInWasThisHelpfulDIsplayedForAQuestionInCameraFAQs              @Automated		@--xrayid:ATER-69131
+Scenario: Verify the app behavior by tapping on Yes button in Was this helpful displayed for a question in FAQs Camera questions list
+Given user launches and logs in to the Lyric Application
+When user navigates to "FAQS" screen from the "Dashboard" screen
+Then user should be displayed with the "FAQS" screen
+And user should be displayed with the following "FAQS" options:
+| FAQsOptions			| 
+| General             	| 
+| Thermostat          	| 
+| Water leak detector 	| 
+| Camera              	|
+When user selects "Camera" from "FAQS" screen 
+Then user should be displayed with the "Camera" screen
+When user selects "A Question" from "Camera" screen
+Then user should be displayed with the "Question" screen
+And user should be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Yes button from Was this helpful section" from "Question" screen
+Then user should be displayed with "You found this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user navigates back and forth in "Question" screen
+And user should be displayed with "You found this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+
+
+#Requirements : single location with and with out any solution , UK location 
+@GeneralGlobalDrawerTapOnNoButtonInWasThisHelpfulDIsplayedForAQuestionInCameraFAQs            @Automated		@--xrayid:ATER-76412
+Scenario: Verify the app behavior by tapping on No button in Was this helpful displayed for a question in FAQs Camera questions list
+Given user launches and logs in to the Lyric Application
+When user navigates to "FAQS" screen from the "Dashboard" screen
+Then user should be displayed with the "FAQS" screen
+And user should be displayed with the following "FAQS" options:
+| FAQsOptions			| 
+| General             	| 
+| Thermostat          	| 
+| Water leak detector 	| 
+| Camera              	|
+When user selects "Camera" from "FAQS" screen 
+Then user should be displayed with the "Camera" screen
+When user selects "A Question" from "Camera" screen
+Then user should be displayed with the "Question" screen
+And user should be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user selects "No button from Was this helpful section" from "Question" screen
+Then user should be displayed with "You did not find this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
+When user navigates back and forth in "Question" screen
+And user should be displayed with "You did not find this helpful" in the "Question" screen
+And user should not be displayed with the following "Question" options:
+| QuestionOptions							| 
+| Was this helpful with Yes and No buttons	|
   
-  #Requirements : single location with and with out any solution
-  @GenralRatetheapppopup15timesLoginandlogoutandmaximiseandminise             @Automatable		@--xrayid:ATER-69120
-  Scenario Outline: As a user I want to verify the pop up if app minimise and maximise , and logout and login the app 15times 
-    Given user launches and logs in to the Lyric Application
-     Then user Logout and login to the app for two times
-      And user manimze and maximise the app for 1 times
-      And user should be displayed with "What do you think of Honeywell home app?" pop up
-     When user selects “Dismiss” option
-     Then user should not be displayed with "What do you think of Honeywell home app?" pop up
-     Then user Minimise and Maximise the app for 11 times
-     Then user Logout and login to the app for 1 times
-     When user selects <star> button
-     Then user should be displayed with "App Feedback" screen
-      And user should be displayed with the disabled "SEND FEEDBACK" and "Toggle" button
-     When user enter the "Feedback" text in "Feedback Edit Box"
-     Then user should be displayed with enabled "SEND FEEDBACK" button
-      And user enables the "Toggle" button 
-     When user selects the "SEND FEEDBACK" button
-     Then user should be displayed with "About the app" screen 
-  #Helpshift portal to check feedback
-    Examples: 
-      | Star | 
-      | 1    | 
-      | 2    | 
-      | 3    | 
+
+#FAQs search box 
   
-  #FAQs
+
+#Requirements : single location with and with out any solution , UK location 
+@GeneralGlobalDrawerVerifySearchResultsInFAQsScreen             @Automated		@--xrayid:ATER-69132
+Scenario: As a user i want to Verify if list of questions display for the entered help text in FAQs screen
+Given user launches and logs in to the Lyric Application
+When user navigates to "FAQS" screen from the "Dashboard" screen
+Then user should be displayed with the "FAQS" screen
+And user should be displayed with the following "FAQS" options:
+| FAQsOptions			| 
+| General             	| 
+| Thermostat          	| 
+| Water leak detector 	| 
+| Camera              	|
+When user inputs "What happens" in "Help Text" in the "FAQs" screen
+Then user should be displayed with the following "Question" options:
+| QuestionOptions	|
+| Search results		|
+ 
   
-  #Requirements : single location with and with out any solution , UK location 
-  @GenralGlobalDrawerFAQsUKLocationVerification             @Automatable		@--xrayid:ATER-69125
-  Scenario: As a user i want to Verify FAQs with UK Location under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "About the app" screen from the "Dashboard" screen
-     When user selects "FAQs" option 
-     Then user should be navigates to "FAQs" screen 
-      And user should be displayed with following "FAQs" list:
-      | FAQs                | 
-      | General             | 
-      | Thermostat          | 
-      | Water leak detector | 
-      | Camera              | 
+#FAQs search box with no FAQs
   
-  #FAQs General 
+#Requirements : single location with and with out any solution , UK location 
+@GeneralGlobalDrawerVerifyNoFAQsFoundLabelInFAQsScreen             @Automated		@--xrayid:ATER-69133
+Scenario: As a user i want to Verify if No FAQs found label displayed for the entered help text in FAQs screen
+Given user launches and logs in to the Lyric Application
+When user navigates to "FAQS" screen from the "Dashboard" screen
+Then user should be displayed with the "FAQS" screen
+And user should be displayed with the following "FAQS" options:
+| FAQsOptions			| 
+| General             	| 
+| Thermostat          	| 
+| Water leak detector 	| 
+| Camera              	|
+When user inputs "abcdefghij" in "Help Text" in the "FAQs" screen
+Then user should be displayed with the following "Question" options:
+| QuestionOptions	|
+| No FAQs found		|
   
-  #Requirements : single location with and with out any solution , UK location 
-  @GenralGlobalDrawerFAQsGenralUKLocationVerification             @Automatable		@--xrayid:ATER-69126
-  Scenario: As a user i want to Verify General FAQs with UK Location under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "About the app" screen from the "Dashboard" screen
-     When user selects "FAQs" option 
-     Then user should be navigates to "FAQs" screen 
-      And user should be displayed with following "FAQs" list:
-      | FAQs                | 
-      | General             | 
-      | Thermostat          | 
-      | Water leak detector | 
-      | Camera              | 
-     When user selects "General" option 
-     Then user should be displayed with "General" screen with respective "Questions"
-     When user selects any one "Questions"
-     Then user navigates to respective "Questions" screen
-     When user selects "YES" button 
-     Then user should be displayed with "You found this helpful" text  
-      And user should not displayed with the "Options" 
-     When user selects any one "Questions"
-     Then user navigates to respective "Questions" screen
-     When user selects "NO" button 
-     Then user should be displayed with "You didn't find this helpful" text 
-      And user should not displayed with the "Options" 
-      And suer navigates to "General" screen from " Questions" screen
+
+#Logout
   
-  #FAQs Thermostat 
+
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerLogoutFromTheAppWithLocation             @Automated		@--xrayid:ATER-69134
+Scenario: As a user i want to Verify logout with location under global drawer with and with out solution
+Given user launches and logs in to the Lyric Application
+When user navigates to "Global Drawer" screen from the "Dashboard" screen
+And user selects "Log out" from "Global Drawer" screen
+Then user should be displayed with the "Honeywell Home" Screen
+
   
-  #Requirements : single location with and with out any solution , UK location 
-  @GenralGlobalDrawerFAQsThermostatUKLocationVerification             @Automatable		@--xrayid:ATER-69127
-  Scenario: As a user i want to Verify Thermostat FAQs with UK Location under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "About the app" screen from the "Dashboard" screen
-     When user selects "FAQs" option 
-     Then user should be navigates to "FAQs" screen 
-      And user should be displayed with following "FAQs" list:
-      | FAQs                | 
-      | General             | 
-      | Thermostat          | 
-      | Water leak detector | 
-      | Camera              | 
-     When user selects "Thermostat" option 
-     Then user should be displayed with "General" screen with respective "Questions"
-     When user selects any one "Questions"
-     Then user navigates to respective "Questions" screen
-     When user selects "YES" button 
-     Then user should be displayed with "You found this helpful" text  
-      And user should not displayed with the "Options" 
-     When user selects any one "Questions"
-     Then user navigates to respective "Questions" screen
-     When user selects "NO" button 
-     Then user should be displayed with "You didn't find this helpful" text 
-      And user should not displayed with the "Options" 
-      And suer navigates to "General" screen from " Questions" screen
+#Withoutlocation
+#Requirements : No location
+@GeneralGlobalDrawerLogoutFromAppWithoutAnyLocation             @Automated		@--xrayid:ATER-69135
+Scenario: As a user i want to Verify logout from the app without location
+Given user launches and logs in to the Lyric application with user account without any location
+Then user should be displayed with the "Add New Device" screen
+When user selects "Close Button" from "Add New Device" screen
+Then user should receive a "Exit Honeywell Home" popup
+When user "Clicks on Cancel button in" the "Exit Honeywell Home" popup
+Then user should be displayed with the "Add New Device" screen
+When user selects "Close Button" from "Add New Device" screen
+Then user should receive a "Exit Honeywell Home" popup
+When user "Clicks on Sign Out button in" the "Exit Honeywell Home" popup
+Then user should be displayed with the "Honeywell Home" Screen
+And user should be able to login to the app after sign out
+Then user should be displayed with the "Add New Device" screen
   
-  #FAQs WLD 
+
+#Delete account
+#Requirements: No Location, No Device and No Membership
+@SingleUserDeleteAccountWithNoLocationNoDeviceNoMembership             @Automatable 		@--xrayid:ATER-69136  
+Scenario: To verify user is able to delete account if there are no devices, no locations and no Membership linked to the account
+Given user launches and logs in to the Lyric application with user account without any location
+Then user should be displayed with the "Add New Device" screen
+When user selects "Close Button" from "Add New Device" screen
+Then user should receive a "Exit Honeywell Home" popup
+When user "Clicks on Delete Account button in" the "Exit Honeywell Home" popup
+Then user should receive a "Sorry to see you go" popup
+When user "Clicks on No button in" the "Sorry to see you go" popup
+Then user should be displayed with the "Add New Device" screen
+When user selects "Close Button" from "Add New Device" screen
+Then user should receive a "Exit Honeywell Home" popup
+When user "Clicks on Delete Account button in" the "Exit Honeywell Home" popup
+Then user should receive a "Sorry to see you go" popup
+When user "Clicks on Yes button in" the "Sorry to see you go" popup
+Then user should receive a "Your Account and Data is deleted" popup
+And user "Accepts" the "Your Account and Data is deleted" popup
+Then user should be displayed with the "Honeywell Home" screen
+When user logs in to the Lyric Application with "deleted account credentials"
+Then user should receive a "Email or Password incorrect" popup
+And user "Accepts" the "Email or Password incorrect" popup
+Then create the deleted user account through CHIL
+
+
+#Requirements: With Location, No Device and No Membership 
+@SingleUserDeleteAccountWithNoDeviceNoMembership             @Automatable		@--xrayid:ATER-69137
+Scenario Outline: To verify user is able to delete his account if there are no devices in any locations any no Membership linked to the account 
+Given user launches and logs in to the Lyric application with user account with location
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account Without Solution" screen
+And user should be displayed with the following "Delete Account" options:
+| DeleteAccountOptions				| 
+| We are sorry to see you go			|
+When user selects "Delete Account button" from "Delete Account" screen
+Then user should receive a "Your Account and Data is deleted" popup
+And user "Accepts" the "Your Account and Data is deleted" popup
+Then user should be displayed with the "Honeywell Home" screen
+When user logs in to the Lyric Application with "deleted account credentials"
+Then user should receive a "Email or Password incorrect" popup
+And user "Accepts" the "Email or Password incorrect" popup
+Then create the deleted user account through CHIL
+When user logs in to the Lyric Application with "deleted account credentials"
+Then user should be displayed with the "Add New Device" screen
+When user selects "Smart Home Security" from "Add New Device" screen
+Then user should be displayed with the "What To Expect" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects <Default Location> from "Choose Location" screen
+Then user should be displayed with the "Confirm Your ZIP Code" screen
+When user inputs <valid zip code>
+Then user should be displayed with the "Name Your Base Station" screen
+When user "cancels the set up" by clicking on "cancel" button
+Then user should receive a "Cancel Setup" popup
+When user "accepts" the "Cancel Setup" popup
+Then user should be displayed with the "Add New Device" screen
+
+Examples: 
+      | Default Location		| Default Device Name		| valid zip code        |
+      | Home					| Living Room				| 90001                 |	
   
-  #Requirements : single location with and with out any solution , UK location 
-  @GenralGlobalDrawerWaterleakdetectorFAQsUKLocationVerification             @Automatable		@--xrayid:ATER-69129
-  Scenario: As a user i want to Verify WLD FAQs with UK Location under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "About the app" screen from the "Dashboard" screen
-     When user selects "FAQs" option 
-     Then user should be navigates to "FAQs" screen 
-      And user should be displayed with following "FAQs" list:
-      | FAQs                | 
-      | General             | 
-      | Thermostat          | 
-      | Water leak detector | 
-      | Camera              | 
-     When user selects "Water leak detector" option 
-     Then user should be displayed with "General" screen with respective "Questions"
-     When user selects any one "Questions"
-     Then user navigates to respective "Questions" screen
-     When user selects "YES" button 
-     Then user should be displayed with "You found this helpful" text  
-      And user should not displayed with the "Options" 
-     When user selects any one "Questions"
-     Then user navigates to respective "Questions" screen
-     When user selects "NO" button 
-     Then user should be displayed with "You didn't find this helpful" text 
-      And user should not displayed with the "Options" 
-      And suer navigates to "General" screen from " Questions" screen
-  
-  #FAQs CAMERA 
-  
-  #Requirements : single location with and with out any solution , UK location 
-  @GenralGlobalDrawerCameraFAQsUKLocationVerification             @Automatable		@--xrayid:ATER-69131
-  Scenario: As a user i want to Verify camera FAQs with UK Location under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "About the app" screen from the "Dashboard" screen
-     When user selects "FAQs" option 
-     Then user should be navigates to "FAQs" screen 
-      And user should be displayed with following "FAQs" list:
-      | FAQs                | 
-      | General             | 
-      | Thermostat          | 
-      | Water leak detector | 
-      | Camera              | 
-     When user selects "camera" option 
-     Then user should be displayed with "General" screen with respective "Questions"
-     When user selects any one "Questions"
-     Then user navigates to respective "Questions" screen
-     When user selects "YES" button 
-     Then user should be displayed with "You found this helpful" text  
-      And user should not displayed with the "Options" 
-     When user selects any one "Questions"
-     Then user navigates to respective "Questions" screen
-     When user selects "NO" button 
-     Then user should be displayed with "You didn't find this helpful" text 
-      And user should not displayed with the "Options" 
-      And user navigates to "General" screen from " Questions" screen
-  
-  #FAQs search box 
-  
-  #Requirements : single location with and with out any solution , UK location 
-  @GenralGlobalDrawerFAQsThermostatUKLocationVerification             @Automatable		@--xrayid:ATER-69132
-  Scenario: As a user i want to Verify Thermostat FAQs with UK Location under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "FAQs" screen from the "Dashboard" screen
-     When user enters the text in "Search" edit box 
-     Then user should be display with respective "Questions"
-  
-  #FAQs search box with no FAQs
-  
-  #Requirements : single location with and with out any solution , UK location 
-  @GenralGlobalDrawerNoFAQsUKLocationVerification             @Automatable		@--xrayid:ATER-69133
-  Scenario Outline: As a user i want to Verify No FAQs with UK Location under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "FAQs" screen from the "Dashboard" screen
-     When user enters the <text> text in "Search" edit box 
-     Then user should be displayed with "No FAQs Found" text
-    Examples: 
-      | Text | 
-      | acbd | 
-  
-  #Logout
-  
-  #Requirements : single location with and with out any solution
-  @GenralGlobalDrawerlogoutwithlocationVerification             @Automatable		@--xrayid:ATER-69134
-  Scenario: As a user i want to Verify logout with location under global drawer with and with out solution 
-    Given user launches and logs in to the Lyric Application
-      And user Navigates to "Global Drawer" screen from the "Dashboard" screen
-     When user selects "Logout" options
-     Then user should be displayed with "Login" Screen
-  
-  #Withoutlocation
-  #Requirements : No location
-  @GenralGlobalDrawerlogoutwithnolocationVerification             @Automatable		@--xrayid:ATER-69135
-  Scenario: As a user I want to verify logout with out location
-    Given user launches and logs in to the Lyric Application
-     Then user selects “Back/Cancel” option from the “Add new Device” screen
-      And user should be displayed with “Exit Honeywell Home?” Pop up
-     When user select “Cancel” option from “Exit Honeywell Home?” Pop up
-     Then user should be displayed with “Add new Device” screen
-     When user selects “Back/Cancel” option from the “Add new Device” screen
-     Then user should be displayed with “Exit Honeywell Home?” Pop up
-     When user selects the “Sign out” option
-     Then user should be displayed with “login” screen
-  
-  #Delete account
-  #Feature: As an user, I want to delete my account from the app. @LYR-22282
-  @SingleUserDeleteAccountWithNoLocationNoDeviceNoMembership             @Automatable 		@--xrayid:ATER-69136  
-  Scenario: To verify user is able to delete his account if there are no devices, no locations and no Membership linked to the account
-    Given app is launched
-      And user creates account and email got verified.	
-     When user lands in “Add New Device” screen
-      And user clicks on BACK button
-     Then verify user should receive the Pop up screen with “Exit Honeywell Home?” Pop up.
-     When user Clicks on “DELETE ACCOUNT” link     
-     Then verify user should receive a “Delete Account-Sorry to see you go” Page/Pop up.
-     When user clicks of NO button
-     Then verify user should navigate back to “Add New Device” screen
-     When user clicks on BACK button
-     Then verify user should receive the Pop up screen with Exit Honeywell Pop up.
-     When user Clicks on “DELETE ACCOUNT” button     
-     Then verify user should receive a ““DELETE ACCOUNT”-Sorry to see you go” ““DELETE ACCOUNT”-Sorry to see you go” Page/Pop up.
-     When user Clicks on YES button
-     Then verify user should navigate to Login screen
-      And verify user should receive a pop-up saying “Your Account & Data is Deleted”.
-      And verify user is unable to login with same credentials
-  
-  @SingleUserDeleteAccountWithNoDeviceNoMembership             @Automatable		@--xrayid:ATER-69137
-  Scenario: To verify user is able to delete his account if there are no devices in any locations any no Membership linked to the account 
-    Given app is launched
-      And user creates account and email got verified.
-      And user created a location only without any device.
-     When user navigates to “Edit Account” screen from “Dashboard” screen
-      And user clicks on “DELETE ACCOUNT” link.
-     Then verify user should receive a ““DELETE ACCOUNT”-Sorry to see you go” Page/Pop up.
-     When user clicks of NO button
-     Then verify user should navigate back to “Edit Account” screen
-     When user clicks on “DELETE ACCOUNT” link
-     Then verify user should receive a ““DELETE ACCOUNT”-Sorry to see you go” Page/Pop up.
-     When user clicks on YES button
-     Then verify user should receive a pop-up saying “Your Account & Data is Deleted”.
-      And verify user should navigate to Login screen. 
-      And verify user is unable to login with same credentials
-  
-  @SingleUserWithUnsharedDeviceWithCameraSubscriptions             @Automatable		@--xrayid:ATER-69138
+
+  @SingleUserWithUnsharedDeviceWithCameraSubscriptions             @NotAutomatable		@--xrayid:ATER-69138
   Scenario Outline: To verify user is not able to delete his account when he has a unshared device or a Camera Subscription in it
     Given app is launched
       And user taps on LOGIN
@@ -1914,45 +2693,238 @@ Examples:
       | C2 Wifi Security Camera             | 
       | Lyric Smart Controller              | 
   
-  @DeleteAccountWithLocationHavingNoDeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-69139
-  Scenario: To verify user is unable to delete his account when he has a unshared device or a Camera Subscription in it
-    Given app is launched
-      And user creates account and email got verified.
-      And user created a location only without any device.
-      And user should have a valid CAMERA SUBSCRIPTION
-     When user navigates to “Edit Account” screen from “Dashboard” screen
-      And user clicks on “DELETE ACCOUNT” link
-     Then verify user should receive a pop up saying “Actions required before deleting your account ”
-     Then verify user can click and navigate to the the “Cancel Your Honeywell Membership” FAQ Page from the link
-     When user clicks of BACK or OK button
-     Then verify user should navigate back to Edit Account screen.
+
+@DeleteAccountWithLocationHavingNoDeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-69139
+Scenario: To verify user is able to delete the account if there are no devices in any location and if Camera Membership is linked to the account
+Given user launches and logs in to the Lyric application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Delete A Device" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Delete A Device" screen
+And user should be displayed with the following "Learn How To Delete A Device" options:
+| LearnHowToDeleteADeviceOptions				| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Delete A Device" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
+| LearnHowToCancelAMembershipOptions			| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+
+
+@DeleteAccountWithLocationHavingDASDeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-69140
+Scenario: To verify user is able to delete the account if there is DAS DEVICE in any location and if Camera Membership is linked to the account
+Given user launches and logs in to the Lyric Application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Delete A Device" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Delete A Device" screen
+And user should be displayed with the following "Learn How To Delete A Device" options:
+| LearnHowToDeleteADeviceOptions				| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Delete A Device" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
+| LearnHowToCancelAMembershipOptions			| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+
+
+@DeleteAccountWithLocationHavingLyricRoundWiFiThermostatDeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81293
+Scenario: To verify user is able to delete the account if there is LYRIC ROUND Wi-Fi THERMOSTAT DEVICE in any location and if Camera Membership is linked to the account
+Given user launches and logs in to the Lyric Application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Delete A Device" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Delete A Device" screen
+And user should be displayed with the following "Learn How To Delete A Device" options:
+| LearnHowToDeleteADeviceOptions				| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Delete A Device" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
+| LearnHowToCancelAMembershipOptions			| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+
+
+@DeleteAccountWithLocationHavingD6PRODeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81294
+Scenario: To verify user is able to delete the account if there is D6 PRO DEVICE in any location and if Camera Membership is linked to the account
+Given user launches and logs in to the Lyric Application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Delete A Device" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Delete A Device" screen
+And user should be displayed with the following "Learn How To Delete A Device" options:
+| LearnHowToDeleteADeviceOptions				| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Delete A Device" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
+| LearnHowToCancelAMembershipOptions			| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+
+
+@DeleteAccountWithLocationHavingT5DeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81295
+Scenario: To verify user is able to delete the account if there is T5 DEVICE in any location and if Camera Membership is linked to the account
+Given user launches and logs in to the Lyric Application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Delete A Device" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Delete A Device" screen
+And user should be displayed with the following "Learn How To Delete A Device" options:
+| LearnHowToDeleteADeviceOptions				| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Delete A Device" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
+| LearnHowToCancelAMembershipOptions			| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+
+
+@DeleteAccountWithLocationHavingT6PRODeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81296
+Scenario: To verify user is able to delete the account if there is T6 PRO DEVICE in any location and if Camera Membership is linked to the account
+Given user launches and logs in to the Lyric Application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Delete A Device" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Delete A Device" screen
+And user should be displayed with the following "Learn How To Delete A Device" options:
+| LearnHowToDeleteADeviceOptions				| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Delete A Device" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
+| LearnHowToCancelAMembershipOptions			| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+
+
+@DeleteAccountWithLocationHavingWLDDeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81297
+Scenario: To verify user is able to delete the account if there is WLD DEVICE in any location and if Camera Membership is linked to the account
+Given user launches and logs in to the Lyric Application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Delete A Device" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Delete A Device" screen
+And user should be displayed with the following "Learn How To Delete A Device" options:
+| LearnHowToDeleteADeviceOptions				| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Delete A Device" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
+| LearnHowToCancelAMembershipOptions			| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen    
+
+
+@DeleteAccountWithLocationHavingC1DeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81298
+Scenario: To verify user is able to delete the account if there is C1 DEVICE in any location and if Camera Membership is linked to the account
+Given user launches and logs in to the Lyric Application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Delete A Device" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Delete A Device" screen
+And user should be displayed with the following "Learn How To Delete A Device" options:
+| LearnHowToDeleteADeviceOptions				| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Delete A Device" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
+| LearnHowToCancelAMembershipOptions			| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+
+
+@DeleteAccountWithLocationHavingC2DeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81299
+Scenario: To verify user is able to delete the account if there is C2 DEVICE in any location and if Camera Membership is linked to the account
+Given user launches and logs in to the Lyric Application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Delete A Device" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Delete A Device" screen
+And user should be displayed with the following "Learn How To Delete A Device" options:
+| LearnHowToDeleteADeviceOptions				| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Delete A Device" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
+| LearnHowToCancelAMembershipOptions			| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+
+
+@DeleteAccountWithLocationHavingLyricSmartControllerDeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81300
+Scenario: To verify user is able to delete the account if there is LYRIC SMART CONTROLLER DEVICE in any location and if Camera Membership is linked to the account
+Given user launches and logs in to the Lyric Application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Delete A Device" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Delete A Device" screen
+And user should be displayed with the following "Learn How To Delete A Device" options:
+| LearnHowToDeleteADeviceOptions				| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Delete A Device" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
+| LearnHowToCancelAMembershipOptions			| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+
   
-  @DeleteAccountWithLocationHavingDeviceWithsubscription             @Automatable		@--xrayid:ATER-69140
-  Scenario Outline: To verify user is unable to delete his account when he has a unshared device or a Camera Subscription in it
-    Given app is launched
-      And user taps on LOGIN
-      And user should have <DEVICE> in one LOCATION
-      And user should have a valid CAMERA SUBSCRIPTION
-     When user navigates to “Edit Account” screen from “Dashboard” screen
-      And user clicks on “DELETE ACCOUNT” link
-     Then verify user should receive a pop up saying “Actions required before deleting your account ”
-      And verify user can click and navigate to the the “Delete All Devices” FAQ Page from the link.
-      And verify user can click and navigate to the the “Cancel Your Honeywell Membership” FAQ Page from the link
-     When user clicks of BACK or OK button
-     Then verify user should navigate back to Edit Account screen.
-  Examples: 
-      | DEVICE                              | 
-      | Smart Home Security                 | 
-      | Lyric Round Wi-Fi Thermostat        | 
-      | D6 Pro Wifi Ductless Controller     | 
-      | T5 Wifi Thermostat                  | 
-      | T6 Pro Wifi Thermostat              | 
-      | Wifi Water Leak and Freeze Detector | 
-      | C1 Wifi Security Camera             | 
-      | C2 Wifi Security Camera             | 
-      | Lyric Smart Controller              | 
-  
-  @MultipleDeviceDeleteSameAccountRestAllDeviceLogsOut             @Automatable		@--xrayid:ATER-69141
+  @MultipleDeviceDeleteSameAccountRestAllDeviceLogsOut             @NotAutomatable		@--xrayid:ATER-69141
   Scenario Outline: To verify all logged in devices should log out if account is deleted
     Given app is launched in two devices
       And user taps on LOGIN in both the devices with same account.
@@ -2003,7 +2975,7 @@ Examples:
       And verify user is unable to login with same credentials in any device.
   
   
-  @MultipleAccountSharedLocationDeletedInOneAccount             @Automatable		@--xrayid:ATER-69143
+  @MultipleAccountSharedLocationDeletedInOneAccount             @NotAutomatable		@--xrayid:ATER-69143
   Scenario Outline: To verify user is navigated to add device screen when a shared location is deleted and if account is deleted
     Given app is launched in two devices
       And both users taps on LOGIN in with different accounts
@@ -2036,7 +3008,7 @@ Examples:
       | C2 Wifi Security Camera             | 
       | Lyric Smart Controller              | 
   
-  @InvitedUserHaveAccessToDeletedPrimaryUserLocationAndDevice             @Automatable		@--xrayid:ATER-69144
+  @InvitedUserHaveAccessToDeletedPrimaryUserLocationAndDevice             @NotAutomatable		@--xrayid:ATER-69144
   Scenario Outline: To verify invited user is able to access the primary user shared location and device even if primary user deleted its account
     Given app is launched in two devices
       And both users taps on LOGIN in with different accounts
@@ -2062,28 +3034,65 @@ Examples:
       | C2 Wifi Security Camera             | 
       | Lyric Smart Controller              | 
   
-  @DeleteAllLocationsAndThenDeleteAccount             @Automatable		@--xrayid:ATER-69147
-  Scenario: To Verify user is navigated to add device screen when all locations are deleted and account is deleted when user clicks on “DELETE ACCOUNT” with appropriate pop up
-    Given app is launched
-      And user creates account and email got verified
-      And user creates Location1 without any device
-      And user creates Location2 without any device
-     When user navigates to “Home Address” screen from “Dashboard” screen
-      And user clicks on “DELETE LOCATION” link in Location2
-      And Clicks on DELETE in Confirmation page.
-     Then user should be directed to Location1 Dashboard.
-     When user navigates to “Home Address” screen from “Dashboard” screen
-      And user clicks on “DELETE LOCATION” link in Location1
-      And Clicks on DELETE in Confirmation page.
-     Then user should be directed to “Add New Device” screen
-      And user clicks on BACK button
-     Then verify user should receive the Pop up screen with “Exit Honeywell Home?” Pop up
-     When user Clicks on “DELETE ACCOUNT” button     
-     Then verify user should receive a “DELETE ACCOUNT”-Sorry to see you go” “DELETE ACCOUNT”-Sorry to see you go” Page/Pop up.
-     When user Clicks on YES button
-     Then verify user should navigate to Login screen
-      And verify user should receive a pop-up saying “Your Account & Data is Deleted”.
-      And verify user is unable to login with same credentials
+ 
+@DeleteAllLocationsAndThenDeleteAccount             @Automatable		@--xrayid:ATER-69147
+Scenario Outline: Verify if user is navigated to add device screen when all locations are deleted and account is deleted when user deletes the account
+Given user launches and logs in to the Lyric application with user account with location
+When user selects "Smart Home Security" from "Add New Device" screen
+Then user should be displayed with the "What To Expect" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects "Create New Location" from "Choose Location" screen
+Then user should be displayed with the "Create Location" screen
+When user inputs <first location name> in the "Create Location" screen
+Then user should be displayed with the "Confirm Your ZIP Code" screen
+When user inputs <valid first locations zip code>
+Then user should be displayed with the "Name Your Base Station" screen
+When user "cancels the set up" by clicking on "cancel" button
+Then user should receive a "Cancel Setup" popup
+When user "accepts" the "Cancel Setup" popup
+Then user should be displayed with the "Add New Device Dashboard" screen
+When user selects "Smart Home Security" from "Add New Device" screen
+Then user should be displayed with the "What To Expect" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects "Create New Location" from "Choose Location" screen
+Then user should be displayed with the "Create Location" screen
+When user inputs <second location name> in the "Create Location" screen
+Then user should be displayed with the "Confirm Your ZIP Code" screen
+When user inputs <valid second locations zip code>
+Then user should be displayed with the "Name Your Base Station" screen
+When user "cancels the set up" by clicking on "cancel" button
+Then user should receive a "Cancel Setup" popup
+When user "accepts" the "Cancel Setup" popup
+Then user should be displayed with the "Add New Device Dashboard" screen
+When user clicks on the back arrow in the <Current Screen> screen
+Then user should be displayed with the <Previous Screen> screen
+And user "deletes location details" by clicking on "delete" button
+Then user should be displayed with the "Dashboard" screen
+And user "deletes the existing location details" by clicking on "delete" button
+Then user should be displayed with the "Add New Device" screen
+When user selects "Close Button" from "Add New Device" screen
+Then user should receive a "Exit Honeywell Home" popup
+When user "Clicks on Delete Account button in" the "Exit Honeywell Home" popup
+Then user should receive a "Sorry to see you go" popup
+When user "Clicks on No button in" the "Sorry to see you go" popup
+Then user should be displayed with the "Add New Device" screen
+When user selects "Close Button" from "Add New Device" screen
+Then user should receive a "Exit Honeywell Home" popup
+When user "Clicks on Delete Account button in" the "Exit Honeywell Home" popup
+Then user should receive a "Sorry to see you go" popup
+When user "Clicks on Yes button in" the "Sorry to see you go" popup
+Then user should receive a "Your Account and Data is deleted" popup
+And user "Accepts" the "Your Account and Data is deleted" popup
+Then user should be displayed with the "Honeywell Home" screen
+When user logs in to the Lyric Application with "deleted account credentials"
+Then user should receive a "Email or Password incorrect" popup
+And user "Accepts" the "Email or Password incorrect" popup
+Then create the deleted user account through CHIL
+    
+Examples: 
+| first location name	| valid first locations zip code		| second location name	| valid second locations zip code		| Current Screen					| Previous Screen	|
+| California				| 90001								|  Texas					| 90002									| Add New Device Dashboard		| Dashboard			|
+
   
   #Feature: User should be blocked from using app if device is having invalid date and time @LYR23886/22361
   @InvalidmobiledeviceDateOrTimeAndAppisLoggedout             @NotAutomatable		@--xrayid:ATER-69148

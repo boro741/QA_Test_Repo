@@ -19,6 +19,7 @@ Then Verify user should get push notification for departed or arrived
 And Verify for Geofence schedule period settings applied for the location
 And Verify the schedule status in the solution card
 And Verify the Location Geofence status updated in geofence settings
+
 Examples:
 |User logged in mobile device                           |State |
 |Actual user logged in single mobile device             |Home  |
@@ -44,6 +45,7 @@ When User with <Below condition>
 And The geofence status of the location is <Changed to the state> 
 Then Verify user is part of geofence gang member
 And User should get push notification for geofence trigger
+
 Examples:
 |Below condition                                |State|Changed to the state|
 |App running in background                      |Home |Away                |
@@ -67,6 +69,7 @@ When User with <Below condition>
 And The geofence status of the location is <Changed to the state> 
 Then Verify user is not part of geofence gang member
 And User should not get push notification for geofence trigger
+
 Examples:
 |User account |Below condition                                                  |State|Changed to the state|
 |Actual user  |User access is removed for the location                          |Home |Away                |
@@ -89,6 +92,7 @@ And Login Lyric account with <Stat>
 And "Stat1" with <Condition> 
 When The geofence status of the location changed to the <State>
 Then Verify geofence setting applied only to the stat configured for geofence scheduling
+
 Examples:
 |Stat       |Condition                          |State|
 |Single stat|Geofence scheduling is configured  |Home |
@@ -116,6 +120,7 @@ Then Verify location status changed to new <State> in app after <Mobile network 
 And Verify for Geofence schedule period settings applied for the location
 And Verify the schedule status in the solution card
 And Verify the Location Geofence status updated in geofence settings
+
 Examples:
 |Mobile network status          |State|
 |Mobile internet(3G/wifi)down   |Home |
@@ -139,7 +144,8 @@ And Geofence settings is on for the location
 When User with condition <Service status> 
 And App <Status> 
 Then Verify location status changed to new <State> 
-Then User should get push notification "We are having trouble communication with your thermostat. Please check the connection "
+Then User should get push notification "We are having trouble communication with your thermostat. Please check the connection"
+
 Examples:
 |Service status|Status       |State|
 |CHIL down     |in background|Home |
@@ -172,6 +178,8 @@ Then Verify location status changed to new <State> in app after lyric service is
 And Verify for Geofence schedule period settings applied for the location
 And Verify the schedule status in the solution card
 And Verify the Location Geofence status updated in geofence settings
+
+Examples:
 |Service status|Status       |State|
 |CHIL down     |in background|Home |
 |LCC down      |in background|Home |
@@ -197,6 +205,7 @@ And The geofence status of the location is <State>
 When User with <Below condition>
 And The geofence status of the location is <Changed to the state> 
 Then Verify user should not get push notification for geofence trigger
+
 Examples:
 |Below condition                                |State|Changed to the state|
 |Location services is disabled in mobile device |Home |Away                |
@@ -225,6 +234,8 @@ Then Verify location status changed to new <state> due to change in geofence cen
 And Verify for Geofence schedule period settings applied for the location
 And Verify the schedule status in the solution card
 And Verify the Location Geofence status updated in geofence settings
+
+Examples:
 |State |
 |Home  |
 |Away  |
@@ -244,13 +255,15 @@ Then Verify location status changed to new <state> due to change in geofence rad
 And Verify for Geofence schedule period settings applied for the location
 And Verify the schedule status in the solution card
 And Verify the Location Geofence status updated in geofence settings
+
+Examples:
 |State |
 |Home  |
 |Away  |
 
 
 #Expected but yet to be implement
-@GeofencesettingsChangePushedToGangmembers
+@GeofencesettingsChangePushedToGangmembers            @NotAutomatable
 Scenario Outline:Verify the change in geofence settings pushed to all gang members
 As an user 
 I want the change in geofence settings to be pushed to all gang members  
@@ -260,6 +273,7 @@ And Location services is enabled for the lyric app
 When User does <Geofence settings> of the location
 And App <Status>
 Then Verify the change in geofence settings pushed to all gang members irrespective of app status
+
 Examples:
 |Geofence settings|Status       |
 |Geofence ON      |in foreground|
@@ -288,6 +302,8 @@ Then Verify location status changed to new <state> after powered back from power
 And Verify for Geofence schedule period settings applied for the location
 And Verify the schedule status in the solution card
 And Verify the Location Geofence status updated in geofence settings
+
+Examples:
 |State |
 |Home  |
 |Away  |

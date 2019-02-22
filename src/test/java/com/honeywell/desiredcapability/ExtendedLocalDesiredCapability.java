@@ -13,10 +13,11 @@ public class ExtendedLocalDesiredCapability extends LocalExecutionDesiredCapabil
 
 	private TestCaseInputs inputs;
 	DesiredCapabilities desiredCapabilities;
+
 	public ExtendedLocalDesiredCapability(TestCases testCase, TestCaseInputs inputs) {
 		super(testCase, inputs);
 		this.inputs = inputs;
-		
+
 	}
 
 	@Override
@@ -26,13 +27,15 @@ public class ExtendedLocalDesiredCapability extends LocalExecutionDesiredCapabil
 			desiredCapabilities.setCapability("noReset", true);
 			if (inputs.getInputValue(TestCaseInputs.OS_NAME).equalsIgnoreCase(Mobile.IOS)) {
 				if (inputs.isRealDevice()) {
-					//desiredCapabilities.setCapability("showIOSLog", true);
-					desiredCapabilities.setCapability("realDeviceLogger",
-							SuiteConstants.getConstantValue(SuiteConstantTypes.PROJECT_SPECIFIC, "IOS_DEVICE_CONSOLE_PATH"));
+					// desiredCapabilities.setCapability("showIOSLog", true);
+					desiredCapabilities.setCapability("browserName", "");
+					desiredCapabilities.setCapability("realDeviceLogger", SuiteConstants
+							.getConstantValue(SuiteConstantTypes.PROJECT_SPECIFIC, "IOS_DEVICE_CONSOLE_PATH"));
 				}
+			} else {
+				desiredCapabilities.setCapability("browserName", "");
 			}
-			}
-			catch (Exception e) {
-			}
+		} catch (Exception e) {
+		}
 	}
 }

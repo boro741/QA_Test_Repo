@@ -11,11 +11,9 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.jasper.utils.JasperSchedulingUtils;
 import com.honeywell.jasper.utils.JasperSchedulingVerifyUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.utils.InputVariables;
-
 
 public class VerifyTimeFeildIntervals extends Keyword {
 

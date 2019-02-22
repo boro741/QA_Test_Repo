@@ -5,12 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -38,6 +38,9 @@ import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SchedulingScreen;
 
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
+import static io.appium.java_client.touch.TapOptions.tapOptions;
+import static io.appium.java_client.touch.offset.ElementOption.element;
 
 public class JasperAdhocOverride {
 
@@ -46,8 +49,10 @@ public class JasperAdhocOverride {
 		boolean flag = true;
 		try {
 			FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
-			fWait.pollingEvery(2, TimeUnit.SECONDS);
-			fWait.withTimeout(60, TimeUnit.SECONDS);
+			fWait.pollingEvery(Duration.ofSeconds(2));
+			fWait.pollingEvery(Duration.ofSeconds(60));
+			// fWait.pollingEvery(2, TimeUnit.SECONDS);
+			// fWait.withTimeout(60, TimeUnit.SECONDS);
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			AdhocScreen adhoc = new AdhocScreen(testCase);
 			Double overrideTemp = Double.parseDouble(overrideSetPoints);
@@ -150,11 +155,11 @@ public class JasperAdhocOverride {
 				return true;
 			}
 			if (expectedMode.equals("Heat")) {
-				flag = flag &fly.changeSystemModeToHeatMode();
+				flag = flag & fly.changeSystemModeToHeatMode();
 			}
 
 			else if (expectedMode.equals("Cool")) {
-				flag = flag &fly.changeSystemModeToCoolMode();
+				flag = flag & fly.changeSystemModeToCoolMode();
 			}
 
 			else if (expectedMode.equals("Off")) {
@@ -223,54 +228,55 @@ public class JasperAdhocOverride {
 				String AdhocText = "";
 				String next = "";
 				flag = flag & Adhoc.isAdhocStatusVisible();
-				
+
 				flag = flag & statInfo.SyncDeviceInfo(testCase, inputs);
 				if (flag) {
-					 AdhocText = Adhoc.getAdhocStatusElement();
-					 next = statInfo.getNextPeriodTime();
+					AdhocText = Adhoc.getAdhocStatusElement();
+					next = statInfo.getNextPeriodTime();
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to fetch Adhoc status, AdhocTect :" + AdhocText + "Next period time:"+ next);
+							"Failed to fetch Adhoc status, AdhocTect :" + AdhocText + "Next period time:" + next);
 				}
 				String nextperiod = "";
 
 				if (AdhocText.toUpperCase().contains("HOLD UNTIL")) {
-								Keyword.ReportStep_Pass(testCase, "Time base Temporary Hold status displayed");
-									if (AdhocText.contains("AM") || AdhocText.contains("PM")) {
-										String trim = next;
-										DateFormat TimeFormat = new SimpleDateFormat("HH:mm:ss"); // HH for hour of the day (0 - 23)
-								     	Date Hour12Next = TimeFormat.parse(trim);
-										DateFormat Hour12NextPeriod = new SimpleDateFormat("h:mm aa");
-										nextperiod = Hour12NextPeriod.format(Hour12Next);
-										if (AdhocText.toUpperCase().contains("HOLD UNTIL  ")) {
-											nextperiod = "HOLD UNTIL  " + nextperiod;
-										} else {
-											nextperiod = "HOLD UNTIL " + nextperiod;
-										}
-										Keyword.ReportStep_Pass(testCase, nextperiod + " equal " + AdhocText);
-										flag = flag & AdhocText.equalsIgnoreCase(nextperiod);
-									} else {
-										String[] dateSplit = next.split(":");
-										String next1 = dateSplit[0] + ":" + dateSplit[1];
-										nextperiod = "HOLD UNTIL " + next1;
-										if (AdhocText.toUpperCase().contains("HOLD UNTIL  ")) {
-											nextperiod = "HOLD UNTIL  " + next1;
-										} else {
-											nextperiod = "HOLD UNTIL " + next1;
-										}
-										Keyword.ReportStep_Pass(testCase,"Comparing nextPeriod time "+ nextperiod + " with displayed time " + AdhocText);
-										flag = flag & AdhocText.equalsIgnoreCase(nextperiod);
-									}
-									if (flag) {
-										Keyword.ReportStep_Pass(testCase, "Temporary Hold status displayed");
-									} else {
-										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-												" Temporary Hold status mismatched");
-								}
-				 				} else {
-				 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-				 							"Time base Temporary Hold status not displayed");
-				 				}
+					Keyword.ReportStep_Pass(testCase, "Time base Temporary Hold status displayed");
+					if (AdhocText.contains("AM") || AdhocText.contains("PM")) {
+						String trim = next;
+						DateFormat TimeFormat = new SimpleDateFormat("HH:mm:ss"); // HH for hour of the day (0 - 23)
+						Date Hour12Next = TimeFormat.parse(trim);
+						DateFormat Hour12NextPeriod = new SimpleDateFormat("h:mm aa");
+						nextperiod = Hour12NextPeriod.format(Hour12Next);
+						if (AdhocText.toUpperCase().contains("HOLD UNTIL  ")) {
+							nextperiod = "HOLD UNTIL  " + nextperiod;
+						} else {
+							nextperiod = "HOLD UNTIL " + nextperiod;
+						}
+						Keyword.ReportStep_Pass(testCase, nextperiod + " equal " + AdhocText);
+						flag = flag & AdhocText.equalsIgnoreCase(nextperiod);
+					} else {
+						String[] dateSplit = next.split(":");
+						String next1 = dateSplit[0] + ":" + dateSplit[1];
+						nextperiod = "HOLD UNTIL " + next1;
+						if (AdhocText.toUpperCase().contains("HOLD UNTIL  ")) {
+							nextperiod = "HOLD UNTIL  " + next1;
+						} else {
+							nextperiod = "HOLD UNTIL " + next1;
+						}
+						Keyword.ReportStep_Pass(testCase,
+								"Comparing nextPeriod time " + nextperiod + " with displayed time " + AdhocText);
+						flag = flag & AdhocText.equalsIgnoreCase(nextperiod);
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Temporary Hold status displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								" Temporary Hold status mismatched");
+					}
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Time base Temporary Hold status not displayed");
+				}
 
 			} else {
 				AdhocScreen Adhoc = new AdhocScreen(testCase);
@@ -278,30 +284,32 @@ public class JasperAdhocOverride {
 				String AdhocText = Adhoc.getAdhocStatusElement();
 				String Period = statInfo.getCurrentSchedulePeriod();
 				String overrideTemp = "";
+				if (flag) {
+					overrideTemp = statInfo.getOverrrideSetpoint();
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "failed to recall api");
+				}
+				if (statInfo.getThermostatUnits().contains("Fahrenheit")) {
+					String overrideTemp1 = overrideTemp.replace(".0", "");
+					flag = flag & AdhocText.equalsIgnoreCase("HOLD " + overrideTemp1 + "\u00b0 WHILE " + Period);
 					if (flag) {
-						overrideTemp = statInfo.getOverrrideSetpoint();
+						Keyword.ReportStep_Pass(testCase, "geofence Temporary Hold status displayed");
 					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "failed to recall api");
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"geofence Temporary Hold status not displayed: " + "expected text is " + AdhocText
+										+ "but found text - HOLD " + overrideTemp1 + "\u00b0 WHILE " + Period);
 					}
-					if (statInfo.getThermostatUnits().contains("Fahrenheit")) {
-						String overrideTemp1 = overrideTemp.replace(".0", "");
-						flag = flag & AdhocText.equalsIgnoreCase("HOLD " + overrideTemp1 + "\u00b0 WHILE " + Period);
-						if (flag) {
-							Keyword.ReportStep_Pass(testCase, "geofence Temporary Hold status displayed");
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"geofence Temporary Hold status not displayed: " + "expected text is "+AdhocText+  "but found text - HOLD " + overrideTemp1 + "\u00b0 WHILE " + Period );
+				} else {
+					overrideTemp = JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, overrideTemp);
+					flag = flag & AdhocText.equalsIgnoreCase("HOLD " + overrideTemp + "\u00b0 WHILE " + Period);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "geofence Temporary Hold status displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"comparing expected text- " + "HOLD " + overrideTemp + "\u00b0 WHILE " + Period
+										+ " with geofence Temporary Hold status not displayed: " + AdhocText);
 					}
-					}else {
-						overrideTemp = JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, overrideTemp);
-						flag = flag & AdhocText.equalsIgnoreCase("HOLD " + overrideTemp + "\u00b0 WHILE " + Period);
-						if (flag) {
-							Keyword.ReportStep_Pass(testCase, "geofence Temporary Hold status displayed");
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"comparing expected text- "+"HOLD " + overrideTemp + "\u00b0 WHILE " + Period+" with geofence Temporary Hold status not displayed: " + AdhocText);
-					}
-					}
+				}
 			}
 		} catch (Exception e) {
 			flag = false;
@@ -327,16 +335,16 @@ public class JasperAdhocOverride {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"geofence Temporary Hold status not displayed" + overrideTemp);
 				}
-				String statUnit=statInfo.getThermostatUnits();
+				String statUnit = statInfo.getThermostatUnits();
 				if (statUnit.equalsIgnoreCase("Fahrenheit")) {
 					overrideTemp = overrideTemp.replace(".0", "");
 					flag = flag & AdhocText.equalsIgnoreCase("HOLD " + overrideTemp + "\u00b0 PERMANENTLY");
-				} else if(statUnit.equalsIgnoreCase("Celsius")){
+				} else if (statUnit.equalsIgnoreCase("Celsius")) {
 					overrideTemp = JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, overrideTemp);
 					flag = flag & AdhocText.equalsIgnoreCase("HOLD " + overrideTemp + "\u00b0 PERMANENTLY");
-				}else{
+				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"stat unit is not as expected - "+statUnit);
+							"stat unit is not as expected - " + statUnit);
 				}
 				if (flag) {
 					Keyword.ReportStep_Pass(testCase, "Timebase schedule Permanent Hold status displayed");
@@ -350,16 +358,16 @@ public class JasperAdhocOverride {
 				String AdhocText = Adhoc.getAdhocStatusElement();
 				String Period = statInfo.getCurrentSchedulePeriod();
 				String overrideTemp = statInfo.getOverrrideSetpoint();
-				String statUnit=statInfo.getThermostatUnits();
+				String statUnit = statInfo.getThermostatUnits();
 				if (statUnit.equalsIgnoreCase("Fahrenheit")) {
 					String overrideTemp1 = overrideTemp.replace(".0", "");
 					flag = flag & AdhocText.equalsIgnoreCase("HOLD " + overrideTemp1 + "\u00b0 WHILE " + Period);
-				}  else if(statUnit.equalsIgnoreCase("Celsius")){
+				} else if (statUnit.equalsIgnoreCase("Celsius")) {
 					overrideTemp = JasperSchedulingUtils.convertFromFahrenhietToCelsius(testCase, overrideTemp);
 					flag = flag & AdhocText.equalsIgnoreCase("HOLD " + overrideTemp + "\u00b0 WHILE " + Period);
-				}else{
+				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"stat unit is not as expected - "+statUnit);
+							"stat unit is not as expected - " + statUnit);
 				}
 				System.out.println(flag);
 				if (flag) {
@@ -377,7 +385,6 @@ public class JasperAdhocOverride {
 		return flag;
 	}
 
-	
 	public static boolean verifySetPointsAfterScheduleResume(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
@@ -398,8 +405,8 @@ public class JasperAdhocOverride {
 	public static boolean verifyDialerTemperature(TestCases testCase, TestCaseInputs inputs, Double expectedTemp) {
 		boolean flag = true;
 		FluentWait<CustomDriver> fWait = new FluentWait<CustomDriver>(testCase.getMobileDriver());
-		fWait.pollingEvery(5, TimeUnit.SECONDS);
-		fWait.withTimeout(30, TimeUnit.SECONDS);
+		fWait.pollingEvery(Duration.ofSeconds(5));
+		fWait.withTimeout(Duration.ofSeconds(30));
 		try {
 			Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 				public Boolean apply(CustomDriver driver) {
@@ -559,8 +566,12 @@ public class JasperAdhocOverride {
 					ele = MobileUtils.getMobElement(testCase, "xpath",
 							"//android.widget.NumberPicker[@index='0']/android.widget.Button");
 					try {
+						@SuppressWarnings("rawtypes")
 						TouchAction t1 = new TouchAction(testCase.getMobileDriver());
-						t1.longPress(ele).perform();
+
+						t1.longPress(longPressOptions().withElement(element(ele)));
+
+						// t1.longPress(ele).perform();
 						Keyword.ReportStep_Pass(testCase, "Set Hold Until Time : Selected day is set to " + day);
 					} catch (Exception e) {
 						flag = false;
@@ -586,6 +597,7 @@ public class JasperAdhocOverride {
 						"//android.widget.NumberPicker[@index='2']");
 
 				WebElement buttonToTap;
+				@SuppressWarnings("rawtypes")
 				TouchAction t1 = new TouchAction(testCase.getMobileDriver());
 				if (displayedHour == hourToSet) {
 					Keyword.ReportStep_Pass(testCase, "Set Hold Until Time : Successfully set hours to : " + hourToSet);
@@ -593,8 +605,10 @@ public class JasperAdhocOverride {
 					buttonToTap = MobileUtils.getMobElement(testCase, "xpath",
 							"//android.widget.NumberPicker[@index='1']/android.widget.Button[@index='0']");
 					while (displayedHour != hourToSet) {
-						MobileUtils.longPress(testCase, buttonToTap, 1);
+						//MobileUtils.longPress(testCase, buttonToTap, 1);
 						// t1.longPress(buttonToTap, 1).perform();
+						t1.longPress(longPressOptions().withElement(element(buttonToTap)).withDuration(Duration.ofMillis(1000)))
+						.release().perform();
 						displayedHour = Integer
 								.parseInt(hourPicker.findElement(By.id("numberpicker_input")).getAttribute("text"));
 					}
@@ -604,16 +618,20 @@ public class JasperAdhocOverride {
 							3)) {
 						buttonToTap = MobileUtils.getMobElement(testCase, "xpath",
 								"//android.widget.NumberPicker[@index='1']/android.widget.Button[@index='1']");
-						MobileUtils.longPress(testCase, buttonToTap, 1);
+						//MobileUtils.longPress(testCase, buttonToTap, 1);
 						// t1.longPress(buttonToTap, 1).perform();
+						t1.longPress(longPressOptions().withElement(element(buttonToTap)).withDuration(Duration.ofMillis(1000)))
+						.release().perform();
 						displayedHour = Integer
 								.parseInt(hourPicker.findElement(By.id("numberpicker_input")).getAttribute("text"));
 					}
 					buttonToTap = MobileUtils.getMobElement(testCase, "xpath",
 							"//android.widget.NumberPicker[@index='1']/android.widget.Button[@index='2']");
 					while (displayedHour != hourToSet) {
-						MobileUtils.longPress(testCase, buttonToTap, 1);
+						//MobileUtils.longPress(testCase, buttonToTap, 1);
 						// t1.longPress(buttonToTap, 1).perform();
+						t1.longPress(longPressOptions().withElement(element(buttonToTap)).withDuration(Duration.ofMillis(1000)))
+						.release().perform();
 						displayedHour = Integer
 								.parseInt(hourPicker.findElement(By.id("numberpicker_input")).getAttribute("text"));
 					}
@@ -629,8 +647,10 @@ public class JasperAdhocOverride {
 					buttonToTap = MobileUtils.getMobElement(testCase, "xpath",
 							"//android.widget.NumberPicker[@index='2']/android.widget.Button[@index='0']");
 					while (displayedMinutes != minutesToSet) {
-						MobileUtils.longPress(testCase, buttonToTap, 1);
+						//MobileUtils.longPress(testCase, buttonToTap, 1);
 						// t1.longPress(buttonToTap, 1).perform();
+						t1.longPress(longPressOptions().withElement(element(buttonToTap)).withDuration(Duration.ofMillis(1000)))
+						.release().perform();
 						displayedMinutes = Integer
 								.parseInt(minutePicker.findElement(By.id("numberpicker_input")).getAttribute("text"));
 						count--;
@@ -643,8 +663,10 @@ public class JasperAdhocOverride {
 					buttonToTap = MobileUtils.getMobElement(testCase, "xpath",
 							"//android.widget.NumberPicker[@index='2']/android.widget.Button[@index='2']");
 					while (displayedMinutes != minutesToSet) {
-						MobileUtils.longPress(testCase, buttonToTap, 1);
+						//MobileUtils.longPress(testCase, buttonToTap, 1);
 						// t1.longPress(buttonToTap, 1).perform();
+						t1.longPress(longPressOptions().withElement(element(buttonToTap)).withDuration(Duration.ofMillis(1000)))
+						.release().perform();
 						displayedMinutes = Integer
 								.parseInt(minutePicker.findElement(By.id("numberpicker_input")).getAttribute("text"));
 						count--;
@@ -671,7 +693,8 @@ public class JasperAdhocOverride {
 							ele = MobileUtils.getMobElement(testCase, "xpath",
 									"//android.widget.NumberPicker[@index='3']/android.widget.Button");
 							try {
-								t1.longPress(ele).perform();
+								// t1.longPress(ele).perform();
+								t1.longPress(longPressOptions().withElement(element(ele)));
 								Keyword.ReportStep_Pass(testCase, "Set Hold Until Time : AMPM is set to " + ampm);
 							} catch (Exception e) {
 								flag = false;
@@ -729,13 +752,17 @@ public class JasperAdhocOverride {
 					Dimension d1 = dayPicker.getSize();
 					int x = p1.getX();
 					int y;
+					@SuppressWarnings("rawtypes")
 					TouchAction t1 = new TouchAction(testCase.getMobileDriver());
 					if (currentDisplayedDay.equalsIgnoreCase("Today")) {
 						y = p1.getY() + d1.getHeight() / 2 + 20;
 					} else {
 						y = p1.getY() + d1.getHeight() / 2 - 20;
 					}
-					t1.tap(dayPicker, x, y).perform();
+
+					t1.tap(tapOptions().withElement(element(dayPicker, x, y))).perform();
+
+					// t1.tap(dayPicker, x, y).perform();
 				}
 				if (testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypePickerWheel[4]")) != null) {
 					flag = flag
@@ -987,8 +1014,10 @@ public class JasperAdhocOverride {
 		try {
 			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "AdHocOverride");
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(10, TimeUnit.SECONDS);
-			fWait.withTimeout(15, TimeUnit.MINUTES);
+			fWait.pollingEvery(Duration.ofSeconds(10));
+			fWait.pollingEvery(Duration.ofMinutes(15));
+			// fWait.pollingEvery(10, TimeUnit.SECONDS);
+			// fWait.withTimeout(15, TimeUnit.MINUTES);
 			isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
 					try {
@@ -1044,8 +1073,10 @@ public class JasperAdhocOverride {
 		try {
 			HashMap<String, MobileObject> fieldObjects = MobileUtils.loadObjectFile(testCase, "AdHocOverride");
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(10, TimeUnit.SECONDS);
-			fWait.withTimeout(10, TimeUnit.MINUTES);
+			fWait.pollingEvery(Duration.ofSeconds(10));
+			fWait.pollingEvery(Duration.ofMinutes(10));
+			// fWait.pollingEvery(10, TimeUnit.SECONDS);
+			// fWait.withTimeout(10, TimeUnit.MINUTES);
 			isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
 					try {

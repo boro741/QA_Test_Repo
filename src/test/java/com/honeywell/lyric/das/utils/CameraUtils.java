@@ -1,6 +1,6 @@
 package com.honeywell.lyric.das.utils;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -34,8 +34,12 @@ public class CameraUtils {
 		boolean flag = true;
 		try {
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(duration, TimeUnit.MINUTES);
+			/*
+			 * fWait.pollingEvery(3, TimeUnit.SECONDS); fWait.withTimeout(duration,
+			 * TimeUnit.MINUTES);
+			 */
+			fWait.pollingEvery(Duration.ofSeconds(3));
+			fWait.withTimeout(Duration.ofMinutes(duration));
 			CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
 			CameraSettingsScreen css = new CameraSettingsScreen(testCase);
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
@@ -51,7 +55,7 @@ public class CameraUtils {
 							}
 						}
 						case "RETRY IN LOADING SNAPSHOT SPINNER": {
-							if(!css.isRetryInLoadingSpanshotVisible()) {
+							if (!css.isRetryInLoadingSpanshotVisible()) {
 								System.out.println("Waiting for Verifying loading snapshot spinner to disappear");
 								return false;
 							} else {

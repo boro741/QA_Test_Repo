@@ -14,6 +14,9 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.TapOptions.tapOptions;
+import static io.appium.java_client.touch.offset.ElementOption.element;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class ActivityLogsScreen extends MobileScreens {
 
@@ -29,7 +32,7 @@ public class ActivityLogsScreen extends MobileScreens {
 
 	public boolean isOpenActivityLogsIconVisible(int timeout) throws Exception {
 		boolean flag = true;
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AcitvityLogScrollUp",timeout)) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AcitvityLogScrollUp", timeout)) {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "AcitvityLogScrollUp");
 		} else {
 			try {
@@ -50,11 +53,13 @@ public class ActivityLogsScreen extends MobileScreens {
 		boolean flag = true;
 		WebElement activityArrow = null;
 		WebElement panelState = null;
+		@SuppressWarnings("rawtypes")
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			activityArrow = MobileUtils.getMobElement(objectDefinition, testCase, "AcitvityLogScrollUp");
 			panelState = MobileUtils.getMobElement(objectDefinition, testCase, "PanelState");
-			action = action.press(activityArrow).moveTo(panelState).release().perform();
+			// action = action.press(activityArrow).moveTo(panelState).release().perform();
+			action = action.press(element(activityArrow)).moveTo(element(panelState)).release().perform();
 			Keyword.ReportStep_Pass(testCase, "Successfully opened activity logs");
 		} else {
 			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AcitvityLogScrollUp")) {
@@ -64,8 +69,11 @@ public class ActivityLogsScreen extends MobileScreens {
 					// MobileElement activityLogUpElement = null;
 					CustomDriver driver = testCase.getMobileDriver();
 					if (driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON)).isEnabled()) {
-						//driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON)).click();
-						action.tap(driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON))).release().perform();
+						// driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON)).click();
+						// action.tap(driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON))).release().perform();
+						action.tap(
+								tapOptions().withElement(element(driver.findElement(By.name(ACTIVITYLOGSCROLLUPICON)))))
+								.perform();
 						Keyword.ReportStep_Pass(testCase, "Successfully opened activity logs");
 					}
 				} catch (NoSuchElementException e) {
@@ -99,10 +107,14 @@ public class ActivityLogsScreen extends MobileScreens {
 	public boolean clickOnCloseActivityLogsIcon() throws Exception {
 		boolean flag = true;
 		WebElement activityDay = null;
+		@SuppressWarnings("rawtypes")
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			activityDay = MobileUtils.getMobElement(objectDefinition, testCase, "AcitvityLogScrollDown");
-			action = action.press(activityDay).moveTo(activityDay.getLocation().getX(), 300).release().perform();
+			// action = action.press(activityDay).moveTo(activityDay.getLocation().getX(),
+			// 300).release().perform();
+			action = action.press(element(activityDay)).moveTo(point(activityDay.getLocation().getX(), 300)).release()
+					.perform();
 			if (action != null) {
 				Keyword.ReportStep_Pass(testCase, "Successfully closed activity logs");
 			} else {
@@ -118,7 +130,10 @@ public class ActivityLogsScreen extends MobileScreens {
 					CustomDriver driver = testCase.getMobileDriver();
 					if (driver.findElement(By.name(ACTIVITYLOGSCROLLDOWNICON)).isEnabled()) {
 						activityDay = driver.findElement(By.name(ACTIVITYLOGSCROLLDOWNICON));
-						action.press(activityDay).moveTo(activityDay.getLocation().getX(), 300).release().perform();
+						// action.press(activityDay).moveTo(activityDay.getLocation().getX(),
+						// 300).release().perform();
+						action.press(element(activityDay)).moveTo(point(activityDay.getLocation().getX(), 300))
+								.release().perform();
 						Keyword.ReportStep_Pass(testCase, "Successfully closed activity logs");
 					}
 				} catch (NoSuchElementException e) {
@@ -130,107 +145,135 @@ public class ActivityLogsScreen extends MobileScreens {
 		return flag;
 	}
 
-
 	public boolean isClipPlayButtonExists() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ClipPlayButton");
 	}
+
 	public boolean clickClipPlayButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "ClipPlayButton");
 	}
+
 	public boolean isDowloadIconExists() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DowloadIcon");
 	}
+
 	public boolean clickDowloadIcon() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DowloadIcon");
 	}
+
 	public boolean isDowloadCloseExists() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DownloadClose");
 	}
+
 	public boolean clickDowloadClose() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DownloadClose");
 	}
+
 	public boolean isDownloadBufferExists(int timeout) {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DownloadBuffer",timeout);
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DownloadBuffer", timeout);
 	}
+
 	public boolean isClipDownloadScreenExists() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ClipDownloadScreen");
 	}
+
 	public boolean isCanceDowloadContentExists() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CanceDowloadContent");
 	}
+
 	public boolean isCancelYesExists() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelYes");
 	}
+
 	public boolean clickCancelYes() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelYes");
 	}
+
 	public boolean isCancelNoExists() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelNo");
 	}
+
 	public boolean clickCancelNo() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelNo");
 	}
+
 	public boolean isEventTimesExists() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EventTimes");
 	}
-	public List<WebElement> getEventTimes()
-	{
+
+	public List<WebElement> getEventTimes() {
 		return MobileUtils.getMobElements(objectDefinition, testCase, "EventTimes");
 	}
+
 	public boolean isClipStatusExists() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ClipStatus");
 	}
-	public List<WebElement> getClipStatus()
-	{
+
+	public List<WebElement> getClipStatus() {
 		return MobileUtils.getMobElements(objectDefinition, testCase, "ClipStatus");
 	}
+
 	public boolean isDeletePopupExists() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeletPopup");
 	}
+
 	public boolean isDeleteSuccessExists() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteSuccess");
 	}
+
 	public boolean clickDeleteSuccess() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteSuccess");
 	}
+
 	public boolean isCancelDownloadVideoClipExists() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelDownloadVideoClip");
 	}
+
 	public boolean isDeleteOkExists() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteOk");
 	}
-	
+
 	public boolean clickDeleteOk() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteOk");
 	}
+
 	public boolean isDeleteCancelExists() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteCancel");
 	}
+
 	public boolean clickDeleteCancel() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteCancel");
 	}
+
 	public boolean isBackToViewListExists(int timeout) {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackToViewList",timeout);
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackToViewList", timeout);
 	}
+
 	public boolean clickBackToViewList() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackToViewList");
 	}
+
 	///
 	public boolean isCancelDowloadHeaderExists() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelDowloadHeader");
 	}
+
 	public boolean isDeleteClipsExists() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteClips");
 	}
+
 	public boolean clickDeleteClips() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteClips");
 	}
+
 	public boolean isDeleteConfirmationHeaderExists() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteConfirmationHeader");
 	}
+
 	public boolean isOkButtonExists() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OkButton");
 	}
+
 	public boolean clickOkButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "OkButton");
 	}

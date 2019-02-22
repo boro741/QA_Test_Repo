@@ -12,19 +12,29 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.lyric.das.utils.AddressUtils;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
+import com.honeywell.lyric.das.utils.WeatherForecastUtils;
+import com.honeywell.screens.AboutTheAppScreen;
+import com.honeywell.screens.ActivateAccountScreen;
 import com.honeywell.screens.ActivityHistoryScreen;
+import com.honeywell.screens.AddressScreen;
 import com.honeywell.screens.AdhocScreen;
 import com.honeywell.screens.AlarmScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
+import com.honeywell.screens.CreateAccountScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.GlobalDrawerScreen;
+import com.honeywell.screens.LoginScreen;
 import com.honeywell.screens.ManageUsersScreen;
 import com.honeywell.screens.Dashboard;
+import com.honeywell.screens.EditAccountScreen;
+import com.honeywell.screens.FAQsScreen;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
@@ -33,9 +43,11 @@ import com.honeywell.screens.WLDConfigurationScreen;
 import com.honeywell.screens.WLDLeakDetectorSettings;
 import com.honeywell.screens.WLDManageAlerts;
 import com.honeywell.screens.WLDSolutionCard;
+import com.honeywell.screens.WeatherForecastScreen;
 import com.honeywell.lyric.utils.LyricUtils;
 
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 import java.util.Random;
 
@@ -636,6 +648,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 		case "MOTION SENSITIVITY SETTINGS": {
 			CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
 			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+			@SuppressWarnings("rawtypes")
 			TouchAction action = new TouchAction(testCase.getMobileDriver());
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				int startx = (dimension.width * 20) / 100;
@@ -645,10 +658,16 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 			} else {
-				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-						.release().perform();
-				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-						.release().perform();
+				/*
+				 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
+				 * (dimension.getHeight() * .6)) .release().perform(); action.press(10, (int)
+				 * (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
+				 * .release().perform();
+				 */
+				action.press(point(10, (int) (dimension.getHeight() * .9)))
+						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+				action.press(point(10, (int) (dimension.getHeight() * .9)))
+						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 			}
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldToBeVerified = data.getData(i, "MotionSensitivityOptionsSettings");
@@ -1794,10 +1813,15 @@ public class VerifyOptionsOnAScreen extends Keyword {
 		case "OSMV SECURITY SETTINGS": {
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+			@SuppressWarnings("rawtypes")
 			TouchAction action = new TouchAction(testCase.getMobileDriver());
 			if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-				action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-						.release().perform();
+				/*
+				 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
+				 * (dimension.getHeight() * .6)) .release().perform();
+				 */
+				action.press(point(10, (int) (dimension.getHeight() * .9)))
+						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 			}
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldToBeVerified = data.getData(i, "OSMVSecuritySettingsOptions");
@@ -2015,8 +2039,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "HOME ADDRESS": {
-					flag &= gd.isHomeAddressOptionVisible();
+				case "ADDRESS": {
+					flag &= gd.isAddressOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
@@ -2047,6 +2071,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 				case "ABOUT THE APP": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						int startx = (dimension.width * 20) / 100;
@@ -2055,8 +2080,12 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						int endy = (dimension.height * 35) / 100;
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= gd.isAboutTheAppOptionVisible();
 					if (flag) {
@@ -2154,8 +2183,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "HOME ADDRESS": {
-					flag &= gd.isHomeAddressOptionVisible();
+				case "ADDRESS": {
+					flag &= gd.isAddressOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
@@ -2186,6 +2215,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 				case "ABOUT THE APP": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						int startx = (dimension.width * 20) / 100;
@@ -2194,8 +2224,12 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						int endy = (dimension.height * 35) / 100;
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= gd.isAboutTheAppOptionVisible();
 					if (flag) {
@@ -2291,8 +2325,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "HOME ADDRESS": {
-					flag &= gd.isHomeAddressOptionVisible();
+				case "ADDRESS": {
+					flag &= gd.isAddressOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
@@ -2343,6 +2377,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 				case "ABOUT THE APP": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						int startx = (dimension.width * 20) / 100;
@@ -2351,8 +2386,12 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						int endy = (dimension.height * 35) / 100;
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= gd.isAboutTheAppOptionVisible();
 					if (flag) {
@@ -2449,8 +2488,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "HOME ADDRESS": {
-					flag &= gd.isHomeAddressOptionVisible();
+				case "ADDRESS": {
+					flag &= gd.isAddressOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
@@ -2501,6 +2540,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 				case "ABOUT THE APP": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						int startx = (dimension.width * 20) / 100;
@@ -2509,8 +2549,12 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						int endy = (dimension.height * 35) / 100;
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= gd.isAboutTheAppOptionVisible();
 					if (flag) {
@@ -2616,8 +2660,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "HOME ADDRESS": {
-					flag &= gd.isHomeAddressOptionVisible();
+				case "ADDRESS": {
+					flag &= gd.isAddressOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
@@ -2648,6 +2692,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 				case "ABOUT THE APP": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						int startx = (dimension.width * 20) / 100;
@@ -2656,8 +2701,12 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						int endy = (dimension.height * 35) / 100;
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= gd.isAboutTheAppOptionVisible();
 					if (flag) {
@@ -2764,8 +2813,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "HOME ADDRESS": {
-					flag &= gd.isHomeAddressOptionVisible();
+				case "ADDRESS": {
+					flag &= gd.isAddressOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
@@ -2786,6 +2835,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 				case "EDIT ACCOUNT": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						int startx = (dimension.width * 20) / 100;
@@ -2794,8 +2844,12 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						int endy = (dimension.height * 35) / 100;
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						action.press(10, (int) (dimension.getHeight() * .9))
-								.moveTo(0, -(int) (dimension.getHeight() * .6)).release().perform();
+						/*
+						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+						 * (dimension.getHeight() * .6)).release().perform();
+						 */
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= gd.isEditAccountOptionVisible();
 					if (flag) {
@@ -2935,9 +2989,1324 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-		default: {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + expectedScreen.get(0));
+		case "EDIT ADDRESS": {
+			AddressScreen ads = new AddressScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "EditAddressOptions");
+				switch (parameter.toUpperCase()) {
+				case "LOCATION NAME HEADER": {
+					if (ads.isLocationNameHeaderTitleInEditAddressScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "LOCATION NAME TEXT FIELD": {
+					if (ads.isLocationNameTextInEditAddressScreenVisible()
+							&& !ads.isPlaceHolderValueInLocationNameTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed and " + parameter
+								+ " Place holder is not displayed");
+						flag &= AddressUtils.verifyLocationNameDisplayedInEditAddressScreen(testCase,
+								inputs.getInputValue("LOCATION_NAME"));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option " + parameter
+								+ " is not displayed OR " + parameter + " Place holder is displayed");
+					}
+					break;
+				}
+				case "ADDRESS HEADER": {
+					if (ads.isAddressHeaderTitleInEditAddressScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ADDRESS TEXT FIELD": {
+					if (ads.isAddressTextInEditAddressScreenVisible()
+							&& !ads.isPlaceHolderValueInAddressTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed and " + parameter
+								+ " Place holder is not displayed");
+						flag &= AddressUtils.verifyLocationAddressValueDisplayedInEditAddressScreen(testCase,
+								inputs.getInputValue("LOCATION_ADDRESS"));
+					} else if (ads.isPlaceHolderValueInAddressTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, parameter + " Place holder is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option " + parameter
+								+ " is not displayed OR " + parameter + " Place holder is not displayed");
+					}
+					break;
+				}
+				case "CITY TEXT FIELD": {
+					if (ads.isCityTextInEditAddressScreenVisible() && !ads.isPlaceHolderValueInCityTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						flag &= AddressUtils.verifyLocationCityValueDisplayedInEditAddressScreen(testCase,
+								inputs.getInputValue("LOCATION_ADDRESS"));
+					} else if (ads.isPlaceHolderValueInCityTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, parameter + " Place holder is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option " + parameter
+								+ " is not displayed OR " + parameter + " Place holder is not displayed");
+					}
+					break;
+				}
+				case "STATE TEXT FIELD": {
+					if (ads.isStateTextInEditAddressScreenVisible()
+							&& !ads.isPlaceHolderValueInStateTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						flag &= AddressUtils.verifyLocationStateValueDisplayedInEditAddressScreen(testCase,
+								inputs.getInputValue("LOCATION_ADDRESS"));
+					} else if (ads.isPlaceHolderValueInStateTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, parameter + " Place holder is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option " + parameter
+								+ " is not displayed OR " + parameter + " Place holder is not displayed");
+					}
+					break;
+				}
+				case "POSTAL CODE TEXT FIELD": {
+					if (ads.isPostalCodeTextInEditAddressScreenVisible()
+							&& !ads.isPlaceHolderValueInPostalCodeTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						flag &= AddressUtils.verifyLocationPostalCodeValueDisplayedInEditAddressScreen(testCase,
+								inputs.getInputValue("LOCATION_ADDRESS"));
+					} else if (ads.isPlaceHolderValueInPostalCodeTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, parameter + " Place holder is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option " + parameter
+								+ " is not displayed OR " + parameter + " Place holder is not displayed");
+					}
+					break;
+				}
+				case "CHANGE COUNTRY": {
+					if (ads.isChangeCountryButtonInEditAddressScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Button " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Button " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "ADDRESS FIELDS FOR THE SELECTED COUNTRY": {
+			AddressScreen ads = new AddressScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "AddressFieldsForTheSelectedCountry");
+				switch (parameter.toUpperCase()) {
+				case "LOCATION NAME HEADER": {
+					if (ads.isLocationNameHeaderTitleInEditAddressScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "LOCATION NAME TEXT FIELD": {
+					if (ads.isLocationNameTextInEditAddressScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						flag &= AddressUtils.verifyLocationNameDisplayedInEditAddressScreen(testCase,
+								inputs.getInputValue("LOCATION_NAME"));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ADDRESS HEADER": {
+					if (ads.isAddressHeaderTitleInEditAddressScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Header " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Header " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "ADDRESS TEXT FIELD": {
+					if (ads.isAddressTextInEditAddressScreenVisible()
+							&& ads.isPlaceHolderValueInAddressTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option " + parameter
+								+ " is not displayed OR " + parameter + " Place holder is not displayed. ");
+					}
+					break;
+				}
+				case "CITY TEXT FIELD": {
+					if (ads.isCityTextInEditAddressScreenVisible() && ads.isPlaceHolderValueInCityTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option " + parameter
+								+ " is not displayed OR " + parameter + " Place holder is not displayed. ");
+					}
+					break;
+				}
+				case "STATE TEXT FIELD": {
+					if (ads.isStateTextInEditAddressScreenVisible()
+							&& ads.isPlaceHolderValueInStateTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option " + parameter
+								+ " is not displayed OR " + parameter + " Place holder is not displayed. ");
+					}
+					break;
+				}
+				case "POSTAL CODE TEXT FIELD": {
+					if (ads.isPostalCodeTextInEditAddressScreenVisible()
+							&& ads.isPlaceHolderValueInPostalCodeTextFieldVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Option " + parameter
+								+ " is not displayed OR " + parameter + " Place holder is not displayed. ");
+					}
+					break;
+				}
+				case "CHANGE COUNTRY": {
+					if (ads.isChangeCountryButtonInEditAddressScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Button " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Button " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "ADDRESS": {
+			AddressScreen ads = new AddressScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "AddressOptions");
+				switch (parameter.toUpperCase()) {
+				case "EDIT ADDRESS LABEL": {
+					if (ads.isEditAddressInAddressScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "DELETE LOCATION OPTION": {
+					if (ads.isDeleteLocationButtonInAddressScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Button " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Button " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "DELETE ACCOUNT": {
+			EditAccountScreen eas = new EditAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "DeleteAccountOptions");
+				switch (parameter.toUpperCase()) {
+				case "WE ARE SORRY TO SEE YOU GO": {
+					if (eas.isWeAreSorryToSeeYouGoLabelVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "LEARN HOW TO DELETE A DEVICE": {
+			EditAccountScreen eas = new EditAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "LearnHowToDeleteADeviceOptions");
+				switch (parameter.toUpperCase()) {
+				case "WAS THIS HELPFUL WITH YES AND NO BUTTONS": {
+					if (eas.wasThisHelpfulTextInLearnHowToDeleteADeviceScreenVisible()
+							&& eas.isYESButtonInWasThisHelpfulTextInLearnHowToDeleteADeviceScreenVisible()
+							&& eas.isNOButtonInWasThisHelpfulTextInLearnHowToDeleteADeviceScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "LEARN HOW TO CANCEL A MEMBERSHIP": {
+			EditAccountScreen eas = new EditAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "LearnHowToCancelAMembershipOptions");
+				switch (parameter.toUpperCase()) {
+				case "WAS THIS HELPFUL WITH YES AND NO BUTTONS": {
+					if (eas.wasThisHelpfulTextInLearnHowToDeleteADeviceScreenVisible()
+							&& eas.isYESButtonInWasThisHelpfulTextInLearnHowToDeleteADeviceScreenVisible()
+							&& eas.isNOButtonInWasThisHelpfulTextInLearnHowToDeleteADeviceScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "ABOUT THE APP": {
+			AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "AboutTheAppOptions");
+				switch (parameter.toUpperCase()) {
+				case "RATE THE APP FOR ANDROID": {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						if (atas.isRateTheAppOptionInAboutTheAppVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Option " + parameter + " is not displayed");
+						}
+					} else {
+						if (!atas.isRateTheAppOptionInAboutTheAppVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Option " + parameter + " is not displayed");
+						}
+					}
+					break;
+				}
+				case "GET HELP": {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						if (atas.isGetHelpOptionInAboutTheAppVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Option " + parameter + " is not displayed");
+						}
+					} else {
+						if (atas.isGetHelpOptionInAboutTheAppVisible()
+								&& atas.isGetHelpOptionInAboutTheAppArrowVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Option " + parameter + " is not displayed");
+						}
+					}
+					break;
+				}
+				case "WITHOUT GET HELP OPTION": {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						if (!atas.isGetHelpOptionInAboutTheAppVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is not displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Option " + parameter + " is displayed");
+						}
+					} else {
+						if (!atas.isGetHelpOptionInAboutTheAppVisible()
+								&& !atas.isGetHelpOptionInAboutTheAppArrowVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is not displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Option " + parameter + " is displayed");
+						}
+					}
+					break;
+				}
+				case "PRIVACY POLICY AND EULA": {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						if (atas.isPrivacyPolicyAndEULAOptionInAboutTheAppVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Option " + parameter + " is not displayed");
+						}
+					} else {
+						if (atas.isPrivacyPolicyAndEULAOptionInAboutTheAppVisible()
+								&& atas.isPrivacyPolicyAndEULAOptionInAboutTheAppArrowVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Option " + parameter + " is not displayed");
+						}
+					}
+					break;
+				}
+				case "ACKNOWLEDGEMENTS": {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						if (atas.isAcknowledgementsOptionInAboutTheAppVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Option " + parameter + " is not displayed");
+						}
+					} else {
+						if (atas.isAcknowledgementsOptionInAboutTheAppVisible()
+								&& atas.isAcknowledgementsOptionInAboutTheAppArrowVisible()) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Option " + parameter + " is not displayed");
+						}
+					}
+					break;
+				}
+				case "VERSION": {
+					if (atas.isVersionOptionInAboutTheAppVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "FAQS": {
+			FAQsScreen faqsScreen = new FAQsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "FAQsOptions");
+				switch (parameter.toUpperCase()) {
+				case "GENERAL": {
+					if (faqsScreen.isGeneralOptionInFAQsScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "THERMOSTAT": {
+					if (faqsScreen.isThermostatOptionInFAQsScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "WATER LEAK DETECTOR": {
+					if (faqsScreen.isWaterLeakDetectorOptionInFAQsScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "CAMERA": {
+					if (faqsScreen.isCameraOptionInFAQsScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "QUESTION": {
+			FAQsScreen faqsScreen = new FAQsScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "QuestionOptions");
+				switch (parameter.toUpperCase()) {
+				case "WAS THIS HELPFUL WITH YES AND NO BUTTONS": {
+					if (faqsScreen.wasThisHelpfulTextInQuestionScreenVisible()
+							&& faqsScreen.isYESButtonInWasThisHelpfulTextInQuestionScreenVisible()
+							&& faqsScreen.isNOButtonInWasThisHelpfulTextInQuestionScreenVisible()) {
+						Keyword.ReportStep_Pass(testCase, "Options " + parameter + " are displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Options " + parameter + " are not displayed");
+					}
+					break;
+				}
+				case "SEARCH RESULTS": {
+					if (faqsScreen.isSearchResultsDisplayedInFAQsScreen()
+							&& faqsScreen.isFirstQuestionInSearchResultsDisplayed()) {
+						Keyword.ReportStep_Pass(testCase, parameter + " are displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " are not displayed");
+					}
+					break;
+				}
+				case "NO FAQS FOUND": {
+					if (faqsScreen.isNoFAQsFoundLabelInSearchResultsVisible()
+							&& faqsScreen.getNoFAQsFoundLabelInSearchResults().contains("No FAQs found")) {
+						Keyword.ReportStep_Pass(testCase, "Label No FAQs found is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Label No FAQs found is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "CREATE ACCOUNT": {
+			boolean flag = true;
+			CreateAccountScreen cas = new CreateAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "CreateAccountOptions");
+				switch (parameter.toUpperCase()) {
+				case "FIRST NAME": {
+					flag &= cas.isCreateAccountFirstNameFieldDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " field is not displayed");
+					}
+					break;
+				}
+
+				case "LAST NAME": {
+					flag &= cas.isCreateAccountLastNameFieldDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " field is not displayed");
+					}
+					break;
+				}
+
+				case "EMAIL": {
+					flag &= cas.isCreateAccountEmailFieldDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " field is not displayed");
+					}
+					break;
+				}
+
+				case "PASSWORD": {
+					flag &= cas.isCreateAccountPasswordFieldDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " field is not displayed");
+					}
+					break;
+				}
+
+				case "VERIFY PASSWORD": {
+					flag &= cas.isCreateAccountVerifyPasswordFieldDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " field is not displayed");
+					}
+					break;
+				}
+
+				case "PASSWORD MUST HAVE": {
+					flag &= cas.isCreateAccountPasswordMustHaveTextDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " text is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " text is not displayed");
+					}
+					break;
+				}
+
+				case "COUNTRY SELECTION": {
+					flag &= cas.isCreateAccountCountrySelectionDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " button is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " button is not displayed");
+					}
+					break;
+
+				}
+
+				case "BY TAPPING CREATE BELOW": {
+					flag &= cas.isCreateAccountByTappingCreateBelowTextDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " text is displayed");
+					} else {
+						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+						@SuppressWarnings("rawtypes")
+						TouchAction action = new TouchAction(testCase.getMobileDriver());
+						System.out.println("$$$$$$$$$$$$$$: " + testCase.getPlatform());
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							int startx = (dimensions.width * 20) / 100;
+							int starty = (dimensions.height * 62) / 100;
+							int endx = (dimensions.width * 22) / 100;
+							int endy = (dimensions.height * 35) / 100;
+							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						} else {
+							/*
+							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimensions.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimensions.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+						}
+						if (cas.isCreateAccountByTappingCreateBelowTextDisplayed()) {
+							Keyword.ReportStep_Pass(testCase, parameter + " text is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									parameter + " text is not displayed");
+						}
+					}
+					break;
+				}
+
+				case "PRIVACY STATEMENT": {
+					if (cas.isCreateAccountPrivacyStatementLinkDisplayed()) {
+						Keyword.ReportStep_Pass(testCase, parameter + "link is displayed");
+					} else {
+						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+						@SuppressWarnings("rawtypes")
+						TouchAction action = new TouchAction(testCase.getMobileDriver());
+						System.out.println("$$$$$$$$$$$$$$: " + testCase.getPlatform());
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							int startx = (dimensions.width * 20) / 100;
+							int starty = (dimensions.height * 62) / 100;
+							int endx = (dimensions.width * 22) / 100;
+							int endy = (dimensions.height * 35) / 100;
+							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						} else {
+							/*
+							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimensions.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimensions.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+						}
+						if (cas.isCreateAccountPrivacyStatementLinkDisplayed()) {
+							Keyword.ReportStep_Pass(testCase, parameter + " link is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									parameter + " link is not displayed");
+						}
+					}
+					break;
+				}
+
+				case "EULA": {
+					flag &= cas.isCreateAccountEULALinkDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " link is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " link is not displayed");
+					}
+					break;
+				}
+
+				case "CREATE BUTTON": {
+					flag &= cas.isCreateAccountRegisterButtonDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " button is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " button is not displayed");
+					}
+					break;
+				}
+				case "MARKETING COMMUNICATIONS SIGN UP": {
+					flag &= cas.isCreateAccountMarketingCommunicationsSignUpTextDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " text is not displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " text is displayed");
+					}
+					break;
+				}
+
+				case "SIGN ME UP FOR EXCLUSIVE UPDATES AND TOGGLE": {
+					flag &= cas.isCreateAccountSignMeUpForExclusiveUpdatesTextDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " button & toggle is not displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + "button & toggle is displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+
+		case "CREATE ACCOUNT FOR UK": {
+			boolean flag = true;
+			CreateAccountScreen cas = new CreateAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "CreateAccountOptions");
+				switch (parameter.toUpperCase()) {
+				case "FIRST NAME": {
+					flag &= cas.isCreateAccountFirstNameFieldDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " field is not displayed");
+					}
+					break;
+				}
+
+				case "LAST NAME": {
+					flag &= cas.isCreateAccountLastNameFieldDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " field is not displayed");
+					}
+					break;
+				}
+
+				case "EMAIL": {
+					flag &= cas.isCreateAccountEmailFieldDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " field is not displayed");
+					}
+					break;
+				}
+
+				case "PASSWORD": {
+					flag &= cas.isCreateAccountPasswordFieldDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " field is not displayed");
+					}
+					break;
+				}
+
+				case "VERIFY PASSWORD": {
+					flag &= cas.isCreateAccountVerifyPasswordFieldDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " field is not displayed");
+					}
+					break;
+				}
+
+				case "PASSWORD MUST HAVE": {
+					flag &= cas.isCreateAccountPasswordMustHaveTextDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " text is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " text is not displayed");
+					}
+					break;
+				}
+
+				case "COUNTRY SELECTION": {
+					flag &= cas.isCreateAccountCountrySelectionDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + "button is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " button is not displayed");
+					}
+					break;
+				}
+
+				case "MARKETING COMMUNICATIONS SIGN UP": {
+					flag &= cas.isCreateAccountMarketingCommunicationsSignUpTextDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " text is displayed");
+						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+						@SuppressWarnings("rawtypes")
+						TouchAction action = new TouchAction(testCase.getMobileDriver());
+						System.out.println("$$$$$$$$$$$$$$: " + testCase.getPlatform());
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							int startx = (dimensions.width * 20) / 100;
+							int starty = (dimensions.height * 62) / 100;
+							int endx = (dimensions.width * 22) / 100;
+							int endy = (dimensions.height * 35) / 100;
+							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						} else {
+							/*
+							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimensions.getHeight() * .6)).release().perform();
+							 */
+							action.press(point(10, (int) (dimensions.getHeight() * .9)))
+									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+						}
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " text is not displayed");
+					}
+					break;
+				}
+
+				case "SIGN ME UP FOR EXCLUSIVE UPDATES AND TOGGLE": {
+					flag &= cas.isCreateAccountSignMeUpForExclusiveUpdatesTextDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " button is displayed & toggle is disabled");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + "button & toggle are not displayed");
+					}
+					break;
+				}
+
+				case "SIGNING UP CONSENT LABEL SHOULD NOT BE DISPLAYED": {
+					if (!cas.isCreateAccountSigningUpConsentLabelDisplayed()) {
+						Keyword.ReportStep_Pass(testCase, parameter);
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " label is displayed");
+					}
+					break;
+				}
+
+				case "SIGNING UP CONSENT LABEL SHOULD BE DISPLAYED": {
+					flag &= cas.isCreateAccountSigningUpConsentLabelDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter);
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " label is not displayed");
+					}
+					break;
+				}
+
+				case "BY TAPPING CREATE BELOW": {
+					flag &= cas.isCreateAccountByTappingCreateBelowTextDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " text is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " text is not displayed");
+					}
+					break;
+				}
+
+				case "PRIVACY STATEMENT": {
+					if (cas.isCreateAccountPrivacyStatementLinkDisplayed()) {
+						Keyword.ReportStep_Pass(testCase, parameter + " link is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " link is not displayed");
+					}
+					break;
+				}
+
+				case "EULA": {
+					flag &= cas.isCreateAccountEULALinkDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " link is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " link is not displayed");
+					}
+					break;
+				}
+
+				case "CREATE BUTTON": {
+					flag &= cas.isCreateAccountRegisterButtonDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " button is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " button is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+			}
+			break;
+		}
+		case "CREATE ACCOUNT FIELD ERROR VALIDATION": {
+			boolean flag = true;
+			CreateAccountScreen cas = new CreateAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "CreateAccountFieldErrorValidation");
+				switch (parameter.toUpperCase()) {
+				case "YOU MUST ENTER A FIRST NAME": {
+					flag &= cas.isCreateAccountFirstNameFieldErrorValidationDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " error validation is displayed for First Name");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " error validation is not displayed for First Name");
+					}
+					break;
+				}
+				case "YOU MUST ENTER A LAST NAME": {
+					flag &= cas.isCreateAccountLastNameFieldErrorValidationDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " error validation is displayed for Last Name");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " error validation is not displayed for Last Name");
+					}
+					break;
+				}
+
+				case "YOU MUST ENTER A VALID EMAIL ADDRESS": {
+					flag &= cas.isCreateAccountEmailFieldErrorValidationDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " error validation is displayed for Email");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " error validation is not displayed for Email");
+					}
+					break;
+				}
+
+				case "THE PASSWORD MUST BE AT LEAST EIGHT CHARACTERS": {
+					flag &= cas.isCreateAccountPasswordFieldErrorValidationDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " error validation is displayed for Password");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " error validation is not displayed for Password");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
+		case "ALREADY REGISTERED EMAIL VALIDATION": {
+			boolean flag = true;
+			CreateAccountScreen cas = new CreateAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "AlreadyRegisteredEmailValidation");
+				switch (parameter.toUpperCase()) {
+				case "THIS EMAIL ADDRESS HAS ALREADY BEEN REGISTERED.": {
+					flag &= cas.isCreateAccountAlreadyRegisteredEmailValidationDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is displayed for Email field");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " is not displayed for Email field");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+			}
+			break;
+		}
+		case "PASSWORD DONT MATCH VALIDATION": {
+			boolean flag = true;
+			CreateAccountScreen cas = new CreateAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "PasswordDontMatchValidation");
+				switch (parameter.toUpperCase()) {
+				case "THE PASSWORD MUST BE AT LEAST EIGHT CHARACTERS": {
+					flag &= cas.isCreateAccountPasswordFieldErrorValidationDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " error validation is displayed for Password");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " error validation is not displayed for Password");
+					}
+					break;
+				}
+				case "PASSWORDS DON'T MATCH": {
+					flag &= cas.isCreateAccountVerifyPasswordDontMatchValidationDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase,
+								parameter + " validation is displayed for Verify Password field");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " validation is not displayed for Verify Password field");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+			}
+			break;
+		}
+		case "LOGIN": {
+			boolean flag = true;
+			LoginScreen ls = new LoginScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "Login");
+				switch (parameter.toUpperCase()) {
+				case "EMAIL": {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						MobileUtils.hideKeyboard(testCase.getMobileDriver());
+						flag &= ls.isLoginEmailAddressTextFieldVisible();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									parameter + " field is not displayed");
+						}
+						break;
+					} else {
+						// ios
+						ls.ClickOnHoneywellHomeLogo();
+						flag &= ls.isLoginEmailAddressTextFieldVisible();
+						if (flag) {
+							Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									parameter + " field is not displayed");
+						}
+						break;
+					}
+				}
+				case "PASSWORD": {
+					flag &= ls.isLoginPasswordTextFieldDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " field is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " field is not displayed");
+					}
+					break;
+				}
+				case "FORGOT PASSWORD": {
+					flag &= ls.isLoginForgotPasswordLinkDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " link is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " link is not displayed");
+					}
+					break;
+				}
+				case "DISABLED LOGIN BUTTON": {
+					flag &= ls.isLoginButtonDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is displayed and disabled");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not displayed");
+					}
+					break;
+				}
+				case "CANCEL": {
+					flag &= ls.isLoginCancelButtonDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " button is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " button is not displayed");
+					}
+					break;
+				}
+				case "INVALID EMAIL AND PASSWORD VALIDATION": {
+					flag &= ls.isLoginInvalidEmailAndPasswordValidationDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not displayed");
+					}
+					break;
+				}
+				}
+			}
+			break;
+		}
+		case "ACTIVATE ACCOUNT DETAILS": {
+			boolean flag = true;
+			ActivateAccountScreen aas = new ActivateAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "ActivateAccountDetails");
+				switch (parameter.toUpperCase()) {
+				case "ALMOST DONE": {
+					flag &= aas.isActivateAccountAlmostDoneLabelDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " label is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " label is not displayed");
+					}
+					break;
+				}
+				case "NEW EMAIL": {
+					flag &= aas.isActivateAccountNewEmailDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " Id is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " Id is not displayed");
+					}
+					break;
+				}
+				case "GO TO MAIL": {
+					flag &= aas.isActivateAccountGoToMailButtonDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " button is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " button is not displayed");
+					}
+					break;
+				}
+				case "RESEND EMAIL": {
+					flag &= aas.isActivateAccountResendEmailLinkDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " link is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " link is not displayed");
+					}
+					break;
+				}
+				}
+			}
+		}
+		case "WEATHER": {
+			boolean flag = true;
+			String locationValue1 = null;
+			Dashboard d = new Dashboard(testCase);
+			WeatherForecastScreen w = new WeatherForecastScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "WeatherOptions");
+				switch (parameter.toUpperCase()) {
+				case "WEATHER ICON": {
+					flag &= d.isWeatherIconDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not displayed");
+					}
+					break;
+				}
+				case "WEATHER TEMP IN DASHBOARD SCREEN": {
+					try {
+						chUtil = new CHILUtil(inputs);
+						long locationID;
+						double weatherTemperatureFromCHIL, weatherTemperatureDisplayedInTheApp;
+						String defaultWeatherTempUnit = null;
+						if (chUtil.getConnection()) {
+							locationID = chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME"));
+							System.out.println("The CHIL location ID is: " + locationID);
+							weatherTemperatureFromCHIL = Double.parseDouble(chUtil.getWeather(locationID));
+							System.out.println("########weatherTemperatureFromCHIL: " + weatherTemperatureFromCHIL);
+							if (flag &= d.isDashboardWeatherForecastDisplayed(100)) {
+								Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+								defaultWeatherTempUnit = d.getWeatherTempValue();
+								weatherTemperatureDisplayedInTheApp = Double.parseDouble(defaultWeatherTempUnit);
+								flag &= d.clickOnWeatherTempValue();
+								if (w.isWeatherScreenTitleDisplayed()) {
+									String tempUnitEnabled = w.whichWeatherTempUnitIsEnabled();
+									if (tempUnitEnabled.contains("C")) {
+										w.clickOnBackIcon();
+									} else {
+										w.clickOnCelsiusUnit();
+										w.clickOnBackIcon();
+									}
+									/*
+									 * if(tempUnitEnabled.contains("F")) { w.clickOnFarenheitUnit();
+									 * w.clickOnBackIcon(); }else { w.clickOnBackIcon(); }
+									 */
+								}
+								if ((Double.compare(weatherTemperatureFromCHIL,
+										weatherTemperatureDisplayedInTheApp) == 0)
+										|| (Double.compare(weatherTemperatureFromCHIL,
+												weatherTemperatureDisplayedInTheApp) >= 2)
+										|| (Double.compare(weatherTemperatureFromCHIL,
+												weatherTemperatureDisplayedInTheApp) <= 2)) {
+									Keyword.ReportStep_Pass(testCase, parameter
+											+ "Weather displayed in app is same as the Weather Temperature in CHIL");
+								} else {
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Weather displayed in app: " + weatherTemperatureDisplayedInTheApp
+													+ "is not same as the weather displayed in CHIL"
+													+ weatherTemperatureFromCHIL);
+								}
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										parameter + " is not displayed");
+							}
+						}
+					} catch (Exception e) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Error Occured : " + e.getMessage());
+					}
+					break;
+				}
+				case "HUMIDITY": {
+					try {
+						chUtil = new CHILUtil(inputs);
+						w = new WeatherForecastScreen(testCase);
+						long locationID;
+						int humidityFromCHIL, humidityDisplayedInTheApp;
+						String getWeatherHumidity = null;
+						if (chUtil.getConnection()) {
+							locationID = chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME"));
+							System.out.println("The CHIL location ID is: " + locationID);
+							humidityFromCHIL = Integer.parseInt(chUtil.getHumidty(locationID));
+							System.out.println("########HumidityFromCHIL: " + humidityFromCHIL);
+							if (flag &= w.isHumidityDisplayed(50)) {
+								Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+								getWeatherHumidity = w.getHumidity();
+								humidityDisplayedInTheApp = Integer.parseInt(getWeatherHumidity);
+								if ((Integer.compare(humidityFromCHIL, humidityDisplayedInTheApp) == 0)
+										|| (Integer.compare(humidityFromCHIL, humidityDisplayedInTheApp) < 15)) {
+									Keyword.ReportStep_Pass(testCase,
+											parameter + " displayed in app " + humidityDisplayedInTheApp
+													+ " is same as the Humidity in CHIL: " + humidityFromCHIL);
+								} else {
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"Humidity displayed in app: " + humidityDisplayedInTheApp
+													+ "is not same as the weather displayed in CHIL: "
+													+ humidityFromCHIL);
+								}
+							} else {
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										parameter + " is not displayed");
+							}
+						}
+					} catch (Exception e) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Error Occured : " + e.getMessage());
+					}
+					break;
+				}
+
+				case "MAX WEATHER TEMPERATURE": {
+					String getMaxWeather = null;
+					if (w.isWeatherMaxTempDisplayed()) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+						getMaxWeather = w.getWeatherMaxTemp();
+						flag &= WeatherForecastUtils.compareMaxTempWithCHIL(testCase, inputs, getMaxWeather);
+					}
+					break;
+				}
+
+				case "MIN WEATHER TEMPERATURE": {
+					String getMinWeather = null;
+					if (w.isWeatherMinTempDisplayed()) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+						getMinWeather = w.getWeatherMinTemp();
+						flag &= WeatherForecastUtils.compareMinTempWithCHIL(testCase, inputs, getMinWeather);
+					}
+					break;
+				}
+
+				case "WEATHER TEMP IN FORECAST SCREEN": {
+					String getWeatherForecastTemp = null;
+					if (w.isWeatherForecastValueDisplayed()) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+						getWeatherForecastTemp = w.getWeatherForecastValue();
+						flag &= WeatherForecastUtils.compareWeatherForecastTempWithCHIL(testCase, inputs,
+								getWeatherForecastTemp);
+					}
+					break;
+				}
+				}
+			}
 		}
 		}
 		return flag;

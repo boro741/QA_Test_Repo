@@ -1,7 +1,7 @@
 package com.honeywell.lyric.das.utils;
 
+import java.time.Duration;
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -25,8 +25,12 @@ public class DASAlarmUtils {
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);
 		try {
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(2, TimeUnit.MINUTES);
+			/*
+			 * fWait.pollingEvery(3, TimeUnit.SECONDS); fWait.withTimeout(2,
+			 * TimeUnit.MINUTES);
+			 */
+			fWait.pollingEvery(Duration.ofSeconds(3));
+			fWait.withTimeout(Duration.ofMinutes(2));
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
 					try {
@@ -62,8 +66,12 @@ public class DASAlarmUtils {
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);
 		try {
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(5, TimeUnit.SECONDS);
-			fWait.withTimeout(delay, TimeUnit.SECONDS);
+			/*
+			 * fWait.pollingEvery(5, TimeUnit.SECONDS); fWait.withTimeout(delay,
+			 * TimeUnit.SECONDS);
+			 */
+			fWait.pollingEvery(Duration.ofSeconds(5));
+			fWait.withTimeout(Duration.ofSeconds(delay));
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
 					try {
@@ -188,8 +196,12 @@ public class DASAlarmUtils {
 		boolean flag = true;
 		try {
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(duration, TimeUnit.MINUTES);
+			/*
+			 * fWait.pollingEvery(3, TimeUnit.SECONDS); fWait.withTimeout(duration,
+			 * TimeUnit.MINUTES);
+			 */
+			fWait.pollingEvery(Duration.ofSeconds(3));
+			fWait.withTimeout(Duration.ofMinutes(duration));
 			AlarmScreen as = new AlarmScreen(testCase);
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {

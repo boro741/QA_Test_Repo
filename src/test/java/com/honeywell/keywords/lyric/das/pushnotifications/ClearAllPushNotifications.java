@@ -19,6 +19,8 @@ import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.TapOptions.tapOptions;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class ClearAllPushNotifications extends Keyword {
 
@@ -62,6 +64,7 @@ public class ClearAllPushNotifications extends Keyword {
 					if (MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeCell", testCase)) {
 						List<WebElement> listOfNotifications = MobileUtils.getMobElements(testCase, "XPATH",
 								"//XCUIElementTypeCell");
+						@SuppressWarnings("rawtypes")
 						TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 						for (WebElement ele : listOfNotifications) {
@@ -69,9 +72,15 @@ public class ClearAllPushNotifications extends Keyword {
 							int startX = notificationToBeCleared.getX();
 							int endX = notificationToBeCleared.getX() / 2;
 							int startY = notificationToBeCleared.getY();
-							touchAction.press((startX + 150), (startY + 20)).moveTo((endX - 100), 0).release()
+							/*
+							 * touchAction.press((startX + 150), (startY + 20)).moveTo((endX - 100),
+							 * 0).release() .perform(); touchAction.tap((dimensions.width - 20), (startY +
+							 * 30)).perform();
+							 */
+							touchAction.press(point((startX + 150), (startY + 20))).moveTo(point((endX - 100), 0))
+									.release().perform();
+							touchAction.tap(tapOptions().withPosition(point((dimensions.width - 20), (startY + 30))))
 									.perform();
-							touchAction.tap((dimensions.width - 20), (startY + 30)).perform();
 						}
 					} else {
 						break;

@@ -2,7 +2,10 @@ FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Lar
 EmailAddress	ID	fragment_login_user_name	ID	fragment_login_user_name	ID	fragment_login_user_name	NAME	textFieldEmail	NAME	textFieldEmail	NAME	textFieldEmail
 LyricLogo	ID	fragment_login_logo	ID	fragment_login_logo	ID	fragment_login_logo	NAME	Login_LyricLogo	NAME	Login_LyricLogo	NAME	Login_LyricLogo
 HoneywellRosette	ID	login_rosette_new	ID	login_rosette_new	ID	login_rosette_new						
-LoginButton	ID	fragment_login_login_button	ID	fragment_login_login_button	ID	fragment_login_login_button	NAME	Login	NAME	Login	NAME	Login
+LoginButton	ID	login_login_button	ID	login_login_button	ID	login_login_button	XPATH	//*[@name='Login' or @name='Log In']	XPATH	//*[@name='Login' or @name='Log In']	XPATH	//*[@name='Login' or @name='Log In']
 Password	ID	fragment_login_password	ID	fragment_login_password	ID	fragment_login_password	NAME	textFieldPassword	NAME	textFieldPassword	NAME	textFieldPassword
 SecretMenuImage							name	Secret_Menu	name	Secret_Menu	name	Secret_Menu
 SkipIntroButton	ID	hh_intro_skip_textview	ID	hh_intro_skip_textview	ID	hh_intro_skip_textview	ID	Intro_Screen_Skip_Button	ID	Intro_Screen_Skip_Button	ID	Intro_Screen_Skip_Button
+ForgotPasswordLink	ID	fragment_login_forgot_pass_layout	ID	fragment_login_forgot_pass_layout	ID	fragment_login_forgot_pass_layout	XPATH	//XCUIElementTypeButton[@name='Login_ForgotPassword']	XPATH	//XCUIElementTypeButton[@name='Login_ForgotPassword']	XPATH	//XCUIElementTypeButton[@name='Login_ForgotPassword']
+CancelButton	ID	fragment_login_cancel	ID	fragment_login_cancel	ID	fragment_login_cancel	XPATH	//XCUIElementTypeButton[@name='Cancel']	XPATH	//XCUIElementTypeButton[@name='Cancel']	XPATH	//XCUIElementTypeButton[@name='Cancel']
+InvalidEmailAndPasswordValidation	XPATH	//android.widget.TextView[@text='Unable to login. Email or password incorrect.']	XPATH	//android.widget.TextView[@text='Unable to login. Email or password incorrect.']	XPATH	//android.widget.TextView[@text='Unable to login. Email or password incorrect.']	XPATH	//XCUIElementTypeButton[@text='Unable to login. Email or password incorrect.']	XPATH	//XCUIElementTypeButton[@text='Unable to login. Email or password incorrect.']	XPATH	//XCUIElementTypeButton[@text='Unable to login. Email or password incorrect.']

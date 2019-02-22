@@ -121,18 +121,18 @@ Then user navigates to "Smart Home Security" screen from the "Add New Device Das
 When user navigates to "Choose Location" screen from the "What To Expect" screen
 And user selects "Create New Location" from "Choose Location" screen
 Then user should be displayed with the "Create Location" screen
-When user inputs <max charcters> in the "Name Your Location" screen
-Then user should not be allowed to enter more than "30" charcters in "Name Your Location" screen
+When user inputs <max characters> in the "Name Your Location" screen
+Then user should not be allowed to enter more than "30" characters in "Location Text Field" in the "Name Your Location" screen
 When user navigates to "Choose Location" screen from the "Create Location" screen
 When user selects <location name> from "Choose Location" screen
 Then user should be displayed with the "Name Your Base Station" screen
 When user selects "Create New Base Station" from "Name Your Base Station" screen
 Then user should be displayed with the "Create New Base Station" screen
 And user inputs <max charcters> in the "Name Your Device" screen
-Then user should not be allowed to enter more than "30" charcters in "Name Your Device" screen
+Then user should not be allowed to enter more than "30" characters in "Device Text Field" in the  "Name Your Device" screen
 
 Examples: 
-      | max charcters                    | location name		|
+      | max characters                   | location name		|
       | This is to test max character	| Home				|
       | This is to test max characters	| Home				|
       | This is to test max characterss	| Home				|

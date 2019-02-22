@@ -21,7 +21,13 @@ public class GlobalDrawerScreen extends MobileScreens {
 	}
 
 	public boolean isAutomationHeaderTitleVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AutomationHeaderTitle");
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.isMobElementExists("XPATH",
+					"//*[@resource-id='com.honeywell.android.lyric:id/device_type_section_header' and (@text='Automation' or @text='AUTOMATION')]",
+					testCase);
+		} else {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "AutomationHeaderTitle");
+		}
 	}
 
 	public boolean isGeofenceOptionVisible() {
@@ -48,7 +54,13 @@ public class GlobalDrawerScreen extends MobileScreens {
 	}
 
 	public boolean isHomeHeaderTitleVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "HomeHeaderTitle");
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.isMobElementExists("XPATH",
+					"//*[@resource-id='com.honeywell.android.lyric:id/device_type_section_header' and (@text='Home' or @text='HOME')]",
+					testCase);
+		} else {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "HomeHeaderTitle");
+		}
 	}
 
 	public boolean isActivityHistoryOptionVisible() {
@@ -59,12 +71,18 @@ public class GlobalDrawerScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddUsersOption");
 	}
 
-	public boolean isHomeAddressOptionVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "HomeAddressOption");
+	public boolean isAddressOptionVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddressOption");
 	}
 
 	public boolean isAccountHeaderTitleVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AccountHeaderTitle");
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.isMobElementExists("XPATH",
+					"//*[@resource-id='com.honeywell.android.lyric:id/device_type_section_header' and (@text='Account' or @text='ACCOUNT')]",
+					testCase);
+		} else {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "AccountHeaderTitle");
+		}
 	}
 
 	public boolean isHoneywellMembershipOptionVisible() {
@@ -81,6 +99,10 @@ public class GlobalDrawerScreen extends MobileScreens {
 	public boolean isEditAccountOptionVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EditAccountOption");
 	}
+	
+	public boolean clickEditAccountOption() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "EditAccountOption");
+	}
 
 	public boolean isAboutTheAppOptionVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AboutTheAppOption");
@@ -92,5 +114,9 @@ public class GlobalDrawerScreen extends MobileScreens {
 
 	public boolean isLogoutOptionVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LogoutOption");
+	}
+	
+	public boolean clickOnLogoutOption() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "LogoutOption");
 	}
 }

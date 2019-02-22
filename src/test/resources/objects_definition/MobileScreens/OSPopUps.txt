@@ -3,7 +3,7 @@ AllowButton	ID	com.android.packageinstaller:id/permission_allow_button	ID	com.an
 OkButton							name	OK	name	OK	name	OK
 CancelButton							name	Cancel	name	Cancel	name	Cancel
 NotNowButton							name	Not Now	name	Not Now	name	Not Now
-CloseButton	ID	btn_close	ID	btn_close	ID	btn_close						
+CloseButton	XPATH	//android.widget.Button[@resource-id='com.honeywell.android.lyric:id/btn_close']	XPATH	//android.widget.Button[@resource-id='com.honeywell.android.lyric:id/btn_close']	XPATH	//android.widget.Button[@resource-id='com.honeywell.android.lyric:id/btn_close']						
 AlwaysAllowButton							name	Always Allow	name	Always Allow	name	Always Allow
 IgnoreButton							name	Ignore	name	Ignore	name	Ignore
 RootedDevicePopup	XPATH	//*[@text='I Accept' or @text='I ACCEPT']	XPATH	//*[@text='I Accept' or @text='I ACCEPT']	XPATH	//*[@text='I Accept' or @text='I ACCEPT']						
@@ -16,3 +16,10 @@ HoneywellButtonInLocationServicesScreen							XPATH	//XCUIElementTypeButton[@nam
 AlwaysOptionInHoneywellLocationServicesScreen							XPATH	//XCUIElementTypeCell[@name='Always']	XPATH	//XCUIElementTypeCell[@name='Always']	XPATH	//XCUIElementTypeCell[@name='Always']
 AlwaysOptionSelectedInHoneywellLocationServicesScreen							XPATH	//XCUIElementTypeCell[@name='Always']/XCUIElementTypeButton[@name='More Info']	XPATH	//XCUIElementTypeCell[@name='Always']/XCUIElementTypeButton[@name='More Info']	XPATH	//XCUIElementTypeCell[@name='Always']/XCUIElementTypeButton[@name='More Info']
 ReturnToHoneywellButtonInHoneywellLocationServicesScreen							XPATH	//XCUIElementTypeButton[@name='Return to Honeywell']	XPATH	//XCUIElementTypeButton[@name='Return to Honeywell']	XPATH	//XCUIElementTypeButton[@name='Return to Honeywell']
+SettingsButton	XPATH	//android.widget.Button[@text='Settings']	XPATH	//android.widget.Button[@text='Settings']	XPATH	//android.widget.Button[@text='Settings']						
+TurnOnLocationServicesPopup	XPATH	//android.widget.TextView[@text='Turn on location services to allow Honeywell Home to determine your location.']	XPATH	//android.widget.TextView[@text='Turn on location services to allow Honeywell Home to determine your location.']	XPATH	//android.widget.TextView[@text='Turn on location services to allow Honeywell Home to determine your location.']						
+MobileDeviceLocationEnabled	XPATH	//android.view.ViewGroup[@resource-id='com.android.systemui:id/qs_button_1' and @content-desc='Location is enabled.']	XPATH	//android.view.ViewGroup[@resource-id='com.android.systemui:id/qs_button_1' and @content-desc='Location is enabled.']	XPATH	//android.view.ViewGroup[@resource-id='com.android.systemui:id/qs_button_1' and @content-desc='Location is enabled.']						
+MobileDeviceLocationDisabled	XPATH	//android.view.ViewGroup[@resource-id='com.android.systemui:id/qs_button_1' and @content-desc='Location is disabled.']	XPATH	//android.view.ViewGroup[@resource-id='com.android.systemui:id/qs_button_1' and @content-desc='Location is disabled.']	XPATH	//android.view.ViewGroup[@resource-id='com.android.systemui:id/qs_button_1' and @content-desc='Location is disabled.']						
+AllowHoneywellToAccessDeviceLocationPopup	XPATH	"//android.widget.TextView[contains(@text,'Allow Honeywell to access this device')]"	XPATH	"//android.widget.TextView[contains(@text,'Allow Honeywell to access this device')]"	XPATH	"//android.widget.TextView[contains(@text,'Allow Honeywell to access this device')]"						
+DenyAccessToDeviceLocation	XPATH	//android.widget.Button[@text='Deny']	XPATH	//android.widget.Button[@text='Deny']	XPATH	//android.widget.Button[@text='Deny']						
+AllowAccessToDeviceLocation	XPATH	//android.widget.Button[@text='Allow']	XPATH	//android.widget.Button[@text='Allow']	XPATH	//android.widget.Button[@text='Allow']						

@@ -1,9 +1,9 @@
 package com.honeywell.lyric.das.utils;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -42,8 +42,12 @@ public class HBNAEMEASettingsUtils {
 		boolean flag = true;
 		try {
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(3, TimeUnit.SECONDS);
-			fWait.withTimeout(duration, TimeUnit.MINUTES);
+			/*
+			 * fWait.pollingEvery(3, TimeUnit.SECONDS); fWait.withTimeout(duration,
+			 * TimeUnit.MINUTES);
+			 */
+			fWait.pollingEvery(Duration.ofSeconds(3));
+			fWait.withTimeout(Duration.ofMinutes(duration));
 			CameraSolutionCardScreen cs = new CameraSolutionCardScreen(testCase);
 			CameraSettingsScreen css = new CameraSettingsScreen(testCase);
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {

@@ -319,7 +319,7 @@ public class VerifyisElementDisplayed extends Keyword {
 					Keyword.ReportStep_Pass(testCase, "No Invited users label is displayed in Add Users Screen");
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"No Invited users label is nog displayed in Add Users Screen");
+							"No Invited users label is not displayed in Add Users Screen");
 				}
 				break;
 			}

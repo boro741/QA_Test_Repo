@@ -39,6 +39,10 @@ public class Dashboard extends MobileScreens {
 	public boolean isSplashScreenVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SplashScreen", timeOut, false);
 	}
+	
+	public boolean isProgressBarVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ProgressBar");
+	}
 
 	public boolean isProgressBarVisible(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ProgressBar", timeOut, false);
@@ -696,5 +700,35 @@ public class Dashboard extends MobileScreens {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured : " + e.getMessage());
 			return -1;
 		}
+	}
+	
+	public boolean isWeatherIconDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardWeatherForecast");
+	}
+	
+	public boolean isDashboardWeatherForecastDisplayed(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardWeatherForecast", timeOut);
+	}
+	
+	public String getWeatherTempValue() {
+		String weatherValue= MobileUtils.getFieldValue(objectDefinition, testCase, "DashboardWeatherForecastValue");
+		System.out.println(weatherValue);
+		return weatherValue.split("˚")[0];
+	}
+	
+	public boolean clickOnWeatherTempValue() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DashboardWeatherForecast");
+	}
+	
+	public boolean isDashboardMenuVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardMenu");
+	}
+	
+	public boolean clickOnDashboardMenu() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DashboardMenu");
+	}
+	
+	public boolean clickOnLocationDropdown() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "LocationDropdown");
 	}
 }

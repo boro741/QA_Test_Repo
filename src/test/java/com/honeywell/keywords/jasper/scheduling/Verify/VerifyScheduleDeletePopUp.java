@@ -10,9 +10,6 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
-import com.honeywell.jasper.utils.JasperSchedulingVerifyUtils;
-import com.honeywell.lyric.das.utils.DashboardUtils;
-import com.honeywell.lyric.utils.InputVariables;
 import com.honeywell.screens.SchedulingScreen;
 
 public class VerifyScheduleDeletePopUp extends Keyword {
@@ -39,40 +36,32 @@ public class VerifyScheduleDeletePopUp extends Keyword {
 	public boolean keywordSteps() throws KeywordException {
 		SchedulingScreen ss = new SchedulingScreen(testCase);
 		try {
-						String content = ss.getDeleteMessageContent();
-						//content = "Delete 1 Period for Monday - Friday?";
-						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-							//System.out.println(exampleData.get(0) + " "+ exampleData.get(1)+"?");
-							//System.out.println(content);
-						if (content.equalsIgnoreCase(exampleData.get(0) + " "+ exampleData.get(1)+"?")){
-							
-							Keyword.ReportStep_Pass(testCase,
-									"Period name on pop up is matching with -" + content);
-						}
-						else{
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Failed to find Period name on delete pop up "
-											+ content);
-						}
-						}
-						else{
-						String content1 = (exampleData.get(0).replace("for", "on") + " " + exampleData.get(1));
-						 if (content.toUpperCase().contains(content1.toUpperCase())){
-							
-							Keyword.ReportStep_Pass(testCase,
-									"Period name on pop up is matching with -" + content);
-						}
-					
-						else{
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Failed to find Period name on delete pop up "
-											+ content);
-						}
-						}
-						
+			String content = ss.getDeleteMessageContent();
+			// content = "Delete 1 Period for Monday - Friday?";
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				// System.out.println(exampleData.get(0) + " "+ exampleData.get(1)+"?");
+				// System.out.println(content);
+				if (content.equalsIgnoreCase(exampleData.get(0) + " " + exampleData.get(1) + "?")) {
 
-				
-				}catch (Exception e) {
+					Keyword.ReportStep_Pass(testCase, "Period name on pop up is matching with -" + content);
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to find Period name on delete pop up " + content);
+				}
+			} else {
+				String content1 = (exampleData.get(0).replace("for", "on") + " " + exampleData.get(1));
+				if (content.toUpperCase().contains(content1.toUpperCase())) {
+
+					Keyword.ReportStep_Pass(testCase, "Period name on pop up is matching with -" + content);
+				}
+
+				else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to find Period name on delete pop up " + content);
+				}
+			}
+
+		} catch (Exception e) {
 			flag = false;
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Error Occured : " + e.getMessage());

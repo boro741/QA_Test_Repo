@@ -1,4 +1,4 @@
-@Geofence scenarios
+@Geofencescenarios
 Feature: Verify When geofence cross the fence 
 
 
@@ -11,13 +11,14 @@ And user should be configured with <Solutions>
 And user is set to <Mode> through CHIL
 And user enables the "Geofence this location" in "global drawer" 
 And user enables the "Geofence settings" in <Solution>"Settings" screen 
-AND user set to the "Geofence Mode"
+And user set to the "Geofence Mode"
 When user cross the fence <UMode> 
 Then user should be receive "Push Notification" 
 When user selects the "Push Notification" 
 Then user should be displayed with "Dashboard"
 And user should be updated with <UMode>
 And user should be updated with based on the <UMode> settings
+
 Examples:
 |Solutions||Mode| UMode | 
 |JasperNA|Home| Away | 
@@ -45,14 +46,14 @@ And user should be configured with <Solutions>
 And user is set to <Mode> through CHIL
 And user enables the "Geofence this location" in "global drawer" 
 And user Disabled the "Geofence settings" in <Solution>"Settings" screen 
-AND user set to the "Geofence Mode"
+And  user set to the "Geofence Mode"
 When user cross the fence <UMode> 
 Then user should not receive "Push Notification" 
 And user should be updated with <UMode>
 And user should be updated with based on the <UMode> settings
+
 Examples:
-|Solutions||Mode| UMode | 
-|Solutions||Mode| UMode | 
+|Solutions||Mode| UMode |
 |JasperNA|Home| Away | 
 |JasperNA|Away| Home |
 |JasperEMEA|Home| Away | 
@@ -76,13 +77,14 @@ Scenario Outline: As a user I want to verify fence cross functionality when geof
 Given user launches and logs in to the Lyric Application
 And user should be configured with <Solutions>
 And user is set to <Mode> through CHIL
-AND user set to the "Geofence Mode"
+And user set to the "Geofence Mode"
 And user Disabled the "Geofence this location" in "global drawer" 
 And user enables the "Geofence settings" in <Solution>"Settings" screen 
 When user cross the fence <UMode> 
 Then user should not receive "Push Notification" 
 And user should be updated with <UMode>
 And user should be updated with based on the <UMode> settings
+
 Examples:
 |Solutions||Mode| UMode | 
 |JasperNA|Home| Away | 
@@ -107,13 +109,14 @@ Scenario Outline: As a user I want to verify fence cross functionality when geof
 Given user launches and logs in to the Lyric Application
 And user should be configured with <Solutions>
 And user is set to <Mode> through CHIL
-AND user set to the "Geofence Mode"
+And user set to the "Geofence Mode"
 And user Disabled the "Geofence this location" in "global drawer" 
 And user enables the "Geofence settings" in <Solution>"Settings" screen 
 When user cross the fence <UMode> 
 Then user should not receive "Push Notification" 
 And user should be updated with <UMode>
 And user should be updated with based on the <UMode> settings
+
 Examples:
 |Solutions||Mode| UMode | 
 |JasperNA|Home| Away | 
@@ -138,7 +141,7 @@ Scenario Outline: As a user I want to verify fence cross functionality when loca
 Given user launches and logs in to the Lyric Application
 And user should be configured with <Solutions>
 And user is set to <Mode> through CHIL
-AND user set to the "Geofence Mode"
+And user set to the "Geofence Mode"
 And user Enabled the "Geofence this location" in "global drawer" 
 And user enables the "Geofence settings" in <Solution>"Settings" screen 
 And user disabled the "Location permission" on the app permission
@@ -146,6 +149,7 @@ When user cross the fence <UMode>
 Then user should not receive "Push Notification" 
 And user should be with <Mode>
 And user should be updated with based on the <Mode> settings
+
 Examples:
 |Solutions||Mode| UMode | 
 |JasperNA|Home| Away |
@@ -169,7 +173,7 @@ Scenario Outline: As a user I want to verify fence cross functionality when loca
 Given user launches and logs in to the Lyric Application
 And user should be configured with <Solutions>
 And user is set to <Mode> through CHIL
-AND user set to the "Geofence Mode"
+And user set to the "Geofence Mode"
 And user Enabled the "Geofence this location" in "global drawer" 
 And user enables the "Geofence settings" in <Solution>"Settings" screen 
 And user disabled the "Location permission" on the app permission
@@ -180,6 +184,7 @@ And user should be with based on the <Mode> settings
 When user Enabled the "Location permission" on the app permission
 Then user should be receive "Push Notification"
 And user should be updated with based on the <UMode> settings
+
 Examples:
 |Solutions||Mode| UMode | 
 |JasperNA|Home| Away |
@@ -204,7 +209,7 @@ Scenario Outline: As a user I want to verify fence cross functionality when loca
 Given user launches and logs in to the Lyric Application
 And user should be configured with <Solutions>
 And user is set to <Mode> through CHIL
-AND user set to the "Geofence Mode"
+And user set to the "Geofence Mode"
 And user Enabled the "Geofence this location" in "global drawer" 
 And user enables the "Geofence settings" in <Solution>"Settings" screen 
 And user disabled the "Location service" on the phone
@@ -214,6 +219,7 @@ When user selects the "Push Notification"
 Then user should be navigates to "Dashboard"
 And user should be with <Mode>
 And user should be with based on the <Mode> settings
+
 Examples:
 |Solutions||Mode| UMode | 
 |JasperNA|Home| Away |
@@ -238,7 +244,7 @@ Scenario Outline: As a user I want to verify fence cross functionality when Inte
 Given user launches and logs in to the Lyric Application
 And user should be configured with <Solutions>
 And user is set to <Mode> through CHIL
-AND user set to the "Geofence Mode"
+And user set to the "Geofence Mode"
 And user Enabled the "Geofence this location" in "global drawer" 
 And user enables the "Geofence settings" in <Solution>"Settings" screen 
 When user "Kill the" application
@@ -248,6 +254,7 @@ Then user should not receive "Push Notification"
 When user open the application
 Then user should be with <Mode>
 And user should be with based on the <Mode> settings
+
 Examples:
 |Solutions||Mode| UMode | 
 |JasperNA|Home| Away |
@@ -272,7 +279,7 @@ Scenario Outline: As a user I want to verify fence cross functionality when Inte
 Given user launches and logs in to the Lyric Application
 And user should be configured with <Solutions>
 And user is set to <Mode> through CHIL
-AND user set to the "Geofence Mode"
+And user set to the "Geofence Mode"
 And user Enabled the "Geofence this location" in "global drawer" 
 And user enables the "Geofence settings" in <Solution>"Settings" screen 
 When user "Kill the" application
@@ -285,6 +292,7 @@ When user selects the "Push Notification"
 Then user should be navigates to "Dashboard"
 And user should be with <UMode>
 And user should be with based on the <UMode> setting
+
 Examples:
 |Solutions||Mode| UMode | 
 |JasperNA|Home| Away |
@@ -308,7 +316,7 @@ Scenario Outline: As a user I want to verify fence cross functionality when Inte
 Given user launches and logs in to the Lyric Application
 And user should be configured with <Solutions>
 And user is set to <Mode> through CHIL
-AND user set to the "Geofence Mode"
+And user set to the "Geofence Mode"
 And user Enabled the "Geofence this location" in "global drawer" 
 And user enables the "Geofence settings" in <Solution>"Settings" screen 
 When user Kept app in background
@@ -318,6 +326,7 @@ Then user should not receive "Push Notification"
 When user open the application
 Then user should be with <Mode>
 And user should be with based on the <Mode> settings
+
 Examples:
 |Solutions||Mode| UMode | 
 |JasperNA|Home| Away |
@@ -342,7 +351,7 @@ Scenario Outline: As a user I want to verify fence cross functionality when Inte
 Given user launches and logs in to the Lyric Application
 And user should be configured with <Solutions>
 And user is set to <Mode> through CHIL
-AND user set to the "Geofence Mode"
+And user set to the "Geofence Mode"
 And user Enabled the "Geofence this location" in "global drawer" 
 And user enables the "Geofence settings" in <Solution>"Settings" screen 
 When user Kept app in background
@@ -355,6 +364,7 @@ When user selects the "Push Notification"
 Then user should be navigates to "Dashboard"
 And user should be with <UMode>
 And user should be with based on the <UMode> setting
+
 Examples:
 |Solutions||Mode| UMode | 
 |JasperNA|Home| Away |
@@ -379,12 +389,13 @@ Scenario Outline: As a user I want to verify fence cross functionality  When use
 Given user launches and logs in to the Lyric Application
 And user should be configured with <Solutions>
 And user is set to <Mode> through CHIL
-AND user set to the "Geofence Mode"
+And user set to the "Geofence Mode"
 And user Enabled the "Geofence this location" in "global drawer" 
 And user enables the "Geofence settings" in <Solution>"Settings" screen 
 When user "Turn OFF" the phone
 Then user cross the fence <UMode> 
 Then user <Solution> should not updated with <UMode>
+
 Examples:
 |Solutions||Mode| UMode | 
 |JasperNA|Home| Away |
@@ -409,7 +420,7 @@ Scenario Outline: As a user I want to verify fence cross functionality when user
 Given user launches and logs in to the Lyric Application
 And user should be configured with <Solutions>
 And user is set to <Mode> through CHIL
-AND user set to the "Geofence Mode"
+And user set to the "Geofence Mode"
 And user Enabled the "Geofence this location" in "global drawer" 
 And user enables the "Geofence settings" in <Solution>"Settings" screen 
 When user "Turn OFF" the phone
@@ -420,6 +431,7 @@ When user selects the "Push Notification"
 Then user should be navigates to "Dashboard"
 And user should be with <UMode>
 And user should be with based on the <UMode> setting
+
 Examples:
 |Solutions||Mode| UMode | 
 |JasperNA|Home| Away |
@@ -444,7 +456,7 @@ Scenario Outline: As a user I want to verify fence cross functionality  When ses
 Given user launches and logs in to the Lyric Application
 And user should be configured with <Solutions>
 And user is set to <Mode> through CHIL
-AND user set to the "Geofence Mode"
+And user set to the "Geofence Mode"
 And user Enabled the "Geofence this location" in "global drawer" 
 And user enables the "Geofence settings" in <Solution>"Settings" screen 
 When user Kept app in background
@@ -455,6 +467,7 @@ When user selects the "Push Notification"
 Then user should navigates to "Dashboard
 Then user should be updated with <UMode>
 And user should be updated based on the <UMode> settings
+
 Examples:
 |Solutions||Mode| UMode | 
 |JasperNA|Home| Away |
@@ -480,7 +493,7 @@ Scenario Outline: As a user I want to verify fence cross functionality when Inte
 Given user launches and logs in to the Lyric Application
 And user should be configured with <Solutions>
 And user is set to <Mode> through CHIL
-AND user set to the "Geofence Mode"
+And user set to the "Geofence Mode"
 And user Enabled the "Geofence this location" in "global drawer" 
 And user enables the "Geofence settings" in <Solution>"Settings" screen 
 When user "Turn OFF" the "Internet service" on the phone
@@ -496,6 +509,7 @@ When user selects the "Push Notification"
 Then user should be navigates to "Dashboard"
 And user should be with <UMode>
 And user should be with based on the <UMode> setting
+
 Examples:
 |Solutions||Mode| UMode | 
 |JasperNA|Home| Away |
@@ -522,7 +536,7 @@ And user should be configured with <Solutions>
 And user is set to <Mode> through CHIL
 And user enables the "Geofence this location" in "global drawer" 
 And user enables the "Geofence settings" in <Solution>"Settings" screen 
-AND user set to the "Geofence Mode"
+And user set to the "Geofence Mode"
 When user "Logged IN" in "Phone1" and "Phone2" with same account
 Then user cross the fence of "phone1" <UMode> 
 And user "Phone2" not crossed the fence <UMode>
@@ -537,6 +551,7 @@ When user selects the "Push Notification"
 Then user should be displayed with "Dashboard"
 And user should be updated with <UMode>
 And user should be updated with based on <UMode> settings
+
 Examples:
 |Solutions||Mode| UMode | 
 |JasperNA|Home| Away | 
@@ -557,7 +572,7 @@ And user should be configured with <Solutions>
 And user is set to <Mode> through CHIL
 And user enables the "Geofence this location" in "global drawer" 
 And user enables the "Geofence settings" in <Solution>"Settings" screen 
-AND user set to the "Geofence Mode"
+And user set to the "Geofence Mode"
 When user "Logged IN" in "Phone1" and "Phone2" with same account
 Then user cross the fence of "phone1" <UMode> 
 And user "Phone2" not crossed the fence <UMode>
@@ -572,6 +587,7 @@ When user selects the "Push Notification"
 Then user should be displayed with "Dashboard"
 And user should be in  <UMode>
 And user should be in based on <UMode> settings
+
 Examples:
 |Solutions||Mode| UMode | 
 |JasperNA|Away| Home |
@@ -592,7 +608,7 @@ And user should be configured with <Solutions>
 And user is set to <Mode> through CHIL
 And user enables the "Geofence this location" in "global drawer" 
 And user enables the "Geofence settings" in <Solution>"Settings" screen 
-AND user set to the "Geofence Mode"
+And user set to the "Geofence Mode"
 And user "User1" Invited to "User2"
 When user "Logged IN" in "User1" and "User2" with different phone
 Then user cross the fence of "User1" <UMode> 
@@ -608,6 +624,7 @@ When user selects the "Push Notification"
 Then user should be displayed with "Dashboard"
 And user should be updated with <UMode>
 And user should be updated with based on <UMode> settings
+
 Examples:
 |Solutions||Mode| UMode | 
 |JasperNA|Home| Away | 
@@ -628,7 +645,7 @@ And user should be configured with <Solutions>
 And user is set to <Mode> through CHIL
 And user enables the "Geofence this location" in "global drawer" 
 And user enables the "Geofence settings" in <Solution>"Settings" screen 
-AND user set to the "Geofence Mode"
+And user set to the "Geofence Mode"
 And user "User1" Invited to "User2"
 When user "Logged IN" in "User1" and "User2" with different phone
 Then user cross the fence of "User1" <UMode> 
@@ -643,10 +660,12 @@ Then user receive the "Push Notification"
 When user selects the "Push Notification"
 Then user should be displayed with "Dashboard"
 And user should be in <UMode>
-And user should be uin <UMode> settings
+And user should be in <UMode> settings
+
+Examples:
+|Solutions||Mode| UMode | 
 |JasperNA|Away| Home |
 |JasperEMEA|Away| Home |
-
 |HB|Home| Away | Home |
 |Spruce|Away| Home |
 |Camera|Away| Home |
@@ -661,7 +680,7 @@ And user should be configured with <Solutions>
 And user is set to <Mode> through CHIL
 And user enables the "Geofence this location" in "global drawer" 
 And user enables the "Geofence settings" in <Solution>"Settings" screen 
-AND user set to the "Geofence Mode"
+And user set to the "Geofence Mode"
 And user "User1" Invited to "User2"
 When user "Logged IN" in "User1" and "User2" with different phone
 Then user "Logged out" on "User1"
@@ -676,6 +695,7 @@ When user selects the "Push Notification"
 Then user should be displayed with "Dashboard"
 And user should be in  <UMode>
 And user should be in based on <UMode> settings
+
 Examples:
 |Solutions||Mode| UMode | 
 |JasperNA|Away| Home |
@@ -694,7 +714,7 @@ And user should be configured with <Solutions>
 And user is set to <Mode> through CHIL
 And user enables the "Geofence this location" in "global drawer" 
 And user enables the "Geofence settings" in <Solution>"Settings" screen 
-AND user set to the "Geofence Mode"
+And user set to the "Geofence Mode"
 And user "User1" Invited to "User2"
 When user "Logged IN" in "User1" and "User2" with different phone
 Then user "Logged out" on "User1"
@@ -709,6 +729,7 @@ When user selects the "Push Notification"
 Then user should be displayed with "Dashboard"
 And user should be updated with <Mode>
 And user should be updated with based on <Mode> settings
+
 Examples:
 |Solutions||Mode| UMode | 
 |JasperNA|Home| Away | 
@@ -731,7 +752,7 @@ And user "Location2" set the radius different than "Location1"
 And user is set to <Mode> through CHIL
 And user enables the "Geofence this location" in "global drawer" 
 And user enables the "Geofence settings" in <Solution>"Settings" screen 
-AND user set to the "Geofence Mode"
+And user set to the "Geofence Mode"
 When user cross the fence <UMode> of "Location1"
 Then user should be receive "Push Notification" 
 When user selects the "Push Notification" 
@@ -740,6 +761,7 @@ And user should be updated with <UMode> of "Location1"
 And user should be in <Mode> of "Location2"
 And user should be updated with based on the <UMode> settings  of "Location1"
 And user should be in based on the <Mode> settings of "Location2"
+
 Examples:
 |Solutions||Mode| UMode | 
 |JasperNA|Home| Away | 

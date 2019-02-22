@@ -22,6 +22,8 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.InputVariables;
 
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class SelectLastSchedulePeriodOfADay extends Keyword {
 
@@ -74,14 +76,21 @@ public class SelectLastSchedulePeriodOfADay extends Keyword {
 				Dimension dimension = driver.manage().window().getSize();
 				int height = dimension.getHeight();
 				int width = dimension.getWidth();
+				@SuppressWarnings("rawtypes")
 				TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					testCase.getMobileDriver().scrollToExact(tempDay);
 					while (!MobileUtils.isMobElementExists("XPATH", "//*[contains(@content-desc,'_" + tempDay + "')]",
 							testCase, 5)) {
-						touchAction.press(width / 2, height / 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82).release();
-						touchAction.perform();
+						/*
+						 * touchAction.press(width / 2, height /
+						 * 2).waitAction(MobileUtils.getDuration(2000)).moveTo(width / 2, 82).release();
+						 * touchAction.perform();
+						 */
+						touchAction.press(point(width / 2, height / 2))
+								.waitAction(waitOptions(MobileUtils.getDuration(2000))).moveTo(point(width / 2, 82))
+								.release().perform();
 					}
 					schedulePeriods = MobileUtils.getMobElements(testCase, "XPATH",
 							"//*[contains(@content-desc,'_" + tempDay + "')]");
@@ -98,22 +107,38 @@ public class SelectLastSchedulePeriodOfADay extends Keyword {
 							+ tempDay + "') and contains(@name,'_Time')]", testCase, 5)) && i < 10) {
 						enteredLoop = true;
 						if (desiredDayIndex > greaterDayIndex) {
-							touchAction.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+							/*
+							 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+							 * (dimension.getHeight() * -.4)).release().perform();
+							 */
+							touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+									.moveTo(point(0, (int) (dimension.getHeight() * -.4))).release().perform();
 							i++;
 						} else if (desiredDayIndex < lesserDayIndex) {
-							touchAction.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * .4)).release().perform();
+							/*
+							 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+							 * (dimension.getHeight() * .4)).release().perform();
+							 */
+							touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+									.moveTo(point(0, (int) (dimension.getHeight() * .4))).release().perform();
 							i++;
 						} else {
-							touchAction.press(10, (int) (dimension.getHeight() * .5))
-									.moveTo(0, (int) (dimension.getHeight() * -.2)).release().perform();
+							/*
+							 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+							 * (dimension.getHeight() * -.2)).release().perform();
+							 */
+							touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+									.moveTo(point(0, (int) (dimension.getHeight() * -.2))).release().perform();
 							break;
 						}
 					}
 					if (enteredLoop) {
-						touchAction.press(10, (int) (dimension.getHeight() * .5))
-								.moveTo(0, (int) (dimension.getHeight() * -.4)).release().perform();
+						/*
+						 * touchAction.press(10, (int) (dimension.getHeight() * .5)) .moveTo(0, (int)
+						 * (dimension.getHeight() * -.4)).release().perform();
+						 */
+						touchAction.press(point(10, (int) (dimension.getHeight() * .5)))
+								.moveTo(point(0, (int) (dimension.getHeight() * -.4))).release().perform();
 					}
 
 					schedulePeriods = MobileUtils.getMobElements(testCase, "XPATH",

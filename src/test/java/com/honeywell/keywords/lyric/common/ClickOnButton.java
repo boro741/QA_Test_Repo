@@ -275,6 +275,13 @@ public class ClickOnButton extends Keyword {
 					break;
 				}
 				}
+			} else if (expectedButton.get(0).equalsIgnoreCase("DELETES THE EXISTING LOCATION DETAILS")) {
+				switch (expectedButton.get(1).toUpperCase()) {
+				case "DELETE": {
+					flag = flag & DIYRegistrationUtils.deleteTheExistingLocation(testCase, inputs);
+					break;
+				}
+				}
 			} else if (expectedButton.get(0).equalsIgnoreCase("DELETES DEFAULT LOCATION DETAILS")) {
 				switch (expectedButton.get(1).toUpperCase()) {
 				case "DELETE": {
@@ -311,7 +318,6 @@ public class ClickOnButton extends Keyword {
 			} else if (expectedButton.get(0).equalsIgnoreCase("DELETES CAMERA DEVICE")) {
 					switch (expectedButton.get(1).toUpperCase()) {
 					case "DELETE": {
-						
 						CameraConfigurationScreen ccs = new CameraConfigurationScreen(testCase);
 						flag = flag & ccs.DeleteCamera(testCase, inputs);
 						Keyword.ReportStep_Pass(testCase, "Delete Camera Device");

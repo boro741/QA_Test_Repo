@@ -1,11 +1,10 @@
 // Goal : Login into the application and verify the next screen after tapping into login button
 
-
 package com.honeywell.keywords.lyric.chil;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -22,7 +21,6 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.jasper.utils.JasperSetPoint;
 import com.honeywell.lyric.utils.LyricUtils;
-
 
 public class TriggerDREvent extends Keyword {
 
@@ -49,9 +47,9 @@ public class TriggerDREvent extends Keyword {
 			int eventID = statInfo.getDREventID();
 			if (eventID != -1) {
 				try {
-					String result = CHILUtil.cancelDREvent(inputs,eventID, statInfo.getDeviceID());
+					String result = CHILUtil.cancelDREvent(inputs, eventID, statInfo.getDeviceID());
 					if (result.contains("Failed")) {
-						result = CHILUtil.cancelDREvent(inputs,eventID, statInfo.getDeviceID());
+						result = CHILUtil.cancelDREvent(inputs, eventID, statInfo.getDeviceID());
 						if (result.contains("Failed")) {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -70,8 +68,12 @@ public class TriggerDREvent extends Keyword {
 				}
 			}
 			FluentWait<String> fWait = new FluentWait<String>(" ");
-			fWait.pollingEvery(10, TimeUnit.SECONDS);
-			fWait.withTimeout(2, TimeUnit.MINUTES);
+			/*
+			 * fWait.pollingEvery(10, TimeUnit.SECONDS); fWait.withTimeout(2,
+			 * TimeUnit.MINUTES);
+			 */
+			fWait.pollingEvery(Duration.ofSeconds(10));
+			fWait.withTimeout(Duration.ofMinutes(2));
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				int i = 0;
 
@@ -87,7 +89,7 @@ public class TriggerDREvent extends Keyword {
 							int eventID = statInfo.getDREventID();
 							if (eventID != -1) {
 								try {
-									CHILUtil.cancelDREvent(inputs,eventID, statInfo.getDeviceID());
+									CHILUtil.cancelDREvent(inputs, eventID, statInfo.getDeviceID());
 								} catch (Exception e) {
 									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 											"Error Occured : " + e.getMessage());
@@ -124,7 +126,7 @@ public class TriggerDREvent extends Keyword {
 			String duration = exampleData.get(2);
 			HashMap<String, String> headerValues = new HashMap<String, String>();
 			String startTime = LyricUtils.addMinutesToDate(testCase, JasperSetPoint.getCurrentUTCTime(testCase),
-					minsFromNow)+ ".000Z";
+					minsFromNow) + ".000Z";
 			headerValues.put("startTime", startTime);
 			headerValues.put("randomizationInterval", "0");
 			if (exampleData.get(1).equals("is")) {
@@ -148,7 +150,7 @@ public class TriggerDREvent extends Keyword {
 			headerValues.put("dutyCyclePeriod", "Min10");
 			DeviceInformation statInfo = new DeviceInformation(testCase, inputs);
 			headerValues.put("devices", statInfo.getDeviceID());
-			String eventID = CHILUtil.postDREvent(inputs,headerValues);
+			String eventID = CHILUtil.postDREvent(inputs, headerValues);
 			if (eventID.equals("")) {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
