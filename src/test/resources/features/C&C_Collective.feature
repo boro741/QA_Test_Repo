@@ -29,7 +29,7 @@ And user should be displayed with a switching to <UMode> text
 And timer ends on user device
 And user status should be set to "<UMode>"
 #Then user should be displayed with the correct time stamp
-And user receives a <Push Notification> push notification
+#And user receives a <Push Notification> push notification
 And user selects the <Push Notification> push notification
 When user "opens" activity log
 Then user receives a <expectedActivity> activity log
@@ -67,24 +67,25 @@ Scenario Outline: As a user I want to switch to different system modes to OFF in
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application
 And user is set to <Mode> mode through CHIL
-When user switches from <Mode> to "Off" 
+When user navigates to "Security Solution Card" screen from the "Dashboard" screen
+And user switches from <Mode> to "Off" 
 Then user should receive a "Set to Off" popup
 When user "dismisses" the "Set to Off" popup
-Then user status should be set to <UMode> 
-When user switches from <UMode> to "Off" 
-Then user receives a "Set to Off" popup
+Then user status should be set to <Mode> 
+When user switches from <Mode> to "Off" 
+Then user should receive a "Set to Off" popup
 When user "accepts" the "Set to Off" popup
 Then user status should be set to "Off"
-And user receives a <Push Notification> push notification
+#And user receives a <Push Notification> push notification
 And user selects the <Push Notification> push notification
 When user "opens" activity log
 Then user receives a <expectedActivity> activity log
 And user "closes" activity log
 Examples: 
-|Timer| Mode |expectedActivity|
-|15| Home | switched to OFF by app|
-|15| Night | switched to Away by app|
-|15| Away |switched to Night by app|
+|Timer| Mode |expectedActivity|Push Notification |
+|15| Home | switched to OFF by app|SET TO OFF |
+#|15| Night | switched to Away by app|
+#|15| Away |switched to Night by app|
 
 #Incaserequired
 #|30| Home | switched to OFF by app|
@@ -104,20 +105,20 @@ When user launches and logs in to the Lyric application
 And user is set to <Mode> mode through CHIL
 When user navigates to "Security Solution Card" screen from the "Dashboard" screen
 And user switches from <Mode> to "Home"
-And user should be displayed with a switching to <UMode> text
+#And user should be displayed with a switching to <UMode> text
 And user status should be set to "Home"
 #Then user should be displayed with the correct time stamp
-And user receives a <Push Notification> push notification
+#And user receives a <Push Notification> push notification
 And user selects the <Push Notification> push notification
 When user "opens" activity log
 Then user receives a <expectedActivity> activity log
 And user "closes" activity log
 Examples: 
-|Timer| Mode | UMode|expectedActivity|
-|15| Home | Home | switched to Home by app|
-|15| Away| Home | switched to Home by app|
-|15| Night | Home |switched to Home by app|
-|15| OFF | Home |switched to Home by app|
+|Timer| Mode | UMode|expectedActivity|Push Notification |
+|15| OFF | Home | switched to Home by app|SET TO HOME |
+#|15| Away| Home | switched to Home by app|
+#|15| Night | Home |switched to Home by app|
+#|15| OFF | Home |switched to Home by app|
 
 #incaserequired 
 #|15| Home  | switched to Home by app|
@@ -138,7 +139,7 @@ Scenario Outline: As a user I want to verify Switching modes home , away, night 
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application
 Then user is set to <Mode> mode through CHIL
-And user navigates to “Dashboard” screen 
+And user navigates to "Security Solution Card" screen from the "Dashboard" screen
 When user switches from <Mode> to <UMode>
 Then user should be displayed with a switching to <UMode> text
 #Then user should be displayed with a switching timer
@@ -148,13 +149,13 @@ And user status should be set to <UMode>
 And user receives a <Push Notification> push notification
 
 Examples: 
-|Timer| Mode | UMode|
-|15| Home | Away | 
-|15| Night| Away | 
-|15| Home | Night |
-|15| Away | Night |
-|15| OFF| Away |
-|15| OFF| Night |
+|Timer| Mode | UMode|Push Notification |
+|15| Home | Away | SET TO AWAY |
+#|15| Night| Away | 
+#|15| Home | Night |
+#|15| Away | Night |
+#|15| OFF| Away |
+#|15| OFF| Night |
 
 #Incase required
 #|30| Home | Away | 
@@ -178,11 +179,11 @@ Examples:
 
 @CommandControlDasboardOFFModeStatusAndPushNotificaiton  @UIAutomated @--xrayid:ATER-54667
 Scenario: As a user I want to verify OFF mode status in dashboard screen 
-Given user sets the entry/exit timer to <Timer> seconds
+Given user sets the entry/exit timer to "15" seconds
 When user launches and logs in to the Lyric application
-Then user is set to “OFF” mode through CHIL
-When user navigates to “Dashboard”
-Then user status should be set to "OFF" in the "Dashboard" Screen
+Then user is set to "OFF" mode through CHIL
+When user navigates to "Security Solution Card" screen from the "Dashboard" screen
+Then user status should be set to "OFF"
 #And user should be displayed with the correct time stamp
 
 @CommandControlDashbaordModeToHomeChangeActivitlyLogAndPushNotificaiton  @UIAutomated @--xrayid:ATER-54668
@@ -190,19 +191,19 @@ Scenario Outline: As a user I want to switch to different system modes To Home i
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application
 And user is set to <Mode> mode through CHIL
-When user navigates to  "Dashboard" screen
+When user navigates to "Security Solution Card" screen from the "Dashboard" screen
 And user switches from <Mode> to "Home"
-And user should be displayed with a switching to <UMode> text
+#And user should be displayed with a switching to "Home" text
 And user status should be set to "Home"
 #Then user should be displayed with the correct time stamp
 And user receives a <Push Notification> push notification
 
 Examples: 
-|Timer| Mode |
-|15| Home | 
-|15| Away| 
-|15| Night | 
-|15| OFF | 
+|Timer| Mode |Push Notification|
+#|15| Home | SET TO HOME |
+#|15| Away| SET TO HOME |
+|15| Night | SET TO HOME |
+#|15| OFF | SET TO HOME |
 
 #incaserequired 
 #|15| Home  | 
@@ -226,7 +227,7 @@ And user is set to <Mode> mode through CHIL
 When user navigates to "Security Solution Card" screen from the "Dashboard" screen
 And user switches from <Mode> to <UMode>
 When user navigates to "Dashboard" Screen from the "Security Solution Card" screen
-Then  user should be displayed with a switching to <UMode> text in the "Dashboard" screen
+#Then  user should be displayed with a switching to <UMode> text
 #Then user should be displayed with a switching timer
 Then timer ends on user device
 And user status should be set to <UMode>
@@ -234,13 +235,13 @@ And user status should be set to <UMode>
 And  user receives a <Push Notification> push notification
 
 Examples: 
-|Timer| Mode | UMode|
-|15| Home | Away | 
-|15| Night| Away | 
-|15| Home | Night |
-|15| Away | Night |
-|15| OFF| Away |
-|15| OFF| Night |
+|Timer| Mode | UMode|Push Notification|
+#|15| Home | Away | 
+#|15| Night| Away | 
+#|15| Home | Night |
+#|15| Away | Night |
+#|15| OFF| Away |
+#|15| OFF| Night |
 
 #Incaserequired
 #|30| Home | Away | 
@@ -255,7 +256,7 @@ Examples:
 #|45| Away | Night |
 #|45| OFF| Away |
 #|45| OFF| Night |
-#|60| Home | Away | 
+|60| Home | Away | SET TO AWAY |
 #|60| Night| Away | 
 #|60| Home | Night |
 #|60| Away | Night |
@@ -265,8 +266,8 @@ Examples:
 @SensorstatusHomemode @P3     @UIAutomated @--xrayid:ATER-54670
 Scenario Outline: As a user I want to have expected sensors status when my security panel is in Home mode and Off mode
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
-Given user launches and logs in to the Lyric Application
-And user is set to <Mode> mode through CHIL
+Given user is set to <Mode> mode through CHIL
+And user launches and logs in to the Lyric Application
 When user navigates to "Security Solution card" screen from the "Dashboard" screen
 Then user should be displayed with the "SensorsNoIssue" description  
 When user navigates to "SENSOR STATUS" screen from the "SECURITY SOLUTION CARD" screen
@@ -274,7 +275,7 @@ Then user should see the <Sensors> status as <Sensor State> on the "SENSOR STATU
 Examples: 
 | Sensors       | Sensor State |Mode|
 | Door Sensor   | Closed       |OFF |
-| Window Sensor | Closed       |Home|
+#| Window Sensor | Closed       |Home|
 #| Motion Sensor | Standby      |Home|
 #| OSMV Sensor   | Standby      |Home|
 #| ISMV Sensor   | Standby      |Home|
@@ -292,7 +293,7 @@ Then user should see the <Sensors> status as <Sensor State> on the "SENSOR STATU
 Examples: 
 | Sensors       | Sensor State |Mode|
 | Door Sensor   | Closed       |Away|
-| Window Sensor | Closed       |Night|
+#| Window Sensor | Closed       |Night|
 #| Motion Sensor | Active       |Away|
 #| OSMV Sensor   | Active       |Night|
 #| ISMV Sensor   | Active       |Away|
@@ -388,7 +389,7 @@ And user minimizes the app
 When user <Sensor> access sensor "opened"
 Then user selects the <SensorOpenNotification> push notification
 And user should be displayed with the <SensorStatusOnSolutionCard> description 
-When user navigates to "Security Solution Card" screen from the "Dashboard" screen
+#When user navigates to "Security Solution Card" screen from the "Dashboard" screen
 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
 Then user should see the "door" status as "open" on the "Sensor Status"
 When user navigates to "Security Solution Card" screen from the "Sensor Status" screen
@@ -400,7 +401,7 @@ And user "closes" activity log
 Examples: 
 |Mode|Sensor|SensorOpenNotification|SensorStatusOnSolutionCard|ActivitySensorOpen|ActivitySensorClosed|
 |Home|Door Sensor|Door Opened|Front Door Open|DOOR OPENED AT HOME MODE|DOOR CLOSED AT HOME MODE|
-|Home|Window Sensor|Window Opened|Window Open|WINDOW OPENED AT HOME MODE|WINDOW CLOSED AT HOME MODE|
+#|Home|Window Sensor|Window Opened|Window Open|WINDOW OPENED AT HOME MODE|WINDOW CLOSED AT HOME MODE|
 
 @OpenSensorstatusOff @P2  @UIAutomated @--xrayid:ATER-54676
 Scenario Outline: As a user i want to get open sensors status 
@@ -721,15 +722,16 @@ When user <Sensor> access sensor "opened"
 Then user should not be displayed with Alarm screen
 When user is set to <Status> mode through CHIL
 And user switches from <Status> to "Night"
+Then user "Accepts" the "Switch To Night" popup
 Then user should be displayed with a "Switching to Night" text
 When user <Sensor> access sensor "opened"
 Then user should not be displayed with Alarm screen
 Examples: 
 |Status|Sensor|
 |Home|Door|
-|Home|Window|
+#|Home|Window|
 |Off|Door|
-|Off|Window|
+#|Off|Window|
 
 @commandandcontrolmultiplesensorwithfault   @UIAutomated @--xrayid:ATER-54961
 Scenario: As a user I want to switch to different states in my DAS device when multiple sensors are in fault condition
@@ -806,7 +808,7 @@ Then user should be displayed with a "Switching to Away" text
 And user navigates to "Dashboard" screen from the "Security Solution Card" screen
 Then user should be displayed with a "Switching to Away" text in the Dashboard screen
 When user navigates to "Security Solution Card" screen from the "Dashboard" screen
-Then user should be displayed with a "Switching to Away" text
+#Then user should be displayed with a "Switching to Away" text
 #And user should be displayed with a switching timer
 #And user should be displayed with cancel icon
 When user taps on "Cancel"
@@ -836,7 +838,7 @@ Then user should be displayed with a "Switching to Night" text
 And user navigates to "Dashboard" screen from the "Security Solution Card" screen
 Then user should be displayed with a "Switching to Night" text in the Dashboard screen
 When user navigates to "Security Solution Card" screen from the "Dashboard" screen
-Then user should be displayed with a "Switching to Night" text
+#Then user should be displayed with a "Switching to Night" text
 #And user should be displayed with a switching timer
 #And user should be displayed with cancel icon
 When user taps on "Cancel"
