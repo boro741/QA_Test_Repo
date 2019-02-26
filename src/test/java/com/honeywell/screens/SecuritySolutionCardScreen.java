@@ -15,6 +15,7 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.LyricUtils;
 
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class SecuritySolutionCardScreen extends MobileScreens {
 
@@ -55,7 +56,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	}
 
 	public boolean isWindowCoverTamperedTextVisibleinSecuritySolutions() {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "WindowCoverTamperedText");		
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WindowCoverTamperedText");
 	}
 
 	public boolean isDoorCoverTamperedTextVisibleinSecuritySolutions() {
@@ -92,9 +93,11 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 						"//android.widget.LinearLayout[@content-desc='" + securityState + "']", testCase);
 			}
 		} else {
-			if (testCase.getMobileDriver().findElementsByXPath("//XCUIElementTypeCell[@value='"+ securityState +"'])") != null) {
-				return testCase.getMobileDriver().findElementsByXPath("//XCUIElementTypeCell[@value='"+ securityState +"'])") != null;
-			} else{
+			if (testCase.getMobileDriver()
+					.findElementsByXPath("//XCUIElementTypeCell[@value='" + securityState + "'])") != null) {
+				return testCase.getMobileDriver()
+						.findElementsByXPath("//XCUIElementTypeCell[@value='" + securityState + "'])") != null;
+			} else {
 				flag = false;
 			}
 		}
@@ -249,7 +252,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	public boolean isLoadingProgressVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LoadingProgressBar");
 	}
-	
+
 	public boolean ispleaseWaitProgressVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LoadingProgressBar");
 	}
@@ -440,10 +443,15 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 
 	public boolean clickOnSensorButton() {
 		Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+		@SuppressWarnings("rawtypes")
 		TouchAction action = new TouchAction(testCase.getMobileDriver());
 		try {
-			action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
-			.release().perform();
+			/*
+			 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
+			 * (dimension.getHeight() * .6)) .release().perform();
+			 */
+			action.press(point(10, (int) (dimension.getHeight() * .9)))
+					.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorButton", 5)) {
 				Keyword.ReportStep_Pass(testCase, "not able to locate Sensor menu");
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
