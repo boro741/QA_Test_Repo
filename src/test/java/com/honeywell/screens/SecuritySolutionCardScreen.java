@@ -433,12 +433,12 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	}
 
 	public boolean clickOnCancelButtonWhileSwitchingModes() {
-		if (testCase.getMobileDriver().getPlatformName().contains("Android")) {
-			return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInSwitchingModes");
-		} else {
-			testCase.getMobileDriver().findElementByName("cancelCommand").click();
-			return true;
-		}
+		 if (testCase.getMobileDriver().getPlatformName().contains("Android")){
+			 return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInSwitchingModes");
+		 } else{
+			 testCase.getMobileDriver().findElementByName("countDownTimer").click();
+			 return true;
+		 }
 	}
 
 	public boolean clickOnSensorButton() {

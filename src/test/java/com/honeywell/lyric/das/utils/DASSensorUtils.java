@@ -415,7 +415,7 @@ public class DASSensorUtils {
 		}
 		List<WebElement> list;
 		try {
-			Thread.sleep(5000);
+			Thread.sleep(10000);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
