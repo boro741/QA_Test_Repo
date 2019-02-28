@@ -270,10 +270,10 @@ As user I should be able to configure camera settings from the app
      Then "Motion Sensitivity" value should be updated to "high" on "Motion Detection Settings" screen
     Examples: 
       | Zone   | 
-      | Zone 1 | 
-      | Zone 2 | 
-      | Zone 3 | 
-      | Zone 4 | 
+     | Zone 1 | 
+#      | Zone 2 | 
+#      | Zone 3 | 
+ #     | Zone 4 | 
   
   @VerifyMultipleZonesOverlapError  @P3  @Notautomatable @--xrayid:ATER-54488
   Scenario: As a user I want to verify sensitivity area on my zones should not overlap
@@ -405,7 +405,7 @@ As user I should be able to configure camera settings from the app
   #Requirements: Single Location Single DAS Device, No Sensors Required
   @VerifyCameraOnInHomeMode @Automated @--xrayid:ATER-54500
   Scenario: As a user I should be able to enable Camera Settings in Home Mode
-    Given user is set to "Home" mode through CHIL
+    Given user is set to "Off" mode through CHIL
       When user launches and logs in to the Lyric application 
      Then user navigates to "DAS Camera Solution Card" screen from the "Dashboard" screen
      And user camera is set to "off"
@@ -413,12 +413,13 @@ As user I should be able to configure camera settings from the app
       Then user changes the "Camera ON in Home Mode" to "ON"
      And "Camera ON in Home Mode" value should be updated to "ON" on "Camera Settings" screen
      When user navigates to "Camera Solution Card" screen from the "Camera Settings" screen
+     And user is set to "Home" mode through CHIL
      Then user camera is "live streaming"
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
   @VerifyCameraOffInHomeMode @Automated @--xrayid:ATER-54501
   Scenario: As a user I should be able to disable Camera Settings in Home Mode
-    Given user is set to "Home" mode through CHIL
+    Given user is set to "Off" mode through CHIL
       When user launches and logs in to the Lyric application 
       Then user navigates to "DAS Camera Solution Card" screen from the "Dashboard" screen
      And user camera is set to "ON"
@@ -426,6 +427,7 @@ As user I should be able to configure camera settings from the app
       And user changes the "Camera ON in Home Mode" to "Off"
      Then "Camera ON in Home Mode" value should be updated to "Off" on "Camera Settings" screen
      When user navigates to "Camera Solution Card" screen from the "Camera Settings" screen
+     And user is set to "Home" mode through CHIL
      Then user camera is "not live streaming"
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
@@ -466,7 +468,7 @@ As user I should be able to configure camera settings from the app
       And user launches and logs in to the Lyric application
      When user navigates to "Camera Settings" screen from the "Dashboard" screen
      Then user selects "Motion Detection" from "Camera Settings" screen
-     Then user should be displayed with "Ensure the camera is turned on and the privacy ring is open" pop up
+     Then user should be displayed with "Ensure the camera is turned on and the privacy ring is open"
     Examples: 
       | Mode | 
       | Away | 
@@ -481,7 +483,7 @@ As user I should be able to configure camera settings from the app
       And user launches and logs in to the Lyric application
      When user navigates to "Camera Settings" screen from the "Dashboard" screen
      Then user selects "Night Vision" from "Camera Settings" screen
-     Then user should be displayed with "Ensure the camera is turned on and the privacy ring is open" pop up
+     Then user should be displayed with "Ensure the camera is turned on and the privacy ring is open"
     Examples: 
       | Mode | 
       | Away | 
@@ -496,7 +498,7 @@ As user I should be able to configure camera settings from the app
       And user launches and logs in to the Lyric application
      When user navigates to "Camera Settings" screen from the "Dashboard" screen
      Then user selects "Video Quality" from "Camera Settings" screen
-     Then user should be displayed with "Ensure the camera is turned on and the privacy ring is open" pop up
+     Then user should be displayed with "Ensure the camera is turned on and the privacy ring is open"
     Examples: 
       | Mode | 
       | Away | 

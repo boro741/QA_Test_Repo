@@ -115,7 +115,7 @@ public class VerifyValueOnAScreen extends Keyword {
 
 				}
 			} else if (parameters.get(0).equalsIgnoreCase("Camera ON in Home Mode")
-					&& parameters.get(2).equalsIgnoreCase("Video Settings")) {
+					&& parameters.get(2).equalsIgnoreCase("Camera Settings")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
 					if (bs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
