@@ -19,7 +19,7 @@ public class DASNotificationUtils {
 		MobileUtils.minimizeApp(testCase, -1);
 		// testCase.getMobileDriver().runAppInBackground(Duration.ofSeconds(-1));
 		try {
-			Thread.sleep(10000);
+			Thread.sleep(12000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

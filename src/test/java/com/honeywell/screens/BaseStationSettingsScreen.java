@@ -1273,23 +1273,21 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 	public boolean isCameraOnInHomeModeSwitchEnabled(TestCases testCase) throws Exception {
-		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraOnInHomeModeSwitch", 10)) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				if (MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getText()
 						.equalsIgnoreCase("ON")) {
-					flag = true;
+					return true;
 				} else {
-					flag = false;
+					return false;
 				}
-			} else if(MobileUtils
-						.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getAttribute("value").equalsIgnoreCase(String.valueOf(1))){
-				flag = true;
-			}else {
-					flag = false;
-				}
+			} else {
+				return Boolean.parseBoolean(MobileUtils
+						.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getAttribute("value"));
+			}
+		} else {
+			return false;
 		}
-			return flag;
 	}
 
 	public boolean isEnhancedDeterrenceSwitchEnabled(TestCases testCase) throws Exception {
@@ -2076,23 +2074,22 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 	public boolean isOutdoorMotionViewersOnInHomeModeSwitchEnabled(TestCases testCase) throws Exception {
-		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "OutdoorMotionViewersOnInHomeModeSwitch", 10)) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				if (MobileUtils.getMobElement(objectDefinition, testCase, "OutdoorMotionViewersOnInHomeModeSwitch")
 						.getText().equalsIgnoreCase("ON")) {
-					flag =  true;
+					return true;
 				} else {
-					flag =  false;
+					return false;
 				}
-			} else if (MobileUtils.getMobElement(objectDefinition, testCase, "OutdoorMotionViewersOnInHomeModeSwitch")
-								.getAttribute("value").equalsIgnoreCase(String.valueOf(0))){
-				flag = true;
-			} else{
-				flag = false;
+			} else {
+				return Boolean.parseBoolean(
+						MobileUtils.getMobElement(objectDefinition, testCase, "OutdoorMotionViewersOnInHomeModeSwitch")
+								.getAttribute("value"));
 			}
+		} else {
+			throw new Exception("Could not find Outdoor Motion Viewers On in Home mode Switch");
 		}
-	       return flag;
 	}
 
 	public boolean toggleOutdoorMotionViewersOnInHomeModeSwitch(TestCases testCase) {

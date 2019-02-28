@@ -22,8 +22,6 @@ import io.appium.java_client.MultiTouchAction;
 import io.appium.java_client.TouchAction;
 import static io.appium.java_client.touch.offset.ElementOption.element;
 import static io.appium.java_client.touch.offset.PointOption.point;
-import static io.appium.java_client.touch.WaitOptions.waitOptions;
-
 
 public class AlarmScreen extends MobileScreens {
 	private TestCases testCase;
@@ -358,7 +356,7 @@ public class AlarmScreen extends MobileScreens {
 				NotificationStartX = notificationLocation.getSize().getWidth() / 2;
 				// action1 = action1.press(NotificationStartX, NotificationStartY).moveTo(-80,
 				// 0).release();
-				action1 = action1.press(point(NotificationStartX, NotificationStartY)).waitAction(waitOptions(MobileUtils.getDuration(2000))).moveTo(point(-80, 0)).release();
+				action1 = action1.press(point(NotificationStartX, NotificationStartY)).moveTo(point(-80, 0)).release();
 				action1.perform();
 				// action1.tap(NotificationStartX, NotificationStartY).release().perform();
 				action1.tap(point(NotificationStartX, NotificationStartY)).release().perform();

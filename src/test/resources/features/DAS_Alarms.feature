@@ -67,17 +67,17 @@ Given user is set to "Home" mode through CHIL
 @Doorsensor_ArmedAway_OpenDoor_SwitchingToHomeFromPushNotification_DoorNotClosedInEntryDelay			 @P1				 @DAS_DoorSensor			 @Automated
     Scenario: As a user when I open the door and left open in armed away state on my arrival to home I should be able to switch to home from push notification and should be shown with current door status
    Given user is set to "Away" mode through CHIL
-    And user launches and logs in to the Lyric application
-     And user clears all push notifications
+    Given user launches and logs in to the Lyric application
+      And user clears all push notifications
      When user navigates to "Security Solution card" screen from the "Dashboard" screen
-     And timer ends on user device
-     And user "opens door with app" in background
-     And user selects the "Switch to Home from Door Open" push notification
-    Then user status should be set to "Home"
-     And user should see the "sensor" status as "issue" on the "Security Solution Card"
-    When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
-    Then user should see the "door" status as "open" on the "Sensor Status"
-    And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
+      And timer ends on user device
+      And user "opens door with app" in background
+      And user selects the "Switch to Home from Door Open" push notification
+     Then user status should be set to "Home"
+      And user should see the "sensor" status as "issue" on the "Security Solution Card"
+     When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+     Then user should see the "door" status as "open" on the "Sensor Status"
+     And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
       And user "opens" activity log
      Then verify the following activity log:
        | Elements                 |

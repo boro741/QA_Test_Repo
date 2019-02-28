@@ -47,8 +47,6 @@ import com.honeywell.screens.WeatherForecastScreen;
 import com.honeywell.lyric.utils.LyricUtils;
 
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.touch.offset.PointOption;
-
 import static io.appium.java_client.touch.offset.PointOption.point;
 
 import java.util.Random;
@@ -666,11 +664,10 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				 * (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
 				 * .release().perform();
 				 */
-				 action.tap(PointOption.point((int)(dimension.getHeight() * .9), 0)).release().perform();
-				 //				action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction()
-//						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
-//				action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction()
-//						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+				action.press(point(10, (int) (dimension.getHeight() * .9)))
+						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+				action.press(point(10, (int) (dimension.getHeight() * .9)))
+						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 			}
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldToBeVerified = data.getData(i, "MotionSensitivityOptionsSettings");
