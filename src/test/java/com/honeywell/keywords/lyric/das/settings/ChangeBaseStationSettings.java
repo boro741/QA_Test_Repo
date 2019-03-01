@@ -11,6 +11,7 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.CameraUtils;
 import com.honeywell.lyric.utils.LyricUtils;
@@ -33,6 +34,7 @@ import com.honeywell.screens.WLDUpdateFrequency;
 
 import io.appium.java_client.TouchAction;
 import static io.appium.java_client.touch.offset.PointOption.point;
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
 
 public class ChangeBaseStationSettings extends Keyword {
 
@@ -436,7 +438,7 @@ public class ChangeBaseStationSettings extends Keyword {
 					 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
 					 * (dimension.getHeight() * .6)) .release().perform();
 					 */
-					action.press(point(10, (int) (dimension.getHeight() * .9)))
+					action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
 							.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 				}
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
@@ -707,10 +709,10 @@ public class ChangeBaseStationSettings extends Keyword {
 					 * (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
 					 * .release().perform();
 					 */
-					action.press(point(10, (int) (dimension.getHeight() * .9)))
+					action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
 							.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
-					action.press(point(10, (int) (dimension.getHeight() * .9)))
-							.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+//					action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
+//							.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 				}
 				if (parameters.get(1).equalsIgnoreCase("OFF")) {
 					if (cs.isMotionSensitivityStatusSetToExpected(testCase, parameters.get(1))) {
@@ -1821,7 +1823,7 @@ public class ChangeBaseStationSettings extends Keyword {
 					 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
 					 * (dimension.getHeight() * .6)) .release().perform();
 					 */
-					action.press(point(10, (int) (dimension.getHeight() * .9)))
+					action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
 							.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 				}
 

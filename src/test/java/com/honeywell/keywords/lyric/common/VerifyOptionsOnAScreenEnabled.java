@@ -14,6 +14,7 @@ import com.honeywell.commons.coreframework.KeywordException;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.utils.GlobalVariables;
 import com.honeywell.screens.AboutTheAppScreen;
@@ -28,6 +29,7 @@ import com.honeywell.screens.ThermostatSettingsScreen;
 
 import io.appium.java_client.TouchAction;
 import static io.appium.java_client.touch.offset.PointOption.point;
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
 
 public class VerifyOptionsOnAScreenEnabled extends Keyword {
 
@@ -117,7 +119,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 						 * (dimension.getHeight() * .6)).release().perform();
 						 */
-						action.press(point(10, (int) (dimension.getHeight() * .9)))
+						action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
 								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					} else {
 						int startx = (dimension.width * 20) / 100;
@@ -245,7 +247,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 						 * (dimension.getHeight() * .6)).release().perform();
 						 */
-						action.press(point(10, (int) (dimension.getHeight() * .9)))
+						action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
 								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= cs.isOutdoorMotionViewerOnInHomeModeEnabled();
@@ -269,7 +271,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 							 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 							 * (dimension.getHeight() * .6)).release().perform();
 							 */
-							action.press(point(10, (int) (dimension.getHeight() * .9)))
+							action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
 									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						}
 					}
@@ -294,7 +296,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 							 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 							 * (dimension.getHeight() * .6)).release().perform();
 							 */
-							action.press(point(10, (int) (dimension.getHeight() * .9)))
+							action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
 									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						}
 					}
@@ -318,7 +320,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 							 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 							 * (dimension.getHeight() * .6)).release().perform();
 							 */
-							action.press(point(10, (int) (dimension.getHeight() * .9)))
+							action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
 									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						}
 					}
@@ -342,7 +344,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 							 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 							 * (dimension.getHeight() * .6)).release().perform();
 							 */
-							action.press(point(10, (int) (dimension.getHeight() * .9)))
+							action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
 									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						}
 					}
@@ -366,7 +368,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 							 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 							 * (dimension.getHeight() * .6)).release().perform();
 							 */
-							action.press(point(10, (int) (dimension.getHeight() * .9)))
+							action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
 									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						}
 					}
@@ -390,7 +392,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 							 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 							 * (dimension.getHeight() * .6)).release().perform();
 							 */
-							action.press(point(10, (int) (dimension.getHeight() * .9)))
+							action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
 									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						}
 					}
@@ -414,7 +416,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 							 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 							 * (dimension.getHeight() * .6)).release().perform();
 							 */
-							action.press(point(10, (int) (dimension.getHeight() * .9)))
+							action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
 									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						}
 					}
@@ -438,7 +440,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 							 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 							 * (dimension.getHeight() * .6)).release().perform();
 							 */
-							action.press(point(10, (int) (dimension.getHeight() * .9)))
+							action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
 									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						}
 					}
@@ -516,7 +518,7 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 						 * (dimension.getHeight() * .6)).release().perform();
 						 */
-						action.press(point(10, (int) (dimension.getHeight() * .9)))
+						action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
 								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					if (cs.isMotionSensitivityEnabled(testCase)) {

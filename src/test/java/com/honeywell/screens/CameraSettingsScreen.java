@@ -1812,7 +1812,7 @@ public class CameraSettingsScreen extends MobileScreens {
 		} else {
 			return (testCase.getMobileDriver()
 					.findElementByXPath("//XCUIElementTypeSwitch[@name='Camera_Settings_2_0_toggle']")
-					.getAttribute("value").equals("1"));
+					.getAttribute("value").equalsIgnoreCase(String.valueOf(1)));
 		}
 	}
 
