@@ -405,7 +405,7 @@ As user I should be able to configure camera settings from the app
   #Requirements: Single Location Single DAS Device, No Sensors Required
   @VerifyCameraOnInHomeMode @Automated @--xrayid:ATER-54500
   Scenario: As a user I should be able to enable Camera Settings in Home Mode
-    Given user is set to "Home" mode through CHIL
+    Given user is set to "Off" mode through CHIL
       When user launches and logs in to the Lyric application 
      Then user navigates to "DAS Camera Solution Card" screen from the "Dashboard" screen
      And user camera is set to "off"
@@ -418,7 +418,7 @@ As user I should be able to configure camera settings from the app
   #Requirements: Single Location Single DAS Device, No Sensors Required
   @VerifyCameraOffInHomeMode @Automated @--xrayid:ATER-54501
   Scenario: As a user I should be able to disable Camera Settings in Home Mode
-    Given user is set to "Home" mode through CHIL
+    Given user is set to "Off" mode through CHIL
       When user launches and logs in to the Lyric application 
       Then user navigates to "DAS Camera Solution Card" screen from the "Dashboard" screen
      And user camera is set to "ON"
@@ -466,7 +466,7 @@ As user I should be able to configure camera settings from the app
       And user launches and logs in to the Lyric application
      When user navigates to "Camera Settings" screen from the "Dashboard" screen
      Then user selects "Motion Detection" from "Camera Settings" screen
-     Then user should be displayed with "Ensure the camera is turned on and the privacy ring is open" pop up
+     Then user should be displayed with "Ensure the camera is turned on and the privacy ring is open"
     Examples: 
       | Mode | 
       | Away | 
@@ -481,7 +481,7 @@ As user I should be able to configure camera settings from the app
       And user launches and logs in to the Lyric application
      When user navigates to "Camera Settings" screen from the "Dashboard" screen
      Then user selects "Night Vision" from "Camera Settings" screen
-     Then user should be displayed with "Ensure the camera is turned on and the privacy ring is open" pop up
+     Then user should be displayed with "Ensure the camera is turned on and the privacy ring is open"
     Examples: 
       | Mode | 
       | Away | 
@@ -496,7 +496,7 @@ As user I should be able to configure camera settings from the app
       And user launches and logs in to the Lyric application
      When user navigates to "Camera Settings" screen from the "Dashboard" screen
      Then user selects "Video Quality" from "Camera Settings" screen
-     Then user should be displayed with "Ensure the camera is turned on and the privacy ring is open" pop up
+     Then user should be displayed with "Ensure the camera is turned on and the privacy ring is open"
     Examples: 
       | Mode | 
       | Away | 

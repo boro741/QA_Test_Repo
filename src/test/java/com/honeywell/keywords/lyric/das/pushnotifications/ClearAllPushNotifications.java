@@ -21,6 +21,8 @@ import com.honeywell.screens.SecuritySolutionCardScreen;
 import io.appium.java_client.TouchAction;
 import static io.appium.java_client.touch.TapOptions.tapOptions;
 import static io.appium.java_client.touch.offset.PointOption.point;
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
+
 
 public class ClearAllPushNotifications extends Keyword {
 
@@ -77,7 +79,7 @@ public class ClearAllPushNotifications extends Keyword {
 							 * 0).release() .perform(); touchAction.tap((dimensions.width - 20), (startY +
 							 * 30)).perform();
 							 */
-							touchAction.press(point((startX + 150), (startY + 20))).moveTo(point((endX - 100), 0))
+							touchAction.press(point((startX + 150), (startY + 20))).waitAction(waitOptions(MobileUtils.getDuration(2000))).moveTo(point((endX - 100), 0))
 									.release().perform();
 							touchAction.tap(tapOptions().withPosition(point((dimensions.width - 20), (startY + 30))))
 									.perform();
