@@ -21,6 +21,7 @@ import com.honeywell.lyric.utils.LyricUtils;
 
 import io.appium.java_client.TouchAction;
 import static io.appium.java_client.touch.offset.PointOption.point;
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
 
 public class BaseStationSettingsScreen extends MobileScreens {
 
@@ -421,7 +422,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofencingOption", 3)) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-						BaseStationSettingsScreen.GEOFENCING);
+								BaseStationSettingsScreen.GEOFENCING);
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "GeofencingOption")
@@ -434,7 +435,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "EntryExitDelayOption", 3)) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-						BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
+								BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "EntryExitDelayOption")
@@ -447,7 +448,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "VolumeOption", 3)) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-						BaseStationSettingsScreen.VOLUME);
+								BaseStationSettingsScreen.VOLUME);
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return Boolean.valueOf(
@@ -455,14 +456,14 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			} else {
 				return (MobileUtils.getMobElement(objectDefinition, testCase, "VolumeCell").getText().equals("enabled")
 						? true
-						: false);
+								: false);
 			}
 
 		} else if (elementName.equals(BaseStationSettingsScreen.RESETWIFI)) {
 			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "BaseStationWiFiOption", 3)) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-						BaseStationSettingsScreen.RESETWIFI);
+								BaseStationSettingsScreen.RESETWIFI);
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "BaseStationWiFiOption")
@@ -476,7 +477,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionDetectionOption", 5)) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-						BaseStationSettingsScreen.MOTIONDETECTION);
+								BaseStationSettingsScreen.MOTIONDETECTION);
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "MotionDetectionOption")
@@ -489,7 +490,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "NightVisionOption", 5)) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-						BaseStationSettingsScreen.NIGHTVISION);
+								BaseStationSettingsScreen.NIGHTVISION);
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "NightVisionOption")
@@ -502,7 +503,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "VideoQualityOption", 5)) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-						BaseStationSettingsScreen.VIDEOQUALITY);
+								BaseStationSettingsScreen.VIDEOQUALITY);
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "VideoQualityOption")
@@ -515,7 +516,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeChange", 5)) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-						BaseStationSettingsScreen.SECURITYMODECHANGE);
+								BaseStationSettingsScreen.SECURITYMODECHANGE);
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "SecurityModeChange")
@@ -528,7 +529,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "DoorsAndWindows", 5)) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-						BaseStationSettingsScreen.DOORANDWINDOWS);
+								BaseStationSettingsScreen.DOORANDWINDOWS);
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "DoorsAndWindows")
@@ -541,7 +542,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraStatus", 5)) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-						BaseStationSettingsScreen.CAMERASTATUS);
+								BaseStationSettingsScreen.CAMERASTATUS);
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return Boolean.valueOf(
@@ -554,7 +555,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "MotionEvent", 5)) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-						BaseStationSettingsScreen.MOTIONEVENT);
+								BaseStationSettingsScreen.MOTIONEVENT);
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return Boolean.valueOf(
@@ -562,13 +563,13 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			} else {
 				return (MobileUtils.getMobElement(objectDefinition, testCase, "MotionEvent").getText().equals("enabled")
 						? true
-						: false);
+								: false);
 			}
 		} else if (elementName.equals(BaseStationSettingsScreen.EMAILNOTIFICATIONS)) {
 			if (!MobileUtils.isMobElementExists(objectDefinition, testCase, "EmailNotifications", 5)) {
 				LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-						BaseStationSettingsScreen.EMAILNOTIFICATIONS);
+								BaseStationSettingsScreen.EMAILNOTIFICATIONS);
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				return Boolean.valueOf(MobileUtils.getMobElement(objectDefinition, testCase, "EmailNotifications")
@@ -600,7 +601,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofencingSwitch", 10)) {
 			if (MobileUtils.getFieldValue(objectDefinition, testCase, "GeofencingSwitch").equalsIgnoreCase("1")
 					|| MobileUtils.getFieldValue(objectDefinition, testCase, "GeofencingSwitch")
-							.equalsIgnoreCase("ON")) {
+					.equalsIgnoreCase("ON")) {
 				return true;
 			} else {
 				return false;
@@ -750,7 +751,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 				Keyword.ReportStep_Pass(testCase, "Base Station Visible @ 2");
 				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-						BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
+								BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "BaseStationConfigurationsOption");
 			}
 			if (this.isBaseStationConfigurationsOptionVisible()) {
@@ -777,12 +778,12 @@ public class BaseStationSettingsScreen extends MobileScreens {
 					 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
 					 * (dimension.getHeight() * .6)) .release().perform();
 					 */
-					action.press(point(10, (int) (dimension.getHeight() * .9)))
-							.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+					action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
+					.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 				}
 				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-						BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
+								BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "EntryExitDelayOption");
 			}
 			return flag;
@@ -797,7 +798,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 				Keyword.ReportStep_Pass(testCase, "Key Fob Visible @ 2");
 				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-						BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
+								BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
 				if (this.isKeyFobOptionVisible()) {
 					flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "KeyFobOption");
 				}
@@ -826,7 +827,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			} else {
 				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-						BaseStationSettingsScreen.VOLUME);
+								BaseStationSettingsScreen.VOLUME);
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "VolumeOption");
 			}
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -840,8 +841,8 @@ public class BaseStationSettingsScreen extends MobileScreens {
 				 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
 				 * (dimension.getHeight() * .6)) .release().perform();
 				 */
-				action.press(point(10, (int) (dimension.getHeight() * .9)))
-						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+				action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
+				.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 			}
 			return flag;
 		}
@@ -853,7 +854,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			} else {
 				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-						BaseStationSettingsScreen.AMAZONALEXA);
+								BaseStationSettingsScreen.AMAZONALEXA);
 
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "AmazonAlexaOption");
 			}
@@ -867,7 +868,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			} else {
 				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-						BaseStationSettingsScreen.VIDEOSETTINGS);
+								BaseStationSettingsScreen.VIDEOSETTINGS);
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "VideoSettingsOption");
 			}
 			return flag;
@@ -880,7 +881,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 					flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 							testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-							BaseStationSettingsScreen.ZWAVEDEVICES);
+									BaseStationSettingsScreen.ZWAVEDEVICES);
 				} else {
 					// int counter = 0;
 					// while (!MobileUtils.isMobElementExists(objectDefinition,
@@ -1273,21 +1274,23 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 	public boolean isCameraOnInHomeModeSwitchEnabled(TestCases testCase) throws Exception {
+		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraOnInHomeModeSwitch", 10)) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				if (MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getText()
 						.equalsIgnoreCase("ON")) {
-					return true;
+					flag = true;
 				} else {
-					return false;
+					flag = false;
 				}
-			} else {
-				return Boolean.parseBoolean(MobileUtils
-						.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getAttribute("value"));
+			} else if(MobileUtils
+					.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getAttribute("value").equalsIgnoreCase(String.valueOf(1))){
+				flag = true;
 			}
-		} else {
-			return false;
+		}else {
+			flag = false;
 		}
+		return flag;
 	}
 
 	public boolean isEnhancedDeterrenceSwitchEnabled(TestCases testCase) throws Exception {
@@ -1427,7 +1430,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 				try {
 					flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
 							testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-							BaseStationSettingsScreen.VOLUME);
+									BaseStationSettingsScreen.VOLUME);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					flag = false;
@@ -1704,9 +1707,9 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			return MobileUtils.clearTextField(objectDefinition, testCase, "CameraNamingField");
 		} else {
 			testCase.getMobileDriver()
-					.findElement(
-							By.xpath("//XCUIElementTypeTextField[@label='BaseStation_Settings_0_0_textField_value']"))
-					.clear();
+			.findElement(
+					By.xpath("//XCUIElementTypeTextField[@label='BaseStation_Settings_0_0_textField_value']"))
+			.clear();
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "CameraNamingField");
 		}
 	}
@@ -2085,7 +2088,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			} else {
 				return Boolean.parseBoolean(
 						MobileUtils.getMobElement(objectDefinition, testCase, "OutdoorMotionViewersOnInHomeModeSwitch")
-								.getAttribute("value"));
+						.getAttribute("value"));
 			}
 		} else {
 			throw new Exception("Could not find Outdoor Motion Viewers On in Home mode Switch");
@@ -2127,7 +2130,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeHomeiCon");
 		} else {
 			testCase.getMobileDriver()
-					.findElementByXPath("//XCUIElementTypeStaticText[@name='Mode_Settings_0_0_cell']");
+			.findElementByXPath("//XCUIElementTypeStaticText[@name='Mode_Settings_0_0_cell']");
 			return true;
 		}
 	}
@@ -2146,7 +2149,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeAwayiCon");
 		} else {
 			testCase.getMobileDriver()
-					.findElementByXPath("//XCUIElementTypeStaticText[@name='Mode_Settings_0_3_cell']");
+			.findElementByXPath("//XCUIElementTypeStaticText[@name='Mode_Settings_0_3_cell']");
 			return true;
 		}
 	}
@@ -2175,10 +2178,10 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
 			 * (dimension.getHeight() * .6)) .release().perform();
 			 */
-			action.press(point(10, (int) (dimension.getHeight() * .9)))
-					.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+			action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
+			.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 			testCase.getMobileDriver()
-					.findElementByXPath("//XCUIElementTypeStaticText[@name='Mode_Settings_0_6_cell']");
+			.findElementByXPath("//XCUIElementTypeStaticText[@name='Mode_Settings_0_6_cell']");
 			return true;
 		}
 	}
@@ -2207,10 +2210,10 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
 			 * (dimension.getHeight() * .6)) .release().perform();
 			 */
-			action.press(point(10, (int) (dimension.getHeight() * .9)))
-					.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+			action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
+			.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 			testCase.getMobileDriver()
-					.findElementByXPath("//XCUIElementTypeStaticText[@name='Mode_Settings_0_9_cell']");
+			.findElementByXPath("//XCUIElementTypeStaticText[@name='Mode_Settings_0_9_cell']");
 			return true;
 		}
 	}

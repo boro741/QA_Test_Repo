@@ -22,6 +22,7 @@ import io.appium.java_client.MultiTouchAction;
 import io.appium.java_client.TouchAction;
 import static io.appium.java_client.touch.offset.ElementOption.element;
 import static io.appium.java_client.touch.offset.PointOption.point;
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
 
 public class AlarmScreen extends MobileScreens {
 	private TestCases testCase;
@@ -136,7 +137,7 @@ public class AlarmScreen extends MobileScreens {
 			History_BottomArrow = MobileUtils.getMobElement(objectDefinition, testCase, "History_BottomArrow");
 			Alarm = MobileUtils.getMobElement(objectDefinition, testCase, "Alarm_Title");
 			// action = action.press(History_BottomArrow).moveTo(Alarm).release().perform();
-			action = action.press(element(History_BottomArrow)).moveTo(element(Alarm)).release().perform();
+			action = action.press(element(History_BottomArrow)).waitAction(waitOptions(MobileUtils.getDuration(2000))).moveTo(element(Alarm)).release().perform();
 		}
 		// For IOS device
 		else {
@@ -154,7 +155,7 @@ public class AlarmScreen extends MobileScreens {
 					 * Alarm.getLocation().getY()).release() .perform();
 					 */
 					action.press(
-							point(History_BottomArrow.getLocation().getX(), History_BottomArrow.getLocation().getY()))
+							point(History_BottomArrow.getLocation().getX(), History_BottomArrow.getLocation().getY())).waitAction(waitOptions(MobileUtils.getDuration(2000)))
 							.moveTo(point(0, -History_BottomArrow.getLocation().getY() + Alarm.getLocation().getY()))
 							.release().perform();
 				}
@@ -188,7 +189,7 @@ public class AlarmScreen extends MobileScreens {
 			activityDay = MobileUtils.getMobElement(objectDefinition, testCase, "AcitvityLogScrollDown");
 			// action = action.press(activityDay).moveTo(activityDay.getLocation().getX(),
 			// 300).release().perform();
-			action = action.press(element(activityDay)).moveTo(point(activityDay.getLocation().getX(), 300)).release()
+			action = action.press(element(activityDay)).waitAction(waitOptions(MobileUtils.getDuration(2000))).moveTo(point(activityDay.getLocation().getX(), 300)).release()
 					.perform();
 			if (action != null) {
 				Keyword.ReportStep_Pass(testCase, "Successfully closed activity logs");
@@ -207,7 +208,7 @@ public class AlarmScreen extends MobileScreens {
 						activityDay = driver.findElement(By.name(ACTIVITYLOGSCROLLDOWNICON));
 						// action.press(activityDay).moveTo(activityDay.getLocation().getX(),
 						// 300).release().perform();
-						action.press(element(activityDay)).moveTo(point(activityDay.getLocation().getX(), 300))
+						action.press(element(activityDay)).waitAction(waitOptions(MobileUtils.getDuration(2000))).moveTo(point(activityDay.getLocation().getX(), 300))
 								.release().perform();
 						Keyword.ReportStep_Pass(testCase, "Successfully closed activity logs");
 					}
@@ -348,7 +349,7 @@ public class AlarmScreen extends MobileScreens {
 				 */
 				action1 = action1.press(point(NotificationStartX, NotificationStartY)).moveTo(point(-leftsidePoint, 0))
 						.release();
-				action2 = action2.press(point(NotificationStartX + rightsidePoint, NotificationStartY))
+				action2 = action2.press(point(NotificationStartX + rightsidePoint, NotificationStartY)).waitAction(waitOptions(MobileUtils.getDuration(2000)))
 						.moveTo(point(rightsidePoint, 0)).release();
 				action.add(action1).add(action2).perform();
 				Keyword.ReportStep_Pass(testCase, "Swiped to view the options");
@@ -356,7 +357,7 @@ public class AlarmScreen extends MobileScreens {
 				NotificationStartX = notificationLocation.getSize().getWidth() / 2;
 				// action1 = action1.press(NotificationStartX, NotificationStartY).moveTo(-80,
 				// 0).release();
-				action1 = action1.press(point(NotificationStartX, NotificationStartY)).moveTo(point(-80, 0)).release();
+				action1 = action1.press(point(NotificationStartX, NotificationStartY)).waitAction(waitOptions(MobileUtils.getDuration(2000))).moveTo(point(-80, 0)).release();
 				action1.perform();
 				// action1.tap(NotificationStartX, NotificationStartY).release().perform();
 				action1.tap(point(NotificationStartX, NotificationStartY)).release().perform();

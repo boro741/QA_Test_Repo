@@ -48,7 +48,7 @@ import com.honeywell.lyric.utils.LyricUtils;
 
 import io.appium.java_client.TouchAction;
 import static io.appium.java_client.touch.offset.PointOption.point;
-
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
 import java.util.Random;
 
 import com.honeywell.CHIL.CHILUtil;
@@ -664,9 +664,9 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				 * (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
 				 * .release().perform();
 				 */
-				action.press(point(10, (int) (dimension.getHeight() * .9)))
+				action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
 						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
-				action.press(point(10, (int) (dimension.getHeight() * .9)))
+				action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
 						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 			}
 			for (int i = 0; i < data.getSize(); i++) {
@@ -1820,7 +1820,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
 				 * (dimension.getHeight() * .6)) .release().perform();
 				 */
-				action.press(point(10, (int) (dimension.getHeight() * .9)))
+				action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
 						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 			}
 			for (int i = 0; i < data.getSize(); i++) {
@@ -2084,7 +2084,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 						 * (dimension.getHeight() * .6)).release().perform();
 						 */
-						action.press(point(10, (int) (dimension.getHeight() * .9)))
+						action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
 								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= gd.isAboutTheAppOptionVisible();
@@ -2228,7 +2228,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 						 * (dimension.getHeight() * .6)).release().perform();
 						 */
-						action.press(point(10, (int) (dimension.getHeight() * .9)))
+						action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
 								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= gd.isAboutTheAppOptionVisible();
@@ -2390,7 +2390,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 						 * (dimension.getHeight() * .6)).release().perform();
 						 */
-						action.press(point(10, (int) (dimension.getHeight() * .9)))
+						action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
 								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= gd.isAboutTheAppOptionVisible();
@@ -2553,7 +2553,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 						 * (dimension.getHeight() * .6)).release().perform();
 						 */
-						action.press(point(10, (int) (dimension.getHeight() * .9)))
+						action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
 								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= gd.isAboutTheAppOptionVisible();
@@ -2705,7 +2705,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 						 * (dimension.getHeight() * .6)).release().perform();
 						 */
-						action.press(point(10, (int) (dimension.getHeight() * .9)))
+						action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
 								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= gd.isAboutTheAppOptionVisible();
@@ -2848,7 +2848,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 						 * (dimension.getHeight() * .6)).release().perform();
 						 */
-						action.press(point(10, (int) (dimension.getHeight() * .9)))
+						action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
 								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= gd.isEditAccountOptionVisible();
@@ -3620,7 +3620,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
 							 * (dimensions.getHeight() * .6)).release().perform();
 							 */
-							action.press(point(10, (int) (dimensions.getHeight() * .9)))
+							action.press(point(10, (int) (dimensions.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
 									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 						}
 						if (cas.isCreateAccountByTappingCreateBelowTextDisplayed()) {
@@ -3652,7 +3652,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
 							 * (dimensions.getHeight() * .6)).release().perform();
 							 */
-							action.press(point(10, (int) (dimensions.getHeight() * .9)))
+							action.press(point(10, (int) (dimensions.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
 									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 						}
 						if (cas.isCreateAccountPrivacyStatementLinkDisplayed()) {
@@ -3820,7 +3820,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
 							 * (dimensions.getHeight() * .6)).release().perform();
 							 */
-							action.press(point(10, (int) (dimensions.getHeight() * .9)))
+							action.press(point(10, (int) (dimensions.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
 									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 						}
 					} else {
