@@ -271,9 +271,9 @@ As user I should be able to configure camera settings from the app
     Examples: 
       | Zone   | 
       | Zone 1 | 
-      | Zone 2 | 
-      | Zone 3 | 
-      | Zone 4 | 
+      #| Zone 2 | 
+      #| Zone 3 | 
+      #| Zone 4 | 
   
   @VerifyMultipleZonesOverlapError  @P3  @Notautomatable @--xrayid:ATER-54488
   Scenario: As a user I want to verify sensitivity area on my zones should not overlap
@@ -413,6 +413,7 @@ As user I should be able to configure camera settings from the app
       Then user changes the "Camera ON in Home Mode" to "ON"
      And "Camera ON in Home Mode" value should be updated to "ON" on "Camera Settings" screen
      When user navigates to "Camera Solution Card" screen from the "Camera Settings" screen
+     And user is set to "Home" mode through CHIL
      Then user camera is "live streaming"
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
@@ -425,7 +426,9 @@ As user I should be able to configure camera settings from the app
      When user navigates to "Camera Settings" screen from the "Camera Solution Card" screen
       And user changes the "Camera ON in Home Mode" to "Off"
      Then "Camera ON in Home Mode" value should be updated to "Off" on "Camera Settings" screen
-     When user navigates to "Camera Solution Card" screen from the "Camera Settings" screen
+     When user navigates to "Security Solution Card" screen from the "Camera Settings" screen
+      And user switches from "Off" to "Home"
+     When user navigates to "Camera Solution Card" screen from the "Security Solution Card" screen
      Then user camera is "not live streaming"
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
