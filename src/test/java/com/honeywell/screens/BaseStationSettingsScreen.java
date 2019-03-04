@@ -1925,8 +1925,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "VolumeOption").isEnabled();
 		} else {
-			return MobileUtils.getFieldValue(objectDefinition, testCase, "VolumeOptionCell")
-					.equalsIgnoreCase("enabled");
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "VolumeOptionCell").equalsIgnoreCase("enabled");
 		}
 	}
 
@@ -1934,8 +1933,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "BaseStationWiFiOption").isEnabled();
 		} else {
-			return MobileUtils.getFieldValue(objectDefinition, testCase, "BaseStationWiFiOptionCell")
-					.equalsIgnoreCase("enabled");
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "BaseStationWiFiOptionCell").equalsIgnoreCase("enabled");
 		}
 	}
 
@@ -1947,8 +1945,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "BaseStationConfigurationsOption").isEnabled();
 		} else {
-			return MobileUtils.getFieldValue(objectDefinition, testCase, "BaseStationConfigurationsOptionCell")
-					.equalsIgnoreCase("enabled");
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "BaseStationConfigurationsOptionCell").equalsIgnoreCase("enabled");
 		}
 	}
 
@@ -2086,9 +2083,12 @@ public class BaseStationSettingsScreen extends MobileScreens {
 					return false;
 				}
 			} else {
-				return Boolean.parseBoolean(
-						MobileUtils.getMobElement(objectDefinition, testCase, "OutdoorMotionViewersOnInHomeModeSwitch")
-						.getAttribute("value"));
+				if (MobileUtils.getFieldLabel(objectDefinition, testCase, "OutdoorMotionViewersOnInHomeModeSwitch").
+						equalsIgnoreCase(String.valueOf(1))) {
+					return true;
+				} else {
+					return false;
+				}
 			}
 		} else {
 			throw new Exception("Could not find Outdoor Motion Viewers On in Home mode Switch");

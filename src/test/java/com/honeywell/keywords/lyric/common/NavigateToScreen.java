@@ -3859,6 +3859,15 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				case "SECURITY SETTINGS": {
+					if (bs.clickOnBackButton() && bs.clickOnBackButton()) {
+						Keyword.ReportStep_Pass(testCase, "Successfully naviagates to " + screen.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to navigates to  " + screen.get(0));
+					}
+					break;
+				}
 				}
 			} else if (screen.get(1).equalsIgnoreCase("ADD USERS")) {
 				ManageUsersScreen mus = new ManageUsersScreen(testCase);

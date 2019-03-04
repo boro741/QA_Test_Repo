@@ -1500,7 +1500,7 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				case "GEOFENCING": {
-					flag &= !click.isGeofencingEnabled();
+//					flag &= !click.isGeofencingEnabled();
 					flag &= click.toggleGeofencingSwitch(testCase);
 					break;
 				}

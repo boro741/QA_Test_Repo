@@ -126,7 +126,7 @@ As user I should be able to control my DAS panel settings from the app
      Then the following "Security Manage Alerts" options should be enabled:
       | Alerts               | 
       | Security Mode change | 
-      And user "SHOULD NOT BE DISPLAYED" with the "Doors and Windows" option
+      |DOOR AND WINDOWS |
     Examples: 
       | Mode  | 
       | Home  | 
@@ -172,7 +172,7 @@ As user I should be able to control my DAS panel settings from the app
       And user changes the "Security mode change" to "ON"
      When user navigates to "Security Solution Card" screen from the "Manage alerts" screen
      Then user switches from <UMode> to <Mode>
-      And user should be displayed with a switching to <Mode> text
+      #And user should be displayed with a switching to <Mode> text
       And user status should be set to <Mode>
       And user receives a <UPush Notification> push notification
       
@@ -206,7 +206,7 @@ As user I should be able to control my DAS panel settings from the app
      When user navigates to "DAS Security Settings" screen from the "Security Solution Card" screen
      Then user navigates to "Manage alerts" screen from the "Security Settings" screen
      Then user changes the "Doors and windows" to "On"
-     Then user navigates to "Security settings" screen from " Manage Alerts" screen
+     Then user navigates to "Security settings" screen from the "Manage Alerts" screen
       And user <AS> access sensor <Event1>
       And user receives a <UPush Notification> push notification
     Examples: 
@@ -233,22 +233,22 @@ As user I should be able to control my DAS panel settings from the app
       And user navigates to "Security Settings" screen from the "Dashboard" screen
      When user navigates to "Manage alerts" screen from the "Security Settings" screen
      Then user changes the "Doors and windows" to "Off"
-     When user navigates to "Security Solution Card" screen from "Manage alerts" screen
+     When user navigates to "Security Solution Card" screen from the "Manage alerts" screen
      Then user <AS> access sensor <Event>
       And user should not receive a <Push Notification> push notification
      When user navigates to "DAS Security Settings" screen from the "Security Solution Card" screen
      Then user navigates to "Manage alerts" screen from the "Security Settings" screen
      Then user changes the "Doors and windows" to "On"
-     Then user navigates to "Security settings" screen from " Manage Alerts" screen
+     Then user navigates to "Security settings" screen from the "Manage Alerts" screen
       And user <AS> access sensor <Event1>
       And user should not receive a <Push Notification> push notification
   
     Examples: 
       | Mode | AS     | Event  | Event1 | Push Notification | UPush Notification | 
       | OFF  | WINDOW | Opened | Closed | WINDOW OPENED     | WINDOW CLOSED      | 
-      | OFF  | WINDOW | Closed | Opened | WINDOW CLOSED     | WINDOW OPENED      | 
-      | OFF  | door   | Opened | Closed | DOOR OPENED       | DOOR CLOSED        | 
-      | OFF  | door   | Closed | Opened | DOOR CLOSED       | DOOR OPENED        | 
+      #| OFF  | WINDOW | Closed | Opened | WINDOW CLOSED     | WINDOW OPENED      | 
+      #| OFF  | door   | Opened | Closed | DOOR OPENED       | DOOR CLOSED        | 
+      #| OFF  | door   | Closed | Opened | DOOR CLOSED       | DOOR OPENED        | 
   
   #Geofence
   
@@ -264,7 +264,7 @@ As user I should be able to control my DAS panel settings from the app
       | Mode | 
       | Away | 
   #|Offline|
-      | Night | 
+     #| Night | 
   
   #Requirements: DAS panel configured , No Sensors Required
   @VerifySecuritySettingsGeofenceoptionHomeOff @Automated @--xrayid:ATER-54603
