@@ -1820,11 +1820,10 @@ public class ChangeBaseStationSettings extends Keyword {
 					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 				} else {
 					/*
-					 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
-					 * (dimension.getHeight() * .6)) .release().perform();
-					 */
-					action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
+					 * 	action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
 							.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+					 */
+				
 				}
 
 				BaseStationSettingsScreen mc = new BaseStationSettingsScreen(testCase);
