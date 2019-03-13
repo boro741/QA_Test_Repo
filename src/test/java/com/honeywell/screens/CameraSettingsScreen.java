@@ -753,25 +753,25 @@ public class CameraSettingsScreen extends MobileScreens {
 			}
 		} else {
 			if (MobileUtils.isMobElementExists("XPATH",
-					"//XCUIElementTypeStaticText[@name='" + motionSensitivityOption.toLowerCase() + "_subTitle" + "']",
+					"//XCUIElementTypeStaticText[@name='" + motionSensitivityOption.toLowerCase() + "_title" + "']",
 					testCase)
 					&& MobileUtils
 							.getMobElement(testCase, "XPATH",
 									"//XCUIElementTypeStaticText[@name='" + motionSensitivityOption.toLowerCase()
-											+ "_subTitle" + "']")
+											+ "_title" + "']")
 							.getAttribute("value").equalsIgnoreCase(motionSensitivityOption.toLowerCase())) {
 				return flag;
 			} else {
 				if (motionSensitivityOption.toLowerCase().equals("normal")) {
 					motionSensitivityOption = "medium";
 					if (MobileUtils.isMobElementExists("XPATH",
-							"//XCUIElementTypeStaticText[@name='" + motionSensitivityOption.toLowerCase() + "_subTitle"
+							"//XCUIElementTypeStaticText[@name='" + motionSensitivityOption.toLowerCase() + "_title"
 									+ "']",
 							testCase)
 							&& MobileUtils
 									.getMobElement(testCase, "XPATH",
 											"//XCUIElementTypeStaticText[@name='"
-													+ motionSensitivityOption.toLowerCase() + "_subTitle" + "']")
+													+ motionSensitivityOption.toLowerCase() + "_title" + "']")
 									.getAttribute("value").equalsIgnoreCase("normal")) {
 						return flag;
 					} else {
@@ -1488,10 +1488,10 @@ public class CameraSettingsScreen extends MobileScreens {
 			}
 		} else {
 			if (MobileUtils.isMobElementExists("XPATH",
-					"//*[contains(@name,'_subTitle') and @value='Video Quality']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]",
+					"//*[contains(@name,'_title') and @value='Video Quality']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]",
 					testCase)
 					&& MobileUtils.getMobElement(testCase, "XPATH",
-							"//*[contains(@name,'_subTitle') and @value='Video Quality']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]")
+							"//*[contains(@name,'_title') and @value='Video Quality']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]")
 							.getAttribute("value").equalsIgnoreCase(videoQualityOption)) {
 				return flag;
 			} else {
@@ -1708,7 +1708,7 @@ public class CameraSettingsScreen extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInNightMode").isEnabled();
 		} else {
-			return MobileUtils.getFieldValue(objectDefinition, testCase, "CameraOnInHomeMode")
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "CameraOnInNightMode")
 					.equalsIgnoreCase("enabled");
 		}
 	}

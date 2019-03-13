@@ -59,6 +59,7 @@ import io.appium.java_client.TouchAction;
 import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
 import static io.appium.java_client.touch.offset.ElementOption.element;
 import static io.appium.java_client.touch.offset.PointOption.point;
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
 
 public class SelectElementOnAScreen extends Keyword {
 
@@ -1505,7 +1506,7 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				case "ENHANCED DETERRENCE": {
-					flag &= !click.isEnhancedDeterrenceEnabled();
+//					flag &= !click.isEnhancedDeterrenceEnabled();
 					flag &= click.clickOnEnhancedDeterrenceOption(20);
 					break;
 				}
@@ -1524,7 +1525,7 @@ public class SelectElementOnAScreen extends Keyword {
 						action.press(point(10, (int) (dimension.getHeight() * .9)))
 								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
-					flag &= !click.isOutdoorMotionViewerOnInHomeModeEnabled();
+//					flag &= !click.isOutdoorMotionViewerOnInHomeModeEnabled();
 					flag &= click.toggleOutdoorMotionViewersOnInHomeModeSwitch(testCase);
 					break;
 				}
@@ -1540,7 +1541,7 @@ public class SelectElementOnAScreen extends Keyword {
 						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 						 * (dimension.getHeight() * .6)).release().perform();
 						 */
-						action.press(point(10, (int) (dimension.getHeight() * .9)))
+						action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(3000)))
 								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= !click.isEntryExitDelayEnabled();

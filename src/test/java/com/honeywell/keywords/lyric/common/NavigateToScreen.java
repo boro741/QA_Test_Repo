@@ -70,6 +70,7 @@ import com.honeywell.screens.WLDManageAlerts;
 import com.honeywell.screens.WLDSolutionCard;
 import com.honeywell.screens.WeatherForecastScreen;
 import com.honeywell.screens.ZwaveScreen;
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
 
 public class NavigateToScreen extends Keyword {
 
@@ -1274,7 +1275,7 @@ public class NavigateToScreen extends Keyword {
 							 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 							 * (dimension.getHeight() * .6)).release().perform();
 							 */
-							action.press(point(10, (int) (dimension.getHeight() * .9)))
+							action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
 									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						}
 						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ABOUTTHEAPP)) {
@@ -1319,7 +1320,7 @@ public class NavigateToScreen extends Keyword {
 							 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 							 * (dimension.getHeight() * .6)).release().perform();
 							 */
-							action.press(point(10, (int) (dimension.getHeight() * .9)))
+							action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
 									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 
 						}
@@ -3831,12 +3832,14 @@ public class NavigateToScreen extends Keyword {
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 					} else {
-						/*
-						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
-						 * (dimension.getHeight() * .6)).release().perform();
-						 */
-						action.press(point(10, (int) (dimension.getHeight() * .9)))
-								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+//						/*
+//						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
+//						 * (dimension.getHeight() * .6)).release().perform();
+//						 */
+						System.out.println("Into the loop");
+						Thread.sleep(2000);
+						action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
+						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= bs.clickonAboutSecurityModesoption();
 					flag &= bs.isSecurityModesHeader();

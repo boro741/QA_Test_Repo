@@ -109,7 +109,7 @@ And user switches from <Mode> to "Home"
 And user status should be set to "Home"
 #Then user should be displayed with the correct time stamp
 #And user receives a <Push Notification> push notification
-And user selects the <Push Notification> push notification
+#And user selects the <Push Notification> push notification
 When user "opens" activity log
 Then user receives a <expectedActivity> activity log
 And user "closes" activity log
