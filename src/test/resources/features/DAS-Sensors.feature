@@ -6,7 +6,7 @@ Background:
 Given reset relay as precondition
 
 
-@DASSecuritySettingsSensorStatus			@P2			@Automated
+@DASSecuritySettingsSensorStatus			@P2			@Automated  @--xrayid:ATER-54677
 Scenario Outline: As a user i should be displayed with security accessories in Security Settings 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 2 Keyfob
 Given user is set to "Home" mode through CHIL
@@ -29,7 +29,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one Door Sensor should be configured
-@DASDoorSensorRenameVerification				@P2	 		@Automated
+@DASDoorSensorRenameVerification				@P2	 		@Automated @--xrayid:ATER-54678
 Scenario Outline: As a user I want to rename my Door Sensor through the application
 Given user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
@@ -53,7 +53,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
-@DASWindowSensorRenameVerification			@P2	 		@Automated
+@DASWindowSensorRenameVerification			@P2	 		@Automated @--xrayid:ATER-54678
 Scenario Outline: As a user I want to rename my Window Sensor sensor through the application
 Given user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
@@ -77,7 +77,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one Motion Sensor should be configured
-@DASMotionRenameVerification			@P2	 		@Automated
+@DASMotionRenameVerification			@P2	 		@Automated @--xrayid:ATER-54679
 Scenario Outline: As a user I want to rename my Motion Sensor through the application
 Given user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
@@ -101,7 +101,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one ISMV Sensor should be configured
-@DASKeyfobRenameVerification			@P2			@Automated
+@DASKeyfobRenameVerification			@P2			@Automated @--xrayid:ATER-54684
 Scenario Outline: As a user I want to rename my keyfob through the application
 Given user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
@@ -119,7 +119,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one ISMV Sensor should be configured
-@DASISMVSensorRenameVerification			@P2	 		@Automated
+@DASISMVSensorRenameVerification			@P2	 		@Automated @--xrayid:ATER-54711
 Scenario Outline: As a user I want to rename my ISMV through the application
 Given user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
@@ -140,7 +140,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one ISMV Sensor should be configured
-@DASOSMVSensorRenameVerification			@P2	 		@Automated
+@DASOSMVSensorRenameVerification			@P2	 		@Automated @--xrayid:ATER-54712
 Scenario Outline: As a user I want to rename my OSMV through the application
 Given user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
@@ -161,7 +161,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
-@DASSensorRenamePopUpVerification		@P2			@Automated
+@DASSensorRenamePopUpVerification		@P2			@Automated @--xrayid:ATER-54715
 Scenario Outline: As a user i should be shown with message that I cannot rename my Access Sensor sensor through the application when panel is in below states 
 Given user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
@@ -181,7 +181,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one Key fob should be configured
-@DASKeyfobRenamePopUpVerification		@P2			@Automated
+@DASKeyfobRenamePopUpVerification		@P2			@Automated @--xrayid:ATER-54716
 Scenario Outline: As a user i should be shown with message that I cannot rename my keyfob through the application when panel is in below states 
 Given user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
@@ -201,7 +201,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and all sensor type should be configured
-@DASSensorStatusOFFWithAwayMode			@P2			@Automated	
+@DASSensorStatusOFFWithAwayMode			@P2			@Automated	@--xrayid:ATER-54719
 Scenario Outline: As a user I want to switch to different states in my DAS device when multiple sensors are in fault condition in Away mode
 Given user sets the entry/exit timer to "45" seconds
 And user is set to <Mode> mode through CHIL
@@ -237,7 +237,7 @@ Examples:
 |OFF |
 
 
-@DASSensorStatusOFFWithNightMode		@P2			@Automated
+@DASSensorStatusOFFWithNightMode		@P2			@Automated @--xrayid:ATER-54722
 Scenario Outline: As a user I want to switch to different states in my DAS device when multiple sensors are in fault condition in Night mode
 Given user sets the entry/exit timer to "45" seconds
 And user is set to <Mode> mode through CHIL
@@ -273,7 +273,7 @@ Examples:
 |OFF |
 
 
-@DASDoorWindowSensorCoverTamperStatus			@P2			@Automated
+@DASDoorWindowSensorCoverTamperStatus			@P2			@Automated @--xrayid:ATER-54723
 Scenario Outline: As a user i should be displayed with Cover Tamper for Door and Window sensors status 
 #DAS with sensors Door Contact Window Contact
 Given user is set to <Mode> mode through CHIL
@@ -302,7 +302,7 @@ Examples:
 | Off 	| Window Access Settings		| Window			|
 
 
-@DASMotionSensorCoverTamperStatus			@P2			@Automated
+@DASMotionSensorCoverTamperStatus			@P2			@Automated @--xrayid:ATER-54724
 Scenario Outline: As a user i should be displayed with Cover Tamper for Motion sensors status 
 #DAS with Motion sensor
 Given user is set to <Mode> mode through CHIL
@@ -329,7 +329,7 @@ Examples:
 | Off 	| Motion Sensor Settings		| Motion			|
 
 
-@DASSensorLowBatteryStatus			@P2			@NotAutomatable		
+@DASSensorLowBatteryStatus			@P2			@NotAutomatable		 
 Scenario Outline: As a user i should be displayed with low battery sensors status 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
@@ -367,7 +367,7 @@ Examples:
 #|Off |OSMV Sensor|
 
 
-@DASSensorOfflineStatus			@P2			@NotAutomatable
+@DASSensorOfflineStatus			@P2			@NotAutomatable @--xrayid:
 Scenario Outline: As a user i should be displayed with offline sensors status 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
@@ -406,7 +406,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
-@DASSensorModelAndFirmwareDetailsVerification			@P2			@Automated
+@DASSensorModelAndFirmwareDetailsVerification			@P2			@Automated @--xrayid:ATER-54726
 Scenario Outline:Verify Model details and Firmware details in Access Sensor
 Given user is set to <Mode> mode through CHIL
 And user launches and logs in to the Lyric application
@@ -439,7 +439,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one Door Access Sensor should be configured
-@DASDoorSensorSignalStrengthWithSensor			@P2			@Automated
+@DASDoorSensorSignalStrengthWithSensor			@P2			@Automated @--xrayid:ATER-54727
 Scenario Outline: As a user I should be able to verify the signal strength and test Door Sensor in Home and OFF mode
 Given user is set to <Mode> mode through CHIL
 And user "door" access sensor <Access Sensor Status>
@@ -471,7 +471,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one Door Access Sensor should be configured
-@DASWindowSensorSignalStrengthWithSensor			@Automated
+@DASWindowSensorSignalStrengthWithSensor			@Automated @--xrayid:ATER-54728
 Scenario Outline: As a user I should be able to verify the signal strength and test window Sensor in Home and OFF mode
 Given user is set to <Mode> mode through CHIL
 And user "window" access sensor <Access Sensor Status>
@@ -503,7 +503,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one Motion Sensor should be configured
-@DASMotionSensorSignalStrengthWithSensor			@P2			@Automated
+@DASMotionSensorSignalStrengthWithSensor			@P2			@Automated @--xrayid:ATER-54731
 Scenario Outline: As a user I should be able to verify the signal strength and test Motion Sensor in Home and OFF mode
 Given user is set to <Mode> mode through CHIL
 And user motion sensor <Motion Sensor Status>
@@ -534,7 +534,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one ISMV Sensor should be configured
-@DASISMVSensorSignalStrengthWithSensor			@P2			@Automated
+@DASISMVSensorSignalStrengthWithSensor			@P2			@Automated @--xrayid:ATER-54732
 Scenario Outline: As a user I should be able to verify the signal strength and test ISMV Sensor in Home and OFF mode
 Given user is set to <Mode> mode through CHIL
 And user launches and logs in to the Lyric application
@@ -564,7 +564,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one OSMV Sensor should be configured
-@DASOSMVSensorSignalStrengthWithSensor		@P2			@Automated
+@DASOSMVSensorSignalStrengthWithSensor		@P2			@Automated @--xrayid:ATER-54733
 Scenario Outline: As a user I should be able to verify the signal strength and test OSMV Sensor in Home and OFF mode
 Given user is set to <Mode> mode through CHIL
 And user launches and logs in to the Lyric application
@@ -594,7 +594,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one Door Access Sensor should be configured
-@DASDoorSensorSignalStrengthWithSensorNotWorkingAndIsOutOfRange			@NotAutomatable
+@DASDoorSensorSignalStrengthWithSensorNotWorkingAndIsOutOfRange			@NotAutomatable @--xrayid:
 Scenario Outline: As a user I should be able to verify the signal strength and test Door Sensor is not working in Home and OFF mode
 Given user launches and logs in to the Lyric application 
 And user is set to <Mode> through CHIL
@@ -620,7 +620,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one Sensor should be configured and sensor status should be offline
-@DASSensorSignalStrengthWhenSensorOffline			@NotAutomatable
+@DASSensorSignalStrengthWhenSensorOffline			@NotAutomatable @--xrayid:
 Scenario Outline: As a user I should be shown with message that I cannot check signal strength for panel accessories through the application when sensor offline
 Given user launches and logs in to the Lyric application 
 And user is set to <Mode> through CHIL
@@ -664,7 +664,7 @@ Examples:
 |Off |OSMV Sensor|
 
 
-@DASSignalStrengthSensorDisabled				@NotAutomatable
+@DASSignalStrengthSensorDisabled				@NotAutomatable @--xrayid:
 Scenario Outline: As a user I should be shown with message that I cannot check signal strength for panel accessories through the application when panel is in below states
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> through CHIL
@@ -684,7 +684,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one Door Access Sensor should be configured
-@DASDeleteDoorAccessSensor			@P2				@Automated
+@DASDeleteDoorAccessSensor			@P2				@Automated @--xrayid:ATER-54735
 Scenario Outline: As a user I should be able to delete door access sensor from my account through the Lyric application 
 Given user is set to <Mode> mode through CHIL
 And user "door" access sensor <Sensor Status>
@@ -716,7 +716,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one Window Access Sensor should be configured
-@DASDeleteWindowAccessSensor			@P2				@Automated
+@DASDeleteWindowAccessSensor			@P2				@Automated @--xrayid:ATER-54737
 Scenario Outline: As a user I should be able to delete window access sensor from my account through the Lyric application 
 Given user is set to <Mode> mode through CHIL
 And user "door" access sensor <Sensor Status>
@@ -748,7 +748,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one Motion Sensor should be configured
-@DASDeleteMotionSensor			@P2				@Automated
+@DASDeleteMotionSensor			@P2				@Automated @--xrayid:ATER-54738
 Scenario Outline: As a user I should be able to delete motion sensor from my account through the Lyric application 
 Given user is set to <Mode> mode through CHIL
 And user launches and logs in to the Lyric application
@@ -781,7 +781,7 @@ Examples:
 
 #Duplicate of the above scenario
 #Requirement :One DAS Panel and one Motion Sensor should be configured
-@DASDeleteMotionSensor123			@Duplicate
+@DASDeleteMotionSensor123			@Duplicate @--xrayid:
 Scenario Outline: As a user I should be able to delete key fob from my account through the Lyric application 
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> through CHIL
@@ -815,7 +815,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one Keyfob should be configured
-@DASDeleteKeyfob				@P2				@Automated
+@DASDeleteKeyfob				@P2				@Automated @--xrayid:ATER-54739
 Scenario Outline: As a user I should be able to delete keyfob from my account through the Lyric application 
 Given user is set to <Mode> mode through CHIL
 And user launches and logs in to the Lyric application
@@ -835,7 +835,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one ISMV Sensor should be configured
-@DASDeleteISMVSensor				@P2				@Automated
+@DASDeleteISMVSensor				@P2				@Automated @--xrayid:ATER-54740
 Scenario Outline: As a user I should be able to delete ISMV from my account through the Lyric application 
 Given user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
@@ -867,7 +867,7 @@ Examples:
 
 
 #Requirement :One DAS Panel and one OSMV Sensor should be configured
-@DASDeleteOSMVSensor					@P2				@Automated
+@DASDeleteOSMVSensor					@P2				@Automated @--xrayid:ATER-54741
 Scenario Outline: As a user I should be able to delete OSMV from my account through the Lyric application 
 Given user is set to <Mode> mode through CHIL
 When user launches and logs in to the Lyric application
@@ -898,7 +898,7 @@ Examples:
 | Sensor Enrollment | Offline			|
 
 
-@DASDeleteSensorDisabled				@NotAutomatable
+@DASDeleteSensorDisabled				@NotAutomatable @--xrayid:
 Scenario Outline: As a user I should be shown with message that I cannot delete panel accessories through the application when panel is in below states
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> through CHIL
@@ -918,7 +918,7 @@ Examples:
 |Keyfob         |Away|
 
 
-@DASDeleteSensorErrorpopupVerification			@NotAutomatable
+@DASDeleteSensorErrorpopupVerification			@NotAutomatable @--xrayid:
 Scenario Outline: As a user I should be able to verify delete error pop up from my account through the Lyric application 
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> through CHIL 
@@ -945,7 +945,7 @@ Examples:
 |Off |ISMV Sensor|ISMV Sensor|
 |Off |OSMV Sensor|OSMV Sensor|
 
-@DASUpdateSensorNameToExistingName		@P2			@AutomatedForIOSOnly
+@DASUpdateSensorNameToExistingName		@P2			@AutomatedForIOSOnly @--xrayid:ATER-54742
 Scenario: As a user I should see error popup when I update sensor name and enter existing sensor name
 Given user is set to "Home" mode through CHIL
 When user launches and logs in to the Lyric application
