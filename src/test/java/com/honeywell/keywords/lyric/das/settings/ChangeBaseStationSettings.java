@@ -392,6 +392,7 @@ public class ChangeBaseStationSettings extends Keyword {
 					} else {
 						flag = flag & cs.toggleCameraOnInHomeModeSwitch();
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						Thread.sleep(5000);
 						if (cs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase,
 									"camera ON in home mode is enabled in the Camera settings Screen");
@@ -403,11 +404,13 @@ public class ChangeBaseStationSettings extends Keyword {
 								"camera ON in home mode is already disabled in the Camera settings Screen");
 						flag = flag & cs.toggleCameraOnInHomeModeSwitch();
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+						Thread.sleep(5000);
 						if (cs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase,
 									"camera ON in home mode is enabled in the Camera settings Screen");
 							flag = flag & cs.toggleCameraOnInHomeModeSwitch();
 							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
+							Thread.sleep(5000);
 							if (!cs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
 								Keyword.ReportStep_Pass(testCase,
 										"camera ON in home mode is disabled in the Camera settings Screen");
@@ -1809,22 +1812,20 @@ public class ChangeBaseStationSettings extends Keyword {
 					}
 				}
 			} else if (parameters.get(0).equalsIgnoreCase("OUTDOOR MOTION VIEWERS ON IN HOME MODE")) {
-				Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
-				@SuppressWarnings("rawtypes")
-				TouchAction action = new TouchAction(testCase.getMobileDriver());
-				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					int startx = (dimension.width * 20) / 100;
-					int starty = (dimension.height * 62) / 100;
-					int endx = (dimension.width * 22) / 100;
-					int endy = (dimension.height * 35) / 100;
-					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-				} else {
-					/*
-					 * 	action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
-							.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
-					 */
-				
-				}
+//					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+//				@SuppressWarnings("rawtypes")
+//				TouchAction action = new TouchAction(testCase.getMobileDriver());
+//				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+//					int startx = (dimension.width * 20) / 100;
+//					int starty = (dimension.height * 62) / 100;
+//					int endx = (dimension.width * 22) / 100;
+//					int endy = (dimension.height * 35) / 100;
+//					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+//				} else {
+//					
+//					 	action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
+//							.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+//				}
 
 				BaseStationSettingsScreen mc = new BaseStationSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {

@@ -618,7 +618,8 @@ As user I should be able to control my DAS panel settings from the app
   Scenario Outline: As user I want to verify if entry exit delay time displayed on settings and user can update the value in home and off mode
     Given user is set to <Mode> mode through CHIL
      Then user launches and logs in to the Lyric application
-     When user navigates to "security settings" screen from the "Dashboard" screen
+     #When user navigates to "security settings" screen from the "Dashboard" screen
+      When user navigates to "Entry-Exit Delay" screen from the "Dashboard" screen
      Then user selects "Entry-Exit Delay" from "Security Settings" screen
       And user should be displayed with "You can perform this action only in home or off mode"
     Examples: 
@@ -630,8 +631,8 @@ As user I should be able to control my DAS panel settings from the app
   #Requirements Single Location Single DAS Device, No Sensors Required
   @DASAboutSecurityModesVerification  @Automated @--xrayid:ATER-54649
   Scenario Outline: As user I want to verify About Security modes screen
-    #Given user is set to <Mode> mode through CHIL
-     Given user launches and logs in to the Lyric application
+    Given user is set to <Mode> mode through CHIL
+     And user launches and logs in to the Lyric application
      When user navigates to "security settings" screen from the "Dashboard" screen
      When user navigates to "About security modes" screen from the "DAS security settings" screen
      Then user should be displayed with the following "Security Modes" options:
@@ -671,7 +672,7 @@ As user I should be able to control my DAS panel settings from the app
     Examples: 
       | Mode | 
       | Home | 
-      | Off  | 
+     # | Off  | 
   
   #Requirements Single Location Single DAS Device, No Sensors Required
   @ChangeBaseStationVolumeNightAwayOffline @Automated @--xrayid:ATER-54651

@@ -66,10 +66,10 @@ public class ClearAllPushNotifications extends Keyword {
 					if (MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeCell", testCase)) {
 						List<WebElement> listOfNotifications = MobileUtils.getMobElements(testCase, "XPATH",
 								"//XCUIElementTypeCell");
-						@SuppressWarnings("rawtypes")
-						TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
-						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 						for (WebElement ele : listOfNotifications) {
+							@SuppressWarnings("rawtypes")
+							TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
+							Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 							Point notificationToBeCleared = ele.getLocation();
 							int startX = notificationToBeCleared.getX();
 							int endX = notificationToBeCleared.getX() / 2;
@@ -79,8 +79,14 @@ public class ClearAllPushNotifications extends Keyword {
 							 * 0).release() .perform(); touchAction.tap((dimensions.width - 20), (startY +
 							 * 30)).perform();
 							 */
-							touchAction.press(point((startX + 150), (startY + 20))).waitAction(waitOptions(MobileUtils.getDuration(2000))).moveTo(point((endX - 100), 0))
+							touchAction.press(point((startX + 150), (startY + 20))).waitAction(waitOptions(MobileUtils.getDuration(4000))).moveTo(point((endX - 100), 0))
 									.release().perform();
+							try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 							touchAction.tap(tapOptions().withPosition(point((dimensions.width - 20), (startY + 30))))
 									.perform();
 						}

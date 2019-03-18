@@ -414,12 +414,6 @@ public class DASSensorUtils {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sensor state not handled");
 		}
 		List<WebElement> list;
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		list = DASSensorUtils.getSensorList(testCase);
 		System.out.println("########list.size() " + list.size());
 		System.out.println("########sensorName: " + sensorName);

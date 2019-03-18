@@ -749,9 +749,12 @@ public class BaseStationSettingsScreen extends MobileScreens {
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "BaseStationConfigurationsOption");
 			} else {
 				Keyword.ReportStep_Pass(testCase, "Base Station Visible @ 2");
-				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
-						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-								BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
+				action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
+				.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+				Thread.sleep(5000);
+				action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(500)))
+				.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+				Thread.sleep(2000);
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "BaseStationConfigurationsOption");
 			}
 			if (this.isBaseStationConfigurationsOptionVisible()) {
@@ -1023,13 +1026,13 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "FirmwareVersion")) {
 			flag = flag & (MobileUtils.getMobElement(objectDefinition, testCase, "FirmwareVersion").getText()
-					.toUpperCase().contains("VERSION"));
+					.contains("Version"));
 		} else {
 			flag = false;
 		}
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "FirmwareLastUpdatedDate")) {
 			flag = flag & (MobileUtils.getMobElement(objectDefinition, testCase, "FirmwareLastUpdatedDate").getText()
-					.toUpperCase().contains("LAST UPDATED ON"));
+					.contains("Last updated on"));
 		} else {
 			flag = false;
 		}
@@ -1061,7 +1064,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		} else {
 			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ModelNameLabel")) {
 				flag = flag & (MobileUtils.getMobElement(objectDefinition, testCase, "ModelNameLabel").getText()
-						.toUpperCase().contains("Smart Home Security\nMAC ID : "));
+						.contains("Smart Home Security"));
 			} else {
 				flag = false;
 			}
@@ -1093,7 +1096,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			} else if (delayValue == 60) {
 				index = 3;
 			}
-			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "EntryExitTable", 10)) {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "EntryExitTable", 20)) {
 				entryExitTable = MobileUtils.getMobElement(objectDefinition, testCase, "EntryExitTable");
 			} else {
 				throw new Exception("Could not find entry/exit delay values");
@@ -1283,9 +1286,13 @@ public class BaseStationSettingsScreen extends MobileScreens {
 				} else {
 					flag = false;
 				}
-			} else if(MobileUtils
-					.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getAttribute("value").equalsIgnoreCase(String.valueOf(1))){
-				flag = true;
+			} else 
+				{
+				return Boolean.logicalAnd(MobileUtils
+					.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getAttribute("value").equalsIgnoreCase(String.valueOf(1)),true);
+//				if(MobileUtils
+//					.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getAttribute("value").equalsIgnoreCase(String.valueOf(1))){
+				
 			}
 		}else {
 			flag = false;
@@ -2083,6 +2090,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 					return false;
 				}
 			} else {
+				System.out.println(MobileUtils.getFieldLabel(objectDefinition, testCase, "OutdoorMotionViewersOnInHomeModeSwitch"));
 				if (MobileUtils.getFieldLabel(objectDefinition, testCase, "OutdoorMotionViewersOnInHomeModeSwitch").
 						equalsIgnoreCase(String.valueOf(1))) {
 					return true;
@@ -2113,7 +2121,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 	public boolean clickonAboutSecurityModesoption() {
 		boolean flag = true;
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AboutSecurityModes", 20)) {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AboutSecurityModes", 30)) {
 			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "AboutSecurityModes");
 		} else {
 			flag = false;
@@ -2126,13 +2134,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 	public boolean isSecurityModeHomeiConVisible() {
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeHomeiCon");
-		} else {
-			testCase.getMobileDriver()
-			.findElementByXPath("//XCUIElementTypeStaticText[@name='Mode_Settings_0_0_cell']");
-			return true;
-		}
 	}
 
 	public boolean isSecurityModeHomeModeVisible() {
@@ -2144,14 +2146,8 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 	public boolean isSecurityModeAwayiConVisible() {
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeAwayiCon");
-		} else {
-			testCase.getMobileDriver()
-			.findElementByXPath("//XCUIElementTypeStaticText[@name='Mode_Settings_0_3_cell']");
-			return true;
-		}
+		
 	}
 
 	public boolean isSecurityModeAwayModeVisible() {
@@ -2180,9 +2176,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			 */
 			action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
 			.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
-			testCase.getMobileDriver()
-			.findElementByXPath("//XCUIElementTypeStaticText[@name='Mode_Settings_0_6_cell']");
-			return true;
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeNightiCon");
 		}
 	}
 
@@ -2212,9 +2206,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			 */
 			action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
 			.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
-			testCase.getMobileDriver()
-			.findElementByXPath("//XCUIElementTypeStaticText[@name='Mode_Settings_0_9_cell']");
-			return true;
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeoffiCon");
 		}
 	}
 

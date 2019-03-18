@@ -102,7 +102,7 @@ As user I should be able to configure camera settings from the app
       | Camera On in Night Mode | 
     Examples: 
       | State | 
-      | Away  | 
+     #| Away  | 
      | Night | 
   
   @DAS_CameraSettingsCameraModeGeofenceAway @P2 @Automated@--xrayid:ATER-54462
@@ -342,8 +342,8 @@ As user I should be able to configure camera settings from the app
   
   @DAS_VerifyVideoQualitySettings @P2 @Automated @--xrayid:ATER-54495
   Scenario: As a user I should be able to set my Video Quality Settings based on my network connection
-    Given  user is set to "Home" mode through CHIL
-     Then user launches and logs in to the Lyric application
+    Given user launches and logs in to the Lyric application
+     Then user is set to "Home" mode through CHIL
       And user navigates to "DAS Camera Solution Card" screen from the "Dashboard" screen
       And user camera is set to "ON"
      When user navigates to "Camera Settings" screen from the "Camera Solution Card" screen
