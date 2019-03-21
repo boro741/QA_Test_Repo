@@ -761,9 +761,9 @@ public class SelectElementOnAScreen extends Keyword {
 						 * (dimensions.getHeight() * .9)) .moveTo(0, -(int) (dimensions.getHeight() *
 						 * .6)).release().perform();
 						 */
-						action.press(point(10, (int) (dimensions.getHeight() * .9)))
+						action.press(point(10, (int) (dimensions.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
 								.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
-						action.press(point(10, (int) (dimensions.getHeight() * .9)))
+						action.press(point(10, (int) (dimensions.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
 								.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 					}
 					flag = flag & settingScreen.clickOnFirmwareDetailsOption();

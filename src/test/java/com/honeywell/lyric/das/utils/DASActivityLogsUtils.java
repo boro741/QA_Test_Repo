@@ -1,13 +1,11 @@
 package com.honeywell.lyric.das.utils;
 
-import static io.appium.java_client.touch.WaitOptions.waitOptions;
-import static io.appium.java_client.touch.offset.PointOption.point;
+
 
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
@@ -22,7 +20,6 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.ActivityHistoryScreen;
 import com.honeywell.screens.ActivityLogsScreen;
 
-import io.appium.java_client.TouchAction;
 
 public class DASActivityLogsUtils {
 
@@ -30,12 +27,7 @@ public class DASActivityLogsUtils {
 		boolean flag = true;
 		ActivityLogsScreen al = new ActivityLogsScreen(testCase);
 		if (al.isOpenActivityLogsIconVisible(15)) {
-//			al.clickOnOpenActivityLogsIcon();
-			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
-			@SuppressWarnings("rawtypes")
-			TouchAction action = new TouchAction(testCase.getMobileDriver());
-			action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
-			.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+			al.clickOnOpenActivityLogsIcon();
 		}
 		return flag;
 	}

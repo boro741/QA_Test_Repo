@@ -349,6 +349,9 @@ public class DIYRegistrationUtils {
 		if (dasDIY.isSkipButtonInHoneywellMembershipScreenVisible()) {
 			flag = flag & dasDIY.clickOnSkipButtonInHoneywellMembershipScreen();
 		}
+			if (dasDIY.isFeatureSetUpCompletedScreenTitleVisible()){
+				flag = flag & dasDIY.clickOnDoneButtonInFeatureSetUpCompletedScreen();
+		}
 		if (dasDIY.isIncreaseSecurityPopupVisible()) {
 			// flag = flag & LyricUtils.closeCoachMarks(testCase);
 			if (dasDIY.isIncreaseSecurityPopupVisible()) {

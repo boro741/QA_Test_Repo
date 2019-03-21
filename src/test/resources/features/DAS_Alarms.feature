@@ -66,10 +66,11 @@ Given user is set to "Home" mode through CHIL
  
 @Doorsensor_ArmedAway_OpenDoor_SwitchingToHomeFromPushNotification_DoorNotClosedInEntryDelay			 @P1				 @DAS_DoorSensor			 @Automated
     Scenario: As a user when I open the door and left open in armed away state on my arrival to home I should be able to switch to home from push notification and should be shown with current door status
-   Given user is set to "Away" mode through CHIL
-    And user launches and logs in to the Lyric application
+   #Given user is set to "Away" mode through CHIL
+    Given user launches and logs in to the Lyric application
       And user clears all push notifications
      When user navigates to "Security Solution card" screen from the "Dashboard" screen
+     And user is set to "Away" mode through CHIL
       And timer ends on user device
       And user "opens door with app" in background
       And user selects the "Switch to Home from Door Open" push notification
@@ -263,14 +264,14 @@ Given user is set to "Home" mode through CHIL
       And user selects the "Switch to Night from Door open" push notification
       Then user should be displayed with the "Waiting to close" screen
       And user "door" access sensor "closed"
-  #    When timer ends on user device
-  #    Then user status should be set to "Night"
-  #    When user "opens" activity log
-  #    Then verify the following activity log:
-  #     | Elements                 |
- #      | Door Opened at Away mode|
- #      | Door Closed at Away mode |
-  #     | Switched to Night by app |
+   When timer ends on user device
+   Then user status should be set to "Night"
+   When user "opens" activity log
+  Then verify the following activity log:
+   | Elements                 |
+     | Door Opened at Away mode|
+    | Door Closed at Away mode |
+     | Switched to Night by app |
   
 @Doorsensor_ArmedAway_OpenDoor_SwitchingToNightFromEntryDelay_DoorOpenedInEntryDelay_NoAlarm 				@P3 			#N 		@DAS_DoorSensor 			@Automated
     Scenario: As a user when I open the door in away mode I should be able to switch to Night from entry delay screen and close the door in entry delay waiting should be shown no alarm

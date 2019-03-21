@@ -1,6 +1,7 @@
 package com.honeywell.screens;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.By.ByName;
 import org.openqa.selenium.Dimension;
 
 import com.honeywell.commons.coreframework.Keyword;
@@ -13,7 +14,11 @@ import com.honeywell.lyric.utils.LyricUtils;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.offset.PointOption;
+
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
 import static io.appium.java_client.touch.offset.PointOption.point;
+
 
 public class DASDIYRegistrationScreens extends MobileScreens {
 
@@ -881,7 +886,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 				int counter = 0;
 				while (!this.isWiFiNamePresentOnWifiScreen(wifiName) && counter < 4) {
 					LyricUtils.scrollUpAList(testCase, this.getWiFiListWebElement());
-				}
+									}
 				if (this.isWiFiNamePresentOnWifiScreen(wifiName)) {
 					flag = flag & MobileUtils.clickOnElement(testCase, "name", wifiName);
 				} else {
@@ -1522,6 +1527,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SkipButtonInHoneywellMembershipScreen");
 	}
 
+	
 	public boolean clickOnSkipButtonInHoneywellMembershipScreen() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SkipButtonInHoneywellMembershipScreen");
 	}
