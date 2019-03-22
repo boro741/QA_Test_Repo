@@ -140,7 +140,7 @@ Examples:
 
 @DIYRegistrationWithNewCustomLocationAndBaseStationName		@P1			@Automated	@--xrayid:ATER-55041
 Scenario Outline: As a user I want to register a DAS device with new location and base station name using the Lyric application
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+#Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -165,8 +165,8 @@ When user navigates to "Power Base station" screen from the "Base station Help" 
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password
+When user selects "A1" from "Connect to Network" screen
+And user inputs "Vijay1987" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
@@ -187,14 +187,14 @@ Then user "deletes location details" by clicking on "delete" button
 Examples: 
       | new location name           | new device name       | invalid zip code             | valid zip code        |
       | California                  | Scrum Room            | 555555                       | 90001                 |
-      | Texas                       | War Room              | 555555                       | 73301                 |
-     | Texas#$%                    | Ball Room             | 555555                       | 73301                 |
+    #  | Texas                       | War Room              | 555555                       | 73301                 |
+    # | Texas#$%                    | Ball Room             | 555555                       | 73301                 |
 
 
 #Reauire a new account to execute
 @DIYRegistrationWithAvailableDefaultLocationAndBaseStationName		@P2		@Automated @--xrayid:ATER-55043
 Scenario Outline: As a user I want to verify default location name and default base station name
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user selects "Smart Home Security" from "Add New Device" screen
 Then user should be displayed with the "What To Expect" screen
@@ -283,12 +283,12 @@ And user selects <location name> from "Choose Location" screen
 Then user should be displayed with the "Name Your Base Station" screen
 When user selects <device name> from "Name Your Base Station" screen
 Then user should be displayed with the "Power Base Station" screen
-When user DAS device with ADB ID "9c20da88" is deregistered and booted
+When user DAS device with ADB ID "60acc48b" is deregistered and booted
 Then user navigates to "Looking for Base Station" screen from the "Power Base Station" screen
 Then user should receive a "Base Station Not Found" popup
 And user "clicks on OK in" the "Base Station Not Found" popup
 Then user should be displayed with the "Power Base Station" screen
-When user DAS device with ADB ID "9c20da88" is deregistered and booted
+When user DAS device with ADB ID "60acc48b" is deregistered and booted
 Then user navigates to "Looking for Base Station" screen from the "Power Base Station" screen
 And user should receive a "Base Station Not Found" popup
 Then user "retries base station pairing in" the "Base Station Not Found" popup
@@ -303,7 +303,7 @@ Examples:
 
 @DIYWhenQRCodeIsNotScannedAndThenScanned	 		@P3			@Automated @--xrayid:ATER-55050
 Scenario Outline: As a user I should be prompted with Scanning Failure screen when QR code is not scanned
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -347,7 +347,7 @@ Examples:
 
 @DIYWhenInvalidQRCodeIsScannedFirstAndThenScanAValidQRCode 			@P3				@Automated @--xrayid:ATER-55053
 Scenario Outline: As a user my DAS device should not be configured when invalid QR code is scanned
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -391,7 +391,7 @@ Examples:
 
 @DIYTapOnCancelMultipleTimesInRegisterBaseStationScreen			@P2			@CannotAutomate @--xrayid:ATER-55057
 Scenario Outline: As a user I should be able to tap on Cancel multiple times in Register Base Station screen
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -417,7 +417,7 @@ Examples:
 
 @DIYCancelInRegisterBaseStation	 	@P2			@Automated @--xrayid:ATER-55059
 Scenario Outline: As a user I should be able to Cancel the setup in Register Base Station screen
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -443,7 +443,7 @@ Examples:
 
 @DIYCancelInSelectBaseStationsListScreen		@RequiresMultipleBaseStationsForExecution		@P2			@Automated @--xrayid:ATER-55060
 Scenario Outline: As a user I should be able to cancel the setp up in select base station screen when multiple base stations are displayed
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user DAS device with ADB ID "9c43dac2" is deregistered and booted
 When user launches and logs in to the Lyric application
 And user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -565,7 +565,7 @@ Then user should be displayed with the "Power Base Station" screen
 
 @DIYCancelSetUpInConnectToNetworkScreen	 	@P2			@Automated @--xrayid:ATER-55064
 Scenario Outline:: As a user I should be able to cancel set up in Connect to Network screen
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -625,7 +625,7 @@ Examples:
 
 @DIYAddAWiFiNetworkAndRegisterDAS    @Setuprequired		@P2 @--xrayid:ATER-55066
 Scenario Outline: As a user I should be able to add a new network
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -678,7 +678,7 @@ Examples:
 
 @DIYCancelAddANetworkAndTryConnectingWithAvailableNetwork  	@P2			@Automated @--xrayid:ATER-55067
 Scenario Outline: As a user I want to register a DAS device by connecting to available network after cancelling add a network
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -735,7 +735,7 @@ Examples:
 
 @DIYRegistrationWhenSingleBaseStationIsAvailable	 	@P1			@Automated @--xrayid:ATER-55068
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by disabling geofencing and ignorning alexa setup
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -776,7 +776,7 @@ Examples:
       
 @DIYRegistrationWithSkipGeoFenceAndSetUpAlexa	 @P2			@Automated @--xrayid:ATER-55069
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by skiping geofencing and setting up alexa
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -828,7 +828,7 @@ Examples:
 
 @DIYRegistrationWithGeoFenceEnabledAndSetUpAlexa	 	@P1			@Automated @--xrayid:ATER-55070
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by enabling geofencing and setting up alexa
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -873,7 +873,7 @@ Examples:
       
 @DIYRegistrationWhenFirmwareIsNotUpToDate		@FirmwareWithPreviousVersionRequired			@P2				@Automated @--xrayid:ATER-55071
 Scenario Outline: As a user I want to register a DAS device using the Lyric application when firmware update pops up
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -916,7 +916,7 @@ Examples:
       
 @DIYRegistrationByMinimizingAndMaximizingTheApp		@P3			@Automated @--xrayid:ATER-55072
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by navigating to other apps intermittently
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -961,7 +961,7 @@ Examples:
 
 @DIYRegistrationWithInvalidNetworkPwdAndTryReconnectingWithValidPwd	 	@P2			@Automated @--xrayid:ATER-55073
 Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting to a invalid Wi-Fi network
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1002,7 +1002,7 @@ Examples:
 
 @DIYRegistrationByConnectingToOpenWiFiNetwork     @SetUpRequired		@P2 @--xrayid:ATER-55074
 Scenario Outline: As a user I should not be able to connect to a open Wi-Fi network and able to perform DAS registration
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1038,7 +1038,7 @@ Examples:
 
 @DIYRegistrationWhenNetworkConnectivityIsLow 		@P3			@CannotAutomate @--xrayid:ATER-55075
 Scenario Outline: As a user I want to register a DAS device using the Lyric application when network connectivity is low
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1084,7 +1084,7 @@ Examples:
 
 @DIYAddAWiFiNetworkWithInvalidPwdAndTryReconnectingWithAvailableNetwork	 	@P2			@Automated @--xrayid:ATER-55076
 Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting to a invalid Wi-Fi network 
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1127,7 +1127,7 @@ Examples:
 
 @DIYTryToReRegisterDAS		 	@P2			@Automated @--xrayid:ATER-55077
 Scenario Outline: As a user I should be prompted with base station not found popup when I try to reregister DAS using the Lyric application
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1180,7 +1180,7 @@ Examples:
 
 @DIYDeleteExistingDASAndRegisterIt		@P2			@Automated @--xrayid:ATER-55078
 Scenario Outline: As a user I want to register a deleted DAS device using the Lyric application
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1245,7 +1245,7 @@ Examples:
 #Workflow is not confirmed
 @DIYMultipleDASRegistrationsForTheSameAccount		@P2 @--xrayid:ATER-55079
 Scenario Outline: As a user I want to register multiple DAS devices for a single account using the Lyric application
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1309,7 +1309,7 @@ Examples:
 
 @DIYTryToReRegisterDASAfterPerformingFactorySettingsOnDAS			@P2			@CannotAutomate @--xrayid:ATER-55086
 Scenario Outline: As a user I should be prompted with device already registered popup when I try to reregister DAS after performing factory settings on the registered DAS
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1373,7 +1373,7 @@ Examples:
 
 @DASDIYConfigurationVerifyBackArrowFunctionality		@P2			@Automated @--xrayid:ATER-55087
 Scenario Outline: Verify Back arrow functionality while registering DAS
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to the <Current Screen> screen
 And user clicks on the back arrow in the <Current Screen> screen
@@ -1392,7 +1392,7 @@ Examples:
 
 @DIYRegistrationWithAccessSensorEnrollmentWithDefaultName		@P3				@Automated @--xrayid:ATER-55088 
 Scenario Outline: As a user I should be able to successfully enrol Access Sensor with default sensor name through DIY registration
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1500,7 +1500,7 @@ Examples:
 
 @DIYRegistrationWithAccessSensorEnrollmentWithCustomName		@P4			@Automated @--xrayid:ATER-55089
 Scenario Outline: As a user I should be able to successfully enrol Access Sensor with custom sensor name through DIY registration
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1598,7 +1598,7 @@ Examples:
 #Improvement
 @DIYRegistrationWithAccessSensorEnrollmentByNavigatingToNotificationScreen		@P3			@CannotAutomate @--xrayid:ATER-55090
 Scenario Outline: As an user I should not get any push notifications during DIY Flow for the DAS panel in DIY registration
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1686,7 +1686,7 @@ Examples:
 
 @DIYRegistrationByCancellingAccessSensorEnrollmentAndSkipGeofencingAndEnableAlexa		@P3			@Automated @--xrayid:ATER-55091
 Scenario Outline: As a user I should be able to successfully complete DIY registration by cancelling access sensor enrollment and skip geofencing but enabling alexa
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1752,7 +1752,7 @@ Examples:
 #Covered in DIYRegistrationWhenFirmwareIsNotUpToDate scenario
 @DIYRegistrationWithAccessSensorEnrollmentWhenFirmwareIsNotUpToDate		@P3 @--xrayid:ATER-55092
 Scenario Outline: As a user I should be able to successfully enrol Access Sensor with default sensor name through DIY registration when firmware is not upto date
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Smart Home Security Success" screen after registering the base station
 When user receives a "Firmware update" popup
@@ -1821,7 +1821,7 @@ Examples:
 
 @DIYRegistrationWithMotionViewerEnrollmentWithDefaultSensorName		@P3			@Automated @--xrayid:ATER-55093
 Scenario Outline: As a user I should be able to successfully enrol Motion Viewer with default name through DIY registration
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1918,7 +1918,7 @@ Examples:
 
 @DIYRegistrationWithMotionViewerEnrollmentWithCustomSensorName		@P4			@Automated @--xrayid:ATER-55094
 Scenario Outline: As a user I should be able to successfully enrol Motion Viewer with custom name through DIY registration
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -2006,7 +2006,7 @@ Examples:
 
 @DIYRegistrationWithKeyFobEnrollment		@P3			@Automated @--xrayid:ATER-55095
 Scenario Outline: As a user I should be able to successfully enrol Key Fob through DIY
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -2074,7 +2074,7 @@ Examples:
 
 @DIYRegistrationWithISMVEnrollmentWithDefaultSensorName		@P3			@Automated @--xrayid:ATER-55096
 Scenario Outline: As a user I should be able to successfully enrol ISMV with default sensor name through DIY registration
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -2168,7 +2168,7 @@ Examples:
 
 @DIYRegistrationWithISMVEnrollmentWithCustomSensorName		@P4			@Automated @--xrayid:ATER-55097 
 Scenario Outline: As a user I should be able to successfully enrol ISMV with custom sensor name through DIY registration
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -2252,7 +2252,7 @@ Examples:
 
 @DIYRegistrationWithOSMVEnrollmentWithDefaultSensorName		@P3			@Automated @--xrayid:ATER-55098
 Scenario Outline: As a user I should be able to successfully enrol OSMV with default sensor name through DIY registration
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -2346,7 +2346,7 @@ Examples:
 
 @DIYRegistrationWithOSMVEnrollmentWithCustomSensorName		@P4			@Automated @--xrayid:ATER-55099
 Scenario Outline: As a user I should be able to successfully enrol OSMV with custom sensor name through DIY registration
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -2437,7 +2437,7 @@ Examples:
 
 @DIYRegistrationWithSensorBulkEnrollment    @P1			@Automated @--xrayid:ATER-55100
 Scenario Outline: As a user I should be able to successfully enrol various types of sensors through DIY registration
-Given user DAS device with ADB ID "9c20da88" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen

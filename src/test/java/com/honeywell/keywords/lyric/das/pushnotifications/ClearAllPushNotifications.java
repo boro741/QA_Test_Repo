@@ -79,16 +79,10 @@ public class ClearAllPushNotifications extends Keyword {
 							 * 0).release() .perform(); touchAction.tap((dimensions.width - 20), (startY +
 							 * 30)).perform();
 							 */
-							touchAction.press(point((startX + 150), (startY + 20))).waitAction(waitOptions(MobileUtils.getDuration(4000))).moveTo(point((endX - 100), 0))
+							touchAction.press(point((startX + 150), (startY + 20))).waitAction(waitOptions(MobileUtils.getDuration(5000))).moveTo(point((endX - 100), 0))
 									.release().perform();
-							try {
-								Thread.sleep(1000);
-							} catch (InterruptedException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
 							touchAction.tap(tapOptions().withPosition(point((dimensions.width - 20), (startY + 30))))
-									.perform();
+									.perform();							
 						}
 					} else {
 						break;
