@@ -40,10 +40,10 @@ public class DASSettingsUtils {
 				 * "//android.widget.TextView[@text='This will delete your Smart Home Security and all the connected accessories. Are you sure you want to delete \""
 				 * + inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"?']";
 				 */
-				message = "//android.widget.TextView[@text='This will delete " + "\""
+				message = "//android.widget.TextView[@text=' This will delete " + "\""
 						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\""
 						+ ", all related accessories and facial recognition']";
-				messageWithMembership = "//android.widget.TextView[@text='This will delete " + "\""
+				messageWithMembership = "//android.widget.TextView[@text=' This will delete " + "\""
 						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\""
 						+ ", all related accessories and facial recognition. Please remember to edit or cancel this device from your Membership']";
 				messageWithHoneywellMembership = "//android.widget.TextView[@text='This will delete " + "\""
@@ -56,7 +56,7 @@ public class DASSettingsUtils {
 				 * "  This will delete your Smart Home Security and all the connected accessories.     Are you sure you want to delete \""
 				 * + inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\"?";
 				 */
-				message = "  This will delete " + "\"" + inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\""
+				message = " This will delete " + "\"" + inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\""
 						+ ", all related accessories and facial recognition.";
 				messageWithHoneywellMembership = "  This will delete " + "\""
 						+ inputs.getInputValue("LOCATION1_CAMERA1_NAME") + "\""

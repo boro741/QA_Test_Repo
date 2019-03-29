@@ -25,10 +25,6 @@ import static io.appium.java_client.touch.TapOptions.tapOptions;
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
 import static io.appium.java_client.touch.offset.PointOption.point;
 
-import static io.appium.java_client.touch.TapOptions.tapOptions;
-import static io.appium.java_client.touch.WaitOptions.waitOptions;
-import static io.appium.java_client.touch.offset.PointOption.point;
-
 
 public class ActionOnPushNotification extends Keyword {
 
@@ -233,30 +229,16 @@ public class ActionOnPushNotification extends Keyword {
 		String locatorValue = "";
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			locatorValue = "//*[@text='" + notification + "']";
-
 		} else {
 			locatorValue = "//XCUIElementTypeCell[contains(@label,'" + notification + "')]";
 		}
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if (testCase.getMobileDriver().findElementsByXPath(locatorValue).get(0) != null) {
+		if (MobileUtils.isMobElementExists("xpath", locatorValue, testCase)) {
 			Keyword.ReportStep_Pass(testCase, "'" + notification + "' Push Notification Present");
-			WebElement ele = testCase.getMobileDriver().findElementsByXPath(locatorValue).get(0);
-
+			WebElement ele = MobileUtils.getMobElement(testCase, "xpath", locatorValue);
 			int xAxix = ele.getLocation().getX();
 			int yAxix = ele.getLocation().getY();
-			// if (testCase.getMobileDriver().getPlatformName().contains("Android")){
-			System.out.println("In click Method");
-			testCase.getMobileDriver().findElementsByXPath(locatorValue).get(0).click();
-			// }else{
-			// testCase.getMobileDriver().launchApp();
-			// }
+			MobileUtils.clickOnElement(testCase, "xpath", locatorValue);
 			testCase.getMobileDriver().swipe(xAxix, yAxix, 300, 0, 1);
-
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				if (MobileUtils.isMobElementExists("ID", "com.android.systemui:id/quick_settings_panel", testCase, 5)) {
 					Keyword.ReportStep_Pass(testCase, "Quick Settings Panel is displayed.");

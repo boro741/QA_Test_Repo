@@ -998,8 +998,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AlmostDoneLoadingSpinnerTxt", 3);
 	}
 
-	public boolean isSmartHomeSecuritySuccessHeaderTitleVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SmartHomeSecuritySuccessHeaderTitle");
+	public boolean isSmartHomeSecuritySuccessHeaderTitleVisible(int timeout) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SmartHomeSecuritySuccessHeaderTitle",timeout);
 	}
 
 	public boolean isNoButtonInSmartHomeSecuritySuccessScreenVisible() {

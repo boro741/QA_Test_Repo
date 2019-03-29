@@ -140,7 +140,7 @@ Examples:
 
 @DIYRegistrationWithNewCustomLocationAndBaseStationName		@P1			@Automated	@--xrayid:ATER-55041
 Scenario Outline: As a user I want to register a DAS device with new location and base station name using the Lyric application
-#Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "60acc48b" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -178,7 +178,7 @@ Then user should be displayed with "Security" device on the "dashboard" screen
 And user should be displayed with <new device name> device on the "dashboard" screen
 When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
 And user "deletes DAS device" by clicking on "delete" button
-Then user should receive a "Delete DAS Confirmation" popup
+#Then user should receive a "Delete DAS Confirmation" popup
 When user "accepts" the "Delete DAS Confirmation" popup
 Then user should not be displayed with "Security" device on the "dashboard" screen
 And user should not be displayed with <new device name> device on the "dashboard" screen

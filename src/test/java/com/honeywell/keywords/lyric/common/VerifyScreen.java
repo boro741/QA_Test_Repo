@@ -489,7 +489,7 @@ public class VerifyScreen extends Keyword {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase,
 						"ALMOST DONE LOADING PROGRESS BAR TEXT", 5);
-				if (dasDIY.isSmartHomeSecuritySuccessHeaderTitleVisible()) {
+				if (dasDIY.isSmartHomeSecuritySuccessHeaderTitleVisible(180)) {
 					Keyword.ReportStep_Pass(testCase,
 							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
 				} else {
@@ -508,7 +508,7 @@ public class VerifyScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
-					if (dasDIY.isSmartHomeSecuritySuccessHeaderTitleVisible()) {
+					if (dasDIY.isSmartHomeSecuritySuccessHeaderTitleVisible(15)) {
 						if (dasDIY.isNoButtonInSmartHomeSecuritySuccessScreenVisible()) {
 							dasDIY.clickOnNoButtonInSmartHomeSecuritySuccessScreen();
 						}
