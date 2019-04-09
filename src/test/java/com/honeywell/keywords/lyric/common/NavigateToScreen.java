@@ -2730,7 +2730,6 @@ public class NavigateToScreen extends Keyword {
 					DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 1);
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					flag = flag & sensor.clickOnMotionSensorHelpBack();
-					flag = flag & sensor.clickOnAccessSensorHelpBack();
 					break;
 				}
 				default: {

@@ -25,7 +25,7 @@ And user should see <Sensor Devices> with count as <Sensor Devices Count> and <I
 
 Examples:
 | Key Fob Devices	| Key Fob Devices Count	| Sensor Devices	| Sensor Devices Count	| Without Issues	| Issues Count	| Door Access Sensor Status	| Window Access Sensor Status	| Motion Sensor Status	| ISMV Status	| OSMV Status	|
-| Key Fob			| 2						| Sensors		| 5						| No issues		| 4				| Opened						| Tampered						| Cover Tampered			| Low Battery	| Offline		|
+| Key Fob			| 1						| Sensors		| 5						| No issues		| 4				| Opened						| Tampered						| Cover Tampered			| Low Battery	| Offline		|
 
 
 #Requirement :One DAS Panel and one Door Sensor should be configured
@@ -43,13 +43,13 @@ Examples:
 | Mode				| Sensor status		|
 | Home				| Cover Tampered		|
 | Home				| Open				|
-| Home				| Low battery		|
+#| Home				| Low battery		|
 | Off 				| Cover Tampered		|
 | Off				| Open				|
 | Off				| Low battery		|
-| Sensor Enrollment	| Cover Tampered		|
-| Sensor Enrollment	| Open				|
-| Sensor Enrollment	| Low battery		|
+#| Sensor Enrollment	| Cover Tampered		|
+#| Sensor Enrollment	| Open				|
+#| Sensor Enrollment	| Low battery		|
 
 
 #Requirement :One DAS Panel and one Access Sensor should be configured
@@ -67,13 +67,13 @@ Examples:
 | Mode				| Sensor status		|
 | Home				| Cover Tampered		|
 | Home				| Open				|
-| Home				| Low battery		|
+#| Home				| Low battery		|
 | Off 				| Cover Tampered		|
 | Off				| Open				|
-| Off				| Low battery		|
-| Sensor Enrollment	| Cover Tampered		|
-| Sensor Enrollment	| Open				|
-| Sensor Enrollment	| Low battery		|
+#| Off				| Low battery		|
+#| Sensor Enrollment	| Cover Tampered		|
+#| Sensor Enrollment	| Open				|
+#| Sensor Enrollment	| Low battery		|
 
 
 #Requirement :One DAS Panel and one Motion Sensor should be configured
@@ -176,8 +176,8 @@ Examples:
 | Door Access Settings	| Night		|
 | Window Access Settings	| Away		|
 | Motion Sensor Settings	| Off	|
-| ISMV Sensor Settings  	| Alarm		|
-| OSMV Sensor Settings  	| Night		|
+#| ISMV Sensor Settings  	| Alarm		|
+#| OSMV Sensor Settings  	| Night		|
 
 
 #Requirement :One DAS Panel and one Key fob should be configured
@@ -212,7 +212,7 @@ And user navigates to "Security Solution Card" screen from the "Dashboard" scree
 #And user "Cover Tampered" the Motion sensor
 When user "Door" access sensor "Cover Tampered"
 And user "Window" access sensor "Cover Tampered"
-And user motion sensor "Cover Tampered"
+#And user motion sensor "Cover Tampered"
 And user switches from <Mode> to "Away"
 Then user should receive a "Switch to Away" popup
 When user "accepts" the "Switch to Away" popup
@@ -222,11 +222,11 @@ Then user should be displayed with a switching to "Away" text
 And user should be displayed with switching timer
 And timer ends on user device
 And user status should be set to "Away"
-When user navigates to "Sensor List" screen from the "Security Solution Card" screen
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
 Then user should see the "Door Sensor" status as "OFF" on the "Sensor List"
 And user should see the "Window Sensor" status as "OFF" on the "Sensor List"
-And user should see the "Motion Sensor" status as "OFF" on the "Sensor List"
-#| Sensors       | Sensor Status	|
+#And user should see the "Motion Sensor" status as "OFF" on the "Sensor List"
+| Sensors       | Sensor Status	|
 #| Door Sensor   | OFF       		|
 #| Window Sensor | OFF       		|
 #| Motion Sensor | OFF       		|
@@ -258,10 +258,10 @@ And user should be displayed with a switching to "Night" text
 And user should be displayed with switching timer
 And timer ends on user device
 And user status should be set to "Night"
-When user navigates to "Sensor List" screen from the "Security Solution Card" screen
+When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
 Then user should see the "Door Sensor" status as "OFF" on the "Sensor List"
 And user should see the "Window Sensor" status as "OFF" on the "Sensor List"
-And user should see the "Motion Sensor" status as "COVER TAMPERED" on the "Sensor List"
+#And user should see the "Motion Sensor" status as "COVER TAMPERED" on the "Sensor List"
 #| Sensors       | Sensor Status	|
 #| Door Sensor   | OFF       		|
 #| Window Sensor | OFF       		|
@@ -292,6 +292,7 @@ And user should receive a "Sensor Tamper" popup
 When user "RETRY" the "Sensor Tamper" popup
 When user <SensorType> access sensor "tamper cleared"
 When user "RETRY" the "Sensor Tamper" popup
+And user <SensorType> access sensor "closed"
 And user should see the <SensorType> status as "Closed" on the "Access sensor Settings"
 
 Examples:
@@ -435,7 +436,7 @@ Examples:
 | Away		|
 | Night		|
 | OFF		|
-| OFFLINE	|
+#| OFFLINE	|
 
 
 #Requirement :One DAS Panel and one Door Access Sensor should be configured
@@ -460,14 +461,14 @@ When user navigates to "Door Access Settings" screen from the "Test Access Senso
 Examples:
 | Mode					| Access Sensor Status	|
 | Home					| Cover Tampered			|
-| Home					| Open					|
-| Home					| Low battery			|
-| Off 					| Cover Tampered			|
-| Off 					| Open					|
-| Off 					| Low battery			|
-| Sensor Enrollment 	| Cover Tampered			|
-| Sensor Enrollment 	| Open					|
-| Sensor Enrollment 	| Low battery			|
+#| Home					| Open					|
+#| Home					| Low battery			|
+#| Off 					| Cover Tampered			|
+#| Off 					| Open					|
+#| Off 					| Low battery			|
+#| Sensor Enrollment 	| Cover Tampered			|
+#| Sensor Enrollment 	| Open					|
+#| Sensor Enrollment 	| Low battery			|
 
 
 #Requirement :One DAS Panel and one Door Access Sensor should be configured
@@ -491,15 +492,15 @@ When user navigates to "Window Access Settings" screen from the "Test Access Sen
 
 Examples:
 | Mode					| Access Sensor Status	|
-#| Home					| Cover Tampered			|
+| Home					| Cover Tampered			|
 | Home					| Open					|
-| Home					| Low battery			|
+#| Home					| Low battery			|
 | Off 					| Cover Tampered			|
 | Off 					| Open					|
-| Off 					| Low battery			|
-| Sensor Enrollment 	| Cover Tampered			|
-| Sensor Enrollment 	| Open					|
-| Sensor Enrollment 	| Low battery			|
+#| Off 					| Low battery			|
+#| Sensor Enrollment 	| Cover Tampered			|
+#| Sensor Enrollment 	| Open					|
+#| Sensor Enrollment 	| Low battery			|
 
 
 #Requirement :One DAS Panel and one Motion Sensor should be configured

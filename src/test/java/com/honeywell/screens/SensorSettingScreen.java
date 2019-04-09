@@ -169,8 +169,8 @@ public class SensorSettingScreen extends MobileScreens {
 	}
 
 	public boolean clickOnSensorNotWorking() {
-		DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 2);
-		MobileUtils.clickOnElement(objectDefinition, testCase, "SensorNotWorkingButton");
+//		DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 2);
+//		MobileUtils.clickOnElement(objectDefinition, testCase, "SensorNotWorkingButton");
 		DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 2);
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorNotWorkingButton");
 	}
@@ -404,7 +404,6 @@ public class SensorSettingScreen extends MobileScreens {
 	}
 
 	public boolean clickOnTestSensorBack() {
-		MobileUtils.clickOnElement(objectDefinition, testCase, "TestSensorBack");
 		DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "IN PROGRESS BAR", 2);
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "TestSensorBack");
 	}
