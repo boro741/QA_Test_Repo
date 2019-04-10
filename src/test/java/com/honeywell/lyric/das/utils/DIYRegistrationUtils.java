@@ -130,7 +130,7 @@ public class DIYRegistrationUtils {
 	public static boolean navigateFromConnectToNetworkToSmartHomeSecuritySuccess(TestCases testCase) {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
-		flag = flag & dasDIY.isSmartHomeSecuritySuccessHeaderTitleVisible();
+		flag = flag & dasDIY.isSmartHomeSecuritySuccessHeaderTitleVisible(15);
 		if (dasDIY.isNoButtonInSmartHomeSecuritySuccessScreenVisible()) {
 			flag = flag & dasDIY.clickOnNoButtonInSmartHomeSecuritySuccessScreen();
 		}
@@ -254,7 +254,7 @@ public class DIYRegistrationUtils {
 				&& dasDIY.isSaveButtonInSetUpAccessoriesConfiguredScreenVisible()) {
 			flag = flag & dasDIY.clickOnSaveButtonInSetUpAccessoriesConfiguredScreen();
 			flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "FINISHING UP PROGRESS BAR", 1);
-			if (dasDIY.isSmartHomeSecuritySuccessHeaderTitleVisible()) {
+			if (dasDIY.isSmartHomeSecuritySuccessHeaderTitleVisible(15)) {
 				flag = flag & dasDIY.clickOnNoButtonInSmartHomeSecuritySuccessScreen();
 			}
 			flag = flag & dasDIY.isGeoFencingHeaderTitleVisible(5);
@@ -312,7 +312,7 @@ public class DIYRegistrationUtils {
 	public static boolean navigateFromSmartHomeSecuritySuccessToEnableGeoFencing(TestCases testCase) {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
-		flag = flag & dasDIY.isSmartHomeSecuritySuccessHeaderTitleVisible();
+		flag = flag & dasDIY.isSmartHomeSecuritySuccessHeaderTitleVisible(15);
 		if (dasDIY.isNoButtonInSmartHomeSecuritySuccessScreenVisible()) {
 			flag = flag & dasDIY.clickOnNoButtonInSmartHomeSecuritySuccessScreen();
 		}

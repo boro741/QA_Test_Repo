@@ -323,12 +323,7 @@ public class AlarmScreen extends MobileScreens {
 	public void swipe(String locatorValue) {
 
 		MobileElement notificationLocation;
-		if (testCase.getMobileDriver().getPlatformName().contains("Android")) {
-			notificationLocation = MobileUtils.getMobElement(testCase, "xpath", locatorValue);
-		} else {
-			notificationLocation = testCase.getMobileDriver().findElementsByXPath(locatorValue).get(0);
-		}
-
+		notificationLocation = MobileUtils.getMobElement(testCase, "xpath", locatorValue);
 		int NotificationStartX = notificationLocation.getLocation().getX();
 		int NotificationStartY = notificationLocation.getLocation().getY();
 		int leftsidePoint = 150;
@@ -422,11 +417,11 @@ public class AlarmScreen extends MobileScreens {
 			testCase.getMobileDriver().findElementByName("Switch to Night").click();
 			flag = true;
 		}
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchToNightButton")) {
-			Keyword.ReportStep_Pass(testCase,
-					"Failed to click on SWITCH TO NIGHT button in PUSH NOTIFICATION. Hence clicking on SWITCH TO NIGHT button in Entry Delay screen");
-			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchToNightButton");
-		}
+//		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SwitchToNightButton")) {
+//			Keyword.ReportStep_Pass(testCase,
+//					"Failed to click on SWITCH TO NIGHT button in PUSH NOTIFICATION. Hence clicking on SWITCH TO NIGHT button in Entry Delay screen");
+//			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "SwitchToNightButton");
+//		}
 		flag &= DASAlarmUtils.waitForProgressBarToComplete(testCase, "PROGRESS BAR", 2);
 		return flag;
 	}
