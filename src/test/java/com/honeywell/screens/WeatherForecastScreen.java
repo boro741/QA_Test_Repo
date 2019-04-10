@@ -36,8 +36,8 @@ public class WeatherForecastScreen extends MobileScreens {
 		return tempUnit;
 	}
 
-	public boolean isWeatherScreenTitleDisplayed() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WeatherScreenTitle");
+	public boolean isWeatherScreenTitleDisplayed(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WeatherScreenTitle", timeOut);
 	}
 
 	public boolean clickOnBackIcon() {
@@ -136,5 +136,15 @@ public class WeatherForecastScreen extends MobileScreens {
 
 	public String getWeatherForecastValue() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "WeatherForecastValue");
+	}
+
+	public String getWeatherForecastStatus() {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.getMobElement(objectDefinition, testCase, "WeatherForecastStatus").getAttribute("text");
+		} else {
+			// ios
+			return MobileUtils.getMobElement(objectDefinition, testCase, "WeatherForecastStatus").getAttribute("value")
+					.toLowerCase();
+		}
 	}
 }

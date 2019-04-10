@@ -41,7 +41,7 @@ public class VerifyTextDisplayedInTheScreen extends Keyword {
 	public boolean keywordSteps() {
 		if (inputText.get(1).equalsIgnoreCase("ADDRESS")) {
 			AddressScreen ads = new AddressScreen(testCase);
-			List<String> locationAddressDisplayedInAddressScreen = ads.getLocationAddressDisplayedInAddressScreen();
+			List<String> locationAddressDisplayedInAddressScreen = new ArrayList<String>();
 			switch (inputText.get(0).toUpperCase()) {
 			case "LOCATION NAME": {
 				if (ads.isLocationNameInAddressScreenVisible()) {
@@ -111,6 +111,7 @@ public class VerifyTextDisplayedInTheScreen extends Keyword {
 			case "LOCATION ADDRESS": {
 				if (ads.isLocationAddressInAddressScreenVisible()) {
 					Keyword.ReportStep_Pass(testCase, "Location Address is displayed in Address Screen");
+					locationAddressDisplayedInAddressScreen = ads.getLocationAddressDisplayedInAddressScreen();
 					for (String str : locationAddressDisplayedInAddressScreen) {
 						System.out.println("*********str:" + str);
 						System.out.println("*********LOCATION_ADDRESS:" + inputs.getInputValue("LOCATION_ADDRESS"));
@@ -132,7 +133,7 @@ public class VerifyTextDisplayedInTheScreen extends Keyword {
 				break;
 			}
 			case "DEFAULT COUNTRY": {
-				String countryName = ads.getCountryNameDisplayedInAddressScreen();
+				String countryName = ads.getCountryNameDisplayedInAddressScreen(inputs);
 				if (!countryName.isEmpty() && countryName != null) {
 					inputs.setInputValue("DEFAULT_COUNTRY_IN_ADDRESS_SCREEN", countryName);
 					System.out.println("#########DEFAULT_COUNTRY_IN_ADDRESS_SCREEN: "
@@ -146,7 +147,7 @@ public class VerifyTextDisplayedInTheScreen extends Keyword {
 				break;
 			}
 			case "UPDATED COUNTRY": {
-				String countryName = ads.getCountryNameDisplayedInAddressScreen();
+				String countryName = ads.getCountryNameDisplayedInAddressScreen(inputs);
 				if (!countryName.isEmpty() && countryName != null) {
 					System.out.println("#########UPDATED_COUNTRY_IN_ADDRESS_SCREEN: "
 							+ inputs.getInputValue("UPDATED_COUNTRY_IN_ADDRESS_SCREEN"));
@@ -162,6 +163,7 @@ public class VerifyTextDisplayedInTheScreen extends Keyword {
 				if (ads.isLocationAddressInAddressScreenVisible()) {
 					System.out.println("###########addressText.get(0): " + inputText.get(0));
 					Keyword.ReportStep_Pass(testCase, "Location Address is displayed in Address Screen");
+					locationAddressDisplayedInAddressScreen = ads.getLocationAddressDisplayedInAddressScreen();
 					for (String str : locationAddressDisplayedInAddressScreen) {
 						System.out.println("########str:" + str);
 						if (str.contains(inputText.get(0))) {

@@ -45,7 +45,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		}
 		return flag;
 	}
-	
+
 	public boolean isDeviceListHeaderTitleVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DevicesList");
 	}
@@ -150,7 +150,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 			System.out.println("######dimensions.height:- " + dimensions.height);
 			System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
 			System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
-			//touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			// touchAction.tap((dimensions.width - 100), (dimensions.height -
+			// 100)).perform();
 			touchAction.tap(point((dimensions.width - 100), (dimensions.height - 100))).perform();
 			if (inputs.isRunningOn("Perfecto")) {
 				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -159,8 +160,10 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 					System.out.println("######dimensions.height:- " + dimensions.height);
 					System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
 					System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
-					//touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
-					//touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+					// touchAction.tap((dimensions.width - 100), (dimensions.height -
+					// 100)).perform();
+					// touchAction.tap((dimensions.width - 100), (dimensions.height -
+					// 100)).perform();
 					touchAction.tap(point((dimensions.width - 100), (dimensions.height - 100))).perform();
 					touchAction.tap(point((dimensions.width - 100), (dimensions.height - 100))).perform();
 				}
@@ -217,7 +220,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 			System.out.println("######dimensions.height:- " + dimensions.height);
 			System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
 			System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
-			//touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			// touchAction.tap((dimensions.width - 100), (dimensions.height -
+			// 100)).perform();
 			touchAction.tap(point((dimensions.width - 100), (dimensions.height - 100))).perform();
 			return flag;
 		} else {
@@ -264,10 +268,12 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	public boolean clickOnCancelButton() {
 		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButton", 5)) {
-			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton");
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton",
+					"Cancel popup should be retained", false);
 		} else {
 			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInSetUp", 5)) {
-				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInSetUp");
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInSetUp",
+						"Cancel popup should be retained", false);
 			} else {
 				if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 					if (isQRCodeScanningFailurePopupVisible()) {
@@ -276,7 +282,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 					if (MobileUtils.isMobElementExists("XPATH", "(//XCUIElementTypeButton[@name=\"Cancel\"])[3]",
 							testCase)) {
 						flag = flag & MobileUtils.clickOnElement(testCase, "XPATH",
-								"(//XCUIElementTypeButton[@name=\"Cancel\"])[3]");
+								"(//XCUIElementTypeButton[@name=\"Cancel\"])[3]", "Cancel popup should be retained",
+								false);
 					}
 				}
 			}
@@ -467,7 +474,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 			System.out.println("######dimensions.height:- " + dimensions.height);
 			System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
 			System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
-			//touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			// touchAction.tap((dimensions.width - 100), (dimensions.height -
+			// 100)).perform();
 			touchAction.tap(point((dimensions.width - 100), (dimensions.height - 100))).perform();
 			return flag;
 		} else {
@@ -500,7 +508,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 			System.out.println("######dimensions.height:- " + dimensions.height);
 			System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
 			System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
-			//touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			// touchAction.tap((dimensions.width - 100), (dimensions.height -
+			// 100)).perform();
 			touchAction.tap(point((dimensions.width - 100), (dimensions.height - 100))).perform();
 		} else {
 			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonInKeyboard");
@@ -977,7 +986,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 		Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			//touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			// touchAction.tap((dimensions.width - 100), (dimensions.height -
+			// 100)).perform();
 			touchAction.tap(point((dimensions.width - 100), (dimensions.height - 100))).perform();
 			return true;
 		} else {
@@ -1483,7 +1493,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 			System.out.println("######dimensions.height:- " + dimensions.height);
 			System.out.println("######(dimensions.width - 100):- " + (dimensions.width - 100));
 			System.out.println("######(dimensions.height - 100):- " + (dimensions.height - 100));
-			//touchAction.tap((dimensions.width - 100), (dimensions.height - 100)).perform();
+			// touchAction.tap((dimensions.width - 100), (dimensions.height -
+			// 100)).perform();
 			touchAction.tap(point((dimensions.width - 100), (dimensions.height - 100))).perform();
 			return flag;
 		} else {
@@ -1938,11 +1949,11 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	public String getSensorRangeSubTitleText() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "SensorRangeTestTitle");
 	}
-	
+
 	public boolean isSelectADeviceToInstallHeaderTitleVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SelectADeviceToInstallHeaderTitle");
 	}
-	
+
 	public boolean isAllMobElementsInAddNewDeviceHeaderSectionVisible() {
 		boolean flag = true;
 		if (this.isDeviceListHeaderTitleVisible()) {
@@ -1978,4 +1989,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		}
 		return flag;
 	}
-} 
+	
+	public boolean isFetchingEULAScreenLoadingSpinnerVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FetchingEULAScreenLoadingSpinner");
+	}
+}

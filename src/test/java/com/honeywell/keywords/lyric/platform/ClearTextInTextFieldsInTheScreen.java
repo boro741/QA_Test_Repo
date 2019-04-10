@@ -113,8 +113,8 @@ public class ClearTextInTextFieldsInTheScreen extends Keyword {
 				String parameter = data.getData(i, "TextFieldsInEditAccountScreen");
 				switch (parameter.toUpperCase()) {
 				case "FIRST NAME TEXT FIELD": {
-					if (eas.isFirstNameLabelInEditAccountScreenVisible()
-							&& eas.isFirstNameValueInEditAccountScreenVisible()) {
+					if (eas.isFirstNameLabelVisibleInNameScreen()
+							&& eas.isFirstNameValueVisibleInNameScreen()) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 						flag &= EditAccountUtils.clearTextDisplayedInEditAccountTextFields(testCase, inputs, parameter);
 					} else {
@@ -124,8 +124,8 @@ public class ClearTextInTextFieldsInTheScreen extends Keyword {
 					break;
 				}
 				case "LAST NAME TEXT FIELD": {
-					if (eas.isLastNameLabelInEditAccountScreenVisible()
-							&& eas.isLastNameValueInEditAccountScreenVisible()) {
+					if (eas.isLastNameLabelVisibleInNameScreen()
+							&& eas.isLastNameValueVisibleInNameScreen()) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 						flag &= EditAccountUtils.clearTextDisplayedInEditAccountTextFields(testCase, inputs, parameter);
 					} else {

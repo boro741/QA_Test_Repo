@@ -350,6 +350,11 @@ public class VerifyScreen extends Keyword {
 				if (dasDIY.isConfirmYourAddressZipCodeTitleVisible()) {
 					Keyword.ReportStep_Pass(testCase,
 							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
+				} else if (inputs.isRunningOn("Perfecto") && inputs.getInputValue("SELECTED_COUNTRY") != null
+						&& !inputs.getInputValue("SELECTED_COUNTRY").isEmpty()
+						&& inputs.getInputValue("SELECTED_COUNTRY").equalsIgnoreCase("United States")) {
+					Keyword.ReportStep_Pass(testCase, "Country Selected is: " + inputs.getInputValue("SELECTED_COUNTRY")
+							+ ". Hence Confirm Your Zip Code screen will not be displayed.");
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1001,8 +1006,7 @@ public class VerifyScreen extends Keyword {
 			case "PLEASE CONFIRM YOUR COUNTRY": {
 				AddNewDeviceScreen adn = new AddNewDeviceScreen(testCase);
 				flag &= DashboardUtils.waitForProgressBarToComplete(testCase, "PROGRESS BAR", 1);
-				if (adn.isConfirmYourCountryScreenTitleVisible() && adn.isCurrentCountryButtonVisible()
-						&& adn.isEnterCountryTextFieldVisible()) {
+				if (adn.isConfirmYourCountryScreenTitleVisible() && adn.isCurrentCountryButtonVisible()) {
 					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1014,7 +1018,7 @@ public class VerifyScreen extends Keyword {
 				AddressScreen ads = new AddressScreen(testCase);
 				if (ads.isAddressScreenTitleVisible() && ads.isBackButtonVisible()
 						&& ads.isLocationNameInAddressScreenVisible() && ads.isLocationAddressInAddressScreenVisible()
-						&& ads.isEditAddressInAddressScreenVisible()
+						&& ads.isEditButtonInAddressScreenVisible()
 						&& ads.isDeleteLocationButtonInAddressScreenVisible()) {
 					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
 				} else {
@@ -1035,17 +1039,12 @@ public class VerifyScreen extends Keyword {
 			}
 			case "EDIT ACCOUNT": {
 				EditAccountScreen eas = new EditAccountScreen(testCase);
-				if (eas.isEditAccountScreenTitleVisible() && eas.isFirstNameLabelInEditAccountScreenVisible()
-						&& eas.isFirstNameValueInEditAccountScreenVisible()
-						&& eas.isLastNameLabelInEditAccountScreenVisible()
-						&& eas.isLastNameValueInEditAccountScreenVisible()
+				if (eas.isEditAccountScreenTitleVisible() && eas.isNameLabelInEditAccountScreenVisible()
 						&& eas.isEmailLabelInEditAccountScreenVisible() && eas.isEmailValueInEditAccountScreenVisible()
 						&& eas.isChangePasswordButtonInEditAccountScreenVisible()
 						&& eas.isDeleteAccountButtonInEditAccountScreenVisible()
-						&& eas.isPrivacyLabelInEditAccountScreenVisible()
 						&& eas.isUsePasscodeLabelInEditAccountScreenVisible()
-						&& eas.isUsePasscodeSwitchInEditAccountScreenVisible()
-						&& eas.isSaveButtonInEditAccountScreenVisible()) {
+						&& eas.isUsePasscodeSwitchInEditAccountScreenVisible()) {
 					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1091,6 +1090,18 @@ public class VerifyScreen extends Keyword {
 				EditAccountScreen eas = new EditAccountScreen(testCase);
 				if (eas.isDeleteAccountScreenTitleVisible() && eas.isCloseButtonInDeleteAccountScreenVisible()
 						&& eas.isActionRequiredLabelVisible() && eas.isLearnHowToDeleteADeviceLinkVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
+			case "DELETE ACCOUNT WITH SOLUTION FOR CAMERA": {
+				EditAccountScreen eas = new EditAccountScreen(testCase);
+				if (eas.isDeleteAccountScreenTitleVisible() && eas.isCloseButtonInDeleteAccountScreenVisible()
+						&& eas.isActionRequiredLabelVisible() && eas.isLearnHowToDeleteADeviceLinkVisible()
+						&& eas.isLearnHowToCancelAMembershipLinkVisible()) {
 					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1158,8 +1169,7 @@ public class VerifyScreen extends Keyword {
 			case "PRIVACY POLICY AND EULA FOR SELECTED COUNTRY": {
 				AddNewDeviceScreen and = new AddNewDeviceScreen(testCase);
 				DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "PRIVACY POLICY LOADING SPINNER", 2);
-				if (and.isPrivacyPolicyAndEULAScreenTitleVisible()
-						&& and.isPrivacyPolicyAndEULAScreenDataVisible()) {
+				if (and.isPrivacyPolicyAndEULAScreenTitleVisible(20) && and.isPrivacyPolicyAndEULAScreenDataVisible()) {
 					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1608,17 +1618,18 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-			case "MOBILE DEVICE LOCATION SETTINGS" : {
-				MobileDeviceSettingsScreen mdls= new MobileDeviceSettingsScreen(testCase);
-				if(mdls.isMobileDeviceLocationHeaderDisplayed()) {
+			case "MOBILE DEVICE LOCATION SETTINGS": {
+				MobileDeviceSettingsScreen mdls = new MobileDeviceSettingsScreen(testCase);
+				if (mdls.isMobileDeviceLocationHeaderDisplayed()) {
 					Keyword.ReportStep_Pass(testCase, "Mobile Device Location Settings screen is displayed");
-				}else {
-					
-				}Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+				} else {
+
+				}
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Failed to navigate to " + expectedScreen.get(0));
 				break;
 			}
-			
+
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

@@ -211,4 +211,24 @@ public class CreateAccountScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton");
 	}
 
+	public boolean isEmailAddressAlreadyRegisteredPopupDisplayed() {
+		// return MobileUtils.isMobElementExists(objectDefinition, testCase,
+		// "EmailAddressAlreadyRegisteredPopup", timeOut);
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return testCase.getMobileDriver().findElement(By.xpath(
+					"//android.widget.TextView[@text='This email address is already registered. Do you want to log in?']"))
+					.isEnabled();
+		} else {
+			// ios
+			return testCase.getMobileDriver()
+					.findElement(By.name("This email address is already registered. Do you want to log in?"))
+					.isEnabled();
+		}
+
+	}
+
+	public boolean isInvalidPasswordFormatValidationDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "InvalidPasswordFormatValidation");
+	}
+
 }

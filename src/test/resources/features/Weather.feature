@@ -3,7 +3,7 @@ Feature: Weather forecast, As user I want to view the outdoor temperature from w
 
 #Dashboard weather 
 #Requirements: Single location with or with out solution 
-@GeneralWeatherForecastWithOrWithoutSolutionDashboard          @Automatable
+@GeneralWeatherForecastWithOrWithoutSolutionDashboard          @Automated
 Scenario: As a user I want to verify the weather forecast for the location with temper scale celsius or Fahrenheit on dashboard with or with out solution 
 Given user launches and logs in to the Lyric Application
 And user should be displayed with the following "Weather" options:
@@ -45,6 +45,7 @@ And user should be displayed with the following "Weather" options:
 |Humidity      				     |
 |Max Weather Temperature         |
 |Min Weather Temperature         |
+Then user logs out of the app
 
 #Weather screen switching temper scale celsius and Fahrenheit, EMEA Location 
 #Requirements: Single location with or with out solution UK location          
@@ -70,6 +71,7 @@ And user should be displayed with the following "Weather" options:
 |Humidity      				     |
 |Max Weather Temperature         |
 |Min Weather Temperature         |
+Then user logs out of the app
 
 #Dashboard weather switching temper switching scale celsius and Fahrenheit, EMEA Location 
 #Requirements: Single location with or with out solution           
@@ -81,6 +83,7 @@ When user selects "Celsius" from "Weather Forecast" screen
 Then user should be displayed with "Celsius Unit" temperature scale in "Weather Forecast" screen
 When user selects "Farenheit" from "Weather Forecast" screen
 Then user should be displayed with "Farenheit Unit" temperature scale in "Weather Forecast" screen
+Then user logs out of the app
 
 
 @GeneralWeatherForecastWithOrWithoutSolutionWeatherTemperScaleSwitchForUSLocation			@Automated
@@ -91,6 +94,7 @@ When user selects "Celsius" from "Weather Forecast" screen
 Then user should be displayed with "Celsius Unit" temperature scale in "Weather Forecast" screen
 When user selects "Farenheit" from "Weather Forecast" screen
 Then user should be displayed with "Farenheit Unit" temperature scale in "Weather Forecast" screen
+Then user logs out of the app
            
 @GenralWeatherforecast          @NotAutomatable
 Scenario: Fetch Weather forecast for systems with mobile time format 24/12hr
@@ -123,7 +127,6 @@ Then user changes the location2
 And user should be displayed updated weather based on the location2 zipcode
 When user changes the location1
 Then user should be displayed with weather based on the location1 zipcode
-Then user logs out of the app
 
 #Requirment: Single location with or without solution
 @GeneralWeatherChangeBasedOnLocationZipCodeUpdate          @Automated
@@ -239,14 +242,45 @@ When user launches and logs in to the Lyric Application on phone2
 Then user should be displauyed with "Celsius" temperatureYou have this scenario scale in "Add New Device Dashboard" screen
 
 
-#Requirement: On enabling or disabling the Geofence the Weather should not change
-@GeneralWeatherForecastWithOrWithoutSolutionWeatherTemperScaleNotChangeWhenGeofenceIsEnabledOrDisabled  @Automatable
+#Requirements: On enabling or disabling the Geofence the Weather should not change  
+@GeneralWeatherForecastNoChangeWhenGeofenceIsEnabledOrDisabled      		@Automated
 Scenario: As a user I want to verify weather forecast screen temper scale should not change when the Geofence is Enabled or Disabled
-Given user launches and logs in to Lyric Application
-Then user gets the "Weather" from "Add New Device Dashboard" screen
-Then user navigates to "Geofence" from "Add New Device Dashboard" screen
-Then user should be displayed with the "Geofence" screen
-Then user enables the "Geofence location" from "Geofence" screen
-Then user navigates back to "Global Drawer" screen
-Then user navigates back to "Add New Device Dashboard" screen
-Then user should be displayed with the same "Weather Forecast" which should not be updated
+Given user launches and logs in to the Lyric Application
+Then user navigates to "Global Drawer" screen from the "Dashboard" screen
+When user selects "Geofence" from "Global Drawer" screen
+Then user should be displayed with the "Geofence Settings" screen
+When user changes the "Geofence this location toggle" to "off"
+Then the following "Geofence Settings" options should be disabled:
+| Options					|
+| Geofence this Location	|
+And user should not be displayed with the following "Geofence this location" options:
+| GeofenceThisLocation		|
+| Geofence Radius			|
+| Location Status			|
+| Geofence Alert			|
+Then user navigates to "Global Drawer" screen from the "Geofence Settings" screen
+Then user navigates to "Dashboard" screen from the "Global Drawer" screen
+Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
+And user should be displayed with the following "Weather" options:
+|WeatherOptions			         |
+|Weather Temp In Forecast Screen |
+Then user should be displayed with "Weather Forecast temp" in the "Weather Forecast" screen
+Then user selects "Back button" from "Weather Forecast" screen
+#Then user gets the "Weather" from "Add New Device Dashboard" screen
+Then user navigates to "Global Drawer" screen from the "Dashboard" screen
+When user selects "Geofence" from "Global Drawer" screen
+Then user should be displayed with the "Geofence Settings" screen
+When user changes the "Geofence this location toggle" to "on"
+Then user should be displayed with the following "Geofence this location" options:
+| GeofenceThisLocation		|
+| Geofence Radius			|
+| Location Status			|
+| Geofence Alert			|
+Then user navigates to "Global Drawer" screen from the "Geofence Settings" screen
+Then user navigates to "Dashboard" screen from the "Global Drawer" screen
+Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
+And user should be displayed with the following "Weather" options:
+|WeatherOptions			         |
+|Weather Temp In Forecast Screen |
+Then user should be displayed with "Weather Forecast temp as existing" in the "Weather Forecast" screen
+Then user selects "Back button" from "Weather Forecast" screen

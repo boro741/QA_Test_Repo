@@ -184,12 +184,12 @@ Given user launches and logs in to the Lyric Application
 And user navigates to "Global Drawer" screen from the "Dashboard" screen 
 When user selects "Geofence" from "Global Drawer" screen
 Then user should be displayed with the "Geofence Settings" screen
-When user changes the "Geofence this locaiton toggle" to "on"
+When user changes the "Geofence this location toggle" to "on"
 Then user should be displayed with the following "Geofence this location" options:
 | GeofenceThisLocation		|
 | Geofence Radius			|
 | Location Status			|
-| Geofence Alert				|
+| Geofence Alert			|
 When user navigates to "Geofence Radius" screen from the "Geofence Settings" screen
 And user selects "Update Geofence Center" from "Geofence Radius" screen
 Then user should receive a "Update Geofence Center" popup
@@ -204,11 +204,11 @@ And user should be displayed with the following "Geofence this location" options
 | GeofenceThisLocation		|
 | Geofence Radius			|
 | Location Status			|
-| Geofence Alert				|
-When user changes the "Geofence this locaiton toggle" to "off"
+| Geofence Alert			|
+When user changes the "Geofence this location toggle" to "off"
 Then the following "Geofence Settings" options should be disabled:
 | Options					|
-| Geofence this Location		|
+| Geofence this Location	|
 And user should not be displayed with the following "Geofence this location" options:
 | GeofenceThisLocation		|
 | Geofence Radius			|
@@ -223,7 +223,7 @@ Given user launches and logs in to the Lyric Application
 And user navigates to "Global Drawer" screen from the "Dashboard" screen 
 When user selects "Geofence" from "Global Drawer" screen
 Then user should be displayed with the "Geofence Settings" screen
-When user changes the "Geofence this locaiton toggle" to "on"
+When user changes the "Geofence this location toggle" to "on"
 Then user should be displayed with the following "Geofence this location" options:
 | GeofenceThisLocation		|
 | Geofence Radius			|
@@ -255,12 +255,12 @@ Given user launches and logs in to the Lyric Application
 And user navigates to "Global Drawer" screen from the "Dashboard" screen 
 When user selects "Geofence" from "Global Drawer" screen
 Then user should be displayed with the "Geofence Settings" screen
-When user changes the "Geofence this locaiton toggle" to "on"
+When user changes the "Geofence this location toggle" to "on"
 Then user should be displayed with the following "Geofence this location" options:
 | GeofenceThisLocation		|
 | Geofence Radius			|
 | Location Status			|
-| Geofence Alert				|
+| Geofence Alert			|
 When user navigates to "Geofence Radius" screen from the "Geofence Settings" screen
 And user selects "Back button" from "Geofence Radius" screen
 Then user should be displayed with the "Geofence Settings" screen
@@ -418,18 +418,21 @@ Examples:
 @GeneralGlobalDrawerVerifyPushNotificationWhenGeofenceAlertIsEnabledAndDisabled				@Automated			@--xrayid:ATER-67861
 Scenario Outline: As a user I want to verify if push notification is received when geofence alert toggle is enabled
 Given user has <Mode> system mode
+#Then user selects "HOME OFFICE" from "Dashboard" screen
 And user thermostat is set to "geofence based" schedule
 When user launches and logs in to the Lyric application
+Then user selects "HOME OFFICE" from "Dashboard" screen
 And user navigates to "Global Drawer" screen from the "Dashboard" screen 
 When user selects "Geofence" from "Global Drawer" screen
 Then user should be displayed with the "Geofence Settings" screen
-When user changes the "Geofence this locaiton toggle" to "on"
+When user changes the "Geofence this location toggle" to "on"
 When user changes the "Geofence Alert toggle" to "on"
 And user thermostat set <Period> with <Geofence>
 Then user receives a "Geofence crossed Home" push notification
 And user thermostat set <UPeriod> with <UGeofence>
 Then user receives a "Geofence crossed Away" push notification
 When user clears all push notifications
+Then user selects "HOME OFFICE" from "Dashboard" screen
 Then user navigates to "Global Drawer" screen from the "Dashboard" screen 
 And user selects "Geofence" from "Global Drawer" screen
 Then user should be displayed with the "Geofence Settings" screen
@@ -438,7 +441,6 @@ And user thermostat set <Period> with <Geofence>
 Then user should not receive a "Geofence crossed Home" push notification
 And user thermostat set <UPeriod> with <UGeofence>
 Then user should not receive a "Geofence crossed Away" push notification
-
 
 Examples:
 | Mode	| Period			| Geofence		| UPeriod		| UGeofence		|
@@ -593,104 +595,100 @@ Then user should be displayed with "No Messages label in Activity History screen
 
 #ManageUsers
 #Requirements : single location with and with out any solution 
-@GeneralGlobalDrawerAddDeleteUsersFromInviteList				@Automated	@--xrayid:ATER-67865  @NeedsToBeUpdated
+@GeneralGlobalDrawerAddDeleteUsersFromInviteList				@Automatable	@--xrayid:ATER-67865
 Scenario Outline: As a user I want to Verify invite user functionality by adding and removing a user from invite list
 Given user launches and logs in to the Lyric Application
-When user navigates to "Invite New User" screen from the "Dashboard" screen
+When user navigates to "Invite User" screen from the "Dashboard" screen
 And user inputs <invite users email address> in "Email Text Field" in the "Invite New User" screen
 Then user should be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
 | das_stage5@grr.la		|
 When user logs out and logs in to the Lyric Application with <invite users email address>
 Then user navigates to "Manage Users" screen from the "Dashboard" screen
-And user should not be displayed with the following "Invited Users" options:
-| InvitedUsersList		|
-| das_stage5@grr.la		|
 Then user should be displayed with the following "Invited Users" options:
 | InvitedUsersList						|
 | User who invited the logged in user	|
-When user navigates to "Activity History" screen from the "Invite New Users" screen
-Then user should be displayed with the following "Activity History" options:
-| ActivityHistoryOptions						|
-| Invitation message for the Invited user	|
-#And user logs out of the app
-#When user launches and logs in to the Lyric Application
 When user logs out and logs in to the Lyric Application with "logged in users account"
 Then user navigates to "Manage Users" screen from the "Dashboard" screen
 And user should not be displayed with the following "Invited Users" options:
-| InvitedUsersList	|
+| InvitedUsersList		|
 | Logged in user		|
 Then user should be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
 | das_stage5@grr.la		|
 When user deletes the <invite users email address> from "Manage Users" screen
-Then user should receive a "Confirm Access Removal" popup
-And user "Clicks on Remove in" the "Confirm Access Removal" popup
+Then user should receive a "Delete User" popup
+And user "Clicks on Ok in" the "Delete User" popup
 Then user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
 | das_stage5@grr.la		|
-And user should be displayed with "No Invited Users label"
+Then user should be displayed with "No Users label"
 When user logs out and logs in to the Lyric Application with <invite users email address>
-Then user navigates to "Manage Users" screen from the "Dashboard" screen
-And user should be displayed with "No Invited Users label"
-#And user logs out of the app
+Then user should be displayed with the "Add New Device" screen
 
 Examples:
 | invite users email address	|
-| das_stage5@grr.la				|
+| das_stage5@grr.la			|
 
 
 #Requirements : single location with and with out any solution and user should be invited 
-@GeneralGlobalDrawerInviteUserWithLoggedInUserEmail				@Automated			@--xrayid:ATER-67866  @NeedsToBeUpdated
+@GeneralGlobalDrawerInviteUserWithLoggedInUserEmail				@Automatable			@--xrayid:ATER-67866	
 Scenario: As a user i want to Verify if error message displays when logged in users email address in Add Users
 Given user launches and logs in to the Lyric Application
 When user navigates to "Manage Users" screen from the "Dashboard" screen
 Then user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList	|
-| Logged in user		|
-When user navigates to "Invite New User" screen from the "Manage Users" screen
+| Logged in user	|
+#When user navigates to "Invite User" screen from the "Manage Users" screen
+When user selects "Invite New User" from "Manage Users" screen
 Then user inputs "Logged in users email address" in "Email Text Field" in the "Invite New User" screen
-#And user should receive a "User already added to this account error" popup
-Then user should receive an error message as "User already added to this account error"
-#Then user "Clicks on OK in" the "User already added to this account error" popup
-When user navigates to "Manage Users" screen from the "Invite New User" screen
+Then user should be displayed with the following "User already added to this account error" options:
+|UserAlreadyAddedErrorValidation					 |
+|The requested user was already added to this account|
+#When user navigates to "Manage Users" screen from the "Invite New User" screen
+Then user clicks on the back arrow in the "Invite New User" screen
 Then user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList	|
 | Logged in user		|
-#And user logs out of the app
 
 
 #Requirements : single location with and with out any solution and user should be invited 
-@GeneralGlobalDrawerInviteUserWithAlreadyInvitiedUsersEmail			@Automated		@--xrayid:ATER-67867   @NeedsToBeUpdated
+@GeneralGlobalDrawerInviteUserWithAlreadyInvitiedUsersEmail			@Automatable		@--xrayid:ATER-67867
 Scenario Outline: As a user i want to Verify if error message displays when already existing invited users email address is entered in Add Users 
 Given user launches and logs in to the Lyric Application
-When user navigates to "Invite New User" screen from the "Dashboard" screen
-And user inputs <invite users email address> in "Email Text Field" in the "Invite User" screen
-Then user should be displayed with the following "Invited Users" options:
-| InvitedUsersList		|
-| das_stage5@grr.la		|
-When user navigates to "Invite New User" screen from the "Manage Users" screen
+When user navigates to "Manage Users" screen from the "Dashboard" screen
+When user selects "Invite New User" from "Manage Users" screen
 And user inputs <invite users email address> in "Email Text Field" in the "Invite New User" screen
-Then user should receive an error message as "User already added to this account error"
-#And user "Clicks on OK in" the "User already added to this account error" popup
-When user navigates to "Manage Users" screen from the "Invite New User" screen
-And user deletes the <invite users email address> from "Manage Users" screen
-Then user should receive a "Confirm Access Removal" popup
-And user "Cancels" the "Confirm Access Removal" popup
 Then user should be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
-| das_stage5@grr.la		|
-When user deletes the <invite users email address> from "Add Users" screen
-Then user should receive a "Confirm Access Removal" popup
-And user "Clicks on OK in" the "Confirm Access Removal" popup
+| das_stage5@grr.la	|
+#Then user clicks on the back arrow in the "Invite New User" screen
+#When user navigates to "Invite New User" screen from the "Manage Users" screen
+When user selects "Invite New User" from "Manage Users" screen
+And user inputs <invite users email address> in "Email Text Field" in the "Invite New User" screen
+Then user should be displayed with the following "User already added to this account error" options:
+|UserAlreadyAddedErrorValidation					  |
+|The requested user was already added to this account|
+#And user "Clicks on OK in" the "User already added to this account error" popup
+#When user navigates to "Manage Users" screen from the "Invite New User" screen
+Then user clicks on the back arrow in the "Invite New User" screen
+And user deletes the <invite users email address> from "Manage Users" screen
+Then user should receive a "Delete User" popup
+And user "Clicks on Cancel in" the "Delete User" popup
+Then user should be displayed with the following "Invited Users" options:
+| InvitedUsersList		|
+| das_stage5@grr.la	|
+When user deletes the <invite users email address> from "Manage Users" screen
+Then user should receive a "Delete User" popup
+And user "Clicks on OK in" the "Delete User" popup
 Then user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
 | das_stage5@grr.la		|
-#And user logs out of the app
 
 Examples:
 | invite users email address		|
 | das_stage5@grr.la				|
+
 
 #Requirements : Single location with and with out any solution
 @GeneralGlobalDrawerInvitNewUser				@NotAutomatable		@--xrayid:ATER-68240
@@ -698,7 +696,7 @@ Scenario Outline: As a user i want to verify invite new user and with out activa
 Given user launches and logs in to the Lyric Application
 When user navigates to "Invite New User" screen from the "Dashboard" screen
 Then user inputs <invite users email address> in "Email Text Field" in the "Invite New User" screen
-And user should be displayed with the following "Invited Users" options:
+And user should not be displayed with the following "Manage Users" options:
 | InvitedUsersList  | 
 | new account|
 When user navigates to "New user" Email account
@@ -887,6 +885,67 @@ When user clicks on the back arrow in the "Edit Address" screen
 Then user should be displayed with the "Address" screen
 And user should be displayed with "Location Name" in the "Address" screen
 And user should be displayed with "Location Address" in the "Address" Screen
+
+
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerEditAddressUpdateWithSameCountry	            @Automatable			@--xrayid:ATER-		@LYR-37032
+Scenario Outline: As a user i want to verify if address fields are empty when country is updated with same country
+Given user launches and logs in to the Lyric Application
+When user navigates to "Address" screen from the "Dashboard" screen
+Then user should be displayed with the "Address" screen
+When user navigates to "Edit Address" screen from the "Address" screen 
+Then user should be displayed with the following "Edit Address" options:
+| EditAddressOptions			| 
+| Location Name Header		| 
+| Location Name Text Field	| 
+| Address Header				| 
+| Address Text Field			| 
+| City Text Field			| 
+| State Text Field			| 
+| Postal Code Text Field		| 
+| Change Country				|
+And the following "Edit Address" options should be disabled:
+| EditAddressOptions		|
+| Save					|
+When user selects "Change Country" from "Edit Address" screen
+Then user should be displayed with the "Please confirm your country" screen
+When user inputs "Same Country as existing" in "Search Text Field" in the "Please confirm your country" screen
+Then user should be displayed with the "Edit Address" screen
+And user should be displayed with the following "Address Fields For The Selected Country" options:
+| AddressFieldsForTheSelectedCountry		| 
+| Location Name Header					| 
+| Location Name Text Field				| 
+| Address Header							| 
+| Address Text Field						| 
+| City Text Field						| 
+| State Text Field						| 
+| Postal Code Text Field					| 
+| Change Country							|
+And the following "Edit Address" options should be disabled:
+| EditAddressOptions		|
+| Save					|
+When user inputs <State> in "State Text Field" in the "Edit Address" screen
+And the following "Edit Address" options should be disabled:
+| EditAddressOptions		|
+| Save					|
+When user inputs <Postal Code> in "Postal Code Text Field" in the "Edit Address" screen
+Then the following "Edit Address" options should be enabled:
+| EditAddressOptions		|
+| Save					|
+When user selects "Save button" from "Edit Address" screen
+Then user should be displayed with the "Address" screen
+And user should be displayed with "Location Name" in the "Address" screen
+And user should be displayed with "Same Country as existing" in the "Address" screen
+And user should be displayed with <State> in the "Address" screen
+And user should be displayed with <Postal Code> in the "Address" screen
+And user should be displayed with the following "Address" options:
+| AddressOptions				|
+| Edit Address Label			|
+| Delete Location Option		|
+
+Examples: 
+| State		| Postal Code	|
+| NY			| 10029			|
 
 
 #Requirements : single location with and with out any solution
@@ -1203,7 +1262,7 @@ Examples:
 #Edit Account
 #Edit first name last name
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountUpdateFirstNameAndLastName         @Automated	@--xrayid:ATER-69076   @NeedsToBeUpdated
+@GeneralGlobalDrawerEditAccountUpdateFirstNameAndLastName         @Automatable		@--xrayid:ATER-69076
 Scenario Outline: As a user i want to Verify if updated first name and last name is getting saved
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1241,7 +1300,7 @@ Examples:
 | giri       | THEJ      | 
 #| sami       | krishna   | 
 #| vijay      | Govda     | 
-#| anju       | Chandran   | 
+#| anju       | Chandran   |  
   
 
 #Edit first name last name with error
@@ -1286,7 +1345,7 @@ And user should be displayed with "existing last name" in the "Edit Account" scr
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountDisabledAndEnabledSaveButtonWhenFirstNameIsCleared    @Automated	@--xrayid:ATER-69081  @NeedsToBeUpdated
+@GeneralGlobalDrawerEditAccountDisabledAndEnabledSaveButtonWhenFirstNameIsCleared    @Automatable		@--xrayid:ATER-69081
 Scenario: As a user i want to Verify if save button gets enabled when first name text field is cleared
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1365,7 +1424,7 @@ And user should be displayed with "existing last name" in the "Edit Account" scr
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountValidateMaxCharsInFirstNameAndLastNameTxtFields  @Automated @--xrayid:ATER-69082 @NeedsToBeUpdated
+@GeneralGlobalDrawerEditAccountValidateMaxCharsInFirstNameAndLastNameTxtFields  @Automatable	 @--xrayid:ATER-69082
 Scenario Outline: As a user i want to verify max characters that can be entered in first name and last name text fields in Edit Account screen
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1407,7 +1466,7 @@ Examples:
 
   
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountValidateSpecialCharsInFirstNameAndLastNameTxtFields  @Automated  @--xrayid:ATER-69083  @NeedsToBeUpdated
+@GeneralGlobalDrawerEditAccountValidateSpecialCharsInFirstNameAndLastNameTxtFields  @Automatable	  @--xrayid:ATER-69083
 Scenario: As a user i want to Verify if special characters can be saved in first name and last name text fields in Edit Account screen
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1443,7 +1502,7 @@ And user should be displayed with "updated last name" in the "Edit Account" scre
 
 #Change Password in Edit Account Screen
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountUpdatePassword    @Automated	 @--xrayid:ATER-69084	@NeedsToBeUpdated
+@GeneralGlobalDrawerEditAccountUpdatePasswordWithoutSpecialCharacters    @Automatable		 @--xrayid:ATER-69084
 Scenario: As a user i want to Verify update password functionality in Edit Account screen
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1476,8 +1535,43 @@ Then user navigates to "Edit Account" screen from the "Dashboard" screen
 And user should be displayed with the "Edit Account" screen
 
 
+#Change Password in Edit Account Screen
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountChangePwdValidationWhenTappedOnSaveWithoutEnteringAnyText    @Automated	@--xrayid:ATER-69085  @NoUpdateRequired
+@GeneralGlobalDrawerEditAccountUpdatePasswordWithSpecialCharacters    @Automatable	 @--xrayid:ATER-69084
+Scenario: As a user i want to Verify update password functionality in Edit Account screen
+Given user launches and logs in to the Lyric Application
+When user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Change Password" from "Edit Account" screen
+Then user should be displayed with the "Change Password" screen
+Then the following "Change Password" options should be enabled:
+| ChangePasswordOptions		| 
+| Save						|
+When user inputs "Valid Old Password" in "Old Password Text Field" in the "Change Password" screen
+And user inputs "Valid New Password Format With Special Characters" in "New Password Text Field" in the "Change Password" screen
+And user inputs "Valid Verify New Password Format With Special Characters" in "Verify New Password Text Field" in the "Change Password" screen
+And user selects "Save button" from "Change Password" screen
+Then user should be displayed with the "Honeywell Home" screen
+When user logs in to the Lyric Application with "updated password"
+And user navigates to "Edit Account" screen from the "Dashboard" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Change Password" from "Edit Account" screen
+Then user should be displayed with the "Change Password" screen
+Then the following "Change Password" options should be enabled:
+| ChangePasswordOptions		| 
+| Save						|
+When user inputs "Updated Old Password With Special Characters" in "Old Password Text Field" in the "Change Password" screen
+And user inputs "Previous New Password Format Value" in "New Password Text Field" in the "Change Password" screen
+And user inputs "Previous Verify New Password Format Value" in "Verify New Password Text Field" in the "Change Password" screen
+And user selects "Save button" from "Change Password" screen
+Then user should be displayed with the "Honeywell Home" screen
+When user logs in to the Lyric Application with "previous password"
+Then user navigates to "Edit Account" screen from the "Dashboard" screen
+And user should be displayed with the "Edit Account" screen
+
+
+#Requirements : single location with and with out any solution
+@GeneralGlobalDrawerEditAccountChangePwdValidationWhenTappedOnSaveWithoutEnteringAnyText    @Automated	@--xrayid:ATER-69085
 Scenario: Change password screen validations when user taps on Save button without entering text in Old Password, New Password and Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1490,7 +1584,7 @@ And user should be displayed with "You must enter your new password" error messa
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountChangePwdValidationWhenIncorrectOldPwdIsEntered  @Automated @--xrayid:ATER-69086 @NeedsToBeUpdated
+@GeneralGlobalDrawerEditAccountChangePwdValidationWhenIncorrectOldPwdIsEntered  @Automatable	 @--xrayid:ATER-69086
 Scenario: Change password screen validations when user taps on Save button by entering incorrect Old Password, valid New Password and Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1505,7 +1599,7 @@ Then user should be displayed with "Old Password is Invalid" error message in th
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountChangePwdValidationWhenInvalidNewPwdIsEntered  @Automated @--xrayid:ATER-69087 @NeedsToBeUpdated
+@GeneralGlobalDrawerEditAccountChangePwdValidationWhenInvalidNewPwdIsEntered  @Automatable	 @--xrayid:ATER-69087
 Scenario: Change password screen validations when user taps on Save button by entering valid Old Password, invalid New Password and Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1532,9 +1626,9 @@ And user inputs "Valid New Password Format" in "New Password Text Field" in the 
 And user selects "Save button" from "Change Password" screen
 Then user should be displayed with "You must enter your verify password" error message in the "Verify New Password Text Field" in the "Change Password" screen
 
- 
+
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountChangePwdValidationWhenNewAndVerifyNewPwdDoesNotMatch   @Automated @--xrayid:ATER-69088 @NeedsToBeUpdated
+@GeneralGlobalDrawerEditAccountChangePwdValidationWhenNewAndVerifyNewPwdDoesNotMatch   @Automatable	 @--xrayid:ATER-69088
 Scenario: Change password screen validations when user taps on Save button by entering valid Old Password, different text in New Password and Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1597,7 +1691,7 @@ Then user should be displayed with "Passwords dont match" error message in the "
 #Delete Account in Edit Account Screen
 #Requirements : single location with out solution 
 @GeneralGlobalDrawerEditAccountDeleteAccountWithoutASolution             @Automated		@--xrayid:ATER-69091
-Scenario Outline: As a user i want to Verify the app behavior by deleting an account without any solution 
+Scenario Outline: As a user i want to Verify the app behavior by deleting an account without any solution
 Given user launches and logs in to the Lyric application with user account with location
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
@@ -1611,11 +1705,13 @@ Then user should receive a "Your Account and Data is deleted" popup
 And user "Accepts" the "Your Account and Data is deleted" popup
 Then user should be displayed with the "Honeywell Home" screen
 When user logs in to the Lyric Application with "deleted account credentials"
-Then user should receive a "Email or Password incorrect" popup
-And user "Accepts" the "Email or Password incorrect" popup
+Then user should be displayed with the following "Login Screen Validation Message" options:
+| ValidationMessage								|
+| Unable to login. Email or password incorrect	|
 Then create the deleted user account through CHIL
 When user logs in to the Lyric Application with "deleted account credentials"
 Then user should be displayed with the "Add New Device" screen
+And user changes the country to "United States"
 When user selects "Smart Home Security" from "Add New Device" screen
 Then user should be displayed with the "What To Expect" screen
 When user navigates to "Choose Location" screen from the "What To Expect" screen
@@ -2626,8 +2722,9 @@ Then user should receive a "Your Account and Data is deleted" popup
 And user "Accepts" the "Your Account and Data is deleted" popup
 Then user should be displayed with the "Honeywell Home" screen
 When user logs in to the Lyric Application with "deleted account credentials"
-Then user should receive a "Email or Password incorrect" popup
-And user "Accepts" the "Email or Password incorrect" popup
+Then user should be displayed with the following "Login Screen Validation Message" options:
+| ValidationMessage								|
+| Unable to login. Email or password incorrect	|
 Then create the deleted user account through CHIL
 
 
@@ -2647,11 +2744,13 @@ Then user should receive a "Your Account and Data is deleted" popup
 And user "Accepts" the "Your Account and Data is deleted" popup
 Then user should be displayed with the "Honeywell Home" screen
 When user logs in to the Lyric Application with "deleted account credentials"
-Then user should receive a "Email or Password incorrect" popup
-And user "Accepts" the "Email or Password incorrect" popup
+Then user should be displayed with the following "Login Screen Validation Message" options:
+| ValidationMessage								|
+| Unable to login. Email or password incorrect	|
 Then create the deleted user account through CHIL
 When user logs in to the Lyric Application with "deleted account credentials"
 Then user should be displayed with the "Add New Device" screen
+And user changes the country to "United States"
 When user selects "Smart Home Security" from "Add New Device" screen
 Then user should be displayed with the "What To Expect" screen
 When user navigates to "Choose Location" screen from the "What To Expect" screen
@@ -2700,14 +2799,14 @@ Given user launches and logs in to the Lyric application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
 When user selects "Delete Account" from "Edit Account" screen
-Then user should be displayed with the "Delete Account With Solution" screen
+Then user should be displayed with the "Delete Account With Solution For Camera" screen
 When user selects "Learn How To Delete A Device" from "Delete Account" screen
 Then user should be displayed with the "Learn How To Delete A Device" screen
 And user should be displayed with the following "Learn How To Delete A Device" options:
 | LearnHowToDeleteADeviceOptions				| 
 | Was this helpful with Yes and No buttons	|
 When user selects "Close button" from "Learn How To Delete A Device" screen
-Then user should be displayed with the "Delete Account With Solution" screen
+Then user should be displayed with the "Delete Account With Solution For Camera" screen
 When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
 Then user should be displayed with the "Learn How To Cancel A Membership" screen
 And user should be displayed with the following "Learn How To Cancel A Membership" options:
@@ -2717,7 +2816,7 @@ When user selects "Close button" from "Learn How To Cancel A Membership" screen
 Then user should be displayed with the "Delete Account With Solution" screen
 
 
-@DeleteAccountWithLocationHavingDASDeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-69140
+@DeleteAccountWithLocationHavingDASDeviceWithCameraSubscription             @Automated		@--xrayid:ATER-69140
 Scenario: To verify user is able to delete the account if there is DAS DEVICE in any location and if Camera Membership is linked to the account
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen

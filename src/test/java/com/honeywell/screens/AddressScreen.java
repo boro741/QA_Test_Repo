@@ -29,7 +29,36 @@ public class AddressScreen extends MobileScreens {
 	}
 
 	public boolean isAddressScreenTitleVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddressScreenTitle");
+		boolean flag = true;
+		String locationNameDisplayedInAddressScreen = null;
+		String AddressScreenHeaderTitle = null;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			flag &= MobileUtils.isMobElementExists(objectDefinition, testCase, "AddressScreenTitle");
+		} else {
+			// XCUIElementTypeStaticText[@name='Location Name' and @value='Home
+			// Details_HOME']
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AddressScreenTitle")) {
+				AddressScreenHeaderTitle = MobileUtils.getFieldValue(objectDefinition, testCase, "AddressScreenTitle");
+				if (this.isLocationNameInAddressScreenVisible()) {
+					locationNameDisplayedInAddressScreen = this.getLocationNameDisplayedInAddressScreen();
+					if (AddressScreenHeaderTitle.contains("...")) {
+						flag &= MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeStaticText[contains(@value,'"
+								+ locationNameDisplayedInAddressScreen.toUpperCase() + "')]", testCase);
+					} else {
+						flag &= MobileUtils.isMobElementExists("XPATH",
+								"//XCUIElementTypeStaticText[@name='Location Name' and @value='"
+										+ locationNameDisplayedInAddressScreen + " Details_"
+										+ locationNameDisplayedInAddressScreen.toUpperCase() + "']",
+								testCase);
+					}
+				} else {
+					flag = false;
+				}
+			} else {
+				flag = false;
+			}
+		}
+		return flag;
 	}
 
 	public boolean isBackButtonVisible() {
@@ -75,16 +104,39 @@ public class AddressScreen extends MobileScreens {
 		}
 	}
 
-	public String getCountryNameDisplayedInAddressScreen() {
+	public String getCountryNameDisplayedInAddressScreen(TestCaseInputs inputs) {
 		String countryName = null;
+		List<String> locationAddressInIOS = new ArrayList<String>();
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if (MobileUtils.isMobElementExists(objectDefinition, testCase,
 					"LocationCountryValueInAddressScreenInAndroid")) {
 				countryName = MobileUtils.getFieldValue(objectDefinition, testCase,
 						"LocationCountryValueInAddressScreenInAndroid");
+				if (countryName.equalsIgnoreCase(inputs.getInputValue("DEFAUL_COUNTRY_NAME_FROM_CHIL"))) {
+					Keyword.ReportStep_Pass(testCase, "Country displayed in Address Screen is: " + countryName);
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Country displayed in CHIL: " + inputs.getInputValue("DEFAUL_COUNTRY_NAME_FROM_CHIL")
+									+ " is not same as the Country: " + countryName + " displayed in Address Screen.");
+				}
 			}
 		} else {
 			// Code for iOS
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "LocationAddressInAddressScreen")) {
+				locationAddressInIOS = getLocationAddressDisplayedInAddressScreen();
+				System.out.println(
+						"DEFAUL_COUNTRY_NAME_FROM_CHIL: " + inputs.getInputValue("DEFAUL_COUNTRY_NAME_FROM_CHIL"));
+				System.out.println("locationAddressInIOS: " + locationAddressInIOS);
+				if (locationAddressInIOS.toString().contains(inputs.getInputValue("DEFAUL_COUNTRY_NAME_FROM_CHIL"))) {
+					Keyword.ReportStep_Pass(testCase, "Country displayed in Address Screen is: "
+							+ inputs.getInputValue("DEFAUL_COUNTRY_NAME_FROM_CHIL"));
+					countryName = inputs.getInputValue("DEFAUL_COUNTRY_NAME_FROM_CHIL");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Country displayed in CHIL: " + inputs.getInputValue("DEFAUL_COUNTRY_NAME_FROM_CHIL")
+									+ " is not same as the Country: " + countryName + " displayed in Address Screen.");
+				}
+			}
 		}
 		return countryName;
 	}
@@ -149,12 +201,12 @@ public class AddressScreen extends MobileScreens {
 		}
 	}
 
-	public boolean isEditAddressInAddressScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EditAddressInAddressScreen");
+	public boolean isEditButtonInAddressScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EditButtonInAddressScreen");
 	}
 
-	public boolean clickOnEditAddressInAddressScreen() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "EditAddressInAddressScreen");
+	public boolean clickOnEditButtonInAddressScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "EditButtonInAddressScreen");
 	}
 
 	public boolean isDeleteLocationButtonInAddressScreenVisible() {
@@ -471,7 +523,13 @@ public class AddressScreen extends MobileScreens {
 			testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypeTextField[@name='Postal Code']")).clear();
 			flag &= MobileUtils.setValueToElement(objectDefinition, testCase, "PostalCodeTextInEditAddressScreen",
 					inputPostalCodeText);
-			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "ReturnButtonIniOSKeyboard");
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ReturnButtonIniOSKeyboard")) {
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "ReturnButtonIniOSKeyboard");
+			} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DoneButtonIniOSKeyboard")) {
+				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonIniOSKeyboard");
+			} else {
+				flag = false;
+			}
 		}
 		return flag;
 	}
@@ -571,7 +629,8 @@ public class AddressScreen extends MobileScreens {
 	public boolean verifyCountryNamePrivacyPolicyAndEULALink(String countryName) {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			//*[@resource-id='com.honeywell.android.lyric:id/fragment_new_eula_link_container' and @text='PRIVACY POLICY & EULA : Australia']
+			// *[@resource-id='com.honeywell.android.lyric:id/fragment_new_eula_link_container'
+			// and @text='PRIVACY POLICY & EULA : Australia']
 			if (MobileUtils.isMobElementExists("XPATH",
 					"//*[@resource-id='com.honeywell.android.lyric:id/fragment_new_eula_link_container' and @text='PRIVACY POLICY & EULA : "
 							+ countryName + "']",
@@ -582,7 +641,7 @@ public class AddressScreen extends MobileScreens {
 			}
 		} else {
 			if (MobileUtils.isMobElementExists("XPATH",
-					"//XCUIElementTypeButton[@name='Not in the " + countryName + "?  Change Country']", testCase)) {
+					"//XCUIElementTypeStaticText[@name='PRIVACY POLICY & EULA: " + countryName + "']", testCase)) {
 				return flag;
 			} else {
 				flag = false;

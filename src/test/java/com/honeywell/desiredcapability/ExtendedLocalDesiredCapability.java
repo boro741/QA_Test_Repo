@@ -29,12 +29,13 @@ public class ExtendedLocalDesiredCapability extends LocalExecutionDesiredCapabil
 				if (inputs.isRealDevice()) {
 					// desiredCapabilities.setCapability("showIOSLog", true);
 					desiredCapabilities.setCapability("browserName", "");
-					desiredCapabilities.setCapability("autoAcceptAlerts", false);
+					desiredCapabilities.setCapability("autoAcceptAlerts", "false");
 					desiredCapabilities.setCapability("realDeviceLogger", SuiteConstants
 							.getConstantValue(SuiteConstantTypes.PROJECT_SPECIFIC, "IOS_DEVICE_CONSOLE_PATH"));
 				}
 			} else {
 				desiredCapabilities.setCapability("browserName", "");
+				desiredCapabilities.setCapability("autoAcceptAlerts", "false");
 			}
 		} catch (Exception e) {
 		}

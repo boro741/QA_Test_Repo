@@ -44,16 +44,24 @@ public class LoginScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EmailAddress");
 	}
 
-	public boolean clearTextInsideEmailAddressTextField() {
-		return MobileUtils.clearTextField(objectDefinition, testCase, "EmailAddress");
+	public boolean clickOnEmailAddressTextField() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "EmailAddress");
+	}
+
+	public void clearTextInsideEmailAddressTextField() {
+		MobileUtils.getMobElement(objectDefinition, testCase, "EmailAddress").clear();
 	}
 
 	public boolean isPasswordTextFieldVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "Password");
 	}
 
-	public boolean clearTextInsidePasswordTextField() {
-		return MobileUtils.clearTextField(objectDefinition, testCase, "Password");
+	public boolean clickOnPasswordTextField() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "Password");
+	}
+
+	public void clearTextInsidePasswordTextField() {
+		MobileUtils.getMobElement(objectDefinition, testCase, "Password").clear();
 	}
 
 	public boolean longPressOnSecretMenuImage() {
@@ -64,9 +72,9 @@ public class LoginScreen extends MobileScreens {
 		TouchAction action = new TouchAction(driver);
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			element = MobileUtils.getMobElement(objectDefinition, testCase, "HoneywellRosette");
-			//flag = flag & MobileUtils.longPress(testCase, element, 8000);
+			// flag = flag & MobileUtils.longPress(testCase, element, 8000);
 			action.longPress(longPressOptions().withElement(element(element)).withDuration(Duration.ofMillis(8000)))
-			.release().perform();
+					.release().perform();
 		} else {
 			element = MobileUtils.getMobElement(objectDefinition, testCase, "SecretMenuImage");
 			// element = MobileUtils.getMobElement(objectDefinition, testCase,

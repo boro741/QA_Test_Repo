@@ -993,17 +993,17 @@ public class VerifyOptionsOnAScreenEnabled extends Keyword {
 			break;
 		}
 		case "EDIT ACCOUNT": {
-			EditAccountScreen eas = new EditAccountScreen(testCase);
+			//EditAccountScreen eas = new EditAccountScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldToBeVerified = data.getData(i, "EditAccountOptions");
 				if (fieldToBeVerified.equalsIgnoreCase("SAVE")) {
-					if (eas.isSaveButtonInEditAccountScreenEnabled()) {
+					/*if (eas.isSaveButtonInEditAccountScreenEnabled()) {
 						Keyword.ReportStep_Pass(testCase, "Option: " + fieldToBeVerified + " is enabled");
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Option: " + fieldToBeVerified + " is disabled");
-					}
+					}*/
 				}
 			}
 			break;

@@ -42,13 +42,14 @@ public class EnterTextInATextField extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^user inputs \"(.+)\" in \"(.+)\" in the \"(.+)\" screen$")
 	public boolean keywordSteps() {
-		if (inputName.get(2).equalsIgnoreCase("INVITE USER")) {
+		if (inputName.get(2).equalsIgnoreCase("INVITE NEW USER")) {
 			switch (inputName.get(1).toUpperCase()) {
 			case "EMAIL TEXT FIELD": {
 				if (inputName.get(0).equalsIgnoreCase("LOGGED IN USERS EMAIL ADDRESS")) {
 					flag &= DASManageUsersUtils.inputEmailAddressInInviteUserScreen(testCase, inputs,
 							inputs.getInputValue("USERID"));
 				} else {
+					inputs.setInputValue("INVITED_USERS_EMAIL_ADDRESS", inputName.get(0));
 					flag &= DASManageUsersUtils.inputEmailAddressInInviteUserScreen(testCase, inputs, inputName.get(0));
 				}
 				break;
@@ -159,7 +160,8 @@ public class EnterTextInATextField extends Keyword {
 				if (inputName.get(0).equalsIgnoreCase("VALID OLD PASSWORD")) {
 					flag &= EditAccountUtils.enterOldPasswordInChangePasswordScreen(testCase, inputs,
 							inputs.getInputValue("PASSWORD"));
-				} else if (inputName.get(0).equalsIgnoreCase("UPDATED OLD PASSWORD")) {
+				} else if (inputName.get(0).equalsIgnoreCase("UPDATED OLD PASSWORD")
+						|| inputName.get(0).equalsIgnoreCase("UPDATED OLD PASSWORD WITH SPECIAL CHARACTERS")) {
 					flag &= EditAccountUtils.enterOldPasswordInChangePasswordScreen(testCase, inputs,
 							inputs.getInputValue("UPDATED_PASSWORD"));
 				} else if (inputName.get(0).equalsIgnoreCase("INCORRECT OLD PASSWORD")
@@ -170,7 +172,8 @@ public class EnterTextInATextField extends Keyword {
 				break;
 			}
 			case "NEW PASSWORD TEXT FIELD": {
-				if (inputName.get(0).equalsIgnoreCase("VALID NEW PASSWORD FORMAT")) {
+				if (inputName.get(0).equalsIgnoreCase("VALID NEW PASSWORD FORMAT")
+						|| inputName.get(0).equalsIgnoreCase("VALID NEW PASSWORD FORMAT WITH SPECIAL CHARACTERS")) {
 					flag &= EditAccountUtils.enterNewPasswordInChangePasswordScreen(testCase, inputs,
 							inputs.getInputValue("UPDATED_PASSWORD"));
 				} else if (inputName.get(0).equalsIgnoreCase("PREVIOUS NEW PASSWORD FORMAT VALUE")) {
@@ -183,7 +186,8 @@ public class EnterTextInATextField extends Keyword {
 				break;
 			}
 			case "VERIFY NEW PASSWORD TEXT FIELD": {
-				if (inputName.get(0).equalsIgnoreCase("VALID VERIFY NEW PASSWORD FORMAT")) {
+				if (inputName.get(0).equalsIgnoreCase("VALID VERIFY NEW PASSWORD FORMAT") || inputName.get(0)
+						.equalsIgnoreCase("VALID VERIFY NEW PASSWORD FORMAT WITH SPECIAL CHARACTERS")) {
 					flag &= EditAccountUtils.enterVerifyNewPasswordInChangePasswordScreen(testCase, inputs,
 							inputs.getInputValue("UPDATED_PASSWORD"));
 				} else if (inputName.get(0).equalsIgnoreCase("PREVIOUS VERIFY NEW PASSWORD FORMAT VALUE")) {

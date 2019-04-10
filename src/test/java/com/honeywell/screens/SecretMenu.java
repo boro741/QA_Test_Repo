@@ -46,9 +46,8 @@ public class SecretMenu extends MobileScreens {
 		boolean flag = true;
 		if (testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypeStaticText[@value='Feature Tweaks']"))
 				.isEnabled()) {
-			System.out.println("####INSIDE FEATURE TWEAKS SCREEN");
 			if (testCase.getMobileDriver().findElements(By.name("SetAccessibilityAttributes")).size() > 0) {
-				//testCase.getMobileDriver().scrollTo("SetAccessibilityAttributes");
+				// testCase.getMobileDriver().scrollTo("SetAccessibilityAttributes");
 				JavascriptExecutor js = (JavascriptExecutor) testCase.getMobileDriver();
 				HashMap<Object, Object> scrollObject = new HashMap<>();
 				try {
@@ -59,7 +58,7 @@ public class SecretMenu extends MobileScreens {
 					scrollObject.put("direction", "down");
 					js.executeScript("mobile:scroll", scrollObject);
 				}
-				System.out.println("####" + MobileUtils
+				System.out.println("####SetAccessibilityAttributes_toggle value is: " + MobileUtils
 						.getMobElement(testCase, "name", "SetAccessibilityAttributes_toggle").getAttribute("value"));
 				if (MobileUtils.getMobElement(testCase, "name", "SetAccessibilityAttributes_toggle")
 						.getAttribute("value").equalsIgnoreCase("1")) {

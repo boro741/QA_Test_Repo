@@ -37,6 +37,14 @@ public class EditAccountUtils {
 								return false;
 							}
 						}
+						case "CHECKING SPINNER": {
+							if (eas.isProgressBarVisible()) {
+								System.out.println("Waiting for Checking loading spinner to disappear");
+								return true;
+							} else {
+								return true;
+							}
+						}
 						default: {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Invalid argument passed : " + elementProgressBar);
@@ -120,7 +128,7 @@ public class EditAccountUtils {
 		EditAccountScreen eas = new EditAccountScreen(testCase);
 		System.out.println("*******updatedFirstName: " + updatedFirstName);
 		String firstNameInEditAccountScreen;
-		firstNameInEditAccountScreen = eas.getFirstNameValueInEditAccountScreen();
+		firstNameInEditAccountScreen = eas.getFirstNameValueInNameScreen();
 		System.out.println("*******firstNameInEditAccountScreen: " + firstNameInEditAccountScreen);
 		if (firstNameInEditAccountScreen.equalsIgnoreCase(updatedFirstName)) {
 			Keyword.ReportStep_Pass(testCase,
@@ -140,7 +148,7 @@ public class EditAccountUtils {
 		EditAccountScreen eas = new EditAccountScreen(testCase);
 		System.out.println("*******updatedLastName: " + updatedLastName);
 		String lastNameInEditAccountScreen;
-		lastNameInEditAccountScreen = eas.getLastNameValueInEditAccountScreen();
+		lastNameInEditAccountScreen = eas.getLastNameValueInNameScreen();
 		System.out.println("*******lastNameInEditAccountScreen: " + lastNameInEditAccountScreen);
 		if (lastNameInEditAccountScreen.equalsIgnoreCase(updatedLastName)) {
 			Keyword.ReportStep_Pass(testCase,
@@ -161,7 +169,7 @@ public class EditAccountUtils {
 		boolean flag = true;
 		System.out.println("*******maxAllowedCharsLength: " + maxAllowedCharsLength);
 		System.out.println("*******enteredMaxChars: " + enteredMaxChars);
-		String valueDisplayedInFirstNameTxtFieldInEditAccountScreen = eas.getFirstNameValueInEditAccountScreen();
+		String valueDisplayedInFirstNameTxtFieldInEditAccountScreen = eas.getLastNameValueInNameScreen();
 		System.out.println("*******valueDisplayedInFirstNameTxtFieldInEditAccountScreen: "
 				+ valueDisplayedInFirstNameTxtFieldInEditAccountScreen);
 		if (enteredMaxChars.length() <= maxAllowedCharsLength) {
@@ -198,7 +206,7 @@ public class EditAccountUtils {
 		boolean flag = true;
 		System.out.println("*******maxAllowedCharsLength: " + maxAllowedCharsLength);
 		System.out.println("*******enteredMaxChars: " + enteredMaxChars);
-		String valueDisplayedInLastNameTxtFieldInEditAccountScreen = eas.getLastNameValueInEditAccountScreen();
+		String valueDisplayedInLastNameTxtFieldInEditAccountScreen = eas.getLastNameValueInNameScreen();
 		System.out.println("*******valueDisplayedInLastNameTxtFieldInEditAccountScreen: "
 				+ valueDisplayedInLastNameTxtFieldInEditAccountScreen);
 		if (enteredMaxChars.length() <= maxAllowedCharsLength) {

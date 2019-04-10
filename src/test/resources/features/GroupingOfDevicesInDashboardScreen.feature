@@ -1,5 +1,9 @@
+@GroupingOfDevicesInDashboardScenarios @Platform
+Feature: Devices should be grouped in Dashboard screen 
+As a user I want to verify grouping of devices in Dashboard screen
+
 @VerifyGroupingOfDevicesInDashboardScreen
-Scenario:-  Verify if order in which devices are grouped in dashboard screen
+Scenario:  Verify if order in which devices are grouped in dashboard screen
 Given user launches and logs in to the Lyric Application
 And security devices should be installed for the logged in account
 Then user verifies if the following grouping of devices is present:
@@ -14,7 +18,7 @@ And user verifies for each category the devices are displayed in alphabetical or
 
 
 @VerifyGroupingOfDevicesInDashboardScreenByUpgradingTheApp
-Scenario:-  Verify if grouping of devices is displayed in dashboard screen when user upgrades the app from app version which does not support grouping of devices
+Scenario:  Verify if grouping of devices is displayed in dashboard screen when user upgrades the app from app version which does not support grouping of devices
 Given user launches and logs in to the Lyric Application
 And security devices should be installed for the logged in account
 When user receives update about the app
@@ -31,7 +35,7 @@ And user verifies for each category the devices are displayed in alphabetical or
 
 
 @VerifyGroupingOfDevicesInDashboardScreenForInvitedUsersInOlderAppVersion
-Scenario:-  Verify if order in which devices are grouped in dashboard screen for the invited users
+Scenario Outline:  Verify if order in which devices are grouped in dashboard screen for the invited users
 Given user launches and logs in to the Lyric Application
 And security devices should be installed for the logged in account
 Then user verifies if the following grouping of devices is present:
@@ -59,7 +63,7 @@ Examples:
 
 
 @VerifyGroupingOfDevicesInDashboardScreenForInvitedUsers
-Scenario:-  Verify if order in which devices are grouped in dashboard screen for the invited users
+Scenario Outline:  Verify if order in which devices are grouped in dashboard screen for the invited users
 Given user launches and logs in to the Lyric Application
 And security devices should be installed for the logged in account
 Then user verifies if the following grouping of devices is present:
@@ -92,7 +96,7 @@ Examples:
 
 
 @VerifyGroupingOfDevicesInDashboardScreenByRenamingTheDevicesDisplayedInAGroup
-Scenario:-  Verify if order in which devices are grouped in dashboard screen after renaming the existing devices
+Scenario Outline:  Verify if order in which devices are grouped in dashboard screen after renaming the existing devices
 Given user launches and logs in to the Lyric Application
 Then security devices should be installed for the logged in account
 And user verifies if devices are displayed in alphabetical order
