@@ -463,7 +463,7 @@ As user I should be able to configure camera settings from the app
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
   @VerifyMotionDetectioncameraoff @Automated @--xrayid:ATER-54504
-  Scenario Outline: As a user I should be verify geofence stgatus on home or off modeScreen
+  Scenario Outline: As a user I should be verify geofence status on home or off modeScreen
     Given user is set to <Mode> mode through CHIL
      Then user DAS camera is set to "off" through CHIL
       And user launches and logs in to the Lyric application
@@ -478,7 +478,7 @@ As user I should be able to configure camera settings from the app
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
   @VerifyNightVisioncameraoff @Automated @--xrayid:ATER-54506
-  Scenario Outline: As a user I should be verify geofence stgatus on home or off modeScreen
+  Scenario Outline: As a user I should be verify geofence status on home or off modeScreen
     Given user is set to <Mode> mode through CHIL
      Then user DAS camera is set to "off" through CHIL
       And user launches and logs in to the Lyric application
@@ -493,7 +493,7 @@ As user I should be able to configure camera settings from the app
   
   #Requirements: Single Location Single DAS Device, No Sensors Required
   @VerifyVideoQualitycameraoff @Automated @--xrayid:ATER-54509
-  Scenario Outline: As a user I should be verify geofence stgatus on home or off modeScreen
+  Scenario Outline: As a user I should be verify geofence status on home or off modeScreen
     Given user is set to <Mode> mode through CHIL
      Then user DAS camera is set to "off" through CHIL
       And user launches and logs in to the Lyric application

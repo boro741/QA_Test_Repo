@@ -33,6 +33,102 @@ public class ManageUsersScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ProgressBar", false);
 	}
 
+	public boolean isManageUsersScreenHeaderVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ManageUsersScreenHeader");
+	}
+
+	public boolean isBackButtonVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton");
+	}
+
+	public boolean clickOnBackButton() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton")) {
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+		}
+		return flag;
+	}
+
+	public boolean isNoInvitedUsersLabelVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoInvitedUsersLabel");
+	}
+
+	public boolean isInviteNewUserButtonVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "InviteNewUserButton");
+	}
+
+	public boolean clickOnInviteNewUserButton() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "InviteNewUserButton")) {
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "InviteNewUserButton");
+		}
+		return flag;
+	}
+
+	public boolean isInviteUsersEmailAddressDisplayedInTheListOfInvitedUsers(TestCaseInputs inputs,
+			String invitedUsersEmailAddress) {
+		boolean flag = false;
+		List<WebElement> invitedUsersList = new ArrayList<>();
+		if (invitedUsersEmailAddress.equalsIgnoreCase("USER WHO INVITED THE LOGGED IN USER")) {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "InvitedUsersList")) {
+				invitedUsersList = MobileUtils.getMobElements(objectDefinition, testCase, "InvitedUsersList");
+				for (WebElement ele : invitedUsersList) {
+					if (ele.getText().equalsIgnoreCase(inputs.getInputValue("USERID").toString())) {
+						flag = true;
+						break;
+					}
+				}
+			}
+		} else {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "InvitedUsersList")) {
+				invitedUsersList = MobileUtils.getMobElements(objectDefinition, testCase, "InvitedUsersList");
+				for (WebElement ele : invitedUsersList) {
+					if (ele.getText().equalsIgnoreCase(invitedUsersEmailAddress)) {
+						flag = true;
+						break;
+					}
+				}
+			}
+		}
+		return flag;
+	}
+
+	public boolean isInviteUserScreenTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "InviteUserScreenHeader");
+	}
+
+	public boolean isInvitieUserScreenSubTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "InvitieUserScreenSubTitle");
+	}
+
+	public boolean isEmailTextFieldInInviteUserScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EmailTextFieldInInviteUserScreen");
+	}
+
+	public boolean isSendButtonEnabled() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SendButton")
+				&& MobileUtils.getMobElement(objectDefinition, testCase, "SendButton").getAttribute("enabled")
+						.equalsIgnoreCase("true")) {
+			return flag;
+		} else {
+			flag = false;
+		}
+		return flag;
+	}
+
+	public boolean clickOnSendButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SendButton");
+	}
+
+	public boolean isDeleteInvitedEmailIconVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteInvitedEmailIcon");
+	}
+
+	public boolean clickOnDeleteInvitedEmailIcon() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteInvitedEmailIcon");
+	}
+
 	public boolean isAddUsersScreenHeaderVisible() {
 		// return MobileUtils.isMobElementExists(objectDefinition, testCase,
 		// "AddUsersScreenHeader");
@@ -44,34 +140,7 @@ public class ManageUsersScreen extends MobileScreens {
 		}
 	}
 
-	public boolean isBackButtonVisible() {
-		// return MobileUtils.isMobElementExists(objectDefinition, testCase,
-		// "BackButton");
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.isMobElementExists("XPATH", "//*[@class='android.widget.ImageButton']", testCase);
-		} else {
-			return MobileUtils.isMobElementExists("NAME", "Back", testCase);
-		}
-	}
-
-	public boolean clickOnBackButton() {
-		boolean flag = true;
-		/*
-		 * if (MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton"))
-		 * { flag &= MobileUtils.clickOnElement(objectDefinition, testCase,
-		 * "BackButton"); }
-		 */
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			if (MobileUtils.isMobElementExists("XPATH", "//*[@class='android.widget.ImageButton']", testCase))
-				flag &= MobileUtils.clickOnElement(testCase, "XPATH", "//*[@class='android.widget.ImageButton']");
-		} else {
-			if (MobileUtils.isMobElementExists("NAME", "Back", testCase))
-				flag &= MobileUtils.clickOnElement(testCase, "NAME", "Back");
-		}
-		return flag;
-	}
-
-	public boolean isNoInvitedUsersLabelVisible() {
+	public boolean isNoUsersLabelVisible() {
 		// return MobileUtils.isMobElementExists(objectDefinition, testCase,
 		// "NoInvitedUsersLabel");
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
@@ -80,10 +149,9 @@ public class ManageUsersScreen extends MobileScreens {
 			 * "list_item_lyric_subtext_primary_text_view", testCase)) { return true; } else
 			 * { return false; }
 			 */
-			return MobileUtils.isMobElementExists("XPATH", "//android.widget.TextView[@text='No Invited Users']",
-					testCase);
+			return MobileUtils.isMobElementExists("XPATH", "//android.widget.TextView[@text='No Users']", testCase);
 		} else {
-			return MobileUtils.isMobElementExists("NAME", "No Invited Users", testCase);
+			return MobileUtils.isMobElementExists("NAME", "No Users", testCase);
 		}
 	}
 
@@ -110,154 +178,6 @@ public class ManageUsersScreen extends MobileScreens {
 		} else {
 			if (MobileUtils.isMobElementExists("NAME", "Add User", testCase))
 				flag &= MobileUtils.clickOnElement(testCase, "NAME", "Add User");
-		}
-		return flag;
-	}
-
-	public boolean isInviteUsersEmailAddressDisplayedInTheListOfInvitedUsers(TestCaseInputs inputs,
-			String invitedUsersEmailAddress) {
-		boolean flag = false;
-		List<WebElement> invitedUsersList = new ArrayList<>();
-		/*
-		 * if (invitedUsersEmailAddress.
-		 * equalsIgnoreCase("USER WHO INVITED THE LOGGED IN USER")) { if
-		 * (MobileUtils.isMobElementExists(objectDefinition, testCase,
-		 * "InvitedUsersList")) { invitedUsersList =
-		 * MobileUtils.getMobElements(objectDefinition, testCase, "InvitedUsersList");
-		 * for (WebElement ele : invitedUsersList) { if
-		 * (ele.getText().equalsIgnoreCase(inputs.getInputValue("USERID").toString())) {
-		 * flag = true; break; } } } } else { if
-		 * (MobileUtils.isMobElementExists(objectDefinition, testCase,
-		 * "InvitedUsersList")) { invitedUsersList =
-		 * MobileUtils.getMobElements(objectDefinition, testCase, "InvitedUsersList");
-		 * for (WebElement ele : invitedUsersList) { if
-		 * (ele.getText().equalsIgnoreCase(invitedUsersEmailAddress)) { flag = true;
-		 * break; } } } }
-		 */
-		if (invitedUsersEmailAddress.equalsIgnoreCase("USER WHO INVITED THE LOGGED IN USER")) {
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (MobileUtils.isMobElementExists("ID", "list_item_lyric_subtext_primary_text_view", testCase)) {
-					invitedUsersList = MobileUtils.getMobElements(testCase, "ID",
-							"list_item_lyric_subtext_primary_text_view");
-					for (WebElement ele : invitedUsersList) {
-						if (ele.getText().equalsIgnoreCase(inputs.getInputValue("USERID").toString())) {
-							flag = true;
-							break;
-						}
-					}
-				}
-			} else {
-				if (MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeStaticText[starts-with(@name,'invited_user_0_') and contains(@name,'_subTitle')]",
-						testCase)) {
-					invitedUsersList = MobileUtils.getMobElements(testCase, "XPATH",
-							"//XCUIElementTypeStaticText[starts-with(@name,'invited_user_0_') and contains(@name,'_subTitle')]");
-					for (WebElement ele : invitedUsersList) {
-						if (ele.getText().equalsIgnoreCase(inputs.getInputValue("USERID").toString())) {
-							flag = true;
-							break;
-						}
-					}
-				}
-			}
-		} else {
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (MobileUtils.isMobElementExists("ID", "list_item_lyric_subtext_primary_text_view", testCase)) {
-					invitedUsersList = MobileUtils.getMobElements(testCase, "ID",
-							"list_item_lyric_subtext_primary_text_view");
-					for (WebElement ele : invitedUsersList) {
-						if (ele.getText().equalsIgnoreCase(invitedUsersEmailAddress)) {
-							flag = true;
-							break;
-						}
-					}
-				}
-			} else {
-				if (MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeStaticText[starts-with(@name,'invited_user_0_') and contains(@name,'_subTitle')]",
-						testCase)) {
-					invitedUsersList = MobileUtils.getMobElements(testCase, "XPATH",
-							"//XCUIElementTypeStaticText[starts-with(@name,'invited_user_0_') and contains(@name,'_subTitle')]");
-					for (WebElement ele : invitedUsersList) {
-						if (ele.getText().equalsIgnoreCase(invitedUsersEmailAddress)) {
-							flag = true;
-							break;
-						}
-					}
-				}
-			}
-		}
-		return flag;
-	}
-
-	public boolean isInviteUserScreenTitleVisible() {
-		// return MobileUtils.isMobElementExists(objectDefinition, testCase,
-		// "InviteUserScreenHeader");
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.isMobElementExists("XPATH", "//android.widget.TextView[@text='Invite Users']", testCase);
-		} else {
-			return MobileUtils.isMobElementExists("XPATH",
-					"//XCUIElementTypeStaticText[@name='Location Name' and @value='Invite User']", testCase);
-		}
-	}
-
-	public boolean isInvitieUserScreenSubTitleVisible() {
-		// return MobileUtils.isMobElementExists(objectDefinition, testCase,
-		// "InvitieUserScreenSubTitle");
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.isMobElementExists("XPATH",
-					"//android.widget.TextView[contains(@text,'Who would you like to invite to')]", testCase);
-		} else {
-			return MobileUtils.isMobElementExists("XPATH",
-					"//XCUIElementTypeStaticText[contains(@name,'Who would you like to invite to')]", testCase);
-		}
-	}
-
-	public boolean isEmailTextFieldInInviteUserScreenVisible() {
-		// return MobileUtils.isMobElementExists(objectDefinition, testCase,
-		// "EmailTextFieldInInviteUserScreen");
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.isMobElementExists("ID", "fragment_invite_user_email_edit_text", testCase);
-		} else {
-			return MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeTextField[@name='Email TextField']",
-					testCase);
-		}
-	}
-
-	public boolean isSendButtonEnabled() {
-		boolean flag = true;
-		/*
-		 * if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SendButton")
-		 * && MobileUtils.getMobElement(objectDefinition, testCase,
-		 * "SendButton").getAttribute("enabled") .equalsIgnoreCase("true")) { return
-		 * flag; } else { flag = false; }
-		 */
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			if (MobileUtils.isMobElementExists("ID", "fragment_invite_user_send_button", testCase)
-					&& MobileUtils.getMobElement(testCase, "ID", "fragment_invite_user_send_button")
-							.getAttribute("enabled").equalsIgnoreCase("true")) {
-				return flag;
-			} else {
-				flag = false;
-			}
-		} else {
-			if (MobileUtils.isMobElementExists("NAME", "Send", testCase) && MobileUtils
-					.getMobElement(testCase, "NAME", "Send").getAttribute("enabled").equalsIgnoreCase("true")) {
-				return flag;
-			} else {
-				flag = false;
-			}
-		}
-		return flag;
-	}
-
-	public boolean clickOnSendButton() {
-		boolean flag = true;
-		// flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "SendButton");
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			flag &= MobileUtils.clickOnElement(testCase, "ID", "fragment_invite_user_send_button");
-		} else {
-			MobileUtils.clickOnElement(testCase, "NAME", "Send");
 		}
 		return flag;
 	}
@@ -399,23 +319,20 @@ public class ManageUsersScreen extends MobileScreens {
 				}
 			}
 		} else {
-			if (MobileUtils.isMobElementExists("XPATH",
-					"//XCUIElementTypeStaticText[starts-with(@name,'invited_user_0_') and contains(@name,'_subTitle')]",
-					testCase)) {
-				invitedUsersList = MobileUtils.getMobElements(testCase, "XPATH",
-						"//XCUIElementTypeStaticText[starts-with(@name,'invited_user_0_') and contains(@name,'_subTitle')]");
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "InvitedUsersList")) {
+				invitedUsersList = MobileUtils.getMobElements(objectDefinition, testCase, "InvitedUsersList");
 				for (WebElement ele : invitedUsersList) {
 					if (ele.getText().equalsIgnoreCase(invitedUsersEmailAddress)) {
-						flag = true;
 						if (MobileUtils.isMobElementExists("XPATH",
-								"//XCUIElementTypeStaticText[starts-with(@name,'invited_user_0_') and contains(@name,'_subTitle') and @value='"
+								"//XCUIElementTypeStaticText[starts-with(@name,'invited_user_0_') and contains(@name,'_title') and @value='"
 										+ invitedUsersEmailAddress
 										+ "']/following-sibling::XCUIElementTypeButton[starts-with(@name,'invited_user_0_') and contains(@name,'rightButton')]",
 								testCase)) {
+							flag = true;
 							Keyword.ReportStep_Pass(testCase, "Delete icon for the invited users email address: "
 									+ invitedUsersEmailAddress + " is displayed. Clicking on it.");
 							MobileUtils.clickOnElement(testCase, "XPATH",
-									"//XCUIElementTypeStaticText[starts-with(@name,'invited_user_0_') and contains(@name,'_subTitle') and @value='"
+									"//XCUIElementTypeStaticText[starts-with(@name,'invited_user_0_') and contains(@name,'_title') and @value='"
 											+ invitedUsersEmailAddress
 											+ "']/following-sibling::XCUIElementTypeButton[starts-with(@name,'invited_user_0_') and contains(@name,'rightButton')]");
 						}
@@ -423,6 +340,7 @@ public class ManageUsersScreen extends MobileScreens {
 				}
 			}
 		}
+		System.out.println(flag);
 		return flag;
 	}
 
@@ -503,6 +421,57 @@ public class ManageUsersScreen extends MobileScreens {
 		} else {
 			if (MobileUtils.isMobElementExists("NAME", "Remove", testCase))
 				flag &= MobileUtils.clickOnElement(testCase, "NAME", "Remove");
+		}
+		return flag;
+	}
+
+	public boolean isTheRequestedUserAlreadyAddedErrorDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UserAlreadyAddedErrorValidation");
+	}
+
+	public boolean isDeleteUserPopupTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteUserPopupTitle");
+	}
+
+	public boolean isDeleteUserPopupMsgVisible(String invitedUsersEmailAddress) {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.isMobElementExists("XPATH",
+					"//android.widget.TextView[contains(@text,'Are you sure you want to remove access for')]",
+					testCase);
+		} else {
+			return MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeStaticText[@name='This will delete "
+					+ invitedUsersEmailAddress + " from this account']", testCase);
+		}
+	}
+
+	public boolean isCancelButtonInDeleteUserPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInDeleteUserPopup");
+	}
+
+	public boolean isOKButtonInDeleteUserPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInDeleteUserPopup");
+	}
+	
+	public boolean clickOnCancelButtonInDeleteUserPopup() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInDeleteUserPopup")) {
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInDeleteUserPopup");
+		}
+		return flag;
+	}
+	
+	public boolean isInvitedUserErrorMsgVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "InvitedUserErrorMsg");
+	}
+	
+	public String getInvitedUserErrorMsg() {
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "InvitedUserErrorMsg");
+	}
+	
+	public boolean clickOnOKButtonInDeleteUserPopup() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInDeleteUserPopup")) {
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInDeleteUserPopup");
 		}
 		return flag;
 	}

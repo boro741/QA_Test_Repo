@@ -13,6 +13,7 @@ import com.honeywell.lyric.das.utils.DASSettingsUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.HBNAEMEASettingsUtils;
 import com.honeywell.screens.CameraSettingsScreen;
+import com.honeywell.screens.CreateAccountScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.EditAccountScreen;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
@@ -420,6 +421,19 @@ public class VerifyDisplayedPopUp extends Keyword {
 			}
 			break;
 		}
+		case "DELETE USER": {
+			ManageUsersScreen mus = new ManageUsersScreen(testCase);
+			if (mus.isDeleteUserPopupTitleVisible()
+					&& mus.isDeleteUserPopupMsgVisible(inputs.getInputValue("INVITED_USERS_EMAIL_ADDRESS"))
+					&& mus.isCancelButtonInDeleteUserPopupVisible() && mus.isOKButtonInDeleteUserPopupVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Delete user popup is displayed");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Delete user popup is not displayed");
+			}
+			break;
+		}
 		case "UPDATE GEOFENCE CENTER": {
 			GeofenceSettings gs = new GeofenceSettings(testCase);
 			if (gs.isUpdateGeofenceCenterPopupTitleVisible() && gs.isUpdateGeofenceCenterPopupMsgVisible()
@@ -604,28 +618,86 @@ public class VerifyDisplayedPopUp extends Keyword {
 			}
 			break;
 		}
-		case "TURN ON LOCATION SERVICES" : {
+		case "TURN ON LOCATION SERVICES": {
 			OSPopUps ops = new OSPopUps(testCase);
-			if(ops.isTurnOnLocationServicesPopupVisible() && ops.isSettingsButtonVisibleInTurnOnLocationServicesPopup() && ops.isSkipButtonVisibleInTurnOnLocationServicesPopup()) {
-				Keyword.ReportStep_Pass(testCase, "Turn On Location Services to allow Honeywell to determine your location popup is visible");
-			}else {
+			if (ops.isTurnOnLocationServicesPopupVisible() && ops.isSettingsButtonVisibleInTurnOnLocationServicesPopup()
+					&& ops.isSkipButtonVisibleInTurnOnLocationServicesPopup()) {
+				Keyword.ReportStep_Pass(testCase,
+						"Turn On Location Services to allow Honeywell to determine your location popup is visible");
+			} else {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Turn On Location Services to allow Honeywell to determine your location popup is not visible");
 			}
 			break;
 		}
-		
-		case "ALLOW HONEYWELL TO ACCESS THIS DEVICES LOCATION" :{
+
+		case "ALLOW HONEYWELL TO ACCESS THIS DEVICES LOCATION": {
 			OSPopUps ops = new OSPopUps(testCase);
-			if(ops.isAllowHoneywellToAccessDeviceLocationPopupVisible() && ops.isAllowHoneywellToAccessDeviceLocationPopupVisible() && ops.isDenyAccessToDeviceLocationButtonVisible()) {
+			if (ops.isAllowHoneywellToAccessDeviceLocationPopupVisible()
+					&& ops.isAllowHoneywellToAccessDeviceLocationPopupVisible()
+					&& ops.isDenyAccessToDeviceLocationButtonVisible()) {
 				Keyword.ReportStep_Pass(testCase, "Allow Honeywell to access this devices location popup is visible");
-			}else {
+			} else {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Allow Honeywell to access this devices location popup is not visible");
 			}
 			break;
 		}
-		
+		case "ALLOW HONEYWELL TO ACCESS YOUR LOCATION": {
+			OSPopUps ops = new OSPopUps(testCase);
+			if (ops.isAllowHoneywellToAccessYourLocationPopupVisible(30)) {
+				Keyword.ReportStep_Pass(testCase, "Allow Honeywell to access your location popup is visible");
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Allow Honeywell to access your location popup is not visible");
+			}
+			break;
+		}
+
+		case "HONEYWELL WOULD LIKE TO SEND YOU NOTIFICATIONS": {
+			OSPopUps ops = new OSPopUps(testCase);
+			if (ops.isHoneywellWouldLikeToSendYouNotificationsPopupVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Honeywell would like to send you notifications popup is visible");
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Honeywell would like to send you notifications popup is not visible");
+			}
+			break;
+		}
+
+		case "EMAIL ADDRESS ALREADY REGISTERED": {
+			CreateAccountScreen cas = new CreateAccountScreen(testCase);
+			if (cas.isEmailAddressAlreadyRegisteredPopupDisplayed()) {
+				Keyword.ReportStep_Pass(testCase, "Email Address already registered popup is visible");
+				/*
+				 * if (cas.isCancelButtonInEmailAddressAlreadyRegisteredPopupDisplayed()) {
+				 * Keyword.ReportStep_Pass(testCase,
+				 * "Cancel button in Email Address already registered popup is visible"); if
+				 * (cas.isLogInButtonInEmailAddressAlreadyRegisteredPopupDisplayed()) {
+				 * Keyword.ReportStep_Pass(testCase,
+				 * "Login button in Email Address already registered popup is visible"); } else
+				 * { Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+				 * "Login button in Email Address already registered popup is not visible"); } }
+				 * else { Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+				 * "Cancel button in Email Address already registered popup is not visible"); }
+				 */
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Email Address already registered popup is not visible");
+			}
+			break;
+		}
+
+		case "DELETE LOCATION": {
+			OSPopUps ops = new OSPopUps(testCase);
+			if (ops.isDeleteLocationPopupLabelVisible() && ops.isDeleteButtonInDeleteLocationPopupLabelVisible()
+					&& ops.isCancelButtonInDeleteLocationPopupLabelVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Delete Location popup is visible");
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Delete Location popup is not visible");
+			}
+			break;
+		}
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));

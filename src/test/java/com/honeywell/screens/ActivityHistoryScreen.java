@@ -38,32 +38,44 @@ public class ActivityHistoryScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoMessagesLabel");
 	}
 
+	public List<WebElement> getActivityHistoryMsgTitle() {
+		return MobileUtils.getMobElements(objectDefinition, testCase, "ActivityHistoryMsgTitle");
+	}
+
+	public boolean clickOnMessage() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ActivityHistoryMsgTitle");
+	}
+
+	public boolean isActivityHistoryMsgTitleDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ActivityHistoryMsgTitle");
+	}
+
 	public boolean isEditButtonVisible() {
 		boolean flag = true;
-		/*if (MobileUtils.isMobElementExists(objectDefinition, testCase, "EditButton")) {
-			return flag;
-		} else {*/
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				if (MobileUtils.isMobElementExists("XPATH", "//*[@text='Edit']", testCase)) {
-					return flag;
-				} else {
-					flag = false;
-				}
+		/*
+		 * if (MobileUtils.isMobElementExists(objectDefinition, testCase, "EditButton"))
+		 * { return flag; } else {
+		 */
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists("XPATH", "//*[@text='Edit']", testCase)) {
+				return flag;
 			} else {
-				if (MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeButton[@value='Edit']", testCase)) {
-					return flag;
-				} else {
-					flag = false;
-				}
+				flag = false;
 			}
-		//}
+		} else {
+			if (MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeButton[@value='Edit']", testCase)) {
+				return flag;
+			} else {
+				flag = false;
+			}
+		}
+		// }
 		return flag;
 	}
 
 	public boolean clickOnEditButton() {
 		boolean flag = true;
-		//flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "EditButton");
+		// flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "EditButton");
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			flag &= MobileUtils.clickOnElement(testCase, "XPATH", "//*[@text='Edit']");
 		} else {
@@ -130,31 +142,31 @@ public class ActivityHistoryScreen extends MobileScreens {
 	}
 
 	public boolean isSelectAllButtonVisible() {
-		/*if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SelectAllButton")) {
-			return true;
-		} else {*/
+		/*
+		 * if (MobileUtils.isMobElementExists(objectDefinition, testCase,
+		 * "SelectAllButton")) { return true; } else {
+		 */
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.isMobElementExists("ID", "horizontal_button_previous", testCase);
 		} else {
 			return MobileUtils.isMobElementExists("ID", "LeftButton", testCase);
 		}
-		//}
+		// }
 	}
-	
+
 	public boolean clickOnSelectAllButton() {
 		boolean flag = true;
 		List<WebElement> selectedMsgList = new ArrayList<WebElement>();
-		/*if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SelectAllButton")) {
-			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "SelectAllButton");
-			selectedMsgList = MobileUtils.getMobElements(objectDefinition, testCase, "SelectAMsgRadioButton");
-			for (WebElement ele : selectedMsgList) {
-				if ((ele.getAttribute("checked") != null) && (ele.getAttribute("checked").equalsIgnoreCase("true"))) {
-					return flag;
-				} else {
-					flag = false;
-				}
-			}
-		} else {*/
+		/*
+		 * if (MobileUtils.isMobElementExists(objectDefinition, testCase,
+		 * "SelectAllButton")) { flag &= MobileUtils.clickOnElement(objectDefinition,
+		 * testCase, "SelectAllButton"); selectedMsgList =
+		 * MobileUtils.getMobElements(objectDefinition, testCase,
+		 * "SelectAMsgRadioButton"); for (WebElement ele : selectedMsgList) { if
+		 * ((ele.getAttribute("checked") != null) &&
+		 * (ele.getAttribute("checked").equalsIgnoreCase("true"))) { return flag; } else
+		 * { flag = false; } } } else {
+		 */
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if (MobileUtils.isMobElementExists("ID", "horizontal_button_previous", testCase)) {
 				flag &= MobileUtils.clickOnElement(testCase, "ID", "horizontal_button_previous");
@@ -208,77 +220,82 @@ public class ActivityHistoryScreen extends MobileScreens {
 	public boolean isDeletelButtonEnabled() {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			/*if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteButton")
-					&& MobileUtils.getMobElement(objectDefinition, testCase, "DeleteButton").getAttribute("enabled")
+			/*
+			 * if (MobileUtils.isMobElementExists(objectDefinition, testCase,
+			 * "DeleteButton") && MobileUtils.getMobElement(objectDefinition, testCase,
+			 * "DeleteButton").getAttribute("enabled") .equalsIgnoreCase("true")) { return
+			 * flag; } else
+			 */ if (MobileUtils.isMobElementExists("ID", "horizontal_button_next", testCase)
+					&& MobileUtils.getMobElement(testCase, "ID", "horizontal_button_next").getAttribute("enabled")
 							.equalsIgnoreCase("true")) {
-				return flag;
-			} else*/ if (MobileUtils.isMobElementExists("ID", "horizontal_button_next", testCase)
-					&& MobileUtils.getMobElement(testCase, "ID", "horizontal_button_next").getAttribute("enabled").equalsIgnoreCase("true")) {
 				return flag;
 			} else {
 				flag = false;
 			}
-		} /*else {
-			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteButton")
-					&& MobileUtils.getMobElement(objectDefinition, testCase, "DeleteButton").getAttribute("enabled")
-							.equalsIgnoreCase("true")) {
-				return flag;
-			} else*/ if (MobileUtils.isMobElementExists("ID", "RightButton", testCase)
-					&& MobileUtils.getMobElement(testCase, "ID", "RightButton")
-							.getAttribute("enabled").equalsIgnoreCase("true")) {
-				return flag;
-			} else {
-				flag = false;
-			}
-		//}
+		}
+		/*
+		 * else { if (MobileUtils.isMobElementExists(objectDefinition, testCase,
+		 * "DeleteButton") && MobileUtils.getMobElement(objectDefinition, testCase,
+		 * "DeleteButton").getAttribute("enabled") .equalsIgnoreCase("true")) { return
+		 * flag; } else
+		 */ if (MobileUtils.isMobElementExists("ID", "RightButton", testCase) && MobileUtils
+				.getMobElement(testCase, "ID", "RightButton").getAttribute("enabled").equalsIgnoreCase("true")) {
+			return flag;
+		} else {
+			flag = false;
+		}
+		// }
 		return flag;
 	}
 
 	public boolean clickOnDeleteButton() {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			/*if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteButton")
-					&& MobileUtils.getMobElement(objectDefinition, testCase, "DeleteButton").getAttribute("enabled")
+			/*
+			 * if (MobileUtils.isMobElementExists(objectDefinition, testCase,
+			 * "DeleteButton") && MobileUtils.getMobElement(objectDefinition, testCase,
+			 * "DeleteButton").getAttribute("enabled") .equalsIgnoreCase("true")) { flag &=
+			 * MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteButton"); }
+			 * else {
+			 */
+			if (MobileUtils.isMobElementExists("ID", "horizontal_button_next", testCase)
+					&& MobileUtils.getMobElement(testCase, "ID", "horizontal_button_next").getAttribute("enabled")
 							.equalsIgnoreCase("true")) {
-				flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteButton");
-			} else {*/
-				if (MobileUtils.isMobElementExists("ID", "horizontal_button_next", testCase)
-						&& MobileUtils.getMobElement(testCase, "ID", "horizontal_button_next").getAttribute("enabled")
-								.equalsIgnoreCase("true")) {
-					flag &= MobileUtils.clickOnElement(testCase, "ID", "horizontal_button_next");
-				} else {
-					flag = false;
-				}
-			//}
+				flag &= MobileUtils.clickOnElement(testCase, "ID", "horizontal_button_next");
+			} else {
+				flag = false;
+			}
+			// }
 		} else {
-			/*if (MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteButton")
-					&& MobileUtils.getMobElement(objectDefinition, testCase, "DeleteButton").getAttribute("enabled")
-							.equalsIgnoreCase("true")) {
-				flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteButton");
-			} else {*/
-				if (MobileUtils.isMobElementExists("ID", "RightButton", testCase)
-						&& MobileUtils.getMobElement(testCase, "ID", "RightButton")
-								.getAttribute("enabled").equalsIgnoreCase("true")) {
-					flag &= MobileUtils.clickOnElement(testCase, "ID", "RightButton");
-				} else {
-					flag = false;
-				}
-			//}
+			/*
+			 * if (MobileUtils.isMobElementExists(objectDefinition, testCase,
+			 * "DeleteButton") && MobileUtils.getMobElement(objectDefinition, testCase,
+			 * "DeleteButton").getAttribute("enabled") .equalsIgnoreCase("true")) { flag &=
+			 * MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteButton"); }
+			 * else {
+			 */
+			if (MobileUtils.isMobElementExists("ID", "RightButton", testCase) && MobileUtils
+					.getMobElement(testCase, "ID", "RightButton").getAttribute("enabled").equalsIgnoreCase("true")) {
+				flag &= MobileUtils.clickOnElement(testCase, "ID", "RightButton");
+			} else {
+				flag = false;
+			}
+			// }
 		}
 		return flag;
 	}
 
 	public boolean isCancelOptionVisible() {
-		/*if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelOption")) {
-			return true;
-		} else {*/
-			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-				return MobileUtils.isMobElementExists("XPATH", "//*[@text='Cancel']", testCase);
-			} else {
-				return MobileUtils.isMobElementExists("XPATH",
-						"//XCUIElementTypeButton[@value='Cancel']", testCase);
-			}
-		//}
+		/*
+		 * if (MobileUtils.isMobElementExists(objectDefinition, testCase,
+		 * "CancelOption")) { return true; } else {
+		 */
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.isMobElementExists("XPATH", "//*[@text='Cancel']", testCase);
+		} else {
+			return MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeButton[@value='Cancel']", testCase);
+		}
+		// }
 	}
 
 	public boolean clickOnCancelOption() {
@@ -296,20 +313,19 @@ public class ActivityHistoryScreen extends MobileScreens {
 		// }
 		return flag;
 	}
-	
+
 	public boolean isFirstMsgRadioButtonVisible() {
-		/*if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SelectAMsgRadioButton")) {
-			return true;
-		} else {*/
+		/*
+		 * if (MobileUtils.isMobElementExists(objectDefinition, testCase,
+		 * "SelectAMsgRadioButton")) { return true; } else {
+		 */
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.isMobElementExists("ID", "delete_radio_btn", testCase);
 		} else {
-			if (MobileUtils.isMobElementExists("XPATH",
-					"//XCUIElementTypeCell[@name='Messages_cell'][1]", testCase)) {
+			if (MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeCell[@name='Messages_cell'][1]", testCase)) {
 				return true;
 			} else {
-				if (testCase.getMobileDriver()
-						.findElement(By.xpath("//XCUIElementTypeCell[@name='Messages_cell'][1]"))
+				if (testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypeCell[@name='Messages_cell'][1]"))
 						.isEnabled()) {
 					return true;
 				} else {
@@ -317,14 +333,17 @@ public class ActivityHistoryScreen extends MobileScreens {
 				}
 			}
 		}
-		//}
+		// }
 	}
-	
+
 	public boolean clickOnFirstMsgRadioButton() {
 		boolean flag = true;
-		/*if (MobileUtils.isMobElementExists(objectDefinition, testCase, "SelectAMsgRadioButton")) {
-			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "SelectAMsgRadioButton");
-		} else {*/
+		/*
+		 * if (MobileUtils.isMobElementExists(objectDefinition, testCase,
+		 * "SelectAMsgRadioButton")) { flag &=
+		 * MobileUtils.clickOnElement(objectDefinition, testCase,
+		 * "SelectAMsgRadioButton"); } else {
+		 */
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if (MobileUtils.isMobElementExists("ID", "delete_radio_btn", testCase)) {
 				flag &= MobileUtils.clickOnElement(testCase, "ID", "delete_radio_btn");
@@ -332,17 +351,13 @@ public class ActivityHistoryScreen extends MobileScreens {
 				flag = false;
 			}
 		} else {
-			if (MobileUtils.isMobElementExists("XPATH",
-					"//XCUIElementTypeCell[@name='Messages_cell'][1]", testCase)) {
+			if (MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeCell[@name='Messages_cell'][1]", testCase)) {
 				flag &= MobileUtils.clickOnElement(testCase, "XPATH",
 						"//XCUIElementTypeCell[@name='Messages_cell'][1]");
 			} else {
-				if (testCase.getMobileDriver()
-						.findElement(By.xpath("//XCUIElementTypeCell[@name='Messages_cell'][1]"))
+				if (testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypeCell[@name='Messages_cell'][1]"))
 						.isDisplayed()) {
-					testCase.getMobileDriver()
-							.findElement(
-									By.xpath("//XCUIElementTypeCell[@name='Messages_cell'][1]"))
+					testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypeCell[@name='Messages_cell'][1]"))
 							.click();
 					return true;
 				} else {
@@ -350,25 +365,30 @@ public class ActivityHistoryScreen extends MobileScreens {
 				}
 			}
 		}
-		//}
+		// }
 		return flag;
 	}
 
 	public boolean firstMsgFromActivityHistoryListBeforeDelete(TestCases testCase, TestCaseInputs inputs)
 			throws Exception {
 		boolean flag = true;
-		/*if ((MobileUtils.isMobElementExists(objectDefinition, testCase, "ActivityHistoryMsgTime"))
-				&& (MobileUtils.isMobElementExists(objectDefinition, testCase, "ActivityHistoryMsgTitle"))
-				&& (MobileUtils.isMobElementExists(objectDefinition, testCase, "ActivityHistoryMsgDetail"))) {
-			inputs.setInputValue("FIRST_ACTIVITY_HISTORY_MSG_TIME_BEFORE_DELETE",
-					MobileUtils.getFieldValue(objectDefinition, testCase, "ActivityHistoryMsgTime"));
-			inputs.setInputValue("FIRST_ACTIVITY_HISTORY_MSG_TITLE_BEFORE_DELETE",
-					MobileUtils.getFieldValue(objectDefinition, testCase, "ActivityHistoryMsgTitle"));
-			inputs.setInputValue("FIRST_ACTIVITY_HISTORY_MSG_DETAIL_BEFORE_DELETE",
-					MobileUtils.getFieldValue(objectDefinition, testCase, "ActivityHistoryMsgDetail"));
-		} else {
-			flag = false;
-		}*/
+		/*
+		 * if ((MobileUtils.isMobElementExists(objectDefinition, testCase,
+		 * "ActivityHistoryMsgTime")) &&
+		 * (MobileUtils.isMobElementExists(objectDefinition, testCase,
+		 * "ActivityHistoryMsgTitle")) &&
+		 * (MobileUtils.isMobElementExists(objectDefinition, testCase,
+		 * "ActivityHistoryMsgDetail"))) {
+		 * inputs.setInputValue("FIRST_ACTIVITY_HISTORY_MSG_TIME_BEFORE_DELETE",
+		 * MobileUtils.getFieldValue(objectDefinition, testCase,
+		 * "ActivityHistoryMsgTime"));
+		 * inputs.setInputValue("FIRST_ACTIVITY_HISTORY_MSG_TITLE_BEFORE_DELETE",
+		 * MobileUtils.getFieldValue(objectDefinition, testCase,
+		 * "ActivityHistoryMsgTitle"));
+		 * inputs.setInputValue("FIRST_ACTIVITY_HISTORY_MSG_DETAIL_BEFORE_DELETE",
+		 * MobileUtils.getFieldValue(objectDefinition, testCase,
+		 * "ActivityHistoryMsgDetail")); } else { flag = false; }
+		 */
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if ((MobileUtils.isMobElementExists("ID", "view_notification_row_time", testCase))
 					&& (MobileUtils.isMobElementExists("ID", "view_notification_row_title", testCase))
@@ -405,18 +425,23 @@ public class ActivityHistoryScreen extends MobileScreens {
 	public boolean firstMsgFromActivityHistoryListAfterDelete(TestCases testCase, TestCaseInputs inputs)
 			throws Exception {
 		boolean flag = true;
-		/*if ((MobileUtils.isMobElementExists(objectDefinition, testCase, "ActivityHistoryMsgTime"))
-				&& (MobileUtils.isMobElementExists(objectDefinition, testCase, "ActivityHistoryMsgTitle"))
-				&& (MobileUtils.isMobElementExists(objectDefinition, testCase, "ActivityHistoryMsgDetail"))) {
-			inputs.setInputValue("FIRST_ACTIVITY_HISTORY_MSG_TIME_AFTER_DELETE",
-					MobileUtils.getFieldValue(objectDefinition, testCase, "ActivityHistoryMsgTime"));
-			inputs.setInputValue("FIRST_ACTIVITY_HISTORY_MSG_TITLE_AFTER_DELETE",
-					MobileUtils.getFieldValue(objectDefinition, testCase, "ActivityHistoryMsgTitle"));
-			inputs.setInputValue("FIRST_ACTIVITY_HISTORY_MSG_DETAIL_AFTER_DELETE",
-					MobileUtils.getFieldValue(objectDefinition, testCase, "ActivityHistoryMsgDetail"));
-		} else {
-			flag = false;
-		}*/
+		/*
+		 * if ((MobileUtils.isMobElementExists(objectDefinition, testCase,
+		 * "ActivityHistoryMsgTime")) &&
+		 * (MobileUtils.isMobElementExists(objectDefinition, testCase,
+		 * "ActivityHistoryMsgTitle")) &&
+		 * (MobileUtils.isMobElementExists(objectDefinition, testCase,
+		 * "ActivityHistoryMsgDetail"))) {
+		 * inputs.setInputValue("FIRST_ACTIVITY_HISTORY_MSG_TIME_AFTER_DELETE",
+		 * MobileUtils.getFieldValue(objectDefinition, testCase,
+		 * "ActivityHistoryMsgTime"));
+		 * inputs.setInputValue("FIRST_ACTIVITY_HISTORY_MSG_TITLE_AFTER_DELETE",
+		 * MobileUtils.getFieldValue(objectDefinition, testCase,
+		 * "ActivityHistoryMsgTitle"));
+		 * inputs.setInputValue("FIRST_ACTIVITY_HISTORY_MSG_DETAIL_AFTER_DELETE",
+		 * MobileUtils.getFieldValue(objectDefinition, testCase,
+		 * "ActivityHistoryMsgDetail")); } else { flag = false; }
+		 */
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if ((MobileUtils.isMobElementExists("ID", "view_notification_row_time", testCase))
 					&& (MobileUtils.isMobElementExists("ID", "view_notification_row_title", testCase))
@@ -442,6 +467,44 @@ public class ActivityHistoryScreen extends MobileScreens {
 				inputs.setInputValue("FIRST_ACTIVITY_HISTORY_MSG_TITLE_AFTER_DELETE", MobileUtils
 						.getFieldValue(testCase, "XPATH", "//XCUIElementTypeStaticText[@name='Messages_subTitle'][2]"));
 				inputs.setInputValue("FIRST_ACTIVITY_HISTORY_MSG_DETAIL_AFTER_DELETE", MobileUtils.getFieldValue(
+						testCase, "XPATH", "//XCUIElementTypeStaticText[@name='Messages_detail_subTitle']"));
+			} else {
+				flag = false;
+			}
+		}
+		return flag;
+	}
+
+	public boolean firstMsgFromActivityHistoryListAfterGeofenceCross(TestCases testCase, TestCaseInputs inputs)
+			throws Exception {
+		boolean flag = true;
+
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if ((MobileUtils.isMobElementExists("ID", "view_notification_row_time", testCase))
+					&& (MobileUtils.isMobElementExists("ID", "view_notification_row_title", testCase))
+					&& (MobileUtils.isMobElementExists("ID", "view_notification_row_description", testCase))) {
+				inputs.setInputValue("FIRST_ACTIVITY_HISTORY_MSG_TIME_BEFORE_DELETE",
+						MobileUtils.getFieldValue(testCase, "ID", "view_notification_row_time"));
+				inputs.setInputValue("FIRST_ACTIVITY_HISTORY_MSG_TITLE_BEFORE_DELETE",
+						MobileUtils.getFieldValue(testCase, "ID", "view_notification_row_title"));
+				inputs.setInputValue("FIRST_ACTIVITY_HISTORY_MSG_DETAIL_BEFORE_DELETE",
+						MobileUtils.getFieldValue(testCase, "ID", "view_notification_row_description"));
+			} else {
+				flag = false;
+			}
+		} else {
+			// iOS
+			if ((MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeStaticText[@name='Messages_title']",
+					testCase))
+					&& (MobileUtils.isMobElementExists("XPATH",
+							"//XCUIElementTypeStaticText[@name='Messages_subTitle']", testCase))
+					&& (MobileUtils.isMobElementExists("XPATH",
+							"//XCUIElementTypeStaticText[@name='Messages_detail_subTitle'][1]", testCase))) {
+				inputs.setInputValue("FIRST_ACTIVITY_HISTORY_MSG_TIME_BEFORE_DELETE", MobileUtils
+						.getFieldValue(testCase, "XPATH", "//XCUIElementTypeStaticText[@name='Messages_title']"));
+				inputs.setInputValue("FIRST_ACTIVITY_HISTORY_MSG_TITLE_BEFORE_DELETE", MobileUtils
+						.getFieldValue(testCase, "XPATH", "//XCUIElementTypeStaticText[@name='Messages_subTitle'][1]"));
+				inputs.setInputValue("FIRST_ACTIVITY_HISTORY_MSG_DETAIL_BEFORE_DELETE", MobileUtils.getFieldValue(
 						testCase, "XPATH", "//XCUIElementTypeStaticText[@name='Messages_detail_subTitle']"));
 			} else {
 				flag = false;

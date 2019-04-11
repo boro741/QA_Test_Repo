@@ -32,6 +32,7 @@ import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.GlobalDrawerScreen;
 import com.honeywell.screens.LoginScreen;
 import com.honeywell.screens.ManageUsersScreen;
+import com.honeywell.screens.OSPopUps;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.EditAccountScreen;
 import com.honeywell.screens.FAQsScreen;
@@ -76,6 +77,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 		return flag;
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	@KeywordStep(gherkins = "^user should be displayed with the following \"(.+)\" options:$")
 	public boolean keywordSteps() throws KeywordException {
@@ -664,7 +666,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				 * (dimension.getHeight() * .9)).moveTo(0, -(int) (dimension.getHeight() * .6))
 				 * .release().perform();
 				 */
-				action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
+				action.press(point(10, (int) (dimension.getHeight() * .9)))
+						.waitAction(waitOptions(MobileUtils.getDuration(2000)))
 						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 				try {
 					Thread.sleep(15000);
@@ -672,8 +675,9 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-//				action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
-//						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+				// action.press(point(10, (int) (dimension.getHeight() *
+				// .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
+				// .moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 			}
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldToBeVerified = data.getData(i, "MotionSensitivityOptionsSettings");
@@ -1826,7 +1830,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
 				 * (dimension.getHeight() * .6)) .release().perform();
 				 */
-				action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
+				action.press(point(10, (int) (dimension.getHeight() * .9)))
+						.waitAction(waitOptions(MobileUtils.getDuration(2000)))
 						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 			}
 			for (int i = 0; i < data.getSize(); i++) {
@@ -2090,7 +2095,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 						 * (dimension.getHeight() * .6)).release().perform();
 						 */
-						action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.waitAction(waitOptions(MobileUtils.getDuration(2000)))
 								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= gd.isAboutTheAppOptionVisible();
@@ -2234,7 +2240,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 						 * (dimension.getHeight() * .6)).release().perform();
 						 */
-						action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.waitAction(waitOptions(MobileUtils.getDuration(2000)))
 								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= gd.isAboutTheAppOptionVisible();
@@ -2396,7 +2403,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 						 * (dimension.getHeight() * .6)).release().perform();
 						 */
-						action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.waitAction(waitOptions(MobileUtils.getDuration(2000)))
 								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= gd.isAboutTheAppOptionVisible();
@@ -2559,7 +2567,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 						 * (dimension.getHeight() * .6)).release().perform();
 						 */
-						action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.waitAction(waitOptions(MobileUtils.getDuration(2000)))
 								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= gd.isAboutTheAppOptionVisible();
@@ -2711,7 +2720,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 						 * (dimension.getHeight() * .6)).release().perform();
 						 */
-						action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.waitAction(waitOptions(MobileUtils.getDuration(2000)))
 								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= gd.isAboutTheAppOptionVisible();
@@ -2854,7 +2864,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 						 * (dimension.getHeight() * .6)).release().perform();
 						 */
-						action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.waitAction(waitOptions(MobileUtils.getDuration(2000)))
 								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= gd.isEditAccountOptionVisible();
@@ -2963,6 +2974,16 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "INVITATION MESSAGE FOR THE INVITED USER": {
+					flag &= ah.isMessagesDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Invitation message is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Invitation message is not displayed");
 					}
 					break;
 				}
@@ -3204,7 +3225,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				String parameter = data.getData(i, "AddressOptions");
 				switch (parameter.toUpperCase()) {
 				case "EDIT ADDRESS LABEL": {
-					if (ads.isEditAddressInAddressScreenVisible()) {
+					if (ads.isEditButtonInAddressScreenVisible()) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -3614,6 +3635,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 						@SuppressWarnings("rawtypes")
 						TouchAction action = new TouchAction(testCase.getMobileDriver());
+
 						System.out.println("$$$$$$$$$$$$$$: " + testCase.getPlatform());
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimensions.width * 20) / 100;
@@ -3622,12 +3644,15 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							int endy = (dimensions.height * 35) / 100;
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
+
 							/*
 							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
 							 * (dimensions.getHeight() * .6)).release().perform();
 							 */
-							action.press(point(10, (int) (dimensions.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
+
+							action.press(point(10, (int) (dimensions.getHeight() * .9)))
 									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+
 						}
 						if (cas.isCreateAccountByTappingCreateBelowTextDisplayed()) {
 							Keyword.ReportStep_Pass(testCase, parameter + " text is displayed");
@@ -3646,6 +3671,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 						@SuppressWarnings("rawtypes")
 						TouchAction action = new TouchAction(testCase.getMobileDriver());
+
 						System.out.println("$$$$$$$$$$$$$$: " + testCase.getPlatform());
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimensions.width * 20) / 100;
@@ -3658,7 +3684,14 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
 							 * (dimensions.getHeight() * .6)).release().perform();
 							 */
-							action.press(point(10, (int) (dimensions.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
+
+							/*
+							 * action.press(point(10, (int) (dimensions.getHeight() * .9))) .moveTo(point(0,
+							 * -(int) (dimensions.getHeight() * .6))).release().perform();
+							 */
+
+							action.press(point(10, (int) (dimensions.getHeight() * .9)))
+									.waitAction(waitOptions(MobileUtils.getDuration(2000)))
 									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 						}
 						if (cas.isCreateAccountPrivacyStatementLinkDisplayed()) {
@@ -3675,6 +3708,30 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					flag &= cas.isCreateAccountEULALinkDisplayed();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, parameter + " link is displayed");
+						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+						@SuppressWarnings("rawtypes")
+						TouchAction action = new TouchAction(testCase.getMobileDriver());
+						System.out.println("$$$$$$$$$$$$$$: " + testCase.getPlatform());
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							int startx = (dimensions.width * 20) / 100;
+							int starty = (dimensions.height * 62) / 100;
+							int endx = (dimensions.width * 22) / 100;
+							int endy = (dimensions.height * 35) / 100;
+							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						} else {
+							/*
+							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimensions.getHeight() * .6)).release().perform();
+							 */
+							/*
+							 * action.press(point(10, (int) (dimensions.getHeight() * .9))) .moveTo(point(0,
+							 * -(int) (dimensions.getHeight() * .6))).release().perform();
+							 */
+
+							action.press(point(10, (int) (dimensions.getHeight() * .9)))
+									.waitAction(waitOptions(MobileUtils.getDuration(2000)))
+									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+						}
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								parameter + " link is not displayed");
@@ -3826,7 +3883,13 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
 							 * (dimensions.getHeight() * .6)).release().perform();
 							 */
-							action.press(point(10, (int) (dimensions.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
+							/*
+							 * action.press(point(10, (int) (dimensions.getHeight() * .9))) .moveTo(point(0,
+							 * -(int) (dimensions.getHeight() * .6))).release().perform();
+							 */
+
+							action.press(point(10, (int) (dimensions.getHeight() * .9)))
+									.waitAction(waitOptions(MobileUtils.getDuration(2000)))
 									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 						}
 					} else {
@@ -3860,7 +3923,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				case "SIGNING UP CONSENT LABEL SHOULD BE DISPLAYED": {
 					flag &= cas.isCreateAccountSigningUpConsentLabelDisplayed();
 					if (flag) {
-						Keyword.ReportStep_Pass(testCase, parameter);
+						Keyword.ReportStep_Pass(testCase, parameter + " should be displayed");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								parameter + " label is not displayed");
@@ -3893,6 +3956,30 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					flag &= cas.isCreateAccountEULALinkDisplayed();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, parameter + " link is displayed");
+						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+						@SuppressWarnings("rawtypes")
+						TouchAction action = new TouchAction(testCase.getMobileDriver());
+						System.out.println("$$$$$$$$$$$$$$: " + testCase.getPlatform());
+						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+							int startx = (dimensions.width * 20) / 100;
+							int starty = (dimensions.height * 62) / 100;
+							int endx = (dimensions.width * 22) / 100;
+							int endy = (dimensions.height * 35) / 100;
+							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						} else {
+							/*
+							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
+							 * (dimensions.getHeight() * .6)).release().perform();
+							 */
+							/*
+							 * action.press(point(10, (int) (dimensions.getHeight() * .9))) .moveTo(point(0,
+							 * -(int) (dimensions.getHeight() * .6))).release().perform();
+							 */
+
+							action.press(point(10, (int) (dimensions.getHeight() * .9)))
+									.waitAction(waitOptions(MobileUtils.getDuration(2000)))
+									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+						}
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								parameter + " link is not displayed");
@@ -3957,7 +4044,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					break;
 				}
 
-				case "THE PASSWORD MUST BE AT LEAST EIGHT CHARACTERS": {
+				case "INVALID PASSWORD FORMAT": {
 					flag &= cas.isCreateAccountPasswordFieldErrorValidationDisplayed();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, parameter + " error validation is displayed for Password");
@@ -4008,17 +4095,17 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			for (int i = 0; i < data.getSize(); i++) {
 				String parameter = data.getData(i, "PasswordDontMatchValidation");
 				switch (parameter.toUpperCase()) {
-				case "THE PASSWORD MUST BE AT LEAST EIGHT CHARACTERS": {
-					flag &= cas.isCreateAccountPasswordFieldErrorValidationDisplayed();
+				case "INVALID PASSWORD FORMAT": {
+					flag &= cas.isInvalidPasswordFormatValidationDisplayed();
 					if (flag) {
-						Keyword.ReportStep_Pass(testCase, parameter + " error validation is displayed for Password");
+						Keyword.ReportStep_Pass(testCase, parameter + " validation is displayed for Password field");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								parameter + " error validation is not displayed for Password");
+								parameter + " validation is not displayed for Password field");
 					}
 					break;
 				}
-				case "PASSWORDS DON'T MATCH": {
+				case "PASSWORDS DONT MATCH": {
 					flag &= cas.isCreateAccountVerifyPasswordDontMatchValidationDisplayed();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase,
@@ -4057,6 +4144,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						break;
 					} else {
 						// ios
+						// MobileUtils.hideKeyboardIOS(testCase.getMobileDriver(), "Next");
+						// ls.isLoginHoneywellHomeLogoVisible();
 						ls.ClickOnHoneywellHomeLogo();
 						flag &= ls.isLoginEmailAddressTextFieldVisible();
 						if (flag) {
@@ -4202,7 +4291,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 								defaultWeatherTempUnit = d.getWeatherTempValue();
 								weatherTemperatureDisplayedInTheApp = Double.parseDouble(defaultWeatherTempUnit);
 								flag &= d.clickOnWeatherTempValue();
-								if (w.isWeatherScreenTitleDisplayed()) {
+								if (w.isWeatherScreenTitleDisplayed(10)) {
 									String tempUnitEnabled = w.whichWeatherTempUnitIsEnabled();
 									if (tempUnitEnabled.contains("C")) {
 										w.clickOnBackIcon();
@@ -4241,6 +4330,82 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
+				case "WEATHER TEMP IN DASHBOARD SCREEN IS SAME AS WEATHER TEMP IN WEATHER SCREEN": {
+					try {
+						chUtil = new CHILUtil(inputs);
+						long locationID;
+						double weatherTemperatureFromCHIL, weatherTemperatureDisplayedInTheApp,
+								weatherTemperatureDisplayedInWeatherScreen;
+						String defaultWeatherTempUnit = null;
+						String weatherTempStatus = null;
+						if (chUtil.getConnection()) {
+							locationID = chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME"));
+							System.out.println("The CHIL location ID is: " + locationID);
+							weatherTemperatureFromCHIL = Double.parseDouble(chUtil.getWeather(locationID));
+							System.out.println("########weatherTemperatureFromCHIL: " + weatherTemperatureFromCHIL);
+							if (flag &= d.isDashboardWeatherForecastDisplayed(100)) {
+								Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+								defaultWeatherTempUnit = d.getWeatherTempValue();
+								System.out.println(
+										"The temperature displayed in Dashboard screen is: " + defaultWeatherTempUnit);
+								weatherTemperatureDisplayedInTheApp = Double.parseDouble(defaultWeatherTempUnit);
+								weatherTempStatus = d.getWeatherTempStatus();
+								System.out
+										.println("The temperature status in Dashboard screen is: " + weatherTempStatus);
+
+								flag &= d.clickOnWeatherTempValue();
+								if (w.isWeatherScreenTitleDisplayed(10)) {
+									String weatherValueInWeatherScreen = w.getWeatherForecastValue();
+									System.out.println("The temperature displayed in Weatherscreen is: "
+											+ weatherValueInWeatherScreen);
+									weatherTemperatureDisplayedInWeatherScreen = Double
+											.parseDouble(weatherValueInWeatherScreen);
+									String weatherStatusInWeatherScreen = w.getWeatherForecastStatus();
+									System.out.println("The temperature displayed in Weatherscreen is: "
+											+ weatherStatusInWeatherScreen);
+									if ((Double.compare(weatherTemperatureFromCHIL,
+											weatherTemperatureDisplayedInTheApp) == 0)
+											&& (Double.compare(weatherTemperatureFromCHIL,
+													weatherTemperatureDisplayedInWeatherScreen) == 0)
+											|| (Double.compare(weatherTemperatureFromCHIL,
+													weatherTemperatureDisplayedInTheApp) >= 2)
+													&& (Double.compare(weatherTemperatureFromCHIL,
+															weatherTemperatureDisplayedInWeatherScreen) > 2)
+											|| (Double.compare(weatherTemperatureFromCHIL,
+													weatherTemperatureDisplayedInTheApp) <= 2)
+													&& (Double.compare(weatherTemperatureFromCHIL,
+															weatherTemperatureDisplayedInTheApp) <= 2)) {
+										Keyword.ReportStep_Pass(testCase,
+												parameter + "Weather value displayed in Dashboard "
+														+ defaultWeatherTempUnit
+														+ "is same as the weather value displayed in Weather screen"
+														+ weatherValueInWeatherScreen
+														+ "Weather status displayed in Dashboard " + weatherTempStatus
+														+ "is same as the weather status displayed in Weather screen "
+														+ weatherStatusInWeatherScreen);
+									} else {
+										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+												"Weather value displayed in Dashboard " + defaultWeatherTempUnit
+														+ "is not same as the weather value displayed in Weather screen "
+														+ weatherValueInWeatherScreen
+														+ "Weather status displayed in Dashboard " + weatherTempStatus
+														+ "is not same as the weather status displayed in Weather screen "
+														+ weatherStatusInWeatherScreen);
+									}
+								} else {
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											parameter + " is not displayed");
+								}
+							}
+						}
+					} catch (Exception e) {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Error Occured : " + e.getMessage());
+					}
+
+					break;
+				}
 				case "HUMIDITY": {
 					try {
 						chUtil = new CHILUtil(inputs);
@@ -4253,7 +4418,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							System.out.println("The CHIL location ID is: " + locationID);
 							humidityFromCHIL = Integer.parseInt(chUtil.getHumidty(locationID));
 							System.out.println("########HumidityFromCHIL: " + humidityFromCHIL);
-							if (flag &= w.isHumidityDisplayed(50)) {
+							if (flag &= w.isHumidityDisplayed(100)) {
 								Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
 								getWeatherHumidity = w.getHumidity();
 								humidityDisplayedInTheApp = Integer.parseInt(getWeatherHumidity);
@@ -4313,6 +4478,158 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 				}
 			}
+		}
+		case "ALLOW HONEYWELL TO ACCESS YOUR LOCATION": {
+			boolean flag = true;
+			OSPopUps ops = new OSPopUps(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "AllowHoneywellToAccessYourLocationOptions");
+				switch (parameter.toUpperCase()) {
+				case "ONLY WHILE USING THE APP": {
+					flag &= ops.isOnlyWhileUsingTheAppButtonInAllowHoneywellToAccessYourLocationPopupVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + "button is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " button is not displayed");
+					}
+					break;
+				}
+				case "ALWAYS ALLOW": {
+					flag &= ops.isAllowButtonInAllowHoneywellToAccessYourLocationPopupVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + "button is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " button is not displayed");
+					}
+					break;
+				}
+				case "DONT ALLOW": {
+					flag &= ops.isDontAllowButtonInAllowHoneywellToAccessYourLocationPopupVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + "button is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " button is not displayed");
+					}
+					break;
+				}
+				}
+				break;
+			}
+		}
+		case "HONEYWELL WOULD LIKE TO SEND YOU NOTIFICATIONS": {
+			boolean flag = true;
+			OSPopUps ops = new OSPopUps(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "HoneywellWouldLikeToSendYouNotifications");
+				switch (parameter.toUpperCase()) {
+				case "DONT ALLOW": {
+					flag &= ops.isDontAllowButtonInHoneywellWouldLikeToSendYouNotificationsPopupVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + "button is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " button is not displayed");
+					}
+					break;
+				}
+				case "ALLOW": {
+					flag &= ops.isAllowButtonInHoneywellWouldLikeToSendYouNotificationsPopupVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + "button is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " button is not displayed");
+					}
+					break;
+				}
+				}
+			}
+			break;
+		}
+
+		case "ALLOW HONEYWELL TO ACCESS THIS DEVICES LOCATION": {
+			boolean flag = true;
+			OSPopUps ops = new OSPopUps(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "AllowHoneywellToAccessThisDevicesLocation");
+				switch (parameter.toUpperCase()) {
+				case "DENY": {
+					flag &= ops.isDenyButtonInAllowHoneywellToAccessThisDevicesLocationPopupVisible(30);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + "button is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " button is not displayed");
+					}
+					break;
+				}
+				case "ALLOW": {
+					flag &= ops.isAllowButtonInAllowHoneywellToAccessThisDevicesLocationPopupVisible(30);
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + "button is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " button is not displayed");
+					}
+					break;
+				}
+				}
+			}
+			break;
+		}
+		case "USER ALREADY ADDED TO THIS ACCOUNT ERROR": {
+			boolean flag = true;
+			ManageUsersScreen mus = new ManageUsersScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "UserAlreadyAddedErrorValidation");
+				switch (parameter.toUpperCase()) {
+				case "THE REQUESTED USER WAS ALREADY ADDED TO THIS ACCOUNT": {
+					flag &= mus.isTheRequestedUserAlreadyAddedErrorDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + "error validation is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " error validation is not displayed");
+					}
+					break;
+				}
+				}
+			}
+			break;
+		}
+
+		case "GEOFENCE CROSS DESCRIPTION": {
+			boolean flag = true;
+			ActivityHistoryScreen ah = new ActivityHistoryScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "GeofenceCrossDescriptionOptions");
+				switch (parameter.toUpperCase()) {
+				case "GEOFENCE AWAY EVENT - SUCCESS": {
+					flag &= ah.isActivityHistoryMsgTitleDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + "message is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " message is not displayed");
+					}
+					break;
+				}
+				case "GEOFENCE HOME EVENT - SUCCESS": {
+					flag &= ah.isActivityHistoryMsgTitleDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + "message is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " message is not displayed");
+					}
+					break;
+				}
+				}
+			}
+			break;
 		}
 		}
 		return flag;

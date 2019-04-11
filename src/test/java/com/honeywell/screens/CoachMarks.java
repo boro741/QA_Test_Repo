@@ -480,16 +480,24 @@ public class CoachMarks extends MobileScreens {
 			}
 			break;
 		}
-		
-		
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Invalid device type passed in the argument");
 		}
 		}
-
 		return flag;
 	}
 	
+	public boolean isWelcomeToHoneywellHomesPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WelcomeToHoneywellHomesPopup");
+	}
+	
+	public boolean isCancelButtonInWelcomeToHoneywellHomesPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInWelcomeToHoneywellHomesPopup");
+	}
+	
+	public boolean clickOnCancelButtonInWelcomeToHoneywellHomesPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInWelcomeToHoneywellHomesPopup");
+	}
 }

@@ -3,8 +3,10 @@ package com.honeywell.keywords.lyric.common;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebElement;
 
 import com.honeywell.account.information.LocationInformation;
 import com.honeywell.commons.coreframework.AfterKeyword;
@@ -38,6 +40,7 @@ import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.CameraSolutionCardScreen;
 import com.honeywell.screens.CreateAccountScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
+import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.EditAccountScreen;
 import com.honeywell.screens.EndUserLicenseAgreementScreen;
 import com.honeywell.screens.FAQsScreen;
@@ -56,10 +59,11 @@ import com.honeywell.screens.WeatherForecastScreen;
 import com.honeywell.screens.ZwaveScreen;
 
 import io.appium.java_client.TouchAction;
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
+
 import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
 import static io.appium.java_client.touch.offset.ElementOption.element;
 import static io.appium.java_client.touch.offset.PointOption.point;
-import static io.appium.java_client.touch.WaitOptions.waitOptions;
 
 public class SelectElementOnAScreen extends Keyword {
 
@@ -1501,12 +1505,12 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				case "GEOFENCING": {
-//					flag &= !click.isGeofencingEnabled();
+					// flag &= !click.isGeofencingEnabled();
 					flag &= click.toggleGeofencingSwitch(testCase);
 					break;
 				}
 				case "ENHANCED DETERRENCE": {
-//					flag &= !click.isEnhancedDeterrenceEnabled();
+					// flag &= !click.isEnhancedDeterrenceEnabled();
 					flag &= click.clickOnEnhancedDeterrenceOption(20);
 					break;
 				}
@@ -1525,7 +1529,7 @@ public class SelectElementOnAScreen extends Keyword {
 						action.press(point(10, (int) (dimension.getHeight() * .9)))
 								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
-//					flag &= !click.isOutdoorMotionViewerOnInHomeModeEnabled();
+					// flag &= !click.isOutdoorMotionViewerOnInHomeModeEnabled();
 					flag &= click.toggleOutdoorMotionViewersOnInHomeModeSwitch(testCase);
 					break;
 				}
@@ -1541,7 +1545,8 @@ public class SelectElementOnAScreen extends Keyword {
 						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
 						 * (dimension.getHeight() * .6)).release().perform();
 						 */
-						action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(3000)))
+						action.press(point(10, (int) (dimension.getHeight() * .9)))
+								.waitAction(waitOptions(MobileUtils.getDuration(3000)))
 								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= !click.isEntryExitDelayEnabled();
@@ -1850,6 +1855,46 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					break;
 				}
+				case "GEOFENCE HOME EVENT - SUCCESS": {
+					List<WebElement> messageTitle = ah.getActivityHistoryMsgTitle();
+					int listCount = messageTitle.size();
+					System.out.println(listCount);
+					for (int i = 0; i <= listCount; i++) {
+						String activityHistory = messageTitle.get(i).getText();
+						System.out.println(messageTitle.get(i).getText());
+						System.out.println(activityHistory);
+						if (activityHistory.equalsIgnoreCase("Geofence home event - success")) {
+							ah.clickOnMessage();
+							Keyword.ReportStep_Pass(testCase,
+									"Successfully clicked on the message" + parameters.get(0));
+							break;
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click on the message" + parameters.get(0));
+						}
+					}
+					break;
+				}
+				case "GEOFENCE AWAY EVENT - SUCCESS": {
+					List<WebElement> messageTitle = ah.getActivityHistoryMsgTitle();
+					int listCount = messageTitle.size();
+					System.out.println(listCount);
+					for (int i = 0; i <= listCount; i++) {
+						String activityHistory = messageTitle.get(i).getText();
+						System.out.println(messageTitle.get(i).getText());
+						System.out.println(activityHistory);
+						if (activityHistory.equalsIgnoreCase("Geofence away event - success")) {
+							ah.clickOnMessage();
+							Keyword.ReportStep_Pass(testCase,
+									"Successfully clicked on the message" + parameters.get(0));
+							break;
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click on the message" + parameters.get(0));
+						}
+					}
+					break;
+				}
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -2026,13 +2071,13 @@ public class SelectElementOnAScreen extends Keyword {
 				EditAccountScreen eas = new EditAccountScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "SAVE BUTTON": {
-					if (eas.isSaveButtonInEditAccountScreenVisible()) {
-						flag &= eas.clickOnSaveButtonInEditAccountScreen();
-						if (eas.isEditAccountScreenTitleVisible() && eas.isFirstNameLabelInEditAccountScreenVisible()
-								&& eas.isFirstNameValueInEditAccountScreenVisible()) {
+					if (eas.isSaveButtonEnabled()) {
+						flag &= eas.clickOnSaveButtonScreen();
+						if (eas.isEditAccountScreenTitleVisible() && eas.isNameLabelInEditAccountScreenVisible()
+								&& eas.isNameValueInEditAccountScreenVisible()) {
 							Keyword.ReportStep_Pass(testCase, "User is still in Edit Account Screen. Clicking on the "
 									+ parameters.get(0) + " again.");
-							flag &= eas.clickOnSaveButtonInEditAccountScreen();
+							flag &= eas.clickOnSaveButtonScreen();
 						} else {
 							Keyword.ReportStep_Pass(testCase, "User is not in Edit Account Screen.");
 						}
@@ -2074,7 +2119,7 @@ public class SelectElementOnAScreen extends Keyword {
 				case "DELETE ACCOUNT": {
 					if (eas.isDeleteAccountButtonInEditAccountScreenVisible()) {
 						flag &= eas.clickOnDeleteAccountButtonInEditAccountScreen();
-						flag &= EditAccountUtils.waitForProgressBarToComplete(testCase, "PROGRESS BAR", 2);
+						flag &= EditAccountUtils.waitForProgressBarToComplete(testCase, "CHECKING SPINNER", 2);
 					} else {
 						flag = false;
 					}
@@ -2545,6 +2590,7 @@ public class SelectElementOnAScreen extends Keyword {
 							 * (dimensions.getHeight() * .6)).release().perform();
 							 */
 							action.press(point(10, (int) (dimensions.getHeight() * .9)))
+									.waitAction(waitOptions(MobileUtils.getDuration(2000)))
 									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 						}
 						if (cas.isCreateAccountPrivacyStatementLinkDisplayed()) {
@@ -2801,6 +2847,9 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				}
+			} else if (parameters.get(1).equalsIgnoreCase("DASHBOARD")) {
+				Dashboard d = new Dashboard(testCase);
+				flag = flag & d.selectLocationFromDashBoard(testCase, parameters.get(0));
 			}
 
 		} catch (Exception e) {

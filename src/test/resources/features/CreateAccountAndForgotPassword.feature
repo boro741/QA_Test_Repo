@@ -1,5 +1,5 @@
 	 @Platform
-	 Feature: As an user, I want to Create an account, forget password and Login scenarios 
+	 Feature: As an user, I want to Create an account, forget password and Login scenarios
 
 	 @GenralCreateaccountscreen
   	 Scenario: To verify the Create Account screen  
@@ -115,6 +115,7 @@
       | sami       | krishna   | New email | Password1 | Password1 |
       | vijay      | Govda     | New email | Password1 | Password1 |
       | anju       | sweets    | New email | Password1 | Password1 |
+      | Surendar	   | S        | New email  | Pass1@#$%^&*-_+=[]{}|\:',?/~"();! | Pass1@#$%^&*-_+=[]{}|\:',?/~"();! |
 
      @Gernalcreateaccountwithvaliddetailsgotoemnail          @NotAutomatable
      Scenario Outline: As a user i wanted to create account with go to email
@@ -141,6 +142,7 @@
       | sami       | krishna   | New email | Password1 | Password1 |
       | vijay      | Govda     | New email | Password1 | Password1 |
       | anju       | sweets    | New email | Password1 | Password1 |
+      | Surendar	   | S        | New email  | Pass1@#$%^&*-_+=[]{}|\:',?/~"();! | Pass1@#$%^&*-_+=[]{}|\:',?/~"();! |
 
 	 @Gernalcreateaccountwithvaliddetailsresendlink          @NotAutomatable
      Scenario Outline: As a user i wanted to create account
@@ -171,9 +173,10 @@
       | sami       | krishna   | New email | Password1 | Password1 |
       | vijay      | Govda     | New email | Password1 | Password1 |
       | anju       | sweets    | New email | Password1 | Password1 |
+      | Surendar	   | S        | New email  | Pass1@#$%^&*-_+=[]{}|\:',?/~"();! | Pass1@#$%^&*-_+=[]{}|\:',?/~"();! |
 	
 	 #Issue on Android in Activate Account screen
-     @GeneralCreateAccountWithValidDetailsBackOption       @Automated		@NeedsToBeUpdated
+     @GeneralCreateAccountWithValidDetailsBackOption          @Automated
      Scenario Outline: As a user I want to verify Back option on activating account screen
      Given user launches the Lyric application
      When user selects "Create Account" from "Honeywell Home" screen
@@ -186,15 +189,15 @@
      Then user should be displayed with the "Activate Account" screen
      Then user should be displayed with the following "Activate Account Details" options:
      |ActivateAccountDetails|
-     |Almost Done |
-     |New email   |
-     |Go To Email |
-     |Resend Email|
-     Then user selects "Back button" from "Activate Account" screen
+     |Almost Done 			|
+     |New email 			|
+     |Go To Mail 			|
+     |Resend Email			|
+     Then user selects "Close button" from "Activate Account" screen
      Then user should be displayed with the "Honeywell Home" screen
      When user selects "Login" from "Honeywell Home" screen
-     Then user inputs <Email> in "Email Text Field" in the "Login" screen
-     Then user inputs <Password> in "Password Text Field" in the "Login" screen
+     Then user inputs <Email> in "Email Text Field" in the "Login With Created Credentials" screen
+     Then user inputs <Password> in "Password Text Field" in the "Login With Created Credentials" screen
      Then user selects "Login button" from "Login" screen
      Then user should be displayed with the "Activate Account" screen
      Examples: 
@@ -203,8 +206,9 @@
       #| sami       | krishna   | unit501@grr.la | Password1 | Password1       |
       #| vijay      | Govda     | unit502@grr.la | Password1 | Password1       |
       #| anju       | sweets    | unit503@grr.la | Password1 | Password1       |
-       | manoj		| kumar     | unit506@grr.la | Password1 | Password1       |
+      #| manoj		| kumar     | unit506@grr.la | Password1 | Password1       |
       #| Hemanth	| kumar     | unit507@grr.la | Password1 | Password1       |
+       | Kenneth	| Richard   | unit600@grr.la | Password1 | Password1       |
  
 	 @GeneralCreateAccountWithMaxAlphanumericCharacters       @Automated  @NoUpdateRequired
      Scenario Outline: As a user I want to verify max alphanumeric characters allowed for First Name and Last Name
@@ -217,12 +221,12 @@
      Then user should not be allowed to enter more than "40" characters in "Last Name" in the "Create Account" screen
      Examples:
      | First Name Max Characters		  		        | Last Name Max Characters				          |
-     #| This is to test max characters     		   		| This is to test max characters              	  |
+     | This is to test max characters     		   		| This is to test max characters              	  |
      | This is to test max characters and its D			| This is to test max characters and its D        |
      | This is to test max characters and its Digits   | This is to test max characters and its Digits   |
-     #| This is to test max characters 1234567$!	   	| This is to test max characters 1234567$!	      |
-     #| This is to test max characters 1234567$! 78 	| This is to test max characters 1234567$! 78     |
-     #| !@#$%^&*()_+=-`~!@#$%^&*()_+-~!@#$%^&*()    	| !@#$%^&*()_+=-`~!@#$%^&*()_+-~!@#$%^&*()        |
+     | This is to test max characters 1234567$!	   	| This is to test max characters 1234567$!	      |
+     | This is to test max characters 1234567$! 78 	| This is to test max characters 1234567$! 78     |
+     | !@#$%^&*()_+=-`~!@#$%^&*()_+-~!@#$%^&*()    	| !@#$%^&*()_+=-`~!@#$%^&*()_+-~!@#$%^&*()        |
      
 	 
      @GeneralCreateAccountWithoutFillingsTheDetailsErrorValidation          @Automated			@NeedsToBeUpdated
@@ -255,10 +259,7 @@
      Then user inputs <Password> in "Password Text Field" in the "Create Account" screen
      Then user inputs <Verify Password> in "Verify Password Text Field" in the "Create Account" screen
      Then user selects "Create button" from "Create Account" screen
-     #Then user should be displayed with the following "Already Registered Email validation" options:
-     #| AlreadyRegisteredEmailValidation	|
-     #| This email address has already been registered. |
-     Then user should be displayed with "This email is adready registered with Cancel and Login button" popup
+     Then user should receive a "Email address already registered" popup
      Examples: 
      | First Name | Last Name | Email 		  |Password  | Verify Password |
      | giri       | THEJ      | unit@grr.la   |Password1 | Password1 	  |
@@ -282,10 +283,13 @@
      Then user should be displayed with the following "Password dont match validation" options:
      | PasswordDontMatchValidation |
      | Invalid password format |
-     #| Passwords don't match |    
      Examples: 
      | First Name | Last Name | Email 		| Password | Verify Password |
      | giri       | THEJ      | unit@grr.la |  		   | Password1 		 |
+     | giri       | THEJ      | unit@grr.la |  password1 | Password1 |
+     | giri       | THEJ      | unit@grr.la |  Password     | Password1 |
+     | giri       | THEJ      | unit@grr.la |  password     | Password1 |
+     | giri       | THEJ      | unit@grr.la |  pass     | Password1 |
 
  	 @GeneralCreateAccountWithInvalidPassword          @Automated			@NeedsToBeUpdated
      Scenario Outline: As a user I want to verify Create Account with Invalid Password
@@ -303,7 +307,7 @@
      Then user selects "Create button" from "Create Account" screen
      Then user should be displayed with the following "Password dont match validation" options:
      | PasswordDontMatchValidation |
-     | Invalid password format |
+     | Passwords dont match |
      Examples: 
      | First Name | Last Name | Email 		| Password 	| Verify Password |
      | giri       | THEJ      | unit@grr.la | Password2 | Password1 	  |
@@ -456,34 +460,36 @@
     When user selects "Cancel" from "Login" screen
     Then user should be displayed with the "Honeywell Home" screen
 
-    @GeneralLoginWithValidCredentialWithoutLocation        @Automated  @NoUpdateRequired
+    @GeneralLoginWithValidCredentialWithoutLocation          @Automated     @ShouldBeAFreshInstallationAlwaysToCheckThisScenario
     Scenario Outline: As a user I want to verify valid Login credentails with out location
     Given user launches the Lyric application
     When user selects "Login" from "Honeywell Home" screen
     Then user inputs <Email> in "Email Text Field" in the "Login" screen
     Then user inputs <Password> in "Password Text Field" in the "Login" screen
     Then user selects "Login button" from "Login" screen
+    Then user verifies login is successful when user logs in first time
     Then user should be displayed with the "Add New Device" screen
     #Then user logs out of the app
     Examples:
     |Email         | Password  |
     |zone58@grr.la | Password1 |
 
-    @GeneralLoginWithValidCredentialWithLocation        @Automated  @NoUpdateRequired
+    @GeneralLoginWithValidCredentialWithLocation          @Automated
     Scenario Outline: As a user I want to verify valid Login with location
     Given user launches the Lyric application
     When user selects "Login" from "Honeywell Home" screen
     Then user inputs <Email> in "Email Text Field" in the "Login" screen
     Then user inputs <Password> in "Password Text Field" in the "Login" screen
     Then user selects "Login button" from "Login" screen
+    Then user verifies login is successful when user logs in first time
     Then user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
     Then user should be displayed with the "Add New Device Dashboard" screen
     #Then user logs out of the app
     Examples:
-    |Email		 | Password  |
-    |unit@grr.la | Password1 |
+    |Email		   | Password  |
+    |unit80@grr.la | Password1 |
 
-    @GeneralLoginWithInvalidEmailAndPassword        @Automated  @NoUpdateRequired
+    @GeneralLoginWithInvalidEmailAndPassword          @Automated
     Scenario Outline: As a user I want to verify valid Login with location
     Given user launches the Lyric application
     When user selects "Login" from "Honeywell Home" screen
@@ -497,7 +503,8 @@
     Examples:
     |Email		   | Password |
     |bajssm@grr.la | Password1 |
-
+    
+    
     @GeneralLoginWithInvalidEmail            @AlreadyCoveredInTheAbove
     Scenario Outline: As a user i wanted to verify valid login with location
     Given user launches the app
@@ -557,6 +564,32 @@
       Then user should receive forget password mail
       #Android
       And user received toast message "Password link sent"
+      Examples:
+     |Email|
+     | unit@grr.la | 
+     
+    @ResetPwdThroughForgotPasswordScreen      @NotAutomatable  @NoUpdateRequired
+  	Scenario Outline: User should be able to reset password in Forgot Password screen  
+    Given user launches the app
+     When user selects "Login" screen
+     Then user selects "Forget password"
+     When user edits the <Email>
+     Then user selects the "Reset" option
+     #iOS
+     And user should navigates to "Great" screen
+     And user should be dispalyed with below options:
+     |Options|
+     |Description |
+     |Email |
+     |Resend option|
+     |Login |
+      When user select resend option
+      Then user should receive forget password mail
+      #Android
+      And user received toast message "Password link sent"
+      When user resets the password to "Pass1@#$%^&*-_+=[]{}|\:',?/~"();!" through the reset password link
+     Then user should be able to login to the lyric application with the new password
+     
       Examples:
      |Email|
      | unit@grr.la | 

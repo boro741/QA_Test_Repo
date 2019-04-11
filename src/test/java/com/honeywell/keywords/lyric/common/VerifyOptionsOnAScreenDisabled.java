@@ -20,7 +20,6 @@ import com.honeywell.screens.AddressScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.Dashboard;
-import com.honeywell.screens.EditAccountScreen;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
@@ -784,17 +783,17 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 			break;
 		}
 		case "EDIT ACCOUNT": {
-			EditAccountScreen eas = new EditAccountScreen(testCase);
+			//EditAccountScreen eas = new EditAccountScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String fieldToBeVerified = data.getData(i, "EditAccountOptions");
 				if (fieldToBeVerified.equalsIgnoreCase("SAVE")) {
-					if (!eas.isSaveButtonInEditAccountScreenEnabled()) {
+					/*if (!eas.isSaveButtonInEditAccountScreenEnabled()) {
 						Keyword.ReportStep_Pass(testCase, "Option: " + fieldToBeVerified + " is disabled");
 					} else {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Option: " + fieldToBeVerified + " is enabled");
-					}
+					}*/
 				}
 			}
 			break;

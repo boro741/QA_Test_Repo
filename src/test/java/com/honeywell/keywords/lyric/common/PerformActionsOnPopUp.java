@@ -856,62 +856,36 @@ public class PerformActionsOnPopUp extends Keyword {
 				break;
 			}
 			}
-		} else if (expectedPopUp.get(1).equalsIgnoreCase("USER ALREADY ADDED TO THIS ACCOUNT ERROR")) {
-			switch (expectedPopUp.get(0).toUpperCase()) {
-			case "CLICKS ON OK IN": {
-				ManageUsersScreen mus = new ManageUsersScreen(testCase);
-				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-					// do nothing
-				} else {
-					if (mus.isOKButtonInAlreadyInviteduserErrorPopupVisible()) {
-						flag &= mus.clickOnOKButtonInAlreadyInviteduserErrorPopup();
-						if (mus.isInviteUserScreenTitleVisible() && mus.isInvitieUserScreenSubTitleVisible()
-								&& mus.isBackButtonVisible() && mus.isEmailTextFieldInInviteUserScreenVisible()
-								&& mus.isSendButtonEnabled()) {
-							Keyword.ReportStep_Pass(testCase, "User is in Invite User screen");
-						} else {
-							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"User is not in Invite User screen");
-						}
-					} else {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"OK button is not displayed in: " + expectedPopUp.get(0));
-					}
-				}
-				break;
-			}
-			}
-		} else if (expectedPopUp.get(1).equalsIgnoreCase("CONFIRM ACCESS REMOVAL")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("DELETE USER")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "CANCELS": {
 				ManageUsersScreen mus = new ManageUsersScreen(testCase);
-				if (mus.isCancelButtonInConfirmAccessRemovalPopupVisible()) {
-					flag &= mus.clickOnCancelButtonInConfirmAccessRemovalPopup();
-					if (mus.isAddUsersScreenHeaderVisible() && mus.isAddUserButtonVisible()
+				if (mus.isCancelButtonInDeleteUserPopupVisible()) {
+					flag &= mus.clickOnCancelButtonInDeleteUserPopup();
+					if (mus.isManageUsersScreenHeaderVisible() && mus.isInviteNewUserButtonVisible()
 							&& mus.isBackButtonVisible()) {
-						Keyword.ReportStep_Pass(testCase, "User is in Add Users screen");
+						Keyword.ReportStep_Pass(testCase, "User is in Manage Users screen");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"User is not in Add Users screen");
+								"User is not in Manage Users screen");
 					}
 				} else {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Remove button is not displayed in: " + expectedPopUp.get(0));
+							"Cancel button is not displayed in: " + expectedPopUp.get(0));
 				}
 				break;
 			}
-			case "CLICKS ON REMOVE IN": {
+			case "CLICKS ON OK IN": {
 				ManageUsersScreen mus = new ManageUsersScreen(testCase);
-				if (mus.isRemoveButtonInConfirmAccessRemovalPopupVisible()) {
-					flag &= mus.clickOnRemoveButtonInConfirmAccessRemovalPopup();
-					if (mus.isAddUsersScreenHeaderVisible() && mus.isAddUserButtonVisible()
+				if (mus.isOKButtonInDeleteUserPopupVisible()) {
+					flag &= mus.clickOnOKButtonInDeleteUserPopup();
+					if (mus.isManageUsersScreenHeaderVisible() && mus.isInviteNewUserButtonVisible()
 							&& mus.isBackButtonVisible()) {
-						Keyword.ReportStep_Pass(testCase, "User is in Add Users screen");
+						Keyword.ReportStep_Pass(testCase, "User is in Manage Users screen");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"User is not in Add Users screen");
+								"User is not in Manage Users screen");
 					}
 				} else {
 					flag = false;

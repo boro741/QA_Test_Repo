@@ -3958,6 +3958,69 @@ public class CHILUtil implements AutoCloseable {
 		return result;
 	}
 
+	public boolean getConnectionForUserAccount() throws Exception {
+		try {
+			String input = null;
+			URL url = new URL(this.chilURL + "api/v2/Session");
+			if (!inputs.getInputValue("DELETEDUSERID").isEmpty() && inputs.getInputValue("DELETEDUSERID") != null) {
+				input = "{\"username\": \"" + inputs.getInputValue("DELETEDUSERID") + "\",\"password\": \""
+						+ inputs.getInputValue("PASSWORD") + "\"}";
+			} else {
+				input = "{\"username\": \"" + inputs.getInputValue("USERID") + "\",\"password\": \""
+						+ inputs.getInputValue("PASSWORD") + "\"}";
+			}
+			chilConnection = (HttpURLConnection) url.openConnection();
+
+			chilConnection.setDoOutput(true);
+			chilConnection.setRequestMethod("POST");
+			chilConnection.setRequestProperty("content-type", "application/json");
+			chilConnection.setRequestProperty("content-length", String.valueOf(input.length()));
+
+			OutputStream os = chilConnection.getOutputStream();
+
+			os.write(input.getBytes());
+			os.flush();
+
+			if (chilConnection.getResponseCode() == HttpURLConnection.HTTP_CREATED) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(chilConnection.getInputStream()));
+
+				String inputLine;
+				StringBuffer html = new StringBuffer();
+
+				while ((inputLine = in.readLine()) != null) {
+					html.append(inputLine);
+				}
+
+				in.close();
+
+				JSONObject jsonObj = new JSONObject(html.toString().trim());
+
+				cookie = chilConnection.getHeaderField("Set-Cookie");
+
+				bodyToken = jsonObj.get("bodytoken").toString();
+
+				sessionID = jsonObj.get("sessionID").toString();
+
+				verificationToken = chilConnection.getHeaderField("RequestVerificationToken");
+
+				userID = jsonObj.getJSONObject("user").getInt("userID");
+				JSONArray jsonUsers = (JSONArray) ((JSONObject) jsonObj.get("user")).get("locationRoleMapping");
+				for (int i = 0; i < jsonUsers.length(); i++) {
+					JSONObject tempJSON = (JSONObject) jsonUsers.get(i);
+					locations.put(tempJSON.getString("locationName"), tempJSON.getLong("locationID"));
+				}
+
+				isConnected = true;
+			} else {
+				isConnected = false;
+			}
+
+		} catch (Exception e) {
+			throw new Exception("Error Occured: " + e.getMessage());
+		}
+		return isConnected;
+	}
+
 	public String getWeather(long locationID) throws Exception {
 		JSONObject weather = new JSONObject();
 		JSONObject realFeelTemperature = new JSONObject();
@@ -4068,5 +4131,31 @@ public class CHILUtil implements AutoCloseable {
 			}
 		}
 		return maxTemperature;
+	}
+
+	public String getCountryName(long locationID) throws Exception {
+		JSONObject locationDetails = new JSONObject();
+		String countryName = null;
+		if (isConnected) {
+			String url = chilURL + String.format("api/locations/%s", String.valueOf(locationID));
+			HttpURLConnection connection = doGetRequest(url);
+			if (connection != null) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+				String inputLine;
+				StringBuffer html = new StringBuffer();
+				while (!in.ready()) {
+				}
+				while ((inputLine = in.readLine()) != null) {
+					html.append(inputLine);
+				}
+				in.close();
+				locationDetails = new JSONObject(html.toString().trim());
+				countryName = locationDetails.get("country").toString();
+				System.out.println(countryName);
+			} else {
+				throw new Exception("Unable to connect to CHIL");
+			}
+		}
+		return countryName;
 	}
 }

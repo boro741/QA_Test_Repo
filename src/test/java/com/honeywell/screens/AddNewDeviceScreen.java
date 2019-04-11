@@ -78,11 +78,33 @@ public class AddNewDeviceScreen extends MobileScreens {
 	}
 
 	public boolean isBackButtonVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton");
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton")) {
+			return flag;
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase,
+				"DoneButtonInPrivacyPolicyAndEULAScreen")) {
+			return flag;
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButton")) {
+			return flag;
+		} else {
+			flag = false;
+		}
+		return flag;
 	}
 
 	public boolean clickOnBackButton() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton")) {
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase,
+				"DoneButtonInPrivacyPolicyAndEULAScreen")) {
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonInPrivacyPolicyAndEULAScreen");
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButton")) {
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton");
+		} else {
+			flag = false;
+		}
+		return flag;
 	}
 
 	public boolean isLogoutVisible(int timeOut) {
@@ -439,8 +461,8 @@ public class AddNewDeviceScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "PrivacyPolicyAndEULALinkInNewAgreementScreen");
 	}
 
-	public boolean isPrivacyPolicyAndEULAScreenTitleVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PrivacyPolicyAndEULAScreenTitle");
+	public boolean isPrivacyPolicyAndEULAScreenTitleVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PrivacyPolicyAndEULAScreenTitle", timeOut);
 	}
 
 	public boolean isPrivacyPolicyAndEULAScreenDataVisible() {

@@ -893,7 +893,7 @@ public class DIYRegistrationUtils {
 							}
 						}
 						case "PRIVACY POLICY LOADING SPINNER": {
-							if (dasDIY.isVerifyingLoadingSpinnerTextVisible()) {
+							if (dasDIY.isFetchingEULAScreenLoadingSpinnerVisible()) {
 								System.out.println("Waiting for Privacy Policy loading spinner to disappear");
 								return true;
 							} else {

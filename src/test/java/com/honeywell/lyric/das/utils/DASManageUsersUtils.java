@@ -90,13 +90,38 @@ public class DASManageUsersUtils {
 		return flag;
 	}
 
-	public static boolean deleteInvitedUserInAddUsersScreen(TestCases testCase, TestCaseInputs inputs,
+	public static boolean deleteInvitedUserInManageUsersScreen(TestCases testCase, TestCaseInputs inputs,
 			String invitedUsersEmailAddress) {
 		boolean flag = true;
 		ManageUsersScreen mus = new ManageUsersScreen(testCase);
-		if (mus.isAddUserButtonVisible()
+		if (mus.isInviteNewUserButtonVisible()
 				&& mus.isInviteUsersEmailAddressDisplayedInTheListOfInvitedUsers(inputs, invitedUsersEmailAddress)) {
 			flag = flag & mus.deleteInvitedUserInAddUsersScreen(invitedUsersEmailAddress);
+		}
+		return flag;
+	}
+
+	public static boolean verifyUserAlreadyAddedErrorMsgBelowInviteNewUserEmailTextField(TestCases testCase,
+			String expectedErrorMsgText) {
+		boolean flag = true;
+		String errorMsgText = null;
+		ManageUsersScreen mus = new ManageUsersScreen(testCase);
+		if (expectedErrorMsgText.equalsIgnoreCase("USER ALREADY ADDED TO THIS ACCOUNT")
+				&& mus.isInvitedUserErrorMsgVisible()) {
+			errorMsgText = mus.getInvitedUserErrorMsg();
+			expectedErrorMsgText = "The requested user was already added to this account";
+		}
+		System.out.println("*********expectedErrorMsgText: " + expectedErrorMsgText);
+		System.out.println("*********errorMsgText: " + errorMsgText.trim());
+		if (errorMsgText.trim().equalsIgnoreCase(expectedErrorMsgText)) {
+			Keyword.ReportStep_Pass(testCase,
+					"Error message displayed below Invite New User Email text field is:" + expectedErrorMsgText);
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Error message displayed below Invite New User Email text field is:" + expectedErrorMsgText
+							+ ". Expected error message below Invite New User Email text field should be: "
+							+ errorMsgText);
 		}
 		return flag;
 	}

@@ -387,3 +387,31 @@ Examples:
 |Home1 | C2 Camera |
 |Home1 | Jasper  |
 |Home1 | WLD |
+
+@NavigationToSolutionCardWithCoachMarks
+Scenario Outline: As a user wanted to verify if Coach marks is displayed when navigated from Spotlight
+Given user launches and logs in to the Lyric application without closing the coach marks
+When user navigates to "Spotlight"
+Then user search for the <Solution>
+And user should be displayed with <Solution> details #should display two honeywell icon and with different location details
+And user should be displayed with "Honeywell" icon
+And user should be displayed with <Location> Details
+When user selects the <Solution>
+Then user should be navigates to respecive <Solution> Soluction card
+And solution card screen should be displayed with respective coach marks
+Examples: 
+|Location|Solutions |
+|Home | Security |
+|Home | DAS Camera |
+|Home | C1 Camera |
+|Home |Home | C2 Camera |
+|Home | Jasper |
+|Home | HB |
+|Home | Spruce | 
+|Home | WLD |
+|Home1 | Security |
+|Home1 | DAS Camera |
+|Home1 | C1 Camera |
+|Home1 | C2 Camera |
+|Home1 | Jasper  |
+|Home1 | WLD |

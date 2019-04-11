@@ -60,16 +60,16 @@ public class EditAccountScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EditAccountScreenTitleInEditAccount");
 	}
 
-	public boolean isFirstNameLabelInEditAccountScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FirstNameLabelInEditAccountScreen");
+	public boolean isNameLabelInEditAccountScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NameLabelInEditAccountScreen");
 	}
 
-	public boolean isFirstNameValueInEditAccountScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FirstNameValueInEditAccountScreen");
+	public boolean isNameValueInEditAccountScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NameValueInEditAccountScreen");
 	}
 
-	public String getFirstNameValueInEditAccountScreen() {
-		return MobileUtils.getFieldValue(objectDefinition, testCase, "FirstNameValueInEditAccountScreen");
+	public String getNameValueInEditAccountScreen() {
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "NameValueInEditAccountScreen");
 	}
 
 	public boolean clearTextDisplayedInFirstNameTextFieldInEditAccountScreen() {
@@ -101,18 +101,6 @@ public class EditAccountScreen extends MobileScreens {
 			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "ReturnButtonIniOSKeyboard");
 		}
 		return flag;
-	}
-
-	public boolean isLastNameLabelInEditAccountScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LastNameLabelInEditAccountScreen");
-	}
-
-	public boolean isLastNameValueInEditAccountScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LastNameValueInEditAccountScreen");
-	}
-
-	public String getLastNameValueInEditAccountScreen() {
-		return MobileUtils.getFieldValue(objectDefinition, testCase, "LastNameValueInEditAccountScreen");
 	}
 
 	public boolean clearTextDisplayedInLastNameTextFieldInEditAccountScreen() {
@@ -174,10 +162,6 @@ public class EditAccountScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteAccountButtonInEditAccountScreen");
 	}
 
-	public boolean isPrivacyLabelInEditAccountScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PrivacyLabelInEditAccountScreen");
-	}
-
 	public boolean isUsePasscodeLabelInEditAccountScreenVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UsePasscodeLabelInEditAccountScreen");
 	}
@@ -212,7 +196,7 @@ public class EditAccountScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "UsePasscodeSwitchInEditAccountScreen");
 	}
 
-	public boolean isSaveButtonInEditAccountScreenVisible() {
+	public boolean isSaveButtonEnabled() {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return testCase.getMobileDriver()
 					.findElement(By.xpath("//android.widget.ImageButton[@content-desc='Navigate Up']")).isDisplayed();
@@ -222,18 +206,7 @@ public class EditAccountScreen extends MobileScreens {
 		}
 	}
 
-	public boolean isSaveButtonInEditAccountScreenEnabled() {
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			// There is no Save button in Edit Account screen. Hence returning true for this
-			// method
-			return true;
-		} else {
-			return MobileUtils.getMobElement(objectDefinition, testCase, "SaveButtonInEditAccountScreen")
-					.getAttribute("enabled").equalsIgnoreCase("true");
-		}
-	}
-
-	public boolean clickOnSaveButtonInEditAccountScreen() {
+	public boolean clickOnSaveButtonScreen() {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			testCase.getMobileDriver()
 					.findElement(By.xpath("//android.widget.ImageButton[@content-desc='Navigate Up']")).click();
@@ -567,5 +540,29 @@ public class EditAccountScreen extends MobileScreens {
 
 	public boolean clickOnOKButtonInEmailOrPwdIncorrectErrorPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInEmailOrPwdIncorrectErrorPopup");
+	}
+
+	public boolean isFirstNameLabelVisibleInNameScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FirstNameLabelInNameScreen");
+	}
+
+	public boolean isFirstNameValueVisibleInNameScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FirstNameValueInNameScreen");
+	}
+
+	public String getFirstNameValueInNameScreen() {
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "FirstNameValueInNameScreen");
+	}
+
+	public boolean isLastNameLabelVisibleInNameScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LastNameLabelInNameScreen");
+	}
+
+	public boolean isLastNameValueVisibleInNameScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LastNameValueInNameScreen");
+	}
+
+	public String getLastNameValueInNameScreen() {
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "LastNameValueInNameScreen");
 	}
 }

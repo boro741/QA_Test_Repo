@@ -8,6 +8,7 @@ import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.lyric.das.utils.DASManageUsersUtils;
 import com.honeywell.lyric.das.utils.EditAccountUtils;
 
 public class VerifyErrorMsgDisplayedInTheScreen extends Keyword {
@@ -15,6 +16,7 @@ public class VerifyErrorMsgDisplayedInTheScreen extends Keyword {
 	private TestCases testCase;
 	private ArrayList<String> errorMsgText;
 	public boolean flag = true;
+	@SuppressWarnings("unused")
 	private TestCaseInputs inputs;
 
 	public VerifyErrorMsgDisplayedInTheScreen(TestCases testCase, TestCaseInputs inputs,
@@ -59,6 +61,16 @@ public class VerifyErrorMsgDisplayedInTheScreen extends Keyword {
 					flag &= EditAccountUtils.verifyErrorMsgTextInVerifyNewPwdTextField(testCase, errorMsgText.get(0));
 				} else if (errorMsgText.get(0).equalsIgnoreCase("INVALID PASSWORD FORMAT")) {
 					flag &= EditAccountUtils.verifyErrorMsgTextInVerifyNewPwdTextField(testCase, errorMsgText.get(0));
+				}
+				break;
+			}
+			}
+		} else if (errorMsgText.get(2).equalsIgnoreCase("INVITE NEW USER")) {
+			switch (errorMsgText.get(1).toUpperCase()) {
+			case "INVITE NEW USER EMAIL TEXT FIELD": {
+				if (errorMsgText.get(0).equalsIgnoreCase("USER ALREADY ADDED TO THIS ACCOUNT")) {
+					flag &= DASManageUsersUtils.verifyUserAlreadyAddedErrorMsgBelowInviteNewUserEmailTextField(testCase,
+							errorMsgText.get(0));
 				}
 				break;
 			}

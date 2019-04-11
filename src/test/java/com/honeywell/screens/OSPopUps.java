@@ -145,56 +145,186 @@ public class OSPopUps extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase,
 				"ReturnToHoneywellButtonInHoneywellLocationServicesScreen");
 	}
-	
+
 	public boolean isTurnOnLocationServicesPopupVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "TurnOnLocationServicesPopup");
 	}
-	
+
 	public boolean isSettingsButtonVisibleInTurnOnLocationServicesPopup() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SettingsButton");
 	}
-	
+
 	public boolean isSkipButtonVisibleInTurnOnLocationServicesPopup() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SkipButton");
 	}
-	
+
 	public boolean clickOnSkipButtonInTurnOnLocationServicesPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SkipButton");
 	}
-	
+
 	public boolean clickOnSettingsButtonInTurnOnLocationServicesPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "SettingsButton");
 	}
-	
+
 	public boolean isMobileDeviceLocationEnabled() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MobileDeviceLocationEnabled");
 	}
-	
+
 	public boolean isMobileDeviceLocationDisabled() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MobileDeviceLocationDisabled");
 	}
-	
+
 	public boolean clickToTurnOffMobileDeviceLocation() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "MobileDeviceLocationEnabled");
 	}
-	
+
 	public boolean isAllowHoneywellToAccessDeviceLocationPopupVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AllowHoneywellToAccessDeviceLocationPopup");
 	}
-	
+
 	public boolean isDenyAccessToDeviceLocationButtonVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DenyAccessToDeviceLocation");
 	}
-	
+
 	public boolean isAllowAccessToDeviceLocationButtonVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AllowAccessToDeviceLocation");
 	}
-	
+
 	public boolean clickOnDenyAccessToDeviceLocationButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DenyAccessToDeviceLocation");
 	}
-	
+
 	public boolean clickOnAllowAccessToDeviceLocationButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AllowAccessToDeviceLocation");
+	}
+
+	public boolean isAllowHoneywellToAccessYourLocationPopupVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AllowHoneywellToAccessYourLocation",
+				timeOut);
+	}
+
+	public boolean isGeofencingDescriptionVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofencingWillNotWorkUnlessDescription");
+	}
+
+	public boolean isOnlyWhileUsingTheAppButtonInAllowHoneywellToAccessYourLocationPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OnlyWhileUsingTheAppButton");
+	}
+
+	public boolean isDontAllowButtonInAllowHoneywellToAccessYourLocationPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DontAllowButton");
+	}
+
+	public boolean isAllowButtonInAllowHoneywellToAccessYourLocationPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AllowButton");
+	}
+
+	public boolean clickOnOnlyWhileUsingTheAppButtonInAllowHoneywellToAccessYourLocationPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "OnlyWhileUsingTheAppButton");
+	}
+
+	public boolean clickOnDontAllowButtonInAllowHoneywellToAccessYourLocationPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DontAllowButton");
+	}
+
+	public boolean clickOnAllowButtonInAllowHoneywellToAccessYourLocationPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AllowButton");
+	}
+
+	public boolean isHoneywellWouldLikeToSendYouNotificationsPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "HoneywellWouldLikeToSendYouNotifications");
+	}
+
+	public boolean isDontAllowButtonInHoneywellWouldLikeToSendYouNotificationsPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DontAllowButton");
+	}
+
+	public boolean isAllowButtonInHoneywellWouldLikeToSendYouNotificationsPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AllowButton");
+	}
+
+	public boolean clickOnDontAllowButtonInHoneywellWouldLikeToSendYouNotificationsPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DontAllowButton");
+	}
+
+	public boolean clickOnAllowButtonInHoneywellWouldLikeToSendYouNotificationsPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AllowButton");
+	}
+
+	public boolean isNotificationsMayIncludeAlertsDescriptionVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NotificationsMayIncludeAlertsDescription");
+	}
+
+	public boolean isAllowHoneywellToAccessThisDevicesLocationPopupVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AllowHoneywellToAccessDeviceLocationPopup",
+				timeOut);
+	}
+
+	public boolean isAllowButtonInAllowHoneywellToAccessThisDevicesLocationPopupVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AllowAccessToDeviceLocation", timeOut);
+	}
+
+	public boolean isDenyButtonInAllowHoneywellToAccessThisDevicesLocationPopupVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DenyAccessToDeviceLocation", timeOut);
+	}
+
+	public boolean clickOnAllowButtonInAllowHoneywellToAccessThisDevicesLocationPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AllowAccessToDeviceLocation");
+	}
+
+	public boolean clickOnDenyButtonInAllowHoneywellToAccessThisDevicesLocationPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DenyAccessToDeviceLocation");
+	}
+
+	public boolean isDeleteInvitedEmailIconVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteInvitedEmailIcon");
+	}
+
+	public boolean clickOnDeleteInvitedEmailIcon() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteInvitedEmailIcon");
+	}
+
+	public boolean isDeleteUserPopupLabelVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteUserLabel");
+	}
+
+	public boolean isDeleteUserConfirmationTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ThisWillDeleteConfirmation");
+	}
+
+	public boolean isOkButtonInDeleteUserPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInDeleteUserPopup");
+	}
+
+	public boolean isCancelButtonInDeleteUserPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInDeleteUserPopup");
+	}
+
+	public boolean clickOnOkButtonInDeleteUserPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInDeleteUserPopup");
+	}
+
+	public boolean clickOnCancelButtonInDeleteUserPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInDeleteUserPopup");
+	}
+
+	public boolean isDeleteLocationPopupLabelVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteLocationPopup");
+	}
+
+	public boolean isDeleteButtonInDeleteLocationPopupLabelVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteButtonInDeleteLocationPopup");
+	}
+
+	public boolean isCancelButtonInDeleteLocationPopupLabelVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInDeleteLocationPopup");
+	}
+
+	public boolean clickOnDeleteButtonInDeleteLocationPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteButtonInDeleteLocationPopup");
+	}
+
+	public boolean clickOnCancelButtonInDeleteLocationPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInDeleteLocationPopup");
 	}
 }
