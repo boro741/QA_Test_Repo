@@ -1293,3 +1293,55 @@ When user crosses geofence location
 Then user should be displayed "Away" status in "Geofence Status Area" in "Dashboard" screen
 When user returns home
 Then user should be displayed "Home" status in "Geofence Status Area" in "Dashboard" screen
+
+@VerifyGeofenceStatusWhenPhoneLocationServicesIsTurnedOffAndUserDeniesHoneywellToAccessDevicesLocation
+Scenario:   To verify Geofence status in Dashboard status area when phone location services is turned off and user denies honeywell to access device location after login
+Given user turns off the mobile device location
+When user launches and logs in to the Lyric Application
+And user denies honeywell to access device location after login
+Then user should be displayed with "Weather status" in Dashboard status area
+And Device should be displayed below Dashboard status area
+And Add New Device button should be displayed below the device
+When user swipes "Left" on "Dashboard Status Area"
+Then user should be displayed with "Geofence status" in Dashboard status area
+And user should be displayed with the following "Geofence status" options:
+| GeofenceStatusOptions				    |
+| Geofencing Title                      |
+| Alert icon                            |
+| Location Services Disabled label      |
+| Enable in <OS> Settings label         |
+And Device should be displayed below Dashboard status area
+And Add New Device button should be displayed below the device
+When user selects "Location Services Disabled" in "Dashboard" screen
+Then user should be displayed with the "Device Settings Location Services" screen
+When user turns on the mobile device location
+And user maximizes the app
+Then user should be displayed with "Weather status" in Dashboard status area
+And Device should be displayed below Dashboard status area
+And Add New Device button should be displayed below the device
+When user swipes "Left" on "Dashboard Status Area"
+Then user should be displayed with "Geofence status" in Dashboard status area
+And user should be displayed with the following "Geofence status" options:
+| GeofenceStatusOptions				    |
+| Geofencing Title                      |
+| Alert icon                            |
+| Location Services Disabled label      |
+| Enable in <OS> Settings label         |
+When user navigates to "Global Drawer" screen from the "Dashboard" screen 
+Then user selects "Geofence" from "Global Drawer" screen
+And user should be displayed with the "Geofence Settings" screen
+When user navigates to "App Settings" and allows honeywell to access device location
+When user navigates to "Dashboard" screen from "Global Drawer" screen
+Then user should be displayed with "Weather status" in Dashboard status area
+And Device should be displayed below Dashboard status area
+And Add New Device button should be displayed below the device
+When user swipes "Left" on "Dashboard Status Area"
+Then user should be displayed with "Geofence status" in Dashboard status area
+And user should be displayed with the following "Geofence status" options:
+| GeofenceStatusOptions				    |
+| Geofencing Title                      |
+| Geofence icon                         |
+| Current state of geofencing           |
+| What settings are being used          |
+And Device should be displayed below Dashboard status area
+And Add New Device button should be displayed below the device
