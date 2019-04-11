@@ -3192,6 +3192,109 @@ Examples:
 | first location name	| valid first locations zip code		| second location name	| valid second locations zip code		| Current Screen					| Previous Screen	|
 | California				| 90001								|  Texas					| 90002									| Add New Device Dashboard		| Dashboard			|
 
+@DeleteAccountAfterInvitingAnotherUser				@Automatable		@--xrayid:ATER-
+Scenario Outline: User should be able to delete account after inviting another user
+Given user launches and logs in to the Lyric application with user account with location
+When user navigates to "Invite User" screen from the "Dashboard" screen
+And user inputs <invite users email address> in "Email Text Field" in the "Invite New User" screen
+Then user should be displayed with the following "Invited Users" options:
+| InvitedUsersList		|
+| das_stage5@grr.la		|
+When user logs out and logs in to the Lyric Application with <invite users email address>
+Then user navigates to "Manage Users" screen from the "Dashboard" screen
+Then user should be displayed with the following "Invited Users" options:
+| InvitedUsersList						|
+| User who invited the logged in user	|
+When user logs out and logs in to the Lyric Application with "logged in users account"
+Then user navigates to "Manage Users" screen from the "Dashboard" screen
+And user should not be displayed with the following "Invited Users" options:
+| InvitedUsersList		|
+| Logged in user		|
+Then user should be displayed with the following "Invited Users" options:
+| InvitedUsersList		|
+| das_stage5@grr.la		|
+When user navigates to "Edit Account" screen from the "Manage Users" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account Without Solution" screen
+And user should be displayed with the following "Delete Account" options:
+| DeleteAccountOptions				| 
+| We are sorry to see you go			|
+When user selects "Delete Account button" from "Delete Account" screen
+Then user should receive a "Your Account and Data is deleted" popup
+And user "Accepts" the "Your Account and Data is deleted" popup
+Then user should be displayed with the "Honeywell Home" screen
+When user logs in to the Lyric Application with "deleted account credentials"
+Then user should be displayed with the following "Login Screen Validation Message" options:
+| ValidationMessage								|
+| Unable to login. Email or password incorrect	|
+Then create the deleted user account through CHIL
+When user logs in to the Lyric Application with "deleted account credentials"
+Then user should be displayed with the "Add New Device" screen
+And user changes the country to "United States"
+When user selects "Smart Home Security" from "Add New Device" screen
+Then user should be displayed with the "What To Expect" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects <Default Location> from "Choose Location" screen
+Then user should be displayed with the "Confirm Your ZIP Code" screen
+When user inputs <valid zip code>
+Then user should be displayed with the "Name Your Base Station" screen
+When user "cancels the set up" by clicking on "cancel" button
+Then user should receive a "Cancel Setup" popup
+When user "accepts" the "Cancel Setup" popup
+Then user should be displayed with the "Add New Device" screen
+And user logs out of the app 
+When user logs out and logs in to the Lyric Application with <invite users email address>
+Then user should be able to view the solution
+
+Examples:
+| invite users email address	| Default Location		| Default Device Name		| valid zip code        |
+| das_stage5@grr.la			| Home					| Living Room				| 90001                 |
+
+
+@DeleteAccountAfterInvitingAnotherUserForALocationFromMultipleLocations				@Automatable		@--xrayid:ATER-
+Scenario Outline: User should be navigated to learn more screen when user tries to delete account after inviting another user to one location
+Given user launches and logs in to the Lyric application with user account with location
+When user navigates to "Invite User" screen from the "Dashboard" screen
+And user inputs <invite users email address> in "Email Text Field" in the "Invite New User" screen
+Then user should be displayed with the following "Invited Users" options:
+| InvitedUsersList		|
+| das_stage5@grr.la		|
+When user logs out and logs in to the Lyric Application with <invite users email address>
+Then user navigates to "Manage Users" screen from the "Dashboard" screen
+Then user should be displayed with the following "Invited Users" options:
+| InvitedUsersList						|
+| User who invited the logged in user	|
+When user logs out and logs in to the Lyric Application with "logged in users account"
+Then user navigates to "Manage Users" screen from the "Dashboard" screen
+And user should not be displayed with the following "Invited Users" options:
+| InvitedUsersList		|
+| Logged in user		|
+Then user should be displayed with the following "Invited Users" options:
+| InvitedUsersList		|
+| das_stage5@grr.la		|
+When user navigates to "Edit Account" screen from the "Manage Users" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Delete A Device" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Delete A Device" screen
+And user should be displayed with the following "Learn How To Delete A Device" options:
+| LearnHowToDeleteADeviceOptions				| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Delete A Device" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Close button" from "Delete Account" screen
+Then user should be displayed with the "Edit Account" screen
+And user logs out of the app 
+When user logs out and logs in to the Lyric Application with <invite users email address>
+Then user should be able to view the solution
+
+Examples:
+| invite users email address	|
+| das_stage5@grr.la			|
+
   
   #Feature: User should be blocked from using app if device is having invalid date and time @LYR23886/22361
   @InvalidmobiledeviceDateOrTimeAndAppisLoggedout             @NotAutomatable		@--xrayid:ATER-69148

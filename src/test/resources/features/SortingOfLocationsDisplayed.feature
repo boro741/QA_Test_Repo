@@ -2,7 +2,7 @@
 Feature: Locations should be sorted in Alphanumeric order
 As a user I want to verify if list of locations are sorted in Alphanumeric order
 
-@AlphaNumericSortingOfLocations
+@AlphaNumericSortingOfLocations			@Automatable
 Scenario:  Verify if order in which locations are displayed when tapped on location drop down
 Given user launches and logs in to the Lyric Application
 When user creates the following locations:
@@ -38,7 +38,7 @@ Then list of locations should be sorted in the following alphanumeric order:
 | WLD2              |
 
 
-@AlphaNumericSortingOfLocationsBySelectingAnyLocation
+@AlphaNumericSortingOfLocationsBySelectingAnyLocation			@Automatable
 Scenario:  Verify if locations are sorted by alphanumeric order when user selects any location from location drop down
 Given user launches and logs in to the Lyric Application
 When user creates the following locations:
@@ -93,7 +93,7 @@ Then list of locations should be sorted in the following alphanumeric order:
 | WLD2              |
 
 
-@AlphaNumericSortingOfLocationsByDeletingExistingLocation
+@AlphaNumericSortingOfLocationsByDeletingExistingLocation			@Automatable
 Scenario:  Verify if locations are sorted by alphanumeric order when user deletes any location
 Given user launches and logs in to the Lyric Application
 When user creates the following locations:
