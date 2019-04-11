@@ -1262,7 +1262,7 @@ Examples:
 #Edit Account
 #Edit first name last name
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountUpdateFirstNameAndLastName         @Automatable		@--xrayid:ATER-69076
+@GeneralGlobalDrawerEditAccountUpdateFirstNameAndLastName         @Automated		@--xrayid:ATER-69076
 Scenario Outline: As a user i want to Verify if updated first name and last name is getting saved
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1325,7 +1325,7 @@ And user should be displayed with "existing last name" in the "Edit Account" scr
 
   
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountErrorMsgWhenExistingLastNameIsCleared   @Automated	@--xrayid:ATER-69080   @InvalidScenario
+@GeneralGlobalDrawerEditAccountErrorMsgWhenExistingLastNameIsCleared   @Automated		@--xrayid:ATER-69080   @InvalidScenario
 Scenario: As a user i want to Verify if error message is displayed when tried to save account without last name 
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1345,7 +1345,7 @@ And user should be displayed with "existing last name" in the "Edit Account" scr
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountDisabledAndEnabledSaveButtonWhenFirstNameIsCleared    @Automatable		@--xrayid:ATER-69081
+@GeneralGlobalDrawerEditAccountDisabledAndEnabledSaveButtonWhenFirstNameIsCleared    @Automated		@--xrayid:ATER-69081
 Scenario: As a user i want to Verify if save button gets enabled when first name text field is cleared
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1395,7 +1395,7 @@ And user should be displayed with "existing last name" in the "Edit Account" scr
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountDisabledAndEnabledSaveButtonWhenLastNameIsCleared   @Automated	@--xrayid:ATER-74334  @AlreadyCoveredInTheAboveScenario
+@GeneralGlobalDrawerEditAccountDisabledAndEnabledSaveButtonWhenLastNameIsCleared   @Automated		@--xrayid:ATER-74334  @AlreadyCoveredInTheAboveScenario
 Scenario: As a user i want to Verify if save button gets enabled when last name text field is cleared
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1424,7 +1424,7 @@ And user should be displayed with "existing last name" in the "Edit Account" scr
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountValidateMaxCharsInFirstNameAndLastNameTxtFields  @Automatable	 @--xrayid:ATER-69082
+@GeneralGlobalDrawerEditAccountValidateMaxCharsInFirstNameAndLastNameTxtFields  @Automated	 @--xrayid:ATER-69082
 Scenario Outline: As a user i want to verify max characters that can be entered in first name and last name text fields in Edit Account screen
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1466,7 +1466,7 @@ Examples:
 
   
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountValidateSpecialCharsInFirstNameAndLastNameTxtFields  @Automatable	  @--xrayid:ATER-69083
+@GeneralGlobalDrawerEditAccountValidateSpecialCharsInFirstNameAndLastNameTxtFields  @Automated	  @--xrayid:ATER-69083
 Scenario: As a user i want to Verify if special characters can be saved in first name and last name text fields in Edit Account screen
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1502,7 +1502,7 @@ And user should be displayed with "updated last name" in the "Edit Account" scre
 
 #Change Password in Edit Account Screen
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountUpdatePasswordWithoutSpecialCharacters    @Automatable		 @--xrayid:ATER-69084
+@GeneralGlobalDrawerEditAccountUpdatePasswordWithoutSpecialCharacters    @Automated		 @--xrayid:ATER-69084
 Scenario: As a user i want to Verify update password functionality in Edit Account screen
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1537,7 +1537,7 @@ And user should be displayed with the "Edit Account" screen
 
 #Change Password in Edit Account Screen
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountUpdatePasswordWithSpecialCharacters    @Automatable	 @--xrayid:ATER-69084
+@GeneralGlobalDrawerEditAccountUpdatePasswordWithSpecialCharacters    @Automated	 @--xrayid:ATER-69084
 Scenario: As a user i want to Verify update password functionality in Edit Account screen
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1571,7 +1571,7 @@ And user should be displayed with the "Edit Account" screen
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountChangePwdValidationWhenTappedOnSaveWithoutEnteringAnyText    @Automated	@--xrayid:ATER-69085
+@GeneralGlobalDrawerEditAccountChangePwdValidationWhenTappedOnSaveWithoutEnteringAnyText    @Automated			@--xrayid:ATER-69085
 Scenario: Change password screen validations when user taps on Save button without entering text in Old Password, New Password and Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1584,7 +1584,7 @@ And user should be displayed with "You must enter your new password" error messa
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountChangePwdValidationWhenIncorrectOldPwdIsEntered  @Automatable	 @--xrayid:ATER-69086
+@GeneralGlobalDrawerEditAccountChangePwdValidationWhenIncorrectOldPwdIsEntered  @Automated	 @--xrayid:ATER-69086
 Scenario: Change password screen validations when user taps on Save button by entering incorrect Old Password, valid New Password and Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1599,7 +1599,7 @@ Then user should be displayed with "Old Password is Invalid" error message in th
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountChangePwdValidationWhenInvalidNewPwdIsEntered  @Automatable	 @--xrayid:ATER-69087
+@GeneralGlobalDrawerEditAccountChangePwdValidationWhenInvalidNewPwdIsEntered  @Automated	 @--xrayid:ATER-69087
 Scenario: Change password screen validations when user taps on Save button by entering valid Old Password, invalid New Password and Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1628,7 +1628,7 @@ Then user should be displayed with "You must enter your verify password" error m
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountChangePwdValidationWhenNewAndVerifyNewPwdDoesNotMatch   @Automatable	 @--xrayid:ATER-69088
+@GeneralGlobalDrawerEditAccountChangePwdValidationWhenNewAndVerifyNewPwdDoesNotMatch   @Automated		 @--xrayid:ATER-69088
 Scenario: Change password screen validations when user taps on Save button by entering valid Old Password, different text in New Password and Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -2703,7 +2703,7 @@ Then user should be displayed with the "Add New Device" screen
 
 #Delete account
 #Requirements: No Location, No Device and No Membership
-@SingleUserDeleteAccountWithNoLocationNoDeviceNoMembership             @Automatable 		@--xrayid:ATER-69136  
+@SingleUserDeleteAccountWithNoLocationNoDeviceNoMembership             @Automated 		@--xrayid:ATER-69136  
 Scenario: To verify user is able to delete account if there are no devices, no locations and no Membership linked to the account
 Given user launches and logs in to the Lyric application with user account without any location
 Then user should be displayed with the "Add New Device" screen
@@ -2729,7 +2729,7 @@ Then create the deleted user account through CHIL
 
 
 #Requirements: With Location, No Device and No Membership 
-@SingleUserDeleteAccountWithNoDeviceNoMembership             @Automatable		@--xrayid:ATER-69137
+@SingleUserDeleteAccountWithNoDeviceNoMembership             @Automated		@--xrayid:ATER-69137
 Scenario Outline: To verify user is able to delete his account if there are no devices in any locations any no Membership linked to the account 
 Given user launches and logs in to the Lyric application with user account with location
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -2793,7 +2793,7 @@ Examples:
       | Lyric Smart Controller              | 
   
 
-@DeleteAccountWithLocationHavingNoDeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-69139
+@DeleteAccountWithLocationHavingNoDeviceWithCameraSubscription             @Automated		@--xrayid:ATER-69139
 Scenario: To verify user is able to delete the account if there are no devices in any location and if Camera Membership is linked to the account
 Given user launches and logs in to the Lyric application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -3134,7 +3134,7 @@ Then user should be displayed with the "Delete Account With Solution" screen
       | Lyric Smart Controller              | 
   
  
-@DeleteAllLocationsAndThenDeleteAccount             @Automatable		@--xrayid:ATER-69147
+@DeleteAllLocationsAndThenDeleteAccount             @Automated		@--xrayid:ATER-69147
 Scenario Outline: Verify if user is navigated to add device screen when all locations are deleted and account is deleted when user deletes the account
 Given user launches and logs in to the Lyric application with user account with location
 When user selects "Smart Home Security" from "Add New Device" screen
