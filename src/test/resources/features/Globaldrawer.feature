@@ -595,7 +595,7 @@ Then user should be displayed with "No Messages label in Activity History screen
 
 #ManageUsers
 #Requirements : single location with and with out any solution 
-@GeneralGlobalDrawerAddDeleteUsersFromInviteList				@Automatable	@--xrayid:ATER-67865
+@GeneralGlobalDrawerAddDeleteUsersFromInviteList				@Automated		@--xrayid:ATER-67865
 Scenario Outline: As a user I want to Verify invite user functionality by adding and removing a user from invite list
 Given user launches and logs in to the Lyric Application
 When user navigates to "Invite User" screen from the "Dashboard" screen
@@ -632,7 +632,7 @@ Examples:
 
 
 #Requirements : single location with and with out any solution and user should be invited 
-@GeneralGlobalDrawerInviteUserWithLoggedInUserEmail				@Automatable			@--xrayid:ATER-67866	
+@GeneralGlobalDrawerInviteUserWithLoggedInUserEmail				@Automated			@--xrayid:ATER-67866	
 Scenario: As a user i want to Verify if error message displays when logged in users email address in Add Users
 Given user launches and logs in to the Lyric Application
 When user navigates to "Manage Users" screen from the "Dashboard" screen
@@ -653,7 +653,7 @@ Then user should not be displayed with the following "Invited Users" options:
 
 
 #Requirements : single location with and with out any solution and user should be invited 
-@GeneralGlobalDrawerInviteUserWithAlreadyInvitiedUsersEmail			@Automatable		@--xrayid:ATER-67867
+@GeneralGlobalDrawerInviteUserWithAlreadyInvitiedUsersEmail			@Automated		@--xrayid:ATER-67867
 Scenario Outline: As a user i want to Verify if error message displays when already existing invited users email address is entered in Add Users 
 Given user launches and logs in to the Lyric Application
 When user navigates to "Manage Users" screen from the "Dashboard" screen
