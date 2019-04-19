@@ -76,11 +76,11 @@ As user I should be able to configure camera settings from the app
       And the following "DAS Camera Settings" options should be enabled:
       | Options                 | 
       | Manage Alerts           | 
-#      | People detection        | 
+#     | People detection        | 
     Examples: 
       | State | 
       | Away  | 
-    | Night | 
+      | Night | 
   
   @CameraSettingsCameraOnPanelArmed @P3 @Automated@--xrayid:ATER-54455
   Scenario Outline: As a user I should be able to configure camera settings when my camera is in on state 
@@ -110,7 +110,8 @@ As user I should be able to configure camera settings from the app
     Given  user is set to "Home" mode through CHIL
      Then "location" geofencing is "enabled" on the user account through CHIL
       And user launches and logs in to the Lyric application
-      And user thermostat set "Away" with "UserDeparted" 
+      And user thermostat set "Away" with "UserDeparted"
+      And timer ends on user device
      When user navigates to "DAS Camera Solution Card" screen from the "Dashboard" screen
      Then user navigates to "Camera Settings" screen from the "Camera Solution Card" screen
       And the following "DAS Camera Settings" options should be enabled:
