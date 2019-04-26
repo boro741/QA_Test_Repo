@@ -233,13 +233,15 @@ When user navigates to "Address" screen from the "Dashboard" screen
 Then user should be displayed with the "Address" screen
 When user "deletes location" by clicking on "Delete Location" button
 Then user should receive a "Delete Location" popup
-When user "Clicks on Delete in" the "Delete Location" popup
-Then user should be displayed with "Add New Device" screen
-Then user logs out of the app
+#When user "Clicks on Delete in" the "Delete Location" popup
+When user "Clicks on Yes in" the "Delete Location" popup
+Then user should be displayed with the "Add New Device" screen
+Then user selects "Close Button" from "Add New Device" screen
+Then user "Clicks on sign out button in" the "Exit Honeywell Home" popup
 
 Examples:
-|invite users email address   | Password  | invited users email address | valid first locations zip code |Current Screen              | Previous Screen   |
-|unit77@grr.la  			  | Password1 | unit76@grr.la				| 90001						  	 |Add New Device Dashboard    | Dashboard         |
+|invite users email address   | Password  | invited users email address | valid first locations zip code |Current Screen           | Previous Screen   |
+|unit77@grr.la  			  | Password1 | unit76@grr.la				| 90001						  	 |Add New Device Dashboard | Dashboard         |
 
 #Requirements : Single location with solution and push notifications
 @GeneralPushNotificationAfterLogout             @Automated
@@ -331,7 +333,7 @@ Then user should not receive a "Allow honeywell to access this devices location"
 #iOS 
 @GeneralLocationPermissionDontAllowFunctionality          @Automated
 Scenario: As a user I want to verify Never option in location permission pop up 
-Given user launches and logs in to the Lyric Application
+Given user launches and logs in to the Lyric Application without closing the popup
 When user should receive a "Allow honeywell to access your location" popup
 Then user should be displayed with the "Geofencing will not work unless" description
 Then user should be displayed with the following "Allow honeywell to access your location" options:
@@ -348,7 +350,7 @@ Then user should not receive a "Allow honeywell to access your location" popup
 #iOS
 @GeneralLocationPermissionAlwaysAllowFunctionality          @Automated
 Scenario: As a user I want to verify Always option in location permission popup 
-Given user launches and logs in to the Lyric Application
+Given user launches and logs in to the Lyric Application without closing the popup
 When user should receive a "Allow honeywell to access your location" popup
 Then user should be displayed with the "Geofencing will not work unless" description
 Then user should be displayed with the following "Allow honeywell to access your location" options:
@@ -364,7 +366,7 @@ Then user should not receive a "Allow honeywell to access your location" popup
 #iOS
 @GeneralLocationPermissionWhileUsingTheAppFunctionality          @Automated
 Scenario: As a user I want to verify While using the app option in location permission popup 
-Given user launches and logs in to the Lyric Application
+Given user launches and logs in to the Lyric Application without closing the popup
 When user should receive a "Allow honeywell to access your location" popup
 Then user should be displayed with the "Geofencing will not work unless" description
 Then user should be displayed with the following "Allow honeywell to access your location" options:
@@ -380,7 +382,7 @@ Then user should not receive a "Allow honeywell to access your location" popup
 #iOS
 @GeneralNotificationPermissionAllowFunctionality          @Automated
 Scenario: As a user I want to verify Deny option in location permission popup 
-Given user launches and logs in to the Lyric Application
+Given user launches and logs in to the Lyric Application without closing the popup
 When user should receive a "Allow honeywell to access your location" popup
 Then user "selects Allow button from" the "Allow honeywell to access your location" popup
 When user should receive a "Honeywell would like to send you notifications" popup
@@ -397,7 +399,7 @@ Then user should not receive a "Honeywell would like to send you notifications" 
 #iOS
 @GeneralNotificationPermissionDontAllowFunctionality          @Automated
 Scenario: As a user I want to verify Deny option in location permission popup 
-Given user launches and logs in to the Lyric Application
+Given user launches and logs in to the Lyric Application without closing the popup
 When user should receive a "Allow honeywell to access your location" popup
 Then user "selects Allow button from" the "Allow honeywell to access your location" popup
 When user should receive a "Honeywell would like to send you notifications" popup

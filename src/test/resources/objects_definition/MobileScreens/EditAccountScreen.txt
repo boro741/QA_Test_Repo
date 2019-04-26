@@ -4,14 +4,14 @@ LoadingSpinner	ID	progress_bar	ID	progress_bar	ID	progress_bar	NAME	Activity_Ind
 EditAccountScreenTitleInEditAccount	XPATH	//android.widget.TextView[@resource-id='com.honeywell.android.lyric:id/toolbar_title' and @text='Edit Account']	XPATH	//android.widget.TextView[@resource-id='com.honeywell.android.lyric:id/toolbar_title' and @text='Edit Account']	XPATH	//android.widget.TextView[@resource-id='com.honeywell.android.lyric:id/toolbar_title' and @text='Edit Account']	XPATH	"//XCUIElementTypeStaticText[contains(@value,'Edit Account')]"	XPATH	"//XCUIElementTypeStaticText[contains(@value,'Edit Account')]"	XPATH	"//XCUIElementTypeStaticText[contains(@value,'Edit Account')]"
 BackButton	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	NAME	Back	NAME	Back	NAME	Back
 AltBackButton	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	NAME	nav bar back	NAME	nav bar back	NAME	nav bar back
-NameLabelInEditAccountScreen	ID	name_title	ID	name_title	ID	name_title	NAME	Name_subTitle	NAME	Name_subTitle	NAME	Name_subTitle
+NameLabelInEditAccountScreen	ID	name_title	ID	name_title	ID	name_title	NAME	Name_title	NAME	Name_title	NAME	Name_title
 NameValueInEditAccountScreen	ID	fragment_current_user_name_text	ID	fragment_current_user_name_text	ID	fragment_current_user_name_text	NAME	Name_value	NAME	Name_value	NAME	Name_value
-EmailLabelInEditAccountScreen	ID	email_title	XPATH	//android.widget.TextView[@text='Email Address']	XPATH	//android.widget.TextView[@text='Email Address']	NAME	Email_subTitle	NAME	Email_subTitle	NAME	Email_subTitle
+EmailLabelInEditAccountScreen	ID	email_title	XPATH	//android.widget.TextView[@text='Email Address']	XPATH	//android.widget.TextView[@text='Email Address']	NAME	Email_title	NAME	Email_title	NAME	Email_title
 EmailValueInEditAccountScreen	ID	fragment_current_user_email_text	ID	fragment_current_user_email_text	ID	fragment_current_user_email_text	NAME	Email_value	NAME	Email_value	NAME	Email_value
-ChangePasswordButtonInEditAccountScreen	ID	change_password_button	ID	change_password_button	ID	change_password_button	NAME	Change Password_subTitle	NAME	Change Password_subTitle	NAME	Change Password_subTitle
+ChangePasswordButtonInEditAccountScreen	ID	change_password_button	ID	change_password_button	ID	change_password_button	NAME	Change Password_title	NAME	Change Password_title	NAME	Change Password_title
 DeleteAccountButtonInEditAccountScreen	ID	remove_access_button	ID	remove_access_button	ID	remove_access_button	XPATH	//XCUIElementTypeButton[@name='Delete Account']	XPATH	//XCUIElementTypeButton[@name='Delete Account']	XPATH	//XCUIElementTypeButton[@name='Delete Account']
 PrivacyLabelInEditAccountScreen	XPATH	//android.widget.TextView[@text='PRIVACY']	XPATH	//android.widget.TextView[@text='PRIVACY']	XPATH	//android.widget.TextView[@text='PRIVACY']	XPATH	//XCUIElementTypeOther[@name='PRIVACY']	XPATH	//XCUIElementTypeOther[@name='PRIVACY']	XPATH	//XCUIElementTypeOther[@name='PRIVACY']
-UsePasscodeLabelInEditAccountScreen	ID	fragment_current_user_use_passcode_tv	ID	fragment_current_user_use_passcode_tv	ID	fragment_current_user_use_passcode_tv	NAME	Use Passcode_subTitle	NAME	Use Passcode_subTitle	NAME	Use Passcode_subTitle
+UsePasscodeLabelInEditAccountScreen	ID	fragment_current_user_use_passcode_tv	ID	fragment_current_user_use_passcode_tv	ID	fragment_current_user_use_passcode_tv	NAME	Use Passcode_title	NAME	Use Passcode_title	NAME	Use Passcode_title
 UsePasscodeSwitchInEditAccountScreen	ID	fragment_current_user_use_passcode_switch	ID	fragment_current_user_use_passcode_switch	ID	fragment_current_user_use_passcode_switch	NAME	Use Passcode_toggle	NAME	Use Passcode_toggle	NAME	Use Passcode_toggle
 SaveButtonInEditAccountScreen	XPATH	//android.widget.ImageButton[@content-desc='Navigate Up']	XPATH	//android.widget.ImageButton[@content-desc='Navigate Up']	XPATH	//android.widget.ImageButton[@content-desc='Navigate Up']	NAME	Save	NAME	Save	NAME	Save
 ReturnButtonIniOSKeyboard							NAME	Return	NAME	Return	NAME	Return
@@ -68,6 +68,8 @@ WasThisHelpfulTextInLearnHowToCancelAMembershipScreen	ID	question_footer_message
 YESButtonInWasThisHelpfulTextInLearnHowToCancelAMembershipScreen	ID	helpful_button	ID	helpful_button	ID	helpful_button	NAME	Tap here if you found this FAQ helpful	NAME	Tap here if you found this FAQ helpful	NAME	Tap here if you found this FAQ helpful
 NOButtonInWasThisHelpfulTextInLearnHowToCancelAMembershipScreen	ID	unhelpful_button	ID	unhelpful_button	ID	unhelpful_button	NAME	Tap here if this FAQ was not helpful to you	NAME	Tap here if this FAQ was not helpful to you	NAME	Tap here if this FAQ was not helpful to you
 FirstNameLabelInNameScreen							NAME	First Name	NAME	First Name	NAME	First Name
-FirstNameValueInNameScreen												
+FirstNameValueInNameScreen							NAME	Name_value	NAME	Name_value	NAME	Name_value
 LastNameLabelInNameScreen							NAME	Last Name	NAME	Last Name	NAME	Last Name
-LastNameValueInNameScreen												
+LastNameValueInNameScreen							NAME	Name_value	NAME	Name_value	NAME	Name_value
+LoggedInEmail							NAME	Email_value	NAME	Email_value	NAME	Email_value
+NameValueArrow							XPATH	(//XCUIElementTypeImage[@name='Name_Image' or @value='Yes'])[1]	XPATH	(//XCUIElementTypeImage[@name='Name_Image' or @value='Yes'])[1]	XPATH	(//XCUIElementTypeImage[@name='Name_Image' or @value='Yes'])[1]

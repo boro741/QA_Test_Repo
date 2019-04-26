@@ -184,16 +184,16 @@ public class ActivityHistoryScreen extends MobileScreens {
 				flag = false;
 			}
 		} else {
-			if (MobileUtils.isMobElementExists("ID", "LeftButton", testCase)) {
-				flag &= MobileUtils.clickOnElement(testCase, "ID", "LeftButton");
+			if (MobileUtils.isMobElementExists("NAME", "LeftButton", testCase)) {
+				flag &= MobileUtils.clickOnElement(testCase, "NAME", "LeftButton");
 				selectedMsgList = MobileUtils.getMobElements(testCase, "XPATH",
 						"//XCUIElementTypeCell[@name='Messages_cell']/XCUIElementTypeButton");
 				for (WebElement ele : selectedMsgList) {
 					if ((ele.getAttribute("value") != null) && (ele.getAttribute("value").equalsIgnoreCase("1"))) {
 						return flag;
 					} else {
-						if (MobileUtils.isMobElementExists("ID", "LeftButton", testCase)) {
-							flag &= MobileUtils.clickOnElement(testCase, "ID", "LeftButton");
+						if (MobileUtils.isMobElementExists("NAME", "LeftButton", testCase)) {
+							flag &= MobileUtils.clickOnElement(testCase, "NAME", "LeftButton");
 							selectedMsgList = MobileUtils.getMobElements(testCase, "XPATH",
 									"//XCUIElementTypeCell[@name='Messages_cell']/XCUIElementTypeButton");
 							for (WebElement ele1 : selectedMsgList) {
@@ -238,8 +238,8 @@ public class ActivityHistoryScreen extends MobileScreens {
 		 * "DeleteButton") && MobileUtils.getMobElement(objectDefinition, testCase,
 		 * "DeleteButton").getAttribute("enabled") .equalsIgnoreCase("true")) { return
 		 * flag; } else
-		 */ if (MobileUtils.isMobElementExists("ID", "RightButton", testCase) && MobileUtils
-				.getMobElement(testCase, "ID", "RightButton").getAttribute("enabled").equalsIgnoreCase("true")) {
+		 */ if (MobileUtils.isMobElementExists("NAME", "RightButton", testCase) && MobileUtils
+				.getMobElement(testCase, "NAME", "RightButton").getAttribute("enabled").equalsIgnoreCase("true")) {
 			return flag;
 		} else {
 			flag = false;

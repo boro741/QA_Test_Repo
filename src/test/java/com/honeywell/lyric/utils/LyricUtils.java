@@ -814,14 +814,14 @@ public class LyricUtils {
 			boolean... closeCoachMarks) {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
-		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
+		/*flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
 		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
 		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
 		if (closeCoachMarks.length > 0) {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
 		} else {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
-		}
+		}*/
 
 		return flag;
 	}
@@ -2301,9 +2301,9 @@ public class LyricUtils {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
 		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		// if(testCase.getPlatform().toUpperCase().contains("IOS")) {
-		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-		// }
+		if(testCase.getPlatform().toUpperCase().contains("IOS")) {
+			flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		}
 		flag = flag & LyricUtils.loginToLyricAppUserWithoutAnyLocation(testCase, inputs);
 		if (closeCoachMarks.length > 0) {
 			flag = flag
@@ -2319,9 +2319,9 @@ public class LyricUtils {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
 		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		// if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-		// }
+		if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+			flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		}
 		flag = flag & LyricUtils.loginToLyricAppUserWithLocation(testCase, inputs);
 		if (closeCoachMarks.length > 0) {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
@@ -2335,9 +2335,9 @@ public class LyricUtils {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
 		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		// if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-		// }
+		if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+			flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		}
 		return flag;
 	}
 

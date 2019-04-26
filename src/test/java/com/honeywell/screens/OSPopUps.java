@@ -215,8 +215,8 @@ public class OSPopUps extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DontAllowButton");
 	}
 
-	public boolean isAllowButtonInAllowHoneywellToAccessYourLocationPopupVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AllowButton");
+	public boolean isAlwaysAllowButtonInAllowHoneywellToAccessYourLocationPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AlwaysAllowButton");
 	}
 
 	public boolean clickOnOnlyWhileUsingTheAppButtonInAllowHoneywellToAccessYourLocationPopup() {
@@ -227,8 +227,8 @@ public class OSPopUps extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DontAllowButton");
 	}
 
-	public boolean clickOnAllowButtonInAllowHoneywellToAccessYourLocationPopup() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "AllowButton");
+	public boolean clickOnAlwaysAllowButtonInAllowHoneywellToAccessYourLocationPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AlwaysAllowButton");
 	}
 
 	public boolean isHoneywellWouldLikeToSendYouNotificationsPopupVisible() {
@@ -296,35 +296,91 @@ public class OSPopUps extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInDeleteUserPopup");
 	}
 
-	public boolean isCancelButtonInDeleteUserPopupVisible() {
+	/*public boolean isCancelButtonInDeleteUserPopupVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInDeleteUserPopup");
-	}
+	}*/
 
 	public boolean clickOnOkButtonInDeleteUserPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInDeleteUserPopup");
 	}
 
-	public boolean clickOnCancelButtonInDeleteUserPopup() {
+	/*public boolean clickOnCancelButtonInDeleteUserPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInDeleteUserPopup");
-	}
+	}*/
 
 	public boolean isDeleteLocationPopupLabelVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteLocationPopup");
 	}
 
-	public boolean isDeleteButtonInDeleteLocationPopupLabelVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteButtonInDeleteLocationPopup");
+	public boolean isYesButtonInDeleteLocationPopupLabelVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "YesButtonInDeleteLocationPopup");
 	}
 
-	public boolean isCancelButtonInDeleteLocationPopupLabelVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInDeleteLocationPopup");
+	public boolean isNoButtonInDeleteLocationPopupLabelVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoButtonInDeleteLocationPopup");
 	}
 
-	public boolean clickOnDeleteButtonInDeleteLocationPopup() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteButtonInDeleteLocationPopup");
+	public boolean clickOnYesButtonInDeleteLocationPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "YesButtonInDeleteLocationPopup");
 	}
 
-	public boolean clickOnCancelButtonInDeleteLocationPopup() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInDeleteLocationPopup");
+	public boolean clickOnNoButtonInDeleteLocationPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "NoButtonInDeleteLocationPopup");
 	}
+	
+	public boolean isSorryToSeeYouGoPopupTitleVisbile() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SorryToSeeYouGoPopupTitle");
+	}
+	
+	public boolean isSorryToSeeYouGoPopupMsgVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SorryToSeeYouGoPopupMsg");
+	}
+	
+	public boolean isNoButtonInSorryToSeeYouGoPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoButtonInSorryToSeeYouGoPopup");
+	}
+	
+	public boolean isYesButtonInSorryToSeeYouGoPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "YesButtonInSorryToSeeYouGoPopup");
+	}
+	
+	public boolean isDeleteUserPopupTitleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteUserPopupTitle");
+	}
+
+	public boolean isDeleteUserPopupMsgVisible(String invitedUsersEmailAddress) {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.isMobElementExists("XPATH",
+					"//android.widget.TextView[contains(@text,'Are you sure you want to remove access for')]",
+					testCase);
+		} else {
+			return MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeStaticText[@name='This will delete "
+					+ invitedUsersEmailAddress + " from this account']", testCase);
+		}
+	}
+
+	public boolean isCancelButtonInDeleteUserPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInDeleteUserPopup");
+	}
+
+	public boolean isOKButtonInDeleteUserPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInDeleteUserPopup");
+	}
+	
+	public boolean clickOnCancelButtonInDeleteUserPopup() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInDeleteUserPopup")) {
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInDeleteUserPopup");
+		}
+		return flag;
+	}
+	
+	public boolean clickOnOKButtonInDeleteUserPopup() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInDeleteUserPopup")) {
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInDeleteUserPopup");
+		}
+		return flag;
+	}
+	
 }

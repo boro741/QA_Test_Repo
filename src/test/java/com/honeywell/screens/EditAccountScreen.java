@@ -2,6 +2,7 @@ package com.honeywell.screens;
 
 import org.openqa.selenium.By;
 
+import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
@@ -564,5 +565,24 @@ public class EditAccountScreen extends MobileScreens {
 
 	public String getLastNameValueInNameScreen() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "LastNameValueInNameScreen");
+	}
+	
+	public boolean isLoggedInUserEmailDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LoggedInEmail");
+	}
+	
+	public String getLoggedInUserEmail() {
+		String userEmailAddress= null;
+		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			
+		}else {
+			//ios
+			userEmailAddress = MobileUtils.getFieldValue(objectDefinition, testCase, "LoggedInEmail");
+		}
+		return userEmailAddress;
+	}
+	
+	public boolean clickOnNameValueArrowInEditAccountScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "NameValueArrow");
 	}
 }

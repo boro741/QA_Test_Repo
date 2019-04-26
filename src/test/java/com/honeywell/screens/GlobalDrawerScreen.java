@@ -119,4 +119,12 @@ public class GlobalDrawerScreen extends MobileScreens {
 	public boolean clickOnLogoutOption() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "LogoutOption");
 	}
+	
+	public boolean isBackButtonVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton");
+	}
+	
+	public boolean clickOnBackButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+	}
 }

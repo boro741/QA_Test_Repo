@@ -144,6 +144,43 @@ public class ClearTextInTextFieldsInTheScreen extends Keyword {
 			}
 			break;
 		}
+		case "NAME EDIT ACCOUNT": {
+			EditAccountScreen eas = new EditAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "TextFieldsInEditAccountScreen");
+				switch (parameter.toUpperCase()) {
+				case "FIRST NAME TEXT FIELD": {
+					if (eas.isFirstNameLabelVisibleInNameScreen()
+							&& eas.isFirstNameValueVisibleInNameScreen()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						flag &= EditAccountUtils.clearTextDisplayedInEditAccountTextFields(testCase, inputs, parameter);
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				case "LAST NAME TEXT FIELD": {
+					if (eas.isLastNameLabelVisibleInNameScreen()
+							&& eas.isLastNameValueVisibleInNameScreen()) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+						flag &= EditAccountUtils.clearTextDisplayedInEditAccountTextFields(testCase, inputs, parameter);
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input: " + expectedScreen.get(0));
+				}
+				}
+				flag = true;
+			}
+			break;
+		}
 		}
 		return flag;
 	}

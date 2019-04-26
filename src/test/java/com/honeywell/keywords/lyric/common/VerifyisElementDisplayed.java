@@ -323,6 +323,16 @@ public class VerifyisElementDisplayed extends Keyword {
 				}
 				break;
 			}
+			case "No Users label" : {
+				ManageUsersScreen mus= new ManageUsersScreen(testCase);
+				if(mus.isNoUsersLabelVisible()) {
+					Keyword.ReportStep_Pass(testCase, "No Users are displayed in Manage User screen");
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Users are displayed in Manage Users screen");
+				}
+				break;
+			}
 			default: {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						parameters.get(0) + "Input does not match");

@@ -589,7 +589,7 @@ Then the following "Activity History" options should be enabled:
 And user should be displayed with the following "Activity History" options:
 | ActivityHistoryOptions		|
 | Cancel						|
-When user selects "Delete" from "Activity History" screen 
+When user selects "The Delete" from "Activity History" screen 
 Then user should be displayed with "No Messages label in Activity History screen"
 #And user logs out of the app
 
@@ -598,7 +598,8 @@ Then user should be displayed with "No Messages label in Activity History screen
 @GeneralGlobalDrawerAddDeleteUsersFromInviteList				@Automated		@--xrayid:ATER-67865
 Scenario Outline: As a user I want to Verify invite user functionality by adding and removing a user from invite list
 Given user launches and logs in to the Lyric Application
-When user navigates to "Invite User" screen from the "Dashboard" screen
+When user navigates to "Manage Users" screen from the "Dashboard" screen
+Then user selects "Invite New User" from "Manage Users" screen
 And user inputs <invite users email address> in "Email Text Field" in the "Invite New User" screen
 Then user should be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
@@ -628,7 +629,7 @@ Then user should be displayed with the "Add New Device" screen
 
 Examples:
 | invite users email address	|
-| das_stage5@grr.la			|
+| das_stage5@grr.la				|
 
 
 #Requirements : single location with and with out any solution and user should be invited 
@@ -649,7 +650,7 @@ Then user should be displayed with the following "User already added to this acc
 Then user clicks on the back arrow in the "Invite New User" screen
 Then user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList	|
-| Logged in user		|
+| Logged in user	|
 
 
 #Requirements : single location with and with out any solution and user should be invited 
@@ -677,7 +678,7 @@ Then user should receive a "Delete User" popup
 And user "Clicks on Cancel in" the "Delete User" popup
 Then user should be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
-| das_stage5@grr.la	|
+| das_stage5@grr.la		|
 When user deletes the <invite users email address> from "Manage Users" screen
 Then user should receive a "Delete User" popup
 And user "Clicks on OK in" the "Delete User" popup
@@ -686,7 +687,7 @@ Then user should not be displayed with the following "Invited Users" options:
 | das_stage5@grr.la		|
 
 Examples:
-| invite users email address		|
+| invite users email address	|
 | das_stage5@grr.la				|
 
 
@@ -1265,10 +1266,13 @@ Examples:
 @GeneralGlobalDrawerEditAccountUpdateFirstNameAndLastName         @Automated		@--xrayid:ATER-69076
 Scenario Outline: As a user i want to Verify if updated first name and last name is getting saved
 Given user launches and logs in to the Lyric Application
+#When user inputs <First name> in "First name text field" in the "Name Edit Account" screen
+#Then user inputs <Last name> in "Last name text field" in the "Name Edit Account" screen
+#Then user selects "Save button" from "Name Edit Account" screen
+#Then user should be displayed with the "Edit Account" screen
+#Then user should be displayed with "Updated First and Last Name" in the "Edit Account" screen
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
-#When user inputs <first name> in "First Name Text Field" in the "Edit Account" screen
-#Then user inputs <last name> in "Last Name Text Field" in the "Edit Account" screen
 Then user should be displayed with the following "Edit Account" options:
 |EditAccountOptions|
 |Name              |
@@ -1278,7 +1282,6 @@ Then user should be displayed with the following "Edit Account" options:
 |Use Passcode	   |
 And user should be displayed with the "First and Last Name" in "Edit Account" screen
 And user should be displayed with the "Logged in Email" in "Edit Account" screen
-#And user selects "Save button" from "Edit Account" screen
 Then user selects "Name" from "Edit Account" screen
 Then user should be displayed with the "Name Edit Account" screen
 Then user should be displayed with the following "Name Edit Account" options:
@@ -1286,19 +1289,20 @@ Then user should be displayed with the following "Name Edit Account" options:
 |First Name			   |
 |Last Name			   |
 |Save button		   |
-Then user should be displayed with the "Save button" as disabled
-Then user should update the "First Name and Last Name" in the "Name Edit Account" screen
+Then the following "Save button" options should be disabled:
+|SaveButtonOption|
+|Save			 |
+Then user inputs <First name> in "First name text field" in the "Name Edit Account" screen
+Then user inputs <Last name> in "Last name text field" in the "Name Edit Account" screen
 Then user selects "Save button" from "Name Edit Account" screen
 Then user should be displayed with the "Edit Account" screen
-#Then user should be displayed with the "Global Drawer" screen
-#And user navigates to "Edit Account" screen from the "Global Drawer" screen
-Then user should be displayed with "updated first name" in the "Edit Account" screen
-Then user should be displayed with "updated last name" in the "Edit Account" screen
+Then user should be displayed with "Updated First and Last Name" in the "Edit Account" screen
+
 
 Examples: 
-| first name | last name | 
+| First name | Last name | 
 | giri       | THEJ      | 
-#| sami       | krishna   | 
+| sami       | krishna   | 
 #| vijay      | Govda     | 
 #| anju       | Chandran   |  
   
@@ -1310,9 +1314,12 @@ Scenario: As a user i want to Verify if error message is displayed when tried to
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
-When user clears the text displayed in the following text fields in the "Edit Account" screen:
-| TextFieldsInEditAccountScreen		|
-| First Name Text Field				|
+And user should be displayed with the "First and Last Name" in "Edit Account" screen
+And user should be displayed with the "Logged in Email" in "Edit Account" screen
+Then user selects "Name" from "Edit Account" screen
+When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
+| TextFieldsInNameEditAccountScreen		|
+| First Name Text Field					|
 And user selects "Save button" from "Edit Account" screen
 Then user should receive a "First Name is required" popup
 When user "Clicks on OK in" the "First Name is required" popup
@@ -1725,8 +1732,8 @@ When user "accepts" the "Cancel Setup" popup
 Then user should be displayed with the "Add New Device" screen
 
 Examples: 
-      | Default Location		| Default Device Name		| valid zip code        |
-      | Home					| Living Room				| 90001                 |
+| Default Location		| Default Device Name		| valid zip code        |
+| Home					| Living Room				| 90001                 |
 
 
 #Delete account with learn how to delete a device #GDPR
@@ -1775,7 +1782,7 @@ Given user launches and logs in to the Lyric Application
 When user navigates to "About the app" screen from the "Dashboard" screen
 Then user should be displayed with the "About the app" screen
 And user should be displayed with the following "About the app" options:
-| AboutTheAppOptions			| 
+| AboutTheAppOptions		| 
 | Rate the app for Android	|
 | Get Help             		| 
 | Privacy Policy and EULA 	|
@@ -2673,7 +2680,6 @@ Then user should be displayed with the following "Question" options:
 
 #Logout
   
-
 #Requirements : single location with and with out any solution
 @GeneralGlobalDrawerLogoutFromTheAppWithLocation             @Automated		@--xrayid:ATER-69134
 Scenario: As a user i want to Verify logout with location under global drawer with and with out solution
@@ -2699,8 +2705,8 @@ When user "Clicks on Sign Out button in" the "Exit Honeywell Home" popup
 Then user should be displayed with the "Honeywell Home" Screen
 And user should be able to login to the app after sign out
 Then user should be displayed with the "Add New Device" screen
-  
-
+ 
+ 
 #Delete account
 #Requirements: No Location, No Device and No Membership
 @SingleUserDeleteAccountWithNoLocationNoDeviceNoMembership             @Automated 		@--xrayid:ATER-69136  
@@ -2764,8 +2770,8 @@ When user "accepts" the "Cancel Setup" popup
 Then user should be displayed with the "Add New Device" screen
 
 Examples: 
-      | Default Location		| Default Device Name		| valid zip code        |
-      | Home					| Living Room				| 90001                 |	
+| Default Location		| Default Device Name		| valid zip code        |
+| Home					| Living Room				| 90001                 |	
   
 
   @SingleUserWithUnsharedDeviceWithCameraSubscriptions             @NotAutomatable		@--xrayid:ATER-69138
@@ -3189,8 +3195,8 @@ And user "Accepts" the "Email or Password incorrect" popup
 Then create the deleted user account through CHIL
     
 Examples: 
-| first location name	| valid first locations zip code		| second location name	| valid second locations zip code		| Current Screen					| Previous Screen	|
-| California				| 90001								|  Texas					| 90002									| Add New Device Dashboard		| Dashboard			|
+| first location name	| valid first locations zip code	| second location name	| valid second locations zip code		| Current Screen					| Previous Screen	|
+| California			| 90001								|  Texas				| 90002									| Add New Device Dashboard		| Dashboard			|
 
 @DeleteAccountAfterInvitingAnotherUser				@Automatable		@--xrayid:ATER-
 Scenario Outline: User should be able to delete account after inviting another user

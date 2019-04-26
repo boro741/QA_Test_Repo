@@ -47,7 +47,9 @@ import com.honeywell.screens.FAQsScreen;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.GlobalDrawerScreen;
 import com.honeywell.screens.LoginScreen;
+import com.honeywell.screens.ManageUsersScreen;
 import com.honeywell.screens.MobileDeviceSettingsScreen;
+import com.honeywell.screens.NameEditAccountScreen;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.PrivacyStatementScreen;
 import com.honeywell.screens.SchedulingScreen;
@@ -560,7 +562,26 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				}
-			} else if (parameters.get(1).equalsIgnoreCase("ADD NEW DEVICE")) {
+			} 
+			else if(parameters.get(1).equalsIgnoreCase("WHAT TO EXPECT")) {
+				switch (parameters.get(0).toUpperCase()) {
+				case "GET STARTED": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if(dasDIY.isGetStartedButtonInWhatToExpectScreenVisible()) {
+						flag &= dasDIY.clickOnGetStartedButtonInWhatToExpectScreen();
+						if(flag) {
+							Keyword.ReportStep_Pass(testCase, "Clicked on Get Started button");
+						}else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click on Get Started button");
+						}
+					}
+					break;
+				}
+			  }
+			}
+			
+			else if (parameters.get(1).equalsIgnoreCase("ADD NEW DEVICE")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "SMART HOME SECURITY": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
@@ -1855,6 +1876,16 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					break;
 				}
+				case "THE DELETE": {
+					if (ah.isDeletelButtonEnabled()) {
+						ah.clickOnDeleteButton();
+						Keyword.ReportStep_Pass(testCase, "Successfully selected the option: " + parameters.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to select the option: " + parameters.get(0));
+					}
+					break;
+				}
 				case "GEOFENCE HOME EVENT - SUCCESS": {
 					List<WebElement> messageTitle = ah.getActivityHistoryMsgTitle();
 					int listCount = messageTitle.size();
@@ -1951,6 +1982,20 @@ public class SelectElementOnAScreen extends Keyword {
 				String getFooterTextDisplayedInAddNewDeviceScreen = null;
 				String getCurrentCountryFromAddNewDeviceScreen = null;
 				switch (parameters.get(0).toUpperCase()) {
+				case "DONE" : {
+					if(adn.isDoneButtonVisible()) {
+						flag &=adn.clickOnDoneButton();
+					}else {
+						flag = false;
+					}
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
 				case "CHANGE COUNTRY": {
 					if (adn.isFooterTextInAddNewDeviceScreenVisible()) {
 						getFooterTextDisplayedInAddNewDeviceScreen = adn.getFooterTextDisplayedInAddNewDeviceScreen();
@@ -1990,7 +2035,12 @@ public class SelectElementOnAScreen extends Keyword {
 							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
 				}
-			} else if (parameters.get(1).equalsIgnoreCase("PLEASE CONFIRM YOUR COUNTRY")) {
+			} else if (parameters.get(1).equalsIgnoreCase("DASHBOARD")) {
+				Dashboard d= new Dashboard(testCase);
+				flag = flag & d.selectLocationFromDashBoard(testCase, parameters.get(0));
+				
+			}
+			else if (parameters.get(1).equalsIgnoreCase("PLEASE CONFIRM YOUR COUNTRY")) {
 				// Write code for selecting country from the list of countries displayed in
 				// Please confirm your country screen
 				/*
@@ -2130,6 +2180,20 @@ public class SelectElementOnAScreen extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Failed to click on " + parameters.get(0));
 					}
+					break;
+				}
+				case "NAME" :{
+					if(eas.isNameValueInEditAccountScreenVisible()) {
+						flag &= eas.clickOnNameValueArrowInEditAccountScreen();
+						if(flag) {
+							Keyword.ReportStep_Pass(testCase,
+									"Successfully clicked on " + parameters.get(0) + " in Edit Account Screen.");
+						}else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to click on " + parameters.get(0));
+						}
+					}
+					
 					break;
 				}
 				default: {
@@ -2540,15 +2604,16 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "CANCEL": {
+				case "BACK BUTTON": {
 					CreateAccountScreen cas = new CreateAccountScreen(testCase);
 					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						flag &= cas.isCreateAccountClickOnBack();
 					} else {
 						// ios
-						flag &= cas.isCreateAccountClickOnCancelButtonOnIOS();
+						flag &= cas.isCreateAccountClickOnBackButtonOnIOS();
 
 					}
+					
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Back or Cancel button is clicked");
 					} else {
@@ -2595,6 +2660,9 @@ public class SelectElementOnAScreen extends Keyword {
 						}
 						if (cas.isCreateAccountPrivacyStatementLinkDisplayed()) {
 							flag &= cas.isCreateAccountClickOnPrivacyStatementLink();
+							if (cas.isCreateAccountPrivacyStatementLinkDisplayed()) {
+								flag &= cas.isCreateAccountClickOnPrivacyStatementLink();
+							}
 						} else {
 							flag = false;
 						}
@@ -2682,10 +2750,10 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("ACTIVATE ACCOUNT")) {
 				switch (parameters.get(0).toUpperCase()) {
-				case "CLOSE BUTTON": {
+				case "BACK BUTTON": {
 					ActivateAccountScreen aas = new ActivateAccountScreen(testCase);
-					if (aas.isActivateAccountCloseButtonDisplayed()) {
-						flag &= aas.isActivateAccountClickOnCloseButton();
+					if (aas.isActivateAccountBackButtonDisplayed()) {
+						flag &= aas.isActivateAccountClickOnBackButton();
 						if (flag) {
 							Keyword.ReportStep_Pass(testCase, "Close button is clicked");
 						} else {
@@ -2850,6 +2918,52 @@ public class SelectElementOnAScreen extends Keyword {
 			} else if (parameters.get(1).equalsIgnoreCase("DASHBOARD")) {
 				Dashboard d = new Dashboard(testCase);
 				flag = flag & d.selectLocationFromDashBoard(testCase, parameters.get(0));
+			}else if(parameters.get(1).equalsIgnoreCase("MANAGE USERS")) {
+				ManageUsersScreen mus= new ManageUsersScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "INVITE NEW USER" : {
+					if(mus.isInviteNewUserButtonVisible()) {
+						flag &=mus.clickOnInviteNewUserButton();
+					}
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				case "DELETE INVITED EMAIL" : {
+					if(mus.isDeleteInvitedEmailIconVisible()) {
+						flag &=mus.clickOnDeleteInvitedEmailIcon();
+					}
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+				}
+				
+			} else if(parameters.get(1).equalsIgnoreCase("NAME EDIT ACCOUNT")) {
+				NameEditAccountScreen neas = new NameEditAccountScreen(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "SAVE BUTTON" : {
+					if(neas.isSaveButtonEnabledInNameEditAccountScreen()) {
+						flag &=neas.clickOnSaveButtonInNameEditAccountScreen();
+					}
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+			  }
+				
 			}
 
 		} catch (Exception e) {

@@ -22,7 +22,7 @@ UserSyncPendingPopup	XPATH	//android.widget.TextView[@text='User Sync Pending']	
 OKButtonInUserSyncPendingPopup	ID	button1	ID	button1	ID	button1						
 UserSyncPendingPopup	XPATH	//android.widget.TextView[@text='User Sync Pending']					XPATH	"//XCUIElementTypeStaticText[contains(@name,'Are you sure you want to remove access for')]"				
 OKButtonInUserSyncPendingPopup	ID	button1										
-DeleteInvitedEmailIcon	ID	list_item_delete_user_button_view	ID	list_item_delete_user_button_view	ID	list_item_delete_user_button_view						
+DeleteInvitedEmailIcon	ID	list_item_delete_user_button_view	ID	list_item_delete_user_button_view	ID	list_item_delete_user_button_view	NAME	invited_user_0_0_rightButton	NAME	invited_user_0_0_rightButton	NAME	invited_user_0_0_rightButton
 DeleteUserLabel	XPATH	//android.widget.TextView[@text='Delete User']	XPATH	//android.widget.TextView[@text='Delete User']	XPATH	//android.widget.TextView[@text='Delete User']						
 ThisWillDeleteConfirmation	XPATH	"//android.widget.TextView[contains(@text,'This will delete')]"	XPATH	"//android.widget.TextView[contains(@text,'This will delete')]"	XPATH	"//android.widget.TextView[contains(@text,'This will delete')]"						
 OKButtonInDeleteUserPopup	ID	button1	ID	button1	ID	button1						

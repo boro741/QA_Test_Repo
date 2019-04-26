@@ -15,6 +15,7 @@ import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.das.utils.EditAccountUtils;
 import com.honeywell.lyric.das.utils.FAQsUtils;
 import com.honeywell.screens.AddressScreen;
+import com.honeywell.screens.EditAccountScreen;
 
 public class VerifyTextDisplayedInTheScreen extends Keyword {
 
@@ -260,6 +261,10 @@ public class VerifyTextDisplayedInTheScreen extends Keyword {
 						inputs.getInputValue("UPDATED_LAST_NAME_IN_EDIT_ACCOUNT"));
 				break;
 			}
+			case "UPDATED FIRST AND LAST NAME" : {
+				flag &= EditAccountUtils.verifyFirstAndLastNameDisplayedInEditAccountScreen(testCase, inputs.getInputValue("UPDATED_FIRST_NAME_IN_EDIT_ACCOUNT"), inputs.getInputValue("UPDATED_LAST_NAME_IN_EDIT_ACCOUNT"));
+				break;
+			}
 			case "EXISTING FIRST NAME": {
 				flag &= EditAccountUtils.verifyFirstNameDisplayedInEditAccountScreen(testCase,
 						inputs.getInputValue("FIRST_NAME_IN_EDIT_ACCOUNT"));
@@ -330,6 +335,7 @@ public class VerifyTextDisplayedInTheScreen extends Keyword {
 			}
 			}
 		}
+		
 		return flag;
 	}
 

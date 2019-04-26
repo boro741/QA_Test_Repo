@@ -80,6 +80,32 @@ public class VerifyIfPopUpIsNotDisplayed extends Keyword {
 			break;
 		}
 		
+		case "ALLOW HONEYWELL TO ACCESS YOUR LOCATION" : {
+			OSPopUps ops= new OSPopUps(testCase);
+			if(!ops.isAllowHoneywellToAccessYourLocationPopupVisible(20)) {
+				Keyword.ReportStep_Pass(testCase,
+						"Allow Honeywell to access your location popup is not displayed");
+			}else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Allow Honeywell to access your location pop up is displayed");
+			}
+			break;
+		}
+		
+		case "HONEYWELL WOULD LIKE TO SEND YOU NOTIFICATIONS" : {
+			OSPopUps ops= new OSPopUps(testCase);
+			if(!ops.isHoneywellWouldLikeToSendYouNotificationsPopupVisible()) {
+				Keyword.ReportStep_Pass(testCase,
+						"Honeywell would like to send you notifications popup is not displayed");
+			}else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Honeywell would like to send you notifications popup is displayed");
+			}
+			break;
+		}
+		
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));

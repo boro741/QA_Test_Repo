@@ -392,7 +392,7 @@ public class AddressScreen extends MobileScreens {
 			MobileUtils.hideKeyboard(testCase.getMobileDriver());
 		} else {
 			flag &= MobileUtils.clearTextField(objectDefinition, testCase, "PostalCodeTextInEditAddressScreen");
-			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "ReturnButtonIniOSKeyboard");
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonIniOSKeyboard");
 		}
 		return flag;
 
@@ -520,7 +520,7 @@ public class AddressScreen extends MobileScreens {
 					"Hide Android Keyboard for Postal Code Text Field in Edit Address Screen");
 		} else {
 			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "PostalCodeTextInEditAddressScreen");
-			testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypeTextField[@name='Postal Code']")).clear();
+			testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypeTextField[@name='ZIP Code']")).clear();
 			flag &= MobileUtils.setValueToElement(objectDefinition, testCase, "PostalCodeTextInEditAddressScreen",
 					inputPostalCodeText);
 			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ReturnButtonIniOSKeyboard")) {

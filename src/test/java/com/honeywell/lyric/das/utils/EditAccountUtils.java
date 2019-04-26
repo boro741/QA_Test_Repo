@@ -9,6 +9,7 @@ import com.google.common.base.Function;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.EditAccountScreen;
 
@@ -162,7 +163,31 @@ public class EditAccountUtils {
 		}
 		return flag;
 	}
-
+	
+	public static boolean verifyFirstAndLastNameDisplayedInEditAccountScreen(TestCases testCase, String updatedFirstName, String updatedLastName) {
+		boolean flag = true;
+		EditAccountScreen eas = new EditAccountScreen(testCase);
+		String userNameDisplayed = eas.getNameValueInEditAccountScreen();
+		//System.out.println("*******userNameDisplayed: " + userNameDisplayed);
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			/*if (MobileUtils.isMobElementExists("XPATH",
+					"//*[@resource-id='com.honeywell.android.lyric:id/fragment_new_eula_link_container' and @text='PRIVACY POLICY & EULA : "
+							+ countryName + "']",testCase)) {
+				return flag;
+			} else {
+				flag = false;
+			}*/
+		} else {
+			String name= updatedFirstName + " " + updatedLastName;
+			if(name.equals(userNameDisplayed)) {
+				System.out.println("The First and Last Name is updated");
+			}else{
+				flag = false;
+			}
+		}
+		return flag;
+	}
+	
 	public static boolean verifyIfMaxCharsEnteredInFirstNameTxtFieldInEditAccountScreen(TestCases testCase,
 			TestCaseInputs inputs, int maxAllowedCharsLength, String enteredMaxChars) {
 		EditAccountScreen eas = new EditAccountScreen(testCase);

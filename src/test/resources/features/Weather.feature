@@ -158,13 +158,13 @@ Then user navigates to "Edit Address" screen from the "Address" screen
 Then user clears the text displayed in the following text fields in the "Edit Address" screen:
 | TextFieldsInEditAddressScreen		|
 | Postal Code Text Field			|
-Then user inputs "Default Postal Code" in "Postal Code Text Field" in the "Edit Address" screen
+Then user inputs <Default Postal Code> in "Postal Code Text Field" in the "Edit Address" screen
 Then user selects "Save button" from "Edit Address" screen
 Then user logs out of the app
 
 Examples:
-| Postal Code	|
-| 14008			|
+| Postal Code	| Default Postal Code |
+| 14008			| 90001				  |
 
 
 #Requirment : Mulitple location with different Tempr scale
@@ -208,11 +208,11 @@ Then user should be displayed with the <Previous Screen> screen
 Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
 Then user selects "Farenheit" from "Weather Forecast" screen
 Then user selects "Back button" from "Weather Forecast" screen
-Then user selects <first location name> from "Add New Device Dashboard" screen
+Then user selects <first location name> from "Dashboard" screen
 Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
 Then user should be displayed with "Celsius Unit" temperature scale in "Weather Forecast" screen
 Then user selects "Back button" from "Weather Forecast" screen
-Then user selects <second location name> from "Add New Device Dashboard" screen
+Then user selects <second location name> from "Dashboard" screen
 Then user navigates to "Weather Forecast" screen from the "Add New Device Dashboard" screen
 Then user should be displayed with "Farenheit Unit" temperature scale in "Weather Forecast" screen
 Then user selects "Back button" from "Weather Forecast" screen
@@ -284,3 +284,19 @@ And user should be displayed with the following "Weather" options:
 |Weather Temp In Forecast Screen |
 Then user should be displayed with "Weather Forecast temp as existing" in the "Weather Forecast" screen
 Then user selects "Back button" from "Weather Forecast" screen
+Then user navigates to "Global Drawer" screen from the "Dashboard" screen
+When user selects "Geofence" from "Global Drawer" screen
+Then user should be displayed with the "Geofence Settings" screen
+When user changes the "Geofence this location toggle" to "off"
+Then the following "Geofence Settings" options should be disabled:
+| Options					|
+| Geofence this Location	|
+
+
+#Requirement: Compare the weather displayed on Dashboard and the weather displayed in Weather screen
+@GeneralWeatherForecastDisplayedOnDashboardAndWeatherScreen
+Scenario: As a user I want to verify the weather displayed on Dashboard is same as the Weather displayed in Weather screen
+Given user launches and logs in to the Lyric Application
+Then user should be displayed with the following "Weather" options:
+|WeatherOptions					  										   |
+|Weather Temp In Dashboard Screen Is Same As Weather Temp In Weather Screen|

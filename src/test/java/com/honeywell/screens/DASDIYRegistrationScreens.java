@@ -1993,4 +1993,12 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	public boolean isFetchingEULAScreenLoadingSpinnerVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FetchingEULAScreenLoadingSpinner");
 	}
+	
+	public boolean isGetStartedButtonInWhatToExpectScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "GetStartedButtonInWhatToExpectScreen");
+	}
+	
+	public boolean clickOnGetStartedButtonInWhatToExpectScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "GetStartedButtonInWhatToExpectScreen");
+	}
 }
