@@ -13,8 +13,10 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.AddressUtils;
 import com.honeywell.lyric.das.utils.EditAccountUtils;
+import com.honeywell.lyric.das.utils.NameEditAccountUtils;
 import com.honeywell.screens.AddressScreen;
 import com.honeywell.screens.EditAccountScreen;
+import com.honeywell.screens.NameEditAccountScreen;
 
 public class ClearTextInTextFieldsInTheScreen extends Keyword {
 
@@ -145,39 +147,38 @@ public class ClearTextInTextFieldsInTheScreen extends Keyword {
 			break;
 		}
 		case "NAME EDIT ACCOUNT": {
-			EditAccountScreen eas = new EditAccountScreen(testCase);
+			NameEditAccountScreen neas = new NameEditAccountScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
-				String parameter = data.getData(i, "TextFieldsInEditAccountScreen");
+				String parameter = data.getData(i, "TextFieldsInNameEditAccountScreen");
 				switch (parameter.toUpperCase()) {
-				case "FIRST NAME TEXT FIELD": {
-					if (eas.isFirstNameLabelVisibleInNameScreen()
-							&& eas.isFirstNameValueVisibleInNameScreen()) {
+					case "FIRST NAME TEXT FIELD": {
+						if (neas.isFirstNameTitleDisplayed()
+							&& neas.isFirstNameValueVisibleInNameScreen()) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
-						flag &= EditAccountUtils.clearTextDisplayedInEditAccountTextFields(testCase, inputs, parameter);
-					} else {
+						flag &= NameEditAccountUtils.clearTextDisplayedInNameEditAccountTextFields(testCase, inputs, parameter);
+						} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Option " + parameter + " is not displayed");
+						}
+						break;
 					}
-					break;
-				}
-				case "LAST NAME TEXT FIELD": {
-					if (eas.isLastNameLabelVisibleInNameScreen()
-							&& eas.isLastNameValueVisibleInNameScreen()) {
-						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
-						flag &= EditAccountUtils.clearTextDisplayedInEditAccountTextFields(testCase, inputs, parameter);
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					case "LAST NAME TEXT FIELD": {
+						if (neas.isLastNameTitleDisplayed()) {
+							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+							flag &= NameEditAccountUtils.clearTextDisplayedInNameEditAccountTextFields(testCase, inputs, parameter);
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Option " + parameter + " is not displayed");
+						}
+						break;
 					}
-					break;
-				}
-				default: {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					default: {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Invalid Input: " + expectedScreen.get(0));
-				}
-				}
-				flag = true;
+					}
+			  }
+			  flag = true;
 			}
 			break;
 		}

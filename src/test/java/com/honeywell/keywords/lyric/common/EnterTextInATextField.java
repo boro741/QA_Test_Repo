@@ -341,39 +341,45 @@ public class EnterTextInATextField extends Keyword {
 			case "FIRST NAME TEXT FIELD": {
 				if (inputName.get(0).equalsIgnoreCase("PREVIOUS VALUE")) {
 					flag &= NameEditAccountUtils.enterFirstNameInNameEditAccountScreen(testCase, inputs,
-							inputs.getInputValue("FIRST_NAME_IN_EDIT_ACCOUNT"));
+							inputs.getInputValue("FIRST_NAME_IN_NAME_EDIT_ACCOUNT"));
+				} else if(inputName.get(0).equalsIgnoreCase("MAX CHARACTERS")) {
+					NameEditAccountUtils.enterFirstNameInNameEditAccountScreen(testCase, inputs, 
+							inputs.getInputValue("FIRST_NAME_IN_NAME_EDIT_ACCOUNT"));
+				} else if (inputName.get(0).equalsIgnoreCase("SPECIAL CHARACTERS")) {
+					Random rand = new Random();
+					int randomInt = rand.nextInt(100);
+					String specialCharsInFirstNameTxtField = "&#$" + inputs.getInputValue("FIRST_NAME_IN_NAME_EDIT_ACCOUNT")
+							+ randomInt + "%^&*";
+					System.out.println("#########specialCharsInFirstNameTxtField: " + specialCharsInFirstNameTxtField);
+					inputs.setInputValue("UPDATED_FIRST_NAME_IN_NAME_EDIT_ACCOUNT", specialCharsInFirstNameTxtField);
+					flag &= NameEditAccountUtils.enterFirstNameInNameEditAccountScreen(testCase, inputs,
+							specialCharsInFirstNameTxtField);
 				} else {
-					inputs.setInputValue("UPDATED_FIRST_NAME_IN_EDIT_ACCOUNT", inputName.get(0));
+					inputs.setInputValue("UPDATED_FIRST_NAME_IN_NAME_EDIT_ACCOUNT", inputName.get(0));
 					flag &= NameEditAccountUtils.enterFirstNameInNameEditAccountScreen(testCase, inputs, inputName.get(0));
 				}
-				/*if (flag) {
-					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-						// MobileUtils.pressBackButton(testCase, "Keyboard minimized");
-						MobileUtils.hideKeyboard(testCase.getMobileDriver(), "Keyboard minimized");
-					} else {
-						// ios
-						MobileUtils.clickOnElement(testCase, "Name", "Done");
-					}
-				}*/
 				break;
 			}
 			case "LAST NAME TEXT FIELD": {
 				if (inputName.get(0).equalsIgnoreCase("PREVIOUS VALUE")) {
 					flag &= NameEditAccountUtils.enterLastNameInNameEditAccountScreen(testCase, inputs,
 							inputs.getInputValue("LAST_NAME_IN_EDIT_ACCOUNT"));
+				} else if(inputName.get(0).equalsIgnoreCase("MAX CHARACTERS")) {
+					NameEditAccountUtils.enterLastNameInNameEditAccountScreen(testCase, inputs, 
+							inputs.getInputValue("LAST_NAME_IN_EDIT_ACCOUNT"));
+				} else if (inputName.get(0).equalsIgnoreCase("SPECIAL CHARACTERS")) {
+					Random rand = new Random();
+					int randomInt = rand.nextInt(100);
+					String specialCharsInFirstNameTxtField = "&#$" + inputs.getInputValue("LAST_NAME_IN_EDIT_ACCOUNT")
+							+ randomInt + "%^&*";
+					System.out.println("#########specialCharsInFirstNameTxtField: " + specialCharsInFirstNameTxtField);
+					inputs.setInputValue("UPDATED_LAST_NAME_IN_EDIT_ACCOUNT", specialCharsInFirstNameTxtField);
+					flag &= NameEditAccountUtils.enterLastNameInNameEditAccountScreen(testCase, inputs,
+							specialCharsInFirstNameTxtField);
 				} else {
 					inputs.setInputValue("UPDATED_LAST_NAME_IN_EDIT_ACCOUNT", inputName.get(0));
 					flag &= NameEditAccountUtils.enterLastNameInNameEditAccountScreen(testCase, inputs, inputName.get(0));
 				}
-				/*if (flag) {
-					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-						// MobileUtils.pressBackButton(testCase, "Keyboard minimized");
-						MobileUtils.hideKeyboard(testCase.getMobileDriver(), "Keyboard minimized");
-					} else {
-						// ios
-						MobileUtils.clickOnElement(testCase, "Name", "Done");
-					}
-				}*/
 				break;
 			}
 		  }

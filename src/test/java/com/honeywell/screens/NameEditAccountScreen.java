@@ -74,7 +74,8 @@ public class NameEditAccountScreen extends MobileScreens {
 			MobileUtils.hideKeyboard(testCase.getMobileDriver());
 		} else {
 			flag &= MobileUtils.clearTextField(objectDefinition, testCase, "FirstNameValueInNameEditAccountScreen");
-			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "ReturnButtonIniOSKeyboard");
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "NextButtonIniOSKeyboard");
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonIniOSKeyboard");
 		}
 		return flag;
 	}
@@ -86,7 +87,7 @@ public class NameEditAccountScreen extends MobileScreens {
 			MobileUtils.hideKeyboard(testCase.getMobileDriver());
 		} else {
 			flag &= MobileUtils.clearTextField(objectDefinition, testCase, "LastNameValueInNameEditAccountScreen");
-			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "ReturnButtonIniOSKeyboard");
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonIniOSKeyboard");
 		}
 		return flag;
 	}
@@ -128,5 +129,29 @@ public class NameEditAccountScreen extends MobileScreens {
 			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonIniOSKeyboard");
 		}
 		return flag;
+	}
+	
+	public boolean isFirstNameValueVisibleInNameScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FirstNameValueInNameEditAccountScreen");
+	}
+	
+	public boolean isLastNameValueVisibleInNameScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LastNameValueInNameEditAccountScreen");
+	}
+	
+	public boolean isBackButtonVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton");
+	}
+	
+	public boolean clickOnBackButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
+	}
+	
+	public String getFirstNameValueInNameEditAccountScreen() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "FirstNameValueInNameEditAccountScreen").getAttribute("value");
+	}
+	
+	public String getLastNameValueInNameEditAccountScreen() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "LastNameValueInNameEditAccountScreen").getAttribute("value");
 	}
 }

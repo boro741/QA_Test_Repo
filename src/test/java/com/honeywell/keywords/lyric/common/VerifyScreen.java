@@ -1042,7 +1042,7 @@ public class VerifyScreen extends Keyword {
 				EditAccountScreen eas = new EditAccountScreen(testCase);
 				if (eas.isEditAccountScreenTitleVisible() && eas.isNameLabelInEditAccountScreenVisible()
 						&& eas.isEmailLabelInEditAccountScreenVisible() && eas.isEmailValueInEditAccountScreenVisible()
-						&& eas.isChangePasswordButtonInEditAccountScreenVisible()
+						&& eas.isChangePasswordInEditAccountScreenVisible()
 						&& eas.isDeleteAccountButtonInEditAccountScreenVisible()
 						&& eas.isUsePasscodeLabelInEditAccountScreenVisible()
 						&& eas.isUsePasscodeSwitchInEditAccountScreenVisible()) {

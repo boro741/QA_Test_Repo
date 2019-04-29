@@ -170,13 +170,7 @@ public class EditAccountUtils {
 		String userNameDisplayed = eas.getNameValueInEditAccountScreen();
 		//System.out.println("*******userNameDisplayed: " + userNameDisplayed);
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			/*if (MobileUtils.isMobElementExists("XPATH",
-					"//*[@resource-id='com.honeywell.android.lyric:id/fragment_new_eula_link_container' and @text='PRIVACY POLICY & EULA : "
-							+ countryName + "']",testCase)) {
-				return flag;
-			} else {
-				flag = false;
-			}*/
+			
 		} else {
 			String name= updatedFirstName + " " + updatedLastName;
 			if(name.equals(userNameDisplayed)) {
@@ -339,7 +333,7 @@ public class EditAccountUtils {
 		EditAccountScreen eas = new EditAccountScreen(testCase);
 		if (expectedErrorMsgText.equalsIgnoreCase("INVALID PASSWORD FORMAT")) {
 			errorMsgText = eas.getInvalidPasswordFormatLabelBeloNewPwdTextField();
-		} else if (expectedErrorMsgText.equalsIgnoreCase("PASSWORDS DO NOT MATCH")) {
+		} else if (expectedErrorMsgText.equalsIgnoreCase("PASSWORDS DON'T MATCH")) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				expectedErrorMsgText = "Passwords don't match";
 			}
@@ -380,6 +374,48 @@ public class EditAccountUtils {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Error message displayed in New Password text field is not:" + expectedErrorMsgText
 							+ ". Displayed error message in Verify New Password text field is: " + errorMsgText);
+		}
+		return flag;
+	}
+	
+	public static boolean verifyExistingFirstNameDisplayedInEditAccountScreen(TestCases testCase, String updatedFirstName) {
+		boolean flag = true;
+		EditAccountScreen eas = new EditAccountScreen(testCase);
+		String firstNameInEditAccountScreen = null;
+		firstNameInEditAccountScreen = eas.getFirstNameValueInNameScreen();
+		String firstName[]= firstNameInEditAccountScreen.split(" ");
+		System.out.println("The first name is: "+firstName[0]);
+		//System.out.println("*******firstNameInEditAccountScreen: " + firstNameInEditAccountScreen);
+		if (firstName[0].equalsIgnoreCase(firstName[0])) {
+			Keyword.ReportStep_Pass(testCase,
+					"First Name displayed in Edit Account Screen is: " + firstName[0]);
+			return flag;
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"First Name displayed in Edit Account Screen is: " + firstName[0]
+							+ ", which is not same as the actual first name: " + firstName[0]);
+		}
+		return flag;
+	}
+	
+	public static boolean verifyExistingLastNameDisplayedInEditAccountScreen(TestCases testCase, String updatedLastName) {
+		boolean flag = true;
+		EditAccountScreen eas = new EditAccountScreen(testCase);
+		String lastNameInEditAccountScreen = null;
+		lastNameInEditAccountScreen = eas.getFirstNameValueInNameScreen();
+		String lastName[]= lastNameInEditAccountScreen.split(" ");
+		System.out.println("The last name is: "+lastName[1]);
+		//System.out.println("*******firstNameInEditAccountScreen: " + firstNameInEditAccountScreen);
+		if (lastName[1].equalsIgnoreCase(lastName[1])) {
+			Keyword.ReportStep_Pass(testCase,
+					"Last Name displayed in Edit Account Screen is: " + lastName[1]);
+			return flag;
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Last Name displayed in Edit Account Screen is: " + lastName[1]
+							+ ", which is not same as the actual last name: " + lastName[1]);
 		}
 		return flag;
 	}

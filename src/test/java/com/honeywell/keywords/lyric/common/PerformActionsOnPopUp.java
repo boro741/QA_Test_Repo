@@ -1399,8 +1399,41 @@ public class PerformActionsOnPopUp extends Keyword {
 				break;
 			}
 		  }
+		} else if(expectedPopUp.get(1).equalsIgnoreCase("CANCEL NAME CHANGES")) {
+			OSPopUps ops = new OSPopUps(testCase);
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CLICKS ON YES IN": {
+				if(ops.isYesButtonInCancelNameChangesPopupVisible()) {
+					flag&= ops.clickOnYesButtonInCancelNameChangesPopupVisible();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on Yes button in Cancel Name Changes Popup");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on Yes button in Cancel Name Changes Popup");
+					}
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to click on the Yes button in Cancel Name Changes Popup");
+				}
+				break;
+			}
+			case "CLICKS ON NO IN": {
+				if(ops.isNoButtonInCancelNameChangesPopupVisible()) {
+					flag&= ops.clickOnNoButtonInCancelNameChangesPopupVisible();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on No button in Cancel Name Changes Popup");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on No button in Cancel Name Changes Popup");
+					}
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to click on the No button in Cancel Name Changesn Popup");
+				}
+				break;
+			}
+		  }
 		}
-		
 		else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(1));

@@ -147,12 +147,12 @@ public class EditAccountScreen extends MobileScreens {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "EmailValueInEditAccountScreen");
 	}
 
-	public boolean isChangePasswordButtonInEditAccountScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ChangePasswordButtonInEditAccountScreen");
+	public boolean isChangePasswordInEditAccountScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ChangePasswordInEditAccountScreen");
 	}
 
-	public boolean clickOnChangePasswordButtonInEditAccountScreen() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "ChangePasswordButtonInEditAccountScreen");
+	public boolean clickOnChangePasswordInEditAccountScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ChangePasswordInEditAccountScreen");
 	}
 
 	public boolean isDeleteAccountButtonInEditAccountScreenVisible() {

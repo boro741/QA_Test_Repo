@@ -266,13 +266,13 @@ public class VerifyTextDisplayedInTheScreen extends Keyword {
 				break;
 			}
 			case "EXISTING FIRST NAME": {
-				flag &= EditAccountUtils.verifyFirstNameDisplayedInEditAccountScreen(testCase,
-						inputs.getInputValue("FIRST_NAME_IN_EDIT_ACCOUNT"));
+				flag &= EditAccountUtils.verifyExistingFirstNameDisplayedInEditAccountScreen(testCase,
+						inputs.getInputValue("UPDATED_FIRST_NAME_IN_EDIT_ACCOUNT"));
 				break;
 			}
 			case "EXISTING LAST NAME": {
-				flag &= EditAccountUtils.verifyLastNameDisplayedInEditAccountScreen(testCase,
-						inputs.getInputValue("LAST_NAME_IN_EDIT_ACCOUNT"));
+				flag &= EditAccountUtils.verifyExistingLastNameDisplayedInEditAccountScreen(testCase,
+						inputs.getInputValue("UPDATED_LAST_NAME_IN_EDIT_ACCOUNT"));
 				break;
 			}
 			}

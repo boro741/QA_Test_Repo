@@ -2143,13 +2143,13 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "CHANGE PASSWORD BUTTON": {
-					if (eas.isChangePasswordButtonInEditAccountScreenVisible()) {
-						flag &= eas.clickOnChangePasswordButtonInEditAccountScreen();
+				case "CHANGE PASSWORD": {
+					if (eas.isChangePasswordInEditAccountScreenVisible()) {
+						flag &= eas.clickOnChangePasswordInEditAccountScreen();
 						if (eas.isEditAccountScreenTitleVisible()) {
 							Keyword.ReportStep_Pass(testCase, "User is still in Edit Account Screen. Clicking on the "
 									+ parameters.get(0) + " again.");
-							flag &= eas.clickOnChangePasswordButtonInEditAccountScreen();
+							flag &= eas.clickOnChangePasswordInEditAccountScreen();
 						} else {
 							Keyword.ReportStep_Pass(testCase, "User is not in Edit Account Screen.");
 						}

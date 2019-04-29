@@ -383,4 +383,28 @@ public class OSPopUps extends MobileScreens {
 		return flag;
 	}
 	
+	public boolean isCancelNameChangesPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelNameChangesPopupTitle");
+	}
+	
+	public boolean isCancelNameChangesPopupMsgVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelNameChangesPopupMsg");
+	}
+	
+	public boolean isYesButtonInCancelNameChangesPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "YesButtonInCancelNameChangesPopup");
+	}
+	
+	public boolean isNoButtonInCancelNameChangesPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoButtonInCancelNameChangesPopup");
+	}
+	
+	public boolean clickOnYesButtonInCancelNameChangesPopupVisible() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "YesButtonInCancelNameChangesPopup");
+	}
+	
+	public boolean clickOnNoButtonInCancelNameChangesPopupVisible() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "NoButtonInCancelNameChangesPopup");
+	}
+	
 }

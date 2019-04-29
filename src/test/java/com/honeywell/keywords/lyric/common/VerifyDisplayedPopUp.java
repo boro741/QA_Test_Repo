@@ -698,6 +698,17 @@ public class VerifyDisplayedPopUp extends Keyword {
 			}
 			break;
 		}
+		
+		case "CANCEL NAME CHANGES":{
+			OSPopUps ops = new OSPopUps(testCase);
+			if(ops.isCancelNameChangesPopupVisible() && ops.isCancelNameChangesPopupMsgVisible()
+				&& ops.isYesButtonInCancelNameChangesPopupVisible() && ops.isNoButtonInCancelNameChangesPopupVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Cancel Name Changes popup is visible");
+			}else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cancel Name Changes popup is not visible");
+			}
+			break;
+		}
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(0));

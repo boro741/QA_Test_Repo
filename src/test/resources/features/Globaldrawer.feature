@@ -1266,11 +1266,6 @@ Examples:
 @GeneralGlobalDrawerEditAccountUpdateFirstNameAndLastName         @Automated		@--xrayid:ATER-69076
 Scenario Outline: As a user i want to Verify if updated first name and last name is getting saved
 Given user launches and logs in to the Lyric Application
-#When user inputs <First name> in "First name text field" in the "Name Edit Account" screen
-#Then user inputs <Last name> in "Last name text field" in the "Name Edit Account" screen
-#Then user selects "Save button" from "Name Edit Account" screen
-#Then user should be displayed with the "Edit Account" screen
-#Then user should be displayed with "Updated First and Last Name" in the "Edit Account" screen
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
 Then user should be displayed with the following "Edit Account" options:
@@ -1298,7 +1293,6 @@ Then user selects "Save button" from "Name Edit Account" screen
 Then user should be displayed with the "Edit Account" screen
 Then user should be displayed with "Updated First and Last Name" in the "Edit Account" screen
 
-
 Examples: 
 | First name | Last name | 
 | giri       | THEJ      | 
@@ -1309,7 +1303,7 @@ Examples:
 
 #Edit first name last name with error
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountErrorMsgWhenExistingFirstNameIsCleared    @Automated	@--xrayid:ATER-69079   @InvalidScenario
+@GeneralGlobalDrawerEditAccountErrorMsgWhenExistingFirstNameIsCleared    @Automated	@--xrayid:ATER-69079  
 Scenario: As a user i want to Verify if error message is displayed when tried to save account without first name 
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1320,39 +1314,41 @@ Then user selects "Name" from "Edit Account" screen
 When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
 | TextFieldsInNameEditAccountScreen		|
 | First Name Text Field					|
-And user selects "Save button" from "Edit Account" screen
-Then user should receive a "First Name is required" popup
-When user "Clicks on OK in" the "First Name is required" popup
+When user clicks on the back arrow in the "Name Edit Account" screen
+Then user should receive a "Cancel Name Changes" popup
+Then user "clicks on Yes in" the "Cancel Name Changes" popup
 Then user should be displayed with the "Edit Account" screen
 When user clicks on the back arrow in the "Edit Account" screen
 Then user should be displayed with the "Global Drawer" screen
 And user navigates to "Edit Account" screen from the "Global Drawer" screen
 Then user should be displayed with "existing first name" in the "Edit Account" screen
-And user should be displayed with "existing last name" in the "Edit Account" screen
+#And user should be displayed with "existing last name" in the "Edit Account" screen
 
   
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountErrorMsgWhenExistingLastNameIsCleared   @Automated		@--xrayid:ATER-69080   @InvalidScenario
+@GeneralGlobalDrawerEditAccountErrorMsgWhenExistingLastNameIsCleared   @Automated		@--xrayid:ATER-69080  
 Scenario: As a user i want to Verify if error message is displayed when tried to save account without last name 
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
-When user clears the text displayed in the following text fields in the "Edit Account" screen:
-| TextFieldsInEditAccountScreen		|
-| Last Name Text Field				|
-And user selects "Save button" from "Edit Account" screen
-Then user should receive a "Last Name is required" popup
-When user "Clicks on OK in" the "Last Name is required" popup
+And user should be displayed with the "First and Last Name" in "Edit Account" screen
+And user should be displayed with the "Logged in Email" in "Edit Account" screen
+Then user selects "Name" from "Edit Account" screen
+When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
+| TextFieldsInNameEditAccountScreen		|
+| Last Name Text Field					|
+When user clicks on the back arrow in the "Name Edit Account" screen
+Then user should receive a "Cancel Name Changes" popup
+Then user "clicks on Yes in" the "Cancel Name Changes" popup
 Then user should be displayed with the "Edit Account" screen
 When user clicks on the back arrow in the "Edit Account" screen
 Then user should be displayed with the "Global Drawer" screen
 And user navigates to "Edit Account" screen from the "Global Drawer" screen
-Then user should be displayed with "existing first name" in the "Edit Account" screen
-And user should be displayed with "existing last name" in the "Edit Account" screen
+Then user should be displayed with "existing last name" in the "Edit Account" screen
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountDisabledAndEnabledSaveButtonWhenFirstNameIsCleared    @Automated		@--xrayid:ATER-69081
+@GeneralGlobalDrawerEditAccountDisabledAndEnabledSaveButtonWhenFirstAndLastNameIsCleared    @Automated		@--xrayid:ATER-69081
 Scenario: As a user i want to Verify if save button gets enabled when first name text field is cleared
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1364,27 +1360,35 @@ Then user should be displayed with the following "Name Edit Account" options:
 |First Name			   |
 |Last Name			   |
 |Save button		   |
-Then user should be displayed with the "Save button" as disabled
+Then the following "Save button" options should be disabled:
+|SaveButtonOption|
+|Save			 |
 When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
-| TextFieldsInEditAccountScreen		|
-| First Name Text Field				|
-And the following "Name Edit Account" options should be disabled:
-| NameEditAccountOptions	| 
-| Save					    |
+| TextFieldsInNameEditAccountScreen		|
+| First Name Text Field					|
+Then user clicks on the back arrow in the "Name Edit Account" screen
+Then user should receive a "Cancel Name Changes" popup
+Then user "clicks on No in" the "Cancel Name Changes" popup
+Then user should be displayed with the "Name Edit Account" screen
+Then user clicks on the back arrow in the "Name Edit Account" screen
+Then user should receive a "Cancel Name Changes" popup
+Then user "clicks on Yes in" the "Cancel Name Changes" popup
+Then user should be displayed with the "Edit Account" screen
+Then user selects "Name" from "Edit Account" screen
 When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
-| TextFieldsInEditAccountScreen		|
-| Last Name Text Field				|
-Then the following "Edit Account" options should be disabled:
-| EditAccountOptions		| 
-| Save						|
+| TextFieldsInNameEditAccountScreen		|
+| Last Name Text Field					|
+Then the following "Save button" options should be disabled:
+|SaveButtonOption|
+|Save			 |
 Then user clicks on the back arrow in the "Name Edit Account" screen
-Then user should be displayed with "Cancel Name Changes" popup
-And user selects "No button" in the "Cancel Name Changes" popup
-Then user should be displayed with "Name Edit Account" screen without any changes
+Then user should receive a "Cancel Name Changes" popup
+Then user "clicks on No in" the "Cancel Name Changes" popup
+Then user should be displayed with the "Name Edit Account" screen
 Then user clicks on the back arrow in the "Name Edit Account" screen
-Then user should be displayed with "Cancel Name Changes" popup
-And user selects "Yes button" in the "Cancel Name Changes" popup
-Then user should be displayed with "Edit Account" screen
+Then user should receive a "Cancel Name Changes" popup
+Then user "clicks on Yes in" the "Cancel Name Changes" popup
+Then user should be displayed with the "Edit Account" screen
 Then user should be displayed with "existing first name" in the "Edit Account" screen
 And user should be displayed with "existing last name" in the "Edit Account" screen
 
@@ -1444,32 +1448,27 @@ Then user should be displayed with the following "Name Edit Account" options:
 |Last Name			   |
 |Save button		   |
 When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
-| TextFieldsInEditAccountScreen		|
-| First Name Text Field				|
+| TextFieldsInNameEditAccountScreen		|
+| First Name Text Field					|
 When user inputs <max characters> in "First Name Text Field" in the "Name Edit Account" screen
 And user should not be allowed to enter more than "40" characters in "First Name" in the "Name Edit Account" screen
 When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
-| TextFieldsInEditAccountScreen		|
-| Last Name Text Field				|
+| TextFieldsInNameEditAccountScreen		|
+| Last Name Text Field					|
 And user inputs <max characters> in "Last Name Text Field" in the "Name Edit Account" screen
-Then user should not be allowed to enter more than "40" characters in "Last Name" in the "Edit Account" screen
-And user selects "Save button" from "Name Edit Account" screen
+And user should not be allowed to enter more than "40" characters in "Last Name" in the "Name Edit Account" screen
+Then the following "Edit Account" options should be enabled:
+| EditAccountOptions	| 
+| Save					|
+Then user selects "Save button" from "Name Edit Account" screen
 Then user should be displayed with the "Edit Account" screen
-#When user navigates to "Edit Account" screen from the "Global Drawer" screen
 Then user should be displayed with the "Updated First Name and Last Name" in the "Edit Account" screen
-#When user inputs "Previous value" in "First Name Text Field" in the "Edit Account" screen
-#And user inputs "Previous value" in "Last Name Text Field" in the "Edit Account" screen
-#And user selects "Save button" from "Edit Account" screen
-#Then user should be displayed with the "Global Drawer" screen
-#When user navigates to "Edit Account" screen from the "Global Drawer" screen
-#Then user should be displayed with "existing first name" in the "Edit Account" screen
-#And user should be displayed with "existing last name" in the "Edit Account" screen
 
 Examples:
 | max characters                   			|
 | Test maxm characters limit 40 character	|
-| Test maxm characters limit 40 characters	|
-| Test maxm characters limit 40 characterss	|
+#| Test maxm characters limit 40 characters	|
+#| Test maxm characters limit 40 characterss	|
 
   
 #Requirements : single location with and with out any solution
@@ -1486,31 +1485,29 @@ Then user should be displayed with the following "Name Edit Account" options:
 |Last Name			   |
 |Save button		   |
 When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
-| TextFieldsInEditAccountScreen		|
-| First Name Text Field				|
+| TextFieldsInNameEditAccountScreen		|
+| First Name Text Field					|
 When user inputs "special characters" in "First Name Text Field" in the "Name Edit Account" screen
-When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
-| TextFieldsInEditAccountScreen		|
-| Last Name Text Field				|
-And user inputs "special characters" in "Last Name Text Field" in the "Edit Account" screen
-And user selects "Save button" from "Name Edit Account" screen
+Then user selects "Save button" from "Name Edit Account" screen
 Then user should be displayed with the "Edit Account" screen
-#When user navigates to "Edit Account" screen from the "Global Drawer" screen
-Then user should be displayed with "updated first name" in the "Edit Account" screen
-And user should be displayed with "updated last name" in the "Edit Account" screen
-#When user inputs "Previous value" in "First Name Text Field" in the "Edit Account" screen
-#And user inputs "Previous value" in "Last Name Text Field" in the "Edit Account" screen
-#And user selects "Save button" from "Edit Account" screen
-#Then user should be displayed with the "Global Drawer" screen
-#When user navigates to "Edit Account" screen from the "Global Drawer" screen
-#Then user should be displayed with "existing first name" in the "Edit Account" screen
-#And user should be displayed with "existing last name" in the "Edit Account" screen
+Then user selects "Name" from "Edit Account" screen
+Then user should be displayed with the "Name Edit Account" screen
+When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
+| TextFieldsInNameEditAccountScreen		|
+| Last Name Text Field					|
+And user inputs "special characters" in "Last Name Text Field" in the "Name Edit Account" screen
+Then user selects "Save button" from "Name Edit Account" screen
+Then user should be displayed with the "Edit Account" screen
+Then user should be displayed with "Updated First and Last Name" in the "Edit Account" screen
+#Then user should be displayed with "updated first name" in the "Edit Account" screen
+#And user should be displayed with "updated last name" in the "Edit Account" screen
+
   
 
 #Change Password in Edit Account Screen
 #Requirements : single location with and with out any solution
 @GeneralGlobalDrawerEditAccountUpdatePasswordWithoutSpecialCharacters    @Automated		 @--xrayid:ATER-69084
-Scenario: As a user i want to Verify update password functionality in Edit Account screen
+Scenario Outline: As a user i want to Verify update password functionality in Edit Account screen
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
@@ -1541,6 +1538,9 @@ When user logs in to the Lyric Application with "previous password"
 Then user navigates to "Edit Account" screen from the "Dashboard" screen
 And user should be displayed with the "Edit Account" screen
 
+Examples:
+|Valid Old Password  | Valid New Password Format	| Valid Verify New Password Format| Updated Old Password| Previous New Password Format Value| Previous Verify New Password Format Value| previous password|updated password|
+| Password1		     |	Password2					|	Password2					  | Password1			|	Password2						|	Password2							   | Password1		  | Password2	   |
 
 #Change Password in Edit Account Screen
 #Requirements : single location with and with out any solution
@@ -1592,7 +1592,7 @@ And user should be displayed with "You must enter your new password" error messa
 
 #Requirements : single location with and with out any solution
 @GeneralGlobalDrawerEditAccountChangePwdValidationWhenIncorrectOldPwdIsEntered  @Automated	 @--xrayid:ATER-69086
-Scenario: Change password screen validations when user taps on Save button by entering incorrect Old Password, valid New Password and Verify New Password text fields
+Scenario Outline: Change password screen validations when user taps on Save button by entering incorrect Old Password, valid New Password and Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
@@ -1604,10 +1604,13 @@ And user inputs "Valid Verify New Password Format" in "Verify New Password Text 
 And user selects "Save button" from "Change Password" screen
 Then user should be displayed with "Old Password is Invalid" error message in the "Old Password text field" in the "Change Password" screen
 
+Examples:
+|Incorrect Old Password| Valid New Password Format | Valid Verify New Password Format |
+|	Password3		   |	Password1			   | Password1						  |
 
 #Requirements : single location with and with out any solution
 @GeneralGlobalDrawerEditAccountChangePwdValidationWhenInvalidNewPwdIsEntered  @Automated	 @--xrayid:ATER-69087
-Scenario: Change password screen validations when user taps on Save button by entering valid Old Password, invalid New Password and Verify New Password text fields
+Scenario Outline: Change password screen validations when user taps on Save button by entering valid Old Password, invalid New Password and Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
@@ -1619,10 +1622,13 @@ And user inputs "Invalid Verify New Password Format" in "Verify New Password Tex
 And user selects "Save button" from "Change Password" screen
 Then user should be displayed with "Passwords dont match" error message in the "New Password Text Field" in the "Change Password" screen
 
+Examples:
+| Valid Old Password | Invalid New Password Format | Invalid Verify New Password Format |
+|	Password1		 |		Password4			   |	Password4						|
 
 #Requirements : single location with and with out any solution
 @GeneralGlobalDrawerEditAccountChangePwdValidationWithBlankVerifyNewPwd  @Automated	@--xrayid:ATER-74348  @NoUpdateRequired
-Scenario: Change password screen validations when user taps on Save button by entering valid Old Password, valid New Password and skip Verify New Password text fields
+Scenario Outline: Change password screen validations when user taps on Save button by entering valid Old Password, valid New Password and skip Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
@@ -1633,10 +1639,13 @@ And user inputs "Valid New Password Format" in "New Password Text Field" in the 
 And user selects "Save button" from "Change Password" screen
 Then user should be displayed with "You must enter your verify password" error message in the "Verify New Password Text Field" in the "Change Password" screen
 
+Examples:
+| Valid Old Password  | Valid New Password Format |
+|	Password1		  |						      |
 
 #Requirements : single location with and with out any solution
 @GeneralGlobalDrawerEditAccountChangePwdValidationWhenNewAndVerifyNewPwdDoesNotMatch   @Automated		 @--xrayid:ATER-69088
-Scenario: Change password screen validations when user taps on Save button by entering valid Old Password, different text in New Password and Verify New Password text fields
+Scenario Outline: Change password screen validations when user taps on Save button by entering valid Old Password, different text in New Password and Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
@@ -1650,7 +1659,12 @@ Then user should be displayed with "Passwords do not match" error message in the
 When user inputs "InValid New Password Format" in "New Password Text Field" in the "Change Password" screen
 And user inputs "Valid Verify New Password Format" in "Verify New Password Text Field" in the "Change Password" screen
 And user selects "Save button" from "Change Password" screen
-Then user should be displayed with "Passwords dont match" error message in the "New Password text field" in the "Change Password" screen
+Then user should be displayed with "Passwords do not match" error message in the "New Password text field" in the "Change Password" screen
+
+Examples:
+| Valid Old Password | Valid New Password Format | Invalid Verify New Password Format | InValid New Password Format | Valid Verify New Password Format |
+|	Password1		 |	Password2				 |		Password3					  |		Password3				|	Password2					   |
+
 
   
   #Same as above
