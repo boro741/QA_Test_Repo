@@ -595,7 +595,7 @@ Then user should be displayed with "No Messages label in Activity History screen
 
 #ManageUsers
 #Requirements : single location with and with out any solution 
-@GeneralGlobalDrawerAddDeleteUsersFromInviteList				@Automated		@--xrayid:ATER-67865
+@GeneralGlobalDrawerAddDeleteUsersFromInviteList				@Automatable	@--xrayid:ATER-67865
 Scenario Outline: As a user I want to Verify invite user functionality by adding and removing a user from invite list
 Given user launches and logs in to the Lyric Application
 When user navigates to "Invite User" screen from the "Dashboard" screen
@@ -632,7 +632,7 @@ Examples:
 
 
 #Requirements : single location with and with out any solution and user should be invited 
-@GeneralGlobalDrawerInviteUserWithLoggedInUserEmail				@Automated			@--xrayid:ATER-67866	
+@GeneralGlobalDrawerInviteUserWithLoggedInUserEmail				@Automatable			@--xrayid:ATER-67866	
 Scenario: As a user i want to Verify if error message displays when logged in users email address in Add Users
 Given user launches and logs in to the Lyric Application
 When user navigates to "Manage Users" screen from the "Dashboard" screen
@@ -653,7 +653,7 @@ Then user should not be displayed with the following "Invited Users" options:
 
 
 #Requirements : single location with and with out any solution and user should be invited 
-@GeneralGlobalDrawerInviteUserWithAlreadyInvitiedUsersEmail			@Automated		@--xrayid:ATER-67867
+@GeneralGlobalDrawerInviteUserWithAlreadyInvitiedUsersEmail			@Automatable		@--xrayid:ATER-67867
 Scenario Outline: As a user i want to Verify if error message displays when already existing invited users email address is entered in Add Users 
 Given user launches and logs in to the Lyric Application
 When user navigates to "Manage Users" screen from the "Dashboard" screen
@@ -1262,7 +1262,7 @@ Examples:
 #Edit Account
 #Edit first name last name
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountUpdateFirstNameAndLastName         @Automated		@--xrayid:ATER-69076
+@GeneralGlobalDrawerEditAccountUpdateFirstNameAndLastName         @Automatable		@--xrayid:ATER-69076
 Scenario Outline: As a user i want to Verify if updated first name and last name is getting saved
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1325,7 +1325,7 @@ And user should be displayed with "existing last name" in the "Edit Account" scr
 
   
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountErrorMsgWhenExistingLastNameIsCleared   @Automated		@--xrayid:ATER-69080   @InvalidScenario
+@GeneralGlobalDrawerEditAccountErrorMsgWhenExistingLastNameIsCleared   @Automated	@--xrayid:ATER-69080   @InvalidScenario
 Scenario: As a user i want to Verify if error message is displayed when tried to save account without last name 
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1345,7 +1345,7 @@ And user should be displayed with "existing last name" in the "Edit Account" scr
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountDisabledAndEnabledSaveButtonWhenFirstNameIsCleared    @Automated		@--xrayid:ATER-69081
+@GeneralGlobalDrawerEditAccountDisabledAndEnabledSaveButtonWhenFirstNameIsCleared    @Automatable		@--xrayid:ATER-69081
 Scenario: As a user i want to Verify if save button gets enabled when first name text field is cleared
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1395,7 +1395,7 @@ And user should be displayed with "existing last name" in the "Edit Account" scr
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountDisabledAndEnabledSaveButtonWhenLastNameIsCleared   @Automated		@--xrayid:ATER-74334  @AlreadyCoveredInTheAboveScenario
+@GeneralGlobalDrawerEditAccountDisabledAndEnabledSaveButtonWhenLastNameIsCleared   @Automated	@--xrayid:ATER-74334  @AlreadyCoveredInTheAboveScenario
 Scenario: As a user i want to Verify if save button gets enabled when last name text field is cleared
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1424,7 +1424,7 @@ And user should be displayed with "existing last name" in the "Edit Account" scr
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountValidateMaxCharsInFirstNameAndLastNameTxtFields  @Automated	 @--xrayid:ATER-69082
+@GeneralGlobalDrawerEditAccountValidateMaxCharsInFirstNameAndLastNameTxtFields  @Automatable	 @--xrayid:ATER-69082
 Scenario Outline: As a user i want to verify max characters that can be entered in first name and last name text fields in Edit Account screen
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1466,7 +1466,7 @@ Examples:
 
   
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountValidateSpecialCharsInFirstNameAndLastNameTxtFields  @Automated	  @--xrayid:ATER-69083
+@GeneralGlobalDrawerEditAccountValidateSpecialCharsInFirstNameAndLastNameTxtFields  @Automatable	  @--xrayid:ATER-69083
 Scenario: As a user i want to Verify if special characters can be saved in first name and last name text fields in Edit Account screen
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1502,7 +1502,7 @@ And user should be displayed with "updated last name" in the "Edit Account" scre
 
 #Change Password in Edit Account Screen
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountUpdatePasswordWithoutSpecialCharacters    @Automated		 @--xrayid:ATER-69084
+@GeneralGlobalDrawerEditAccountUpdatePasswordWithoutSpecialCharacters    @Automatable		 @--xrayid:ATER-69084
 Scenario: As a user i want to Verify update password functionality in Edit Account screen
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1537,7 +1537,7 @@ And user should be displayed with the "Edit Account" screen
 
 #Change Password in Edit Account Screen
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountUpdatePasswordWithSpecialCharacters    @Automated	 @--xrayid:ATER-69084
+@GeneralGlobalDrawerEditAccountUpdatePasswordWithSpecialCharacters    @Automatable	 @--xrayid:ATER-69084
 Scenario: As a user i want to Verify update password functionality in Edit Account screen
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1571,7 +1571,7 @@ And user should be displayed with the "Edit Account" screen
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountChangePwdValidationWhenTappedOnSaveWithoutEnteringAnyText    @Automated			@--xrayid:ATER-69085
+@GeneralGlobalDrawerEditAccountChangePwdValidationWhenTappedOnSaveWithoutEnteringAnyText    @Automated	@--xrayid:ATER-69085
 Scenario: Change password screen validations when user taps on Save button without entering text in Old Password, New Password and Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1584,7 +1584,7 @@ And user should be displayed with "You must enter your new password" error messa
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountChangePwdValidationWhenIncorrectOldPwdIsEntered  @Automated	 @--xrayid:ATER-69086
+@GeneralGlobalDrawerEditAccountChangePwdValidationWhenIncorrectOldPwdIsEntered  @Automatable	 @--xrayid:ATER-69086
 Scenario: Change password screen validations when user taps on Save button by entering incorrect Old Password, valid New Password and Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1599,7 +1599,7 @@ Then user should be displayed with "Old Password is Invalid" error message in th
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountChangePwdValidationWhenInvalidNewPwdIsEntered  @Automated	 @--xrayid:ATER-69087
+@GeneralGlobalDrawerEditAccountChangePwdValidationWhenInvalidNewPwdIsEntered  @Automatable	 @--xrayid:ATER-69087
 Scenario: Change password screen validations when user taps on Save button by entering valid Old Password, invalid New Password and Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1628,7 +1628,7 @@ Then user should be displayed with "You must enter your verify password" error m
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountChangePwdValidationWhenNewAndVerifyNewPwdDoesNotMatch   @Automated		 @--xrayid:ATER-69088
+@GeneralGlobalDrawerEditAccountChangePwdValidationWhenNewAndVerifyNewPwdDoesNotMatch   @Automatable	 @--xrayid:ATER-69088
 Scenario: Change password screen validations when user taps on Save button by entering valid Old Password, different text in New Password and Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -2703,7 +2703,7 @@ Then user should be displayed with the "Add New Device" screen
 
 #Delete account
 #Requirements: No Location, No Device and No Membership
-@SingleUserDeleteAccountWithNoLocationNoDeviceNoMembership             @Automated 		@--xrayid:ATER-69136  
+@SingleUserDeleteAccountWithNoLocationNoDeviceNoMembership             @Automatable 		@--xrayid:ATER-69136  
 Scenario: To verify user is able to delete account if there are no devices, no locations and no Membership linked to the account
 Given user launches and logs in to the Lyric application with user account without any location
 Then user should be displayed with the "Add New Device" screen
@@ -2729,7 +2729,7 @@ Then create the deleted user account through CHIL
 
 
 #Requirements: With Location, No Device and No Membership 
-@SingleUserDeleteAccountWithNoDeviceNoMembership             @Automated		@--xrayid:ATER-69137
+@SingleUserDeleteAccountWithNoDeviceNoMembership             @Automatable		@--xrayid:ATER-69137
 Scenario Outline: To verify user is able to delete his account if there are no devices in any locations any no Membership linked to the account 
 Given user launches and logs in to the Lyric application with user account with location
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -2793,7 +2793,7 @@ Examples:
       | Lyric Smart Controller              | 
   
 
-@DeleteAccountWithLocationHavingNoDeviceWithCameraSubscription             @Automated		@--xrayid:ATER-69139
+@DeleteAccountWithLocationHavingNoDeviceWithCameraSubscription             @Automatable		@--xrayid:ATER-69139
 Scenario: To verify user is able to delete the account if there are no devices in any location and if Camera Membership is linked to the account
 Given user launches and logs in to the Lyric application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -3134,7 +3134,7 @@ Then user should be displayed with the "Delete Account With Solution" screen
       | Lyric Smart Controller              | 
   
  
-@DeleteAllLocationsAndThenDeleteAccount             @Automated		@--xrayid:ATER-69147
+@DeleteAllLocationsAndThenDeleteAccount             @Automatable		@--xrayid:ATER-69147
 Scenario Outline: Verify if user is navigated to add device screen when all locations are deleted and account is deleted when user deletes the account
 Given user launches and logs in to the Lyric application with user account with location
 When user selects "Smart Home Security" from "Add New Device" screen
@@ -3191,109 +3191,6 @@ Then create the deleted user account through CHIL
 Examples: 
 | first location name	| valid first locations zip code		| second location name	| valid second locations zip code		| Current Screen					| Previous Screen	|
 | California				| 90001								|  Texas					| 90002									| Add New Device Dashboard		| Dashboard			|
-
-@DeleteAccountAfterInvitingAnotherUser				@Automatable		@--xrayid:ATER-
-Scenario Outline: User should be able to delete account after inviting another user
-Given user launches and logs in to the Lyric application with user account with location
-When user navigates to "Invite User" screen from the "Dashboard" screen
-And user inputs <invite users email address> in "Email Text Field" in the "Invite New User" screen
-Then user should be displayed with the following "Invited Users" options:
-| InvitedUsersList		|
-| das_stage5@grr.la		|
-When user logs out and logs in to the Lyric Application with <invite users email address>
-Then user navigates to "Manage Users" screen from the "Dashboard" screen
-Then user should be displayed with the following "Invited Users" options:
-| InvitedUsersList						|
-| User who invited the logged in user	|
-When user logs out and logs in to the Lyric Application with "logged in users account"
-Then user navigates to "Manage Users" screen from the "Dashboard" screen
-And user should not be displayed with the following "Invited Users" options:
-| InvitedUsersList		|
-| Logged in user		|
-Then user should be displayed with the following "Invited Users" options:
-| InvitedUsersList		|
-| das_stage5@grr.la		|
-When user navigates to "Edit Account" screen from the "Manage Users" screen
-Then user should be displayed with the "Edit Account" screen
-When user selects "Delete Account" from "Edit Account" screen
-Then user should be displayed with the "Delete Account Without Solution" screen
-And user should be displayed with the following "Delete Account" options:
-| DeleteAccountOptions				| 
-| We are sorry to see you go			|
-When user selects "Delete Account button" from "Delete Account" screen
-Then user should receive a "Your Account and Data is deleted" popup
-And user "Accepts" the "Your Account and Data is deleted" popup
-Then user should be displayed with the "Honeywell Home" screen
-When user logs in to the Lyric Application with "deleted account credentials"
-Then user should be displayed with the following "Login Screen Validation Message" options:
-| ValidationMessage								|
-| Unable to login. Email or password incorrect	|
-Then create the deleted user account through CHIL
-When user logs in to the Lyric Application with "deleted account credentials"
-Then user should be displayed with the "Add New Device" screen
-And user changes the country to "United States"
-When user selects "Smart Home Security" from "Add New Device" screen
-Then user should be displayed with the "What To Expect" screen
-When user navigates to "Choose Location" screen from the "What To Expect" screen
-And user selects <Default Location> from "Choose Location" screen
-Then user should be displayed with the "Confirm Your ZIP Code" screen
-When user inputs <valid zip code>
-Then user should be displayed with the "Name Your Base Station" screen
-When user "cancels the set up" by clicking on "cancel" button
-Then user should receive a "Cancel Setup" popup
-When user "accepts" the "Cancel Setup" popup
-Then user should be displayed with the "Add New Device" screen
-And user logs out of the app 
-When user logs out and logs in to the Lyric Application with <invite users email address>
-Then user should be able to view the solution
-
-Examples:
-| invite users email address	| Default Location		| Default Device Name		| valid zip code        |
-| das_stage5@grr.la			| Home					| Living Room				| 90001                 |
-
-
-@DeleteAccountAfterInvitingAnotherUserForALocationFromMultipleLocations				@Automatable		@--xrayid:ATER-
-Scenario Outline: User should be navigated to learn more screen when user tries to delete account after inviting another user to one location
-Given user launches and logs in to the Lyric application with user account with location
-When user navigates to "Invite User" screen from the "Dashboard" screen
-And user inputs <invite users email address> in "Email Text Field" in the "Invite New User" screen
-Then user should be displayed with the following "Invited Users" options:
-| InvitedUsersList		|
-| das_stage5@grr.la		|
-When user logs out and logs in to the Lyric Application with <invite users email address>
-Then user navigates to "Manage Users" screen from the "Dashboard" screen
-Then user should be displayed with the following "Invited Users" options:
-| InvitedUsersList						|
-| User who invited the logged in user	|
-When user logs out and logs in to the Lyric Application with "logged in users account"
-Then user navigates to "Manage Users" screen from the "Dashboard" screen
-And user should not be displayed with the following "Invited Users" options:
-| InvitedUsersList		|
-| Logged in user		|
-Then user should be displayed with the following "Invited Users" options:
-| InvitedUsersList		|
-| das_stage5@grr.la		|
-When user navigates to "Edit Account" screen from the "Manage Users" screen
-Then user should be displayed with the "Edit Account" screen
-When user selects "Delete Account" from "Edit Account" screen
-
-Then user should be displayed with the "Delete Account With Solution" screen
-When user selects "Learn How To Delete A Device" from "Delete Account" screen
-Then user should be displayed with the "Learn How To Delete A Device" screen
-And user should be displayed with the following "Learn How To Delete A Device" options:
-| LearnHowToDeleteADeviceOptions				| 
-| Was this helpful with Yes and No buttons	|
-When user selects "Close button" from "Learn How To Delete A Device" screen
-Then user should be displayed with the "Delete Account With Solution" screen
-When user selects "Close button" from "Delete Account" screen
-Then user should be displayed with the "Edit Account" screen
-And user logs out of the app 
-When user logs out and logs in to the Lyric Application with <invite users email address>
-Then user should be able to view the solution
-
-Examples:
-| invite users email address	|
-| das_stage5@grr.la			|
 
   
   #Feature: User should be blocked from using app if device is having invalid date and time @LYR23886/22361
