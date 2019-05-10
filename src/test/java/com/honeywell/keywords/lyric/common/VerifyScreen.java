@@ -13,7 +13,9 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
+import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.keywords.lyric.Katana.utils.ProMonitoringUtils;
 import com.honeywell.lyric.das.utils.CreateAccountAndForgotPwdUtils;
 import com.honeywell.lyric.das.utils.DASAlarmUtils;
 import com.honeywell.lyric.das.utils.DASCameraUtils;
@@ -1616,6 +1618,71 @@ public class VerifyScreen extends Keyword {
 					
 				}Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Failed to navigate to " + expectedScreen.get(0));
+				break;
+			}
+			
+			case "YOUR SECURITY PROVISION" : {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isSecurityProvisionScreenVisible()) {
+					 String dealer_info = ProMonitoringUtils.getDealerTitle(testCase, inputs);
+					 if (!testCase.getPlatform().toUpperCase().contains("ANDROID")){
+						 flag = MobileUtils.isMobElementExists("XPATH", "//*[@value='Thank you for choosing " + dealer_info +"']",
+									testCase);
+						 flag = dasDIY.clickOnContinueSetupButton();
+						 Keyword.ReportStep_Pass(testCase,
+									"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
+					 } else {
+						 flag = MobileUtils.isMobElementExists("XPATH", "//*[@text='Thank you for choosing" + dealer_info +"']",
+								testCase);
+						 flag = dasDIY.clickOnContinueSetupButton();
+						 Keyword.ReportStep_Pass(testCase,
+									"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
+					 }
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
+				}
+				break;
+			}
+			case "CONGRATULATIONS": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isCongratulationsHeaderTitleVisible(30)) {
+					dasDIY.clickOnNoButtonInSmartHomeSecuritySuccessScreen();
+					Keyword.ReportStep_Pass(testCase,
+							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
+				}
+				break;
+			}
+			
+			case "PRO MONITORING": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isProMonitoringHeaderTitleVisible(30)) {
+					flag = dasDIY.clickOnConfirmButton();
+					Keyword.ReportStep_Pass(testCase,
+							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
+				}
+				break;
+			}
+			case "PRO MONITORING SETUP IS COMPLETE": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isProMonitoringSetUpCompleteHeaderTitleVisible(30)) {
+					flag = dasDIY.clickOnNextButton();
+					Keyword.ReportStep_Pass(testCase,
+							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
+				}
 				break;
 			}
 			
