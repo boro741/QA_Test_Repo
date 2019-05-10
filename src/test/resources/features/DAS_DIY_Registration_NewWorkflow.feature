@@ -140,10 +140,11 @@ Examples:
 
 @DIYRegistrationWithNewCustomLocationAndBaseStationName		@P1			@Automated	@--xrayid:ATER-55041
 Scenario Outline: As a user I want to register a DAS device with new location and base station name using the Lyric application
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
-When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
-Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
+#When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
+#Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
+When user selects "Smart Home Security" from "Add New Device" screen
 When user navigates to "Choose Location" screen from the "What To Expect" screen
 And user selects "Create New Location" from "Choose Location" screen
 Then user should be displayed with the "Create Location" screen
@@ -165,8 +166,8 @@ When user navigates to "Power Base station" screen from the "Base station Help" 
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "A1" from "Connect to Network" screen
-And user inputs "Vijay1987" as the WiFi Password
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
@@ -194,7 +195,7 @@ Examples:
 #Reauire a new account to execute
 @DIYRegistrationWithAvailableDefaultLocationAndBaseStationName		@P2		@Automated @--xrayid:ATER-55043
 Scenario Outline: As a user I want to verify default location name and default base station name
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user selects "Smart Home Security" from "Add New Device" screen
 Then user should be displayed with the "What To Expect" screen
@@ -215,8 +216,8 @@ When user navigates to "Power Base station" screen from the "Base station Help" 
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
@@ -228,7 +229,7 @@ Then user should be displayed with "Security" device on the "dashboard" screen
 And user should be displayed with <Default Device Name> device on the "dashboard" screen
 When user navigates to "Base Station Configuration" screen from the "Dashboard" screen 
 And user "deletes DAS device" by clicking on "delete" button
-Then user should receive a "Delete DAS Confirmation" popup
+#Then user should receive a "Delete DAS Confirmation" popup
 When user "accepts" the "Delete DAS Confirmation" popup
 Then user should not be displayed with "Security" device on the "dashboard" screen
 And user should not be displayed with <Default Device Name> device on the "dashboard" screen
@@ -283,12 +284,12 @@ And user selects <location name> from "Choose Location" screen
 Then user should be displayed with the "Name Your Base Station" screen
 When user selects <device name> from "Name Your Base Station" screen
 Then user should be displayed with the "Power Base Station" screen
-When user DAS device with ADB ID "60acc48b" is deregistered and booted
+When user DAS device with ADB ID "3f1ac229" is deregistered and booted
 Then user navigates to "Looking for Base Station" screen from the "Power Base Station" screen
 Then user should receive a "Base Station Not Found" popup
 And user "clicks on OK in" the "Base Station Not Found" popup
 Then user should be displayed with the "Power Base Station" screen
-When user DAS device with ADB ID "60acc48b" is deregistered and booted
+When user DAS device with ADB ID "3f1ac229" is deregistered and booted
 Then user navigates to "Looking for Base Station" screen from the "Power Base Station" screen
 And user should receive a "Base Station Not Found" popup
 Then user "retries base station pairing in" the "Base Station Not Found" popup
@@ -303,7 +304,7 @@ Examples:
 
 @DIYWhenQRCodeIsNotScannedAndThenScanned	 		@P3			@Automated @--xrayid:ATER-55050
 Scenario Outline: As a user I should be prompted with Scanning Failure screen when QR code is not scanned
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -319,8 +320,8 @@ When user "accepts" the "scanning failure" popup
 Then user should be displayed with the "Register Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password 
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password 
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
@@ -347,7 +348,7 @@ Examples:
 
 @DIYWhenInvalidQRCodeIsScannedFirstAndThenScanAValidQRCode 			@P3				@Automated @--xrayid:ATER-55053
 Scenario Outline: As a user my DAS device should not be configured when invalid QR code is scanned
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -363,8 +364,8 @@ When user "accepts" the "scanning failure" popup
 Then user should be displayed with the "Register Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password 
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password 
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
@@ -391,7 +392,7 @@ Examples:
 
 @DIYTapOnCancelMultipleTimesInRegisterBaseStationScreen			@P2			@CannotAutomate @--xrayid:ATER-55057
 Scenario Outline: As a user I should be able to tap on Cancel multiple times in Register Base Station screen
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -417,7 +418,7 @@ Examples:
 
 @DIYCancelInRegisterBaseStation	 	@P2			@Automated @--xrayid:ATER-55059
 Scenario Outline: As a user I should be able to Cancel the setup in Register Base Station screen
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -443,7 +444,7 @@ Examples:
 
 @DIYCancelInSelectBaseStationsListScreen		@RequiresMultipleBaseStationsForExecution		@P2			@Automated @--xrayid:ATER-55060
 Scenario Outline: As a user I should be able to cancel the setp up in select base station screen when multiple base stations are displayed
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user DAS device with ADB ID "9c43dac2" is deregistered and booted
 When user launches and logs in to the Lyric application
 And user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -565,7 +566,7 @@ Then user should be displayed with the "Power Base Station" screen
 
 @DIYCancelSetUpInConnectToNetworkScreen	 	@P2			@Automated @--xrayid:ATER-55064
 Scenario Outline:: As a user I should be able to cancel set up in Connect to Network screen
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -577,7 +578,7 @@ Then user should be displayed with the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen 
+When user selects "DataUnavailable" from "Connect to Network" screen 
 Then user should be displayed with the "Enter your Wi-Fi password" screen
 When user "cancels the connect to wifi network" by clicking on "cancel" button
 Then user should receive a "Cancel Setup" popup
@@ -625,7 +626,7 @@ Examples:
 
 @DIYAddAWiFiNetworkAndRegisterDAS    @Setuprequired		@P2 @--xrayid:ATER-55066
 Scenario Outline: As a user I should be able to add a new network
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -645,7 +646,7 @@ When user enters valid SSID and navigates to Password screen
 And user clicks on Back button
 Then user should be displayed with the SSID screen
 When user inputs <invalid SSID>
-And user inputs "daszwave4" as the WiFi Password
+And user inputs "Dontknow" as the WiFi Password
 Then user should receive a "WiFi Connection timeout" popup
 And user clicks on "RETRY" button
 Then user should receive a "WiFi Connection timeout" popup
@@ -678,7 +679,7 @@ Examples:
 
 @DIYCancelAddANetworkAndTryConnectingWithAvailableNetwork  	@P2			@Automated @--xrayid:ATER-55067
 Scenario Outline: As a user I want to register a DAS device by connecting to available network after cancelling add a network
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -710,8 +711,8 @@ Then user should be displayed with the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password 
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password 
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
@@ -735,7 +736,7 @@ Examples:
 
 @DIYRegistrationWhenSingleBaseStationIsAvailable	 	@P1			@Automated @--xrayid:ATER-55068
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by disabling geofencing and ignorning alexa setup
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -747,8 +748,8 @@ Then user should be displayed with the "Power Base Station" screen
 When user navigates to "Register Base Station" screen from the "Power Base Station" screen
 Then user scans the QR code by showing it to the base station camera
 When user navigates to "Connect to Network" screen from the "Register Base Station" screen
-And user selects "DAS_ZWAVE" from "Connect to Network" screen
-When user inputs "daszwave4" as the WiFi Password 
+And user selects "DataUnavailable" from "Connect to Network" screen
+When user inputs "Dontknow" as the WiFi Password 
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
@@ -776,7 +777,7 @@ Examples:
       
 @DIYRegistrationWithSkipGeoFenceAndSetUpAlexa	 @P2			@Automated @--xrayid:ATER-55069
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by skiping geofencing and setting up alexa
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -788,8 +789,8 @@ Then user should be displayed with the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password 
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password 
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Geofence" screen from the "Enable Geofencing" screen
@@ -823,12 +824,12 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples: 
       | location name                           | device name                     | Amazon username				| Amazon password		|
-      | Home                                    | Living Room                     | midhun.gollapalli@gmail.com					| daszwave4				|
+      | Home                                    | Living Room                     | midhun.gollapalli@gmail.com					| Dontknow				|
 
 
 @DIYRegistrationWithGeoFenceEnabledAndSetUpAlexa	 	@P1			@Automated @--xrayid:ATER-55070
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by enabling geofencing and setting up alexa
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -840,8 +841,8 @@ Then user should be displayed with the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password 
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password 
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Geofence" screen from the "Enable Geofencing" screen
@@ -868,12 +869,12 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples: 
       | location name                           | device name                     | Amazon username				| Amazon password		|
-      | Home                                    | Living Room                     | midhun.gollapalli@gmail.com				| daszwave4				|
+      | Home                                    | Living Room                     | midhun.gollapalli@gmail.com				| Dontknow				|
       
       
 @DIYRegistrationWhenFirmwareIsNotUpToDate		@FirmwareWithPreviousVersionRequired			@P2				@Automated @--xrayid:ATER-55071
 Scenario Outline: As a user I want to register a DAS device using the Lyric application when firmware update pops up
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -885,8 +886,8 @@ Then user should be displayed with the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user receives "Firmware update" by clicking on "Yes" button
 And user "accepts" the "Firmware update" popup
@@ -916,7 +917,7 @@ Examples:
       
 @DIYRegistrationByMinimizingAndMaximizingTheApp		@P3			@Automated @--xrayid:ATER-55072
 Scenario Outline: As a user I want to register a DAS device using the Lyric application by navigating to other apps intermittently
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -929,8 +930,8 @@ Then user navigates to "Register Base Station" screen from the "Power Base Stati
 When user minimizes and maximizes the app
 And user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password
 When user minimizes and maximizes the app
 Then user should be displayed with the "Smart Home Security Success" screen
 When user minimizes and maximizes the app
@@ -961,7 +962,7 @@ Examples:
 
 @DIYRegistrationWithInvalidNetworkPwdAndTryReconnectingWithValidPwd	 	@P2			@Automated @--xrayid:ATER-55073
 Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting to a invalid Wi-Fi network
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -973,12 +974,12 @@ Then user should be displayed with the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
+When user selects "DataUnavailable" from "Connect to Network" screen
 And user inputs "vibex444" as the WiFi Password 
 Then user should receive a "Wi-Fi Connection Failed" popup
 When user "dismisses" the "Wi-Fi Connection Failed" popup
 Then user should be displayed with the "Enter your Wi-Fi password" screen
-And user inputs "daszwave4" as the WiFi Password 
+And user inputs "Dontknow" as the WiFi Password 
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
@@ -1002,7 +1003,7 @@ Examples:
 
 @DIYRegistrationByConnectingToOpenWiFiNetwork     @SetUpRequired		@P2 @--xrayid:ATER-55074
 Scenario Outline: As a user I should not be able to connect to a open Wi-Fi network and able to perform DAS registration
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1038,7 +1039,7 @@ Examples:
 
 @DIYRegistrationWhenNetworkConnectivityIsLow 		@P3			@CannotAutomate @--xrayid:ATER-55075
 Scenario Outline: As a user I want to register a DAS device using the Lyric application when network connectivity is low
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1050,14 +1051,14 @@ Then user should be displayed with the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password
 When connected internet is low or there is no internet connection
 Then user should receive a "No Internet Connection" popup
 When user "dismisses" the "No Internet Connection" popup
 Then user should be displayed with "Connect to Network" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
@@ -1084,7 +1085,7 @@ Examples:
 
 @DIYAddAWiFiNetworkWithInvalidPwdAndTryReconnectingWithAvailableNetwork	 	@P2			@Automated @--xrayid:ATER-55076
 Scenario Outline: As a user I want to register a DAS device by connecting to available network after trying connecting to a invalid Wi-Fi network 
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1102,8 +1103,8 @@ Then user should receive a "Wi-Fi Connection Failed" popup
 When user "dismisses" the "Wi-Fi Connection Failed" popup
 Then user should be displayed with the "Enter your Wi-Fi password" screen
 When user navigates to "Connect to Network" screen from the "Enter your Wi-Fi password" screen
-Then user selects "DAS_ZWAVE" from "Connect to Network" screen
-When user inputs "daszwave4" as the WiFi Password 
+Then user selects "DataUnavailable" from "Connect to Network" screen
+When user inputs "Dontknow" as the WiFi Password 
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
@@ -1127,7 +1128,7 @@ Examples:
 
 @DIYTryToReRegisterDAS		 	@P2			@Automated @--xrayid:ATER-55077
 Scenario Outline: As a user I should be prompted with base station not found popup when I try to reregister DAS using the Lyric application
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1139,8 +1140,8 @@ Then user should be displayed with the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password 
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password 
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
@@ -1180,7 +1181,7 @@ Examples:
 
 @DIYDeleteExistingDASAndRegisterIt		@P2			@Automated @--xrayid:ATER-55078
 Scenario Outline: As a user I want to register a deleted DAS device using the Lyric application
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1192,8 +1193,8 @@ Then user should be displayed with the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password 
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password 
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
@@ -1219,8 +1220,8 @@ Then user should be displayed with the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password 
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password 
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
@@ -1245,7 +1246,7 @@ Examples:
 #Workflow is not confirmed
 @DIYMultipleDASRegistrationsForTheSameAccount		@P2 @--xrayid:ATER-55079
 Scenario Outline: As a user I want to register multiple DAS devices for a single account using the Lyric application
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1258,8 +1259,8 @@ Then user navigates to "Select Base Station" screen from the "Power Base Station
 When user selects <Base Station MAC ID> from "Select Base Station" screen
 And user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password 
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password 
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
@@ -1279,8 +1280,8 @@ Then user should be displayed with the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password 
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password 
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
@@ -1309,7 +1310,7 @@ Examples:
 
 @DIYTryToReRegisterDASAfterPerformingFactorySettingsOnDAS			@P2			@CannotAutomate @--xrayid:ATER-55086
 Scenario Outline: As a user I should be prompted with device already registered popup when I try to reregister DAS after performing factory settings on the registered DAS
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1322,8 +1323,8 @@ When user navigates to "Select Base Station" screen from the "Power Base Station
 When user selects <Base Station MAC ID> from "Select Base Station" screen
 And user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password 
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password 
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
@@ -1352,8 +1353,8 @@ When user navigates to "Select Base Station" screen from the "Power Base Station
 When user selects <Base Station MAC ID> from "Select Base Station" screen
 And user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password 
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password 
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Enable Geofencing" screen from the "Smart Home Security Success" screen
 Then user navigates to "Enable Amazon Alexa" screen from the "Enable Geofencing" screen
@@ -1373,7 +1374,7 @@ Examples:
 
 @DASDIYConfigurationVerifyBackArrowFunctionality		@P2			@Automated @--xrayid:ATER-55087
 Scenario Outline: Verify Back arrow functionality while registering DAS
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to the <Current Screen> screen
 And user clicks on the back arrow in the <Current Screen> screen
@@ -1392,7 +1393,7 @@ Examples:
 
 @DIYRegistrationWithAccessSensorEnrollmentWithDefaultName		@P3				@Automated @--xrayid:ATER-55088 
 Scenario Outline: As a user I should be able to successfully enrol Access Sensor with default sensor name through DIY registration
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1404,8 +1405,8 @@ Then user should be displayed with the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
 And user <Sensor Location> access sensor "enrolled"
@@ -1482,25 +1483,25 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		| Sensor Location	| Sensor Type SETUP Button			| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com					| daszwave4				|
-#| Home			| Living Room		| Window 			| Window Access Sensor SETUP Button	| Living Room Window 	| Open 			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com					| daszwave4				|
+| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com					| Dontknow				|
+#| Home			| Living Room		| Window 			| Window Access Sensor SETUP Button	| Living Room Window 	| Open 			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com					| Dontknow				|
 #incaserequired
-#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Back Door				| Opened			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Side Door				| Opened 		| Closed 				| Door Access Settings		| midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Window 			| Window Access Sensor SETUP Button	|  Living Room Window 	| Opened 		| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Dining Room Window 	| Opened			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Kitchen Window 		| Opened			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Front Door			| Opened 		| Closed 				| Door Access Settings		| midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Back Door				| Opened 		| Closed 				| Door Access Settings		| midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Side Door				| Opened 		| Closed 				| Door Access Settings		| midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Living Room Window 	| Opened			| Closed					| Window Access Settings		| midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Dining Room Window 	| Opened 		| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Kitchen Window 		| Opened 		| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| daszwave4				|
+#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Back Door				| Opened			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Side Door				| Opened 		| Closed 				| Door Access Settings		| midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Window 			| Window Access Sensor SETUP Button	|  Living Room Window 	| Opened 		| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Dining Room Window 	| Opened			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Kitchen Window 		| Opened			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Front Door			| Opened 		| Closed 				| Door Access Settings		| midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Back Door				| Opened 		| Closed 				| Door Access Settings		| midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Side Door				| Opened 		| Closed 				| Door Access Settings		| midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Living Room Window 	| Opened			| Closed					| Window Access Settings		| midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Dining Room Window 	| Opened 		| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Window				| Window Access Sensor SETUP Button	|  Kitchen Window 		| Opened 		| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com				| Dontknow				|
 
 
 @DIYRegistrationWithAccessSensorEnrollmentWithCustomName		@P4			@Automated @--xrayid:ATER-55089
 Scenario Outline: As a user I should be able to successfully enrol Access Sensor with custom sensor name through DIY registration
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1512,8 +1513,8 @@ Then user should be displayed with the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
 And user <Sensor Location> access sensor "enrolled"
@@ -1589,16 +1590,16 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		| Sensor Location	| Sensor Type SETUP Button			| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	| Honeywell				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com					| daszwave4				|
-| Home			| Living Room		| Window 			| Window Access Sensor SETUP Button	| Honeywell1			 	| Open 			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com					| daszwave4				|
-| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Honeywell2			| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com					| daszwave4					|
-| Home			| Living Room		| Window 			| Window Access Sensor SETUP Button	| Honeywell1	3		 	| Open 			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com					| daszwave4				|
+| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	| Honeywell				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com					| Dontknow				|
+| Home			| Living Room		| Window 			| Window Access Sensor SETUP Button	| Honeywell1			 	| Open 			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com					| Dontknow				|
+| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	|  Honeywell2			| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com					| Dontknow					|
+| Home			| Living Room		| Window 			| Window Access Sensor SETUP Button	| Honeywell1	3		 	| Open 			| Closed 				| Window Access Settings		| midhun.gollapalli@gmail.com					| Dontknow				|
 
 
 #Improvement
 @DIYRegistrationWithAccessSensorEnrollmentByNavigatingToNotificationScreen		@P3			@CannotAutomate @--xrayid:ATER-55090
 Scenario Outline: As an user I should not get any push notifications during DIY Flow for the DAS panel in DIY registration
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1610,8 +1611,8 @@ Then user should be displayed with the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
 And user <Sensor Location> access sensor "enrolled"
@@ -1681,12 +1682,12 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		| Sensor Location	| Sensor Type SETUP Button			| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com					| daszwave4				|
+| Home			| Living Room		| Door				| Door Access Sensor SETUP Button	| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com					| Dontknow				|
 
 
 @DIYRegistrationByCancellingAccessSensorEnrollmentAndSkipGeofencingAndEnableAlexa		@P3			@Automated @--xrayid:ATER-55091
 Scenario Outline: As a user I should be able to successfully complete DIY registration by cancelling access sensor enrollment and skip geofencing but enabling alexa
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1698,8 +1699,8 @@ Then user should be displayed with the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
 And user <Sensor Location> access sensor "enrolled"
@@ -1746,13 +1747,13 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		| Sensor Location	| Sensor Type SETUP Button			| Sensor Location Area	| Access Status	| Access Status Update	| Access Setting screen		| Amazon username				| Amazon password		|
-| Home			| Living Room		| Door				| Window Access Sensor SETUP Button	| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com					| daszwave4					|
+| Home			| Living Room		| Door				| Window Access Sensor SETUP Button	| Front Door				| Open			| Closed					| Door Access Settings		| midhun.gollapalli@gmail.com					| Dontknow					|
 
 
 #Covered in DIYRegistrationWhenFirmwareIsNotUpToDate scenario
 @DIYRegistrationWithAccessSensorEnrollmentWhenFirmwareIsNotUpToDate		@P3 @--xrayid:ATER-55092
 Scenario Outline: As a user I should be able to successfully enrol Access Sensor with default sensor name through DIY registration when firmware is not upto date
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Smart Home Security Success" screen after registering the base station
 When user receives a "Firmware update" popup
@@ -1821,7 +1822,7 @@ Examples:
 
 @DIYRegistrationWithMotionViewerEnrollmentWithDefaultSensorName		@P3			@Automated @--xrayid:ATER-55093
 Scenario Outline: As a user I should be able to successfully enrol Motion Viewer with default name through DIY registration
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1833,8 +1834,8 @@ Then user should be displayed with the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
 When user motion sensor "enrolled"
@@ -1901,24 +1902,24 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		| Sensor Name    | Mount Sensor Name | Place Sensor      | Motion Status         | Motion Status Update | Amazon username				| Amazon password		|
-| Home			| Living Room		| Front Hall     | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Front Hall     | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| daszwave4				|
+| Home			| Living Room		| Front Hall     | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Front Hall     | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| Dontknow				|
 #incaserequired
-#| Home			| Living Room		| Back Hall      | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Back Hall      | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Living Room    | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Living Room    | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Front Hall     | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Front Hall     | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Back Hall      | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Back Hall      | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Living Room    | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Living Room    | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| daszwave4				|
+#| Home			| Living Room		| Back Hall      | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Back Hall      | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Living Room    | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Living Room    | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Front Hall     | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Front Hall     | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Back Hall      | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Back Hall      | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Living Room    | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Living Room    | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| Dontknow				|
 
 
 @DIYRegistrationWithMotionViewerEnrollmentWithCustomSensorName		@P4			@Automated @--xrayid:ATER-55094
 Scenario Outline: As a user I should be able to successfully enrol Motion Viewer with custom name through DIY registration
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 Given user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -1930,8 +1931,8 @@ Then user should be displayed with the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
 When user motion sensor "enrolled"
@@ -2000,13 +2001,13 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		| Custom name    | Mount Sensor Name | Place Sensor      | Motion Status         | Motion Status Update | Amazon username				| Amazon password		|
-| Home			| Living Room		| Honeywell      | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Honeywell1     | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| daszwave4				|
+| Home			| Living Room		| Honeywell      | In a Wall Corner  | Mount in a Corner | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Honeywell1     | Flat on a Wall    | Mount on the Wall | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| Dontknow				|
 
 
 @DIYRegistrationWithKeyFobEnrollment		@P3			@Automated @--xrayid:ATER-55095
 Scenario Outline: As a user I should be able to successfully enrol Key Fob through DIY
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -2018,8 +2019,8 @@ Then user should be displayed with the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
 Then user press "enrollment" key from keyfob
@@ -2069,12 +2070,12 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name		| device name		| Custom name	| Amazon username				| Amazon password		|
-| Home				| Living Room		| Keyfob			| midhun.gollapalli@gmail.com				| daszwave4				|
+| Home				| Living Room		| Keyfob			| midhun.gollapalli@gmail.com				| Dontknow				|
 
 
 @DIYRegistrationWithISMVEnrollmentWithDefaultSensorName		@P3			@Automated @--xrayid:ATER-55096
 Scenario Outline: As a user I should be able to successfully enrol ISMV with default sensor name through DIY registration
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -2086,8 +2087,8 @@ Then user should be displayed with the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
 When user indoor motion viewer "enrolled"
@@ -2151,24 +2152,24 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		| Viewer Location	| Place Viewer Area             | Motion Status         | Motion Status Update  | Amazon username				| Amazon password		|
-| Home			| Living Room		| Front Hall			| On a Shelf                    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Front Hall			| In a Corner                   | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Front Hall			| Flat on a Wall with Adhesive  | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Front Hall			| Flat on a Wall with Screws    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| daszwave4				|
+| Home			| Living Room		| Front Hall			| On a Shelf                    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Front Hall			| In a Corner                   | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Front Hall			| Flat on a Wall with Adhesive  | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Front Hall			| Flat on a Wall with Screws    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| Dontknow				|
 #Incaserequired
-#| Home			| Living Room		| Kitchen			| On a Shelf                    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Kitchen			| In a Corner                   | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Kitchen			| Flat on a Wall with Adhesive  | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Kitchen			| Flat on a Wall with Screws    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Living Room		| On a Shelf                    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Living Room		| In a Corner                   | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Living Room		| Flat on a Wall with Adhesive  | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Living Room		| Flat on a Wall with Screws    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| daszwave4				|
+#| Home			| Living Room		| Kitchen			| On a Shelf                    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Kitchen			| In a Corner                   | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Kitchen			| Flat on a Wall with Adhesive  | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Kitchen			| Flat on a Wall with Screws    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Living Room		| On a Shelf                    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Living Room		| In a Corner                   | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Living Room		| Flat on a Wall with Adhesive  | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Living Room		| Flat on a Wall with Screws    | NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| Dontknow				|
 
 
 @DIYRegistrationWithISMVEnrollmentWithCustomSensorName		@P4			@Automated @--xrayid:ATER-55097 
 Scenario Outline: As a user I should be able to successfully enrol ISMV with custom sensor name through DIY registration
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -2180,8 +2181,8 @@ Then user should be displayed with the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
 When user indoor motion viewer "enrolled"
@@ -2247,12 +2248,12 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		| Custom name	| Place Viewer Area 		| Motion Status         | Motion Status Update  | Amazon username				| Amazon password		|
-| Home			| Living Room		| Honeywell		| On a Shelf				| NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| daszwave4				|
+| Home			| Living Room		| Honeywell		| On a Shelf				| NO MOTION DETECTED    | MOTION DETECTED       | midhun.gollapalli@gmail.com				| Dontknow				|
 
 
 @DIYRegistrationWithOSMVEnrollmentWithDefaultSensorName		@P3			@Automated @--xrayid:ATER-55098
 Scenario Outline: As a user I should be able to successfully enrol OSMV with default sensor name through DIY registration
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -2264,8 +2265,8 @@ Then user should be displayed with the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
 When user outdoor motion viewer "enrolled"
@@ -2337,16 +2338,16 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		| Viewer Location    | Motion Status         | Motion Status Update | Amazon username				| Amazon password		|
-| Home			| Living Room		| Front Porch        | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Back Porch         | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| daszwave4				|
+| Home			| Living Room		| Front Porch        | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Back Porch         | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| Dontknow				|
 #incaserequired
-#| Home			| Living Room		| Driveway           | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Garage             | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| daszwave4				|
-#| Home			| Living Room		| Patio              | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| daszwave4				|
+#| Home			| Living Room		| Driveway           | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Garage             | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| Dontknow				|
+#| Home			| Living Room		| Patio              | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| Dontknow				|
 
 @DIYRegistrationWithOSMVEnrollmentWithCustomSensorName		@P4			@Automated @--xrayid:ATER-55099
 Scenario Outline: As a user I should be able to successfully enrol OSMV with custom sensor name through DIY registration
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -2358,8 +2359,8 @@ Then user should be displayed with the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
 When user outdoor motion viewer "enrolled"
@@ -2432,12 +2433,12 @@ And user should not be displayed with <device name> device on the "dashboard" sc
 
 Examples:
 | location name	| device name		| Custom name    | Motion Status         | Motion Status Update | Amazon username				| Amazon password		|
-| Home			| Living Room		| Honeywell      | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| daszwave4				|
+| Home			| Living Room		| Honeywell      | NO MOTION DETECTED    | MOTION DETECTED      | midhun.gollapalli@gmail.com				| Dontknow				|
 
 
 @DIYRegistrationWithSensorBulkEnrollment    @P1			@Automated @--xrayid:ATER-55100
 Scenario Outline: As a user I should be able to successfully enrol various types of sensors through DIY registration
-Given user DAS device with ADB ID "60acc48b" is deregistered and booted
+Given user DAS device with ADB ID "3f1ac229" is deregistered and booted
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security" screen from the "Add New Device Dashboard" screen
@@ -2449,8 +2450,8 @@ Then user should be displayed with the "Power Base Station" screen
 Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
 When user scans the QR code by showing it to the base station camera
 Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-When user selects "DAS_ZWAVE" from "Connect to Network" screen
-And user inputs "daszwave4" as the WiFi Password
+When user selects "DataUnavailable" from "Connect to Network" screen
+And user inputs "Dontknow" as the WiFi Password
 Then user should be displayed with the "Smart Home Security Success" screen
 When user navigates to "Set up Accessories" screen from the "Smart Home Security Success" screen
 And user <Sensor Location> access sensor "enrolled"
