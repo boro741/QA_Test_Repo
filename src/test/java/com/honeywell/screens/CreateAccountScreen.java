@@ -139,7 +139,12 @@ public class CreateAccountScreen extends MobileScreens {
 	}
 
 	public boolean isCreateAccountClickOnBack() {
-		return MobileUtils.pressBackButton(testCase, "Clicked on Back button");
+		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.pressBackButton(testCase, "Clicked on Back button");
+		}else {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "IOSBackButton");
+		}
+		
 	}
 
 	public boolean isHoneywellHomeLogoDisplayed() {

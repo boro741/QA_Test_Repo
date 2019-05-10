@@ -573,7 +573,7 @@ public class SelectElementOnAScreen extends Keyword {
 							Keyword.ReportStep_Pass(testCase, "Clicked on Get Started button");
 						}else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Failed to click on Get Started button");
+									"Get Started button in What to Expect Screen not displayed");
 						}
 					}
 					break;
@@ -595,7 +595,14 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					break;
 				}
+				case "CHANGE COUNTRY": {
+					AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
+					if(ads.isChangeCountryLinkVisible()) {
+						flag &=ads.clickOnChangeCountryLink();
+					}
+					break;
 				}
+			  }
 			} else if (parameters.get(1).equalsIgnoreCase("CHOOSE LOCATION")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "CREATE NEW LOCATION": {
@@ -1868,9 +1875,11 @@ public class SelectElementOnAScreen extends Keyword {
 				case "DELETE": {
 					if (ah.isDeletelButtonEnabled()
 							&& ah.firstMsgFromActivityHistoryListBeforeDelete(testCase, inputs)) {
-						ah.clickOnDeleteButton();
-						Keyword.ReportStep_Pass(testCase, "Successfully selected the option: " + parameters.get(0));
-					} else {
+						flag &= ah.clickOnDeleteButton();
+					}
+					if(flag) {
+							Keyword.ReportStep_Pass(testCase, "Successfully selected the option: " + parameters.get(0));
+					}else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Failed to select the option: " + parameters.get(0));
 					}
@@ -2037,7 +2046,7 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("DASHBOARD")) {
 				Dashboard d= new Dashboard(testCase);
-				flag = flag & d.selectLocationFromDashBoard(testCase, parameters.get(0));
+				flag &= d.selectLocationFromDashBoard(testCase, parameters.get(0));
 				
 			}
 			else if (parameters.get(1).equalsIgnoreCase("PLEASE CONFIRM YOUR COUNTRY")) {
@@ -2606,14 +2615,14 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				case "BACK BUTTON": {
 					CreateAccountScreen cas = new CreateAccountScreen(testCase);
-					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					/*if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 						flag &= cas.isCreateAccountClickOnBack();
 					} else {
 						// ios
 						flag &= cas.isCreateAccountClickOnBackButtonOnIOS();
 
-					}
-					
+					}*/
+					flag &= cas.isCreateAccountClickOnBack();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Back or Cancel button is clicked");
 					} else {

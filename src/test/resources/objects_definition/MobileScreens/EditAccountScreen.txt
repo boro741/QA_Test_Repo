@@ -67,9 +67,9 @@ WebViewInLearnHowToCancelAMembershipScreen	XPATH	//*[@class='android.webkit.WebV
 WasThisHelpfulTextInLearnHowToCancelAMembershipScreen	ID	question_footer_message	ID	question_footer_message	ID	question_footer_message	NAME	Was this helpful?	NAME	Was this helpful?	NAME	Was this helpful?
 YESButtonInWasThisHelpfulTextInLearnHowToCancelAMembershipScreen	ID	helpful_button	ID	helpful_button	ID	helpful_button	NAME	Tap here if you found this FAQ helpful	NAME	Tap here if you found this FAQ helpful	NAME	Tap here if you found this FAQ helpful
 NOButtonInWasThisHelpfulTextInLearnHowToCancelAMembershipScreen	ID	unhelpful_button	ID	unhelpful_button	ID	unhelpful_button	NAME	Tap here if this FAQ was not helpful to you	NAME	Tap here if this FAQ was not helpful to you	NAME	Tap here if this FAQ was not helpful to you
-FirstNameLabelInNameScreen							NAME	First Name	NAME	First Name	NAME	First Name
-FirstNameValueInNameScreen							NAME	Name_value	NAME	Name_value	NAME	Name_value
-LastNameLabelInNameScreen							NAME	Last Name	NAME	Last Name	NAME	Last Name
-LastNameValueInNameScreen							NAME	Name_value	NAME	Name_value	NAME	Name_value
-LoggedInEmail							NAME	Email_value	NAME	Email_value	NAME	Email_value
-NameValueArrow							XPATH	(//XCUIElementTypeImage[@name='Name_Image' or @value='Yes'])[1]	XPATH	(//XCUIElementTypeImage[@name='Name_Image' or @value='Yes'])[1]	XPATH	(//XCUIElementTypeImage[@name='Name_Image' or @value='Yes'])[1]
+FirstNameLabelInNameScreen	XPATH	//android.widget.TextView[@text='Name']	XPATH	//android.widget.TextView[@text='Name']	XPATH	//android.widget.TextView[@text='Name']	NAME	First Name	NAME	First Name	NAME	First Name
+FirstNameValueInNameScreen	ID	com.honeywell.android.lyric:id/fragment_current_user_name_text	ID	com.honeywell.android.lyric:id/fragment_current_user_name_text	ID	com.honeywell.android.lyric:id/fragment_current_user_name_text	NAME	Name_value	NAME	Name_value	NAME	Name_value
+LastNameLabelInNameScreen	XPATH	//android.widget.TextView[@text='Name']	XPATH	//android.widget.TextView[@text='Name']	XPATH	//android.widget.TextView[@text='Name']	NAME	Last Name	NAME	Last Name	NAME	Last Name
+LastNameValueInNameScreen	ID	com.honeywell.android.lyric:id/fragment_current_user_name_text	ID	com.honeywell.android.lyric:id/fragment_current_user_name_text	ID	com.honeywell.android.lyric:id/fragment_current_user_name_text	NAME	Name_value	NAME	Name_value	NAME	Name_value
+LoggedInEmail	ID	com.honeywell.android.lyric:id/fragment_current_user_email_text	ID	com.honeywell.android.lyric:id/fragment_current_user_email_text	ID	com.honeywell.android.lyric:id/fragment_current_user_email_text	NAME	Email_value	NAME	Email_value	NAME	Email_value
+NameValueArrow	ID	com.honeywell.android.lyric:id/fragment_current_user_name_text	ID	com.honeywell.android.lyric:id/fragment_current_user_name_text	ID	com.honeywell.android.lyric:id/fragment_current_user_name_text	XPATH	(//XCUIElementTypeImage[@name='Name_Image' or @value='Yes'])[1]	XPATH	(//XCUIElementTypeImage[@name='Name_Image' or @value='Yes'])[1]	XPATH	(//XCUIElementTypeImage[@name='Name_Image' or @value='Yes'])[1]

@@ -213,7 +213,7 @@ And user should not be displayed with the following "Geofence this location" opt
 | GeofenceThisLocation		|
 | Geofence Radius			|
 | Location Status			|
-| Geofence Alert				|
+| Geofence Alert			|
 
 
 #Requirements : single location with jasperNA or JapserEMEA or C1 or C2 or DAS or all the solutions
@@ -245,7 +245,7 @@ And user should be displayed with the following "Geofence this location" options
 | GeofenceThisLocation		|
 | Geofence Radius			|
 | Location Status			|
-| Geofence Alert				|
+| Geofence Alert			|
 
 
 #Requirements : single location with jasperNA or JapserEMEA or C1 or C2 or DAS or all the solutions
@@ -269,7 +269,7 @@ And user should be displayed with the following "Geofence this location" options
 | GeofenceThisLocation		|
 | Geofence Radius			|
 | Location Status			|
-| Geofence Alert				|
+| Geofence Alert			|
 
 
 #Geofence this location disabled and enabled when location serivce off 
@@ -421,7 +421,7 @@ Given user has <Mode> system mode
 #Then user selects "HOME OFFICE" from "Dashboard" screen
 And user thermostat is set to "geofence based" schedule
 When user launches and logs in to the Lyric application
-Then user selects "HOME OFFICE" from "Dashboard" screen
+#Then user selects "HOME OFFICE" from "Dashboard" screen
 And user navigates to "Global Drawer" screen from the "Dashboard" screen 
 When user selects "Geofence" from "Global Drawer" screen
 Then user should be displayed with the "Geofence Settings" screen
@@ -432,7 +432,7 @@ Then user receives a "Geofence crossed Home" push notification
 And user thermostat set <UPeriod> with <UGeofence>
 Then user receives a "Geofence crossed Away" push notification
 When user clears all push notifications
-Then user selects "HOME OFFICE" from "Dashboard" screen
+#Then user selects "HOME OFFICE" from "Dashboard" screen
 Then user navigates to "Global Drawer" screen from the "Dashboard" screen 
 And user selects "Geofence" from "Global Drawer" screen
 Then user should be displayed with the "Geofence Settings" screen
@@ -443,7 +443,7 @@ And user thermostat set <UPeriod> with <UGeofence>
 Then user should not receive a "Geofence crossed Away" push notification
 
 Examples:
-| Mode	| Period			| Geofence		| UPeriod		| UGeofence		|
+| Mode	| Period		| Geofence		| UPeriod		| UGeofence		|
 | Heat	| Home			| UserArrived  	| Away			| UserDeparted	|
 #| Cool	| UserArrived  	| Home			| Away			| UserDeparted	|
 
@@ -721,32 +721,32 @@ When user navigates to "Address" screen from the "Dashboard" screen
 Then user should be displayed with the "Address" screen
 When user navigates to "Edit Address" screen from the "Address" screen 
 Then user should be displayed with the following "Edit Address" options:
-| EditAddressOptions			| 
+| EditAddressOptions		| 
 | Location Name Header		| 
 | Location Name Text Field	| 
-| Address Header				| 
-| Address Text Field			| 
+| Address Header			| 
+| Address Text Field		| 
 | City Text Field			| 
 | State Text Field			| 
-| Postal Code Text Field		| 
-| Change Country				|
+| Postal Code Text Field	| 
+| Change Country			|
 And the following "Edit Address" options should be disabled:
 | EditAddressOptions		|
-| Save					|
+| Save						|
 When user clears the text displayed in the following text fields in the "Edit Address" screen:
 | TextFieldsInEditAddressScreen		|
 | Location Name Text Field			|
-| Address Text Field					| 
+| Address Text Field				| 
 | City Text Field					| 
 | State Text Field					| 
-| Postal Code Text Field				|
+| Postal Code Text Field			|
 Then user should be displayed with the placeholder text for the following fields in "Edit Address" screen:
 | TextFieldsInEditAddressScreen		|
 | Location Name Text Field			|
-| Address Text Field					| 
+| Address Text Field				| 
 | City Text Field					| 
 | State Text Field					| 
-| Postal Code Text Field				|
+| Postal Code Text Field			|
 
  
 #Requirements : single location with and with out any solution
@@ -757,25 +757,25 @@ When user navigates to "Address" screen from the "Dashboard" screen
 Then user should be displayed with the "Address" screen
 When user navigates to "Edit Address" screen from the "Address" screen 
 Then user should be displayed with the following "Edit Address" options:
-| EditAddressOptions			| 
+| EditAddressOptions		| 
 | Location Name Header		| 
 | Location Name Text Field	| 
-| Address Header				| 
-| Address Text Field			| 
+| Address Header			| 
+| Address Text Field		| 
 | City Text Field			| 
 | State Text Field			| 
-| Postal Code Text Field		| 
-| Change Country				|
+| Postal Code Text Field	| 
+| Change Country			|
 And the following "Edit Address" options should be disabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user inputs <Location Name> in "Location Name Text Field" in the "Edit Address" screen
 And the following "Edit Address" options should be enabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user inputs <Address> in "Address Text Field" in the "Edit Address" screen
 And the following "Edit Address" options should be enabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user inputs <City> in "City Text Field" in the "Edit Address" screen
 And the following "Edit Address" options should be enabled:
@@ -783,11 +783,11 @@ And the following "Edit Address" options should be enabled:
 | Save					|
 When user inputs <State> in "State Text Field" in the "Edit Address" screen
 And the following "Edit Address" options should be enabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user inputs <Postal Code> in "Postal Code Text Field" in the "Edit Address" screen
 Then the following "Edit Address" options should be enabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user clicks on the back arrow in the "Edit Address" screen
 Then user should receive a "Cancel Location Changes" popup
@@ -818,33 +818,33 @@ When user navigates to "Address" screen from the "Dashboard" screen
 Then user should be displayed with the "Address" screen
 When user navigates to "Edit Address" screen from the "Address" screen 
 Then user should be displayed with the following "Edit Address" options:
-| EditAddressOptions			| 
+| EditAddressOptions		| 
 | Location Name Header		| 
 | Location Name Text Field	| 
-| Address Header				| 
-| Address Text Field			| 
+| Address Header			| 
+| Address Text Field		| 
 | City Text Field			| 
 | State Text Field			| 
-| Postal Code Text Field		| 
-| Change Country				|
+| Postal Code Text Field	| 
+| Change Country			|
 And the following "Edit Address" options should be disabled:
 | EditAddressOptions		|
-| Save					|
+| Save						|
 When user inputs <Address> in "Address Text Field" in the "Edit Address" screen
 And the following "Edit Address" options should be enabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user inputs <City> in "City Text Field" in the "Edit Address" screen
 And the following "Edit Address" options should be enabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user inputs <State> in "State Text Field" in the "Edit Address" screen
 And the following "Edit Address" options should be enabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user inputs <Postal Code> in "Postal Code Text Field" in the "Edit Address" screen
 Then the following "Edit Address" options should be enabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user selects "Save button" from "Edit Address" screen
 Then user should be displayed with the "Address" screen
@@ -858,8 +858,9 @@ And user should be displayed with the following "Address" options:
 | Delete Location Option		|
 
 Examples: 
-| Address	| City		| State		| Postal Code	| 
-| Nazdar		| Shawnee	| Kansas		| 66203			|
+| Address	| City			| State			| Postal Code	| 
+| Nazdar	| Shawnee		| Kansas		| 66203			|
+| EA		| Los Angeles	| California	| 90001			|
   
   
 #Requirements : single location with and with out any solution
@@ -870,17 +871,17 @@ When user navigates to "Address" screen from the "Dashboard" screen
 Then user should be displayed with the "Address" screen
 When user navigates to "Edit Address" screen from the "Address" screen 
 Then user should be displayed with the following "Edit Address" options:
-| EditAddressOptions			| 
+| EditAddressOptions		| 
 | Location Name Header		| 
 | Location Name Text Field	| 
-| Address Header				| 
-| Address Text Field			| 
+| Address Header			| 
+| Address Text Field		| 
 | City Text Field			| 
 | State Text Field			| 
-| Postal Code Text Field		| 
-| Change Country				|
+| Postal Code Text Field	| 
+| Change Country			|
 And the following "Edit Address" options should be disabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user clicks on the back arrow in the "Edit Address" screen
 Then user should be displayed with the "Address" screen
@@ -957,42 +958,43 @@ When user navigates to "Address" screen from the "Dashboard" screen
 Then user should be displayed with the "Address" screen
 When user navigates to "Edit Address" screen from the "Address" screen 
 Then user should be displayed with the following "Edit Address" options:
-| EditAddressOptions			| 
+| EditAddressOptions		| 
 | Location Name Header		| 
 | Location Name Text Field	| 
-| Address Header				| 
-| Address Text Field			| 
+| Address Header			| 
+| Address Text Field		| 
 | City Text Field			| 
 | State Text Field			| 
-| Postal Code Text Field		| 
-| Change Country				|
+| Postal Code Text Field	| 
+| Change Country			|
 And the following "Edit Address" options should be disabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user selects "Change Country" from "Edit Address" screen
 Then user should be displayed with the "Please confirm your country" screen
 When user inputs <Country> in "Search Text Field" in the "Please confirm your country" screen
+#Then user changes the country to <Country>
 Then user should be displayed with the "Edit Address" screen
 And user should be displayed with the following "Address Fields For The Selected Country" options:
-| AddressFieldsForTheSelectedCountry		| 
+| AddressFieldsForTheSelectedCountry	| 
 | Location Name Header					| 
 | Location Name Text Field				| 
-| Address Header							| 
-| Address Text Field						| 
+| Address Header						| 
+| Address Text Field					| 
 | City Text Field						| 
 | State Text Field						| 
-| Postal Code Text Field					| 
-| Change Country							|
+| Postal Code Text Field				| 
+| Change Country						|
 And the following "Edit Address" options should be disabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user inputs <State> in "State Text Field" in the "Edit Address" screen
 And the following "Edit Address" options should be disabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user inputs <Postal Code> in "Postal Code Text Field" in the "Edit Address" screen
 Then the following "Edit Address" options should be enabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user selects "Save button" from "Edit Address" screen
 Then user should be displayed with the "Address" screen
@@ -1004,11 +1006,19 @@ And user should be displayed with the following "Address" options:
 | AddressOptions				|
 | Edit Address Label			|
 | Delete Location Option		|
+When user navigates to "Edit Address" screen from the "Address" screen
+When user selects "Change Country" from "Edit Address" screen
+Then user should be displayed with the "Please confirm your country" screen
+When user inputs <Country1> in "Search Text Field" in the "Please confirm your country" screen
+When user inputs <Postal Code1> in "Postal Code Text Field" in the "Edit Address" screen
+When user selects "Save button" from "Edit Address" screen
+Then user should be displayed with the "Address" screen
+Then user logs out of the app
 
 Examples: 
-| Country	| State				| Postal Code	| 
-#| Argentina	| Buenos Aires		| 1865			| 
-| Australia	| QLD				| 4822			| 
+| Country	| State				| Postal Code	| Country1 | Postal Code1 |
+| Argentina	| Buenos Aires		| 1865			| Canada   | M4B 1B3	  |
+#| Australia	| QLD				| 4822			| 
 #| Austria	| Vienna				| 1000			| 
 #| Belgium	| Brussels			| 1040			| 
 #| Brazil		| Amapa				| 68950-000		| 
@@ -1027,42 +1037,42 @@ When user navigates to "Address" screen from the "Dashboard" screen
 Then user should be displayed with the "Address" screen
 When user navigates to "Edit Address" screen from the "Address" screen 
 Then user should be displayed with the following "Edit Address" options:
-| EditAddressOptions			| 
+| EditAddressOptions		| 
 | Location Name Header		| 
 | Location Name Text Field	| 
-| Address Header				| 
-| Address Text Field			| 
+| Address Header			| 
+| Address Text Field		| 
 | City Text Field			| 
 | State Text Field			| 
-| Postal Code Text Field		| 
-| Change Country				|
+| Postal Code Text Field	| 
+| Change Country			|
 And the following "Edit Address" options should be disabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user selects "Change Country" from "Edit Address" screen
 Then user should be displayed with the "Please confirm your country" screen
 When user inputs <Country> in "Search Text Field" in the "Please confirm your country" screen
 Then user should be displayed with the "Edit Address" screen
 And user should be displayed with the following "Address Fields For The Selected Country" options:
-| AddressFieldsForTheSelectedCountry		| 
+| AddressFieldsForTheSelectedCountry	| 
 | Location Name Header					| 
 | Location Name Text Field				| 
-| Address Header							| 
-| Address Text Field						| 
+| Address Header						| 
+| Address Text Field					| 
 | City Text Field						| 
 | State Text Field						| 
-| Postal Code Text Field					| 
-| Change Country							|
+| Postal Code Text Field				| 
+| Change Country						|
 And the following "Edit Address" options should be disabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user inputs <State> in "State Text Field" in the "Edit Address" screen
 And the following "Edit Address" options should be disabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user inputs <Invalid Postal Code> in "Postal Code Text Field" in the "Edit Address" screen
 Then the following "Edit Address" options should be enabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user selects "Save button" from "Edit Address" screen
 Then user should receive a "Invalid Zipcode" popup
@@ -1070,7 +1080,7 @@ When user "dismisses" the "Invalid Zipcode" popup
 Then user should be displayed with the "Edit Address" screen 
 When user inputs <Postal Code> in "Postal Code Text Field" in the "Edit Address" screen
 Then the following "Edit Address" options should be enabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user selects "Save button" from "Edit Address" screen
 Then user should be displayed with the "Address" screen
@@ -1085,8 +1095,8 @@ And user should be displayed with the following "Address" options:
 	
 Examples: 
 | Country	| State				| Invalid Postal Code	| Postal Code	| 
-| Argentina	| Buenos Aires		| 055038					| 1865			| 
-#| Australia	| QLD				| 100000					| 4822			| 
+| Argentina	| Buenos Aires		| 055038				| 1865			| 
+#| Australia	| QLD				| 100000				| 4822			| 
 #| Austria	| Vienna				| 8320000				| 1000			| 
 #| Belgium	| Brussels			| M5H 2N2				| 1040			| 
 #| Brazil		| Amapa				| 4000					| 68950-000		| 
@@ -1120,8 +1130,8 @@ And user should be displayed with "Location Address" in the "Address" Screen
 Examples:
 | max characters                   	|
 | This is to test max character		|
-| This is to test max characters		|
-| This is to test max characterss	|
+| This is to test max characters	|
+#| This is to test max characterss	|
   
 
 @GeneralGlobalDrawerAddressVerifyIfSpecialCharactersAreAllowedInLocationName             @Automated			@--xrayid:ATER-69066
@@ -1168,6 +1178,10 @@ And user should be displayed with "Location Address" in the "Address" Screen
 @GeneralGlobalDrawerAddressDeleteLocationWithoutAnySoultion            @Automated		@--xrayid:ATER-69069
 Scenario Outline: As a user i want to Verify delete location for an account without any solution
 Given user launches and logs in to the Lyric application
+When user selects "Change Country" from "Add New Device" screen
+Then user should be displayed with the "Please confirm your country" screen
+Then user inputs "United States" in "Search Text Field" in the "Please confirm your country" screen
+Then user should be displayed with the "Add New Device" screen
 When user selects "Smart Home Security" from "Add New Device" screen
 Then user should be displayed with the "What To Expect" screen
 When user navigates to "Choose Location" screen from the "What To Expect" screen
@@ -1186,32 +1200,30 @@ Then user should be displayed with the <Previous Screen> screen
 And user "deletes default location details" by clicking on "delete" button
     
 Examples: 
-| new location name		| valid zip code		| Current Screen					| Previous Screen	|
-| California				| 90001				| Add New Device Dashboard		| Dashboard			|
+| new location name		| valid zip code	| Current Screen				| Previous Screen	|
+| California			| 90001				| Add New Device Dashboard		| Dashboard			|
 
   
 #Requirements : single location with any solution
-@GeneralGlobalDrawerAddressDeleteLocationWithAnySoultion             @Automated		@--xrayid:ATER-74327			#PendingForAutomation
+@GeneralGlobalDrawerAddressDeleteLocationWithAnySolution             @Automated		@--xrayid:ATER-74327	
 Scenario: As a user i want to Verify if error popup displays when tapped on delete location for an account with any solution
 Given user launches and logs in to the Lyric Application
 When user navigates to "Address" screen from the "Dashboard" screen
 Then user should be displayed with the "Address" screen
 When user "deletes location" by clicking on "Delete Location" button
 Then user should receive a "Delete Location" popup
-When user "Clicks on NO in" the "Delete Location" popup
+When user "clicks on Ok in" the "Delete Location" popup
 Then user should be displayed with the "Address" screen
-When user "deletes location" by clicking on "Delete Location" button
-Then user should receive a "Delete Location" popup
-When user "Clicks on YES in" the "Delete Location" popup
-Then user should be displayed with "Device is associated with account error" popup
-When user "accepts" the "Device is associated with account error" popup
-Then user should be displayed with the "Address" screen
-
+Then user logs out of the app
   
 #Requirements : Two location with out any solution
 @GeneralGlobalDrawerAddressDeletingMultipleLocationsWithoutAnySolution            @Automated			@--xrayid:ATER-69070
 Scenario Outline: As a user i want to verify if user is navigated to other locations dashboard when a location is deleted for an account without any solution
 Given user launches and logs in to the Lyric application
+When user selects "Change Country" from "Add New Device" screen
+Then user should be displayed with the "Please confirm your country" screen
+Then user inputs "United States" in "Search Text Field" in the "Please confirm your country" screen
+Then user should be displayed with the "Add New Device" screen
 When user selects "Smart Home Security" from "Add New Device" screen
 Then user should be displayed with the "What To Expect" screen
 When user navigates to "Choose Location" screen from the "What To Expect" screen
@@ -1246,8 +1258,8 @@ Then user should be displayed with the "Dashboard" screen
 And user "deletes the existing location details" by clicking on "delete" button
     
 Examples: 
-| first location name	| valid first locations zip code		| second location name	| valid second locations zip code		| Current Screen					| Previous Screen	|
-| California				| 90001								|  Texas					| 90002									| Add New Device Dashboard		| Dashboard			|
+| first location name	| valid first locations zip code	| second location name	| valid second locations zip code		| Current Screen				| Previous Screen	|
+| California			| 90001								|  Texas				| 90002									| Add New Device Dashboard		| Dashboard			|
 
   
 #@GeneralGlobalDrawerWithsolutiondeleteoption
@@ -1275,7 +1287,9 @@ Then user should be displayed with the following "Edit Account" options:
 |Change Password   |
 |Delete Account    |
 |Use Passcode	   |
-And user should be displayed with the "First and Last Name" in "Edit Account" screen
+And user should be displayed with the "First and Last Name in the Edit Account" screen
+#And user should be displayed with "Updated First Name" in "Edit Account" screen
+#And user should be displayed with "Updated Last Name" in "Edit Account" screen
 And user should be displayed with the "Logged in Email" in "Edit Account" screen
 Then user selects "Name" from "Edit Account" screen
 Then user should be displayed with the "Name Edit Account" screen
@@ -1295,7 +1309,7 @@ Then user should be displayed with "Updated First and Last Name" in the "Edit Ac
 
 Examples: 
 | First name | Last name | 
-| giri       | THEJ      | 
+| giri       | THEJJ     | 
 | sami       | krishna   | 
 #| vijay      | Govda     | 
 #| anju       | Chandran   |  
@@ -1308,7 +1322,7 @@ Scenario: As a user i want to Verify if error message is displayed when tried to
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
-And user should be displayed with the "First and Last Name" in "Edit Account" screen
+And user should be displayed with the "First and Last Name in the Edit Account" screen
 And user should be displayed with the "Logged in Email" in "Edit Account" screen
 Then user selects "Name" from "Edit Account" screen
 When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
@@ -1331,7 +1345,7 @@ Scenario: As a user i want to Verify if error message is displayed when tried to
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
-And user should be displayed with the "First and Last Name" in "Edit Account" screen
+And user should be displayed with the "First and Last Name in the Edit Account" screen
 And user should be displayed with the "Logged in Email" in "Edit Account" screen
 Then user selects "Name" from "Edit Account" screen
 When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
@@ -1438,6 +1452,7 @@ And user should be displayed with "existing last name" in the "Edit Account" scr
 @GeneralGlobalDrawerEditAccountValidateMaxCharsInFirstNameAndLastNameTxtFields  @Automated	 @--xrayid:ATER-69082
 Scenario Outline: As a user i want to verify max characters that can be entered in first name and last name text fields in Edit Account screen
 Given user launches and logs in to the Lyric Application
+#And user should not be allowed to enter more than "40" characters in "Last Name" in the "Name Edit Account" screen
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
 Then user selects "Name" from "Edit Account" screen
@@ -1462,13 +1477,13 @@ Then the following "Edit Account" options should be enabled:
 | Save					|
 Then user selects "Save button" from "Name Edit Account" screen
 Then user should be displayed with the "Edit Account" screen
-Then user should be displayed with the "Updated First Name and Last Name" in the "Edit Account" screen
+Then user should be displayed with "Updated First and Last Name" in the "Edit Account" screen
 
 Examples:
 | max characters                   			|
-| Test maxm characters limit 40 character	|
+| Test maxm characters limit 40 characters	|
 #| Test maxm characters limit 40 characters	|
-#| Test maxm characters limit 40 characterss	|
+#| Test maxm characters limit 40 characterss|
 
   
 #Requirements : single location with and with out any solution
@@ -1854,7 +1869,7 @@ Given user launches and logs in to the Lyric Application
 When user navigates to "About the app" screen from the "Dashboard" screen
 Then user should be displayed with the "About the app" screen
 And user should be displayed with the following "About the app" options:
-| AboutTheAppOptions			|
+| AboutTheAppOptions		|
 | Version              		|
   
 
@@ -2758,7 +2773,7 @@ When user selects "Delete Account" from "Edit Account" screen
 Then user should be displayed with the "Delete Account Without Solution" screen
 And user should be displayed with the following "Delete Account" options:
 | DeleteAccountOptions				| 
-| We are sorry to see you go			|
+| We are sorry to see you go		|
 When user selects "Delete Account button" from "Delete Account" screen
 Then user should receive a "Your Account and Data is deleted" popup
 And user "Accepts" the "Your Account and Data is deleted" popup
@@ -2827,13 +2842,13 @@ And user should be displayed with the following "Learn How To Delete A Device" o
 | Was this helpful with Yes and No buttons	|
 When user selects "Close button" from "Learn How To Delete A Device" screen
 Then user should be displayed with the "Delete Account With Solution For Camera" screen
-When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
-Then user should be displayed with the "Learn How To Cancel A Membership" screen
-And user should be displayed with the following "Learn How To Cancel A Membership" options:
+#When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+#Then user should be displayed with the "Learn How To Cancel A Membership" screen
+#And user should be displayed with the following "Learn How To Cancel A Membership" options:
 | LearnHowToCancelAMembershipOptions			| 
 | Was this helpful with Yes and No buttons	|
-When user selects "Close button" from "Learn How To Cancel A Membership" screen
-Then user should be displayed with the "Delete Account With Solution" screen
+#When user selects "Close button" from "Learn How To Cancel A Membership" screen
+#Then user should be displayed with the "Delete Account With Solution" screen
 
 
 @DeleteAccountWithLocationHavingDASDeviceWithCameraSubscription             @Automated		@--xrayid:ATER-69140
@@ -2850,13 +2865,13 @@ And user should be displayed with the following "Learn How To Delete A Device" o
 | Was this helpful with Yes and No buttons	|
 When user selects "Close button" from "Learn How To Delete A Device" screen
 Then user should be displayed with the "Delete Account With Solution" screen
-When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
-Then user should be displayed with the "Learn How To Cancel A Membership" screen
-And user should be displayed with the following "Learn How To Cancel A Membership" options:
+#When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+#Then user should be displayed with the "Learn How To Cancel A Membership" screen
+#And user should be displayed with the following "Learn How To Cancel A Membership" options:
 | LearnHowToCancelAMembershipOptions			| 
 | Was this helpful with Yes and No buttons	|
-When user selects "Close button" from "Learn How To Cancel A Membership" screen
-Then user should be displayed with the "Delete Account With Solution" screen
+#When user selects "Close button" from "Learn How To Cancel A Membership" screen
+#Then user should be displayed with the "Delete Account With Solution" screen
 
 
 @DeleteAccountWithLocationHavingLyricRoundWiFiThermostatDeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81293
@@ -2873,13 +2888,13 @@ And user should be displayed with the following "Learn How To Delete A Device" o
 | Was this helpful with Yes and No buttons	|
 When user selects "Close button" from "Learn How To Delete A Device" screen
 Then user should be displayed with the "Delete Account With Solution" screen
-When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
-Then user should be displayed with the "Learn How To Cancel A Membership" screen
-And user should be displayed with the following "Learn How To Cancel A Membership" options:
+#When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+#Then user should be displayed with the "Learn How To Cancel A Membership" screen
+#And user should be displayed with the following "Learn How To Cancel A Membership" options:
 | LearnHowToCancelAMembershipOptions			| 
 | Was this helpful with Yes and No buttons	|
-When user selects "Close button" from "Learn How To Cancel A Membership" screen
-Then user should be displayed with the "Delete Account With Solution" screen
+#When user selects "Close button" from "Learn How To Cancel A Membership" screen
+#Then user should be displayed with the "Delete Account With Solution" screen
 
 
 @DeleteAccountWithLocationHavingD6PRODeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81294
@@ -2896,13 +2911,13 @@ And user should be displayed with the following "Learn How To Delete A Device" o
 | Was this helpful with Yes and No buttons	|
 When user selects "Close button" from "Learn How To Delete A Device" screen
 Then user should be displayed with the "Delete Account With Solution" screen
-When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
-Then user should be displayed with the "Learn How To Cancel A Membership" screen
-And user should be displayed with the following "Learn How To Cancel A Membership" options:
+#When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+#Then user should be displayed with the "Learn How To Cancel A Membership" screen
+#And user should be displayed with the following "Learn How To Cancel A Membership" options:
 | LearnHowToCancelAMembershipOptions			| 
 | Was this helpful with Yes and No buttons	|
-When user selects "Close button" from "Learn How To Cancel A Membership" screen
-Then user should be displayed with the "Delete Account With Solution" screen
+#When user selects "Close button" from "Learn How To Cancel A Membership" screen
+#Then user should be displayed with the "Delete Account With Solution" screen
 
 
 @DeleteAccountWithLocationHavingT5DeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81295
@@ -2919,13 +2934,13 @@ And user should be displayed with the following "Learn How To Delete A Device" o
 | Was this helpful with Yes and No buttons	|
 When user selects "Close button" from "Learn How To Delete A Device" screen
 Then user should be displayed with the "Delete Account With Solution" screen
-When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
-Then user should be displayed with the "Learn How To Cancel A Membership" screen
-And user should be displayed with the following "Learn How To Cancel A Membership" options:
+#When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+#Then user should be displayed with the "Learn How To Cancel A Membership" screen
+#And user should be displayed with the following "Learn How To Cancel A Membership" options:
 | LearnHowToCancelAMembershipOptions			| 
 | Was this helpful with Yes and No buttons	|
-When user selects "Close button" from "Learn How To Cancel A Membership" screen
-Then user should be displayed with the "Delete Account With Solution" screen
+#When user selects "Close button" from "Learn How To Cancel A Membership" screen
+#Then user should be displayed with the "Delete Account With Solution" screen
 
 
 @DeleteAccountWithLocationHavingT6PRODeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81296
@@ -2942,13 +2957,13 @@ And user should be displayed with the following "Learn How To Delete A Device" o
 | Was this helpful with Yes and No buttons	|
 When user selects "Close button" from "Learn How To Delete A Device" screen
 Then user should be displayed with the "Delete Account With Solution" screen
-When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
-Then user should be displayed with the "Learn How To Cancel A Membership" screen
-And user should be displayed with the following "Learn How To Cancel A Membership" options:
+#When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+#Then user should be displayed with the "Learn How To Cancel A Membership" screen
+#And user should be displayed with the following "Learn How To Cancel A Membership" options:
 | LearnHowToCancelAMembershipOptions			| 
 | Was this helpful with Yes and No buttons	|
-When user selects "Close button" from "Learn How To Cancel A Membership" screen
-Then user should be displayed with the "Delete Account With Solution" screen
+#When user selects "Close button" from "Learn How To Cancel A Membership" screen
+#Then user should be displayed with the "Delete Account With Solution" screen
 
 
 @DeleteAccountWithLocationHavingWLDDeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81297
@@ -2965,13 +2980,13 @@ And user should be displayed with the following "Learn How To Delete A Device" o
 | Was this helpful with Yes and No buttons	|
 When user selects "Close button" from "Learn How To Delete A Device" screen
 Then user should be displayed with the "Delete Account With Solution" screen
-When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
-Then user should be displayed with the "Learn How To Cancel A Membership" screen
-And user should be displayed with the following "Learn How To Cancel A Membership" options:
+#When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+#Then user should be displayed with the "Learn How To Cancel A Membership" screen
+#And user should be displayed with the following "Learn How To Cancel A Membership" options:
 | LearnHowToCancelAMembershipOptions			| 
 | Was this helpful with Yes and No buttons	|
-When user selects "Close button" from "Learn How To Cancel A Membership" screen
-Then user should be displayed with the "Delete Account With Solution" screen    
+#When user selects "Close button" from "Learn How To Cancel A Membership" screen
+#Then user should be displayed with the "Delete Account With Solution" screen    
 
 
 @DeleteAccountWithLocationHavingC1DeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81298
@@ -2988,13 +3003,13 @@ And user should be displayed with the following "Learn How To Delete A Device" o
 | Was this helpful with Yes and No buttons	|
 When user selects "Close button" from "Learn How To Delete A Device" screen
 Then user should be displayed with the "Delete Account With Solution" screen
-When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
-Then user should be displayed with the "Learn How To Cancel A Membership" screen
-And user should be displayed with the following "Learn How To Cancel A Membership" options:
-| LearnHowToCancelAMembershipOptions			| 
+#When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+#Then user should be displayed with the "Learn How To Cancel A Membership" screen
+#And user should be displayed with the following "Learn How To Cancel A Membership" options:
+| LearnHowToCancelAMembershipOptions		| 
 | Was this helpful with Yes and No buttons	|
-When user selects "Close button" from "Learn How To Cancel A Membership" screen
-Then user should be displayed with the "Delete Account With Solution" screen
+#When user selects "Close button" from "Learn How To Cancel A Membership" screen
+#Then user should be displayed with the "Delete Account With Solution" screen
 
 
 @DeleteAccountWithLocationHavingC2DeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81299
@@ -3011,13 +3026,13 @@ And user should be displayed with the following "Learn How To Delete A Device" o
 | Was this helpful with Yes and No buttons	|
 When user selects "Close button" from "Learn How To Delete A Device" screen
 Then user should be displayed with the "Delete Account With Solution" screen
-When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
-Then user should be displayed with the "Learn How To Cancel A Membership" screen
-And user should be displayed with the following "Learn How To Cancel A Membership" options:
+#When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+#Then user should be displayed with the "Learn How To Cancel A Membership" screen
+#And user should be displayed with the following "Learn How To Cancel A Membership" options:
 | LearnHowToCancelAMembershipOptions			| 
 | Was this helpful with Yes and No buttons	|
-When user selects "Close button" from "Learn How To Cancel A Membership" screen
-Then user should be displayed with the "Delete Account With Solution" screen
+#When user selects "Close button" from "Learn How To Cancel A Membership" screen
+#Then user should be displayed with the "Delete Account With Solution" screen
 
 
 @DeleteAccountWithLocationHavingLyricSmartControllerDeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81300
@@ -3034,13 +3049,13 @@ And user should be displayed with the following "Learn How To Delete A Device" o
 | Was this helpful with Yes and No buttons	|
 When user selects "Close button" from "Learn How To Delete A Device" screen
 Then user should be displayed with the "Delete Account With Solution" screen
-When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
-Then user should be displayed with the "Learn How To Cancel A Membership" screen
-And user should be displayed with the following "Learn How To Cancel A Membership" options:
+#When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+#Then user should be displayed with the "Learn How To Cancel A Membership" screen
+#And user should be displayed with the following "Learn How To Cancel A Membership" options:
 | LearnHowToCancelAMembershipOptions			| 
 | Was this helpful with Yes and No buttons	|
-When user selects "Close button" from "Learn How To Cancel A Membership" screen
-Then user should be displayed with the "Delete Account With Solution" screen
+#When user selects "Close button" from "Learn How To Cancel A Membership" screen
+#Then user should be displayed with the "Delete Account With Solution" screen
 
   
   @MultipleDeviceDeleteSameAccountRestAllDeviceLogsOut             @NotAutomatable		@--xrayid:ATER-69141
@@ -3157,6 +3172,7 @@ Then user should be displayed with the "Delete Account With Solution" screen
 @DeleteAllLocationsAndThenDeleteAccount             @Automated		@--xrayid:ATER-69147
 Scenario Outline: Verify if user is navigated to add device screen when all locations are deleted and account is deleted when user deletes the account
 Given user launches and logs in to the Lyric application with user account with location
+And user changes the country to "United States"
 When user selects "Smart Home Security" from "Add New Device" screen
 Then user should be displayed with the "What To Expect" screen
 When user navigates to "Choose Location" screen from the "What To Expect" screen

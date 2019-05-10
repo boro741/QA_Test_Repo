@@ -519,8 +519,10 @@ public class AddressScreen extends MobileScreens {
 			MobileUtils.hideKeyboard(testCase.getMobileDriver(),
 					"Hide Android Keyboard for Postal Code Text Field in Edit Address Screen");
 		} else {
+			//iOS
 			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "PostalCodeTextInEditAddressScreen");
-			testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypeTextField[@name='ZIP Code']")).clear();
+			//testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypeTextField[@name='ZIP Code' or @name='Postal Code']")).clear();
+			MobileUtils.getMobElement(objectDefinition, testCase, "PostalCodeTextInEditAddressScreen").clear();
 			flag &= MobileUtils.setValueToElement(objectDefinition, testCase, "PostalCodeTextInEditAddressScreen",
 					inputPostalCodeText);
 			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ReturnButtonIniOSKeyboard")) {
@@ -649,4 +651,41 @@ public class AddressScreen extends MobileScreens {
 		}
 		return flag;
 	}
+	
+	public boolean isYesButtonInDeleteLocationPopupLabelVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "YesButtonInDeleteLocationPopup");
+	}
+
+	public boolean isNoButtonInDeleteLocationPopupLabelVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoButtonInDeleteLocationPopup");
+	}
+
+	public boolean clickOnYesButtonInDeleteLocationPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "YesButtonInDeleteLocationPopup");
+	}
+
+	public boolean clickOnNoButtonInDeleteLocationPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "NoButtonInDeleteLocationPopup");
+	}
+	
+	public boolean isOkButtonInDeleteLocationPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OkButtonInDeleteLocationPopup", 3, false);
+	}
+	
+	public boolean clickOnOkButtonInDeleteLocationPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "OkButtonInDeleteLocationPopup");
+	}
+	
+	public boolean isDeleteLocationPopupLabelVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteLocationPopupLabel");
+	}
+	
+	public boolean isDeleteButtonInDeleteLocationPopupLabelVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteButtonInDeleteLocationPopup");
+	}
+	
+	public boolean isCancelButtonInDeleteLocationPopupLabelVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInDeleteLocationPopup");
+	}
+
 }

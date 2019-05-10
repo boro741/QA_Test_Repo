@@ -182,14 +182,13 @@ And user pop up should be disappear
 @GeneralGlobalDrawerActivityHistoryCheckAndUncheckAndCheckScnearios          @Automated
 Scenario: As a user I want to verify select all the messages in Activity History
 Given user launches and logs in to the Lyric Application
-#Then user selects "N X" from "Dashboard" screen
 When user navigates to "Activity history" screen from the "Dashboard" screen
 Then user selects "Edit" from "Activity history" screen
 Then user selects "All Messages" from "Activity history" screen
-And user unselects "A Message" from "Activity History" screen
+Then user unselects "a message" from "Activity History" screen
 When user selects "All Messages" from "Activity history" screen
 When user selects "Delete" from "Activity history" screen
-Then user should not be displayed with the "Messages" on the "Activity History" screen
+Then user should not be displayed with the "Messages" on the "Activity history" screen
 Then user logs out of the app
 
 #Requirements : Single location with and with out any solution
@@ -249,7 +248,7 @@ Scenario Outline: As a user I want to verify push notifcation clear after user l
 Given user sets the entry/exit timer to <Timer> seconds 
 Given user launches and logs in to the Lyric Application
 Then user clears all push notifications
-Then user selects "DASa" from "Dashboard" screen
+#Then user selects "DASa" from "Dashboard" screen
 Then user closes the coach marks
 And user is set to <Mode> mode through CHIL
 When user navigates to "Security Solution Card" screen from the "Dashboard" screen

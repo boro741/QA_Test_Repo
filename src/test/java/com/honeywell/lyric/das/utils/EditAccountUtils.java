@@ -168,16 +168,18 @@ public class EditAccountUtils {
 		boolean flag = true;
 		EditAccountScreen eas = new EditAccountScreen(testCase);
 		String userNameDisplayed = eas.getNameValueInEditAccountScreen();
-		//System.out.println("*******userNameDisplayed: " + userNameDisplayed);
-		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			
-		} else {
-			String name= updatedFirstName + " " + updatedLastName;
-			if(name.equals(userNameDisplayed)) {
-				System.out.println("The First and Last Name is updated");
-			}else{
-				flag = false;
-			}
+		System.out.println("*******userNameDisplayed: " + userNameDisplayed);
+		String userName[]= userNameDisplayed.split(" ");
+		userName[0]= updatedFirstName;
+		userName[1]= updatedLastName;
+		if(userName[0].equals(updatedFirstName) && userName[1].equals(updatedLastName)) {
+			System.out.println("The updated First Name is "+ updatedFirstName + "and the updated Last Name is: " + updatedLastName);
+			Keyword.ReportStep_Pass(testCase,
+					"The updated First Name is "+ updatedFirstName + "and the updated Last Name is: " + updatedLastName);
+		}else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"The updated First Name is "+ updatedFirstName + "and the updated Last Name is: " + updatedLastName);
 		}
 		return flag;
 	}
@@ -381,20 +383,19 @@ public class EditAccountUtils {
 	public static boolean verifyExistingFirstNameDisplayedInEditAccountScreen(TestCases testCase, String updatedFirstName) {
 		boolean flag = true;
 		EditAccountScreen eas = new EditAccountScreen(testCase);
-		String firstNameInEditAccountScreen = null;
-		firstNameInEditAccountScreen = eas.getFirstNameValueInNameScreen();
+		String firstNameInEditAccountScreen = eas.getFirstNameValueInNameScreen();
 		String firstName[]= firstNameInEditAccountScreen.split(" ");
-		System.out.println("The first name is: "+firstName[0]);
+		//System.out.println("The first name is: "+firstName[0]);
 		//System.out.println("*******firstNameInEditAccountScreen: " + firstNameInEditAccountScreen);
-		if (firstName[0].equalsIgnoreCase(firstName[0])) {
+		if (firstName[0].equalsIgnoreCase(updatedFirstName)) {
 			Keyword.ReportStep_Pass(testCase,
-					"First Name displayed in Edit Account Screen is: " + firstName[0]);
+					"First Name displayed in Edit Account Screen is: " + firstNameInEditAccountScreen);
 			return flag;
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"First Name displayed in Edit Account Screen is: " + firstName[0]
-							+ ", which is not same as the actual first name: " + firstName[0]);
+					"First Name displayed in Edit Account Screen is: " + firstNameInEditAccountScreen
+							+ ", which is not same as the actual first name: " + updatedFirstName);
 		}
 		return flag;
 	}
@@ -402,20 +403,19 @@ public class EditAccountUtils {
 	public static boolean verifyExistingLastNameDisplayedInEditAccountScreen(TestCases testCase, String updatedLastName) {
 		boolean flag = true;
 		EditAccountScreen eas = new EditAccountScreen(testCase);
-		String lastNameInEditAccountScreen = null;
-		lastNameInEditAccountScreen = eas.getFirstNameValueInNameScreen();
+		String lastNameInEditAccountScreen = eas.getFirstNameValueInNameScreen();
 		String lastName[]= lastNameInEditAccountScreen.split(" ");
-		System.out.println("The last name is: "+lastName[1]);
+		//System.out.println("The last name is: "+lastName[1]);
 		//System.out.println("*******firstNameInEditAccountScreen: " + firstNameInEditAccountScreen);
-		if (lastName[1].equalsIgnoreCase(lastName[1])) {
+		if (lastName[1].equalsIgnoreCase(updatedLastName)) {
 			Keyword.ReportStep_Pass(testCase,
-					"Last Name displayed in Edit Account Screen is: " + lastName[1]);
+					"Last Name displayed in Edit Account Screen is: " + lastNameInEditAccountScreen);
 			return flag;
 		} else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-					"Last Name displayed in Edit Account Screen is: " + lastName[1]
-							+ ", which is not same as the actual last name: " + lastName[1]);
+					"Last Name displayed in Edit Account Screen is: " + lastNameInEditAccountScreen
+							+ ", which is not same as the actual last name: " + updatedLastName);
 		}
 		return flag;
 	}

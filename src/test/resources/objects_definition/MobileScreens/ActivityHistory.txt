@@ -2,11 +2,6 @@ FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Lar
 Message	ID	ll_history_msg_container					XPATH	//XCUIElementTypeCell	Name	Z-Wave Devices	Name	Z-Wave Devices
 MessageTime	ID	view_notification_row_description										
 MessageContent	ID	view_notification_row_title										
-												
-												
-												
-												
-												
 DeviceNotFoundPopup	Xpath	//*[@text='Device not found!']					NAME	Device not found!	NAME	Device not found!	NAME	Device not found!
 TryExcludeOption	Xpath	//*[@text='Try Exclude']					NAME	Try Exclude	NAME	Try Exclude	NAME	Try Exclude
 RetryOption	Xpath	//*[@text='Retry']					NAME	Retry	NAME	Retry	NAME	Retry

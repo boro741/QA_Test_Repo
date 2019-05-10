@@ -29,6 +29,7 @@ import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.EditAccountScreen;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.ManageUsersScreen;
+import com.honeywell.screens.NameEditAccountScreen;
 import com.honeywell.screens.OSPopUps;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
@@ -870,7 +871,7 @@ public class PerformActionsOnPopUp extends Keyword {
 					}
 				}else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to click on the buttons in Allow Honeywell to access your location Popup");
+							"Don't Allow button is not displayed in Allow Honeywell to access your location popup");
 				}
 				break;
 			}
@@ -885,7 +886,7 @@ public class PerformActionsOnPopUp extends Keyword {
 					}
 				}else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to click on the buttons in Allow Honeywell to access your location Popup");
+							"Allow button is not displayed in Allow Honeywell to access your location popup");
 				}
 				break;
 			}
@@ -900,7 +901,7 @@ public class PerformActionsOnPopUp extends Keyword {
 					}
 				}else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to click on the buttons in Allow Honeywell to access your location Popup");
+							"Select Only while using the app button is not displayed in Allow Honeywell to access your location popup");
 				}
 				break;
 			}
@@ -920,7 +921,7 @@ public class PerformActionsOnPopUp extends Keyword {
 					}
 				}else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to click on the buttons in Honeywell would like to send you notifications Popup");
+							"Don't Allow button is not displayed in Honeywell would like to send you notifications popup");
 				}
 				break;
 			}
@@ -935,7 +936,7 @@ public class PerformActionsOnPopUp extends Keyword {
 					}
 				}else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to click on the buttons in Honeywell would like to send you notifications Popup");
+							"Allow button is not displayed in Honeywell would like to send you notifications popup");
 				}
 				break;
 			}
@@ -955,7 +956,7 @@ public class PerformActionsOnPopUp extends Keyword {
 					}
 				}else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to click on the buttons in Allow Honeywell to access this devices location Popup");
+							"Allow button is not displayed in Allow Honeywell to access this devices location popup");
 				}
 				break;
 			}
@@ -970,7 +971,7 @@ public class PerformActionsOnPopUp extends Keyword {
 					}
 				}else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to click on the buttons in Allow Honeywell to access this devices location Popup");
+							"Deny button is not displayed in Allow Honeywell to access this devices location popup");
 				}
 				break;
 			}
@@ -979,10 +980,25 @@ public class PerformActionsOnPopUp extends Keyword {
 		
 		
 		else if (expectedPopUp.get(1).equalsIgnoreCase("DELETE USER")) {
-			OSPopUps ops = new OSPopUps(testCase);
+			ManageUsersScreen mus = new ManageUsersScreen(testCase);
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "CLICKS ON OK IN": {
-				if(ops.isOkButtonInDeleteUserPopupVisible()) {
+                if (mus.isOKButtonInDeleteUserPopupVisible()) {
+                        flag &= mus.clickOnOKButtonInDeleteUserPopup();
+                        if (mus.isManageUsersScreenHeaderVisible() && mus.isInviteNewUserButtonVisible()
+                                           && mus.isBackButtonVisible()) {
+                                 Keyword.ReportStep_Pass(testCase, "User is deleted and is in Manage Users screen");
+                         } else {
+                                       Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                    "User is not in Manage Users screen");
+                         }
+                   } else {
+                        flag = false;
+                        Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                             "Remove button is not displayed in: " + expectedPopUp.get(0));
+                }
+                break;
+				/*if(ops.isOkButtonInDeleteUserPopupVisible()) {
 					flag&= ops.clickOnOkButtonInDeleteUserPopup(); 
 					if(flag) {
 						Keyword.ReportStep_Pass(testCase, "Clicked on OK button in Delete User Popup");
@@ -994,10 +1010,27 @@ public class PerformActionsOnPopUp extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Failed to click on the OK button in Delete User Popup");
 				}
-				break;
+				break;*/
 			}
 			case "CLICKS ON CANCEL IN" : {
-				if(ops.isCancelButtonInDeleteUserPopupVisible()) {
+					if (mus.isCancelButtonInDeleteUserPopupVisible()) {
+							flag &= mus.clickOnCancelButtonInDeleteUserPopup();
+							if (mus.isManageUsersScreenHeaderVisible() && mus.isInviteNewUserButtonVisible()
+										&& mus.isBackButtonVisible()) {
+									Keyword.ReportStep_Pass(testCase, "User is in Manage Users screen");
+							} else {
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"User is not in Manage Users screen");
+							}
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Cancel button is not displayed in: " + expectedPopUp.get(0));
+					}
+					break;
+				}
+			
+				/*if(ops.isCancelButtonInDeleteUserPopupVisible()) {
 					flag&= ops.clickOnCancelButtonInDeleteUserPopup(); 
 					if(flag) {
 						Keyword.ReportStep_Pass(testCase, "Clicked on Cancel button in Delete User Popup");
@@ -1010,7 +1043,7 @@ public class PerformActionsOnPopUp extends Keyword {
 							"Failed to click on the Cancel button in Delete User Popup");
 				}
 				break;
-			}
+			}*/
 			}
 		} else if (expectedPopUp.get(1).equalsIgnoreCase("UPDATE GEOFENCE CENTER")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
@@ -1366,11 +1399,11 @@ public class PerformActionsOnPopUp extends Keyword {
 			}
 			}
 		} else if(expectedPopUp.get(1).equalsIgnoreCase("DELETE LOCATION")) {
-			OSPopUps ops = new OSPopUps(testCase);
+			AddressScreen ads= new AddressScreen(testCase);
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "CLICKS ON YES IN": {
-				if(ops.isYesButtonInDeleteLocationPopupLabelVisible()) {
-					flag&= ops.clickOnYesButtonInDeleteLocationPopup();
+				if(ads.isYesButtonInDeleteLocationPopupLabelVisible()) {
+					flag&= ads.clickOnYesButtonInDeleteLocationPopup();
 					if(flag) {
 						Keyword.ReportStep_Pass(testCase, "Clicked on Yes button in Delete Location Popup");
 					}else {
@@ -1379,13 +1412,13 @@ public class PerformActionsOnPopUp extends Keyword {
 					}
 				}else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to click on the Yes button in Delete Location Popup");
+							"Yes button in Delete Location popup is not displayed");
 				}
 				break;
 			}
 			case "CLICKS ON NO IN": {
-				if(ops.isNoButtonInDeleteLocationPopupLabelVisible()) {
-					flag&= ops.clickOnNoButtonInDeleteLocationPopup();
+				if(ads.isNoButtonInDeleteLocationPopupLabelVisible()) {
+					flag&= ads.clickOnNoButtonInDeleteLocationPopup();
 					if(flag) {
 						Keyword.ReportStep_Pass(testCase, "Clicked on No button in Delete Location Popup");
 					}else {
@@ -1394,22 +1427,37 @@ public class PerformActionsOnPopUp extends Keyword {
 					}
 				}else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to click on the No button in Delete Location Popup");
+							"No button in Delete Location popup is not displayed");
+				}
+				break;
+			}
+			case "CLICKS ON OK IN" : {
+				if(ads.isOkButtonInDeleteLocationPopupVisible()) {
+					flag &=ads.clickOnOkButtonInDeleteLocationPopup();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on Ok button in Delete Location Popup");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on the Ok button in Delete Location Popup");
+					}
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"OK button in Delete Location popup is not displayed");
 				}
 				break;
 			}
 		  }
 		} else if(expectedPopUp.get(1).equalsIgnoreCase("CANCEL NAME CHANGES")) {
-			OSPopUps ops = new OSPopUps(testCase);
+			NameEditAccountScreen neas = new NameEditAccountScreen(testCase);
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "CLICKS ON YES IN": {
-				if(ops.isYesButtonInCancelNameChangesPopupVisible()) {
-					flag&= ops.clickOnYesButtonInCancelNameChangesPopupVisible();
+				if(neas.isYesButtonInCancelNameChangesPopupVisible()) {
+					flag&= neas.clickOnYesButtonInCancelNameChangesPopupVisible();
 					if(flag) {
 						Keyword.ReportStep_Pass(testCase, "Clicked on Yes button in Cancel Name Changes Popup");
 					}else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Failed to click on Yes button in Cancel Name Changes Popup");
+								"Yes button in Delete Name Changes popup is not displayed");
 					}
 				}else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1418,13 +1466,13 @@ public class PerformActionsOnPopUp extends Keyword {
 				break;
 			}
 			case "CLICKS ON NO IN": {
-				if(ops.isNoButtonInCancelNameChangesPopupVisible()) {
-					flag&= ops.clickOnNoButtonInCancelNameChangesPopupVisible();
+				if(neas.isNoButtonInCancelNameChangesPopupVisible()) {
+					flag&= neas.clickOnNoButtonInCancelNameChangesPopupVisible();
 					if(flag) {
 						Keyword.ReportStep_Pass(testCase, "Clicked on No button in Cancel Name Changes Popup");
 					}else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Failed to click on No button in Cancel Name Changes Popup");
+								"No button in Delete Name Changes popup is not displayed");
 					}
 				}else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

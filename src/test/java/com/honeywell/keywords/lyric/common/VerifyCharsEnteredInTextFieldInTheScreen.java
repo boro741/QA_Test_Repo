@@ -107,13 +107,13 @@ public class VerifyCharsEnteredInTextFieldInTheScreen extends Keyword {
 		} else if (textEnteredInCustomNameTxtField.get(2).equalsIgnoreCase("NAME EDIT ACCOUNT")) {
 			switch (textEnteredInCustomNameTxtField.get(1).toUpperCase()) {
 			case "FIRST NAME": {
-				NameEditAccountUtils.verifyIfMaxCharsEnteredInFirstNameTxtFieldInNameEditAccountScreen(testCase, inputs,
+				flag&=NameEditAccountUtils.verifyIfMaxCharsEnteredInFirstNameTxtFieldInNameEditAccountScreen(testCase, inputs,
 						maxAllowedCharLength, inputs.getInputValue("UPDATED_FIRST_NAME_IN_NAME_EDIT_ACCOUNT"));
 				break;
 			}
 			case "LAST NAME": {
-				NameEditAccountUtils.verifyIfMaxCharsEnteredInLastNameTxtFieldInNameEditAccountScreen(testCase, inputs,
-						maxAllowedCharLength, inputs.getInputValue("UPDATED_LAST_NAME_IN_NAME_EDIT_ACCOUNT"));
+				flag &=NameEditAccountUtils.verifyIfMaxCharsEnteredInLastNameTxtFieldInNameEditAccountScreen(testCase, inputs,
+						maxAllowedCharLength, "Test maxm characters limit 40 characters");
 				break;
 			}
 			}

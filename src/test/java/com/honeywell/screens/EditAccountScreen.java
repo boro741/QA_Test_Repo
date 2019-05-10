@@ -573,12 +573,7 @@ public class EditAccountScreen extends MobileScreens {
 	
 	public String getLoggedInUserEmail() {
 		String userEmailAddress= null;
-		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			
-		}else {
-			//ios
-			userEmailAddress = MobileUtils.getFieldValue(objectDefinition, testCase, "LoggedInEmail");
-		}
+		userEmailAddress = MobileUtils.getFieldValue(objectDefinition, testCase, "LoggedInEmail");
 		return userEmailAddress;
 	}
 	

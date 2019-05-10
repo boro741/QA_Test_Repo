@@ -99,8 +99,12 @@ public class NameEditAccountUtils {
 		boolean flag = true;
 		NameEditAccountScreen neas = new NameEditAccountScreen(testCase);
 		flag &= neas.enterFirstNameValueInNameEditAccountScreen(inputs, firstNameValueInput);
-		testCase.getMobileDriver().findElement(By.name("Next:")).click();
-		testCase.getMobileDriver().findElement(By.name("Done")).click();
+		
+		if(testCase.getPlatform().toUpperCase().contains("IOS")) {
+			//ios
+			testCase.getMobileDriver().findElement(By.name("Next:")).click();
+			testCase.getMobileDriver().findElement(By.name("Done")).click();
+		}
 		if (flag) {
 			Keyword.ReportStep_Pass(testCase,
 					"Successfully entered text in First Name text field:" + firstNameValueInput);
@@ -117,6 +121,11 @@ public class NameEditAccountUtils {
 		boolean flag = true;
 		NameEditAccountScreen neas = new NameEditAccountScreen(testCase);
 		flag &= neas.enterLastNameValueInNameEditAccountScreen(inputs, lastNameValueInput);
+		if(testCase.getPlatform().toUpperCase().contains("IOS")) {
+			//ios
+			testCase.getMobileDriver().findElement(By.name("Next:")).click();
+			testCase.getMobileDriver().findElement(By.name("Done")).click();
+		}
 		if (flag) {
 			Keyword.ReportStep_Pass(testCase,
 					"Successfully entered text in Last Name text field:" + lastNameValueInput);
@@ -132,11 +141,11 @@ public class NameEditAccountUtils {
 			TestCaseInputs inputs, int maxAllowedCharsLength, String enteredMaxChars) {
 		NameEditAccountScreen neas = new NameEditAccountScreen(testCase);
 		boolean flag = true;
-		System.out.println("*******maxAllowedCharsLength: " + maxAllowedCharsLength);
-		System.out.println("*******enteredMaxChars: " + enteredMaxChars);
+		//System.out.println("*******maxAllowedCharsLength: " + maxAllowedCharsLength);
+		//System.out.println("*******enteredMaxChars: " + enteredMaxChars);
 		String valueDisplayedInFirstNameTxtFieldInNameEditAccountScreen = neas.getFirstNameValueInNameEditAccountScreen();
-		System.out.println("*******valueDisplayedInFirstNameTxtFieldInNameEditAccountScreen: "
-				+ valueDisplayedInFirstNameTxtFieldInNameEditAccountScreen);
+		/*System.out.println("*******valueDisplayedInFirstNameTxtFieldInNameEditAccountScreen: "
+				+ valueDisplayedInFirstNameTxtFieldInNameEditAccountScreen);*/
 		if (enteredMaxChars.length() <= maxAllowedCharsLength) {
 			if (valueDisplayedInFirstNameTxtFieldInNameEditAccountScreen.equalsIgnoreCase(enteredMaxChars)) {
 				Keyword.ReportStep_Pass(testCase,
@@ -169,11 +178,11 @@ public class NameEditAccountUtils {
 			TestCaseInputs inputs, int maxAllowedCharsLength, String enteredMaxChars) {
 		NameEditAccountScreen neas = new NameEditAccountScreen(testCase);
 		boolean flag = true;
-		System.out.println("*******maxAllowedCharsLength: " + maxAllowedCharsLength);
-		System.out.println("*******enteredMaxChars: " + enteredMaxChars);
+		//System.out.println("*******maxAllowedCharsLength: " + maxAllowedCharsLength);
+		//System.out.println("*******enteredMaxChars: " + enteredMaxChars);
 		String valueDisplayedInLastNameTxtFieldInNameEditAccountScreen = neas.getLastNameValueInNameEditAccountScreen();
-		System.out.println("*******valueDisplayedInLastNameTxtFieldInNameEditAccountScreen: "
-				+ valueDisplayedInLastNameTxtFieldInNameEditAccountScreen);
+		/*System.out.println("*******valueDisplayedInLastNameTxtFieldInNameEditAccountScreen: "
+				+ valueDisplayedInLastNameTxtFieldInNameEditAccountScreen);*/
 		if (enteredMaxChars.length() <= maxAllowedCharsLength) {
 			if (valueDisplayedInLastNameTxtFieldInNameEditAccountScreen.equalsIgnoreCase(enteredMaxChars)) {
 				Keyword.ReportStep_Pass(testCase,

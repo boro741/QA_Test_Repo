@@ -343,14 +343,14 @@ public class EnterTextInATextField extends Keyword {
 					flag &= NameEditAccountUtils.enterFirstNameInNameEditAccountScreen(testCase, inputs,
 							inputs.getInputValue("FIRST_NAME_IN_NAME_EDIT_ACCOUNT"));
 				} else if(inputName.get(0).equalsIgnoreCase("MAX CHARACTERS")) {
-					NameEditAccountUtils.enterFirstNameInNameEditAccountScreen(testCase, inputs, 
+					flag &= NameEditAccountUtils.enterFirstNameInNameEditAccountScreen(testCase, inputs, 
 							inputs.getInputValue("FIRST_NAME_IN_NAME_EDIT_ACCOUNT"));
 				} else if (inputName.get(0).equalsIgnoreCase("SPECIAL CHARACTERS")) {
 					Random rand = new Random();
 					int randomInt = rand.nextInt(100);
 					String specialCharsInFirstNameTxtField = "&#$" + inputs.getInputValue("FIRST_NAME_IN_NAME_EDIT_ACCOUNT")
 							+ randomInt + "%^&*";
-					System.out.println("#########specialCharsInFirstNameTxtField: " + specialCharsInFirstNameTxtField);
+					//System.out.println("#########specialCharsInFirstNameTxtField: " + specialCharsInFirstNameTxtField);
 					inputs.setInputValue("UPDATED_FIRST_NAME_IN_NAME_EDIT_ACCOUNT", specialCharsInFirstNameTxtField);
 					flag &= NameEditAccountUtils.enterFirstNameInNameEditAccountScreen(testCase, inputs,
 							specialCharsInFirstNameTxtField);
@@ -365,17 +365,17 @@ public class EnterTextInATextField extends Keyword {
 					flag &= NameEditAccountUtils.enterLastNameInNameEditAccountScreen(testCase, inputs,
 							inputs.getInputValue("LAST_NAME_IN_EDIT_ACCOUNT"));
 				} else if(inputName.get(0).equalsIgnoreCase("MAX CHARACTERS")) {
-					NameEditAccountUtils.enterLastNameInNameEditAccountScreen(testCase, inputs, 
+					flag &= NameEditAccountUtils.enterLastNameInNameEditAccountScreen(testCase, inputs, 
 							inputs.getInputValue("LAST_NAME_IN_EDIT_ACCOUNT"));
 				} else if (inputName.get(0).equalsIgnoreCase("SPECIAL CHARACTERS")) {
 					Random rand = new Random();
 					int randomInt = rand.nextInt(100);
-					String specialCharsInFirstNameTxtField = "&#$" + inputs.getInputValue("LAST_NAME_IN_EDIT_ACCOUNT")
+					String specialCharsInLastNameTxtField = "&#$" + inputs.getInputValue("LAST_NAME_IN_EDIT_ACCOUNT")
 							+ randomInt + "%^&*";
-					System.out.println("#########specialCharsInFirstNameTxtField: " + specialCharsInFirstNameTxtField);
-					inputs.setInputValue("UPDATED_LAST_NAME_IN_EDIT_ACCOUNT", specialCharsInFirstNameTxtField);
+					//System.out.println("#########specialCharsInFirstNameTxtField: " + specialCharsInLastNameTxtField);
+					inputs.setInputValue("UPDATED_LAST_NAME_IN_EDIT_ACCOUNT", specialCharsInLastNameTxtField);
 					flag &= NameEditAccountUtils.enterLastNameInNameEditAccountScreen(testCase, inputs,
-							specialCharsInFirstNameTxtField);
+							specialCharsInLastNameTxtField);
 				} else {
 					inputs.setInputValue("UPDATED_LAST_NAME_IN_EDIT_ACCOUNT", inputName.get(0));
 					flag &= NameEditAccountUtils.enterLastNameInNameEditAccountScreen(testCase, inputs, inputName.get(0));

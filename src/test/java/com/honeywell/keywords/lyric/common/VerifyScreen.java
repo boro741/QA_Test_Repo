@@ -1629,13 +1629,13 @@ public class VerifyScreen extends Keyword {
 				break;
 			}
 			
-			case "FIRST AND LAST NAME" :{
+			case "FIRST AND LAST NAME IN THE EDIT ACCOUNT" :{
 				EditAccountScreen eas= new EditAccountScreen(testCase);
 				if(eas.isFirstNameValueVisibleInNameScreen() && eas.isLastNameValueVisibleInNameScreen()) {
 					Keyword.ReportStep_Pass(testCase, "First Name & Last Name value is displayed");
 				}else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"First Name and Last Name value is not displayed" + expectedScreen.get(0));
+							"Failed to navigate to " + expectedScreen.get(0));
 				}
 				break;
 			}
@@ -1648,7 +1648,7 @@ public class VerifyScreen extends Keyword {
 					Keyword.ReportStep_Pass(testCase, "Logged in user email address is displayed");
 				}else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Logged in user email address is not displayed" + expectedScreen.get(0));
+							"Failed to navigate to " + expectedScreen.get(0));
 				}
 				break;
 			}
@@ -1659,7 +1659,7 @@ public class VerifyScreen extends Keyword {
 					Keyword.ReportStep_Pass(testCase, "Name Edit Account title is displayed");
 				}else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Name Edit Account title is not displayed" + expectedScreen.get(0));
+							"Failed to navigate to " + expectedScreen.get(0));
 				}
 				break;
 			}

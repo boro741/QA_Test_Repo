@@ -70,7 +70,8 @@ public class NameEditAccountScreen extends MobileScreens {
 	public boolean clearTextDisplayedInFirstNameTextFieldInNameEditAccountScreen() {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			testCase.getMobileDriver().findElement(By.id("fragment_current_user_first_edit_text")).clear();
+			//testCase.getMobileDriver().findElement(By.id("fragment_current_user_first_edit_text")).clear();
+			MobileUtils.getMobElement(objectDefinition, testCase, "FirstNameValueInNameEditAccountScreen").clear();
 			MobileUtils.hideKeyboard(testCase.getMobileDriver());
 		} else {
 			flag &= MobileUtils.clearTextField(objectDefinition, testCase, "FirstNameValueInNameEditAccountScreen");
@@ -83,7 +84,8 @@ public class NameEditAccountScreen extends MobileScreens {
 	public boolean clearTextDisplayedInLastNameTextFieldInNameEditAccountScreen() {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			testCase.getMobileDriver().findElement(By.id("fragment_current_user_last_edit_text")).clear();
+			//testCase.getMobileDriver().findElement(By.id("fragment_current_user_last_edit_text")).clear();
+			MobileUtils.getMobElement(objectDefinition, testCase, "LastNameValueInNameEditAccountScreen").clear();
 			MobileUtils.hideKeyboard(testCase.getMobileDriver());
 		} else {
 			flag &= MobileUtils.clearTextField(objectDefinition, testCase, "LastNameValueInNameEditAccountScreen");
@@ -96,7 +98,8 @@ public class NameEditAccountScreen extends MobileScreens {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "FirstNameValueInNameEditAccountScreen");
-			testCase.getMobileDriver().findElement(By.id("fragment_current_user_first_edit_text")).clear();
+			//testCase.getMobileDriver().findElement(By.id("fragment_current_user_first_edit_text")).clear();
+			MobileUtils.getMobElement(objectDefinition, testCase, "FirstNameValueInNameEditAccountScreen").clear();
 			flag &= MobileUtils.setValueToElement(objectDefinition, testCase, "FirstNameValueInNameEditAccountScreen",
 					inputFirstNameText);
 			MobileUtils.hideKeyboard(testCase.getMobileDriver(),
@@ -115,7 +118,8 @@ public class NameEditAccountScreen extends MobileScreens {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "LastNameValueInNameEditAccountScreen");
-			testCase.getMobileDriver().findElement(By.id("fragment_current_user_last_edit_text")).clear();
+			//testCase.getMobileDriver().findElement(By.id("fragment_current_user_last_edit_text")).clear();
+			MobileUtils.getMobElement(objectDefinition, testCase, "LastNameValueInNameEditAccountScreen").clear();
 			flag &= MobileUtils.setValueToElement(objectDefinition, testCase, "LastNameValueInNameEditAccountScreen",
 					inputLastNameText);
 			MobileUtils.hideKeyboard(testCase.getMobileDriver(),
@@ -148,10 +152,42 @@ public class NameEditAccountScreen extends MobileScreens {
 	}
 	
 	public String getFirstNameValueInNameEditAccountScreen() {
-		return MobileUtils.getMobElement(objectDefinition, testCase, "FirstNameValueInNameEditAccountScreen").getAttribute("value");
+		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.getMobElement(objectDefinition, testCase, "FirstNameValueInNameEditAccountScreen").getAttribute("text");
+		}else {
+			return MobileUtils.getMobElement(objectDefinition, testCase, "FirstNameValueInNameEditAccountScreen").getAttribute("value");
+		}
 	}
 	
 	public String getLastNameValueInNameEditAccountScreen() {
-		return MobileUtils.getMobElement(objectDefinition, testCase, "LastNameValueInNameEditAccountScreen").getAttribute("value");
+		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.getMobElement(objectDefinition, testCase, "LastNameValueInNameEditAccountScreen").getAttribute("text");
+		}else {
+			return MobileUtils.getMobElement(objectDefinition, testCase, "LastNameValueInNameEditAccountScreen").getAttribute("value");
+		}
+	}
+	
+	public boolean isCancelNameChangesPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelNameChangesPopupTitle");
+	}
+	
+	public boolean isCancelNameChangesPopupMsgVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelNameChangesPopupMsg");
+	}
+	
+	public boolean isYesButtonInCancelNameChangesPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "YesButtonInCancelNameChangesPopup");
+	}
+	
+	public boolean isNoButtonInCancelNameChangesPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "NoButtonInCancelNameChangesPopup");
+	}
+	
+	public boolean clickOnYesButtonInCancelNameChangesPopupVisible() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "YesButtonInCancelNameChangesPopup");
+	}
+	
+	public boolean clickOnNoButtonInCancelNameChangesPopupVisible() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "NoButtonInCancelNameChangesPopup");
 	}
 }

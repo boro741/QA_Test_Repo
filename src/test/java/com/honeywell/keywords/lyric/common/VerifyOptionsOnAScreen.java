@@ -3656,7 +3656,9 @@ public class VerifyOptionsOnAScreen extends Keyword {
 								e.printStackTrace();
 							}
 							action.press(point(10, (int) (dimensions.getHeight() * .9)))
-									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+								.waitAction(waitOptions(MobileUtils.getDuration(2000)))
+								.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+
 
 						}
 						if (cas.isCreateAccountByTappingCreateBelowTextDisplayed()) {

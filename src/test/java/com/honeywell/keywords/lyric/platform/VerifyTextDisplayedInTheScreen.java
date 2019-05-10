@@ -275,7 +275,7 @@ public class VerifyTextDisplayedInTheScreen extends Keyword {
 						inputs.getInputValue("UPDATED_LAST_NAME_IN_EDIT_ACCOUNT"));
 				break;
 			}
-			}
+		  }
 		} else if (inputText.get(1).equalsIgnoreCase("QUESTION")) {
 			switch (inputText.get(0).toUpperCase()) {
 			case "YOU FOUND THIS HELPFUL":
