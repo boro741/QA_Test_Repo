@@ -2,16 +2,17 @@
 Feature: Dashboard
 As a user I want to verify the newly implemented dashboard status area in the dashboard screen
 
-@DashboardCoachMarksWithLocationWithoutAnyDevice		@Automatable
-Scenario: To verify the dashboard coach marks after successfully sign into the app with location anad without any device
+
+@DashboardCoachMarksWithLocationWithoutAnyDevice
+Scenario:   To verify the dashboard coach marks after successfully sign into the app with location anad without any device
 Given user launches and logs in to the Lyric application with user account with location and without any device and without closing the coach marks
 Then user should be displayed with coach marks on top of the dashboard screen
 When user navigates back and forth in "Coach Marks in Dashboard" screen
 Then user should be displayed with "Weather status" in Dashboard status area
 
 
-@DashboardCoachMarksByMinimizingAndMaximizingTheApp		@Automatable
-Scenario:  To verify the dashboard coach marks after successfully sign into the app and by minmizing and maximizing the app
+@DashboardCoachMarksByMinimizingAndMaximizingTheApp
+Scenario:   To verify the dashboard coach marks after successfully sign into the app and by minmizing and maximizing the app
 Given user launches and logs in to the Lyric application with user account with location and with any device and without closing the coach marks
 Then user should be displayed with coach marks on top of the dashboard screen
 When user minimizes and maximizes the app
@@ -20,8 +21,8 @@ When user "navigates to Dashboard screen" by clicking on "Coach Marks Done" butt
 Then user should be displayed with "Weather status" in Dashboard status area
 
 
-@DashboardCoachMarksByKillAndRelaunchTheApp		@Automatable
-Scenario: To verify the dashboard coach marks after successfully sign into the app and by killing and relaunching the app
+@DashboardCoachMarksByKillAndRelaunchTheApp
+Scenario:   To verify the dashboard coach marks after successfully sign into the app and by killing and relaunching the app
 Given user launches and logs in to the Lyric application with user account with location and with any device and without closing the coach marks
 Then user should be displayed with coach marks on top of the dashboard screen
 When user kills and relaunches the app
@@ -30,8 +31,8 @@ When user "navigates to Dashboard screen" by clicking on "Coach Marks Done" butt
 Then user should be displayed with "Weather status" in Dashboard status area
 
 
-@DashboardCoachMarksWhenAppIsInstalledForTheFirstTimeOnly	@Automatable
-Scenario: To verify the dashboard coach marks after successfully sign into the app for the first time after the app is installed
+@DashboardCoachMarksWhenAppIsInstalledForTheFirstTimeOnly
+Scenario:   To verify the dashboard coach marks after successfully sign into the app for the first time after the app is installed
 Given user launches and logs in to the Lyric application with user account with location and with any device and without closing the coach marks
 Then user should be displayed with coach marks on top of the dashboard screen
 When user "navigates to Dashboard screen" by clicking on "Coach Marks Done" button
@@ -40,16 +41,16 @@ When user logs out and logs in to the Lyric Application with "logged in users ac
 Then user should not be displayed with coach marks on top of the dashboard screen
 
 
-@DashboardCoachMarksBasedOnTheDeviceRegistered		@Automatable
-Scenario:  To verify the dashboard coach marks based on the device registered after successfully sign into the app
+@DashboardCoachMarksBasedOnTheDeviceRegistered
+Scenario:   To verify the dashboard coach marks based on the device registered after successfully sign into the app
 Given user launches and logs in to the Lyric application with user account with location and with any device and without closing the coach marks
 Then user should be displayed with coach marks on top of the dashboard screen
 When user "navigates to Dashboard screen" by clicking on "Coach Marks Done" button
 Then user should be displayed with "Weather status" in Dashboard status area
 
 
-@DashboardStatusAreaWithLocationWithoutAnyDevice	@Automatable
-Scenario:  To verify the dashboard status area in dashboard screen when there are no devices for a location
+@DashboardStatusAreaWithLocationWithoutAnyDevice
+Scenario:   To verify the dashboard status area in dashboard screen when there are no devices for a location
 Given user launches and logs in to the Lyric application with user account with location
 Then user should be displayed with "Weather status" in Dashboard status area
 And user should be displayed with the following "Weather" options:
@@ -61,8 +62,8 @@ And user should be displayed with the following "Weather" options:
 And Add New Device button should be displayed below Dashboard status area
 
 
-@DashboardStatusAreaWithLocationWithAnyDevice	@Automatable
-Scenario:  To verify the dashboard screen when there is a device for a location
+@DashboardStatusAreaWithLocationWithAnyDevice
+Scenario:   To verify the dashboard screen when there is a device for a location
 Given user launches and logs in to the Lyric application
 Then user should be displayed with "Weather status" in Dashboard status area
 And user should be displayed with the following "Weather" options:
@@ -75,10 +76,10 @@ And Device should be displayed below Dashboard status area
 And Add New Device button should be displayed below the device
 
 
-@DashboardStatusAreaWithWeatherFetchingStatus	@Automatable
-Scenario:  To verify the dashboard screen while fetching the weather status
+@DashboardStatusAreaWithWeatherFetchingStatus
+Scenario:   To verify the dashboard screen while fetching the weather status
 Given user launches and logs in to the Lyric application
-#When app is fetching the weather data
+When app is fetching the weather data
 Then user should be displayed with the following "Weather" options:
 | WeatherOptions				                        |
 | Today's Forecast Header                               |
@@ -87,8 +88,8 @@ And Device should be displayed below Dashboard status area
 And Add New Device button should be displayed below the device
 
 
-@DashboardStatusAreaWithWeatherUnavailableStatus	@NotAutomatable
-Scenario: To verify the dashboard screen when weather is unavailable
+@DashboardStatusAreaWithWeatherUnavailableStatus
+Scenario:   To verify the dashboard screen when weather is unavailable
 Given user launches and logs in to the Lyric application
 When weather data is unavailable
 Then user should be displayed with the following "Weather" options:
@@ -100,8 +101,8 @@ And Device should be displayed below Dashboard status area
 And Add New Device button should be displayed below the device
 
 
-@VerifyIfUserIsAbleToScrollVerticallyWhenAddNewDeviceIsVisible	 @Automatable
-Scenario:  To verify if user is able to scroll vertically when add new device icon is visible in the screen
+@VerifyIfUserIsAbleToScrollVerticallyWhenAddNewDeviceIsVisible
+Scenario:   To verify if user is able to scroll vertically when add new device icon is visible in the screen
 Given user launches and logs in to the Lyric application
 Then user should be displayed with "Weather status" in Dashboard status area
 And user should be displayed with the following "Weather" options:
@@ -115,7 +116,7 @@ And Add New Device button should be displayed below the device
 And user should not be able to scroll vertically
 
 
-@VerifyNavigationToWeatherScreenFromDashboardStatusArea		@Automatable
+@VerifyNavigationToWeatherScreenFromDashboardStatusArea
 Scenario:   To verify navigation to Weather screen from dashboard status area
 Given user launches and logs in to the Lyric application
 Then user should be displayed with "Weather status" in Dashboard status area
@@ -145,8 +146,8 @@ And Device should be displayed below Dashboard status area
 And Add New Device button should be displayed below the device
 
 
-@VerifyWeatherStatusInDashboardWhenTempUnitIsChangedInWeatherForecastScreen		@Automatable
-Scenario:  To verify Weather status in Dashboard screen when temperature unit is changed in Weather Forecast screen
+@VerifyWeatherStatusInDashboardWhenTempUnitIsChangedInWeatherForecastScreen
+Scenario:   To verify Weather status in Dashboard screen when temperature unit is changed in Weather Forecast screen
 Given user launches and logs in to the Lyric application
 Then user should be displayed with "Weather status" in Dashboard status area
 And user should be displayed with the following "Weather" options:
@@ -178,7 +179,7 @@ And Device should be displayed below Dashboard status area
 And Add New Device button should be displayed below the device
 
 
-@VerifyIfDashboardStatusAreaDisplaysWhenANewLocationIsCreated		@Automatable
+@VerifyIfDashboardStatusAreaDisplaysWhenANewLocationIsCreated
 Scenario Outline:   To verify if dashboard status screen is displayed when user creates a new location
 Given user launches and logs in to the Lyric application with user account without any location
 Then user should be displayed with the "Add New Device" screen
@@ -205,12 +206,12 @@ And user should be displayed with the following "Weather" options:
 And Add New Device button should be displayed below Dashboard status area
 
 Examples: 
-| Country         | Default Location		| Default Device Name		| valid zip code        |
-| United States   | Home					| Living Room				| 90001                 |
+      | Country         | Default Location		| Default Device Name		| valid zip code        |
+      | United States   | Home					| Living Room				| 90001                 |
       
 
-@VerifyWeatherStatusInDashboardWhenLocationIsSelectedFromListOfLocationsDropDown	@Automatable
-Scenario Outline: To verify Weather status in Dashboard screen when user selects location from location list drop down in Dashboard screen
+@VerifyWeatherStatusInDashboardWhenLocationIsSelectedFromListOfLocationsDropDown
+Scenario Outline:   To verify Weather status in Dashboard screen when user selects location from location list drop down in Dashboard screen
 Given user launches and logs in to the Lyric application
 When user selects "Smart Home Security" from "Add New Device" screen
 Then user should be displayed with the "What To Expect" screen
@@ -284,8 +285,8 @@ Examples:
 | California          | 90001                          |  Texas                 | 75457                            | Add New Device Dashboard    | Dashboard         |
 
 
-@DashboardStatusAreaWhenGeofenceThisLocationIsTurnedOFF		@Automatable
-Scenario: To verify the dashboard status area in dashboard screen when Geofence this location is turned off for a device
+@DashboardStatusAreaWhenGeofenceThisLocationIsTurnedOFF
+Scenario:   To verify the dashboard status area in dashboard screen when Geofence this location is turned off for a device
 Given user launches and logs in to the Lyric Application
 Then user should be displayed with "Weather status" in Dashboard status area
 And Device should be displayed below Dashboard status area
@@ -307,8 +308,8 @@ And Device should be displayed below Dashboard status area
 And Add New Device button should be displayed below the device
 
 
-@VerifyDasbhoardStatusAreaVerticalScrollWhenMultipleDevicesAreRegisteredAndGeofenceThisLocationIsTurnedOFF		@Automatable
-Scenario: To verify veritical scroll in dashboard screen when multiple devices are registered to the logged users account and geofence this location is turned off
+@VerifyDasbhoardStatusAreaVerticalScrollWhenMultipleDevicesAreRegisteredAndGeofenceThisLocationIsTurnedOFF
+Scenario:   To verify veritical scroll in dashboard screen when multiple devices are registered to the logged users account and geofence this location is turned off
 Given user launches and logs in to the Lyric application
 Then user should be displayed with "Weather status" in Dashboard status area
 And user should be displayed with the following "Weather" options:
@@ -332,8 +333,8 @@ And user should be displayed with the following "Weather" options:
 And Device should be displayed below Dashboard status area
 
 
-@FetchingGeofenceStatusInDashboardStatusAreaWhenGeofenceThisLocationIsTurnedON	@Automatable
-Scenario: To verify if fetching geofence status in dashboard status area is displayed when Geofence this location is turned on for a device
+@FetchingGeofenceStatusInDashboardStatusAreaWhenGeofenceThisLocationIsTurnedON
+Scenario:   To verify if fetching geofence status in dashboard status area is displayed when Geofence this location is turned on for a device
 Given user launches and logs in to the Lyric Application
 Then user should be displayed with "Weather status" in Dashboard status area
 And Device should be displayed below Dashboard status area
@@ -376,8 +377,8 @@ And Device should be displayed below Dashboard status area
 And Add New Device button should be displayed below the device
 
 
-@FailedToFetchGeofenceStatusInDashboardStatusAreaWhenGeofenceThisLocationIsTurnedON		@NotAutomatable
-Scenario:  To verify the geofence status in dashboard status area when geofence status is  when Geofence this location is turned on for a device
+@FailedToFetchGeofenceStatusInDashboardStatusAreaWhenGeofenceThisLocationIsTurnedON
+Scenario:   To verify the geofence status in dashboard status area when geofence status is  when Geofence this location is turned on for a device
 Given user launches and logs in to the Lyric Application
 Then user should be displayed with "Weather status" in Dashboard status area
 And Device should be displayed below Dashboard status area
@@ -420,8 +421,8 @@ And Device should be displayed below Dashboard status area
 And Add New Device button should be displayed below the device
 
 
-@DashboardStatusAreaWhenGeofenceThisLocationIsTurnedON		@Automatable
-Scenario:  To verify the dashboard status area in dashboard screen when Geofence this location is turned on for a device
+@DashboardStatusAreaWhenGeofenceThisLocationIsTurnedON
+Scenario:   To verify the dashboard status area in dashboard screen when Geofence this location is turned on for a device
 Given user launches and logs in to the Lyric Application
 Then user should be displayed with "Weather status" in Dashboard status area
 And Device should be displayed below Dashboard status area
@@ -459,8 +460,8 @@ When user returns home
 Then user should be displayed "Home" status in "Geofence Status Area" in "Dashboard" screen
 
 
-@VerifyDasbhoardStatusAreaVerticalScrollWhenMultipleDevicesAreRegisteredAndGeofenceThisLocationIsTurnedON	@Automatable
-Scenario: To verify veritical scroll in dashboard screen when multiple devices are registered to the logged users account and geofence this location is turned on
+@VerifyDasbhoardStatusAreaVerticalScrollWhenMultipleDevicesAreRegisteredAndGeofenceThisLocationIsTurnedON
+Scenario:   To verify veritical scroll in dashboard screen when multiple devices are registered to the logged users account and geofence this location is turned on
 Given user launches and logs in to the Lyric application
 Then user should be displayed with "Weather status" in Dashboard status area
 And user should be displayed with the following "Weather" options:
@@ -496,8 +497,8 @@ When user returns home
 Then user should be displayed "Home" status in "Geofence Status Area" in "Dashboard" screen
 
 
-@DashboardStatusAreaWhenGeofenceThisLocationIsTurnedOFFAndTurnedON		@Automatable
-Scenario: To verify the dashboard status area in dashboard screen when Geofence this location is turned off for a device and then turned on
+@DashboardStatusAreaWhenGeofenceThisLocationIsTurnedOFFAndTurnedON
+Scenario:   To verify the dashboard status area in dashboard screen when Geofence this location is turned off for a device and then turned on
 Given user launches and logs in to the Lyric Application
 Then user should be displayed with "Weather status" in Dashboard status area
 And Device should be displayed below Dashboard status area
@@ -546,8 +547,8 @@ And Device should be displayed below Dashboard status area
 And Add New Device button should be displayed below the device
 
 
-@VerifyNavigationToGeofenceScreenFromDashboardStatusArea		@Automatable
-Scenario: To verify navigation to Geofence screen from dashboard status area
+@VerifyNavigationToGeofenceScreenFromDashboardStatusArea
+Scenario:   To verify navigation to Geofence screen from dashboard status area
 Given user launches and logs in to the Lyric Application
 Then user should be displayed with "Weather status" in Dashboard status area
 And Device should be displayed below Dashboard status area
@@ -599,8 +600,8 @@ And Device should be displayed below Dashboard status area
 And Add New Device button should be displayed below the device
 
 
-@VerifyIfGeofenceStatusIsStillDisplayedWhenUserTurnsOffGeofenceFromDashboard		@Automatable
-Scenario:  To verify if Geofence status in Dashboard status area is still displayed when user turns off Geofence this location by navigating from Dashboard status area
+@VerifyIfGeofenceStatusIsStillDisplayedWhenUserTurnsOffGeofenceFromDashboard
+Scenario:   To verify if Geofence status in Dashboard status area is still displayed when user turns off Geofence this location by navigating from Dashboard status area
 Given user launches and logs in to the Lyric Application
 Then user should be displayed with "Weather status" in Dashboard status area
 And Device should be displayed below Dashboard status area
@@ -661,8 +662,8 @@ And Device should be displayed below Dashboard status area
 And Add New Device button should be displayed below the device
 
 
-@VerifyGeofenceStatusWhenGeofenceIsEnabledAndPhoneLocationServicesIsTurnedOff		@NotAutomatable
-Scenario: To verify Geofence status in Dashboard status area when geofence is enabled and phone location services is turned off
+@VerifyGeofenceStatusWhenGeofenceIsEnabledAndPhoneLocationServicesIsTurnedOff
+Scenario:   To verify Geofence status in Dashboard status area when geofence is enabled and phone location services is turned off
 Given user launches and logs in to the Lyric Application
 Then user should be displayed with "Weather status" in Dashboard status area
 And Device should be displayed below Dashboard status area
@@ -727,8 +728,8 @@ And Device should be displayed below Dashboard status area
 And Add New Device button should be displayed below the device
 
 
-@VerifyGeofenceStatusWhenGeofenceIsEnabledAndAppLocationServicesIsTurnedOffInPhoneSettings		@NotAutomatable
-Scenario: To verify Geofence status in Dashboard status area when geofence is enabled and App location services is turned off
+@VerifyGeofenceStatusWhenGeofenceIsEnabledAndAppLocationServicesIsTurnedOffInPhoneSettings
+Scenario:   To verify Geofence status in Dashboard status area when geofence is enabled and App location services is turned off
 Given user launches and logs in to the Lyric Application
 Then user should be displayed with "Weather status" in Dashboard status area
 And Device should be displayed below Dashboard status area
@@ -790,8 +791,8 @@ And Device should be displayed below Dashboard status area
 And Add New Device button should be displayed below the device
 
 
-@VerifyIfGeofenceStatusIsDisplayedWhenTheDeviceIsDeleted	@Automatable
-Scenario: Verify if Geofence status in Dashboard Status area is displayed when user deletes device
+@VerifyIfGeofenceStatusIsDisplayedWhenTheDeviceIsDeleted
+Scenario:  Verify if Geofence status in Dashboard Status area is displayed when user deletes device
 Given user launches and logs in to the Lyric application
 Then user should be displayed with "Weather status" in Dashboard status area
 And user should be displayed with the following "Weather" options:
@@ -829,8 +830,8 @@ And Device should be displayed below Dashboard status area
 And Add New Device button should be displayed below the device
 
 
-@DashboardStatusAreaWithWLDDevice		@Automatable
-Scenario:  To verify the dashboard screen when there is a WLD device registered for a location
+@DashboardStatusAreaWithWLDDevice
+Scenario:   To verify the dashboard screen when there is a WLD device registered for a location
 Given user launches and logs in to the Lyric application
 Then user should be displayed with "Weather status" in Dashboard status area
 And user should be displayed with the following "Weather" options:
@@ -847,8 +848,8 @@ And Device should be displayed below Dashboard status area
 And Add New Device button should be displayed below the device
 
 
-@DashboardStatusAreaWithDASDeviceWhenUserChangesSecurityCardModeFromHomeToOtherModes	@Automatable
-Scenario Outline:  To verify the dashboard screen when there is a DAS device registered for a location
+@DashboardStatusAreaWithDASDeviceWhenUserChangesSecurityCardModeFromHomeToOtherModes
+Scenario Outline:   To verify the dashboard screen when there is a DAS device registered for a location
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application
 Then user is set to <Mode> mode through CHIL
@@ -886,8 +887,8 @@ Examples:
 | 15    | Home  | Off    |
 
 
-@DashboardStatusAreaWithDASDeviceWhenUserChangesSecurityCardModeFromAwayToOtherModes	@Automatable
-Scenario Outline: To verify the dashboard screen when there is a DAS device registered for a location
+@DashboardStatusAreaWithDASDeviceWhenUserChangesSecurityCardModeFromAwayToOtherModes
+Scenario Outline:   To verify the dashboard screen when there is a DAS device registered for a location
 Given user sets the entry/exit timer to <Timer> seconds
 When user launches and logs in to the Lyric application
 Then user is set to <Mode> mode through CHIL
@@ -924,7 +925,7 @@ Examples:
 | 15    | Away  | Home   |
 
 
-@DashboardStatusAreaWithJASPERHBBDeviceWhenUserChangesSecurityCardModeFromHomeToSleep		@Automatable
+@DashboardStatusAreaWithJASPERHBBDeviceWhenUserChangesSecurityCardModeFromHomeToSleep
 Scenario Outline:   To verify the dashboard screen when there is a Jasper/HB device registered for a location
 Given user has <Mode> system mode
 And user thermostat is set to <scheduling> schedule
@@ -987,7 +988,7 @@ Examples:
 
 
 # JASPER NA, EMEA, HBB, FlyCatcher, Camera and DAS
-@VerifyIfGeofenceStatusDisplayedWhenUserSkipsGeofenceWhileDoingDIY		@NotAutomatable
+@VerifyIfGeofenceStatusDisplayedWhenUserSkipsGeofenceWhileDoingDIY
 Scenario:  Verify if Geofence status displayed in Dashboard status area when user skips geofence while doing DIY
 Given user launches and logs in to the Lyric application
 When user registers a device by skipping geofence
@@ -1008,7 +1009,7 @@ And Add New Device button should be displayed below the device
 
 
 # JASPER NA, EMEA, HBB, FlyCatcher, Camera and DAS
-@VerifyIfGeofenceStatusDisplayedWhenUserSetsUpGeofenceRadiusWhileDoingDIY	@NotAutomatable
+@VerifyIfGeofenceStatusDisplayedWhenUserSetsUpGeofenceRadiusWhileDoingDIY
 Scenario:  Verify if Geofence status displayed in Dashboard status area when user sets up geofence radius while doing DIY
 Given user launches and logs in to the Lyric application
 When user registers a device by setting up geofence radius
@@ -1035,9 +1036,10 @@ And Add New Device button should be displayed below the device
 
 
 # JASPER NA, EMEA, HBB, FlyCatcher, Camera and DAS
-@VerifyDashboardStatusAreaWhenGeofenceIsEnabledForExistingDeviceAndUserSkipsGeofenceWhileDoingDIYForAnotherDevice	@NotAutomatable
+@VerifyDashboardStatusAreaWhenGeofenceIsEnabledForExistingDeviceAndUserSkipsGeofenceWhileDoingDIYForAnotherDevice
 Scenario:  Verify if Geofence status displayed in Dashboard status area when user skips geofence while doing DIY for another device
 Given user launches and logs in to the Lyric application
+Given user launches and logs in to the Lyric Application
 Then user should be displayed with "Weather status" in Dashboard status area
 And Device should be displayed below Dashboard status area
 And Add New Device button should be displayed below the device
@@ -1088,7 +1090,7 @@ And Add New Device button should be displayed below the device
 
 
 #JASPER NA, HBB, Fly Catcher
-@VerifyDashboardStatusAreaWhenScheduleIsChangedFromTimeBasedScheduleToNoSchedule	@Automatable
+@VerifyDashboardStatusAreaWhenScheduleIsChangedFromTimeBasedScheduleToNoSchedule
 Scenario Outline:  To verify if Geofence status is displayed in Dashboard status area when Time based Schedule is changed to No Schedule
 Given user has <Mode> system mode 
 Then user thermostat is set to "time based" schedule 
@@ -1159,7 +1161,7 @@ Examples:
 
 
 #JASPER NA, HBB, Fly Catcher
-@VerifyDashboardStatusAreaWhenScheduleIsChangedFromGeofenceBasedScheduleToNoSchedule	@NotAutomatable
+@VerifyDashboardStatusAreaWhenScheduleIsChangedFromGeofenceBasedScheduleToNoSchedule
 Scenario Outline:  To verify if Geofence status is displayed in Dashboard status area when Geofence based Schedule is changed to No Schedule
 Given user has <Mode> system mode
 And user thermostat is set to "time based" schedule
@@ -1227,7 +1229,7 @@ Examples:
 
 
 #JASPER NA, HBB, Fly Catcher
-@VerifyDashboardStatusAreaForGeofenceBasedSchedule		@Automatable
+@VerifyDashboardStatusAreaForGeofenceBasedSchedule
 Scenario Outline:  To verify if Geofence status is displayed in Dashboard status area when Geofence based Schedule is enabled
 Given user has <Mode> system mode
 And user thermostat is set to "geofence based" schedule
@@ -1254,8 +1256,8 @@ Examples:
 | Auto  |
 
 
-@DashboardStatusAreaWhenUserCrossesFenceAndReturnsBack		@Automatable
-Scenario:  To verify the dashboard status area in dashboard screen when Geofence is crossed and returned back when Multiple devices are registered
+@DashboardStatusAreaWhenUserCrossesFenceAndReturnsBack
+Scenario:   To verify the dashboard status area in dashboard screen when Geofence is crossed and returned back when Multiple devices are registered
 Given user launches and logs in to the Lyric Application
 Then user should be displayed with "Weather status" in Dashboard status area
 And Device should be displayed below Dashboard status area
@@ -1291,55 +1293,3 @@ When user crosses geofence location
 Then user should be displayed "Away" status in "Geofence Status Area" in "Dashboard" screen
 When user returns home
 Then user should be displayed "Home" status in "Geofence Status Area" in "Dashboard" screen
-
-@VerifyGeofenceStatusWhenPhoneLocationServicesIsTurnedOffAndUserDeniesHoneywellToAccessDevicesLocation	@NotAutomatable
-Scenario:   To verify Geofence status in Dashboard status area when phone location services is turned off and user denies honeywell to access device location after login
-Given user turns off the mobile device location
-When user launches and logs in to the Lyric Application
-And user denies honeywell to access device location after login
-Then user should be displayed with "Weather status" in Dashboard status area
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
-When user swipes "Left" on "Dashboard Status Area"
-Then user should be displayed with "Geofence status" in Dashboard status area
-And user should be displayed with the following "Geofence status" options:
-| GeofenceStatusOptions                              |
-| Geofencing Title                      |
-| Alert icon                            |
-| Location Services Disabled label      |
-| Enable in <OS> Settings label         |
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
-When user selects "Location Services Disabled" in "Dashboard" screen
-Then user should be displayed with the "Device Settings Location Services" screen
-When user turns on the mobile device location
-And user maximizes the app
-Then user should be displayed with "Weather status" in Dashboard status area
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
-When user swipes "Left" on "Dashboard Status Area"
-Then user should be displayed with "Geofence status" in Dashboard status area
-And user should be displayed with the following "Geofence status" options:
-| GeofenceStatusOptions                              |
-| Geofencing Title                      |
-| Alert icon                            |
-| Location Services Disabled label      |
-| Enable in <OS> Settings label         |
-When user navigates to "Global Drawer" screen from the "Dashboard" screen 
-Then user selects "Geofence" from "Global Drawer" screen
-And user should be displayed with the "Geofence Settings" screen
-When user navigates to "App Settings" and allows honeywell to access device location
-When user navigates to "Dashboard" screen from "Global Drawer" screen
-Then user should be displayed with "Weather status" in Dashboard status area
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
-When user swipes "Left" on "Dashboard Status Area"
-Then user should be displayed with "Geofence status" in Dashboard status area
-And user should be displayed with the following "Geofence status" options:
-| GeofenceStatusOptions                              |
-| Geofencing Title                      |
-| Geofence icon                         |
-| Current state of geofencing           |
-| What settings are being used          |
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
