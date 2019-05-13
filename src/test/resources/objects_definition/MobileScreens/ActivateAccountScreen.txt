@@ -5,5 +5,5 @@ ActivateAccountTitle	XPATH	//*[@text='Activate Account']	XPATH	//*[@text='Activa
 AlmostDoneLabel							XPATH	//XCUIElementTypeStaticText[@name='Almost Done!']	XPATH	//XCUIElementTypeStaticText[@name='Almost Done!']	XPATH	//XCUIElementTypeStaticText[@name='Almost Done!']
 GoToMailButton							XPATH	//XCUIElementTypeButton[@name='Go To Mail']	XPATH	//XCUIElementTypeButton[@name='Go To Mail']	XPATH	//XCUIElementTypeButton[@name='Go To Mail']
 ResendEmailLink							XPATH	//XCUIElementTypeButton[@name='Resend Email']	XPATH	//XCUIElementTypeButton[@name='Resend Email']	XPATH	//XCUIElementTypeButton[@name='Resend Email']
-NewEmail							XPATH	//XCUIElementTypeStaticText[contains(@value, .)]	XPATH	//XCUIElementTypeStaticText[contains(@value, .)]	XPATH	//XCUIElementTypeStaticText[contains(@value, .)]
-CloseButton	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//XCUIElementTypeButton[@name='btn close normal']	XPATH	//XCUIElementTypeButton[@name='btn close normal']	XPATH	//XCUIElementTypeButton[@name='btn close normal']
+NewEmail							XPATH	"//XCUIElementTypeStaticText[contains(@value, .)]"	XPATH	"//XCUIElementTypeStaticText[contains(@value, .)]"	XPATH	"//XCUIElementTypeStaticText[contains(@value, .)]"
+BackButton	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	XPATH	//*[@class='android.widget.ImageButton']	NAME	nav bar back	NAME	nav bar back	NAME	nav bar back

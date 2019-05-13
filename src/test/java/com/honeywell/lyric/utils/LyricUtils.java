@@ -738,9 +738,9 @@ public class LyricUtils {
 					return false;
 				}
 			}
-			// else {
-			// flag = flag & sm.clickOnSetDasDIYV2Toggle();
-			// }
+			else {
+				flag = flag & sm.clickToUncheckIDAAS();
+			}
 			if (sm.isWebServerURLVisible()) {
 				flag = flag & sm.clickOnWebServerURL();
 				// Keeping this explicit wait because sometimes the environment selection fails
@@ -2301,9 +2301,9 @@ public class LyricUtils {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
 		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		// if(testCase.getPlatform().toUpperCase().contains("IOS")) {
-		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-		// }
+		if(testCase.getPlatform().toUpperCase().contains("IOS")) {
+			flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		}
 		flag = flag & LyricUtils.loginToLyricAppUserWithoutAnyLocation(testCase, inputs);
 		if (closeCoachMarks.length > 0) {
 			flag = flag
@@ -2319,9 +2319,9 @@ public class LyricUtils {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
 		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		// if (testCase.getPlatform().toUpperCase().contains("IOS")) {
-		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-		// }
+		if (testCase.getPlatform().toUpperCase().contains("IOS")) {
+			flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
+		}
 		flag = flag & LyricUtils.loginToLyricAppUserWithLocation(testCase, inputs);
 		if (closeCoachMarks.length > 0) {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
@@ -2335,9 +2335,7 @@ public class LyricUtils {
 		boolean flag = true;
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
 		flag = flag & LyricUtils.closeAppLaunchPopups(testCase);
-		// if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
-		// }
 		return flag;
 	}
 

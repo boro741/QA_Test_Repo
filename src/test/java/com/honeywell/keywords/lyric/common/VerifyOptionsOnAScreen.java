@@ -32,6 +32,7 @@ import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.GlobalDrawerScreen;
 import com.honeywell.screens.LoginScreen;
 import com.honeywell.screens.ManageUsersScreen;
+import com.honeywell.screens.NameEditAccountScreen;
 import com.honeywell.screens.OSPopUps;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.EditAccountScreen;
@@ -3649,9 +3650,15 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
 							 * (dimensions.getHeight() * .6)).release().perform();
 							 */
-
+							try {
+								Thread.sleep(5000);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
 							action.press(point(10, (int) (dimensions.getHeight() * .9)))
-									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+								.waitAction(waitOptions(MobileUtils.getDuration(2000)))
+								.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+
 
 						}
 						if (cas.isCreateAccountByTappingCreateBelowTextDisplayed()) {
@@ -3689,7 +3696,11 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							 * action.press(point(10, (int) (dimensions.getHeight() * .9))) .moveTo(point(0,
 							 * -(int) (dimensions.getHeight() * .6))).release().perform();
 							 */
-
+							try {
+								Thread.sleep(5000);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
 							action.press(point(10, (int) (dimensions.getHeight() * .9)))
 									.waitAction(waitOptions(MobileUtils.getDuration(2000)))
 									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
@@ -3727,7 +3738,11 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							 * action.press(point(10, (int) (dimensions.getHeight() * .9))) .moveTo(point(0,
 							 * -(int) (dimensions.getHeight() * .6))).release().perform();
 							 */
-
+							try {
+								Thread.sleep(5000);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
 							action.press(point(10, (int) (dimensions.getHeight() * .9)))
 									.waitAction(waitOptions(MobileUtils.getDuration(2000)))
 									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
@@ -4496,7 +4511,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					break;
 				}
 				case "ALWAYS ALLOW": {
-					flag &= ops.isAllowButtonInAllowHoneywellToAccessYourLocationPopupVisible();
+					flag &= ops.isAlwaysAllowButtonInAllowHoneywellToAccessYourLocationPopupVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, parameter + "button is displayed");
 					} else {
@@ -4628,6 +4643,46 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					break;
 				}
 				}
+			}
+			break;
+		}
+		case "NAME EDIT ACCOUNT": {
+			boolean flag = true;
+			NameEditAccountScreen neas = new NameEditAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "NameEditAccountOptions");
+				switch (parameter.toUpperCase()) {
+				case "FIRST NAME": {
+					flag &= neas.isFirstNameTitleDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " is not displayed");
+					}
+					break;
+				}
+				case "LAST NAME": {
+					flag &= neas.isLastNameTitleDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " is not displayed");
+					}
+					break;
+				}
+				case "SAVE BUTTON": {
+					flag &= neas.isSaveButtonDisplayed();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " is not displayed");
+					}
+					break;
+				}
+			  }
 			}
 			break;
 		}

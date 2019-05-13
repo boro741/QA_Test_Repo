@@ -182,14 +182,14 @@ And user pop up should be disappear
 @GeneralGlobalDrawerActivityHistoryCheckAndUncheckAndCheckScnearios          @Automated
 Scenario: As a user I want to verify select all the messages in Activity History
 Given user launches and logs in to the Lyric Application
-#Then user selects "N X" from "Dashboard" screen
 When user navigates to "Activity history" screen from the "Dashboard" screen
 Then user selects "Edit" from "Activity history" screen
 Then user selects "All Messages" from "Activity history" screen
-And user unselects "A Message" from "Activity History" screen
+Then user unselects "a message" from "Activity History" screen
 When user selects "All Messages" from "Activity history" screen
 When user selects "Delete" from "Activity history" screen
-Then user should not be displayed with the "Messages" on the "Activity History" screen
+#Then user should not be displayed with the "Messages" on the "Activity history" screen
+Then user should be displayed with "No Messages label in Activity History screen"
 Then user logs out of the app
 
 #Requirements : Single location with and with out any solution
@@ -233,13 +233,15 @@ When user navigates to "Address" screen from the "Dashboard" screen
 Then user should be displayed with the "Address" screen
 When user "deletes location" by clicking on "Delete Location" button
 Then user should receive a "Delete Location" popup
-When user "Clicks on Delete in" the "Delete Location" popup
-Then user should be displayed with "Add New Device" screen
-Then user logs out of the app
+#When user "Clicks on Delete in" the "Delete Location" popup
+When user "Clicks on Yes in" the "Delete Location" popup
+Then user should be displayed with the "Add New Device" screen
+Then user selects "Close Button" from "Add New Device" screen
+Then user "Clicks on sign out button in" the "Exit Honeywell Home" popup
 
 Examples:
-|invite users email address   | Password  | invited users email address | valid first locations zip code |Current Screen              | Previous Screen   |
-|unit77@grr.la  			  | Password1 | unit76@grr.la				| 90001						  	 |Add New Device Dashboard    | Dashboard         |
+|invite users email address   | Password  | invited users email address | valid first locations zip code |Current Screen           | Previous Screen   |
+|unit77@grr.la  			  | Password1 | unit76@grr.la				| 90001						  	 |Add New Device Dashboard | Dashboard         |
 
 #Requirements : Single location with solution and push notifications
 @GeneralPushNotificationAfterLogout             @Automated
@@ -247,7 +249,7 @@ Scenario Outline: As a user I want to verify push notifcation clear after user l
 Given user sets the entry/exit timer to <Timer> seconds 
 Given user launches and logs in to the Lyric Application
 Then user clears all push notifications
-Then user selects "DASa" from "Dashboard" screen
+#Then user selects "DASa" from "Dashboard" screen
 Then user closes the coach marks
 And user is set to <Mode> mode through CHIL
 When user navigates to "Security Solution Card" screen from the "Dashboard" screen
@@ -331,7 +333,7 @@ Then user should not receive a "Allow honeywell to access this devices location"
 #iOS 
 @GeneralLocationPermissionDontAllowFunctionality          @Automated
 Scenario: As a user I want to verify Never option in location permission pop up 
-Given user launches and logs in to the Lyric Application
+Given user launches and logs in to the Lyric Application without closing the popup
 When user should receive a "Allow honeywell to access your location" popup
 Then user should be displayed with the "Geofencing will not work unless" description
 Then user should be displayed with the following "Allow honeywell to access your location" options:
@@ -348,7 +350,7 @@ Then user should not receive a "Allow honeywell to access your location" popup
 #iOS
 @GeneralLocationPermissionAlwaysAllowFunctionality          @Automated
 Scenario: As a user I want to verify Always option in location permission popup 
-Given user launches and logs in to the Lyric Application
+Given user launches and logs in to the Lyric Application without closing the popup
 When user should receive a "Allow honeywell to access your location" popup
 Then user should be displayed with the "Geofencing will not work unless" description
 Then user should be displayed with the following "Allow honeywell to access your location" options:
@@ -364,7 +366,7 @@ Then user should not receive a "Allow honeywell to access your location" popup
 #iOS
 @GeneralLocationPermissionWhileUsingTheAppFunctionality          @Automated
 Scenario: As a user I want to verify While using the app option in location permission popup 
-Given user launches and logs in to the Lyric Application
+Given user launches and logs in to the Lyric Application without closing the popup
 When user should receive a "Allow honeywell to access your location" popup
 Then user should be displayed with the "Geofencing will not work unless" description
 Then user should be displayed with the following "Allow honeywell to access your location" options:
@@ -380,7 +382,7 @@ Then user should not receive a "Allow honeywell to access your location" popup
 #iOS
 @GeneralNotificationPermissionAllowFunctionality          @Automated
 Scenario: As a user I want to verify Deny option in location permission popup 
-Given user launches and logs in to the Lyric Application
+Given user launches and logs in to the Lyric Application without closing the popup
 When user should receive a "Allow honeywell to access your location" popup
 Then user "selects Allow button from" the "Allow honeywell to access your location" popup
 When user should receive a "Honeywell would like to send you notifications" popup
@@ -397,7 +399,7 @@ Then user should not receive a "Honeywell would like to send you notifications" 
 #iOS
 @GeneralNotificationPermissionDontAllowFunctionality          @Automated
 Scenario: As a user I want to verify Deny option in location permission popup 
-Given user launches and logs in to the Lyric Application
+Given user launches and logs in to the Lyric Application without closing the popup
 When user should receive a "Allow honeywell to access your location" popup
 Then user "selects Allow button from" the "Allow honeywell to access your location" popup
 When user should receive a "Honeywell would like to send you notifications" popup

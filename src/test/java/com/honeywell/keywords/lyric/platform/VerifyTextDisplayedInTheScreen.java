@@ -15,6 +15,7 @@ import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.das.utils.EditAccountUtils;
 import com.honeywell.lyric.das.utils.FAQsUtils;
 import com.honeywell.screens.AddressScreen;
+import com.honeywell.screens.EditAccountScreen;
 
 public class VerifyTextDisplayedInTheScreen extends Keyword {
 
@@ -260,17 +261,21 @@ public class VerifyTextDisplayedInTheScreen extends Keyword {
 						inputs.getInputValue("UPDATED_LAST_NAME_IN_EDIT_ACCOUNT"));
 				break;
 			}
+			case "UPDATED FIRST AND LAST NAME" : {
+				flag &= EditAccountUtils.verifyFirstAndLastNameDisplayedInEditAccountScreen(testCase, inputs.getInputValue("UPDATED_FIRST_NAME_IN_EDIT_ACCOUNT"), inputs.getInputValue("UPDATED_LAST_NAME_IN_EDIT_ACCOUNT"));
+				break;
+			}
 			case "EXISTING FIRST NAME": {
-				flag &= EditAccountUtils.verifyFirstNameDisplayedInEditAccountScreen(testCase,
-						inputs.getInputValue("FIRST_NAME_IN_EDIT_ACCOUNT"));
+				flag &= EditAccountUtils.verifyExistingFirstNameDisplayedInEditAccountScreen(testCase,
+						inputs.getInputValue("UPDATED_FIRST_NAME_IN_EDIT_ACCOUNT"));
 				break;
 			}
 			case "EXISTING LAST NAME": {
-				flag &= EditAccountUtils.verifyLastNameDisplayedInEditAccountScreen(testCase,
-						inputs.getInputValue("LAST_NAME_IN_EDIT_ACCOUNT"));
+				flag &= EditAccountUtils.verifyExistingLastNameDisplayedInEditAccountScreen(testCase,
+						inputs.getInputValue("UPDATED_LAST_NAME_IN_EDIT_ACCOUNT"));
 				break;
 			}
-			}
+		  }
 		} else if (inputText.get(1).equalsIgnoreCase("QUESTION")) {
 			switch (inputText.get(0).toUpperCase()) {
 			case "YOU FOUND THIS HELPFUL":
@@ -330,6 +335,7 @@ public class VerifyTextDisplayedInTheScreen extends Keyword {
 			}
 			}
 		}
+		
 		return flag;
 	}
 

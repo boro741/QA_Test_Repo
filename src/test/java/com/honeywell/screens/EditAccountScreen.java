@@ -2,6 +2,7 @@ package com.honeywell.screens;
 
 import org.openqa.selenium.By;
 
+import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileScreens;
@@ -146,12 +147,12 @@ public class EditAccountScreen extends MobileScreens {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "EmailValueInEditAccountScreen");
 	}
 
-	public boolean isChangePasswordButtonInEditAccountScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ChangePasswordButtonInEditAccountScreen");
+	public boolean isChangePasswordInEditAccountScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ChangePasswordInEditAccountScreen");
 	}
 
-	public boolean clickOnChangePasswordButtonInEditAccountScreen() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "ChangePasswordButtonInEditAccountScreen");
+	public boolean clickOnChangePasswordInEditAccountScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "ChangePasswordInEditAccountScreen");
 	}
 
 	public boolean isDeleteAccountButtonInEditAccountScreenVisible() {
@@ -564,5 +565,22 @@ public class EditAccountScreen extends MobileScreens {
 
 	public String getLastNameValueInNameScreen() {
 		return MobileUtils.getFieldValue(objectDefinition, testCase, "LastNameValueInNameScreen");
+	}
+	
+	public boolean isLoggedInUserEmailDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LoggedInEmail");
+	}
+	
+	public String getLoggedInUserEmail() {
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "LoggedInEmail");
+		//return userEmailAddress;
+	}
+	
+	public boolean clickOnNameValueArrowInEditAccountScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "NameValueArrow");
+	}
+	
+	public boolean isDeleteUserPopupLabelVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteUserLabel");
 	}
 }

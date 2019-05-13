@@ -9,6 +9,7 @@ import com.google.common.base.Function;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.EditAccountScreen;
 
@@ -126,10 +127,10 @@ public class EditAccountUtils {
 	public static boolean verifyFirstNameDisplayedInEditAccountScreen(TestCases testCase, String updatedFirstName) {
 		boolean flag = true;
 		EditAccountScreen eas = new EditAccountScreen(testCase);
-		System.out.println("*******updatedFirstName: " + updatedFirstName);
+		//System.out.println("*******updatedFirstName: " + updatedFirstName);
 		String firstNameInEditAccountScreen;
 		firstNameInEditAccountScreen = eas.getFirstNameValueInNameScreen();
-		System.out.println("*******firstNameInEditAccountScreen: " + firstNameInEditAccountScreen);
+		//System.out.println("*******firstNameInEditAccountScreen: " + firstNameInEditAccountScreen);
 		if (firstNameInEditAccountScreen.equalsIgnoreCase(updatedFirstName)) {
 			Keyword.ReportStep_Pass(testCase,
 					"First Name displayed in Edit Account Screen is: " + firstNameInEditAccountScreen);
@@ -146,10 +147,10 @@ public class EditAccountUtils {
 	public static boolean verifyLastNameDisplayedInEditAccountScreen(TestCases testCase, String updatedLastName) {
 		boolean flag = true;
 		EditAccountScreen eas = new EditAccountScreen(testCase);
-		System.out.println("*******updatedLastName: " + updatedLastName);
+		//System.out.println("*******updatedLastName: " + updatedLastName);
 		String lastNameInEditAccountScreen;
 		lastNameInEditAccountScreen = eas.getLastNameValueInNameScreen();
-		System.out.println("*******lastNameInEditAccountScreen: " + lastNameInEditAccountScreen);
+		//System.out.println("*******lastNameInEditAccountScreen: " + lastNameInEditAccountScreen);
 		if (lastNameInEditAccountScreen.equalsIgnoreCase(updatedLastName)) {
 			Keyword.ReportStep_Pass(testCase,
 					"Last Name displayed in Edit Account Screen is: " + lastNameInEditAccountScreen);
@@ -162,16 +163,36 @@ public class EditAccountUtils {
 		}
 		return flag;
 	}
-
+	
+	public static boolean verifyFirstAndLastNameDisplayedInEditAccountScreen(TestCases testCase, String updatedFirstName, String updatedLastName) {
+		boolean flag = true;
+		EditAccountScreen eas = new EditAccountScreen(testCase);
+		String userNameDisplayed = eas.getNameValueInEditAccountScreen();
+		//System.out.println("*******userNameDisplayed: " + userNameDisplayed);
+		String userName[]= userNameDisplayed.split(" ");
+		userName[0]= updatedFirstName;
+		userName[1]= updatedLastName;
+		if(userName[0].equals(updatedFirstName) && userName[1].equals(updatedLastName)) {
+			//System.out.println("The updated First Name is "+ updatedFirstName + "and the updated Last Name is: " + updatedLastName);
+			Keyword.ReportStep_Pass(testCase,
+					"The updated First Name is "+ updatedFirstName + "and the updated Last Name is: " + updatedLastName);
+		}else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"The updated First Name is "+ updatedFirstName + "and the updated Last Name is: " + updatedLastName);
+		}
+		return flag;
+	}
+	
 	public static boolean verifyIfMaxCharsEnteredInFirstNameTxtFieldInEditAccountScreen(TestCases testCase,
 			TestCaseInputs inputs, int maxAllowedCharsLength, String enteredMaxChars) {
 		EditAccountScreen eas = new EditAccountScreen(testCase);
 		boolean flag = true;
-		System.out.println("*******maxAllowedCharsLength: " + maxAllowedCharsLength);
-		System.out.println("*******enteredMaxChars: " + enteredMaxChars);
+		//System.out.println("*******maxAllowedCharsLength: " + maxAllowedCharsLength);
+		//System.out.println("*******enteredMaxChars: " + enteredMaxChars);
 		String valueDisplayedInFirstNameTxtFieldInEditAccountScreen = eas.getLastNameValueInNameScreen();
-		System.out.println("*******valueDisplayedInFirstNameTxtFieldInEditAccountScreen: "
-				+ valueDisplayedInFirstNameTxtFieldInEditAccountScreen);
+		/*System.out.println("*******valueDisplayedInFirstNameTxtFieldInEditAccountScreen: "
+				+ valueDisplayedInFirstNameTxtFieldInEditAccountScreen);*/
 		if (enteredMaxChars.length() <= maxAllowedCharsLength) {
 			if (valueDisplayedInFirstNameTxtFieldInEditAccountScreen.equalsIgnoreCase(enteredMaxChars)) {
 				Keyword.ReportStep_Pass(testCase,
@@ -204,11 +225,11 @@ public class EditAccountUtils {
 			TestCaseInputs inputs, int maxAllowedCharsLength, String enteredMaxChars) {
 		EditAccountScreen eas = new EditAccountScreen(testCase);
 		boolean flag = true;
-		System.out.println("*******maxAllowedCharsLength: " + maxAllowedCharsLength);
-		System.out.println("*******enteredMaxChars: " + enteredMaxChars);
+		//System.out.println("*******maxAllowedCharsLength: " + maxAllowedCharsLength);
+		//System.out.println("*******enteredMaxChars: " + enteredMaxChars);
 		String valueDisplayedInLastNameTxtFieldInEditAccountScreen = eas.getLastNameValueInNameScreen();
-		System.out.println("*******valueDisplayedInLastNameTxtFieldInEditAccountScreen: "
-				+ valueDisplayedInLastNameTxtFieldInEditAccountScreen);
+		/*System.out.println("*******valueDisplayedInLastNameTxtFieldInEditAccountScreen: "
+				+ valueDisplayedInLastNameTxtFieldInEditAccountScreen);*/
 		if (enteredMaxChars.length() <= maxAllowedCharsLength) {
 			if (valueDisplayedInLastNameTxtFieldInEditAccountScreen.equalsIgnoreCase(enteredMaxChars)) {
 				Keyword.ReportStep_Pass(testCase,
@@ -314,7 +335,7 @@ public class EditAccountUtils {
 		EditAccountScreen eas = new EditAccountScreen(testCase);
 		if (expectedErrorMsgText.equalsIgnoreCase("INVALID PASSWORD FORMAT")) {
 			errorMsgText = eas.getInvalidPasswordFormatLabelBeloNewPwdTextField();
-		} else if (expectedErrorMsgText.equalsIgnoreCase("PASSWORDS DO NOT MATCH")) {
+		} else if (expectedErrorMsgText.equalsIgnoreCase("PASSWORDS DON'T MATCH")) {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				expectedErrorMsgText = "Passwords don't match";
 			}
@@ -355,6 +376,46 @@ public class EditAccountUtils {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 					"Error message displayed in New Password text field is not:" + expectedErrorMsgText
 							+ ". Displayed error message in Verify New Password text field is: " + errorMsgText);
+		}
+		return flag;
+	}
+	
+	public static boolean verifyExistingFirstNameDisplayedInEditAccountScreen(TestCases testCase, String updatedFirstName) {
+		boolean flag = true;
+		EditAccountScreen eas = new EditAccountScreen(testCase);
+		String firstNameInEditAccountScreen = eas.getFirstNameValueInNameScreen();
+		String firstName= firstNameInEditAccountScreen.split(" ")[0];
+		//System.out.println("The first name is: "+firstName[0]);
+		//System.out.println("*******firstNameInEditAccountScreen: " + firstNameInEditAccountScreen);
+		if (firstName.equalsIgnoreCase(updatedFirstName)) {
+			Keyword.ReportStep_Pass(testCase,
+					"First Name displayed in Edit Account Screen is: " + firstNameInEditAccountScreen);
+			return flag;
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"First Name displayed in Edit Account Screen is: " + firstNameInEditAccountScreen
+							+ ", which is not same as the actual first name: " + updatedFirstName);
+		}
+		return flag;
+	}
+	
+	public static boolean verifyExistingLastNameDisplayedInEditAccountScreen(TestCases testCase, String updatedLastName) {
+		boolean flag = true;
+		EditAccountScreen eas = new EditAccountScreen(testCase);
+		String lastNameInEditAccountScreen = eas.getFirstNameValueInNameScreen();
+		String lastName= lastNameInEditAccountScreen.split(" ")[1];
+		//System.out.println("The last name is: "+lastName[1]);
+		//System.out.println("*******firstNameInEditAccountScreen: " + firstNameInEditAccountScreen);
+		if (lastName.equalsIgnoreCase(updatedLastName)) {
+			Keyword.ReportStep_Pass(testCase,
+					"Last Name displayed in Edit Account Screen is: " + lastNameInEditAccountScreen);
+			return flag;
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Last Name displayed in Edit Account Screen is: " + lastNameInEditAccountScreen
+							+ ", which is not same as the actual last name: " + updatedLastName);
 		}
 		return flag;
 	}

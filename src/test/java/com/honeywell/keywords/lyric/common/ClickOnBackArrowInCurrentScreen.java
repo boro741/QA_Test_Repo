@@ -13,6 +13,8 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.screens.AddressScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.EditAccountScreen;
+import com.honeywell.screens.ManageUsersScreen;
+import com.honeywell.screens.NameEditAccountScreen;
 
 public class ClickOnBackArrowInCurrentScreen extends Keyword {
 
@@ -99,6 +101,20 @@ public class ClickOnBackArrowInCurrentScreen extends Keyword {
 				EditAccountScreen eas = new EditAccountScreen(testCase);
 				if (eas.isBackButtonVisible()) {
 					flag &= eas.clickOnBackButton();
+				}
+				break;
+			}
+			case "INVITE NEW USER" : {
+				ManageUsersScreen mus = new ManageUsersScreen(testCase);
+				if(mus.isBackButtonVisible()) {
+					flag &=mus.clickOnBackButton();
+				}
+				break;
+			}
+			case "NAME EDIT ACCOUNT": {
+				NameEditAccountScreen neas = new NameEditAccountScreen(testCase);
+				if (neas.isBackButtonVisible()) {
+					flag &= neas.clickOnBackButton();
 				}
 				break;
 			}

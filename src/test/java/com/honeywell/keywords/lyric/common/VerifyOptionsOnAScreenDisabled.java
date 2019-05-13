@@ -21,6 +21,7 @@ import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.GeofenceSettings;
+import com.honeywell.screens.NameEditAccountScreen;
 import com.honeywell.screens.SensorSettingScreen;
 import com.honeywell.screens.ThermostatSettingsScreen;
 
@@ -822,6 +823,24 @@ public class VerifyOptionsOnAScreenDisabled extends Keyword {
 			}
 			break;
 		}
+		
+		case "SAVE BUTTON": {
+			NameEditAccountScreen neas = new NameEditAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String fieldToBeVerified = data.getData(i, "SaveButtonOption");
+				if (fieldToBeVerified.equalsIgnoreCase("SAVE")) {
+					if (!neas.isSaveButtonEnabledInNameEditAccountScreen()) {
+						Keyword.ReportStep_Pass(testCase, "Option: " + fieldToBeVerified + " is disabled");
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option: " + fieldToBeVerified + " is enabled");
+					}
+				}
+			}
+			break;
+		}
+		
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input: " + expectedScreen.get(0));

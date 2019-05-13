@@ -139,7 +139,12 @@ public class CreateAccountScreen extends MobileScreens {
 	}
 
 	public boolean isCreateAccountClickOnBack() {
-		return MobileUtils.pressBackButton(testCase, "Clicked on Back button");
+		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.pressBackButton(testCase, "Clicked on Back button");
+		}else {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "IOSBackButton");
+		}
+		
 	}
 
 	public boolean isHoneywellHomeLogoDisplayed() {
@@ -207,8 +212,8 @@ public class CreateAccountScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CountrySelection");
 	}
 
-	public boolean isCreateAccountClickOnCancelButtonOnIOS() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButton");
+	public boolean isCreateAccountClickOnBackButtonOnIOS() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "IOSBackButton");
 	}
 
 	public boolean isEmailAddressAlreadyRegisteredPopupDisplayed() {
@@ -221,7 +226,7 @@ public class CreateAccountScreen extends MobileScreens {
 		} else {
 			// ios
 			return testCase.getMobileDriver()
-					.findElement(By.name("This email address is already registered. Do you want to log in?"))
+					.findElement(By.xpath("//XCUIElementTypeStaticText[contains(@name,'This email address is already registered')]"))
 					.isEnabled();
 		}
 

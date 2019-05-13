@@ -213,7 +213,7 @@ And user should not be displayed with the following "Geofence this location" opt
 | GeofenceThisLocation		|
 | Geofence Radius			|
 | Location Status			|
-| Geofence Alert				|
+| Geofence Alert			|
 
 
 #Requirements : single location with jasperNA or JapserEMEA or C1 or C2 or DAS or all the solutions
@@ -245,7 +245,7 @@ And user should be displayed with the following "Geofence this location" options
 | GeofenceThisLocation		|
 | Geofence Radius			|
 | Location Status			|
-| Geofence Alert				|
+| Geofence Alert			|
 
 
 #Requirements : single location with jasperNA or JapserEMEA or C1 or C2 or DAS or all the solutions
@@ -269,7 +269,7 @@ And user should be displayed with the following "Geofence this location" options
 | GeofenceThisLocation		|
 | Geofence Radius			|
 | Location Status			|
-| Geofence Alert				|
+| Geofence Alert			|
 
 
 #Geofence this location disabled and enabled when location serivce off 
@@ -421,7 +421,7 @@ Given user has <Mode> system mode
 #Then user selects "HOME OFFICE" from "Dashboard" screen
 And user thermostat is set to "geofence based" schedule
 When user launches and logs in to the Lyric application
-Then user selects "HOME OFFICE" from "Dashboard" screen
+#Then user selects "HOME OFFICE" from "Dashboard" screen
 And user navigates to "Global Drawer" screen from the "Dashboard" screen 
 When user selects "Geofence" from "Global Drawer" screen
 Then user should be displayed with the "Geofence Settings" screen
@@ -432,7 +432,7 @@ Then user receives a "Geofence crossed Home" push notification
 And user thermostat set <UPeriod> with <UGeofence>
 Then user receives a "Geofence crossed Away" push notification
 When user clears all push notifications
-Then user selects "HOME OFFICE" from "Dashboard" screen
+#Then user selects "HOME OFFICE" from "Dashboard" screen
 Then user navigates to "Global Drawer" screen from the "Dashboard" screen 
 And user selects "Geofence" from "Global Drawer" screen
 Then user should be displayed with the "Geofence Settings" screen
@@ -443,7 +443,7 @@ And user thermostat set <UPeriod> with <UGeofence>
 Then user should not receive a "Geofence crossed Away" push notification
 
 Examples:
-| Mode	| Period			| Geofence		| UPeriod		| UGeofence		|
+| Mode	| Period		| Geofence		| UPeriod		| UGeofence		|
 | Heat	| Home			| UserArrived  	| Away			| UserDeparted	|
 #| Cool	| UserArrived  	| Home			| Away			| UserDeparted	|
 
@@ -456,7 +456,7 @@ Given user launches and logs in to the Lyric Application
 When user navigates to "Activity History" screen from the "Dashboard" screen
 Then user should be displayed with "No Messages label in Activity History screen"
 And user should not be displayed with the following "Activity History" options:
-| ActivityHistoryOptions		|
+| ActivityHistoryOptions	|
 | Edit						|
 Then user navigates to "Global Drawer" screen from the "Activity History" screen
 #And user logs out of the app
@@ -589,7 +589,7 @@ Then the following "Activity History" options should be enabled:
 And user should be displayed with the following "Activity History" options:
 | ActivityHistoryOptions		|
 | Cancel						|
-When user selects "Delete" from "Activity History" screen 
+When user selects "The Delete" from "Activity History" screen 
 Then user should be displayed with "No Messages label in Activity History screen"
 #And user logs out of the app
 
@@ -598,7 +598,8 @@ Then user should be displayed with "No Messages label in Activity History screen
 @GeneralGlobalDrawerAddDeleteUsersFromInviteList				@Automated		@--xrayid:ATER-67865
 Scenario Outline: As a user I want to Verify invite user functionality by adding and removing a user from invite list
 Given user launches and logs in to the Lyric Application
-When user navigates to "Invite User" screen from the "Dashboard" screen
+When user navigates to "Manage Users" screen from the "Dashboard" screen
+Then user selects "Invite New User" from "Manage Users" screen
 And user inputs <invite users email address> in "Email Text Field" in the "Invite New User" screen
 Then user should be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
@@ -628,7 +629,7 @@ Then user should be displayed with the "Add New Device" screen
 
 Examples:
 | invite users email address	|
-| das_stage5@grr.la			|
+| das_stage5@grr.la				|
 
 
 #Requirements : single location with and with out any solution and user should be invited 
@@ -649,7 +650,7 @@ Then user should be displayed with the following "User already added to this acc
 Then user clicks on the back arrow in the "Invite New User" screen
 Then user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList	|
-| Logged in user		|
+| Logged in user	|
 
 
 #Requirements : single location with and with out any solution and user should be invited 
@@ -677,7 +678,7 @@ Then user should receive a "Delete User" popup
 And user "Clicks on Cancel in" the "Delete User" popup
 Then user should be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
-| das_stage5@grr.la	|
+| das_stage5@grr.la		|
 When user deletes the <invite users email address> from "Manage Users" screen
 Then user should receive a "Delete User" popup
 And user "Clicks on OK in" the "Delete User" popup
@@ -686,7 +687,7 @@ Then user should not be displayed with the following "Invited Users" options:
 | das_stage5@grr.la		|
 
 Examples:
-| invite users email address		|
+| invite users email address	|
 | das_stage5@grr.la				|
 
 
@@ -720,32 +721,32 @@ When user navigates to "Address" screen from the "Dashboard" screen
 Then user should be displayed with the "Address" screen
 When user navigates to "Edit Address" screen from the "Address" screen 
 Then user should be displayed with the following "Edit Address" options:
-| EditAddressOptions			| 
+| EditAddressOptions		| 
 | Location Name Header		| 
 | Location Name Text Field	| 
-| Address Header				| 
-| Address Text Field			| 
+| Address Header			| 
+| Address Text Field		| 
 | City Text Field			| 
 | State Text Field			| 
-| Postal Code Text Field		| 
-| Change Country				|
+| Postal Code Text Field	| 
+| Change Country			|
 And the following "Edit Address" options should be disabled:
 | EditAddressOptions		|
-| Save					|
+| Save						|
 When user clears the text displayed in the following text fields in the "Edit Address" screen:
 | TextFieldsInEditAddressScreen		|
 | Location Name Text Field			|
-| Address Text Field					| 
+| Address Text Field				| 
 | City Text Field					| 
 | State Text Field					| 
-| Postal Code Text Field				|
+| Postal Code Text Field			|
 Then user should be displayed with the placeholder text for the following fields in "Edit Address" screen:
 | TextFieldsInEditAddressScreen		|
 | Location Name Text Field			|
-| Address Text Field					| 
+| Address Text Field				| 
 | City Text Field					| 
 | State Text Field					| 
-| Postal Code Text Field				|
+| Postal Code Text Field			|
 
  
 #Requirements : single location with and with out any solution
@@ -756,25 +757,25 @@ When user navigates to "Address" screen from the "Dashboard" screen
 Then user should be displayed with the "Address" screen
 When user navigates to "Edit Address" screen from the "Address" screen 
 Then user should be displayed with the following "Edit Address" options:
-| EditAddressOptions			| 
+| EditAddressOptions		| 
 | Location Name Header		| 
 | Location Name Text Field	| 
-| Address Header				| 
-| Address Text Field			| 
+| Address Header			| 
+| Address Text Field		| 
 | City Text Field			| 
 | State Text Field			| 
-| Postal Code Text Field		| 
-| Change Country				|
+| Postal Code Text Field	| 
+| Change Country			|
 And the following "Edit Address" options should be disabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user inputs <Location Name> in "Location Name Text Field" in the "Edit Address" screen
 And the following "Edit Address" options should be enabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user inputs <Address> in "Address Text Field" in the "Edit Address" screen
 And the following "Edit Address" options should be enabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user inputs <City> in "City Text Field" in the "Edit Address" screen
 And the following "Edit Address" options should be enabled:
@@ -782,11 +783,11 @@ And the following "Edit Address" options should be enabled:
 | Save					|
 When user inputs <State> in "State Text Field" in the "Edit Address" screen
 And the following "Edit Address" options should be enabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user inputs <Postal Code> in "Postal Code Text Field" in the "Edit Address" screen
 Then the following "Edit Address" options should be enabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user clicks on the back arrow in the "Edit Address" screen
 Then user should receive a "Cancel Location Changes" popup
@@ -817,33 +818,33 @@ When user navigates to "Address" screen from the "Dashboard" screen
 Then user should be displayed with the "Address" screen
 When user navigates to "Edit Address" screen from the "Address" screen 
 Then user should be displayed with the following "Edit Address" options:
-| EditAddressOptions			| 
+| EditAddressOptions		| 
 | Location Name Header		| 
 | Location Name Text Field	| 
-| Address Header				| 
-| Address Text Field			| 
+| Address Header			| 
+| Address Text Field		| 
 | City Text Field			| 
 | State Text Field			| 
-| Postal Code Text Field		| 
-| Change Country				|
+| Postal Code Text Field	| 
+| Change Country			|
 And the following "Edit Address" options should be disabled:
 | EditAddressOptions		|
-| Save					|
+| Save						|
 When user inputs <Address> in "Address Text Field" in the "Edit Address" screen
 And the following "Edit Address" options should be enabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user inputs <City> in "City Text Field" in the "Edit Address" screen
 And the following "Edit Address" options should be enabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user inputs <State> in "State Text Field" in the "Edit Address" screen
 And the following "Edit Address" options should be enabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user inputs <Postal Code> in "Postal Code Text Field" in the "Edit Address" screen
 Then the following "Edit Address" options should be enabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user selects "Save button" from "Edit Address" screen
 Then user should be displayed with the "Address" screen
@@ -857,8 +858,9 @@ And user should be displayed with the following "Address" options:
 | Delete Location Option		|
 
 Examples: 
-| Address	| City		| State		| Postal Code	| 
-| Nazdar		| Shawnee	| Kansas		| 66203			|
+| Address	| City			| State			| Postal Code	| 
+| Nazdar	| Shawnee		| Kansas		| 66203			|
+| EA		| Los Angeles	| California	| 90001			|
   
   
 #Requirements : single location with and with out any solution
@@ -869,17 +871,17 @@ When user navigates to "Address" screen from the "Dashboard" screen
 Then user should be displayed with the "Address" screen
 When user navigates to "Edit Address" screen from the "Address" screen 
 Then user should be displayed with the following "Edit Address" options:
-| EditAddressOptions			| 
+| EditAddressOptions		| 
 | Location Name Header		| 
 | Location Name Text Field	| 
-| Address Header				| 
-| Address Text Field			| 
+| Address Header			| 
+| Address Text Field		| 
 | City Text Field			| 
 | State Text Field			| 
-| Postal Code Text Field		| 
-| Change Country				|
+| Postal Code Text Field	| 
+| Change Country			|
 And the following "Edit Address" options should be disabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user clicks on the back arrow in the "Edit Address" screen
 Then user should be displayed with the "Address" screen
@@ -956,42 +958,43 @@ When user navigates to "Address" screen from the "Dashboard" screen
 Then user should be displayed with the "Address" screen
 When user navigates to "Edit Address" screen from the "Address" screen 
 Then user should be displayed with the following "Edit Address" options:
-| EditAddressOptions			| 
+| EditAddressOptions		| 
 | Location Name Header		| 
 | Location Name Text Field	| 
-| Address Header				| 
-| Address Text Field			| 
+| Address Header			| 
+| Address Text Field		| 
 | City Text Field			| 
 | State Text Field			| 
-| Postal Code Text Field		| 
-| Change Country				|
+| Postal Code Text Field	| 
+| Change Country			|
 And the following "Edit Address" options should be disabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user selects "Change Country" from "Edit Address" screen
 Then user should be displayed with the "Please confirm your country" screen
 When user inputs <Country> in "Search Text Field" in the "Please confirm your country" screen
+#Then user changes the country to <Country>
 Then user should be displayed with the "Edit Address" screen
 And user should be displayed with the following "Address Fields For The Selected Country" options:
-| AddressFieldsForTheSelectedCountry		| 
+| AddressFieldsForTheSelectedCountry	| 
 | Location Name Header					| 
 | Location Name Text Field				| 
-| Address Header							| 
-| Address Text Field						| 
+| Address Header						| 
+| Address Text Field					| 
 | City Text Field						| 
 | State Text Field						| 
-| Postal Code Text Field					| 
-| Change Country							|
+| Postal Code Text Field				| 
+| Change Country						|
 And the following "Edit Address" options should be disabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user inputs <State> in "State Text Field" in the "Edit Address" screen
 And the following "Edit Address" options should be disabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user inputs <Postal Code> in "Postal Code Text Field" in the "Edit Address" screen
 Then the following "Edit Address" options should be enabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user selects "Save button" from "Edit Address" screen
 Then user should be displayed with the "Address" screen
@@ -1003,11 +1006,19 @@ And user should be displayed with the following "Address" options:
 | AddressOptions				|
 | Edit Address Label			|
 | Delete Location Option		|
+When user navigates to "Edit Address" screen from the "Address" screen
+When user selects "Change Country" from "Edit Address" screen
+Then user should be displayed with the "Please confirm your country" screen
+When user inputs <Country1> in "Search Text Field" in the "Please confirm your country" screen
+When user inputs <Postal Code1> in "Postal Code Text Field" in the "Edit Address" screen
+When user selects "Save button" from "Edit Address" screen
+Then user should be displayed with the "Address" screen
+Then user logs out of the app
 
 Examples: 
-| Country	| State				| Postal Code	| 
-#| Argentina	| Buenos Aires		| 1865			| 
-| Australia	| QLD				| 4822			| 
+| Country	| State				| Postal Code	| Country1 | Postal Code1 |
+| Argentina	| Buenos Aires		| 1865			| Canada   | M4B 1B3	  |
+#| Australia	| QLD				| 4822			| 
 #| Austria	| Vienna				| 1000			| 
 #| Belgium	| Brussels			| 1040			| 
 #| Brazil		| Amapa				| 68950-000		| 
@@ -1026,42 +1037,42 @@ When user navigates to "Address" screen from the "Dashboard" screen
 Then user should be displayed with the "Address" screen
 When user navigates to "Edit Address" screen from the "Address" screen 
 Then user should be displayed with the following "Edit Address" options:
-| EditAddressOptions			| 
+| EditAddressOptions		| 
 | Location Name Header		| 
 | Location Name Text Field	| 
-| Address Header				| 
-| Address Text Field			| 
+| Address Header			| 
+| Address Text Field		| 
 | City Text Field			| 
 | State Text Field			| 
-| Postal Code Text Field		| 
-| Change Country				|
+| Postal Code Text Field	| 
+| Change Country			|
 And the following "Edit Address" options should be disabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user selects "Change Country" from "Edit Address" screen
 Then user should be displayed with the "Please confirm your country" screen
 When user inputs <Country> in "Search Text Field" in the "Please confirm your country" screen
 Then user should be displayed with the "Edit Address" screen
 And user should be displayed with the following "Address Fields For The Selected Country" options:
-| AddressFieldsForTheSelectedCountry		| 
+| AddressFieldsForTheSelectedCountry	| 
 | Location Name Header					| 
 | Location Name Text Field				| 
-| Address Header							| 
-| Address Text Field						| 
+| Address Header						| 
+| Address Text Field					| 
 | City Text Field						| 
 | State Text Field						| 
-| Postal Code Text Field					| 
-| Change Country							|
+| Postal Code Text Field				| 
+| Change Country						|
 And the following "Edit Address" options should be disabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user inputs <State> in "State Text Field" in the "Edit Address" screen
 And the following "Edit Address" options should be disabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user inputs <Invalid Postal Code> in "Postal Code Text Field" in the "Edit Address" screen
 Then the following "Edit Address" options should be enabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user selects "Save button" from "Edit Address" screen
 Then user should receive a "Invalid Zipcode" popup
@@ -1069,7 +1080,7 @@ When user "dismisses" the "Invalid Zipcode" popup
 Then user should be displayed with the "Edit Address" screen 
 When user inputs <Postal Code> in "Postal Code Text Field" in the "Edit Address" screen
 Then the following "Edit Address" options should be enabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user selects "Save button" from "Edit Address" screen
 Then user should be displayed with the "Address" screen
@@ -1084,8 +1095,8 @@ And user should be displayed with the following "Address" options:
 	
 Examples: 
 | Country	| State				| Invalid Postal Code	| Postal Code	| 
-| Argentina	| Buenos Aires		| 055038					| 1865			| 
-#| Australia	| QLD				| 100000					| 4822			| 
+| Argentina	| Buenos Aires		| 055038				| 1865			| 
+#| Australia	| QLD				| 100000				| 4822			| 
 #| Austria	| Vienna				| 8320000				| 1000			| 
 #| Belgium	| Brussels			| M5H 2N2				| 1040			| 
 #| Brazil		| Amapa				| 4000					| 68950-000		| 
@@ -1119,8 +1130,8 @@ And user should be displayed with "Location Address" in the "Address" Screen
 Examples:
 | max characters                   	|
 | This is to test max character		|
-| This is to test max characters		|
-| This is to test max characterss	|
+| This is to test max characters	|
+#| This is to test max characterss	|
   
 
 @GeneralGlobalDrawerAddressVerifyIfSpecialCharactersAreAllowedInLocationName             @Automated			@--xrayid:ATER-69066
@@ -1167,6 +1178,10 @@ And user should be displayed with "Location Address" in the "Address" Screen
 @GeneralGlobalDrawerAddressDeleteLocationWithoutAnySoultion            @Automated		@--xrayid:ATER-69069
 Scenario Outline: As a user i want to Verify delete location for an account without any solution
 Given user launches and logs in to the Lyric application
+When user selects "Change Country" from "Add New Device" screen
+Then user should be displayed with the "Please confirm your country" screen
+Then user inputs "United States" in "Search Text Field" in the "Please confirm your country" screen
+Then user should be displayed with the "Add New Device" screen
 When user selects "Smart Home Security" from "Add New Device" screen
 Then user should be displayed with the "What To Expect" screen
 When user navigates to "Choose Location" screen from the "What To Expect" screen
@@ -1185,32 +1200,29 @@ Then user should be displayed with the <Previous Screen> screen
 And user "deletes default location details" by clicking on "delete" button
     
 Examples: 
-| new location name		| valid zip code		| Current Screen					| Previous Screen	|
-| California				| 90001				| Add New Device Dashboard		| Dashboard			|
+| new location name		| valid zip code	| Current Screen				| Previous Screen	|
+| California			| 90001				| Add New Device Dashboard		| Dashboard			|
 
   
 #Requirements : single location with any solution
-@GeneralGlobalDrawerAddressDeleteLocationWithAnySoultion             @Automated		@--xrayid:ATER-74327			#PendingForAutomation
+@GeneralGlobalDrawerAddressDeleteLocationWithAnySolution             @Automated		@--xrayid:ATER-74327	
 Scenario: As a user i want to Verify if error popup displays when tapped on delete location for an account with any solution
 Given user launches and logs in to the Lyric Application
 When user navigates to "Address" screen from the "Dashboard" screen
 Then user should be displayed with the "Address" screen
 When user "deletes location" by clicking on "Delete Location" button
 Then user should receive a "Delete Location" popup
-When user "Clicks on NO in" the "Delete Location" popup
+When user "clicks on Ok in" the "Delete Location" popup
 Then user should be displayed with the "Address" screen
-When user "deletes location" by clicking on "Delete Location" button
-Then user should receive a "Delete Location" popup
-When user "Clicks on YES in" the "Delete Location" popup
-Then user should be displayed with "Device is associated with account error" popup
-When user "accepts" the "Device is associated with account error" popup
-Then user should be displayed with the "Address" screen
-
   
 #Requirements : Two location with out any solution
 @GeneralGlobalDrawerAddressDeletingMultipleLocationsWithoutAnySolution            @Automated			@--xrayid:ATER-69070
 Scenario Outline: As a user i want to verify if user is navigated to other locations dashboard when a location is deleted for an account without any solution
 Given user launches and logs in to the Lyric application
+When user selects "Change Country" from "Add New Device" screen
+Then user should be displayed with the "Please confirm your country" screen
+Then user inputs "United States" in "Search Text Field" in the "Please confirm your country" screen
+Then user should be displayed with the "Add New Device" screen
 When user selects "Smart Home Security" from "Add New Device" screen
 Then user should be displayed with the "What To Expect" screen
 When user navigates to "Choose Location" screen from the "What To Expect" screen
@@ -1245,8 +1257,8 @@ Then user should be displayed with the "Dashboard" screen
 And user "deletes the existing location details" by clicking on "delete" button
     
 Examples: 
-| first location name	| valid first locations zip code		| second location name	| valid second locations zip code		| Current Screen					| Previous Screen	|
-| California				| 90001								|  Texas					| 90002									| Add New Device Dashboard		| Dashboard			|
+| first location name	| valid first locations zip code	| second location name	| valid second locations zip code		| Current Screen				| Previous Screen	|
+| California			| 90001								|  Texas				| 90002									| Add New Device Dashboard		| Dashboard			|
 
   
 #@GeneralGlobalDrawerWithsolutiondeleteoption
@@ -1267,8 +1279,6 @@ Scenario Outline: As a user i want to Verify if updated first name and last name
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
-#When user inputs <first name> in "First Name Text Field" in the "Edit Account" screen
-#Then user inputs <last name> in "Last Name Text Field" in the "Edit Account" screen
 Then user should be displayed with the following "Edit Account" options:
 |EditAccountOptions|
 |Name              |
@@ -1276,9 +1286,10 @@ Then user should be displayed with the following "Edit Account" options:
 |Change Password   |
 |Delete Account    |
 |Use Passcode	   |
-And user should be displayed with the "First and Last Name" in "Edit Account" screen
+And user should be displayed with the "First and Last Name in the Edit Account" screen
+#And user should be displayed with "Updated First Name" in "Edit Account" screen
+#And user should be displayed with "Updated Last Name" in "Edit Account" screen
 And user should be displayed with the "Logged in Email" in "Edit Account" screen
-#And user selects "Save button" from "Edit Account" screen
 Then user selects "Name" from "Edit Account" screen
 Then user should be displayed with the "Name Edit Account" screen
 Then user should be displayed with the following "Name Edit Account" options:
@@ -1286,66 +1297,71 @@ Then user should be displayed with the following "Name Edit Account" options:
 |First Name			   |
 |Last Name			   |
 |Save button		   |
-Then user should be displayed with the "Save button" as disabled
-Then user should update the "First Name and Last Name" in the "Name Edit Account" screen
+Then the following "Save button" options should be disabled:
+|SaveButtonOption|
+|Save			 |
+Then user inputs <First name> in "First name text field" in the "Name Edit Account" screen
+Then user inputs <Last name> in "Last name text field" in the "Name Edit Account" screen
 Then user selects "Save button" from "Name Edit Account" screen
 Then user should be displayed with the "Edit Account" screen
-#Then user should be displayed with the "Global Drawer" screen
-#And user navigates to "Edit Account" screen from the "Global Drawer" screen
-Then user should be displayed with "updated first name" in the "Edit Account" screen
-Then user should be displayed with "updated last name" in the "Edit Account" screen
+Then user should be displayed with "Updated First and Last Name" in the "Edit Account" screen
 
 Examples: 
-| first name | last name | 
-| giri       | THEJ      | 
-#| sami       | krishna   | 
+| First name | Last name | 
+| giri       | THEJJ     | 
+| sami       | krishna   | 
 #| vijay      | Govda     | 
 #| anju       | Chandran   |  
   
 
 #Edit first name last name with error
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountErrorMsgWhenExistingFirstNameIsCleared    @Automated	@--xrayid:ATER-69079   @InvalidScenario
+@GeneralGlobalDrawerEditAccountErrorMsgWhenExistingFirstNameIsCleared    @Automated	@--xrayid:ATER-69079  
 Scenario: As a user i want to Verify if error message is displayed when tried to save account without first name 
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
-When user clears the text displayed in the following text fields in the "Edit Account" screen:
-| TextFieldsInEditAccountScreen		|
-| First Name Text Field				|
-And user selects "Save button" from "Edit Account" screen
-Then user should receive a "First Name is required" popup
-When user "Clicks on OK in" the "First Name is required" popup
+And user should be displayed with the "First and Last Name in the Edit Account" screen
+And user should be displayed with the "Logged in Email" in "Edit Account" screen
+Then user selects "Name" from "Edit Account" screen
+When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
+| TextFieldsInNameEditAccountScreen		|
+| First Name Text Field					|
+When user clicks on the back arrow in the "Name Edit Account" screen
+Then user should receive a "Cancel Name Changes" popup
+Then user "clicks on Yes in" the "Cancel Name Changes" popup
 Then user should be displayed with the "Edit Account" screen
 When user clicks on the back arrow in the "Edit Account" screen
 Then user should be displayed with the "Global Drawer" screen
 And user navigates to "Edit Account" screen from the "Global Drawer" screen
 Then user should be displayed with "existing first name" in the "Edit Account" screen
-And user should be displayed with "existing last name" in the "Edit Account" screen
+#And user should be displayed with "existing last name" in the "Edit Account" screen
 
   
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountErrorMsgWhenExistingLastNameIsCleared   @Automated		@--xrayid:ATER-69080   @InvalidScenario
+@GeneralGlobalDrawerEditAccountErrorMsgWhenExistingLastNameIsCleared   @Automated		@--xrayid:ATER-69080  
 Scenario: As a user i want to Verify if error message is displayed when tried to save account without last name 
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
-When user clears the text displayed in the following text fields in the "Edit Account" screen:
-| TextFieldsInEditAccountScreen		|
-| Last Name Text Field				|
-And user selects "Save button" from "Edit Account" screen
-Then user should receive a "Last Name is required" popup
-When user "Clicks on OK in" the "Last Name is required" popup
+And user should be displayed with the "First and Last Name in the Edit Account" screen
+And user should be displayed with the "Logged in Email" in "Edit Account" screen
+Then user selects "Name" from "Edit Account" screen
+When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
+| TextFieldsInNameEditAccountScreen		|
+| Last Name Text Field					|
+When user clicks on the back arrow in the "Name Edit Account" screen
+Then user should receive a "Cancel Name Changes" popup
+Then user "clicks on Yes in" the "Cancel Name Changes" popup
 Then user should be displayed with the "Edit Account" screen
 When user clicks on the back arrow in the "Edit Account" screen
 Then user should be displayed with the "Global Drawer" screen
 And user navigates to "Edit Account" screen from the "Global Drawer" screen
-Then user should be displayed with "existing first name" in the "Edit Account" screen
-And user should be displayed with "existing last name" in the "Edit Account" screen
+Then user should be displayed with "existing last name" in the "Edit Account" screen
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountDisabledAndEnabledSaveButtonWhenFirstNameIsCleared    @Automated		@--xrayid:ATER-69081
+@GeneralGlobalDrawerEditAccountDisabledAndEnabledSaveButtonWhenFirstAndLastNameIsCleared    @Automated		@--xrayid:ATER-69081
 Scenario: As a user i want to Verify if save button gets enabled when first name text field is cleared
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1357,27 +1373,35 @@ Then user should be displayed with the following "Name Edit Account" options:
 |First Name			   |
 |Last Name			   |
 |Save button		   |
-Then user should be displayed with the "Save button" as disabled
+Then the following "Save button" options should be disabled:
+|SaveButtonOption|
+|Save			 |
 When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
-| TextFieldsInEditAccountScreen		|
-| First Name Text Field				|
-And the following "Name Edit Account" options should be disabled:
-| NameEditAccountOptions	| 
-| Save					    |
+| TextFieldsInNameEditAccountScreen		|
+| First Name Text Field					|
+Then user clicks on the back arrow in the "Name Edit Account" screen
+Then user should receive a "Cancel Name Changes" popup
+Then user "clicks on No in" the "Cancel Name Changes" popup
+Then user should be displayed with the "Name Edit Account" screen
+Then user clicks on the back arrow in the "Name Edit Account" screen
+Then user should receive a "Cancel Name Changes" popup
+Then user "clicks on Yes in" the "Cancel Name Changes" popup
+Then user should be displayed with the "Edit Account" screen
+Then user selects "Name" from "Edit Account" screen
 When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
-| TextFieldsInEditAccountScreen		|
-| Last Name Text Field				|
-Then the following "Edit Account" options should be disabled:
-| EditAccountOptions		| 
-| Save						|
+| TextFieldsInNameEditAccountScreen		|
+| Last Name Text Field					|
+Then the following "Save button" options should be disabled:
+|SaveButtonOption|
+|Save			 |
 Then user clicks on the back arrow in the "Name Edit Account" screen
-Then user should be displayed with "Cancel Name Changes" popup
-And user selects "No button" in the "Cancel Name Changes" popup
-Then user should be displayed with "Name Edit Account" screen without any changes
+Then user should receive a "Cancel Name Changes" popup
+Then user "clicks on No in" the "Cancel Name Changes" popup
+Then user should be displayed with the "Name Edit Account" screen
 Then user clicks on the back arrow in the "Name Edit Account" screen
-Then user should be displayed with "Cancel Name Changes" popup
-And user selects "Yes button" in the "Cancel Name Changes" popup
-Then user should be displayed with "Edit Account" screen
+Then user should receive a "Cancel Name Changes" popup
+Then user "clicks on Yes in" the "Cancel Name Changes" popup
+Then user should be displayed with the "Edit Account" screen
 Then user should be displayed with "existing first name" in the "Edit Account" screen
 And user should be displayed with "existing last name" in the "Edit Account" screen
 
@@ -1427,6 +1451,7 @@ And user should be displayed with "existing last name" in the "Edit Account" scr
 @GeneralGlobalDrawerEditAccountValidateMaxCharsInFirstNameAndLastNameTxtFields  @Automated	 @--xrayid:ATER-69082
 Scenario Outline: As a user i want to verify max characters that can be entered in first name and last name text fields in Edit Account screen
 Given user launches and logs in to the Lyric Application
+#And user should not be allowed to enter more than "40" characters in "Last Name" in the "Name Edit Account" screen
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
 Then user selects "Name" from "Edit Account" screen
@@ -1437,32 +1462,27 @@ Then user should be displayed with the following "Name Edit Account" options:
 |Last Name			   |
 |Save button		   |
 When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
-| TextFieldsInEditAccountScreen		|
-| First Name Text Field				|
+| TextFieldsInNameEditAccountScreen		|
+| First Name Text Field					|
 When user inputs <max characters> in "First Name Text Field" in the "Name Edit Account" screen
 And user should not be allowed to enter more than "40" characters in "First Name" in the "Name Edit Account" screen
 When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
-| TextFieldsInEditAccountScreen		|
-| Last Name Text Field				|
+| TextFieldsInNameEditAccountScreen		|
+| Last Name Text Field					|
 And user inputs <max characters> in "Last Name Text Field" in the "Name Edit Account" screen
-Then user should not be allowed to enter more than "40" characters in "Last Name" in the "Edit Account" screen
-And user selects "Save button" from "Name Edit Account" screen
+And user should not be allowed to enter more than "40" characters in "Last Name" in the "Name Edit Account" screen
+Then the following "Edit Account" options should be enabled:
+| EditAccountOptions	| 
+| Save					|
+Then user selects "Save button" from "Name Edit Account" screen
 Then user should be displayed with the "Edit Account" screen
-#When user navigates to "Edit Account" screen from the "Global Drawer" screen
-Then user should be displayed with the "Updated First Name and Last Name" in the "Edit Account" screen
-#When user inputs "Previous value" in "First Name Text Field" in the "Edit Account" screen
-#And user inputs "Previous value" in "Last Name Text Field" in the "Edit Account" screen
-#And user selects "Save button" from "Edit Account" screen
-#Then user should be displayed with the "Global Drawer" screen
-#When user navigates to "Edit Account" screen from the "Global Drawer" screen
-#Then user should be displayed with "existing first name" in the "Edit Account" screen
-#And user should be displayed with "existing last name" in the "Edit Account" screen
+Then user should be displayed with "Updated First and Last Name" in the "Edit Account" screen
 
 Examples:
 | max characters                   			|
-| Test maxm characters limit 40 character	|
 | Test maxm characters limit 40 characters	|
-| Test maxm characters limit 40 characterss	|
+#| Test maxm characters limit 40 characters	|
+#| Test maxm characters limit 40 characterss|
 
   
 #Requirements : single location with and with out any solution
@@ -1479,31 +1499,34 @@ Then user should be displayed with the following "Name Edit Account" options:
 |Last Name			   |
 |Save button		   |
 When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
-| TextFieldsInEditAccountScreen		|
-| First Name Text Field				|
+| TextFieldsInNameEditAccountScreen		|
+| First Name Text Field					|
 When user inputs "special characters" in "First Name Text Field" in the "Name Edit Account" screen
-When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
-| TextFieldsInEditAccountScreen		|
-| Last Name Text Field				|
-And user inputs "special characters" in "Last Name Text Field" in the "Edit Account" screen
-And user selects "Save button" from "Name Edit Account" screen
+Then user selects "Save button" from "Name Edit Account" screen
 Then user should be displayed with the "Edit Account" screen
-#When user navigates to "Edit Account" screen from the "Global Drawer" screen
-Then user should be displayed with "updated first name" in the "Edit Account" screen
-And user should be displayed with "updated last name" in the "Edit Account" screen
-#When user inputs "Previous value" in "First Name Text Field" in the "Edit Account" screen
-#And user inputs "Previous value" in "Last Name Text Field" in the "Edit Account" screen
-#And user selects "Save button" from "Edit Account" screen
-#Then user should be displayed with the "Global Drawer" screen
-#When user navigates to "Edit Account" screen from the "Global Drawer" screen
-#Then user should be displayed with "existing first name" in the "Edit Account" screen
-#And user should be displayed with "existing last name" in the "Edit Account" screen
+Then user selects "Name" from "Edit Account" screen
+Then user should be displayed with the "Name Edit Account" screen
+When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
+| TextFieldsInNameEditAccountScreen		|
+| Last Name Text Field					|
+And user inputs "special characters" in "Last Name Text Field" in the "Name Edit Account" screen
+Then user selects "Save button" from "Name Edit Account" screen
+Then user should be displayed with the "Edit Account" screen
+Then user should be displayed with "Updated First and Last Name" in the "Edit Account" screen
+#Then user should be displayed with "updated first name" in the "Edit Account" screen
+#And user should be displayed with "updated last name" in the "Edit Account" screen
+When user inputs "Previous value" in "First Name Text Field" in the "Edit Account" screen
+And user inputs "Previous value" in "Last Name Text Field" in the "Edit Account" screen
+And user selects "Save button" from "Edit Account" screen
+Then user should be displayed with the "Edit Account" screen
+Then user should be displayed with "existing first name" in the "Edit Account" screen
+And user should be displayed with "existing last name" in the "Edit Account" screen
   
 
 #Change Password in Edit Account Screen
 #Requirements : single location with and with out any solution
 @GeneralGlobalDrawerEditAccountUpdatePasswordWithoutSpecialCharacters    @Automated		 @--xrayid:ATER-69084
-Scenario: As a user i want to Verify update password functionality in Edit Account screen
+Scenario Outline: As a user i want to Verify update password functionality in Edit Account screen
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
@@ -1534,6 +1557,9 @@ When user logs in to the Lyric Application with "previous password"
 Then user navigates to "Edit Account" screen from the "Dashboard" screen
 And user should be displayed with the "Edit Account" screen
 
+Examples:
+|Valid Old Password  | Valid New Password Format	| Valid Verify New Password Format| Updated Old Password| Previous New Password Format Value| Previous Verify New Password Format Value| previous password|updated password|
+| Password1		     |	Password2					|	Password2					  | Password1			|	Password2						|	Password2							   | Password1		  | Password2	   |
 
 #Change Password in Edit Account Screen
 #Requirements : single location with and with out any solution
@@ -1585,7 +1611,7 @@ And user should be displayed with "You must enter your new password" error messa
 
 #Requirements : single location with and with out any solution
 @GeneralGlobalDrawerEditAccountChangePwdValidationWhenIncorrectOldPwdIsEntered  @Automated	 @--xrayid:ATER-69086
-Scenario: Change password screen validations when user taps on Save button by entering incorrect Old Password, valid New Password and Verify New Password text fields
+Scenario Outline: Change password screen validations when user taps on Save button by entering incorrect Old Password, valid New Password and Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
@@ -1597,10 +1623,13 @@ And user inputs "Valid Verify New Password Format" in "Verify New Password Text 
 And user selects "Save button" from "Change Password" screen
 Then user should be displayed with "Old Password is Invalid" error message in the "Old Password text field" in the "Change Password" screen
 
+Examples:
+|Incorrect Old Password| Valid New Password Format | Valid Verify New Password Format |
+|	Password3		   |	Password1			   | Password1						  |
 
 #Requirements : single location with and with out any solution
 @GeneralGlobalDrawerEditAccountChangePwdValidationWhenInvalidNewPwdIsEntered  @Automated	 @--xrayid:ATER-69087
-Scenario: Change password screen validations when user taps on Save button by entering valid Old Password, invalid New Password and Verify New Password text fields
+Scenario Outline: Change password screen validations when user taps on Save button by entering valid Old Password, invalid New Password and Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
@@ -1612,10 +1641,13 @@ And user inputs "Invalid Verify New Password Format" in "Verify New Password Tex
 And user selects "Save button" from "Change Password" screen
 Then user should be displayed with "Passwords dont match" error message in the "New Password Text Field" in the "Change Password" screen
 
+Examples:
+| Valid Old Password | Invalid New Password Format | Invalid Verify New Password Format |
+|	Password1		 |		Password4			   |	Password4						|
 
 #Requirements : single location with and with out any solution
 @GeneralGlobalDrawerEditAccountChangePwdValidationWithBlankVerifyNewPwd  @Automated	@--xrayid:ATER-74348  @NoUpdateRequired
-Scenario: Change password screen validations when user taps on Save button by entering valid Old Password, valid New Password and skip Verify New Password text fields
+Scenario Outline: Change password screen validations when user taps on Save button by entering valid Old Password, valid New Password and skip Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
@@ -1626,10 +1658,13 @@ And user inputs "Valid New Password Format" in "New Password Text Field" in the 
 And user selects "Save button" from "Change Password" screen
 Then user should be displayed with "You must enter your verify password" error message in the "Verify New Password Text Field" in the "Change Password" screen
 
+Examples:
+| Valid Old Password  | Valid New Password Format |
+|	Password1		  |						      |
 
 #Requirements : single location with and with out any solution
 @GeneralGlobalDrawerEditAccountChangePwdValidationWhenNewAndVerifyNewPwdDoesNotMatch   @Automated		 @--xrayid:ATER-69088
-Scenario: Change password screen validations when user taps on Save button by entering valid Old Password, different text in New Password and Verify New Password text fields
+Scenario Outline: Change password screen validations when user taps on Save button by entering valid Old Password, different text in New Password and Verify New Password text fields
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
 Then user should be displayed with the "Edit Account" screen
@@ -1643,7 +1678,12 @@ Then user should be displayed with "Passwords do not match" error message in the
 When user inputs "InValid New Password Format" in "New Password Text Field" in the "Change Password" screen
 And user inputs "Valid Verify New Password Format" in "Verify New Password Text Field" in the "Change Password" screen
 And user selects "Save button" from "Change Password" screen
-Then user should be displayed with "Passwords dont match" error message in the "New Password text field" in the "Change Password" screen
+Then user should be displayed with "Passwords do not match" error message in the "New Password text field" in the "Change Password" screen
+
+Examples:
+| Valid Old Password | Valid New Password Format | Invalid Verify New Password Format | InValid New Password Format | Valid Verify New Password Format |
+|	Password1		 |	Password2				 |		Password3					  |		Password3				|	Password2					   |
+
 
   
   #Same as above
@@ -1725,8 +1765,8 @@ When user "accepts" the "Cancel Setup" popup
 Then user should be displayed with the "Add New Device" screen
 
 Examples: 
-      | Default Location		| Default Device Name		| valid zip code        |
-      | Home					| Living Room				| 90001                 |
+| Default Location		| Default Device Name		| valid zip code        |
+| Home					| Living Room				| 90001                 |
 
 
 #Delete account with learn how to delete a device #GDPR
@@ -1775,7 +1815,7 @@ Given user launches and logs in to the Lyric Application
 When user navigates to "About the app" screen from the "Dashboard" screen
 Then user should be displayed with the "About the app" screen
 And user should be displayed with the following "About the app" options:
-| AboutTheAppOptions			| 
+| AboutTheAppOptions		| 
 | Rate the app for Android	|
 | Get Help             		| 
 | Privacy Policy and EULA 	|
@@ -1833,7 +1873,7 @@ Given user launches and logs in to the Lyric Application
 When user navigates to "About the app" screen from the "Dashboard" screen
 Then user should be displayed with the "About the app" screen
 And user should be displayed with the following "About the app" options:
-| AboutTheAppOptions			|
+| AboutTheAppOptions		|
 | Version              		|
   
 
@@ -2673,7 +2713,6 @@ Then user should be displayed with the following "Question" options:
 
 #Logout
   
-
 #Requirements : single location with and with out any solution
 @GeneralGlobalDrawerLogoutFromTheAppWithLocation             @Automated		@--xrayid:ATER-69134
 Scenario: As a user i want to Verify logout with location under global drawer with and with out solution
@@ -2699,8 +2738,8 @@ When user "Clicks on Sign Out button in" the "Exit Honeywell Home" popup
 Then user should be displayed with the "Honeywell Home" Screen
 And user should be able to login to the app after sign out
 Then user should be displayed with the "Add New Device" screen
-  
-
+ 
+ 
 #Delete account
 #Requirements: No Location, No Device and No Membership
 @SingleUserDeleteAccountWithNoLocationNoDeviceNoMembership             @Automated 		@--xrayid:ATER-69136  
@@ -2738,7 +2777,7 @@ When user selects "Delete Account" from "Edit Account" screen
 Then user should be displayed with the "Delete Account Without Solution" screen
 And user should be displayed with the following "Delete Account" options:
 | DeleteAccountOptions				| 
-| We are sorry to see you go			|
+| We are sorry to see you go		|
 When user selects "Delete Account button" from "Delete Account" screen
 Then user should receive a "Your Account and Data is deleted" popup
 And user "Accepts" the "Your Account and Data is deleted" popup
@@ -2764,8 +2803,8 @@ When user "accepts" the "Cancel Setup" popup
 Then user should be displayed with the "Add New Device" screen
 
 Examples: 
-      | Default Location		| Default Device Name		| valid zip code        |
-      | Home					| Living Room				| 90001                 |	
+| Default Location		| Default Device Name		| valid zip code        |
+| Home					| Living Room				| 90001                 |	
   
 
   @SingleUserWithUnsharedDeviceWithCameraSubscriptions             @NotAutomatable		@--xrayid:ATER-69138
@@ -2971,7 +3010,7 @@ Then user should be displayed with the "Delete Account With Solution" screen
 When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
 Then user should be displayed with the "Learn How To Cancel A Membership" screen
 And user should be displayed with the following "Learn How To Cancel A Membership" options:
-| LearnHowToCancelAMembershipOptions			| 
+| LearnHowToCancelAMembershipOptions		| 
 | Was this helpful with Yes and No buttons	|
 When user selects "Close button" from "Learn How To Cancel A Membership" screen
 Then user should be displayed with the "Delete Account With Solution" screen
@@ -3137,6 +3176,7 @@ Then user should be displayed with the "Delete Account With Solution" screen
 @DeleteAllLocationsAndThenDeleteAccount             @Automated		@--xrayid:ATER-69147
 Scenario Outline: Verify if user is navigated to add device screen when all locations are deleted and account is deleted when user deletes the account
 Given user launches and logs in to the Lyric application with user account with location
+And user changes the country to "United States"
 When user selects "Smart Home Security" from "Add New Device" screen
 Then user should be displayed with the "What To Expect" screen
 When user navigates to "Choose Location" screen from the "What To Expect" screen
@@ -3189,8 +3229,8 @@ And user "Accepts" the "Email or Password incorrect" popup
 Then create the deleted user account through CHIL
     
 Examples: 
-| first location name	| valid first locations zip code		| second location name	| valid second locations zip code		| Current Screen					| Previous Screen	|
-| California				| 90001								|  Texas					| 90002									| Add New Device Dashboard		| Dashboard			|
+| first location name	| valid first locations zip code	| second location name	| valid second locations zip code		| Current Screen					| Previous Screen	|
+| California			| 90001								|  Texas				| 90002									| Add New Device Dashboard		| Dashboard			|
 
 @DeleteAccountAfterInvitingAnotherUser				@Automatable		@--xrayid:ATER-
 Scenario Outline: User should be able to delete account after inviting another user

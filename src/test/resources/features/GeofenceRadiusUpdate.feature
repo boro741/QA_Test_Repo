@@ -8,7 +8,7 @@ Given user launches and logs in to the Lyric Application
 And user navigates to "Global Drawer" screen from the "Dashboard" screen 
 When user selects "Geofence" from "Global Drawer" screen
 Then user should be displayed with the "Geofence Settings" screen
-When user changes the "Geofence this locaiton toggle" to "on"
+When user changes the "Geofence this location toggle" to "on"
 Then user should be displayed with the following "Geofence this location" options:
 | GeofenceThisLocation		|
 | Geofence Radius			|
@@ -34,7 +34,7 @@ Given user launches and logs in to the Lyric Application
 And user navigates to "Global Drawer" screen from the "Dashboard" screen 
 When user selects "Geofence" from "Global Drawer" screen
 Then user should be displayed with the "Geofence Settings" screen
-When user changes the "Geofence this locaiton toggle" to "off"
+When user changes the "Geofence this location toggle" to "off"
 Then the following "Geofence Settings" options should be disabled:
 | Options					|
 | Geofence this Location		|
@@ -42,7 +42,7 @@ And user should not be displayed with the following "Geofence this location" opt
 | GeofenceThisLocation		|
 | Geofence Radius			|
 | Location Status			|
-| Geofence Alert				|
+| Geofence Alert			|
 #And user logs out of the app
 #When user launches and logs in to the Lyric Application
 When user logs out and logs in to the Lyric Application with "logged in users account"
@@ -52,12 +52,12 @@ Then user should be displayed with the "Geofence Settings" screen
 And "Geofencing" value should be updated to "OFF" on "Geofence Settings" screen
 Then the following "Geofence Settings" options should be disabled:
 | Options					|
-| Geofence this Location		|
+| Geofence this Location	|
 And user should not be displayed with the following "Geofence this location" options:
 | GeofenceThisLocation		|
 | Geofence Radius			|
 | Location Status			|
-| Geofence Alert				|
+| Geofence Alert			|
 #And user logs out of the app
 
 @GeofenceRadius_Update_Singlestat          @NotAutomatable

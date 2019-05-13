@@ -29,6 +29,7 @@ import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.EditAccountScreen;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.ManageUsersScreen;
+import com.honeywell.screens.NameEditAccountScreen;
 import com.honeywell.screens.OSPopUps;
 import com.honeywell.screens.SecuritySolutionCardScreen;
 import com.honeywell.screens.SensorSettingScreen;
@@ -856,44 +857,181 @@ public class PerformActionsOnPopUp extends Keyword {
 				break;
 			}
 			}
-		} else if (expectedPopUp.get(1).equalsIgnoreCase("DELETE USER")) {
+		} else if (expectedPopUp.get(1).equalsIgnoreCase("ALLOW HONEYWELL TO ACCESS YOUR LOCATION")) {
+			OSPopUps ops = new OSPopUps(testCase);
 			switch (expectedPopUp.get(0).toUpperCase()) {
-			case "CANCELS": {
-				ManageUsersScreen mus = new ManageUsersScreen(testCase);
-				if (mus.isCancelButtonInDeleteUserPopupVisible()) {
-					flag &= mus.clickOnCancelButtonInDeleteUserPopup();
-					if (mus.isManageUsersScreenHeaderVisible() && mus.isInviteNewUserButtonVisible()
-							&& mus.isBackButtonVisible()) {
-						Keyword.ReportStep_Pass(testCase, "User is in Manage Users screen");
-					} else {
+			case "SELECTS DONT ALLOW BUTTON FROM": {
+				if(ops.isDontAllowButtonInAllowHoneywellToAccessYourLocationPopupVisible()) {
+					flag &= ops.clickOnDontAllowButtonInAllowHoneywellToAccessYourLocationPopup();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on Dont Allow button in Allow Honeywell to access your location Popup");
+					}else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"User is not in Manage Users screen");
+								"Failed to click on Dont Allow button in Allow Honeywell to access your location Popup");
 					}
-				} else {
-					flag = false;
+				}else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Cancel button is not displayed in: " + expectedPopUp.get(0));
+							"Don't Allow button is not displayed in Allow Honeywell to access your location popup");
 				}
 				break;
 			}
+			case "SELECTS ALLOW BUTTON FROM" : {
+				if(ops.isAlwaysAllowButtonInAllowHoneywellToAccessYourLocationPopupVisible()) {
+					flag &= ops.clickOnAlwaysAllowButtonInAllowHoneywellToAccessYourLocationPopup();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on Allow button in Allow Honeywell to access your location Popup");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on Allow button in Allow Honeywell to access your location Popup");
+					}
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Allow button is not displayed in Allow Honeywell to access your location popup");
+				}
+				break;
+			}
+			case "SELECTS ONLY WHILE USING THE APP BUTTON FROM" : {
+				if(ops.isOnlyWhileUsingTheAppButtonInAllowHoneywellToAccessYourLocationPopupVisible()) {
+					flag &= ops.clickOnOnlyWhileUsingTheAppButtonInAllowHoneywellToAccessYourLocationPopup();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on While Using The App button in Allow Honeywell to access your location Popup");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on While Using The App button in Allow Honeywell to access your location Popup");
+					}
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Select Only while using the app button is not displayed in Allow Honeywell to access your location popup");
+				}
+				break;
+			}
+		  }	
+		}
+		else if (expectedPopUp.get(1).equalsIgnoreCase("HONEYWELL WOULD LIKE TO SEND YOU NOTIFICATIONS")) {
+			OSPopUps ops = new OSPopUps(testCase);
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "SELECTS DONT ALLOW BUTTON FROM": {
+				if(ops.isDontAllowButtonInHoneywellWouldLikeToSendYouNotificationsPopupVisible()) {
+					flag &= ops.clickOnDontAllowButtonInHoneywellWouldLikeToSendYouNotificationsPopup();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on Dont Allow button in Honeywell would like to send you notifications Popup");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on Dont Allow button in Honeywell would like to send you notifications Popup");
+					}
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Don't Allow button is not displayed in Honeywell would like to send you notifications popup");
+				}
+				break;
+			}
+			case "SELECTS ALLOW BUTTON FROM" : {
+				if(ops.isAllowButtonInHoneywellWouldLikeToSendYouNotificationsPopupVisible()) {
+					flag &= ops.clickOnAllowButtonInHoneywellWouldLikeToSendYouNotificationsPopup();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on Allow button in Honeywell would like to send you notifications Popup");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on Allow button in Honeywell would like to send you notifications Popup");
+					}
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Allow button is not displayed in Honeywell would like to send you notifications popup");
+				}
+				break;
+			}
+		  }	
+		} 
+		else if(expectedPopUp.get(1).equalsIgnoreCase("ALLOW HONEYWELL TO ACCESS THIS DEVICES LOCATION")) {
+			OSPopUps ops = new OSPopUps(testCase);
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "SELECTS ALLOW BUTTON FROM": {
+				if(ops.isAllowButtonInAllowHoneywellToAccessThisDevicesLocationPopupVisible(30)) {
+					flag &= ops.clickOnAllowButtonInAllowHoneywellToAccessThisDevicesLocationPopup();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on Allow button in Allow Honeywell to access this devices location Popup");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on Allow button in Allow Honeywell to access this devices location Popup");
+					}
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Allow button is not displayed in Allow Honeywell to access this devices location popup");
+				}
+				break;
+			}
+			case "SELECTS DENY BUTTON FROM": {
+				if(ops.isDenyButtonInAllowHoneywellToAccessThisDevicesLocationPopupVisible(30)) {
+					flag &= ops.clickOnDenyButtonInAllowHoneywellToAccessThisDevicesLocationPopup();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on Deny button in Allow Honeywell to access this devices location Popup");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on Deny button in Allow Honeywell to access this devices location Popup");
+					}
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Deny button is not displayed in Allow Honeywell to access this devices location popup");
+				}
+				break;
+			}
+		  }
+		}
+		
+		
+		else if (expectedPopUp.get(1).equalsIgnoreCase("DELETE USER")) {
+			ManageUsersScreen mus = new ManageUsersScreen(testCase);
+			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "CLICKS ON OK IN": {
-				ManageUsersScreen mus = new ManageUsersScreen(testCase);
-				if (mus.isOKButtonInDeleteUserPopupVisible()) {
-					flag &= mus.clickOnOKButtonInDeleteUserPopup();
-					if (mus.isManageUsersScreenHeaderVisible() && mus.isInviteNewUserButtonVisible()
-							&& mus.isBackButtonVisible()) {
-						Keyword.ReportStep_Pass(testCase, "User is in Manage Users screen");
+                if (mus.isOKButtonInDeleteUserPopupVisible()) {
+                        flag &= mus.clickOnOKButtonInDeleteUserPopup();
+                        if (mus.isManageUsersScreenHeaderVisible() && mus.isInviteNewUserButtonVisible()
+                                           && mus.isBackButtonVisible()) {
+                                 Keyword.ReportStep_Pass(testCase, "User is deleted and is in Manage Users screen");
+                         } else {
+                                       Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                    "User is not in Manage Users screen");
+                         }
+                   } else {
+                        flag = false;
+                        Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                             "Remove button is not displayed in: " + expectedPopUp.get(0));
+                }
+                break;
+	
+			}
+			case "CLICKS ON CANCEL IN" : {
+					if (mus.isCancelButtonInDeleteUserPopupVisible()) {
+							flag &= mus.clickOnCancelButtonInDeleteUserPopup();
+							if (mus.isManageUsersScreenHeaderVisible() && mus.isInviteNewUserButtonVisible()
+										&& mus.isBackButtonVisible()) {
+									Keyword.ReportStep_Pass(testCase, "User is in Manage Users screen");
+							} else {
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"User is not in Manage Users screen");
+							}
 					} else {
+						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"User is not in Manage Users screen");
+								"Cancel button is not displayed in: " + expectedPopUp.get(0));
 					}
-				} else {
-					flag = false;
+					break;
+				}
+			
+				/*if(ops.isCancelButtonInDeleteUserPopupVisible()) {
+					flag&= ops.clickOnCancelButtonInDeleteUserPopup(); 
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on Cancel button in Delete User Popup");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on Cancel button in Delete User Popup");
+					}
+				}else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Remove button is not displayed in: " + expectedPopUp.get(0));
+							"Failed to click on the Cancel button in Delete User Popup");
 				}
 				break;
-			}
+			}*/
 			}
 		} else if (expectedPopUp.get(1).equalsIgnoreCase("UPDATE GEOFENCE CENTER")) {
 			switch (expectedPopUp.get(0).toUpperCase()) {
@@ -1248,7 +1386,91 @@ public class PerformActionsOnPopUp extends Keyword {
 				break;
 			}
 			}
-		} else {
+		} else if(expectedPopUp.get(1).equalsIgnoreCase("DELETE LOCATION")) {
+			AddressScreen ads= new AddressScreen(testCase);
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CLICKS ON YES IN": {
+				if(ads.isYesButtonInDeleteLocationPopupLabelVisible()) {
+					flag&= ads.clickOnYesButtonInDeleteLocationPopup();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on Yes button in Delete Location Popup");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on Yes button in Delete Location Popup");
+					}
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Yes button in Delete Location popup is not displayed");
+				}
+				break;
+			}
+			case "CLICKS ON NO IN": {
+				if(ads.isNoButtonInDeleteLocationPopupLabelVisible()) {
+					flag&= ads.clickOnNoButtonInDeleteLocationPopup();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on No button in Delete Location Popup");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on No button in Delete Location Popup");
+					}
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"No button in Delete Location popup is not displayed");
+				}
+				break;
+			}
+			case "CLICKS ON OK IN" : {
+				if(ads.isOkButtonInDeleteLocationPopupVisible()) {
+					flag &=ads.clickOnOkButtonInDeleteLocationPopup();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on Ok button in Delete Location Popup");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on the Ok button in Delete Location Popup");
+					}
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"OK button in Delete Location popup is not displayed");
+				}
+				break;
+			}
+		  }
+		} else if(expectedPopUp.get(1).equalsIgnoreCase("CANCEL NAME CHANGES")) {
+			NameEditAccountScreen neas = new NameEditAccountScreen(testCase);
+			switch (expectedPopUp.get(0).toUpperCase()) {
+			case "CLICKS ON YES IN": {
+				if(neas.isYesButtonInCancelNameChangesPopupVisible()) {
+					flag&= neas.clickOnYesButtonInCancelNameChangesPopupVisible();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on Yes button in Cancel Name Changes Popup");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Yes button in Delete Name Changes popup is not displayed");
+					}
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to click on the Yes button in Cancel Name Changes Popup");
+				}
+				break;
+			}
+			case "CLICKS ON NO IN": {
+				if(neas.isNoButtonInCancelNameChangesPopupVisible()) {
+					flag&= neas.clickOnNoButtonInCancelNameChangesPopupVisible();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on No button in Cancel Name Changes Popup");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"No button in Delete Name Changes popup is not displayed");
+					}
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to click on the No button in Cancel Name Changesn Popup");
+				}
+				break;
+			}
+		  }
+		}
+		else {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input " + expectedPopUp.get(1));
 		}

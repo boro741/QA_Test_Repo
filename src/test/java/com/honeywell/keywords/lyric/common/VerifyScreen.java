@@ -40,6 +40,7 @@ import com.honeywell.screens.FlyCatcherPrimaryCard;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.GlobalDrawerScreen;
 import com.honeywell.screens.MobileDeviceSettingsScreen;
+import com.honeywell.screens.NameEditAccountScreen;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.PrivacyStatementScreen;
 import com.honeywell.screens.SchedulingScreen;
@@ -273,8 +274,8 @@ public class VerifyScreen extends Keyword {
 			case "ADD NEW DEVICE":
 			case "ADD NEW DEVICE DASHBOARD": {
 				AddNewDeviceScreen addDeviceSrceen = new AddNewDeviceScreen(testCase);
-				flag &= DashboardUtils.waitForProgressBarToComplete(testCase, "PROGRESS BAR", 1);
-				if (addDeviceSrceen.isAddNewDeviceHeaderDisplayed(60)
+				//flag &= DashboardUtils.waitForProgressBarToComplete(testCase, "PROGRESS BAR", 1);
+				if (addDeviceSrceen.isAddNewDeviceHeaderDisplayed(10)
 						&& addDeviceSrceen.isSelectADeviceToInstallHeaderInAddNewDeviceScreenVisible()) {
 					Keyword.ReportStep_Pass(testCase,
 							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
@@ -1041,7 +1042,7 @@ public class VerifyScreen extends Keyword {
 				EditAccountScreen eas = new EditAccountScreen(testCase);
 				if (eas.isEditAccountScreenTitleVisible() && eas.isNameLabelInEditAccountScreenVisible()
 						&& eas.isEmailLabelInEditAccountScreenVisible() && eas.isEmailValueInEditAccountScreenVisible()
-						&& eas.isChangePasswordButtonInEditAccountScreenVisible()
+						&& eas.isChangePasswordInEditAccountScreenVisible()
 						&& eas.isDeleteAccountButtonInEditAccountScreenVisible()
 						&& eas.isUsePasscodeLabelInEditAccountScreenVisible()
 						&& eas.isUsePasscodeSwitchInEditAccountScreenVisible()) {
@@ -1156,9 +1157,8 @@ public class VerifyScreen extends Keyword {
 			}
 			case "PRIVACY POLICY AND EULA": {
 				AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
-				DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "PRIVACY POLICY LOADING SPINNER", 2);
-				if (atas.isPrivacyPolicyAndEULAScreenTitleVisible()
-						&& atas.isDoneButtonInPrivacyPolicyAndEULAScreenVisible()) {
+				DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "PRIVACY POLICY LOADING SPINNER", 4);
+				if (atas.isPrivacyPolicyAndEULAScreenTitleVisible()) {
 					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1575,7 +1575,7 @@ public class VerifyScreen extends Keyword {
 			}
 			case "ACTIVATE ACCOUNT": {
 				ActivateAccountScreen aas = new ActivateAccountScreen(testCase);
-				CreateAccountAndForgotPwdUtils.waitForProgressBarToComplete(testCase, "PROGRESS BAR", 1);
+				//CreateAccountAndForgotPwdUtils.waitForProgressBarToComplete(testCase, "PROGRESS BAR", 2);
 
 				if (aas.isActivateAccountTitleDisplayed()) {
 					Keyword.ReportStep_Pass(testCase, "Activate Account screen is displayed");
@@ -1623,13 +1623,48 @@ public class VerifyScreen extends Keyword {
 				if (mdls.isMobileDeviceLocationHeaderDisplayed()) {
 					Keyword.ReportStep_Pass(testCase, "Mobile Device Location Settings screen is displayed");
 				} else {
-
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
 				}
-				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Failed to navigate to " + expectedScreen.get(0));
 				break;
 			}
-
+			
+			case "FIRST AND LAST NAME IN THE EDIT ACCOUNT" :{
+				EditAccountScreen eas= new EditAccountScreen(testCase);
+				if(eas.isFirstNameValueVisibleInNameScreen() && eas.isLastNameValueVisibleInNameScreen()) {
+					Keyword.ReportStep_Pass(testCase, "First Name is: "+ eas.getFirstNameValueInNameScreen() + " & Last Name is: " + eas.getLastNameValueInNameScreen() + " is displayed");
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
+			
+			case "LOGGED IN EMAIL":{
+				EditAccountScreen eas= new EditAccountScreen(testCase);
+				if(eas.isLoggedInUserEmailDisplayed()) {
+					String userEmailAddress= eas.getLoggedInUserEmail();
+					System.out.println("The logged in user email address is: "+userEmailAddress);
+					Keyword.ReportStep_Pass(testCase, "Logged in user email address is displayed");
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
+			
+			case "NAME EDIT ACCOUNT" : {
+				NameEditAccountScreen neas= new NameEditAccountScreen(testCase);
+				if(neas.isNameEditAccountScreenTitleVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Name Edit Account title is displayed");
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to " + expectedScreen.get(0));
+				}
+				break;
+			}
+			
+			
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

@@ -1734,6 +1734,19 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
+				case "DASHBOARD" : {
+					GlobalDrawerScreen gds = new GlobalDrawerScreen(testCase);
+					if(gds.isBackButtonVisible()) {
+						flag&= gds.clickOnBackButton();
+						if(flag) {
+							Keyword.ReportStep_Pass(testCase, "Successfully navigated to " + screen.get(0) + " screen");
+						}else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to " + screen.get(0) + " screen");
+						}
+					}
+					break;
+				}
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
@@ -3951,6 +3964,20 @@ public class NavigateToScreen extends Keyword {
 						if (gs.isGeofenceRadiusScreenTitleVisible()) {
 							Keyword.ReportStep_Pass(testCase, screen.get(1) + " displayed");
 						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to: " + screen.get(1));
+						}
+					}
+					break;
+				}
+				case "GLOBAL DRAWER" : {
+					GeofenceSettings gs = new GeofenceSettings(testCase);
+					GlobalDrawerScreen gds= new GlobalDrawerScreen(testCase);
+					if(gs.isBackButtonVisible()) {
+						flag &= gs.clickOnBackButton();
+						if(gds.isAccountHeaderTitleVisible()) {
+							Keyword.ReportStep_Pass(testCase, screen.get(1) + " displayed");
+						}else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Failed to navigate to: " + screen.get(1));
 						}

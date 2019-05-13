@@ -217,5 +217,9 @@ public class SecretMenu extends MobileScreens {
 	public boolean clickOnDoneButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButton");
 	}
+	
+	public boolean clickToUncheckIDAAS() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "IDAASCheckbox");
+	}
 
 }

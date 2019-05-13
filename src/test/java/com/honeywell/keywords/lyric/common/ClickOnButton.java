@@ -10,6 +10,7 @@ import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.screens.AddressScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraConfigurationScreen;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
@@ -325,7 +326,24 @@ public class ClickOnButton extends Keyword {
 						break;
 					}
 					}
-			} else {
+			} else if(expectedButton.get(0).equalsIgnoreCase("DELETES LOCATION")) {
+				switch (expectedButton.get(1).toUpperCase()) {
+				case "DELETE LOCATION": {
+					AddressScreen as = new AddressScreen(testCase);
+					if(as.isDeleteLocationButtonInAddressScreenVisible()) {
+						flag = flag & as.clickOnDeleteLocationButtonInAddressScreen();
+						Keyword.ReportStep_Pass(testCase, "Location deleted");
+					}else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Location not deleted : ");
+					}
+					break;
+				}
+			  }
+			}
+			
+			else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Invalid Input: " + expectedButton.get(1));

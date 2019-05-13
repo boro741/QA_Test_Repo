@@ -18,6 +18,7 @@ import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.das.utils.EditAccountUtils;
 import com.honeywell.lyric.das.utils.FAQsUtils;
 import com.honeywell.lyric.das.utils.LoginUtils;
+import com.honeywell.lyric.das.utils.NameEditAccountUtils;
 import com.honeywell.screens.LocationDetailsScreen;
 
 public class EnterTextInATextField extends Keyword {
@@ -313,6 +314,75 @@ public class EnterTextInATextField extends Keyword {
 				break;
 			}
 			}
+		} else if (inputName.get(2).equalsIgnoreCase("LOGIN WITH CREATED CREDENTIALS")) {
+			switch (inputName.get(1).toUpperCase()) {
+			case "EMAIL TEXT FIELD": {
+				flag &= LoginUtils.enterEmailIdInLoginScreen(testCase, inputs, inputs.getInputValue("EMAIL_TEXT"));
+				break;
+			}
+			case "PASSWORD TEXT FIELD": {
+				inputs.setInputValue("PASSWORD_FIELD", inputName.get(0));
+				flag &= LoginUtils.enterPasswordInLoginScreen(testCase, inputs, inputName.get(0));
+				if (flag) {
+					if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+						// MobileUtils.pressBackButton(testCase, "Keyboard minimized");
+						MobileUtils.hideKeyboard(testCase.getMobileDriver(), "Keyboard minimized");
+					} else {
+						// ios
+						MobileUtils.clickOnElement(testCase, "Name", "Go");
+					}
+				}
+				break;
+			}
+		  }
+		}
+		else if (inputName.get(2).equalsIgnoreCase("NAME EDIT ACCOUNT")) {
+			switch (inputName.get(1).toUpperCase()) {
+			case "FIRST NAME TEXT FIELD": {
+				if (inputName.get(0).equalsIgnoreCase("PREVIOUS VALUE")) {
+					flag &= NameEditAccountUtils.enterFirstNameInNameEditAccountScreen(testCase, inputs,
+							inputs.getInputValue("FIRST_NAME_IN_NAME_EDIT_ACCOUNT"));
+				} else if(inputName.get(0).equalsIgnoreCase("MAX CHARACTERS")) {
+					flag &= NameEditAccountUtils.enterFirstNameInNameEditAccountScreen(testCase, inputs, 
+							inputs.getInputValue("FIRST_NAME_IN_NAME_EDIT_ACCOUNT"));
+				} else if (inputName.get(0).equalsIgnoreCase("SPECIAL CHARACTERS")) {
+					Random rand = new Random();
+					int randomInt = rand.nextInt(100);
+					String specialCharsInFirstNameTxtField = "&#$" + inputs.getInputValue("FIRST_NAME_IN_NAME_EDIT_ACCOUNT")
+							+ randomInt + "%^&*";
+					//System.out.println("#########specialCharsInFirstNameTxtField: " + specialCharsInFirstNameTxtField);
+					inputs.setInputValue("UPDATED_FIRST_NAME_IN_NAME_EDIT_ACCOUNT", specialCharsInFirstNameTxtField);
+					flag &= NameEditAccountUtils.enterFirstNameInNameEditAccountScreen(testCase, inputs,
+							specialCharsInFirstNameTxtField);
+				} else {
+					inputs.setInputValue("UPDATED_FIRST_NAME_IN_NAME_EDIT_ACCOUNT", inputName.get(0));
+					flag &= NameEditAccountUtils.enterFirstNameInNameEditAccountScreen(testCase, inputs, inputName.get(0));
+				}
+				break;
+			}
+			case "LAST NAME TEXT FIELD": {
+				if (inputName.get(0).equalsIgnoreCase("PREVIOUS VALUE")) {
+					flag &= NameEditAccountUtils.enterLastNameInNameEditAccountScreen(testCase, inputs,
+							inputs.getInputValue("LAST_NAME_IN_EDIT_ACCOUNT"));
+				} else if(inputName.get(0).equalsIgnoreCase("MAX CHARACTERS")) {
+					flag &= NameEditAccountUtils.enterLastNameInNameEditAccountScreen(testCase, inputs, 
+							inputs.getInputValue("LAST_NAME_IN_EDIT_ACCOUNT"));
+				} else if (inputName.get(0).equalsIgnoreCase("SPECIAL CHARACTERS")) {
+					Random rand = new Random();
+					int randomInt = rand.nextInt(100);
+					String specialCharsInLastNameTxtField = "&#$" + inputs.getInputValue("LAST_NAME_IN_EDIT_ACCOUNT")
+							+ randomInt + "%^&*";
+					//System.out.println("#########specialCharsInFirstNameTxtField: " + specialCharsInLastNameTxtField);
+					inputs.setInputValue("UPDATED_LAST_NAME_IN_EDIT_ACCOUNT", specialCharsInLastNameTxtField);
+					flag &= NameEditAccountUtils.enterLastNameInNameEditAccountScreen(testCase, inputs,
+							specialCharsInLastNameTxtField);
+				} else {
+					inputs.setInputValue("UPDATED_LAST_NAME_IN_EDIT_ACCOUNT", inputName.get(0));
+					flag &= NameEditAccountUtils.enterLastNameInNameEditAccountScreen(testCase, inputs, inputName.get(0));
+				}
+				break;
+			}
+		  }
 		}
 		return flag;
 	}

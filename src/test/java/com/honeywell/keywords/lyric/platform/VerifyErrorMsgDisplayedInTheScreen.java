@@ -39,7 +39,7 @@ public class VerifyErrorMsgDisplayedInTheScreen extends Keyword {
 		if (errorMsgText.get(2).equalsIgnoreCase("CHANGE PASSWORD")) {
 			switch (errorMsgText.get(1).toUpperCase()) {
 			case "OLD PASSWORD TEXT FIELD": {
-				if (errorMsgText.get(0).equalsIgnoreCase("YOU MUST ENTER YOUR PASSWORD")) {
+				if (errorMsgText.get(0).equalsIgnoreCase("YOU MUST ENTER YOUR NEW PASSWORD")) {
 					flag &= EditAccountUtils.verifyErrorMsgTextInOldPwdTextField(testCase, errorMsgText.get(0));
 				} else if (errorMsgText.get(0).equalsIgnoreCase("INVALID PASSWORD FORMAT")) {
 					flag &= EditAccountUtils.verifyErrorMsgTextInOldPwdTextField(testCase, errorMsgText.get(0));
@@ -51,7 +51,7 @@ public class VerifyErrorMsgDisplayedInTheScreen extends Keyword {
 					flag &= EditAccountUtils.verifyErrorMsgTextInNewPwdTextField(testCase, errorMsgText.get(0));
 				} else if (errorMsgText.get(0).equalsIgnoreCase("INVALID PASSWORD FORMAT")) {
 					flag &= EditAccountUtils.verifyErrorMsgTextInNewPwdTextField(testCase, errorMsgText.get(0));
-				} else if (errorMsgText.get(0).equalsIgnoreCase("PASSWORDS DO NOT MATCH")) {
+				} else if (errorMsgText.get(0).equalsIgnoreCase("PASSWORDS DON'T MATCH")) {
 					flag &= EditAccountUtils.verifyErrorMsgTextInNewPwdTextField(testCase, errorMsgText.get(0));
 				}
 				break;

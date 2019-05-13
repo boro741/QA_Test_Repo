@@ -765,7 +765,7 @@ public class DIYRegistrationUtils {
 			 * fWait.pollingEvery(3, TimeUnit.SECONDS); fWait.withTimeout(duration,
 			 * TimeUnit.MINUTES);
 			 */
-			fWait.pollingEvery(Duration.ofSeconds(3));
+			fWait.pollingEvery(Duration.ofSeconds(5));
 			fWait.withTimeout(Duration.ofMinutes(duration));
 			DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {

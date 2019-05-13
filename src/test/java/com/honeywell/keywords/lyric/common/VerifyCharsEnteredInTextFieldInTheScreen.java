@@ -13,6 +13,7 @@ import com.honeywell.lyric.das.utils.AddressUtils;
 import com.honeywell.lyric.das.utils.CreateAccountAndForgotPwdUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.EditAccountUtils;
+import com.honeywell.lyric.das.utils.NameEditAccountUtils;
 
 public class VerifyCharsEnteredInTextFieldInTheScreen extends Keyword {
 
@@ -103,7 +104,21 @@ public class VerifyCharsEnteredInTextFieldInTheScreen extends Keyword {
 				break;
 			}
 			}
+		} else if (textEnteredInCustomNameTxtField.get(2).equalsIgnoreCase("NAME EDIT ACCOUNT")) {
+			switch (textEnteredInCustomNameTxtField.get(1).toUpperCase()) {
+			case "FIRST NAME": {
+				flag&=NameEditAccountUtils.verifyIfMaxCharsEnteredInFirstNameTxtFieldInNameEditAccountScreen(testCase, inputs,
+						maxAllowedCharLength, inputs.getInputValue("UPDATED_FIRST_NAME_IN_NAME_EDIT_ACCOUNT"));
+				break;
+			}
+			case "LAST NAME": {
+				flag &=NameEditAccountUtils.verifyIfMaxCharsEnteredInLastNameTxtFieldInNameEditAccountScreen(testCase, inputs,
+						maxAllowedCharLength, "Test maxm characters limit 40 characters");
+				break;
+			}
+			}
 		}
+		
 		return flag;
 	}
 

@@ -19,6 +19,7 @@ import com.honeywell.screens.EditAccountScreen;
 import com.honeywell.screens.FlyCatcherPrimaryCard;
 import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.ManageUsersScreen;
+import com.honeywell.screens.NameEditAccountScreen;
 import com.honeywell.screens.OSPopUps;
 import com.honeywell.screens.SchedulingScreen;
 import com.honeywell.screens.SecuritySolutionCardScreen;
@@ -423,16 +424,16 @@ public class VerifyDisplayedPopUp extends Keyword {
 		}
 		case "DELETE USER": {
 			ManageUsersScreen mus = new ManageUsersScreen(testCase);
-			if (mus.isDeleteUserPopupTitleVisible()
-					&& mus.isDeleteUserPopupMsgVisible(inputs.getInputValue("INVITED_USERS_EMAIL_ADDRESS"))
-					&& mus.isCancelButtonInDeleteUserPopupVisible() && mus.isOKButtonInDeleteUserPopupVisible()) {
-				Keyword.ReportStep_Pass(testCase, "Delete user popup is displayed");
-			} else {
-				flag = false;
-				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
-						"Delete user popup is not displayed");
-			}
-			break;
+	         if (mus.isDeleteUserPopupTitleVisible()
+	                && mus.isDeleteUserPopupMsgVisible(inputs.getInputValue("INVITED_USERS_EMAIL_ADDRESS"))
+	                && mus.isCancelButtonInDeleteUserPopupVisible() && mus.isOKButtonInDeleteUserPopupVisible()) {
+	                    Keyword.ReportStep_Pass(testCase, "Delete user popup is displayed");
+	           } else {
+	                flag = false;
+	                Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE,
+	                                  "Delete user popup is not displayed");
+	          }
+	          break;
 		}
 		case "UPDATE GEOFENCE CENTER": {
 			GeofenceSettings gs = new GeofenceSettings(testCase);
@@ -607,16 +608,25 @@ public class VerifyDisplayedPopUp extends Keyword {
 		}
 		case "SORRY TO SEE YOU GO": {
 			AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
-			if (ads.isSorryToSeeYouGoPopupTitleVisbile() && ads.isSorryToSeeYouGoPopupMsgVisible()
-					&& ads.isNoButtonInSorryToSeeYouGoPopupVisible()
-					&& ads.isYesButtonInSorryToSeeYouGoPopupVisible()) {
+            if (ads.isSorryToSeeYouGoPopupTitleVisbile() && ads.isSorryToSeeYouGoPopupMsgVisible()
+                       && ads.isNoButtonInSorryToSeeYouGoPopupVisible()
+                       && ads.isYesButtonInSorryToSeeYouGoPopupVisible()) {
+                 Keyword.ReportStep_Pass(testCase, "Sorry To See You Go popup is displayed with No and Yes buttons");
+            } else {
+                     flag = false;
+                     Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                  "Sorry To See You Go popup is not displayed with No and Yes buttons");
+            }
+            break;
+			/*OSPopUps ops= new OSPopUps(testCase);
+			if (ops.isSorryToSeeYouGoPopupTitleVisbile()) {
 				Keyword.ReportStep_Pass(testCase, "Sorry To See You Go popup is displayed with No and Yes buttons");
 			} else {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						"Sorry To See You Go popup is not displayed with No and Yes buttons");
 			}
-			break;
+			break;*/
 		}
 		case "TURN ON LOCATION SERVICES": {
 			OSPopUps ops = new OSPopUps(testCase);
@@ -689,12 +699,23 @@ public class VerifyDisplayedPopUp extends Keyword {
 		}
 
 		case "DELETE LOCATION": {
-			OSPopUps ops = new OSPopUps(testCase);
-			if (ops.isDeleteLocationPopupLabelVisible() && ops.isDeleteButtonInDeleteLocationPopupLabelVisible()
-					&& ops.isCancelButtonInDeleteLocationPopupLabelVisible()) {
+			AddressScreen ads = new AddressScreen(testCase);
+			if (ads.isDeleteLocationPopupLabelVisible() && ads.isDeleteButtonInDeleteLocationPopupLabelVisible()
+					&& ads.isCancelButtonInDeleteLocationPopupLabelVisible()) {
 				Keyword.ReportStep_Pass(testCase, "Delete Location popup is visible");
 			} else {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Delete Location popup is not visible");
+			}
+			break;
+		}
+		
+		case "CANCEL NAME CHANGES":{
+			NameEditAccountScreen neas = new NameEditAccountScreen(testCase);
+			if(neas.isCancelNameChangesPopupVisible() && neas.isCancelNameChangesPopupMsgVisible()
+				&& neas.isYesButtonInCancelNameChangesPopupVisible() && neas.isNoButtonInCancelNameChangesPopupVisible()) {
+				Keyword.ReportStep_Pass(testCase, "Cancel Name Changes popup is visible");
+			}else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Cancel Name Changes popup is not visible");
 			}
 			break;
 		}

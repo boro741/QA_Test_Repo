@@ -33,12 +33,12 @@ public class ActivateAccountScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ResendEmailLink");
 	}
 
-	public boolean isActivateAccountCloseButtonDisplayed() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CloseButton");
+	public boolean isActivateAccountBackButtonDisplayed() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "BackButton");
 	}
 
-	public boolean isActivateAccountClickOnCloseButton() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "CloseButton");
+	public boolean isActivateAccountClickOnBackButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
 	}
 
 	public boolean isProgressBarVisible() {

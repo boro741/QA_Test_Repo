@@ -52,8 +52,8 @@ public class AddNewDeviceScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FetchingDevicesLoadingSpinnerMsg", 3);
 	}
 
-	public boolean isAddNewDeviceHeaderDisplayed(int lookFor) {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceHeader", lookFor);
+	public boolean isAddNewDeviceHeaderDisplayed(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceHeader", timeOut);
 	}
 
 	public boolean isSelectADeviceToInstallHeaderInAddNewDeviceScreenVisible() {
@@ -467,5 +467,13 @@ public class AddNewDeviceScreen extends MobileScreens {
 
 	public boolean isPrivacyPolicyAndEULAScreenDataVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PrivacyPolicyAndEULAScreenData");
+	}
+	
+	public boolean isDoneButtonVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DoneButton");
+	}
+	
+	public boolean clickOnDoneButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButton");
 	}
 }

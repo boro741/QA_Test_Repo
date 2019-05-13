@@ -262,7 +262,7 @@ public class ChangeBaseStationSettings extends Keyword {
 					}
 				}
 			} // Amresh Edit Ends
-			else if (parameters.get(0).equalsIgnoreCase("Geofence this locaiton toggle")) {
+			else if (parameters.get(0).equalsIgnoreCase("Geofence this location toggle")) {
 				GeofenceSettings gs = new GeofenceSettings(testCase);
 				OSPopUps os = new OSPopUps(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
