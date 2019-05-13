@@ -12,6 +12,7 @@ import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.CameraUtils;
+import com.honeywell.lyric.das.utils.DASSettingsUtils;
 
 import io.appium.java_client.TouchAction;
 import static io.appium.java_client.touch.offset.PointOption.point;
@@ -1343,10 +1344,10 @@ public class CameraSettingsScreen extends MobileScreens {
 			}
 		} else {
 			if (MobileUtils.isMobElementExists("XPATH",
-					"//*[contains(@name,'_subTitle') and @value='Night Vision']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]",
+					"//*[contains(@name,'_title') and @value='Night Vision']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]",
 					testCase)
 					&& MobileUtils.getMobElement(testCase, "XPATH",
-							"//*[contains(@name,'_subTitle') and @value='Night Vision']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]")
+							"//*[contains(@name,'_title') and @value='Night Vision']/following-sibling::XCUIElementTypeStaticText[contains(@name,'_value')]")
 							.getAttribute("value").equalsIgnoreCase(nightVisionStatus)) {
 				return flag;
 			} else {
@@ -1368,12 +1369,6 @@ public class CameraSettingsScreen extends MobileScreens {
 				flag = false;
 			}
 		} else {
-			// if (MobileUtils.isMobElementExists("XPATH",
-			// "//XCUIElementTypeCell[@name='" + nightVisionStatus.toLowerCase() + "_cell"
-			// + "']/XCUIElementTypeImage[contains(@name, '" +
-			// nightVisionStatus.toLowerCase() + "_Image"
-			// + "')]",
-			// testCase))
 			if (testCase.getMobileDriver()
 					.findElementByXPath("//XCUIElementTypeCell[@name='" + nightVisionStatus.toLowerCase() + "_cell"
 							+ "']/XCUIElementTypeImage[@name='" + nightVisionStatus.toLowerCase() + "_Image"
