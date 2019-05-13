@@ -49,6 +49,7 @@ Given user is set to "Home" mode through CHIL
   Scenario: As a user when I open the door during exit delay i should not get alarm  
     Given user launches and logs in to the Lyric application
       And user clears all push notifications
+      And user sets the entry/exit timer to "60" seconds
      When user navigates to "Security Solution card" screen from the "Dashboard" screen
       And user switches from "Home" to "Away"
       And user "door" access sensor "opened" 
