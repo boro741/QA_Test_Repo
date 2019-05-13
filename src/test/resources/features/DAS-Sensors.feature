@@ -175,7 +175,7 @@ Examples:
 | Sensor Settings		| Mode		|
 | Door Access Settings	| Night		|
 | Window Access Settings	| Away		|
-| Motion Sensor Settings	| Off	|
+| Motion Sensor Settings	| Away	|
 #| ISMV Sensor Settings  	| Alarm		|
 #| OSMV Sensor Settings  	| Night		|
 
@@ -195,9 +195,7 @@ Examples:
 | Mode		|
 | Night		|
 | Away		|
-| Off		|
-| Alarm		|
-| Night		|
+#| Alarm		|
 
 
 #Requirement :One DAS Panel and all sensor type should be configured
