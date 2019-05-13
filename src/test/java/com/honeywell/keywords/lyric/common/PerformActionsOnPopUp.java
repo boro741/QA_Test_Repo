@@ -998,19 +998,7 @@ public class PerformActionsOnPopUp extends Keyword {
                                              "Remove button is not displayed in: " + expectedPopUp.get(0));
                 }
                 break;
-				/*if(ops.isOkButtonInDeleteUserPopupVisible()) {
-					flag&= ops.clickOnOkButtonInDeleteUserPopup(); 
-					if(flag) {
-						Keyword.ReportStep_Pass(testCase, "Clicked on OK button in Delete User Popup");
-					}else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Failed to click on OK button in Delete User Popup");
-					}
-				}else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to click on the OK button in Delete User Popup");
-				}
-				break;*/
+	
 			}
 			case "CLICKS ON CANCEL IN" : {
 					if (mus.isCancelButtonInDeleteUserPopupVisible()) {

@@ -1214,7 +1214,6 @@ When user "deletes location" by clicking on "Delete Location" button
 Then user should receive a "Delete Location" popup
 When user "clicks on Ok in" the "Delete Location" popup
 Then user should be displayed with the "Address" screen
-Then user logs out of the app
   
 #Requirements : Two location with out any solution
 @GeneralGlobalDrawerAddressDeletingMultipleLocationsWithoutAnySolution            @Automated			@--xrayid:ATER-69070
@@ -1519,13 +1518,9 @@ Then user should be displayed with "Updated First and Last Name" in the "Edit Ac
 When user inputs "Previous value" in "First Name Text Field" in the "Edit Account" screen
 And user inputs "Previous value" in "Last Name Text Field" in the "Edit Account" screen
 And user selects "Save button" from "Edit Account" screen
-Then user should be displayed with the "Account" screen
-Then user should be displayed with "existing first name" in the "Account" screen
-And user should be displayed with "existing last name" in the "Account" screen
-When user navigates to "Edit Account" screen from the "Account" screen
+Then user should be displayed with the "Edit Account" screen
 Then user should be displayed with "existing first name" in the "Edit Account" screen
 And user should be displayed with "existing last name" in the "Edit Account" screen
-
   
 
 #Change Password in Edit Account Screen

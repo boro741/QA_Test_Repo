@@ -1632,7 +1632,7 @@ public class VerifyScreen extends Keyword {
 			case "FIRST AND LAST NAME IN THE EDIT ACCOUNT" :{
 				EditAccountScreen eas= new EditAccountScreen(testCase);
 				if(eas.isFirstNameValueVisibleInNameScreen() && eas.isLastNameValueVisibleInNameScreen()) {
-					Keyword.ReportStep_Pass(testCase, "First Name & Last Name value is displayed");
+					Keyword.ReportStep_Pass(testCase, "First Name is: "+ eas.getFirstNameValueInNameScreen() + " & Last Name is: " + eas.getLastNameValueInNameScreen() + " is displayed");
 				}else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Failed to navigate to " + expectedScreen.get(0));

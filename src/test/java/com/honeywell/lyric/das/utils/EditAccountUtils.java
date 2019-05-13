@@ -127,10 +127,10 @@ public class EditAccountUtils {
 	public static boolean verifyFirstNameDisplayedInEditAccountScreen(TestCases testCase, String updatedFirstName) {
 		boolean flag = true;
 		EditAccountScreen eas = new EditAccountScreen(testCase);
-		System.out.println("*******updatedFirstName: " + updatedFirstName);
+		//System.out.println("*******updatedFirstName: " + updatedFirstName);
 		String firstNameInEditAccountScreen;
 		firstNameInEditAccountScreen = eas.getFirstNameValueInNameScreen();
-		System.out.println("*******firstNameInEditAccountScreen: " + firstNameInEditAccountScreen);
+		//System.out.println("*******firstNameInEditAccountScreen: " + firstNameInEditAccountScreen);
 		if (firstNameInEditAccountScreen.equalsIgnoreCase(updatedFirstName)) {
 			Keyword.ReportStep_Pass(testCase,
 					"First Name displayed in Edit Account Screen is: " + firstNameInEditAccountScreen);
@@ -147,10 +147,10 @@ public class EditAccountUtils {
 	public static boolean verifyLastNameDisplayedInEditAccountScreen(TestCases testCase, String updatedLastName) {
 		boolean flag = true;
 		EditAccountScreen eas = new EditAccountScreen(testCase);
-		System.out.println("*******updatedLastName: " + updatedLastName);
+		//System.out.println("*******updatedLastName: " + updatedLastName);
 		String lastNameInEditAccountScreen;
 		lastNameInEditAccountScreen = eas.getLastNameValueInNameScreen();
-		System.out.println("*******lastNameInEditAccountScreen: " + lastNameInEditAccountScreen);
+		//System.out.println("*******lastNameInEditAccountScreen: " + lastNameInEditAccountScreen);
 		if (lastNameInEditAccountScreen.equalsIgnoreCase(updatedLastName)) {
 			Keyword.ReportStep_Pass(testCase,
 					"Last Name displayed in Edit Account Screen is: " + lastNameInEditAccountScreen);
@@ -168,12 +168,12 @@ public class EditAccountUtils {
 		boolean flag = true;
 		EditAccountScreen eas = new EditAccountScreen(testCase);
 		String userNameDisplayed = eas.getNameValueInEditAccountScreen();
-		System.out.println("*******userNameDisplayed: " + userNameDisplayed);
+		//System.out.println("*******userNameDisplayed: " + userNameDisplayed);
 		String userName[]= userNameDisplayed.split(" ");
 		userName[0]= updatedFirstName;
 		userName[1]= updatedLastName;
 		if(userName[0].equals(updatedFirstName) && userName[1].equals(updatedLastName)) {
-			System.out.println("The updated First Name is "+ updatedFirstName + "and the updated Last Name is: " + updatedLastName);
+			//System.out.println("The updated First Name is "+ updatedFirstName + "and the updated Last Name is: " + updatedLastName);
 			Keyword.ReportStep_Pass(testCase,
 					"The updated First Name is "+ updatedFirstName + "and the updated Last Name is: " + updatedLastName);
 		}else {
@@ -188,11 +188,11 @@ public class EditAccountUtils {
 			TestCaseInputs inputs, int maxAllowedCharsLength, String enteredMaxChars) {
 		EditAccountScreen eas = new EditAccountScreen(testCase);
 		boolean flag = true;
-		System.out.println("*******maxAllowedCharsLength: " + maxAllowedCharsLength);
-		System.out.println("*******enteredMaxChars: " + enteredMaxChars);
+		//System.out.println("*******maxAllowedCharsLength: " + maxAllowedCharsLength);
+		//System.out.println("*******enteredMaxChars: " + enteredMaxChars);
 		String valueDisplayedInFirstNameTxtFieldInEditAccountScreen = eas.getLastNameValueInNameScreen();
-		System.out.println("*******valueDisplayedInFirstNameTxtFieldInEditAccountScreen: "
-				+ valueDisplayedInFirstNameTxtFieldInEditAccountScreen);
+		/*System.out.println("*******valueDisplayedInFirstNameTxtFieldInEditAccountScreen: "
+				+ valueDisplayedInFirstNameTxtFieldInEditAccountScreen);*/
 		if (enteredMaxChars.length() <= maxAllowedCharsLength) {
 			if (valueDisplayedInFirstNameTxtFieldInEditAccountScreen.equalsIgnoreCase(enteredMaxChars)) {
 				Keyword.ReportStep_Pass(testCase,
@@ -225,11 +225,11 @@ public class EditAccountUtils {
 			TestCaseInputs inputs, int maxAllowedCharsLength, String enteredMaxChars) {
 		EditAccountScreen eas = new EditAccountScreen(testCase);
 		boolean flag = true;
-		System.out.println("*******maxAllowedCharsLength: " + maxAllowedCharsLength);
-		System.out.println("*******enteredMaxChars: " + enteredMaxChars);
+		//System.out.println("*******maxAllowedCharsLength: " + maxAllowedCharsLength);
+		//System.out.println("*******enteredMaxChars: " + enteredMaxChars);
 		String valueDisplayedInLastNameTxtFieldInEditAccountScreen = eas.getLastNameValueInNameScreen();
-		System.out.println("*******valueDisplayedInLastNameTxtFieldInEditAccountScreen: "
-				+ valueDisplayedInLastNameTxtFieldInEditAccountScreen);
+		/*System.out.println("*******valueDisplayedInLastNameTxtFieldInEditAccountScreen: "
+				+ valueDisplayedInLastNameTxtFieldInEditAccountScreen);*/
 		if (enteredMaxChars.length() <= maxAllowedCharsLength) {
 			if (valueDisplayedInLastNameTxtFieldInEditAccountScreen.equalsIgnoreCase(enteredMaxChars)) {
 				Keyword.ReportStep_Pass(testCase,
