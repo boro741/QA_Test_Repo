@@ -746,7 +746,6 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "RightButton");
 		}
 	}
-	
 	public boolean clickOnContinueSetupButton() {
 
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ContinueSetupButton", 5)) {
@@ -2014,6 +2013,9 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 					"Device list is not displayed in Add New Device Screen");
 		}
 		return flag;
+	}
+	public boolean isSecurityProvisionScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "KatanaSecurityProvsionScreen");
 	}
 	
 	public boolean isFetchingEULAScreenLoadingSpinnerVisible() {
