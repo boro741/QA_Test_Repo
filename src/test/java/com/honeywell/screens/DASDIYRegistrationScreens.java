@@ -746,10 +746,6 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "RightButton");
 		}
 	}
-<<<<<<< HEAD
-	
-=======
->>>>>>> Added Katana DIY
 	public boolean clickOnContinueSetupButton() {
 
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ContinueSetupButton", 5)) {
