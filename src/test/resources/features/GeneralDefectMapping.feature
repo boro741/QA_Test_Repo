@@ -188,7 +188,8 @@ Then user selects "All Messages" from "Activity history" screen
 Then user unselects "a message" from "Activity History" screen
 When user selects "All Messages" from "Activity history" screen
 When user selects "Delete" from "Activity history" screen
-Then user should not be displayed with the "Messages" on the "Activity history" screen
+#Then user should not be displayed with the "Messages" on the "Activity history" screen
+Then user should be displayed with "No Messages label in Activity History screen"
 Then user logs out of the app
 
 #Requirements : Single location with and with out any solution

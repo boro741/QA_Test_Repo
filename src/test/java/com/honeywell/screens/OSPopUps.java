@@ -284,10 +284,6 @@ public class OSPopUps extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteInvitedEmailIcon");
 	}
 
-	public boolean isDeleteUserPopupLabelVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteUserLabel");
-	}
-
 	public boolean isDeleteUserConfirmationTextVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ThisWillDeleteConfirmation");
 	}

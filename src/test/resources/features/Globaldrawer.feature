@@ -456,7 +456,7 @@ Given user launches and logs in to the Lyric Application
 When user navigates to "Activity History" screen from the "Dashboard" screen
 Then user should be displayed with "No Messages label in Activity History screen"
 And user should not be displayed with the following "Activity History" options:
-| ActivityHistoryOptions		|
+| ActivityHistoryOptions	|
 | Edit						|
 Then user navigates to "Global Drawer" screen from the "Activity History" screen
 #And user logs out of the app
@@ -1516,6 +1516,15 @@ Then user should be displayed with the "Edit Account" screen
 Then user should be displayed with "Updated First and Last Name" in the "Edit Account" screen
 #Then user should be displayed with "updated first name" in the "Edit Account" screen
 #And user should be displayed with "updated last name" in the "Edit Account" screen
+When user inputs "Previous value" in "First Name Text Field" in the "Edit Account" screen
+And user inputs "Previous value" in "Last Name Text Field" in the "Edit Account" screen
+And user selects "Save button" from "Edit Account" screen
+Then user should be displayed with the "Account" screen
+Then user should be displayed with "existing first name" in the "Account" screen
+And user should be displayed with "existing last name" in the "Account" screen
+When user navigates to "Edit Account" screen from the "Account" screen
+Then user should be displayed with "existing first name" in the "Edit Account" screen
+And user should be displayed with "existing last name" in the "Edit Account" screen
 
   
 
@@ -2842,13 +2851,13 @@ And user should be displayed with the following "Learn How To Delete A Device" o
 | Was this helpful with Yes and No buttons	|
 When user selects "Close button" from "Learn How To Delete A Device" screen
 Then user should be displayed with the "Delete Account With Solution For Camera" screen
-#When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
-#Then user should be displayed with the "Learn How To Cancel A Membership" screen
-#And user should be displayed with the following "Learn How To Cancel A Membership" options:
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
 | LearnHowToCancelAMembershipOptions			| 
 | Was this helpful with Yes and No buttons	|
-#When user selects "Close button" from "Learn How To Cancel A Membership" screen
-#Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
 
 
 @DeleteAccountWithLocationHavingDASDeviceWithCameraSubscription             @Automated		@--xrayid:ATER-69140
@@ -2865,13 +2874,13 @@ And user should be displayed with the following "Learn How To Delete A Device" o
 | Was this helpful with Yes and No buttons	|
 When user selects "Close button" from "Learn How To Delete A Device" screen
 Then user should be displayed with the "Delete Account With Solution" screen
-#When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
-#Then user should be displayed with the "Learn How To Cancel A Membership" screen
-#And user should be displayed with the following "Learn How To Cancel A Membership" options:
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
 | LearnHowToCancelAMembershipOptions			| 
 | Was this helpful with Yes and No buttons	|
-#When user selects "Close button" from "Learn How To Cancel A Membership" screen
-#Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
 
 
 @DeleteAccountWithLocationHavingLyricRoundWiFiThermostatDeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81293
@@ -2888,13 +2897,13 @@ And user should be displayed with the following "Learn How To Delete A Device" o
 | Was this helpful with Yes and No buttons	|
 When user selects "Close button" from "Learn How To Delete A Device" screen
 Then user should be displayed with the "Delete Account With Solution" screen
-#When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
-#Then user should be displayed with the "Learn How To Cancel A Membership" screen
-#And user should be displayed with the following "Learn How To Cancel A Membership" options:
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
 | LearnHowToCancelAMembershipOptions			| 
 | Was this helpful with Yes and No buttons	|
-#When user selects "Close button" from "Learn How To Cancel A Membership" screen
-#Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
 
 
 @DeleteAccountWithLocationHavingD6PRODeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81294
@@ -2911,13 +2920,13 @@ And user should be displayed with the following "Learn How To Delete A Device" o
 | Was this helpful with Yes and No buttons	|
 When user selects "Close button" from "Learn How To Delete A Device" screen
 Then user should be displayed with the "Delete Account With Solution" screen
-#When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
-#Then user should be displayed with the "Learn How To Cancel A Membership" screen
-#And user should be displayed with the following "Learn How To Cancel A Membership" options:
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
 | LearnHowToCancelAMembershipOptions			| 
 | Was this helpful with Yes and No buttons	|
-#When user selects "Close button" from "Learn How To Cancel A Membership" screen
-#Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
 
 
 @DeleteAccountWithLocationHavingT5DeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81295
@@ -2934,13 +2943,13 @@ And user should be displayed with the following "Learn How To Delete A Device" o
 | Was this helpful with Yes and No buttons	|
 When user selects "Close button" from "Learn How To Delete A Device" screen
 Then user should be displayed with the "Delete Account With Solution" screen
-#When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
-#Then user should be displayed with the "Learn How To Cancel A Membership" screen
-#And user should be displayed with the following "Learn How To Cancel A Membership" options:
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
 | LearnHowToCancelAMembershipOptions			| 
 | Was this helpful with Yes and No buttons	|
-#When user selects "Close button" from "Learn How To Cancel A Membership" screen
-#Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
 
 
 @DeleteAccountWithLocationHavingT6PRODeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81296
@@ -2957,13 +2966,13 @@ And user should be displayed with the following "Learn How To Delete A Device" o
 | Was this helpful with Yes and No buttons	|
 When user selects "Close button" from "Learn How To Delete A Device" screen
 Then user should be displayed with the "Delete Account With Solution" screen
-#When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
-#Then user should be displayed with the "Learn How To Cancel A Membership" screen
-#And user should be displayed with the following "Learn How To Cancel A Membership" options:
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
 | LearnHowToCancelAMembershipOptions			| 
 | Was this helpful with Yes and No buttons	|
-#When user selects "Close button" from "Learn How To Cancel A Membership" screen
-#Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
 
 
 @DeleteAccountWithLocationHavingWLDDeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81297
@@ -2980,13 +2989,13 @@ And user should be displayed with the following "Learn How To Delete A Device" o
 | Was this helpful with Yes and No buttons	|
 When user selects "Close button" from "Learn How To Delete A Device" screen
 Then user should be displayed with the "Delete Account With Solution" screen
-#When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
-#Then user should be displayed with the "Learn How To Cancel A Membership" screen
-#And user should be displayed with the following "Learn How To Cancel A Membership" options:
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
 | LearnHowToCancelAMembershipOptions			| 
 | Was this helpful with Yes and No buttons	|
-#When user selects "Close button" from "Learn How To Cancel A Membership" screen
-#Then user should be displayed with the "Delete Account With Solution" screen    
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen    
 
 
 @DeleteAccountWithLocationHavingC1DeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81298
@@ -3003,13 +3012,13 @@ And user should be displayed with the following "Learn How To Delete A Device" o
 | Was this helpful with Yes and No buttons	|
 When user selects "Close button" from "Learn How To Delete A Device" screen
 Then user should be displayed with the "Delete Account With Solution" screen
-#When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
-#Then user should be displayed with the "Learn How To Cancel A Membership" screen
-#And user should be displayed with the following "Learn How To Cancel A Membership" options:
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
 | LearnHowToCancelAMembershipOptions		| 
 | Was this helpful with Yes and No buttons	|
-#When user selects "Close button" from "Learn How To Cancel A Membership" screen
-#Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
 
 
 @DeleteAccountWithLocationHavingC2DeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81299
@@ -3026,13 +3035,13 @@ And user should be displayed with the following "Learn How To Delete A Device" o
 | Was this helpful with Yes and No buttons	|
 When user selects "Close button" from "Learn How To Delete A Device" screen
 Then user should be displayed with the "Delete Account With Solution" screen
-#When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
-#Then user should be displayed with the "Learn How To Cancel A Membership" screen
-#And user should be displayed with the following "Learn How To Cancel A Membership" options:
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
 | LearnHowToCancelAMembershipOptions			| 
 | Was this helpful with Yes and No buttons	|
-#When user selects "Close button" from "Learn How To Cancel A Membership" screen
-#Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
 
 
 @DeleteAccountWithLocationHavingLyricSmartControllerDeviceWithCameraSubscription             @Automated		@--xrayid:ATER-81300
@@ -3049,13 +3058,13 @@ And user should be displayed with the following "Learn How To Delete A Device" o
 | Was this helpful with Yes and No buttons	|
 When user selects "Close button" from "Learn How To Delete A Device" screen
 Then user should be displayed with the "Delete Account With Solution" screen
-#When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
-#Then user should be displayed with the "Learn How To Cancel A Membership" screen
-#And user should be displayed with the following "Learn How To Cancel A Membership" options:
+When user selects "Learn How To Cancel A Membership" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Cancel A Membership" screen
+And user should be displayed with the following "Learn How To Cancel A Membership" options:
 | LearnHowToCancelAMembershipOptions			| 
 | Was this helpful with Yes and No buttons	|
-#When user selects "Close button" from "Learn How To Cancel A Membership" screen
-#Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Close button" from "Learn How To Cancel A Membership" screen
+Then user should be displayed with the "Delete Account With Solution" screen
 
   
   @MultipleDeviceDeleteSameAccountRestAllDeviceLogsOut             @NotAutomatable		@--xrayid:ATER-69141

@@ -384,10 +384,10 @@ public class EditAccountUtils {
 		boolean flag = true;
 		EditAccountScreen eas = new EditAccountScreen(testCase);
 		String firstNameInEditAccountScreen = eas.getFirstNameValueInNameScreen();
-		String firstName[]= firstNameInEditAccountScreen.split(" ");
+		String firstName= firstNameInEditAccountScreen.split(" ")[0];
 		//System.out.println("The first name is: "+firstName[0]);
 		//System.out.println("*******firstNameInEditAccountScreen: " + firstNameInEditAccountScreen);
-		if (firstName[0].equalsIgnoreCase(updatedFirstName)) {
+		if (firstName.equalsIgnoreCase(updatedFirstName)) {
 			Keyword.ReportStep_Pass(testCase,
 					"First Name displayed in Edit Account Screen is: " + firstNameInEditAccountScreen);
 			return flag;
@@ -404,10 +404,10 @@ public class EditAccountUtils {
 		boolean flag = true;
 		EditAccountScreen eas = new EditAccountScreen(testCase);
 		String lastNameInEditAccountScreen = eas.getFirstNameValueInNameScreen();
-		String lastName[]= lastNameInEditAccountScreen.split(" ");
+		String lastName= lastNameInEditAccountScreen.split(" ")[1];
 		//System.out.println("The last name is: "+lastName[1]);
 		//System.out.println("*******firstNameInEditAccountScreen: " + firstNameInEditAccountScreen);
-		if (lastName[1].equalsIgnoreCase(updatedLastName)) {
+		if (lastName.equalsIgnoreCase(updatedLastName)) {
 			Keyword.ReportStep_Pass(testCase,
 					"Last Name displayed in Edit Account Screen is: " + lastNameInEditAccountScreen);
 			return flag;

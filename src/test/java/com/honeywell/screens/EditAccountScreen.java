@@ -572,12 +572,15 @@ public class EditAccountScreen extends MobileScreens {
 	}
 	
 	public String getLoggedInUserEmail() {
-		String userEmailAddress= null;
-		userEmailAddress = MobileUtils.getFieldValue(objectDefinition, testCase, "LoggedInEmail");
-		return userEmailAddress;
+		return MobileUtils.getFieldValue(objectDefinition, testCase, "LoggedInEmail");
+		//return userEmailAddress;
 	}
 	
 	public boolean clickOnNameValueArrowInEditAccountScreen() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "NameValueArrow");
+	}
+	
+	public boolean isDeleteUserPopupLabelVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteUserLabel");
 	}
 }
