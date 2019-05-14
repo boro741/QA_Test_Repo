@@ -1728,8 +1728,7 @@ public class VerifyScreen extends Keyword {
 							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
 				}
 				break;
-			}			
-
+			}
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

@@ -2028,5 +2028,6 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	
 	public boolean clickOnGetStartedButtonInWhatToExpectScreen() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GetStartedButtonInWhatToExpectScreen");
+
 	}
 } 
