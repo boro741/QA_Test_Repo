@@ -1702,7 +1702,7 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-
+			
 			case "PRO MONITORING": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isProMonitoringHeaderTitleVisible(30)) {
@@ -1729,6 +1729,7 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}			
+
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

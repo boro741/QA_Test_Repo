@@ -746,6 +746,10 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "RightButton");
 		}
 	}
+<<<<<<< HEAD
+=======
+	
+>>>>>>> Fixed Conflicts
 	public boolean clickOnContinueSetupButton() {
 
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ContinueSetupButton", 5)) {
@@ -2028,9 +2032,5 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	
 	public boolean clickOnGetStartedButtonInWhatToExpectScreen() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GetStartedButtonInWhatToExpectScreen");
-	}
-
-	public boolean isSecurityProvisionScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "KatanaSecurityProvsionScreen");
 	}
 } 
