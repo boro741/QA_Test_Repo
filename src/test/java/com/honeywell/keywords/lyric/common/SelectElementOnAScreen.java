@@ -588,6 +588,11 @@ public class SelectElementOnAScreen extends Keyword {
 					flag = flag & dasDIY.selectDeviceToInstall(parameters.get(0));
 					break;
 				}
+				case "SMART HOME SECURITY PRO": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					flag = flag & dasDIY.selectDeviceToInstall(parameters.get(0));
+					break;
+				}
 				case "CLOSE BUTTON": {
 					AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
 					if (ads.isCloseButtonInAddNewDeviceScreenVisible()) {

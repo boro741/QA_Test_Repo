@@ -1,7 +1,6 @@
 package com.honeywell.screens;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.By.ByName;
 import org.openqa.selenium.Dimension;
 
 import com.honeywell.commons.coreframework.Keyword;
@@ -14,9 +13,7 @@ import com.honeywell.lyric.utils.LyricUtils;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.touch.offset.PointOption;
 
-import static io.appium.java_client.touch.WaitOptions.waitOptions;
 import static io.appium.java_client.touch.offset.PointOption.point;
 
 
@@ -749,6 +746,23 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "RightButton");
 		}
 	}
+	public boolean clickOnContinueSetupButton() {
+
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ContinueSetupButton", 5)) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "ContinueSetupButton");
+		} else {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "ContinueSetupButton");
+		}
+	}
+	
+	public boolean clickOnConfirmButton() {
+
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "ConfirmButton", 5)) {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "ConfirmButton");
+		} else {
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "ConfirmButton");
+		}
+	}
 
 	public boolean isAddANetworkHeaderTitleVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddANetworkScreenTitle");
@@ -1010,6 +1024,17 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 
 	public boolean isSmartHomeSecuritySuccessHeaderTitleVisible(int timeout) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SmartHomeSecuritySuccessHeaderTitle",timeout);
+	}
+	
+	public boolean isCongratulationsHeaderTitleVisible(int timeout) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "KatanaCongratulationsScreen",timeout);
+	}
+	
+	public boolean isProMonitoringHeaderTitleVisible(int timeout) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "KatanaProMonitoringScreen",timeout);
+	}
+	public boolean isProMonitoringSetUpCompleteHeaderTitleVisible(int timeout) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "KatanaProMonitoringSetUpCompleteScreen",timeout);
 	}
 
 	public boolean isNoButtonInSmartHomeSecuritySuccessScreenVisible() {
@@ -1989,6 +2014,9 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		}
 		return flag;
 	}
+	public boolean isSecurityProvisionScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "KatanaSecurityProvsionScreen");
+	}
 	
 	public boolean isFetchingEULAScreenLoadingSpinnerVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "FetchingEULAScreenLoadingSpinner");
@@ -2000,5 +2028,6 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 	
 	public boolean clickOnGetStartedButtonInWhatToExpectScreen() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GetStartedButtonInWhatToExpectScreen");
+
 	}
-}
+} 

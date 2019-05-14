@@ -2,7 +2,7 @@
 Feature: Devices should be grouped in Dashboard screen 
 As a user I want to verify grouping of devices in Dashboard screen
 
-@VerifyGroupingOfDevicesInDashboardScreen			@Automatable
+@VerifyGroupingOfDevicesInDashboardScreen
 Scenario:  Verify if order in which devices are grouped in dashboard screen
 Given user launches and logs in to the Lyric Application
 And security devices should be installed for the logged in account
@@ -17,7 +17,7 @@ Then user verifies if the following grouping of devices is present:
 And user verifies for each category the devices are displayed in alphabetical order
 
 
-@VerifyGroupingOfDevicesInDashboardScreenByUpgradingTheApp			@NotAutomatable
+@VerifyGroupingOfDevicesInDashboardScreenByUpgradingTheApp
 Scenario:  Verify if grouping of devices is displayed in dashboard screen when user upgrades the app from app version which does not support grouping of devices
 Given user launches and logs in to the Lyric Application
 And security devices should be installed for the logged in account
@@ -34,7 +34,7 @@ Then user verifies if the following grouping of devices is present:
 And user verifies for each category the devices are displayed in alphabetical order
 
 
-@VerifyGroupingOfDevicesInDashboardScreenForInvitedUsersInOlderAppVersion			@NotAutomatable
+@VerifyGroupingOfDevicesInDashboardScreenForInvitedUsersInOlderAppVersion
 Scenario Outline:  Verify if order in which devices are grouped in dashboard screen for the invited users
 Given user launches and logs in to the Lyric Application
 And security devices should be installed for the logged in account
@@ -62,7 +62,7 @@ Examples:
 | das_stage5@grr.la				|
 
 
-@VerifyGroupingOfDevicesInDashboardScreenForInvitedUsers			@Automatable
+@VerifyGroupingOfDevicesInDashboardScreenForInvitedUsers
 Scenario Outline:  Verify if order in which devices are grouped in dashboard screen for the invited users
 Given user launches and logs in to the Lyric Application
 And security devices should be installed for the logged in account
@@ -95,7 +95,7 @@ Examples:
 | das_stage5@grr.la				|
 
 
-@VerifyGroupingOfDevicesInDashboardScreenByRenamingTheDevicesDisplayedInAGroup			@Automatable
+@VerifyGroupingOfDevicesInDashboardScreenByRenamingTheDevicesDisplayedInAGroup
 Scenario Outline:  Verify if order in which devices are grouped in dashboard screen after renaming the existing devices
 Given user launches and logs in to the Lyric Application
 Then security devices should be installed for the logged in account
