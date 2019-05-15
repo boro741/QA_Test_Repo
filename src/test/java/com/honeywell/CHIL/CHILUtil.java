@@ -311,7 +311,7 @@ public class CHILUtil implements AutoCloseable {
 		disconnect();
 
 	}
-
+	
 	public Set<String> getLocationNames() {
 		return locations.keySet();
 	}
@@ -4157,5 +4157,32 @@ public class CHILUtil implements AutoCloseable {
 			}
 		}
 		return countryName;
+	}
+	
+	public String getDefaultSelectedLocationName() throws Exception {
+		JSONObject locationDetails = new JSONObject();
+		String defaultSelectedLocationName = null;
+		if (isConnected) {
+			String url = chilURL + String.format("api/locations");
+			HttpURLConnection connection = doGetRequest(url);
+			if (connection != null) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+				String inputLine;
+				StringBuffer html = new StringBuffer();
+				while (!in.ready()) {
+				}
+				while ((inputLine = in.readLine()) != null) {
+					html.append(inputLine);
+				}
+				in.close();
+				JSONArray jArray = new JSONArray(html.toString());
+				locationDetails = jArray.getJSONObject(0);
+				defaultSelectedLocationName = locationDetails.getString("name");
+
+			} else {
+				throw new Exception("Unable to connect to CHIL");
+			}
+		}
+		return defaultSelectedLocationName;
 	}
 }

@@ -1,20 +1,30 @@
 package com.honeywell.screens;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 
 import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.commons.mobile.CustomDriver;
 import com.honeywell.commons.mobile.MobileScreens;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.keywords.lyric.platform.VerifyIfDefaultLocationDisplayedInDashboardScreenAfterLogin;
 import com.honeywell.lyric.utils.CoachMarkUtils;
 
 import io.appium.java_client.MobileBy;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.TouchAction;
+
+import static io.appium.java_client.touch.TapOptions.tapOptions;
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class Dashboard extends MobileScreens {
 
@@ -730,6 +740,10 @@ public class Dashboard extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "LocationDropdown");
 	}
 
+	public boolean isLocationNameDisplayedInDashboardScreen() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "LocationName");
+	}
+
 	public String getLocationNameDisplayedInDashboardScreen() {
 		String locationName = null;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "LocationName")) {
@@ -751,5 +765,211 @@ public class Dashboard extends MobileScreens {
 			System.out.println(weatherValue);
 			return weatherValue.split("˚")[1];
 		}
+	}
+	
+	public boolean closeLocationDropDownList() {
+		boolean flag = true;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+			int height = dimension.getHeight();
+			int width = dimension.getWidth();
+			@SuppressWarnings("rawtypes")
+			TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
+			touchAction.tap(tapOptions().withPosition(point(width / 2, height / 2))).perform();
+			
+		} else {
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "LocationDropDownButton")) {
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "LocationDropDownButton");
+		}
+		}
+		return flag;
+	
+	}
+
+	public boolean selectLocationDropDownArrow() {
+		boolean flag = true;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "LocationDropDownButton")) {
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "LocationDropDownButton");
+		}
+		return flag;
+	}
+
+	public boolean isLocationListDisplayedWhenClickedOnLocationDropDownArrow() {
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			return MobileUtils.isMobElementExists(objectDefinition, testCase,
+					"LocationListWhenClickedOnLocationDropDownArrow");
+		} else {
+			return MobileUtils.isMobElementExists("XPATH",
+					"//XCUIElementTypeCell[@name='Navigation_Drop_Down_Title_cell']", testCase);
+		}
+	}
+	
+	public WebElement getLocationListViewInDashboardScreenScrollableEleInAndroid() {
+		WebElement locationListViewInDashboardScreenInAndroid = null;
+		if (MobileUtils.isMobElementExists(objectDefinition, testCase,
+				"LocationListViewInDashboardScreenScrollableInAndroid")) {
+			locationListViewInDashboardScreenInAndroid = MobileUtils.getMobElement(objectDefinition, testCase,
+					"LocationListViewInDashboardScreenScrollableInAndroid");
+		}
+		return locationListViewInDashboardScreenInAndroid;
+	}
+	
+	public boolean isLocationListViewInDashboardScreenScrollableInAndroid() {
+		return MobileUtils
+				.getMobElement(objectDefinition, testCase, "LocationListViewInDashboardScreenScrollableInAndroid")
+				.getAttribute("scrollable").equalsIgnoreCase("true");
+	}
+
+	public List<String> getLocationNamesDisplayedWhenClickedOnLocationDropDownArrow(int expectedLocationsCount) {
+		CustomDriver driver = testCase.getMobileDriver();
+		List<String> locationNames = new ArrayList<String>();
+		String locationName = null;
+		List<WebElement> locationNameCellsElementsInAndroid = new ArrayList<WebElement>();
+		List<MobileElement> locationNameCellsElementsIniOS = new ArrayList<MobileElement>();
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			locationNameCellsElementsInAndroid = MobileUtils.getMobElements(objectDefinition, testCase,
+					"LocationListWhenClickedOnLocationDropDownArrow");
+			
+			if (locationNameCellsElementsInAndroid.size() != expectedLocationsCount
+					&& this.isLocationListViewInDashboardScreenScrollableInAndroid()) {
+				Keyword.ReportStep_Pass(testCase,
+						"Fetching the locations in Locations dropdown list before Scrolling the list");
+
+				for (WebElement ele : locationNameCellsElementsInAndroid) {
+					System.out.println("####ele.getText(): " + ele.getText());
+					locationName = ele.getText();
+					if (!locationNames.contains(locationName) && locationName != null) {
+						locationNames.add(locationName);
+					}
+				}
+
+				Keyword.ReportStep_Pass(testCase, "Need to scroll down the list and fetch all the locations");
+
+				Dimension dimensions = MobileUtils.getMobElement(objectDefinition, testCase,
+						"LocationListViewInDashboardScreenScrollableInAndroid").getSize();
+				int startx = dimensions.width;
+				int starty = (dimensions.height * 75) / 100;
+				int endx = dimensions.width;
+				int endy = (dimensions.height * 25) / 100;
+				testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+
+				locationNameCellsElementsInAndroid = MobileUtils.getMobElements(objectDefinition, testCase,
+						"LocationListWhenClickedOnLocationDropDownArrow");
+
+				for (WebElement ele : locationNameCellsElementsInAndroid) {
+					System.out.println("####ele.getText(): " + ele.getText());
+					locationName = ele.getText();
+					if (!locationNames.contains(locationName) && locationName != null) {
+						locationNames.add(locationName);
+					}
+				}
+
+				if (locationNames.size() == (expectedLocationsCount - 1)) {
+					Keyword.ReportStep_Pass(testCase, "Fetched all the locations from Locations dropdown list");
+					Keyword.ReportStep_Pass(testCase, "Scroll top in the Locations dropdown list");
+					testCase.getMobileDriver().swipe(startx, endy, endx, starty, 1000);
+				}
+
+			}
+		} else {
+			try {
+				Thread.sleep(8000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			locationNameCellsElementsIniOS = driver
+					.findElements(By.xpath("//XCUIElementTypeCell[@name='Navigation_Drop_Down_Title_cell']"));
+			
+			for (int i = 0; i < locationNameCellsElementsIniOS.size(); i++) {
+				locationName = driver
+						.findElement(By.xpath("//XCUIElementTypeCell[" + (i + 1)
+								+ "]/XCUIElementTypeStaticText[@name='Navigation_Drop_Down_Title_title'][1]"))
+						.getAttribute("value");
+				if (!locationNames.contains(locationName) && locationName != null) {
+					locationNames.add(locationName);
+				} else {
+					
+					locationName = driver
+							.findElement(By.xpath("//XCUIElementTypeCell[" + (i + 1)
+									+ "]/XCUIElementTypeStaticText[@name='Navigation_Drop_Down_Title_title'][1]"))
+							.getAttribute("value");
+					if (!locationNames.contains(locationName)) {
+						locationNames.add(locationName);
+					} else {
+						
+						locationName = driver
+								.findElement(By.xpath("//XCUIElementTypeCell[" + (i + 1)
+										+ "]/XCUIElementTypeStaticText[@name='Navigation_Drop_Down_Title_title'][1]"))
+								.getAttribute("value");
+						if (!locationNames.contains(locationName)) {
+							locationNames.add(locationName);
+						}
+					}
+				}
+			}
+		}
+		return locationNames;
+	}
+	
+	public boolean selectLocationFromDropDownListInDashBoardScreen(TestCases testCase, String locationToBeSelected) {
+		boolean flag = true;
+		WebElement element = null;
+		String defaultLocationDisplayed = VerifyIfDefaultLocationDisplayedInDashboardScreenAfterLogin.DEFAULTLOCATIONFROMCHIL;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//*[@resource-id='com.honeywell.android.lyric:id/toolbar_spinner_item_dropdown_title' and @text='"
+							+ locationToBeSelected + "']",
+					testCase)) {
+				element = MobileUtils.getMobElement(testCase, "XPATH",
+						"//*[@resource-id='com.honeywell.android.lyric:id/toolbar_spinner_item_dropdown_title' and @text='"
+								+ locationToBeSelected + "']");
+				if (element != null) {
+					if (element.getText().equalsIgnoreCase(defaultLocationDisplayed)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Select Location From DashBoard : User is already in location : "
+										+ locationToBeSelected);
+					} else {
+						element.click();
+						Keyword.ReportStep_Pass(testCase,
+								"Select Location From DashBoard : Successfully selected location : "
+										+ locationToBeSelected);
+					}
+				}
+			}
+		} else {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "LocationDropDownButton")) {
+				element = MobileUtils.getMobElement(objectDefinition, testCase, "LocationName");
+				if (element != null) {
+					if (element.getText().equalsIgnoreCase(locationToBeSelected)) {
+						Keyword.ReportStep_Pass(testCase,
+								"Select Location From DashBoard : User is already in location : "
+										+ locationToBeSelected);
+					} else {
+						boolean f = false;
+						flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "LocationDropDownButton");
+						List<WebElement> locNames = MobileUtils.getMobElements(objectDefinition, testCase,
+								"LocationDropDownList");
+						for (WebElement ele : locNames) {
+							if (ele.getText().equalsIgnoreCase(locationToBeSelected)) {
+								ele.click();
+								f = true;
+								break;
+							}
+						}
+						if (f) {
+							Keyword.ReportStep_Pass(testCase,
+									"Select Location From DashBoard : Successfully selected location : "
+											+ locationToBeSelected);
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Select Location From DashBoard : Failed to select location : "
+											+ locationToBeSelected);
+						}
+					}
+				}
+			}
+		}
+		return flag;
 	}
 }

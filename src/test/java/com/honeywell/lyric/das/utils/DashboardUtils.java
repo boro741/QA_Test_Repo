@@ -18,6 +18,7 @@ import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AddNewDeviceScreen;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CoachMarks;
+import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.SchedulingScreen;
@@ -466,6 +467,110 @@ public class DashboardUtils {
 		System.out.println("##########COUNTRY NAME IS: " + countryName);
 		AddNewDeviceScreen adn = new AddNewDeviceScreen(testCase);
 		flag &= adn.isShowingDevicesForCountryLabelInAddNewDeviceScreenVisible(countryName);
+		return flag;
+	}
+
+	public static boolean createANewLocation(TestCases testCase, TestCaseInputs inputs, String locationName) {
+		boolean flag = true;
+		Dashboard d = new Dashboard(testCase);
+		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		AddNewDeviceScreen ads = new AddNewDeviceScreen(testCase);
+		if (d.isAddDeviceIconVisible(20)) {
+			flag &= d.clickOnAddNewDeviceIcon();
+			flag &= dasDIY.isAddNewDeviceScreenVisible(20);
+			inputs.setInputValue("SELECTED_COUNTRY", ads.getCountryLabelInAddNewDeviceScreenVisible().substring(20));
+			try {
+				flag &= dasDIY.selectDeviceToInstall("Smart Home Security");
+				if (dasDIY.isNextButtonVisible()) {
+					flag &= dasDIY.clickOnNextButton();
+					if (dasDIY.isCreateNewLocationLinkVisible()) {
+						flag &= dasDIY.clickOnCreateNewLocationLink();
+						inputs.setInputValue("LOCATION1_NAME", locationName);
+						flag = flag & DIYRegistrationUtils.inputNewLocationName(testCase, inputs, locationName);
+						if (dasDIY.isZipCodeTextFieldVisible()) {
+							flag = flag & dasDIY.clearEnteredTextInZipCodeTextField();
+							flag = flag & dasDIY.enterZipCode("90002");
+						} else if (inputs.isRunningOn("Perfecto") && inputs.getInputValue("SELECTED_COUNTRY") != null
+								&& !inputs.getInputValue("SELECTED_COUNTRY").isEmpty()
+								&& inputs.getInputValue("SELECTED_COUNTRY").equalsIgnoreCase("United States")) {
+							Keyword.ReportStep_Pass(testCase,
+									"Country Selected is: " + inputs.getInputValue("SELECTED_COUNTRY")
+											+ ". Hence Confirm Your Zip Code screen will not be displayed.");
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to Confirm Your Zip Code screen");
+						}
+						if (dasDIY.isNameYourBaseStationHeaderTitleVisible()) {
+							Keyword.ReportStep_Pass(testCase,
+									"Successfully navigated to Name Your Base Station screen");
+							DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 1);
+							if (dasDIY.isCancelButtonVisible()) {
+								flag = flag & dasDIY.clickOnCancelButton();
+								if (dasDIY.isYesButtonInCancelPopupVisible()) {
+									flag = flag & dasDIY.clickOnYesButtonInCancelPopup();
+									flag &= DashboardUtils.waitForProgressBarToComplete(testCase, "PROGRESS BAR", 1);
+									if (ads.isAddNewDeviceHeaderDisplayed(60)
+											&& ads.isSelectADeviceToInstallHeaderInAddNewDeviceScreenVisible()) {
+										Keyword.ReportStep_Pass(testCase,
+												"Successfully navigated to Add New Device Screen");
+										if (ads.isCancelButtonInAddNewDeviceScreenVisible()) {
+											Keyword.ReportStep_Pass(testCase,
+													"Cancel button is displayed in the Add New Device Screen");
+											flag &= ads.clickOnCancelButtonOfAddDeviceScreen();
+											if (d.isGlobalDrawerButtonVisible(20) && (d.isAddDeviceIconVisible(10)
+													|| d.isAddDeviceIconBelowExistingDASDeviceVisible(10))) {
+												Keyword.ReportStep_Pass(testCase,
+														"Successfully navigated to Dashboared screen");
+											} else {
+												flag = false;
+												Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+														"Failed to navigate to Dashboared screen");
+											}
+										} else {
+											flag = false;
+											Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+													"Cancel button is not displayed in the Add New Device Screen");
+										}
+									} else {
+										flag = false;
+										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+												"Failed to navigate to Add New Device Screen");
+									}
+								} else {
+									flag = false;
+									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+											"YES button is not displayed in Cancel popup.");
+								}
+							} else {
+								flag = false;
+								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+										"Cancel button not displayed.");
+							}
+						} else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to Name Your Base Station screen");
+						}
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Create New Location Link is not displayed in Choose Location Screen");
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Next Button is not displayed in What To Expect Screen");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+					"Add Device Button is not displayed in the Dashboard Screen");
+		}
 		return flag;
 	}
 }

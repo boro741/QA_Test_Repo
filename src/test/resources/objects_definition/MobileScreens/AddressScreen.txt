@@ -43,5 +43,6 @@ DeleteButtonInDeleteLocationPopup	ID	button1	ID	button1	ID	button1
 CancelButtonInDeleteLocationPopup	ID	button2	ID	button2	ID	button2						
 DeleteLocationPopupLabel	XPATH	"//android.widget.TextView[contains(@text,'Delete Location')]"	XPATH	"//android.widget.TextView[contains(@text,'Delete Location')]"	XPATH	"//android.widget.TextView[contains(@text,'Delete Location')]"	XPATH	"//XCUIElementTypeStaticText[contains(@name,'Delete Location')]"	XPATH	"//XCUIElementTypeStaticText[contains(@name,'Delete Location')]"	XPATH	"//XCUIElementTypeStaticText[contains(@name,'Delete Location')]"
 OkButtonInDeleteLocationPopup	XPATH	//android.widget.Button[@text='OK']	XPATH	//android.widget.Button[@text='OK']	XPATH	//android.widget.Button[@text='OK']	NAME	Ok	NAME	Ok	NAME	Ok
-YesButtonInDeleteLocationPopup							NAME	YES	NAME	YES	NAME	YES
-NoButtonInDeleteLocationPopup							NAME	NO	NAME	NO	NAME	NO
+DeleteLocationPopupTitle							XPATH	//XCUIElementTypeStaticText[@name='Delete Location?']	XPATH	//XCUIElementTypeStaticText[@name='Delete Location?']	XPATH	//XCUIElementTypeStaticText[@name='Delete Location?']
+YesButtonInDeleteLocationPopup	ID	button1	ID	button1	ID	button1	NAME	YES	NAME	YES	NAME	YES
+NoButtonInDeleteLocationPopup	ID	button2	ID	button2	ID	button2	NAME	NO	NAME	NO	NAME	NO

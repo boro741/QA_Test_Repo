@@ -1,7 +1,13 @@
 @GeneralGlobalDrawerUnderScenarios @Platform
 Feature: General global drawer under scenarios 
 	As a user I want to verify under global drawer scenaios
-	
+
+@NavigateToPhoneSettings
+Scenario: Navigate to Phone Settings from Honeywell Home app
+Given user launches and logs in to the Lyric application
+Then user should be displayed with the "Dashboard" screen
+When user minimizes the app
+And user turns off location services in app settings privacy screen
 	
 #Single location with out any solution for UK Location
 @GeneralGlobalDrawerWithoutSolutionVerificationForUKLocation			@Automated			@--xrayid:ATER-67850	

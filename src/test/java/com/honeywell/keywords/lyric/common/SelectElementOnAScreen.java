@@ -19,6 +19,7 @@ import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.keywords.lyric.platform.VerifyIfDefaultLocationDisplayedInDashboardScreenAfterLogin;
 import com.honeywell.lyric.das.utils.DASAlarmUtils;
 import com.honeywell.lyric.das.utils.DASCameraUtils;
 import com.honeywell.lyric.das.utils.DASSolutionCardUtils;
@@ -2050,9 +2051,24 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("DASHBOARD")) {
-				Dashboard d= new Dashboard(testCase);
-				flag &= d.selectLocationFromDashBoard(testCase, parameters.get(0));
-				
+				Dashboard d = new Dashboard(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "LOCATION DROP DOWN ARROW": {
+					if (testCase.isTestSuccessful()
+							|| VerifyIfDefaultLocationDisplayedInDashboardScreenAfterLogin.FLAG) {
+						flag &= d.selectLocationDropDownArrow();
+					} else {
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Skipping this step since default selected location is not: "
+										+ VerifyIfDefaultLocationDisplayedInDashboardScreenAfterLogin.DEFAULTLOCATIONFROMCHIL);
+					}
+					break;
+				}
+				default: {
+					flag &= d.selectLocationFromDashBoard(testCase, parameters.get(0));
+				}
+				}
 			}
 			else if (parameters.get(1).equalsIgnoreCase("PLEASE CONFIRM YOUR COUNTRY")) {
 				// Write code for selecting country from the list of countries displayed in
@@ -2929,9 +2945,6 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				}
-			} else if (parameters.get(1).equalsIgnoreCase("DASHBOARD")) {
-				Dashboard d = new Dashboard(testCase);
-				flag = flag & d.selectLocationFromDashBoard(testCase, parameters.get(0));
 			}else if(parameters.get(1).equalsIgnoreCase("MANAGE USERS")) {
 				ManageUsersScreen mus= new ManageUsersScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
@@ -2977,7 +2990,6 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 			  }
-				
 			}
 
 		} catch (Exception e) {

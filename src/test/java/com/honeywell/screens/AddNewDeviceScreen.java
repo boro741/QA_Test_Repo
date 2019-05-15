@@ -476,4 +476,23 @@ public class AddNewDeviceScreen extends MobileScreens {
 	public boolean clickOnDoneButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButton");
 	}
+	
+	public String getCountryLabelInAddNewDeviceScreenVisible() {
+		String countryName = null;
+		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//android.widget.TextView[contains(@resource-id,'com.honeywell.android.lyric:id/footer_text' and @text='Showing devices for ')]",
+					testCase)) {
+				countryName = MobileUtils.getFieldValue(testCase, "XPATH",
+						"//android.widget.TextView[contains(@resource-id,'com.honeywell.android.lyric:id/footer_text' and @text='Showing devices for ')]");
+			}
+		} else {
+			if (MobileUtils.isMobElementExists("XPATH",
+					"//XCUIElementTypeStaticText[contains(@name,'Showing devices for ')]", testCase)) {
+				countryName = MobileUtils.getFieldValue(testCase, "XPATH",
+						"//XCUIElementTypeStaticText[contains(@name,'Showing devices for ')]");
+			}
+		}
+		return countryName;
+	}
 }
