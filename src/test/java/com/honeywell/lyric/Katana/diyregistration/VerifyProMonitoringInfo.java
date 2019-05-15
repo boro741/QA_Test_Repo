@@ -7,6 +7,7 @@ import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.KeywordStep;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
+import com.honeywell.keywords.lyric.Katana.utils.ProMonitoringUtils;
 
 public class VerifyProMonitoringInfo extends Keyword {
 

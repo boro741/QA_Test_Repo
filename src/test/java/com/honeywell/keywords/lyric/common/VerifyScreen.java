@@ -1719,7 +1719,7 @@ public class VerifyScreen extends Keyword {
 			case "PRO MONITORING SETUP IS COMPLETE": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isProMonitoringSetUpCompleteHeaderTitleVisible(30)) {
-					flag = dasDIY.clickOnNextButton();
+					flag = dasDIY.clickOnCongratulationNextScreen();
 					Keyword.ReportStep_Pass(testCase,
 							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
 				} else {
