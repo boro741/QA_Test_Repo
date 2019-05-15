@@ -32,6 +32,7 @@ import com.honeywell.screens.GeofenceSettings;
 import com.honeywell.screens.GlobalDrawerScreen;
 import com.honeywell.screens.LoginScreen;
 import com.honeywell.screens.ManageUsersScreen;
+import com.honeywell.screens.NameEditAccountScreen;
 import com.honeywell.screens.OSPopUps;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.EditAccountScreen;

@@ -323,7 +323,7 @@ public class DIYRegistrationUtils {
 	public static boolean navigateFromEnableGeoFencingToEnableAmazonAlexa(TestCases testCase) {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
-		flag = flag & dasDIY.isGeoFencingHeaderTitleVisible(5);
+//		flag = flag & dasDIY.isGeoFencingHeaderTitleVisible(5);
 		if (dasDIY.isSkipButtonInGeoFencingScreenVisible()) {
 			flag = flag & dasDIY.clickOnSkipButtonInGeoFencingScreen();
 		}
