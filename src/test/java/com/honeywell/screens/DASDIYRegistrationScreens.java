@@ -558,6 +558,10 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return flag;
 	}
 
+	public boolean clickOnCongratulationNextScreen() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CongratulationNext");
+	}
+	
 	public boolean clickOnNextButton() {
 		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "NextButton", 5)) {
@@ -2030,4 +2034,14 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "GetStartedButtonInWhatToExpectScreen");
 
 	}
+	
+	public boolean isAlarmSignalTestScreenVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AlarmSignaTestScreen");
+	}
+	
+	public boolean isWaitingForAlarmSignalTextVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "WaitingForAlarmSignalText");
+	}
+	
+	
 } 

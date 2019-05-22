@@ -53,6 +53,7 @@ public class CHILUtil implements AutoCloseable {
 	private String bodyToken;
 	private String sessionID;
 	private TestCaseInputs inputs;
+	private int status;
 	public static String chapiDeviceId;
 	public static int coolSetPoints = 0;
 	public static int heatSetPoints = 0;
@@ -413,6 +414,25 @@ public class CHILUtil implements AutoCloseable {
 
 		}
 		return result;
+	}
+	
+	
+	public int putAlarmSignalStatus(long locationID, String deviceID, String SignalStatus) throws Exception {
+		int status = -1;
+		if (isConnected) {
+			String url = "";
+			String headerData = "";
+			url = this.chilURL + "/api/v3/locations/" + locationID + "/devices/" + deviceID
+					+ "/alarmverificationconfig";
+			try {
+				headerData = String.format("{\"alarmVerificationState\":\"%s\"}", 
+						SignalStatus);
+				status = doPutRequest(url, headerData).getResponseCode();
+			} catch (Exception e) {
+				throw new Exception(e.getMessage());
+			}
+		}
+		return status ;
 	}
 
 	public int dismissAllAlerts(List<Long> notificationIDS) throws Exception {

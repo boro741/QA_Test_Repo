@@ -78,6 +78,9 @@ public class DIYRegistrationUtils {
 		if (dasDIY.isNextButtonVisible()) {
 			flag = flag & dasDIY.clickOnNextButton();
 		}
+		if(MobileUtils.isMobElementExists("name", "B8:2C:A0:30:2A:0B", testCase)){
+			flag = flag && MobileUtils.clickOnElement(testCase, "name", "B8:2C:A0:30:2A:0B");
+		}
 		flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
 		if (dasDIY.isBaseStationNotFoundPopupVisible(5) && dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible()) {
 			while (dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible() && counter < 5) {

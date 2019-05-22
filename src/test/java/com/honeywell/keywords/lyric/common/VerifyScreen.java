@@ -16,7 +16,6 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.keywords.lyric.Katana.utils.ProMonitoringUtils;
-import com.honeywell.lyric.das.utils.CreateAccountAndForgotPwdUtils;
 import com.honeywell.lyric.das.utils.DASAlarmUtils;
 import com.honeywell.lyric.das.utils.DASCameraUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
@@ -68,6 +67,7 @@ public class VerifyScreen extends Keyword {
 	@Override
 	@BeforeKeyword
 	public boolean preCondition() throws KeywordException {
+		DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "SMART HOME SECURITY PROGRESS BAR", 2);
 		return flag;
 	}
 
@@ -1720,6 +1720,32 @@ public class VerifyScreen extends Keyword {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isProMonitoringSetUpCompleteHeaderTitleVisible(30)) {
 					flag = dasDIY.clickOnCongratulationNextScreen();
+					Keyword.ReportStep_Pass(testCase,
+							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
+				}
+				break;
+			}case "ALARM SIGNAL TEST" :{
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isAlarmSignalTestScreenVisible()){
+					flag = flag && dasDIY.clickOnNextButton();
+					Keyword.ReportStep_Pass(testCase,
+							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());	
+				}
+				
+				break;
+			}
+			case "CONGRATULATIONS ALARM TEST": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isCongratulationsHeaderTitleVisible(30)) {
+					dasDIY.clickOnNextButton();
 					Keyword.ReportStep_Pass(testCase,
 							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
 				} else {
