@@ -16,7 +16,7 @@ import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.keywords.lyric.Katana.utils.ProMonitoringUtils;
-import com.honeywell.lyric.das.utils.CreateAccountAndForgotPwdUtils;
+import com.honeywell.keywords.lyric.platform.VerifyIfDefaultLocationDisplayedInDashboardScreenAfterLogin;
 import com.honeywell.lyric.das.utils.DASAlarmUtils;
 import com.honeywell.lyric.das.utils.DASCameraUtils;
 import com.honeywell.lyric.das.utils.DASZwaveUtils;
@@ -1726,6 +1726,28 @@ public class VerifyScreen extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
+				}
+				break;
+			}
+			case "SELECTED LOCATION IN DASHBOARD": {
+				Dashboard d = new Dashboard(testCase);
+				if (testCase.isTestSuccessful() || VerifyIfDefaultLocationDisplayedInDashboardScreenAfterLogin.FLAG) {
+					String locationNameDisplayedInDashboardScreen = d.getLocationNameDisplayedInDashboardScreen();
+					if (locationNameDisplayedInDashboardScreen
+							.equals(inputs.getInputValue("SELECTED_LOCATION_IN_DASHBOARD"))) {
+						Keyword.ReportStep_Pass(testCase, "Selected Location: " + locationNameDisplayedInDashboardScreen
+								+ " is displyed in Dashboard screen");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Selected Location in Dashboard screen: " + locationNameDisplayedInDashboardScreen
+										+ " is not same as the expected location: "
+										+ inputs.getInputValue("SELECTED_LOCATION_IN_DASHBOARD"));
+					}
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Skipping this step since default selected location is not: "
+									+ VerifyIfDefaultLocationDisplayedInDashboardScreenAfterLogin.DEFAULTLOCATIONFROMCHIL);
 				}
 				break;
 			}

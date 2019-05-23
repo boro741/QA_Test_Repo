@@ -1372,7 +1372,7 @@ public class NavigateToScreen extends Keyword {
 								"Could not click on Global drawer menu from dashboard");
 					}
 					break;
-				}
+				}	
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
