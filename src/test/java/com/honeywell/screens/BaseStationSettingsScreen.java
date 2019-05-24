@@ -751,10 +751,8 @@ public class BaseStationSettingsScreen extends MobileScreens {
 				Keyword.ReportStep_Pass(testCase, "Base Station Visible @ 2");
 				action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
 				.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
-				Thread.sleep(5000);
-				action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(500)))
-				.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
-				Thread.sleep(2000);
+//				action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(500)))
+//				.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "BaseStationConfigurationsOption");
 			}
 			if (this.isBaseStationConfigurationsOptionVisible()) {

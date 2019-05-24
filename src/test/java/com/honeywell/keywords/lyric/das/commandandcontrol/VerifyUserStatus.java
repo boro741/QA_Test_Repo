@@ -16,12 +16,12 @@ import com.honeywell.screens.SecuritySolutionCardScreen;
 public class VerifyUserStatus extends Keyword {
 
 	private TestCases testCase;
-	// private TestCaseInputs inputs;
+	 private TestCaseInputs inputs;
 	private ArrayList<String> status;
 	public boolean flag = true;
 
 	public VerifyUserStatus(TestCases testCase, TestCaseInputs inputs, ArrayList<String> status) {
-		// this.inputs = inputs;
+		 this.inputs = inputs;
 		this.testCase = testCase;
 		this.status = status;
 	}
