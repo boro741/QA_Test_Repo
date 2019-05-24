@@ -134,6 +134,12 @@ public class PerformActionsOnPopUp extends Keyword {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Dashboard screen is not displayed");
 				}
+				try {
+					Thread.sleep(5000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				if (!testCase.isTestSuccessful() || !flag) {
 					flag = flag & DIYRegistrationUtils.deleteDASDeviceThroughCHIL(testCase, inputs);
 				}
