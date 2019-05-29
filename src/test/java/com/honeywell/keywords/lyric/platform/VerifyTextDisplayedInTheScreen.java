@@ -251,28 +251,24 @@ public class VerifyTextDisplayedInTheScreen extends Keyword {
 			flag &= AddressUtils.verifyLocationPostalCodeValueDisplayedInEditAddressScreen(testCase, inputText.get(0));
 		} else if (inputText.get(1).equalsIgnoreCase("EDIT ACCOUNT")) {
 			switch (inputText.get(0).toUpperCase()) {
-			case "UPDATED FIRST NAME": {
-				flag &= EditAccountUtils.verifyFirstNameDisplayedInEditAccountScreen(testCase,
-						inputs.getInputValue("UPDATED_FIRST_NAME_IN_EDIT_ACCOUNT"));
-				break;
-			}
-			case "UPDATED LAST NAME": {
-				flag &= EditAccountUtils.verifyLastNameDisplayedInEditAccountScreen(testCase,
+			
+			case "UPDATED FIRST AND LAST NAME": {
+				flag &= EditAccountUtils.verifyFirstAndLastNameDisplayedInEditAccountScreen(testCase,
+						inputs.getInputValue("UPDATED_FIRST_NAME_IN_EDIT_ACCOUNT"),
 						inputs.getInputValue("UPDATED_LAST_NAME_IN_EDIT_ACCOUNT"));
 				break;
 			}
-			case "UPDATED FIRST AND LAST NAME" : {
-				flag &= EditAccountUtils.verifyFirstAndLastNameDisplayedInEditAccountScreen(testCase, inputs.getInputValue("UPDATED_FIRST_NAME_IN_EDIT_ACCOUNT"), inputs.getInputValue("UPDATED_LAST_NAME_IN_EDIT_ACCOUNT"));
-				break;
-			}
-			case "EXISTING FIRST NAME": {
-				flag &= EditAccountUtils.verifyExistingFirstNameDisplayedInEditAccountScreen(testCase,
-						inputs.getInputValue("UPDATED_FIRST_NAME_IN_EDIT_ACCOUNT"));
-				break;
-			}
-			case "EXISTING LAST NAME": {
-				flag &= EditAccountUtils.verifyExistingLastNameDisplayedInEditAccountScreen(testCase,
-						inputs.getInputValue("UPDATED_LAST_NAME_IN_EDIT_ACCOUNT"));
+			case "EXISTING FIRST AND LAST NAME": {
+				inputs.setInputValue("EXISTING_FIRST_NAME_IN_EDIT_ACCOUNT",
+						inputs.getInputValue("NAME_IN_EDIT_ACCOUNT").split(" ")[0]);
+				inputs.setInputValue("EXISTING_LAST_NAME_IN_EDIT_ACCOUNT",
+						inputs.getInputValue("NAME_IN_EDIT_ACCOUNT").split(" ")[1]);
+				System.out.println("Existing name: " + inputs.getInputValue("NAME_IN_EDIT_ACCOUNT"));
+				System.out.println("Existing first name: " + inputs.getInputValue("EXISTING_FIRST_NAME_IN_EDIT_ACCOUNT"));
+				System.out.println("Existing last name: " + inputs.getInputValue("EXISTING_LAST_NAME_IN_EDIT_ACCOUNT"));
+				flag &= EditAccountUtils.verifyFirstAndLastNameDisplayedInEditAccountScreen(testCase,
+						inputs.getInputValue("EXISTING_FIRST_NAME_IN_EDIT_ACCOUNT"),
+						inputs.getInputValue("EXISTING_LAST_NAME_IN_EDIT_ACCOUNT"));
 				break;
 			}
 		  }

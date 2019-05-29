@@ -25,6 +25,7 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.keywords.lyric.common.DeleteAndRebootDASDevice;
 import com.honeywell.lyric.utils.ADBUtils;
 import com.honeywell.lyric.utils.LyricUtils;
+import com.honeywell.screens.AddressScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
 import com.honeywell.account.information.DeviceInformation;
@@ -518,16 +519,17 @@ public class DIYRegistrationUtils {
 	public static boolean deleteLocation(TestCases testCase, TestCaseInputs inputs) {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		Dashboard d = new Dashboard(testCase);
+		AddressScreen ads = new AddressScreen(testCase);
 		boolean flag = true;
 		if (dasDIY.isGlobalDrawerButtonVisible()) {
 			flag = flag & dasDIY.clickOnGlobalDrawerButton();
 			if (dasDIY.isLocationDetailsVisible()) {
 				flag = flag & dasDIY.clickOnLocationDetails();
 				if (dasDIY.getLocationNameInDetailsScreen().contains(inputs.getInputValue("LOCATION1_NAME"))) {
-					if (dasDIY.isDeleteLocationButtonVisible()) {
+					if (dasDIY.isDeleteLocationButtonVisible()) {					
 						flag = flag & dasDIY.clickOnDeleteLocationButton();
-						if (dasDIY.isDeleteLocationPopupVisible() && dasDIY.isYesButtonInDeleteLocationPopupVisible()) {
-							flag = flag & dasDIY.clickOnYesButtonInDeleteLocationPopup();
+						if(ads.isDeleteLocationPopupLabelVisible() && ads.isDeleteButtonInDeleteLocationPopupLabelVisible() && ads.isCancelButtonInDeleteLocationPopupLabelVisible()) {
+							flag &= ads.clickOnDeleteButtonInDeleteLocationPopup();
 							flag = flag & d.isAddDeviceIconVisible(10);
 						}
 					}
@@ -539,6 +541,7 @@ public class DIYRegistrationUtils {
 
 	public static boolean deleteDefaultLocation(TestCases testCase, TestCaseInputs inputs) {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		AddressScreen ads = new AddressScreen(testCase);
 		boolean flag = true;
 		System.out.println("#########LOCATION1_NAME: " + inputs.getInputValue("LOCATION1_NAME"));
 		if (dasDIY.isGlobalDrawerButtonVisible()) {
@@ -548,8 +551,8 @@ public class DIYRegistrationUtils {
 				if (dasDIY.getLocationNameInDetailsScreen().contains(inputs.getInputValue("LOCATION1_NAME"))) {
 					if (dasDIY.isDeleteLocationButtonVisible()) {
 						flag = flag & dasDIY.clickOnDeleteLocationButton();
-						if (dasDIY.isDeleteLocationPopupVisible() && dasDIY.isYesButtonInDeleteLocationPopupVisible()) {
-							flag = flag & dasDIY.clickOnYesButtonInDeleteLocationPopup();
+						if(ads.isDeleteLocationPopupLabelVisible() && ads.isDeleteButtonInDeleteLocationPopupLabelVisible() && ads.isCancelButtonInDeleteLocationPopupLabelVisible()) {
+							flag &= ads.clickOnDeleteButtonInDeleteLocationPopup();
 							Keyword.ReportStep_Pass(testCase,
 									"Successfully Deleted Location: " + inputs.getInputValue("LOCATION1_NAME"));
 							flag = flag & dasDIY.isAddNewDeviceScreenVisible(10);
@@ -571,6 +574,7 @@ public class DIYRegistrationUtils {
 
 	public static boolean deleteTheExistingLocation(TestCases testCase, TestCaseInputs inputs) {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+		AddressScreen ads = new AddressScreen(testCase);
 		boolean flag = true;
 		if (dasDIY.isGlobalDrawerButtonVisible()) {
 			flag = flag & dasDIY.clickOnGlobalDrawerButton();
@@ -578,8 +582,8 @@ public class DIYRegistrationUtils {
 				flag = flag & dasDIY.clickOnLocationDetails();
 				if (dasDIY.isDeleteLocationButtonVisible()) {
 					flag = flag & dasDIY.clickOnDeleteLocationButton();
-					if (dasDIY.isDeleteLocationPopupVisible() && dasDIY.isYesButtonInDeleteLocationPopupVisible()) {
-						flag = flag & dasDIY.clickOnYesButtonInDeleteLocationPopup();
+					if(ads.isDeleteLocationPopupLabelVisible() && ads.isDeleteButtonInDeleteLocationPopupLabelVisible() && ads.isCancelButtonInDeleteLocationPopupLabelVisible()) {
+						flag &=ads.clickOnDeleteButtonInDeleteLocationPopup();
 						Keyword.ReportStep_Pass(testCase, "Successfully Deleted First Location");
 						flag = flag & dasDIY.isAddNewDeviceScreenVisible(10);
 						if (flag) {

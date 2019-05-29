@@ -43,11 +43,11 @@ Then user should be displayed with the following "Global Drawer Without Solution
 | Activity history											|
 | Add Users													|
 | Address													| 
-| Account Header												|
+| Account Header											|
 | Edit Account												|
 | About the app												|
 | No FAQs For US location									|
-| Logout														|
+| Logout													|
 #And user logs out of the app
 
 
@@ -64,11 +64,11 @@ Then user should be displayed with the following "Global Drawer With WLD Solutio
 | Activity history											|
 | Add Users													|
 | Address													| 
-| Account Header												|
+| Account Header											|
 | Edit Account												|
 | About the app												|
 | FAQs														|
-| Logout														|
+| Logout													|
 #And user logs out of the app
 
 
@@ -85,11 +85,11 @@ Then user should be displayed with the following "Global Drawer With WLD Solutio
 | Activity history											|
 | Add Users													|
 | Address													| 
-| Account Header												|
+| Account Header											|
 | Edit Account												|
 | About the app												|
 | No FAQs For US location									|
-| Logout														|
+| Logout													|
 #And user logs out of the app
 
 
@@ -106,7 +106,7 @@ Then user should be displayed with the following "Global Drawer With DAS C1 C2 S
 | Activity history									|
 | Add Users											|
 | Address											| 
-| Account Header										|
+| Account Header									|
 | Honeywell Membership For Android					|
 | Edit Account										|
 | About the app										|
@@ -128,7 +128,7 @@ Then user should be displayed with the following "Global Drawer With DAS C1 C2 S
 | Activity history									|
 | Add Users											|
 | Address											| 
-| Account Header										|
+| Account Header									|
 | Honeywell Membership For Android					|
 | Edit Account										|
 | About the app										|
@@ -151,7 +151,7 @@ Then user should be displayed with the following "Global Drawer With JASPER EMEA
 | Activity history									|
 | Add Users											|
 | Address											| 
-| Account Header										|
+| Account Header									|
 | Edit Account										|
 | About the app										|
 | FAQs												|
@@ -173,7 +173,7 @@ Then user should be displayed with the following "Global Drawer With JASPER NA S
 | Activity history									|
 | Add Users											|
 | Address											| 
-| Account Header										|
+| Account Header									|
 | Edit Account										|
 | About the app										|
 | No FAQs For US location							|
@@ -424,10 +424,9 @@ Examples:
 @GeneralGlobalDrawerVerifyPushNotificationWhenGeofenceAlertIsEnabledAndDisabled				@Automated			@--xrayid:ATER-67861
 Scenario Outline: As a user I want to verify if push notification is received when geofence alert toggle is enabled
 Given user has <Mode> system mode
-#Then user selects "HOME OFFICE" from "Dashboard" screen
 And user thermostat is set to "geofence based" schedule
 When user launches and logs in to the Lyric application
-Then user selects "HOME OFFICE" from "Dashboard" screen
+When user clears all push notifications
 And user navigates to "Global Drawer" screen from the "Dashboard" screen 
 When user selects "Geofence" from "Global Drawer" screen
 Then user should be displayed with the "Geofence Settings" screen
@@ -451,7 +450,7 @@ Then user should not receive a "Geofence crossed Away" push notification
 Examples:
 | Mode	| Period			| Geofence		| UPeriod		| UGeofence		|
 | Heat	| Home			| UserArrived  	| Away			| UserDeparted	|
-#| Cool	| UserArrived  	| Home			| Away			| UserDeparted	|
+| Cool	| UserArrived  	| Home			| Away			| UserDeparted	|
 
 
 #ActivityHistory
@@ -720,7 +719,7 @@ Examples:
 #HomeAddress
 #Requirements : single location with and with out any solution
 @GeneralGlobalDrawerClearFieldsInEditAddressAndVerifyPlaceholdersTextDisplayed             @Automated			@--xrayid:ATER-68241
-Scenario: As a user i want to Verify placeholder text displayed for each field in Edit Address screen
+Scenario Outline: As a user i want to Verify placeholder text displayed for each field in Edit Address screen
 Given user launches and logs in to the Lyric Application
 When user navigates to "Address" screen from the "Dashboard" screen
 Then user should be displayed with the "Address" screen
@@ -751,8 +750,40 @@ Then user should be displayed with the placeholder text for the following fields
 | Address Text Field					| 
 | City Text Field					| 
 | State Text Field					| 
-| Postal Code Text Field				|
+| Postal Code Text Field			|
+When user inputs <Location Name> in "Location Name Text Field" in the "Edit Address" screen
+And the following "Edit Address" options should be enabled:
+| EditAddressOptions	|
+| Save					|
+When user inputs <Address> in "Address Text Field" in the "Edit Address" screen
+And the following "Edit Address" options should be enabled:
+| EditAddressOptions	|
+| Save					|
+When user inputs <City> in "City Text Field" in the "Edit Address" screen
+And the following "Edit Address" options should be enabled:
+| EditAddressOptions		|
+| Save					|
+When user inputs <State> in "State Text Field" in the "Edit Address" screen
+And the following "Edit Address" options should be enabled:
+| EditAddressOptions	|
+| Save					|
+When user inputs <Postal Code> in "Postal Code Text Field" in the "Edit Address" screen
+Then the following "Edit Address" options should be enabled:
+| EditAddressOptions	|
+| Save					|
+When user selects "Save button" from "Edit Address" screen
+Then user should be displayed with the "Address" screen
+And user should be displayed with <Location Name> in the "Address" screen
+And user should be displayed with <State> in the "Address" screen
+And user should be displayed with <Postal Code> in the "Address" screen
+And user should be displayed with the following "Address" options:
+| AddressOptions				|
+| Edit Address Label			|
+| Delete Location Option		|
 
+Examples:
+|Location Name | Address	| City			| State			| Postal Code	| 
+|Home	   	   | Room		| City Street	| Tor			| M4B 1B3		|
  
 #Requirements : single location with and with out any solution
 @GeneralGlobalDrawerCancelsTheAddressLocationChanges             @Automated			@--xrayid:ATER-68242
@@ -854,7 +885,6 @@ Then the following "Edit Address" options should be enabled:
 When user selects "Save button" from "Edit Address" screen
 Then user should be displayed with the "Address" screen
 And user should be displayed with "Location Name" in the "Address" screen
-And user should be displayed with <Country> in the "Address" screen
 And user should be displayed with <State> in the "Address" screen
 And user should be displayed with <Postal Code> in the "Address" screen
 And user should be displayed with the following "Address" options:
@@ -863,9 +893,10 @@ And user should be displayed with the following "Address" options:
 | Delete Location Option		|
 
 Examples: 
-| Address	| City		| State		| Postal Code	| 
-| Nazdar		| Shawnee	| Kansas		| 66203			|
-  
+| Address		| City			| State			| Postal Code|
+| Coin Street	| Street 12		| Alberta		| 90002		|  
+| State Street	| Street 11		| Toronto		| 90004		|  
+
   
 #Requirements : single location with and with out any solution
 @GeneralGlobalDrawerVerifyIfExistingAddressIsDisplayedWhenNavFromEditAddressWithoutUpdatingAddress             @Automated			@--xrayid:ATER-68246
@@ -901,17 +932,17 @@ When user navigates to "Address" screen from the "Dashboard" screen
 Then user should be displayed with the "Address" screen
 When user navigates to "Edit Address" screen from the "Address" screen 
 Then user should be displayed with the following "Edit Address" options:
-| EditAddressOptions			| 
+| EditAddressOptions		| 
 | Location Name Header		| 
 | Location Name Text Field	| 
-| Address Header				| 
-| Address Text Field			| 
+| Address Header			| 
+| Address Text Field		| 
 | City Text Field			| 
 | State Text Field			| 
-| Postal Code Text Field		| 
-| Change Country				|
+| Postal Code Text Field	| 
+| Change Country			|
 And the following "Edit Address" options should be disabled:
-| EditAddressOptions		|
+| EditAddressOptions	|
 | Save					|
 When user selects "Change Country" from "Edit Address" screen
 Then user should be displayed with the "Please confirm your country" screen
@@ -951,7 +982,7 @@ And user should be displayed with the following "Address" options:
 
 Examples: 
 | State		| Postal Code	|
-| NY			| 10029			|
+| NY		| 10029			|
 
 
 #Requirements : single location with and with out any solution
@@ -1009,19 +1040,28 @@ And user should be displayed with the following "Address" options:
 | AddressOptions				|
 | Edit Address Label			|
 | Delete Location Option		|
+When user navigates to "Edit Address" screen from the "Address" screen
+When user selects "Change Country" from "Edit Address" screen
+Then user should be displayed with the "Please confirm your country" screen
+When user inputs <Country1> in "Search Text Field" in the "Please confirm your country" screen
+When user inputs <State1> in "State Text Field" in the "Edit Address" screen
+When user inputs <Postal Code1> in "Postal Code Text Field" in the "Edit Address" screen
+When user selects "Save button" from "Edit Address" screen
+Then user should be displayed with the "Address" screen
+Then user logs out of the app
 
 Examples: 
-| Country	| State				| Postal Code	| 
-#| Argentina	| Buenos Aires		| 1865			| 
-| Australia	| QLD				| 4822			| 
-#| Austria	| Vienna				| 1000			| 
-#| Belgium	| Brussels			| 1040			| 
-#| Brazil		| Amapa				| 68950-000		| 
-#| Bulgaria	| Plovdiv			| 4000			| 
-#| Canada		| ON					| M5H 2N2		| 
-#| Chile		| Santiago			| 8320000		| 
-#| China		| Beijing			| 100000			| 
-#| Colombia	| Antioquia			| 055038			|
+| Country	| State				| Postal Code	| Country1 | Postal Code1 | State1 |
+| Argentina	| Buenos Aires		| 1865			| Canada   | M4B 1B3	  |	Toronto|
+| Australia	| QLD				| 4822			| Canada   | M4B 1B3	  |	Toronto|
+| Austria	| Vienna			| 1000			| Canada   | M4B 1B3	  |	Toronto|
+| Belgium	| Brussels			| 1040			| Canada   | M4B 1B3	  |	Toronto|
+| Brazil	| Amapa				| 68950-000		| Canada   | M4B 1B3	  |	Toronto|
+| Bulgaria	| Plovdiv			| 4000			| Canada   | M4B 1B3	  |	Toronto|
+| Canada	| ON				| M5H 2N2		| Canada   | M4B 1B3	  |	Toronto|
+| Chile		| Santiago			| 8320000		| Canada   | M4B 1B3	  |	Toronto|
+| China		| Beijing			| 100000		| Canada   | M4B 1B3	  |	Toronto|
+| Colombia	| Antioquia			| 055038		|Canada    | M4B 1B3	  |	Toronto|
 
 
 #Requirements : single location with and with out any solution
@@ -1052,19 +1092,15 @@ And user should be displayed with the following "Address Fields For The Selected
 | AddressFieldsForTheSelectedCountry		| 
 | Location Name Header					| 
 | Location Name Text Field				| 
-| Address Header							| 
-| Address Text Field						| 
-| City Text Field						| 
-| State Text Field						| 
-| Postal Code Text Field					| 
-| Change Country							|
+| Address Header						| 
+| Address Text Field					| 
+| City Text Field						|
+| Postal Code Text Field				| 
+| Change Country						|
 And the following "Edit Address" options should be disabled:
 | EditAddressOptions		|
 | Save					|
-When user inputs <State> in "State Text Field" in the "Edit Address" screen
-And the following "Edit Address" options should be disabled:
-| EditAddressOptions		|
-| Save					|
+#When user inputs <State> in "State Text Field" in the "Edit Address" screen
 When user inputs <Invalid Postal Code> in "Postal Code Text Field" in the "Edit Address" screen
 Then the following "Edit Address" options should be enabled:
 | EditAddressOptions		|
@@ -1072,15 +1108,20 @@ Then the following "Edit Address" options should be enabled:
 When user selects "Save button" from "Edit Address" screen
 Then user should receive a "Invalid Zipcode" popup
 When user "dismisses" the "Invalid Zipcode" popup
-Then user should be displayed with the "Edit Address" screen 
-When user inputs <Postal Code> in "Postal Code Text Field" in the "Edit Address" screen
+Then user should be displayed with the "Edit Address" screen
+When user selects "Change Country" from "Edit Address" screen
+Then user should be displayed with the "Please confirm your country" screen
+When user inputs <Country1> in "Search Text Field" in the "Please confirm your country" screen
+Then user should be displayed with the "Edit Address" screen
+When user inputs <State> in "State Text Field" in the "Edit Address" screen
+ When user inputs <Postal Code> in "Postal Code Text Field" in the "Edit Address" screen
 Then the following "Edit Address" options should be enabled:
 | EditAddressOptions		|
 | Save					|
 When user selects "Save button" from "Edit Address" screen
 Then user should be displayed with the "Address" screen
 And user should be displayed with "Location Name" in the "Address" screen
-And user should be displayed with <Country> in the "Address" screen
+And user should be displayed with <Country1> in the "Address" screen
 And user should be displayed with <State> in the "Address" screen
 And user should be displayed with <Postal Code> in the "Address" screen
 And user should be displayed with the following "Address" options:
@@ -1089,17 +1130,18 @@ And user should be displayed with the following "Address" options:
 | Delete Location Option		|
 	
 Examples: 
-| Country	| State				| Invalid Postal Code	| Postal Code	| 
-| Argentina	| Buenos Aires		| 055038					| 1865			| 
-#| Australia	| QLD				| 100000					| 4822			| 
-#| Austria	| Vienna				| 8320000				| 1000			| 
-#| Belgium	| Brussels			| M5H 2N2				| 1040			| 
-#| Brazil		| Amapa				| 4000					| 68950-000		| 
-#| Bulgaria	| Plovdiv			| 68950-000				| 4000			| 
-#| Canada		| ON					| 1040					| M5H 2N2		| 
-#| Chile		| Santiago			| 1000 					| 8320000		| 
-#| China		| Beijing			| 4822 					| 100000			| 
-#| Colombia	| Antioquia			| 1865					| 055038			|
+|  Country1   | Country		| State			| Invalid Postal Code	| Postal Code	| 
+|  Canada	  | Argentina	| Toronto		| A1					| M4B 1B3		|
+|  Hans	  	  | Toronto		| Alberta		| 0987					| M4B 1B3		|
+| Australia	  | QLD			| 100000		| 4822					| M4B 1B3		|
+| Austria	  | Vienna		| 8320000		| 1000					| M4B 1B3		|
+| Belgium	  | Brussels	| M5H 2N2		| 1040					| M4B 1B3		|
+| Brazil	  | Amapa		| 4000			| 68950-000				| M4B 1B3		|
+| Bulgaria	  | Plovdiv		| 68950-000		| 4000					| M4B 1B3		|
+| Canada	  | ON			| 1040			| M5H 2N2				| M4B 1B3		|
+| Chile		  | Santiago	| 1000 			| 8320000				| M4B 1B3		|
+| China		  | Beijing		| 4822 			| 100000				| M4B 1B3		|
+| Colombia	  | Antioquia	| 1865			| 055038				|M4B 1B3		|
 
   
 #Requirements : single location with and with out any solution
@@ -1121,11 +1163,12 @@ And user selects "Save button" from "Edit Address" screen
 Then user should be displayed with the "Address" screen
 And user should be displayed with "Location Name" in the "Address" screen
 And user should be displayed with "Location Address" in the "Address" Screen
+Then user logs out of the app
 
 Examples:
 | max characters                   	|
 | This is to test max character		|
-| This is to test max characters		|
+| This is to test max characters	|
 | This is to test max characterss	|
   
 
@@ -1147,6 +1190,7 @@ And user selects "Save button" from "Edit Address" screen
 Then user should be displayed with the "Address" screen
 And user should be displayed with "Location Name" in the "Address" screen
 And user should be displayed with "Location Address" in the "Address" Screen
+Then user logs out of the app
 
 
 #Enter space before and after location name
@@ -1172,8 +1216,14 @@ And user should be displayed with "Location Address" in the "Address" Screen
 #Requirements : single location with out any solution
 @GeneralGlobalDrawerAddressDeleteLocationWithoutAnySoultion            @Automated		@--xrayid:ATER-69069
 Scenario Outline: As a user i want to Verify delete location for an account without any solution
-Given user launches and logs in to the Lyric application
+Given user launches and logs in to the Lyric application with user account without any location
+And user changes the country to "United States"
 When user selects "Smart Home Security" from "Add New Device" screen
+#When user selects "Change Country" from "Add New Device" screen
+#Then user should be displayed with the "Please confirm your country" screen
+#Then user inputs "United States" in "Search Text Field" in the "Please confirm your country" screen
+#Then user should be displayed with the "Add New Device" screen
+#When user selects "Smart Home Security" from "Add New Device" screen
 Then user should be displayed with the "What To Expect" screen
 When user navigates to "Choose Location" screen from the "What To Expect" screen
 And user selects "Create New Location" from "Choose Location" screen
@@ -1216,7 +1266,8 @@ Then user should be displayed with the "Address" screen
 #Requirements : Two location with out any solution
 @GeneralGlobalDrawerAddressDeletingMultipleLocationsWithoutAnySolution            @Automated			@--xrayid:ATER-69070
 Scenario Outline: As a user i want to verify if user is navigated to other locations dashboard when a location is deleted for an account without any solution
-Given user launches and logs in to the Lyric application
+Given user launches and logs in to the Lyric application with user account without any location
+And user changes the country to "United States"
 When user selects "Smart Home Security" from "Add New Device" screen
 Then user should be displayed with the "What To Expect" screen
 When user navigates to "Choose Location" screen from the "What To Expect" screen
@@ -1302,11 +1353,11 @@ Then user should be displayed with "updated first name" in the "Edit Account" sc
 Then user should be displayed with "updated last name" in the "Edit Account" screen
 
 Examples: 
-| first name | last name | 
-| giri       | THEJ      | 
-#| sami       | krishna   | 
-#| vijay      | Govda     | 
-#| anju       | Chandran   |  
+| First name | Last name | 
+| giri       | THEJJ     | 
+| sami       | krishna   | 
+| vijay      | Govda     | 
+| anju       | Chandran  |  
   
 
 #Edit first name last name with error
@@ -1326,8 +1377,8 @@ Then user should be displayed with the "Edit Account" screen
 When user clicks on the back arrow in the "Edit Account" screen
 Then user should be displayed with the "Global Drawer" screen
 And user navigates to "Edit Account" screen from the "Global Drawer" screen
-Then user should be displayed with "existing first name" in the "Edit Account" screen
-And user should be displayed with "existing last name" in the "Edit Account" screen
+Then user should be displayed with "existing first and last name" in the "Edit Account" screen
+#And user should be displayed with "existing last name" in the "Edit Account" screen
 
   
 #Requirements : single location with and with out any solution
@@ -1346,8 +1397,7 @@ Then user should be displayed with the "Edit Account" screen
 When user clicks on the back arrow in the "Edit Account" screen
 Then user should be displayed with the "Global Drawer" screen
 And user navigates to "Edit Account" screen from the "Global Drawer" screen
-Then user should be displayed with "existing first name" in the "Edit Account" screen
-And user should be displayed with "existing last name" in the "Edit Account" screen
+Then user should be displayed with "existing first and last name" in the "Edit Account" screen
 
 
 #Requirements : single location with and with out any solution
@@ -1381,11 +1431,11 @@ Then user should be displayed with "Cancel Name Changes" popup
 And user selects "No button" in the "Cancel Name Changes" popup
 Then user should be displayed with "Name Edit Account" screen without any changes
 Then user clicks on the back arrow in the "Name Edit Account" screen
-Then user should be displayed with "Cancel Name Changes" popup
-And user selects "Yes button" in the "Cancel Name Changes" popup
-Then user should be displayed with "Edit Account" screen
-Then user should be displayed with "existing first name" in the "Edit Account" screen
-And user should be displayed with "existing last name" in the "Edit Account" screen
+Then user should receive a "Cancel Name Changes" popup
+Then user "clicks on Yes in" the "Cancel Name Changes" popup
+Then user should be displayed with the "Edit Account" screen
+Then user should be displayed with "existing first and last name" in the "Edit Account" screen
+#And user should be displayed with "existing last name" in the "Edit Account" screen
 
 #Then user should receive a "First Name is required" popup
 #When user "Clicks on OK in" the "First Name is required" popup
@@ -1425,8 +1475,8 @@ Then the following "Edit Account" options should be enabled:
 When user clicks on the back arrow in the "Edit Account" screen
 Then user should be displayed with the "Global Drawer" screen
 And user navigates to "Edit Account" screen from the "Global Drawer" screen
-Then user should be displayed with "existing first name" in the "Edit Account" screen
-And user should be displayed with "existing last name" in the "Edit Account" screen
+Then user should be displayed with "existing first and last name" in the "Edit Account" screen
+#And user should be displayed with "existing last name" in the "Edit Account" screen
 
 
 #Requirements : single location with and with out any solution
@@ -1468,8 +1518,8 @@ Examples:
 | max characters                   			|
 | Test maxm characters limit 40 character	|
 | Test maxm characters limit 40 characters	|
-| Test maxm characters limit 40 characterss	|
-
+| Test maxm characters limit 40 characters	|
+| Test maxm characters limit 40 characterss |
   
 #Requirements : single location with and with out any solution
 @GeneralGlobalDrawerEditAccountValidateSpecialCharsInFirstNameAndLastNameTxtFields  @Automatable	  @--xrayid:ATER-69083
@@ -1489,22 +1539,18 @@ When user clears the text displayed in the following text fields in the "Name Ed
 | First Name Text Field				|
 When user inputs "special characters" in "First Name Text Field" in the "Name Edit Account" screen
 When user clears the text displayed in the following text fields in the "Name Edit Account" screen:
-| TextFieldsInEditAccountScreen		|
-| Last Name Text Field				|
-And user inputs "special characters" in "Last Name Text Field" in the "Edit Account" screen
-And user selects "Save button" from "Name Edit Account" screen
+| TextFieldsInNameEditAccountScreen		|
+| Last Name Text Field					|
+And user inputs "special characters" in "Last Name Text Field" in the "Name Edit Account" screen
+Then user selects "Save button" from "Name Edit Account" screen
 Then user should be displayed with the "Edit Account" screen
-#When user navigates to "Edit Account" screen from the "Global Drawer" screen
-Then user should be displayed with "updated first name" in the "Edit Account" screen
-And user should be displayed with "updated last name" in the "Edit Account" screen
-#When user inputs "Previous value" in "First Name Text Field" in the "Edit Account" screen
-#And user inputs "Previous value" in "Last Name Text Field" in the "Edit Account" screen
-#And user selects "Save button" from "Edit Account" screen
-#Then user should be displayed with the "Global Drawer" screen
-#When user navigates to "Edit Account" screen from the "Global Drawer" screen
-#Then user should be displayed with "existing first name" in the "Edit Account" screen
-#And user should be displayed with "existing last name" in the "Edit Account" screen
-  
+Then user should be displayed with "Updated First and Last Name" in the "Edit Account" screen
+Then user selects "Name" from "Edit Account" screen
+When user inputs "Previous value" in "First Name Text Field" in the "Edit Account" screen
+And user inputs "Previous value" in "Last Name Text Field" in the "Edit Account" screen
+And user selects "Save button" from "Edit Account" screen
+Then user should be displayed with the "Edit Account" screen
+Then user should be displayed with "existing first and last name" in the "Edit Account" screen
 
 #Change Password in Edit Account Screen
 #Requirements : single location with and with out any solution
@@ -1735,8 +1781,7 @@ Examples:
       | Home					| Living Room				| 90001                 |
 
 
-#Delete account with learn how to delete a device #GDPR
-  
+#Delete account with learn how to delete a device #GDPR  
 #Requirements : single location with solution 
 @GeneralGlobalDrawerEditAccountDeleteAccountWithSolution             @Automated			@--xrayid:ATER-69092
 Scenario: As a user i want to Verify the app behavior by deleting an account with solution
@@ -1773,7 +1818,6 @@ Then user should be displayed with the "Edit Account" screen
   
   
 #About the app Screen
-  
 #Requirements : single location with and with out any solution , US location 
 @GeneralGlobalDrawerAboutTheAppVerifyOptionsDisplayedForUSLocation             @Automated		@--xrayid:ATER-69093
 Scenario: As a user i want to Verify the options displayed in about the app for US Location with and with out solution 
@@ -1805,7 +1849,6 @@ And user should be displayed with the following "About the app" options:
   
 
 #Privacy Policy & EULA
-  
 #Requirements : single location with and with out any solution , US location 
 @GeneralGlobalDrawerAboutTheAppVerifyPrivacyPolicyAndEULAScreen             @Automated		@--xrayid:ATER-69095
 Scenario: As a user i want to Verify Privacy policy and EULA screen present in About the App with and with out solution 
@@ -1818,7 +1861,6 @@ And user navigates to "About the app" screen from the "Privacy Policy and EULA" 
 
 
 #Acknowledgements
-
 #Requirements : single location with and with out any solution , US location 
 @GeneralGlobalDrawerAboutTheAppVerifyAcknowledgementsScreen             @Automated		@--xrayid:ATER-69096
 Scenario: As a user i want to Verify Acknowledgements screen present in About the App with and with out solution
@@ -1831,7 +1873,6 @@ And user navigates to "About the app" screen from the "Acknowledgements" screen
   
 
 #App version
-  
 #Requirements : single location with and with out any solution
 @GeneralGlobalDrawerAboutTheAppVerifyVersion             @Automated		@--xrayid:ATER-69097
 Scenario: As a user i want to Verify App Version present in About the App Screen with and with out solution
@@ -1844,7 +1885,6 @@ And user should be displayed with the following "About the app" options:
   
 
 #GetHelp
-  
 #Requirements : single location with and with out any solution , US location 
 @GeneralGlobalDrawerAboutTheAppVerifyGetHelpScreen             @Automated			@--xrayid:ATER-69098
 Scenario: As a user i want to Verify Get Help screen present in About the App with and with out solution
@@ -1866,9 +1906,7 @@ And user navigates to "About the app" screen from the "Get Help" screen
 
 
 #Rate the app only for android  
-  
 #Rate the app close option
-  
 #Requirements : single location with and with out any solution
 @GeneralGlobalDrawerVerifyRateTheAppPopupForUSLocation             @Automated		@--xrayid:ATER-69100
 Scenario: As a user i want to Verify Rate the app with close option for US Location under About the app with and with out solution 
@@ -1906,12 +1944,11 @@ And the following "App Feedback" options should be disabled:
 Examples:
 | Star | max characters											|	
 | 1    | This is to test max characters in Feedback Text Field	|
-#| 2    | This is to test max characters in Feedback Text Field	|
-#| 3    | This is to test max characters in Feedback Text Field	| 
+| 2    | This is to test max characters in Feedback Text Field	|
+| 3    | This is to test max characters in Feedback Text Field	| 
   
 
 #Rate the app below 3 stars 
-  
 #Requirements : single location with and with out any solution
 @GeneralGlobalDrawerVerifyWhatDoYouThinkOfHHAppPopupAfterTapingOnSendFeedBackWithEnabledAnonymousToggleButtonAndMinMaxAppThrice             @Automated		@--xrayid:ATER-69102
 Scenario Outline: What do you think of Honeywell Home app popup when user enables Anonymous toggle button, Sends Feedback, minimizes and maximizes the app three times 
@@ -1942,9 +1979,9 @@ Then user should not receive a "What do you think of Honeywell Home app" popup
 
 Examples: 
 | Star | 
-#| 1    | 
+| 1    | 
 | 2    | 
-#| 3    |
+| 3    |
   
 
 #Requirements : single location with and with out any solution
@@ -1977,8 +2014,8 @@ Then user should not receive a "What do you think of Honeywell Home app" popup
 
 Examples: 
 | Star | 
-#| 1    | 
-#| 2    | 
+| 1    | 
+| 2    | 
 | 3    |
 
 
@@ -2012,13 +2049,12 @@ Then user should receive a "What do you think of Honeywell Home app" popup
 
 Examples: 
 | Star | 
-#| 1    | 
-#| 2    | 
+| 1    | 
+| 2    | 
 | 3    |
   
   
 #Rate the app below 4-5 stars with close 
-  
 #Requirements : single location with and with out any solution
 @GeneralGlobalDrawerVerifyThanksForYourRatingPopupWithFourOrFiveRating             @Automated		@--xrayid:ATER-69105
 Scenario Outline: Verify if Thanks for your rating popup displays when user selects four or five rating in What do you think of Honeywell Home app popup
@@ -2035,11 +2071,10 @@ Then user should be displayed with the "About the app" screen
 Examples: 
 | Star | 
 | 4    | 
-#| 5	   |
+| 5	   |
   
 
 #Rate the app below 4-5 stars with continue 
-  
 #Requirements : single location with and with out any solution
 @GeneralGlobalDrawerVerifyNavigationToGooglePlaystoreWithFourOrFiveRating             @Automated		@--xrayid:ATER-69106
 Scenario Outline: Verify navigation to Google Playstore when user taps on Continue button in Thanks for your rating popup
@@ -2055,7 +2090,7 @@ Then user should be displayed with the "Honeywell Home in Google Playstore" scre
 
 Examples: 
 | Star | 
-#| 4    | 
+| 4    | 
 | 5	   |
 
   
@@ -2085,8 +2120,8 @@ Then user should be displayed with the "About the app" screen
 
 Examples: 
 | Star | 
-#| 1    | 
-#| 2    | 
+| 1    | 
+| 2    | 
 | 3    |
 
   
@@ -2103,7 +2138,7 @@ Then user should be displayed with the "Honeywell Home in Google Playstore" scre
 
 Examples: 
 | Star | 
-#| 4    | 
+| 4    | 
 | 5	   |  
 
 
@@ -2132,8 +2167,8 @@ Then user should be displayed with the "About the app" screen
 
 Examples: 
 | Star | 
-#| 1    | 
-#| 2    | 
+| 1    | 
+| 2    | 
 | 3    |
 
   
@@ -2150,7 +2185,7 @@ Then user should be displayed with the "Honeywell Home in Google Playstore" scre
 
 Examples: 
 | Star | 
-#| 4    | 
+| 4    | 
 | 5	   |
 
   
@@ -2167,7 +2202,7 @@ Then user should be displayed with the "About the app" screen
 
 Examples: 
 | Star | 
-#| 4    |
+| 4    |
 | 5	   |
 
   
@@ -2201,8 +2236,8 @@ Then user should be displayed with the "About the app" screen
 
 Examples: 
 | Star | 
-#| 1    | 
-#| 2    | 
+| 1    | 
+| 2    | 
 | 3    |
 
   
@@ -2224,7 +2259,7 @@ Then user should be displayed with the "Honeywell Home in Google Playstore" scre
 
 Examples: 
 | Star | 
-#| 4    |
+| 4    |
 | 5	   |
   
 
@@ -2245,7 +2280,7 @@ Then user should be displayed with the "About the app" screen
 
 Examples: 
 | Star | 
-#| 4    |
+| 4    |
 | 5	   |
  
  
@@ -2278,8 +2313,8 @@ Then user should be displayed with the "About the app" screen
 
 Examples: 
 | Star | 
-#| 1    | 
-#| 2    | 
+| 1    | 
+| 2    | 
 | 3    |
 
 
@@ -2300,7 +2335,7 @@ Then user should be displayed with the "Honeywell Home in Google Playstore" scre
 
 Examples: 
 | Star | 
-#| 4    |
+| 4    |
 | 5	   |
 
 
@@ -2321,7 +2356,7 @@ Then user should be displayed with the "About the app" screen
 
 Examples: 
 | Star | 
-#| 4    |
+| 4    |
 | 5	   |
   
 
@@ -2356,13 +2391,12 @@ Then user should be displayed with the "About the app" screen
 
 Examples: 
 | Star | 
-#| 1    | 
-#| 2    | 
+| 1    | 
+| 2    | 
 | 3    |
 
 
 #FAQs
-  
 #Requirements : single location with and with out any solution , UK location 
 @GeneralGlobalDrawerVerifyIfFAQsDisplayedForUKLocation             @Automated		@--xrayid:ATER-69125
 Scenario: Navigation to FAQs screen for UK Location under global drawer with and with out solution
@@ -2378,7 +2412,6 @@ And user should be displayed with the following "FAQS" options:
 
  
 #FAQs General 
-  
 #Requirements : single location with and with out any solution , UK location 
 @GeneralGlobalDrawerTapOnYesButtonInWasThisHelpfulDIsplayedForAQuestionInGeneralFAQs            @Automated		@--xrayid:ATER-69126
 Scenario: Verify the app behavior by tapping on Yes button in Was this helpful displayed for a question in FAQs General questions list
@@ -2442,8 +2475,6 @@ And user should not be displayed with the following "Question" options:
 
  
 #FAQs Thermostat 
-  
-
 #Requirements : single location with and with out any solution , UK location 
 @GeneralGlobalDrawerTapOnYesButtonInWasThisHelpfulDIsplayedForAQuestionInThermostatFAQs             @Automated		@--xrayid:ATER-69127
 Scenario: Verify the app behavior by tapping on Yes button in Was this helpful displayed for a question in FAQs Thermostat questions list
@@ -2507,8 +2538,6 @@ And user should not be displayed with the following "Question" options:
 
   
 #FAQs WLD 
-
-
 #Requirements : single location with and with out any solution , UK location 
 @GeneralGlobalDrawerTapOnYesButtonInWasThisHelpfulDIsplayedForAQuestionInWLDFAQs            @Automated		@--xrayid:ATER-69129
 Scenario: Verify the app behavior by tapping on Yes button in Was this helpful displayed for a question in FAQs Water Leak Detector questions list
@@ -2572,8 +2601,6 @@ And user should not be displayed with the following "Question" options:
 
  
 #FAQs CAMERA 
-
- 
 #Requirements : single location with and with out any solution , UK location 
 @GeneralGlobalDrawerTapOnYesButtonInWasThisHelpfulDIsplayedForAQuestionInCameraFAQs              @Automated		@--xrayid:ATER-69131
 Scenario: Verify the app behavior by tapping on Yes button in Was this helpful displayed for a question in FAQs Camera questions list
@@ -2637,8 +2664,6 @@ And user should not be displayed with the following "Question" options:
   
 
 #FAQs search box 
-  
-
 #Requirements : single location with and with out any solution , UK location 
 @GeneralGlobalDrawerVerifySearchResultsInFAQsScreen             @Automated		@--xrayid:ATER-69132
 Scenario: As a user i want to Verify if list of questions display for the entered help text in FAQs screen
@@ -2654,11 +2679,10 @@ And user should be displayed with the following "FAQS" options:
 When user inputs "What happens" in "Help Text" in the "FAQs" screen
 Then user should be displayed with the following "Question" options:
 | QuestionOptions	|
-| Search results		|
+| Search results	|
  
   
 #FAQs search box with no FAQs
-  
 #Requirements : single location with and with out any solution , UK location 
 @GeneralGlobalDrawerVerifyNoFAQsFoundLabelInFAQsScreen             @Automated		@--xrayid:ATER-69133
 Scenario: As a user i want to Verify if No FAQs found label displayed for the entered help text in FAQs screen
@@ -2678,8 +2702,6 @@ Then user should be displayed with the following "Question" options:
   
 
 #Logout
-  
-
 #Requirements : single location with and with out any solution
 @GeneralGlobalDrawerLogoutFromTheAppWithLocation             @Automated		@--xrayid:ATER-69134
 Scenario: As a user i want to Verify logout with location under global drawer with and with out solution
@@ -3142,7 +3164,8 @@ Then user should be displayed with the "Delete Account With Solution" screen
  
 @DeleteAllLocationsAndThenDeleteAccount             @Automatable		@--xrayid:ATER-69147
 Scenario Outline: Verify if user is navigated to add device screen when all locations are deleted and account is deleted when user deletes the account
-Given user launches and logs in to the Lyric application with user account with location
+Given user launches and logs in to the Lyric application with user account without any location
+And user changes the country to "United States"
 When user selects "Smart Home Security" from "Add New Device" screen
 Then user should be displayed with the "What To Expect" screen
 When user navigates to "Choose Location" screen from the "What To Expect" screen
@@ -3190,13 +3213,119 @@ Then user should receive a "Your Account and Data is deleted" popup
 And user "Accepts" the "Your Account and Data is deleted" popup
 Then user should be displayed with the "Honeywell Home" screen
 When user logs in to the Lyric Application with "deleted account credentials"
-Then user should receive a "Email or Password incorrect" popup
-And user "Accepts" the "Email or Password incorrect" popup
+Then user should be displayed with the following "Login" options:
+|Login		  								|
+|Unable to login Email or password incorrect|
+#Then user should receive a "Email or Password incorrect" popup
+#And user "Accepts" the "Email or Password incorrect" popup
 Then create the deleted user account through CHIL
     
 Examples: 
-| first location name	| valid first locations zip code		| second location name	| valid second locations zip code		| Current Screen					| Previous Screen	|
-| California				| 90001								|  Texas					| 90002									| Add New Device Dashboard		| Dashboard			|
+| first location name	| valid first locations zip code	| second location name	| valid second locations zip code		| Current Screen				| Previous Screen	|
+| California			| 90001								|  Texas				| 90002									| Add New Device Dashboard		| Dashboard			|
+
+@DeleteAccountAfterInvitingAnotherUser				@Automatable		@--xrayid:ATER-
+Scenario Outline: User should be able to delete account after inviting another user
+Given user launches and logs in to the Lyric application with user account with location
+When user navigates to "Invite User" screen from the "Dashboard" screen
+And user inputs <invite users email address> in "Email Text Field" in the "Invite New User" screen
+Then user should be displayed with the following "Invited Users" options:
+| InvitedUsersList		|
+| das_stage5@grr.la		|
+When user logs out and logs in to the Lyric Application with <invite users email address>
+Then user navigates to "Manage Users" screen from the "Dashboard" screen
+Then user should be displayed with the following "Invited Users" options:
+| InvitedUsersList						|
+| User who invited the logged in user	|
+When user logs out and logs in to the Lyric Application with "logged in users account"
+Then user navigates to "Manage Users" screen from the "Dashboard" screen
+And user should not be displayed with the following "Invited Users" options:
+| InvitedUsersList		|
+| Logged in user		|
+Then user should be displayed with the following "Invited Users" options:
+| InvitedUsersList		|
+| das_stage5@grr.la		|
+When user navigates to "Edit Account" screen from the "Manage Users" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+Then user should be displayed with the "Delete Account Without Solution" screen
+And user should be displayed with the following "Delete Account" options:
+| DeleteAccountOptions				| 
+| We are sorry to see you go			|
+When user selects "Delete Account button" from "Delete Account" screen
+Then user should receive a "Your Account and Data is deleted" popup
+And user "Accepts" the "Your Account and Data is deleted" popup
+Then user should be displayed with the "Honeywell Home" screen
+When user logs in to the Lyric Application with "deleted account credentials"
+Then user should be displayed with the following "Login Screen Validation Message" options:
+| ValidationMessage								|
+| Unable to login. Email or password incorrect	|
+Then create the deleted user account through CHIL
+When user logs in to the Lyric Application with "deleted account credentials"
+Then user should be displayed with the "Add New Device" screen
+And user changes the country to "United States"
+When user selects "Smart Home Security" from "Add New Device" screen
+Then user should be displayed with the "What To Expect" screen
+When user navigates to "Choose Location" screen from the "What To Expect" screen
+And user selects <Default Location> from "Choose Location" screen
+Then user should be displayed with the "Confirm Your ZIP Code" screen
+When user inputs <valid zip code>
+Then user should be displayed with the "Name Your Base Station" screen
+When user "cancels the set up" by clicking on "cancel" button
+Then user should receive a "Cancel Setup" popup
+When user "accepts" the "Cancel Setup" popup
+Then user should be displayed with the "Add New Device" screen
+And user logs out of the app 
+When user logs out and logs in to the Lyric Application with <invite users email address>
+Then user should be able to view the solution
+
+Examples:
+| invite users email address	| Default Location		| Default Device Name		| valid zip code        |
+| das_stage5@grr.la			| Home					| Living Room				| 90001                 |
+
+
+@DeleteAccountAfterInvitingAnotherUserForALocationFromMultipleLocations				@Automatable		@--xrayid:ATER-
+Scenario Outline: User should be navigated to learn more screen when user tries to delete account after inviting another user to one location
+Given user launches and logs in to the Lyric application with user account with location
+When user navigates to "Invite User" screen from the "Dashboard" screen
+And user inputs <invite users email address> in "Email Text Field" in the "Invite New User" screen
+Then user should be displayed with the following "Invited Users" options:
+| InvitedUsersList		|
+| das_stage5@grr.la		|
+When user logs out and logs in to the Lyric Application with <invite users email address>
+Then user navigates to "Manage Users" screen from the "Dashboard" screen
+Then user should be displayed with the following "Invited Users" options:
+| InvitedUsersList						|
+| User who invited the logged in user	|
+When user logs out and logs in to the Lyric Application with "logged in users account"
+Then user navigates to "Manage Users" screen from the "Dashboard" screen
+And user should not be displayed with the following "Invited Users" options:
+| InvitedUsersList		|
+| Logged in user		|
+Then user should be displayed with the following "Invited Users" options:
+| InvitedUsersList		|
+| das_stage5@grr.la		|
+When user navigates to "Edit Account" screen from the "Manage Users" screen
+Then user should be displayed with the "Edit Account" screen
+When user selects "Delete Account" from "Edit Account" screen
+
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Learn How To Delete A Device" from "Delete Account" screen
+Then user should be displayed with the "Learn How To Delete A Device" screen
+And user should be displayed with the following "Learn How To Delete A Device" options:
+| LearnHowToDeleteADeviceOptions				| 
+| Was this helpful with Yes and No buttons	|
+When user selects "Close button" from "Learn How To Delete A Device" screen
+Then user should be displayed with the "Delete Account With Solution" screen
+When user selects "Close button" from "Delete Account" screen
+Then user should be displayed with the "Edit Account" screen
+And user logs out of the app 
+When user logs out and logs in to the Lyric Application with <invite users email address>
+Then user should be able to view the solution
+
+Examples:
+| invite users email address	|
+| das_stage5@grr.la			|
 
   
   #Feature: User should be blocked from using app if device is having invalid date and time @LYR23886/22361

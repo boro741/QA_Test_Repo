@@ -170,7 +170,8 @@ Examples:
 #Requirment : Mulitple location with different Tempr scale
 @GeneralWeatherTempScaleValidationMultiLocation          @Automated
 Scenario Outline: As a user I want to verify the weather update for multi location
-Given user launches and logs in to the Lyric application
+Given user launches and logs in to the Lyric application with user account without any location
+And user changes the country to "United States"
 When user selects "Smart Home Security" from "Add New Device" screen
 Then user should be displayed with the "What To Expect" screen
 When user navigates to "Choose Location" screen from the "What To Expect" screen
@@ -246,6 +247,7 @@ Then user should be displauyed with "Celsius" temperatureYou have this scenario 
 @GeneralWeatherForecastNoChangeWhenGeofenceIsEnabledOrDisabled      		@Automated
 Scenario: As a user I want to verify weather forecast screen temper scale should not change when the Geofence is Enabled or Disabled
 Given user launches and logs in to the Lyric Application
+#When user changes the "Geofence this location toggle" to "on"
 Then user navigates to "Global Drawer" screen from the "Dashboard" screen
 When user selects "Geofence" from "Global Drawer" screen
 Then user should be displayed with the "Geofence Settings" screen
@@ -294,7 +296,7 @@ Then the following "Geofence Settings" options should be disabled:
 
 
 #Requirement: Compare the weather displayed on Dashboard and the weather displayed in Weather screen
-@GeneralWeatherForecastDisplayedOnDashboardAndWeatherScreen
+@GeneralWeatherForecastDisplayedOnDashboardAndWeatherScreen				@Automated
 Scenario: As a user I want to verify the weather displayed on Dashboard is same as the Weather displayed in Weather screen
 Given user launches and logs in to the Lyric Application
 Then user should be displayed with the following "Weather" options:

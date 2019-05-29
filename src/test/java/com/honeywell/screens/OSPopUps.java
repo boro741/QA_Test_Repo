@@ -276,4 +276,12 @@ public class OSPopUps extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DenyAccessToDeviceLocation");
 	}
 	
+	public boolean isHoneywellWouldLikeToAccessYourHomeDataPopupVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "HoneywellLikeToAccessYourHomeDataPopup");
+	}
+	
+	public boolean clickOnOKButtonInHoneywellWouldLikeToAccessYourHomeDataPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInHoneywellWouldLikeToAccessYourHomeDataPopup");
+	}
+	
 }

@@ -163,7 +163,7 @@ public class ClearTextInTextFieldsInTheScreen extends Keyword {
 						break;
 					}
 					case "LAST NAME TEXT FIELD": {
-						if (neas.isLastNameTitleDisplayed()) {
+						if (neas.isLastNameTitleDisplayed() && neas.isLastNameValueVisibleInNameScreen()) {
 							Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 							flag &= NameEditAccountUtils.clearTextDisplayedInNameEditAccountTextFields(testCase, inputs, parameter);
 						} else {

@@ -491,7 +491,6 @@ public class LyricUtils {
 							if (os.isRootedDevicePopupVisible(1)) {
 								os.clickAcceptOnRootedDevicePopup();
 							}
-
 						}
 						if (os.isAllowButtonVisible(20)) {
 							os.clickOnAllowButton();
@@ -730,7 +729,7 @@ public class LyricUtils {
 				if (sm.isFeatureTweaksVisible()) {
 					flag = flag & sm.clickOnFeatureTweaks();
 					flag = flag & sm.clickOnSetAccessibilityToggle();
-					// flag = flag & sm.clickOnSetDasDIYV2Toggle();
+					flag &= sm.clickToDisableTitanTCCR1ToggleIfEnabled();
 					flag = flag & sm.clickOnNavigateUp();
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -739,7 +738,10 @@ public class LyricUtils {
 				}
 			}
 			else {
-				flag = flag & sm.clickToUncheckIDAAS();
+				if(sm.isIDAASCheckboxChecked()) {
+					//Android
+					flag = flag & sm.clickToUncheckIDAAS();
+				}
 			}
 			if (sm.isWebServerURLVisible()) {
 				flag = flag & sm.clickOnWebServerURL();
@@ -2260,7 +2262,7 @@ public class LyricUtils {
 		if (closeCoachMarks.length > 0) {
 			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
 		} else {
-			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
+			flag = flag & LyricUtils.verifyLoginSuccessfulForUserWithoutAnyLocation(testCase, inputs);
 		}
 		return flag;
 	}
@@ -2350,7 +2352,11 @@ public class LyricUtils {
 			boolean... closeCoachMarks) {
 
 		boolean flag = true;
+		OSPopUps ops= new OSPopUps(testCase);
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
+		if(ops.isHoneywellWouldLikeToAccessYourHomeDataPopupVisible()) {
+			flag &= ops.clickOnOKButtonInHoneywellWouldLikeToAccessYourHomeDataPopup();
+		}
 		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
 		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);
 		return flag;
@@ -2361,9 +2367,9 @@ public class LyricUtils {
 		boolean flag = true;
 		Thread.sleep(5000);
 		if (closeCoachMarks.length > 0) {
-			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs, closeCoachMarks[0]);
+			flag = flag & LyricUtils.verifyLoginSuccessfulForUserWithoutAnyLocation(testCase, inputs, closeCoachMarks[0]);
 		} else {
-			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
+			flag = flag & LyricUtils.verifyLoginSuccessfulForUserWithoutAnyLocation(testCase, inputs);
 		}
 		return flag;
 	}

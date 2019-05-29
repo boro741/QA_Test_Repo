@@ -225,12 +225,12 @@
      Then user should not be allowed to enter more than "40" characters in "Last Name" in the "Create Account" screen
      Examples:
      | First Name Max Characters		  		        | Last Name Max Characters				          |
-     #| This is to test max characters     		   		| This is to test max characters              	  |
-     #| This is to test max characters and its D			| This is to test max characters and its D        |
+     | This is to test max characters     		   		| This is to test max characters              	  |
+     | This is to test max characters and its D			| This is to test max characters and its D        |
      | This is to test max characters and its Digits   | This is to test max characters and its Digits   |
-     #| This is to test max characters 1234567$!	   	| This is to test max characters 1234567$!	      |
-     #| This is to test max characters 1234567$! 78 	| This is to test max characters 1234567$! 78     |
-     #| !@#$%^&*()_+=-`~!@#$%^&*()_+-~!@#$%^&*()    	| !@#$%^&*()_+=-`~!@#$%^&*()_+-~!@#$%^&*()        |
+     | This is to test max characters 1234567$!	   	| This is to test max characters 1234567$!	      |
+     | This is to test max characters 1234567$! 78 	| This is to test max characters 1234567$! 78     |
+     | !@#$%^&*()_+=-`~!@#$%^&*()_+-~!@#$%^&*()    	| !@#$%^&*()_+=-`~!@#$%^&*()_+-~!@#$%^&*()        |
      
 	 
      @GeneralCreateAccountWithoutFillingsTheDetailsErrorValidation          @Automated
@@ -330,7 +330,7 @@
      Examples: 
      | First Name | Last Name | Email 		|   Password        | Verify Password    |
      | giri       | THEJ      | unit@grr.la |  		            | Password1 		 |
-     | giri       | THEJ      | unit@grr.la |  	password1 		| Password1 		 |
+     | giri       | THEJ      | unit@grr.la |  	password1 		| Password1 		 |		
      | giri       | THEJ      | unit@grr.la |  	Password	    | Password1 		 |
      | giri       | THEJ      | unit@grr.la |  	password	    | Password1 		 |
      | giri       | THEJ      | unit@grr.la |  	pass	    	| Password1 		 |

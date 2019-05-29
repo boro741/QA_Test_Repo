@@ -221,5 +221,21 @@ public class SecretMenu extends MobileScreens {
 	public boolean clickToUncheckIDAAS() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "IDAASCheckbox");
 	}
-
+	
+	public boolean isIDAASCheckboxChecked() {
+		if(MobileUtils.getMobElement(objectDefinition, testCase, "IDAASCheckbox").getAttribute("checked").equalsIgnoreCase("true")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean clickToDisableTitanTCCR1ToggleIfEnabled() {
+		if(MobileUtils.getMobElement(objectDefinition, testCase, "TitanTCCR1").getAttribute("value").equals("1")) {
+			//click to disable the toggle
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "TitanTCCR1");
+		}else {
+			return false;
+		}
+	}
 }
