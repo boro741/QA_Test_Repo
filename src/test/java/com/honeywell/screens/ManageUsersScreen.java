@@ -310,10 +310,8 @@ public class ManageUsersScreen extends MobileScreens {
 						TouchAction t1 = new TouchAction(testCase.getMobileDriver());
 						// t1.longPress(ele).perform();
 						t1.longPress(longPressOptions().withElement(element(ele))).perform();
-						if (MobileUtils.isMobElementExists("ID", "list_item_delete_user_button_view",
-								testCase)) {
-							MobileUtils.clickOnElement(testCase, "ID",
-									"list_item_delete_user_button_view");
+						if (MobileUtils.isMobElementExists("ID", "list_item_delete_user_button_view", testCase)) {
+							MobileUtils.clickOnElement(testCase, "ID", "list_item_delete_user_button_view");
 						}
 					}
 				}
@@ -436,8 +434,7 @@ public class ManageUsersScreen extends MobileScreens {
 	public boolean isDeleteUserPopupMsgVisible(String invitedUsersEmailAddress) {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.isMobElementExists("XPATH",
-					"//android.widget.TextView[contains(@text,'This will delete')]",
-					testCase);
+				"//android.widget.TextView[contains(@text,'This will delete " + invitedUsersEmailAddress + " from this account')]",testCase);
 		} else {
 			return MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeStaticText[@name='This will delete "
 					+ invitedUsersEmailAddress + " from this account']", testCase);

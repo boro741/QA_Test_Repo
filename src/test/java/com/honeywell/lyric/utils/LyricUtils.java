@@ -738,7 +738,7 @@ public class LyricUtils {
 				}
 			}
 			else {
-				if(sm.isIDAASCheckboxChecked()) {
+				if(sm.clickToDisableTitanTCCR1ToggleIfEnabled()) {
 					//Android
 					flag = flag & sm.clickToUncheckIDAAS();
 				}

@@ -1646,7 +1646,6 @@ public class VerifyScreen extends Keyword {
 				EditAccountScreen eas= new EditAccountScreen(testCase);
 				if(eas.isLoggedInUserEmailDisplayed()) {
 					String userEmailAddress= eas.getLoggedInUserEmail();
-					//System.out.println("The logged in user email address is: "+userEmailAddress);
 					Keyword.ReportStep_Pass(testCase, "Logged in user email address is displayed");
 				}else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

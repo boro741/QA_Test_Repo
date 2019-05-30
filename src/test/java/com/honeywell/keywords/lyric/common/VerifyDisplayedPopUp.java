@@ -424,7 +424,8 @@ public class VerifyDisplayedPopUp extends Keyword {
 		}
 		case "DELETE USER": {
 			ManageUsersScreen mus = new ManageUsersScreen(testCase);
-	         if (mus.isDeleteUserPopupTitleVisible()) {
+	         if (mus.isDeleteUserPopupTitleVisible() 
+	        		 && mus.isDeleteUserPopupMsgVisible(inputs.getInputValue("INVITED_USERS_EMAIL_ADDRESS"))) {
 	                    Keyword.ReportStep_Pass(testCase, "Delete user popup is displayed");
 	           } else {
 	                flag = false;
@@ -698,8 +699,8 @@ public class VerifyDisplayedPopUp extends Keyword {
 
 		case "DELETE LOCATION": {
 			AddressScreen ads = new AddressScreen(testCase);
-			if (ads.isDeleteLocationPopupLabelVisible() || ads.isDeleteButtonInDeleteLocationPopupLabelVisible()
-					|| ads.isCancelButtonInDeleteLocationPopupLabelVisible()) {
+			if (ads.isDeleteLocationPopupLabelVisible() && ads.isDeleteButtonInDeleteLocationPopupLabelVisible()
+					&& ads.isCancelButtonInDeleteLocationPopupLabelVisible()) {
 				Keyword.ReportStep_Pass(testCase, "Delete Location popup is visible");
 			} else {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Delete Location popup is not visible");

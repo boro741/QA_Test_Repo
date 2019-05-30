@@ -45,8 +45,6 @@ public class DASNotificationUtils {
 			Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 			int startX = dimensions.width / 2;
 			int startY = (dimensions.height - 20);
-			System.out.println(startX);
-			System.out.println(startY);
 			// touchAction.press(startX, startY).moveTo(0, -500).release().perform();
 			//touchAction.press(point(startX, startY)).moveTo(point(0, -500)).release().perform();
 			touchAction.press(point(startX, startY)).moveTo(point(0, -500)).waitAction(waitOptions(MobileUtils.getDuration(2000))).release().perform();

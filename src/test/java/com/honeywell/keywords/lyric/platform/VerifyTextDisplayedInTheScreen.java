@@ -263,9 +263,6 @@ public class VerifyTextDisplayedInTheScreen extends Keyword {
 						inputs.getInputValue("NAME_IN_EDIT_ACCOUNT").split(" ")[0]);
 				inputs.setInputValue("EXISTING_LAST_NAME_IN_EDIT_ACCOUNT",
 						inputs.getInputValue("NAME_IN_EDIT_ACCOUNT").split(" ")[1]);
-				System.out.println("Existing name: " + inputs.getInputValue("NAME_IN_EDIT_ACCOUNT"));
-				System.out.println("Existing first name: " + inputs.getInputValue("EXISTING_FIRST_NAME_IN_EDIT_ACCOUNT"));
-				System.out.println("Existing last name: " + inputs.getInputValue("EXISTING_LAST_NAME_IN_EDIT_ACCOUNT"));
 				flag &= EditAccountUtils.verifyFirstAndLastNameDisplayedInEditAccountScreen(testCase,
 						inputs.getInputValue("EXISTING_FIRST_NAME_IN_EDIT_ACCOUNT"),
 						inputs.getInputValue("EXISTING_LAST_NAME_IN_EDIT_ACCOUNT"));

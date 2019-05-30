@@ -1480,7 +1480,7 @@ Then user should be displayed with "existing first and last name" in the "Edit A
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountValidateMaxCharsInFirstNameAndLastNameTxtFields  @Automatable	 @--xrayid:ATER-69082
+@GeneralGlobalDrawerEditAccountValidateMaxCharsInFirstNameAndLastNameTxtFields  @Automated	 @--xrayid:ATER-69082
 Scenario Outline: As a user i want to verify max characters that can be entered in first name and last name text fields in Edit Account screen
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1522,7 +1522,7 @@ Examples:
 | Test maxm characters limit 40 characterss |
   
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountValidateSpecialCharsInFirstNameAndLastNameTxtFields  @Automatable	  @--xrayid:ATER-69083
+@GeneralGlobalDrawerEditAccountValidateSpecialCharsInFirstNameAndLastNameTxtFields  @Automated	  @--xrayid:ATER-69083
 Scenario: As a user i want to Verify if special characters can be saved in first name and last name text fields in Edit Account screen
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1554,7 +1554,7 @@ Then user should be displayed with "existing first and last name" in the "Edit A
 
 #Change Password in Edit Account Screen
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountUpdatePasswordWithoutSpecialCharacters    @Automatable		 @--xrayid:ATER-69084
+@GeneralGlobalDrawerEditAccountUpdatePasswordWithoutSpecialCharacters    @Automated		 @--xrayid:ATER-69084
 Scenario: As a user i want to Verify update password functionality in Edit Account screen
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -3162,7 +3162,7 @@ Then user should be displayed with the "Delete Account With Solution" screen
       | Lyric Smart Controller              | 
   
  
-@DeleteAllLocationsAndThenDeleteAccount             @Automatable		@--xrayid:ATER-69147
+@DeleteAllLocationsAndThenDeleteAccount             @Automated		@--xrayid:ATER-69147
 Scenario Outline: Verify if user is navigated to add device screen when all locations are deleted and account is deleted when user deletes the account
 Given user launches and logs in to the Lyric application with user account without any location
 And user changes the country to "United States"

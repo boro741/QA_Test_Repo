@@ -3661,7 +3661,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 						@SuppressWarnings("rawtypes")
 						TouchAction action = new TouchAction(testCase.getMobileDriver());
-						System.out.println("$$$$$$$$$$$$$$: " + testCase.getPlatform());
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimensions.width * 20) / 100;
 							int starty = (dimensions.height * 62) / 100;
@@ -3696,7 +3695,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 						@SuppressWarnings("rawtypes")
 						TouchAction action = new TouchAction(testCase.getMobileDriver());
-						System.out.println("$$$$$$$$$$$$$$: " + testCase.getPlatform());
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimensions.width * 20) / 100;
 							int starty = (dimensions.height * 62) / 100;
@@ -3720,7 +3718,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 							@SuppressWarnings("rawtypes")
 							TouchAction action = new TouchAction(testCase.getMobileDriver());
-							System.out.println("$$$$$$$$$$$$$$: " + testCase.getPlatform());
 							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 								int startx = (dimensions.width * 20) / 100;
 								int starty = (dimensions.height * 62) / 100;

@@ -250,7 +250,6 @@ Scenario Outline: As a user I want to verify push notifcation clear after user l
 Given user sets the entry/exit timer to <Timer> seconds 
 Given user launches and logs in to the Lyric Application
 Then user clears all push notifications
-#Then user selects "DAS 1189" from "Dashboard" screen
 Then user closes the coach marks
 And user is set to <Mode> mode through CHIL
 When user navigates to "Security Solution Card" screen from the "Dashboard" screen
