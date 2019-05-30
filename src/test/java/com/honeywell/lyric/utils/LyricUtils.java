@@ -729,7 +729,7 @@ public class LyricUtils {
 				if (sm.isFeatureTweaksVisible()) {
 					flag = flag & sm.clickOnFeatureTweaks();
 					flag = flag & sm.clickOnSetAccessibilityToggle();
-					flag &= sm.clickToDisableTitanTCCR1ToggleIfEnabled();
+					flag &= sm.disableiDaaS();
 					flag = flag & sm.clickOnNavigateUp();
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -738,10 +738,7 @@ public class LyricUtils {
 				}
 			}
 			else {
-				if(sm.clickToDisableTitanTCCR1ToggleIfEnabled()) {
-					//Android
-					flag = flag & sm.clickToUncheckIDAAS();
-				}
+				flag &= sm.disableiDaaS();
 			}
 			if (sm.isWebServerURLVisible()) {
 				flag = flag & sm.clickOnWebServerURL();
