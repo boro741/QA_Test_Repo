@@ -3620,14 +3620,12 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 
 				case "BY TAPPING CREATE BELOW": {
-					flag &= cas.isCreateAccountByTappingCreateBelowTextDisplayed();
-					if (flag) {
+					if(cas.isCreateAccountByTappingCreateBelowTextDisplayed()) {
 						Keyword.ReportStep_Pass(testCase, parameter + " text is displayed");
-					} else {
+					}else {
 						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 						@SuppressWarnings("rawtypes")
 						TouchAction action = new TouchAction(testCase.getMobileDriver());
-
 						System.out.println("$$$$$$$$$$$$$$: " + testCase.getPlatform());
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimensions.width * 20) / 100;
@@ -3636,11 +3634,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							int endy = (dimensions.height * 35) / 100;
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
-
-							/*
-							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
-							 * (dimensions.getHeight() * .6)).release().perform();
-							 */
+							//iOS swipe
 							try {
 								Thread.sleep(5000);
 							} catch (InterruptedException e) {
@@ -3649,8 +3643,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							action.press(point(10, (int) (dimensions.getHeight() * .9)))
 								.waitAction(waitOptions(MobileUtils.getDuration(2000)))
 								.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
-
-
 						}
 						if (cas.isCreateAccountByTappingCreateBelowTextDisplayed()) {
 							Keyword.ReportStep_Pass(testCase, parameter + " text is displayed");
@@ -3669,8 +3661,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 						@SuppressWarnings("rawtypes")
 						TouchAction action = new TouchAction(testCase.getMobileDriver());
-
-						System.out.println("$$$$$$$$$$$$$$: " + testCase.getPlatform());
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimensions.width * 20) / 100;
 							int starty = (dimensions.height * 62) / 100;
@@ -3678,15 +3668,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							int endy = (dimensions.height * 35) / 100;
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
-							/*
-							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
-							 * (dimensions.getHeight() * .6)).release().perform();
-							 */
-
-							/*
-							 * action.press(point(10, (int) (dimensions.getHeight() * .9))) .moveTo(point(0,
-							 * -(int) (dimensions.getHeight() * .6))).release().perform();
-							 */
+							//iOS swipe
 							try {
 								Thread.sleep(5000);
 							} catch (InterruptedException e) {
@@ -3707,28 +3689,21 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 
 				case "EULA": {
-					flag &= cas.isCreateAccountEULALinkDisplayed();
-					if (flag) {
-						Keyword.ReportStep_Pass(testCase, parameter + " link is displayed");
+					if(cas.isCreateAccountEULALinkDisplayed()) {
+						Keyword.ReportStep_Pass(testCase, parameter + "link is displayed");
+					}else {
 						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 						@SuppressWarnings("rawtypes")
 						TouchAction action = new TouchAction(testCase.getMobileDriver());
-						System.out.println("$$$$$$$$$$$$$$: " + testCase.getPlatform());
 						if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 							int startx = (dimensions.width * 20) / 100;
 							int starty = (dimensions.height * 62) / 100;
 							int endx = (dimensions.width * 22) / 100;
 							int endy = (dimensions.height * 35) / 100;
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-						} else {
-							/*
-							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
-							 * (dimensions.getHeight() * .6)).release().perform();
-							 */
-							/*
-							 * action.press(point(10, (int) (dimensions.getHeight() * .9))) .moveTo(point(0,
-							 * -(int) (dimensions.getHeight() * .6))).release().perform();
-							 */
+							
+						}else {
+							//iOS swipe
 							try {
 								Thread.sleep(5000);
 							} catch (InterruptedException e) {
@@ -3737,14 +3712,37 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							action.press(point(10, (int) (dimensions.getHeight() * .9)))
 									.waitAction(waitOptions(MobileUtils.getDuration(2000)))
 									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+							}
 						}
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						if (cas.isCreateAccountEULALinkDisplayed()) {
+							Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
+							@SuppressWarnings("rawtypes")
+							TouchAction action = new TouchAction(testCase.getMobileDriver());
+							if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+								int startx = (dimensions.width * 20) / 100;
+								int starty = (dimensions.height * 62) / 100;
+								int endx = (dimensions.width * 22) / 100;
+								int endy = (dimensions.height * 35) / 100;
+								testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+								
+							}else {
+								//iOS swipe
+								try {
+									Thread.sleep(5000);
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+								action.press(point(10, (int) (dimensions.getHeight() * .9)))
+										.waitAction(waitOptions(MobileUtils.getDuration(2000)))
+										.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+								}
+							Keyword.ReportStep_Pass(testCase, parameter + " link is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								parameter + " link is not displayed");
-					}
-					break;
+						}
+						break;
 				}
-
 				case "CREATE BUTTON": {
 					flag &= cas.isCreateAccountRegisterButtonDisplayed();
 					if (flag) {
@@ -3885,15 +3883,6 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							int endy = (dimensions.height * 35) / 100;
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						} else {
-							/*
-							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
-							 * (dimensions.getHeight() * .6)).release().perform();
-							 */
-							/*
-							 * action.press(point(10, (int) (dimensions.getHeight() * .9))) .moveTo(point(0,
-							 * -(int) (dimensions.getHeight() * .6))).release().perform();
-							 */
-
 							action.press(point(10, (int) (dimensions.getHeight() * .9)))
 									.waitAction(waitOptions(MobileUtils.getDuration(2000)))
 									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
@@ -3959,9 +3948,9 @@ public class VerifyOptionsOnAScreen extends Keyword {
 				}
 
 				case "EULA": {
-					flag &= cas.isCreateAccountEULALinkDisplayed();
-					if (flag) {
-						Keyword.ReportStep_Pass(testCase, parameter + " link is displayed");
+					if(cas.isCreateAccountEULALinkDisplayed()) {
+						Keyword.ReportStep_Pass(testCase, parameter + "link is displayed");
+					}else {
 						Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 						@SuppressWarnings("rawtypes")
 						TouchAction action = new TouchAction(testCase.getMobileDriver());
@@ -3972,25 +3961,26 @@ public class VerifyOptionsOnAScreen extends Keyword {
 							int endx = (dimensions.width * 22) / 100;
 							int endy = (dimensions.height * 35) / 100;
 							testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-						} else {
-							/*
-							 * action.press(10, (int) (dimensions.getHeight() * .9)) .moveTo(0, -(int)
-							 * (dimensions.getHeight() * .6)).release().perform();
-							 */
-							/*
-							 * action.press(point(10, (int) (dimensions.getHeight() * .9))) .moveTo(point(0,
-							 * -(int) (dimensions.getHeight() * .6))).release().perform();
-							 */
-
+							
+						}else {
+							//iOS swipe
+							try {
+								Thread.sleep(5000);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
 							action.press(point(10, (int) (dimensions.getHeight() * .9)))
 									.waitAction(waitOptions(MobileUtils.getDuration(2000)))
 									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+							}
 						}
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						if (cas.isCreateAccountEULALinkDisplayed()) {
+							Keyword.ReportStep_Pass(testCase, parameter + " link is displayed");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								parameter + " link is not displayed");
-					}
-					break;
+						}
+						break;
 				}
 
 				case "CREATE BUTTON": {
@@ -4202,7 +4192,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "INVALID EMAIL AND PASSWORD VALIDATION": {
+				case "UNABLE TO LOGIN EMAIL OR PASSWORD INCORRECT": {
 					flag &= ls.isLoginInvalidEmailAndPasswordValidationDisplayed();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, parameter + " is displayed");

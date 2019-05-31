@@ -117,9 +117,9 @@ And user should be updated with Location status <UPeriod>
 Examples:
 | Mode | Period             | Geofence           | UPeriod            | UGeofence    |
 | Cool | Away  				| UserDeparted		 | Home				  |	UserArrived	 |
-#| Heat | Home               | UserArrived        | Away               | UserDeparted |
-#| Cool	| Away  			| UserDeparted	 	 | Home				  |	UserArrived	 |
-#| Cool | UserArrived       | Home               | Away               | UserDeparted |
+| Heat | Home               | UserArrived        | Away               | UserDeparted |
+| Cool	| Away  			| UserDeparted	 	 | Home				  |	UserArrived	 |
+| Cool | UserArrived       | Home               | Away               | UserDeparted |
 
 
 #Invite User
@@ -187,7 +187,7 @@ Then user selects "Edit" from "Activity history" screen
 Then user selects "All Messages" from "Activity history" screen
 Then user unselects "a message" from "Activity History" screen
 When user selects "All Messages" from "Activity history" screen
-When user selects "Delete" from "Activity history" screen
+When user selects "the Delete button" from "Activity history" screen
 #Then user should not be displayed with the "Messages" on the "Activity history" screen
 Then user should be displayed with "No Messages label in Activity History screen"
 Then user logs out of the app
@@ -214,8 +214,9 @@ And user "Clicks on OK in" the "Delete User" popup
 Then user should not be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
 | unit76@grr.la			|
-Then user logs out of the app
-Then user launches and logs in to the Lyric Application
+#Then user logs out of the app
+#Then user launches and logs in to the Lyric application
+When user logs out and logs in to the Lyric Application with <invited users email address>
 Then user should be displayed with the "Add New Device" screen
 When user selects "Smart Home Security" from "Add New Device" screen
 Then user should be displayed with the "What To Expect" screen
@@ -233,8 +234,8 @@ When user navigates to "Address" screen from the "Dashboard" screen
 Then user should be displayed with the "Address" screen
 When user "deletes location" by clicking on "Delete Location" button
 Then user should receive a "Delete Location" popup
-#When user "Clicks on Delete in" the "Delete Location" popup
-When user "Clicks on Yes in" the "Delete Location" popup
+When user "Clicks on Delete in" the "Delete Location" popup
+#When user "Clicks on Yes in" the "Delete Location" popup
 Then user should be displayed with the "Add New Device" screen
 Then user selects "Close Button" from "Add New Device" screen
 Then user "Clicks on sign out button in" the "Exit Honeywell Home" popup
@@ -249,7 +250,6 @@ Scenario Outline: As a user I want to verify push notifcation clear after user l
 Given user sets the entry/exit timer to <Timer> seconds 
 Given user launches and logs in to the Lyric Application
 Then user clears all push notifications
-#Then user selects "DASa" from "Dashboard" screen
 Then user closes the coach marks
 And user is set to <Mode> mode through CHIL
 When user navigates to "Security Solution Card" screen from the "Dashboard" screen

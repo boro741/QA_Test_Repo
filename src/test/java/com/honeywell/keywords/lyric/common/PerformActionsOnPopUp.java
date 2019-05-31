@@ -1440,6 +1440,21 @@ public class PerformActionsOnPopUp extends Keyword {
 				}
 				break;
 			}
+			case "CLICKS ON DELETE IN" : {
+				if(ads.isDeleteButtonInDeleteLocationPopupLabelVisible()) {
+					flag &= ads.clickOnDeleteButtonInDeleteLocationPopup();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on Ok button in Delete Location Popup");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on the Delete button in Delete Location Popup");
+					}
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Delete button in Delete Location popup is not displayed");
+				}
+				break;
+			}
 		  }
 		} else if(expectedPopUp.get(1).equalsIgnoreCase("CANCEL NAME CHANGES")) {
 			NameEditAccountScreen neas = new NameEditAccountScreen(testCase);

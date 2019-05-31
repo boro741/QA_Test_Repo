@@ -85,22 +85,22 @@ public class GeofenceSettings extends MobileScreens {
 		case GeofenceSettings.LOCATIONSTATUS:
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "HomekitUsersOption");
 		case GeofenceSettings.ENABLEGEOFENCEALERT:
-			if (MobileUtils.getFieldValue(objectDefinition, testCase, "GeofenceAlert").equals("1")
-					|| MobileUtils.getFieldValue(objectDefinition, testCase, "GeofenceAlert").equals("ON")) {
+			if (MobileUtils.getFieldValue(objectDefinition, testCase, "GeofenceAlertToggle").equals("1")
+					|| MobileUtils.getFieldValue(objectDefinition, testCase, "GeofenceAlertToggle").equals("ON")) {
 				System.out.println("********Geofence Alert toggle is ON by Default");
 				return true;
 			} else {
 				System.out.println("********Geofence Alert toggle will be switched to ON");
-				return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceAlert");
+				return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceAlertToggle");
 			}
 		case GeofenceSettings.DISABLEGEOFENCEALERT:
-			if (MobileUtils.getFieldValue(objectDefinition, testCase, "GeofenceAlert").equals("0")
-					|| MobileUtils.getFieldValue(objectDefinition, testCase, "GeofenceAlert").equals("OFF")) {
+			if (MobileUtils.getFieldValue(objectDefinition, testCase, "GeofenceAlertToggle").equals("0")
+					|| MobileUtils.getFieldValue(objectDefinition, testCase, "GeofenceAlertToggle").equals("OFF")) {
 				System.out.println("********Geofence Alert toggle is OFF by Default");
 				return true;
 			} else {
 				System.out.println("********Geofence Alert toggle will be switched to OFF");
-				return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceAlert");
+				return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceAlertToggle");
 			}
 		default: {
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {

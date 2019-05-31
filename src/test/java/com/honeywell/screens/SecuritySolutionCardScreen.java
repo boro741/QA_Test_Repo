@@ -528,4 +528,8 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecuritySettingsTitle", 10);
 
 	}
+	
+	public boolean clickOnOKInSwitchToAwayPopUp() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInPopup");
+	}
 }

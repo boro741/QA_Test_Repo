@@ -687,6 +687,14 @@ public class AddressScreen extends MobileScreens {
 	public boolean isCancelButtonInDeleteLocationPopupLabelVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "CancelButtonInDeleteLocationPopup");
 	}
+	
+	public boolean clickOnDeleteButtonInDeleteLocationPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "DeleteButtonInDeleteLocationPopup");
+	}
+	
+	public boolean clickOnCancelButtonInDeleteLocationPopup() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "CancelButtonInDeleteLocationPopup");
+	}
 
 	public boolean isDeleteLocationPopupTitleVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteLocationPopupTitle");

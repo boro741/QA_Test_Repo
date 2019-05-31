@@ -13,7 +13,7 @@ Then user should be displayed with the following "Geofence this location" option
 | GeofenceThisLocation		|
 | Geofence Radius			|
 | Location Status			|
-| Geofence Alert				|
+| Geofence Alert			|
 #And user logs out of the app
 #When user launches and logs in to the Lyric Application
 When user logs out and logs in to the Lyric Application with "logged in users account"
@@ -25,7 +25,7 @@ Then user should be displayed with the following "Geofence this location" option
 | GeofenceThisLocation		|
 | Geofence Radius			|
 | Location Status			|
-| Geofence Alert				|
+| Geofence Alert			|
 #And user logs out of the app
 
 @GeofenceThisLocation_ToggleOFF          @Automed

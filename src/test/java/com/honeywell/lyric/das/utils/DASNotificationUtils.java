@@ -6,6 +6,8 @@ import static io.appium.java_client.touch.offset.PointOption.point;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
+
 
 import org.openqa.selenium.Dimension;
 
@@ -38,14 +40,14 @@ public class DASNotificationUtils {
 			// ((AndroidDriver<MobileElement>)
 			// testCase.getMobileDriver()).pressKeyCode(AndroidKeyCode.BACK);
 			((AndroidDriver<MobileElement>) testCase.getMobileDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
-			;
 		} else {
 			TouchAction touchAction = new TouchAction(testCase.getMobileDriver());
 			Dimension dimensions = testCase.getMobileDriver().manage().window().getSize();
 			int startX = dimensions.width / 2;
 			int startY = (dimensions.height - 20);
 			// touchAction.press(startX, startY).moveTo(0, -500).release().perform();
-			touchAction.press(point(startX, startY)).moveTo(point(0, -500)).release().perform();
+			//touchAction.press(point(startX, startY)).moveTo(point(0, -500)).release().perform();
+			touchAction.press(point(startX, startY)).moveTo(point(0, -500)).waitAction(waitOptions(MobileUtils.getDuration(2000))).release().perform();
 		}
 	}
 }

@@ -218,8 +218,18 @@ public class SecretMenu extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButton");
 	}
 	
-	public boolean clickToUncheckIDAAS() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "IDAASCheckbox");
+	public boolean disableiDaaS() {
+		boolean flag = true;
+		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if(MobileUtils.getMobElement(objectDefinition, testCase, "IDAASCheckbox").getAttribute("checked").equalsIgnoreCase("true")) {
+				flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "IDAASCheckbox");
+			}
+		}else {
+			//iOS
+			if(MobileUtils.getMobElement(objectDefinition, testCase, "TitanTCCR1").getAttribute("value").equals("1")) {
+				flag &=  MobileUtils.clickOnElement(objectDefinition, testCase, "TitanTCCR1");
+			}
+		}
+		return flag;
 	}
-
 }

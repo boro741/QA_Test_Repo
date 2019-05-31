@@ -24,7 +24,7 @@ BackToViewList	XPATH	//*[@content-desc='Navigate Up']	XPATH	//*[@content-desc='N
 AcitvityLogScrollUp	id	bottom_sheet_carat_image	id	bottom_sheet_carat_image	id	bottom_sheet_carat_image	NAME	icon_arch	NAME	icon_arch	NAME	icon_arch
 ActivityLogTime	id	activity_event_time_text	id	activity_event_time_text	id	activity_event_time_text						
 ActivityLogDay	id	bump_line_separator_image	id	bump_line_separator_image	id	bump_line_separator_image	NAME	icon_arrow_up	NAME	icon_arrow_up	NAME	icon_arrow_up
-SetToOffPopupTitle	XPATH	//*[@text='Set to Off?']	XPATH	//*[@text='Set to Off?']	XPATH	//*[@text='Set to Off?']	NAME	Set to Off?	NAME	Set to Off?	NAME	Set to Off?
+SetToOffPopupTitle	XPATH	//*[@text='Set to Off?']	XPATH	//*[@text='Set to Off?']	XPATH	//*[@text='Set to Off?']	XPATH	"//XCUIElementTypeStaticText[contains(@name,'Switch to Off')]"	XPATH	"//XCUIElementTypeStaticText[contains(@name,'Switch to Off')]"	XPATH	"//XCUIElementTypeStaticText[contains(@name,'Switch to Off')]"
 CancelButtonInSetToOffPopup	ID	button2	ID	button2	ID	button2	NAME	Cancel	NAME	Cancel	NAME	Cancel
 OKButtonInSetToOffPopup	ID	button1	ID	button1	ID	button1	NAME	OK	NAME	OK	NAME	OK
 ClearNotificationsIcon	XPATH	"//*[contains(@resource-id,'clear_all_btn')]"	XPATH	"//*[contains(@resource-id,'clear_all_btn')]"	XPATH	"//*[contains(@resource-id,'clear_all_btn')]"	NAME	Clear notifications in section	NAME	Clear notifications in section	NAME	Clear notifications in section
@@ -32,10 +32,10 @@ ClearNotificationsText	ID	com.android.systemui:id/clear_text	ID	com.android.syst
 ConfirmButtonInClearNotifications							NAME	Confirm clear notifications in section	NAME	Confirm clear notifications in section	NAME	Confirm clear notifications in section
 AppSettingsIcon	ID	action_settings	ID	action_settings	ID	action_settings	NAME	appSettingsIcon	NAME	appSettingsIcon	NAME	appSettingsIcon
 AltAppSettingsIcon	ID	action_settings	ID	action_settings	ID	action_settings	NAME	action_settings	NAME	action_settings	NAME	action_settings
-SwitchToAwayPopupTitle	XPATH	//*[@text='Switch to Away?']	XPATH	//*[@text='Switch to Away?']	XPATH	//*[@text='Switch to Away?']	NAME	Switch to Away?	NAME	Switch to Away?	NAME	Switch to Away?
+SwitchToAwayPopupTitle	XPATH	//*[@text='Switch to Away?']	XPATH	//*[@text='Switch to Away?']	XPATH	//*[@text='Switch to Away?']	XPATH	"//XCUIElementTypeStaticText[contains(@name,'Switch to Away')]"	XPATH	"//XCUIElementTypeStaticText[contains(@name,'Switch to Away')]"	XPATH	"//XCUIElementTypeStaticText[contains(@name,'Switch to Away')]"
 OKButtonInPopup	ID	button1	ID	button1	ID	button1	NAME	OK	NAME	OK	NAME	OK
 CancelButtonInPopup	ID	button2	ID	button2	ID	button2	NAME	Cancel	NAME	Cancel	NAME	Cancel
-SwitchToNightPopupTitle	XPATH	//*[@text='Switch to Night?']	XPATH	//*[@text='Switch to Night?']	XPATH	//*[@text='Switch to Night?']	NAME	Switch to Night?	NAME	Switch to Night?	NAME	Switch to Night?
+SwitchToNightPopupTitle	XPATH	//*[@text='Switch to Night?']	XPATH	//*[@text='Switch to Night?']	XPATH	//*[@text='Switch to Night?']	XPATH	"//XCUIElementTypeStaticText[contains(@name,'Switch to Night')]"	XPATH	"//XCUIElementTypeStaticText[contains(@name,'Switch to Night')]"	XPATH	"//XCUIElementTypeStaticText[contains(@name,'Switch to Night')]"
 ClearTamperButton							NAME	RightButton	NAME	RightButton	NAME	RightButton
 UnableToConnectToBaseStationAlert	XPATH	//*[@text='Failed to switch mode']	XPATH	//*[@text='Failed to switch mode']	XPATH	//*[@text='Failed to switch mode']	NAME	Alert	NAME	Alert	NAME	Alert
 LoadingProgressBar	ID	progress	ID	progress	ID	progress	NAME	In progress	NAME	In progress	NAME	In progress

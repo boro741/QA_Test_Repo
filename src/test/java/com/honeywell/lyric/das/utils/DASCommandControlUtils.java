@@ -18,8 +18,14 @@ public class DASCommandControlUtils {
 		boolean flag = true;
 		SecuritySolutionCardScreen sc = new SecuritySolutionCardScreen(testCase);
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if(sc.isSwitchToAwayPopupVisible(10)) {
+				flag &= sc.clickOnOKInSwitchToAwayPopUp();
+			}
 			flag = flag & sc.clickOnState(statusToSelect, inputs);
 		} else {
+			if(sc.isSwitchToAwayPopupVisible(10)) {
+				flag &= sc.clickOnOKInSwitchToAwayPopUp();
+			}
 			testCase.getMobileDriver().findElementById(statusToSelect).click();
 		}
 		return flag;

@@ -1891,7 +1891,7 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "THE DELETE": {
+				case "THE DELETE BUTTON": {
 					if (ah.isDeletelButtonEnabled()) {
 						ah.clickOnDeleteButton();
 						Keyword.ReportStep_Pass(testCase, "Successfully selected the option: " + parameters.get(0));
