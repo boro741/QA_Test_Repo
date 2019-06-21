@@ -2671,6 +2671,10 @@ public class NavigateToScreen extends Keyword {
 				case "DAS SECURITY SETTINGS": {
 					Dashboard d = new Dashboard(testCase);
 					PrimaryCard pc = new PrimaryCard(testCase);
+					OSPopUps os = new OSPopUps(testCase);
+					if (os.isNotNowButtonVisible(10)){
+						flag = flag & os.clickOnNotNowButton();
+					}
 					if (d.areDevicesVisibleOnDashboard(25)) {
 						try {
 							flag = flag & DashboardUtils.selectDeviceFromDashboard(testCase, "Security");
@@ -3882,18 +3886,16 @@ public class NavigateToScreen extends Keyword {
 						int endy = (dimension.height * 35) / 100;
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
 						testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+						flag &= bs.clickonAboutSecurityModesoption();
+						flag &= bs.isSecurityModesHeader();
 					} else {
-//						/*
-//						 * action.press(10, (int) (dimension.getHeight() * .9)) .moveTo(0, -(int)
-//						 * (dimension.getHeight() * .6)).release().perform();
-//						 */
-						System.out.println("Into the loop");
-						Thread.sleep(2000);
 						action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
 						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+						LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+								testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value", "About Security Modes");
+						flag &= bs.clickonAboutSecurityModesoption();
+						flag &= bs.isSecurityModesHeader();
 					}
-					flag &= bs.clickonAboutSecurityModesoption();
-					flag &= bs.isSecurityModesHeader();
 					break;
 				}
 				default: {

@@ -1,5 +1,8 @@
 package com.honeywell.lyric.das.utils;
 
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
+import static io.appium.java_client.touch.offset.PointOption.point;
+
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -11,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.FluentWait;
 
@@ -28,6 +32,10 @@ import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.AddressScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
 import com.honeywell.screens.Dashboard;
+
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.TouchAction;
+
 import com.honeywell.account.information.DeviceInformation;
 import com.honeywell.account.information.LocationInformation;
 
@@ -79,8 +87,11 @@ public class DIYRegistrationUtils {
 		if (dasDIY.isNextButtonVisible()) {
 			flag = flag & dasDIY.clickOnNextButton();
 		}
-		if(MobileUtils.isMobElementExists("name", "B8:2C:A0:30:54:42", testCase)){
-			flag = flag && MobileUtils.clickOnElement(testCase, "name", "B8:2C:A0:30:54:42");
+		if(!MobileUtils.isMobElementExists("name", "B8:2C:A0:30:2D:3C", testCase)){
+			flag = LyricUtils.scrollToElementUsingExactAttribute(testCase, "name", "B8:2C:A0:30:2D:3C");
+			flag = flag && MobileUtils.clickOnElement(testCase, "name", "B8:2C:A0:30:2D:3C");
+		}else if (MobileUtils.isMobElementExists("name", "B8:2C:A0:30:2D:3C", testCase)){
+			flag = flag && MobileUtils.clickOnElement(testCase, "name", "B8:2C:A0:30:2D:3C");
 		}
 		flag = flag & DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "BASE STATION PROGRESS BAR", 1);
 		if (dasDIY.isBaseStationNotFoundPopupVisible(5) && dasDIY.isRetryButtonInBaseStationNotFoundPopupVisible()) {
@@ -467,6 +478,7 @@ public class DIYRegistrationUtils {
 		DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 		boolean flag = true;
 		if (dasDIY.isConnectToNetworkHeaderDescVisible() && dasDIY.isAddANetworkButtonVisible()) {
+			flag = flag & LyricUtils.scrollToElementUsingAttributeSubStringValue(testCase, "name", wifiName);
 			flag = flag & dasDIY.clickOnWiFiNameOnWiFiScreen(wifiName);
 		}
 		return dasDIY.isWiFiPasswordTextFieldVisibile();

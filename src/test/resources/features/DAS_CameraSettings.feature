@@ -71,12 +71,12 @@ As user I should be able to configure camera settings from the app
       | Motion Detection | 
       | Night Vision     | 
       | Video Quality    | 
-      | Camera On in Home Mode  | 
-      | Camera On in Night Mode | 
+     # | Camera On in Home Mode  | 
+     # | Camera On in Night Mode | 
       And the following "DAS Camera Settings" options should be enabled:
       | Options                 | 
       | Manage Alerts           | 
-#     | People detection        | 
+    | People detection        | 
     Examples: 
       | State | 
       | Away  | 

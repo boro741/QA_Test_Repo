@@ -5,7 +5,6 @@ As a user I want to check the manage and view the status of security accessories
 Background:
 Given reset relay as precondition
 
-
 @DASSecuritySettingsSensorStatus			@P2			@Automated  @--xrayid:ATER-54677
 Scenario Outline: As a user i should be displayed with security accessories in Security Settings 
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 2 Keyfob
@@ -32,6 +31,7 @@ Examples:
 @DASDoorSensorRenameVerification				@P2	 		@Automated @--xrayid:ATER-54678
 Scenario Outline: As a user I want to rename my Door Sensor through the application
 Given user is set to <Mode> mode through CHIL
+And timer lapse "45" seconds
 When user launches and logs in to the Lyric application
 Then user navigates to "Door Access Settings" screen from the "Dashboard" screen
 #And user is set to <Sensor status>
@@ -46,7 +46,7 @@ Examples:
 #| Home				| Low battery		|
 | Off 				| Cover Tampered		|
 | Off				| Open				|
-| Off				| Low battery		|
+#| Off				| Low battery		|
 #| Sensor Enrollment	| Cover Tampered		|
 #| Sensor Enrollment	| Open				|
 #| Sensor Enrollment	| Low battery		|
@@ -56,6 +56,7 @@ Examples:
 @DASWindowSensorRenameVerification			@P2	 		@Automated @--xrayid:ATER-54678
 Scenario Outline: As a user I want to rename my Window Sensor sensor through the application
 Given user is set to <Mode> mode through CHIL
+And timer lapse "45" seconds
 When user launches and logs in to the Lyric application
 Then user navigates to "Window Access Settings" screen from the "Dashboard" screen
 #And user is set to <Sensor status>
@@ -80,6 +81,7 @@ Examples:
 @DASMotionRenameVerification			@P2	 		@Automated @--xrayid:ATER-54679
 Scenario Outline: As a user I want to rename my Motion Sensor through the application
 Given user is set to <Mode> mode through CHIL
+And timer lapse "15" seconds
 When user launches and logs in to the Lyric application
 Then user navigates to "Motion Sensor Settings" screen from the "Dashboard" screen
 #And user is set to <Sensor status>
@@ -104,6 +106,7 @@ Examples:
 @DASKeyfobRenameVerification			@P2			@Automated @--xrayid:ATER-54684
 Scenario Outline: As a user I want to rename my keyfob through the application
 Given user is set to <Mode> mode through CHIL
+And timer lapse "15" seconds
 When user launches and logs in to the Lyric application
 Then user navigates to "Keyfob Settings" screen from the "Dashboard" screen
 #And user is set to <Sensor status>
@@ -122,6 +125,7 @@ Examples:
 @DASISMVSensorRenameVerification			@P2	 		@Automated @--xrayid:ATER-54711
 Scenario Outline: As a user I want to rename my ISMV through the application
 Given user is set to <Mode> mode through CHIL
+And timer lapse "15" seconds
 When user launches and logs in to the Lyric application
 Then user navigates to "ISMV Sensor Settings" screen from the "Dashboard" screen
 #And user is set to <Sensor status>
@@ -143,6 +147,7 @@ Examples:
 @DASOSMVSensorRenameVerification			@P2	 		@Automated @--xrayid:ATER-54712
 Scenario Outline: As a user I want to rename my OSMV through the application
 Given user is set to <Mode> mode through CHIL
+And timer lapse "15" seconds
 When user launches and logs in to the Lyric application
 Then user navigates to "OSMV Sensor Settings" screen from the "Dashboard" screen
 #And user is set to <Sensor status>
@@ -164,6 +169,7 @@ Examples:
 @DASSensorRenamePopUpVerification		@P2			@Automated @--xrayid:ATER-54715
 Scenario Outline: As a user i should be shown with message that I cannot rename my Access Sensor sensor through the application when panel is in below states 
 Given user is set to <Mode> mode through CHIL
+And timer lapse "45" seconds
 When user launches and logs in to the Lyric application
 When user navigates to <Sensor Settings> screen from the "Dashboard" screen 
 Then the following <Sensor Settings> options should be disabled:
@@ -176,14 +182,15 @@ Examples:
 | Door Access Settings	| Night		|
 | Window Access Settings	| Away		|
 | Motion Sensor Settings	| Away	|
-#| ISMV Sensor Settings  	| Alarm		|
-#| OSMV Sensor Settings  	| Night		|
+| ISMV Sensor Settings  	| Night		|
+| OSMV Sensor Settings  	| Night		|
 
 
 #Requirement :One DAS Panel and one Key fob should be configured
 @DASKeyfobRenamePopUpVerification		@P2			@Automated @--xrayid:ATER-54716
 Scenario Outline: As a user i should be shown with message that I cannot rename my keyfob through the application when panel is in below states 
 Given user is set to <Mode> mode through CHIL
+And timer lapse "45" seconds
 When user launches and logs in to the Lyric application
 Then user navigates to "Keyfob Settings" screen from the "Dashboard" screen
 Then the following "KeyFob Settings" options should be disabled:
@@ -203,6 +210,7 @@ Examples:
 Scenario Outline: As a user I want to switch to different states in my DAS device when multiple sensors are in fault condition in Away mode
 Given user sets the entry/exit timer to "45" seconds
 And user is set to <Mode> mode through CHIL
+And timer lapse "15" seconds
 When user launches and logs in to the Lyric application
 And user navigates to "Security Solution Card" screen from the "Dashboard" screen
 #And user "Cover Tampered" the Door sensor
@@ -239,6 +247,7 @@ Examples:
 Scenario Outline: As a user I want to switch to different states in my DAS device when multiple sensors are in fault condition in Night mode
 Given user sets the entry/exit timer to "45" seconds
 And user is set to <Mode> mode through CHIL
+And timer lapse "15" seconds
 When user launches and logs in to the Lyric application
 And user navigates to "Security Solution Card" screen from the "Dashboard" screen
 #And user "Cover Tampered" the Door sensor
@@ -275,6 +284,7 @@ Examples:
 Scenario Outline: As a user i should be displayed with Cover Tamper for Door and Window sensors status 
 #DAS with sensors Door Contact Window Contact
 Given user is set to <Mode> mode through CHIL
+And timer lapse "15" seconds
 And user launches and logs in to the Lyric application
 #And user creates "Cover Tamper" at the <Sensor>
 When user <SensorType> access sensor "Cover Tampered"
@@ -297,8 +307,8 @@ Examples:
 | Mode	| SensorList					| SensorType		|
 | Home	| Door Access Settings		| Door			|
 | Home	| Window Access Settings		| Window			|	
-| Off 	| Door Access Settings		| Door			|			
-| Off 	| Window Access Settings		| Window			|
+#| Off 	| Door Access Settings		| Door			|			
+#| Off 	| Window Access Settings		| Window			|
 
 
 @DASMotionSensorCoverTamperStatus			@P2			@Automated @--xrayid:ATER-54724
@@ -408,6 +418,7 @@ Examples:
 @DASSensorModelAndFirmwareDetailsVerification			@P2			@Automated @--xrayid:ATER-54726
 Scenario Outline:Verify Model details and Firmware details in Access Sensor
 Given user is set to <Mode> mode through CHIL
+And timer lapse "15" seconds
 And user launches and logs in to the Lyric application
 When user navigates to "Door Access Settings" screen from the "Dashboard" screen
 And user selects "Model and Firmware Details" from "Door Access Settings" screen
@@ -418,15 +429,15 @@ Then user should be displayed with the "Model and Firmware Details" screen
 When user navigates to "Motion Sensor settings" screen from the "Model and Firmware Details" screen
 And user selects "Model and Firmware Details" from "Motion Sensor settings" screen
 Then user should be displayed with the "Model and Firmware Details" screen
-When user navigates to "ISMV Sensor settings" screen from the "Model and Firmware Details" screen
-And user selects "Model and Firmware Details" from "ISMV Sensor settings" screen
-Then user should be displayed with the "Model and Firmware Details" screen
-When user navigates to "OSMV Sensor settings" screen from the "Model and Firmware Details" screen
-And user selects "Model and Firmware Details" from "OSMV Sensor settings" screen
-Then user should be displayed with the "Model and Firmware Details" screen
-When user navigates to "Keyfob settings" screen from the "Model and Firmware Details" screen
-And user selects "Model and Firmware Details" from "Keyfob settings" screen
-Then user should be displayed with the "Model and Firmware Details" screen
+#When user navigates to "ISMV Sensor settings" screen from the "Model and Firmware Details" screen
+#And user selects "Model and Firmware Details" from "ISMV Sensor settings" screen
+#Then user should be displayed with the "Model and Firmware Details" screen
+#When user navigates to "OSMV Sensor settings" screen from the "Model and Firmware Details" screen
+#And user selects "Model and Firmware Details" from "OSMV Sensor settings" screen
+#Then user should be displayed with the "Model and Firmware Details" screen
+#When user navigates to "Keyfob settings" screen from the "Model and Firmware Details" screen
+#And user selects "Model and Firmware Details" from "Keyfob settings" screen
+#Then user should be displayed with the "Model and Firmware Details" screen
 
 Examples:
 | Mode		|
@@ -442,6 +453,7 @@ Examples:
 Scenario Outline: As a user I should be able to verify the signal strength and test Door Sensor in Home and OFF mode
 Given user is set to <Mode> mode through CHIL
 And user "door" access sensor <Access Sensor Status>
+And timer lapse "15" seconds
 And user launches and logs in to the Lyric application
 When user navigates to "Door Access Settings" screen from the "Dashboard" screen
 Then user selects "Signal Strength and Test" from "Door Access settings" screen
@@ -459,7 +471,7 @@ When user navigates to "Door Access Settings" screen from the "Test Access Senso
 Examples:
 | Mode					| Access Sensor Status	|
 | Home					| Cover Tampered			|
-#| Home					| Open					|
+| Home					| Open					|
 #| Home					| Low battery			|
 #| Off 					| Cover Tampered			|
 #| Off 					| Open					|
@@ -474,6 +486,7 @@ Examples:
 Scenario Outline: As a user I should be able to verify the signal strength and test window Sensor in Home and OFF mode
 Given user is set to <Mode> mode through CHIL
 And user "window" access sensor <Access Sensor Status>
+And timer lapse "15" seconds
 And user launches and logs in to the Lyric application
 When user navigates to "Window Access Settings" screen from the "Dashboard" screen
 Then user selects "Signal Strength and Test" from "Window Access settings" screen
@@ -493,7 +506,7 @@ Examples:
 | Home					| Cover Tampered			|
 | Home					| Open					|
 #| Home					| Low battery			|
-| Off 					| Cover Tampered			|
+| Off 					| Cover Tampered		|
 | Off 					| Open					|
 #| Off 					| Low battery			|
 #| Sensor Enrollment 	| Cover Tampered			|

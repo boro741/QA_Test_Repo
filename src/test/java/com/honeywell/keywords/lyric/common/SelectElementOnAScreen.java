@@ -801,8 +801,6 @@ public class SelectElementOnAScreen extends Keyword {
 						 */
 						action.press(point(10, (int) (dimensions.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
 								.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
-						action.press(point(10, (int) (dimensions.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
-								.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 					}
 					flag = flag & settingScreen.clickOnFirmwareDetailsOption();
 					break;

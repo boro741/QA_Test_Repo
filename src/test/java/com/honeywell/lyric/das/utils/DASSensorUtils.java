@@ -646,9 +646,9 @@ public class DASSensorUtils {
 			switch (SensorType) {
 			case "DOOR ACCESS SETTINGS": {
 				flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
-				flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
-						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-						"Base Station Configuration");
+//				flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+//						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+//						"Base Station Configuration");
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
 				inputs.setInputValue(DASInputVariables.ACCESSSENSORTYPE, DASInputVariables.ACCESSSENSOR);
