@@ -53,7 +53,8 @@ public class VerifyAlarmSignalTeststatus extends Keyword {
 								"PartiallyCompleted");
 						if (result == 202) {
 							flag = flag && MobileUtils.isMobElementExists("name", "Alarm Signal " + status.get(0), testCase,450);
-							flag = flag && dasDIY.clickOnDoneButtonInFeatureSetUpCompletedScreen();
+//							flag = flag && dasDIY.clickOnDoneButtonInFeatureSetUpCompletedScreen();
+							flag = flag && MobileUtils.clickOnElement(testCase, "xpath","//*[contains(@name,'RightButton')]");
 							Keyword.ReportStep_Pass(testCase, "Alarm Signal Status chnaged to " + status.get(0));
 						}
 						break;
@@ -63,7 +64,8 @@ public class VerifyAlarmSignalTeststatus extends Keyword {
 								"Completed");
 						if (result == 202) {
 							flag = flag && MobileUtils.isMobElementExists("name", "Alarm Signal " + status.get(0), testCase,45);
-							flag = flag && dasDIY.clickOnDoneButtonInFeatureSetUpCompletedScreen();
+//							flag = flag && dasDIY.clickOnDoneButtonInFeatureSetUpCompletedScreen();
+							flag = flag && MobileUtils.clickOnElement(testCase, "xpath","//*[contains(@name,'RightButton')]");
 							Keyword.ReportStep_Pass(testCase, "Alarm Signal Status chnaged to " + status.get(0));
 						}
 						break;

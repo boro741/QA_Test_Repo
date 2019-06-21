@@ -912,8 +912,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 			} else {
 				int counter = 0;
 				while (!this.isWiFiNamePresentOnWifiScreen(wifiName) && counter < 4) {
-					LyricUtils.scrollUpAList(testCase, this.getWiFiListWebElement());
-									}
+					LyricUtils.scrollToElementUsingExactAttributeValue(testCase,"name",wifiName);
+				}
 				if (this.isWiFiNamePresentOnWifiScreen(wifiName)) {
 					flag = flag & MobileUtils.clickOnElement(testCase, "name", wifiName);
 				} else {
@@ -2018,8 +2018,8 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 		}
 		return flag;
 	}
-	public boolean isSecurityProvisionScreenVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "KatanaSecurityProvsionScreen");
+	public boolean isSecurityProvisionScreenVisible(int timeout) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "KatanaSecurityProvsionScreen",timeout);
 	}
 	
 	public boolean isFetchingEULAScreenLoadingSpinnerVisible() {

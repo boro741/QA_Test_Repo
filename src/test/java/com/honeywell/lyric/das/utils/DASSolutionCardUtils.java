@@ -105,7 +105,7 @@ public class DASSolutionCardUtils {
 			Boolean isEventReceived = fWait.until(new Function<String, Boolean>() {
 				public Boolean apply(String a) {
 					try {
-						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DismissRequestProcessing", 2)) {
+						if (MobileUtils.isMobElementExists(fieldObjects, testCase, "DismissRequestProcessing", 5)) {
 							System.out.println("Waiting for Processing Request to end");
 							return false;
 						} else {

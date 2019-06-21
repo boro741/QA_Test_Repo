@@ -4,7 +4,7 @@ As a user I want to register a KATANAß device using the Lyric application
 
 @KatanaDIYRegistrationWithNewCustomLocationAndBaseStationName		@P1	@--xrayid:ATER-92470  @Automated 
   Scenario Outline: As a user I want to register a KATANA Pro device with new location and base station name using the Lyric application
-    Given user DAS device with ADB ID "6094c427" is deregistered and booted
+    Given user DAS device with ADB ID "6094c4a6" is deregistered and booted
       And user launches and logs in to the Lyric application
      When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
       And user selects "Smart Home Security Pro" from "Add New Device" screen
@@ -26,8 +26,8 @@ As a user I want to register a KATANAß device using the Lyric application
      Then user navigates to "Register Base Station" screen from the "Power Base Station" screen
   #When user scans the QR code by showing it to the base station camera
      Then user navigates to "Connect to Network" screen from the "Register Base Station" screen
-     When user selects "DataUnavailable" from "Connect to Network" screen
-      And user inputs "Dontknow" as the WiFi Password
+     When user selects "HHET-5G" from "Connect to Network" screen
+      And user inputs "homeET@123" as the WiFi Password
       And user should be displayed with the "Your Security Provision" screen
      Then user should be displayed with the "Congratulations" screen
       And user should be displayed with the "Pro Monitoring" screen
@@ -53,7 +53,7 @@ As a user I want to register a KATANAß device using the Lyric application
   
     Examples: 
       | new location name | new device name | invalid zip code | valid zip code | CompletedStatus     | 
-      | California        | Scrum Room      | 555555           | 90001          | Partially Confirmed | 
+      | California        | Scrum Room      | 555555           | 90001          | Partially Confirmed |
   #  | Texas                       | War Room              | 555555                       | 73301                 | |
   # | Texas#$%                    | Ball Room             | 555555                       | 73301                 | |
   

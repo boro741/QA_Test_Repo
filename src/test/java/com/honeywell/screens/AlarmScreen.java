@@ -245,8 +245,8 @@ public class AlarmScreen extends MobileScreens {
 		Boolean isEventReceived = fWait.until(new Function<CustomDriver, Boolean>() {
 			public Boolean apply(CustomDriver driver) {
 				clickLiveStreamingArea();
-				if (MobileUtils.isMobElementExists(objectDefinition, testCase, "pauseStreaming", 3)) {
-					MobileUtils.clickOnElement(objectDefinition, testCase, "pauseStreaming");
+				if (MobileUtils.isMobElementExists("name", "Pause Livestream", testCase)) {
+					MobileUtils.clickOnElement(testCase, "name", "Pause Livestream");
 					return true;
 				} else
 					return false;

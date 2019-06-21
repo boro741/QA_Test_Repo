@@ -392,7 +392,6 @@ public class ChangeBaseStationSettings extends Keyword {
 					} else {
 						flag = flag & cs.toggleCameraOnInHomeModeSwitch();
 						flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-						Thread.sleep(5000);
 						if (cs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase,
 									"camera ON in home mode is enabled in the Camera settings Screen");
@@ -409,7 +408,6 @@ public class ChangeBaseStationSettings extends Keyword {
 									"camera ON in home mode is enabled in the Camera settings Screen");
 							flag = flag & cs.toggleCameraOnInHomeModeSwitch();
 							flag = flag & CameraUtils.waitForProgressBarToComplete(testCase, "LOADING SPINNER BAR", 2);
-							Thread.sleep(5000);
 							if (!cs.isCameraOnInHomeModeSwitchEnabled(testCase)) {
 								Keyword.ReportStep_Pass(testCase,
 										"camera ON in home mode is disabled in the Camera settings Screen");
