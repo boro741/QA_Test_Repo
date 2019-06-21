@@ -4228,22 +4228,15 @@ public class CHILUtil implements AutoCloseable {
 				devices = devicesList.getJSONArray("devices");
 				for (int i = 0; i < devices.length(); i++) {
 					JSONObject tempJSON = (JSONObject) devices.get(i);
-					System.out.println("######deviceType: " + tempJSON.getString("deviceType"));
-					System.out.println("######userDefinedDeviceName: " + tempJSON.getString("userDefinedDeviceName"));
 					if (tempJSON.has("deviceDetails")) {
 						JSONObject deviceModel = tempJSON.getJSONObject("deviceDetails");
 						if (deviceModel.has("configurations")) {
 							JSONObject deviceConfiguration = deviceModel.getJSONObject("configurations");
-							System.out.println("######model: " + deviceConfiguration.getString("model"));
 							if ((deviceConfiguration.getString("model") != null)
 									&& (!deviceConfiguration.getString("model").isEmpty())
 									&& (deviceConfiguration.getString("model").equalsIgnoreCase("DAS"))) {
 								JSONArray onBoardDevicesList = deviceModel.getJSONArray("onboardDevices");
 								for (int j = 0; j < onBoardDevicesList.length(); j++) {
-									System.out.println("######deviceType: "
-											+ onBoardDevicesList.getJSONObject(j).getString("deviceType"));
-									System.out.println("######userDefinedDeviceName: "
-											+ onBoardDevicesList.getJSONObject(j).getString("userDefinedDeviceName"));
 									multiValueMap.put(onBoardDevicesList.getJSONObject(j).getString("deviceType"),
 											onBoardDevicesList.getJSONObject(j).getString("userDefinedDeviceName"));
 								}
