@@ -1666,7 +1666,7 @@ public class VerifyScreen extends Keyword {
 			}
 			case "YOUR SECURITY PROVISION" : {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
-				if (dasDIY.isSecurityProvisionScreenVisible()) {
+				if (dasDIY.isSecurityProvisionScreenVisible(60)) {
 					 String dealer_info = ProMonitoringUtils.getDealerTitle(testCase, inputs);
 					 if (!testCase.getPlatform().toUpperCase().contains("ANDROID")){
 						 flag = MobileUtils.isMobElementExists("XPATH", "//*[@value='Thank you for choosing " + dealer_info +"']",
@@ -1719,6 +1719,33 @@ public class VerifyScreen extends Keyword {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isProMonitoringSetUpCompleteHeaderTitleVisible(30)) {
 					flag = dasDIY.clickOnCongratulationNextScreen();
+					Keyword.ReportStep_Pass(testCase,
+							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
+				}
+				break;
+			}
+			case "ALARM SIGNAL TEST" :{
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isAlarmSignalTestScreenVisible()){
+					flag = flag && dasDIY.clickOnNextButton();
+					Keyword.ReportStep_Pass(testCase,
+							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
+				} else {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());	
+				}
+				
+				break;
+			}
+			case "CONGRATULATIONS ALARM TEST": {
+				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+				if (dasDIY.isCongratulationsHeaderTitleVisible(30)) {
+					dasDIY.clickOnCongratulationNextScreen();
 					Keyword.ReportStep_Pass(testCase,
 							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
 				} else {

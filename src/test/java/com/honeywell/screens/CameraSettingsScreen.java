@@ -1797,27 +1797,23 @@ public class CameraSettingsScreen extends MobileScreens {
 	}
 
 	public boolean isCameraOnInHomeModeSwitchEnabled(TestCases testCase) throws Exception {
+		boolean flag = false;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			if (MobileUtils.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getText()
 					.equalsIgnoreCase("ON")) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return (testCase.getMobileDriver()
-					.findElementByXPath("//XCUIElementTypeSwitch[@name='Camera_Settings_2_0_toggle']")
-					.getAttribute("value").equalsIgnoreCase(String.valueOf(1)));
+				flag =  true;
+			} 
+		} else if (MobileUtils.getFieldValue(testCase, "name", "Camera_Settings_2_0_toggle").equalsIgnoreCase(String.valueOf(1))) {
+			flag =  true;
 		}
+		return flag;
 	}
 
 	public boolean toggleCameraOnInHomeModeSwitch() {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch");
 		} else {
-			testCase.getMobileDriver().findElementByXPath("//XCUIElementTypeSwitch[@name='Camera_Settings_2_0_toggle']")
-					.click();
-			return true;
+			return MobileUtils.clickOnElement(testCase, "name", "Camera_Settings_2_0_toggle");
 		}
 	}
 
@@ -1830,9 +1826,6 @@ public class CameraSettingsScreen extends MobileScreens {
 				return false;
 			}
 		} else {
-			System.out.println(testCase.getMobileDriver()
-					.findElementByXPath("//XCUIElementTypeSwitch[@name='Camera_Settings_2_1_toggle']")
-					.getAttribute("value"));
 			return (testCase.getMobileDriver()
 					.findElementByXPath("//XCUIElementTypeSwitch[@name='Camera_Settings_2_1_toggle']")
 					.getAttribute("value").equalsIgnoreCase(String.valueOf(1)));
@@ -1843,9 +1836,7 @@ public class CameraSettingsScreen extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "CameraOnInNightModeSwitch");
 		} else {
-			testCase.getMobileDriver().findElementByXPath("//XCUIElementTypeSwitch[@name='Camera_Settings_2_1_toggle']")
-					.click();
-			return true;
+			return MobileUtils.clickOnElement(testCase, "name", "Camera_Settings_2_1_toggle");
 		}
 	}
 

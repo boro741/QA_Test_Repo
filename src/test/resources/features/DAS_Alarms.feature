@@ -161,8 +161,8 @@ Given user is set to "Home" mode through CHIL
  
 @Doorsensor_ArmedAway_OpenDoor_SwitchingToNightFromPushNotification_DoorClosedInEntryDelay_NoAlarm 				@P2 		@--xrayid:ATER-55113		@DAS_DoorSensor 					@Automated
     Scenario: As a user when I open the door I should be able to switch to Night from door open push notification on my arrival to home after closing the door
-      Given user launches and logs in to the Lyric application
-      And user is set to "Away" mode through CHIL
+      Given user is set to "Away" mode through CHIL
+      And user launches and logs in to the Lyric application
         And user clears all push notifications
        When user navigates to "Security Solution card" screen from the "Dashboard" screen
         And timer ends on user device
@@ -304,28 +304,28 @@ Given user is set to "Home" mode through CHIL
        And user selects the "Door Opened" push notification
        And user selects "Attention" from "Entry Delay" screen
       Then user should be displayed with the "Alarm" screen
-       And user navigates to "Alarm history" screen from the "Alarm" screen
-      Then verify the following alarm history:
+       #And user navigates to "Alarm history" screen from the "Alarm" screen
+      #Then verify the following alarm history:
        | Elements                    |
        | SIREN SOUNDED BY ACTUAL USER|
        | ALARM AT AWAY MODE          |
-     Then user receives a "Alarm" email
+     #Then user receives a "Alarm" email
      When user selects "dismiss alarm" from "alarm" screen
-     Then user receives a "Alarm cancelled" email
+     #Then user receives a "Alarm cancelled" email
      #When user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to "Home"
       And user should see the "sensor" status as "issue" on the "Security Solution Card"
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      Then user should see the "door" status as "open" on the "Sensor Status"
      And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
-     When user "opens" activity log
-     Then verify the following activity log:
+     #When user "opens" activity log
+     #Then verify the following activity log:
        | Elements                 |
        | SIREN SOUNDED BY ACTUAL USER|
        | ALARM AT AWAY MODE |
        | Alarm Dismissed |
        | Switched to Home by app|
-     And user "closes" activity log
+     #And user "closes" activity log
     When user "door" access sensor "closed"
    
        
@@ -365,12 +365,12 @@ Given user is set to "Home" mode through CHIL
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      Then user should see the "door" status as "OPEN" on the "Sensor Status"
      And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
-      And user "opens" activity log
-     Then verify the following activity log:
+      #And user "opens" activity log
+     #Then verify the following activity log:
        | Elements                 |
        | Door opened at Away mode|
        | Switched to Home by app |
-      And user "closes" activity log
+      #And user "closes" activity log
       When user "door" access sensor "closed"
  
  
@@ -439,17 +439,17 @@ Given user is set to "Home" mode through CHIL
   #   And user navigates to "Security Solution card" screen from the "Dashboard" screen
       When user selects "Attention" from "Entry Delay" screen
       Then user should be displayed with the "Alarm" screen
-       And user navigates to "alarm history" screen from the "alarm" screen
-      Then verify the following alarm history:
+       #And user navigates to "alarm history" screen from the "alarm" screen
+      #Then verify the following alarm history:
        | Elements                 |
        | ALARM AT AWAY MODE |
-      And user navigates to "alarm" screen from the "alarm history" screen
-     Then user receives a "Alarm" email
+      #And user navigates to "alarm" screen from the "alarm history" screen
+     #Then user receives a "Alarm" email
      When user selects "dismiss alarm" from "alarm" screen
-     Then user receives a "Alarm cancelled" email
+     #Then user receives a "Alarm cancelled" email
      Then user status should be set to "Home"
      When user "opens" activity log
-     Then verify the following activity log:
+     #Then verify the following activity log:
        | Elements                 |
        | SIREN SOUNDED BY ACTUAL USER|
        | ALARM AT AWAY MODE |
@@ -673,14 +673,14 @@ Given user is set to "Home" mode through CHIL
       And user selects "dismiss alarm" from "alarm" screen
       #And user navigates to "Security Solution card" screen from the "Dashboard" screen
      Then user status should be set to "Home"
-     When user "opens" activity log
-     Then verify the following activity log:
+     #When user "opens" activity log
+     #Then verify the following activity log:
        | Elements                       |
        | DOOR SENSOR ALARM AT NIGHT MODE|
        | ALARM AT NIGHT MODE            |
        | Alarm Dismissed                |
        | Switched to Home by app        |
-     When user "closes" activity log
+     #When user "closes" activity log
       And user "door" access sensor "closed"
       
 @Doorsensor_ArmedNight_OpenDoor_SwitchingToNightFromPushNotification_DoorClosedInEntryDelay_NoAlarm_Duplicate 			@P2 	@--xrayid:ATER-91021			@DAS_DoorSensor 			@Automated
@@ -735,20 +735,20 @@ Given user is set to "Home" mode through CHIL
        And user selects the "Door Opened" push notification
        And user selects "Attention" from "Entry Delay" screen
       Then user should be displayed with the "Alarm" screen
-       And user navigates to "Alarm history" screen from the "Alarm" screen
-      Then verify the following alarm history:
+       #And user navigates to "Alarm history" screen from the "Alarm" screen
+      #Then verify the following alarm history:
        | Elements                    |
        | ALARM AT Night MODE          |
-     Then user receives a "Alarm" email
+     #Then user receives a "Alarm" email
      When user selects "dismiss alarm" from "alarm" screen
-     Then user receives a "Alarm cancelled" email
+     #Then user receives a "Alarm cancelled" email
      Then user status should be set to "Home"
       And user should see the "sensor" status as "issue" on the "Security Solution Card"
      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
      Then user should see the "door" status as "open" on the "Sensor Status"
      And user navigates to "SECURITY SOLUTION CARD" screen from the "SENSOR STATUS" screen
      When user "opens" activity log
-     Then verify the following activity log:
+     #Then verify the following activity log:
        | Elements                 |
        | SIREN SOUNDED BY ACTUAL USER|
        | ALARM AT NIGHT MODE |
@@ -863,17 +863,17 @@ Given user is set to "Home" mode through CHIL
        And timer lapse "60" seconds
       When user selects "Attention" from "Entry Delay" screen
       Then user should be displayed with the "Alarm" screen
-       And user navigates to "alarm history" screen from the "alarm" screen
-      Then verify the following alarm history:
+      # And user navigates to "alarm history" screen from the "alarm" screen
+      #Then verify the following alarm history:
        | Elements                 |
        | ALARM AT NIGHT MODE |
-      And user navigates to "alarm" screen from the "alarm history" screen
-     Then user receives a "Alarm" email
+      #And user navigates to "alarm" screen from the "alarm history" screen
+     #Then user receives a "Alarm" email
      When user selects "dismiss alarm" from "alarm" screen
-     Then user receives a "Alarm cancelled" email
+     #Then user receives a "Alarm cancelled" email
      Then user status should be set to "Home"
      When user "opens" activity log
-     Then verify the following activity log:
+     #Then verify the following activity log:
        | Elements                    |
        | SIREN SOUNDED BY ACTUAL USER|
        | ALARM AT NIGHT MODE         |
@@ -1105,6 +1105,7 @@ Given user is set to "Home" mode through CHIL
     Given user sets the entry/exit timer to "60" seconds
       And user is set to "Away" mode through CHIL
       And user launches and logs in to the Lyric application
+      And user clears all push notifications
      When user "door" access sensor "tampered"
    	 Then user should be displayed with the "Alarm" screen
       When user selects "dismiss alarm" from "alarm" screen
@@ -1118,11 +1119,11 @@ Given user is set to "Home" mode through CHIL
     Given user sets the entry/exit timer to "60" seconds
       And user is set to "Night" mode through CHIL
      And user launches and logs in to the Lyric application
+     And user clears all push notifications
       When user "door tampered with app" in background
       When user selects the "Alarm" push notification
    	 Then user should be displayed with the "Alarm" screen
-   	  When user selects "dismiss alarm" from "alarm" screen
-   	 And user navigates to "Security Solution card" screen from the "Dashboard" screen
+   	  And user selects "dismiss alarm" from "alarm" screen
    	 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
    	  When user "door" access sensor "tamper restored"
       
@@ -1133,20 +1134,20 @@ Given user is set to "Home" mode through CHIL
       And user is set to "Away" mode through CHIL
       And user launches and logs in to the Lyric application
      When timer ends on user device
+     And user clears all push notifications
      When user "door tampered with app" in background
       When user selects the "Alarm" push notification
    	 Then user should be displayed with the "Alarm" screen
    	 And user "door" access sensor "tamper restored"
    	 When user selects "dismiss alarm" from "alarm" screen
-   	 And user navigates to "Security Solution card" screen from the "Dashboard" screen
-   	 When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+   	 And user navigates to "Sensor Status" screen from the "Security Solution Card" screen
    	 When user navigates to "Security Solution Card" screen from the "Sensor Status" screen
      When user "opens" activity log
      Then verify the following activity log:
        | Elements                 | 
        |DOOR SENSOR TAMPERED AT AWAY MODE|
        |DOOR SENSOR ALARM AT AWAY MODE |
-       |DOOR SENSOR TAMPER CLEARED AT AWAY MODE|
+       |DOOR SENSOR TAMPER CLEARED AT HOME MODE|
      And user "closes" activity log
      
      
@@ -1167,7 +1168,7 @@ Given user is set to "Home" mode through CHIL
        | Elements                 | 
        |DOOR SENSOR TAMPERED AT NIGHT MODE|
        |DOOR SENSOR ALARM AT NIGHT MODE |
-       |DOOR SENSOR TAMPER CLEARED AT NIGHT MODE|
+       |DOOR SENSOR TAMPER CLEARED AT HOME MODE|
        When user "door" access sensor "tamper restored"
        
       
@@ -1190,13 +1191,13 @@ Given user is set to "Home" mode through CHIL
       Scenario: 40 As a user when the window is tampered in Night exit delay I should be notified with alarm 
       Given user is set to "Night" mode through CHIL
       And user launches and logs in to the Lyric application
+      And user clears all push notifications
       When user "window tampered with app" in background
       When user selects the "Alarm" push notification
    	  Then user should be displayed with the "Alarm" screen
       When user selects "dismiss alarm" from "alarm" screen
-      And user navigates to "Security Solution card" screen from the "Dashboard" screen
-      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
-      When user "window" access sensor "Tamper Restored"
+      And user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+      Then user "window" access sensor "Tamper Restored"
      
        
       @WindowSensor_TamperAfterAwayModeExitDelay 					@P2 					@DAS_WindowSensor 		@--xrayid:				@Automated
@@ -1204,20 +1205,20 @@ Given user is set to "Home" mode through CHIL
      Given user is set to "Away" mode through CHIL
       And user launches and logs in to the Lyric application
        When timer ends on user device
+       And user clears all push notifications
       When user "window tampered with app" in background
       When user selects the "Alarm" push notification
    	  Then user should be displayed with the "Alarm" screen
       When user selects "dismiss alarm" from "alarm" screen
-      And user navigates to "Security Solution card" screen from the "Dashboard" screen
-      When user navigates to "Sensor Status" screen from the "Security Solution Card" screen
-      When user "window" access sensor "Tamper Restored"
+      And user navigates to "Sensor Status" screen from the "Security Solution Card" screen
+      Then user "window" access sensor "Tamper Restored"
       When user navigates to "Security Solution Card" screen from the "Sensor Status" screen
      When user "opens" activity log
       Then verify the following activity log:
        | Elements                 | 
-       |WINDOW SENSOR TAMPERED AT AWAY MODE|
-       |WINDOW SENSOR ALARM AT AWAY MODE |
-       |WINDOW SENSOR TAMPER CLEARED AT AWAY MODE|
+       |WINDOW SENSOR TAMPERED AT HOME MODE|
+       #|WINDOW SENSOR ALARM AT AWAY MODE |
+       |WINDOW SENSOR TAMPER CLEARED AT HOME MODE|
        And user "closes" activity log
        
        
@@ -1227,6 +1228,7 @@ Given user is set to "Home" mode through CHIL
       And user is set to "Night" mode through CHIL
         And user launches and logs in to the Lyric application
         When timer ends on user device
+        And user clears all push notifications
       When user "window" access sensor "Tampered"
    	 Then user should be displayed with the "Alarm" screen
    	 When user selects "dismiss alarm" from "alarm" screen
@@ -1237,9 +1239,9 @@ Given user is set to "Home" mode through CHIL
      When user "opens" activity log
      Then verify the following activity log:
        | Elements                 | 
-       |WINDOW SENSOR TAMPERED AT NIGHT MODE|
-       |WINDOW SENSOR ALARM AT NIGHT MODE |
-       |WINDOW SENSOR TAMPER CLEARED AT NIGHT MODE|
+       |WINDOW SENSOR TAMPERED AT HOME MODE|
+       #|WINDOW SENSOR ALARM AT NIGHT MODE |
+       |WINDOW SENSOR TAMPER CLEARED AT HOME MODE|
        And user "closes" activity log
       
      
@@ -1810,8 +1812,8 @@ Given user is set to "Home" mode through CHIL
    @Livestreaming_Alarm  			@P2  	@--xrayid:ATER-55175			@Automated
     Scenario: 73 As an user I should be able to pause and resume streaming in alarm screen
       Given user is set to "Away" mode through CHIL
-      When user "window" access sensor "opened"
       And user launches and logs in to the Lyric application
+      When user "window" access sensor "opened"
        Then user should be displayed with the "Alarm" screen
        And alarm screen is "Live streaming"
        When user selects "Pause" from "Alarm" screen
@@ -1827,8 +1829,8 @@ Given user is set to "Home" mode through CHIL
     Scenario: 74 As an user I should be able to pause and resume streaming in entry delay screen
       Given user is set to "Away" mode through CHIL
         And user launches and logs in to the Lyric application
-         When user "door" access sensor "opened"
-         And user navigates to "Security Solution card" screen from the "Dashboard" screen
+         When user navigates to "Security Solution card" screen from the "Dashboard" screen
+         And user "door" access sensor "opened"
         Then user should be displayed with the "Entry delay" screen
         #And entry delay camera is "Live streaming"
        When user selects "Pause" from "Entry delay" screen
@@ -1864,16 +1866,16 @@ Given user is set to "Home" mode through CHIL
     @AlarmScreenValidation  			@P1 		@--xrayid:ATER-55178		@Automated 
     Scenario: 78 As a user when alarm is shown I should be able to view the details of alarm screen
      Given user is set to "Away" mode through CHIL
-     And user "window" access sensor "opened"
       And user launches and logs in to the Lyric application
-      And user should be displayed with the "Alarm" screen
+      When user "window" access sensor "opened"
+      Then user should be displayed with the "Alarm" screen
       And user should be displayed with the following "Alarm" options:
       | Elements                    |
       |  alarm title                |
       |  alarm subtitle             |
       |  alarm live stream          |
       |  alarm navigate back button |
-      |  call                       |
+     # |  call                       |
      When user selects "dismiss alarm" from "alarm" screen
      
      #Repeat screen validation for 

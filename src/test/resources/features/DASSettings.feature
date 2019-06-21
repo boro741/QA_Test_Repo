@@ -212,17 +212,17 @@ As user I should be able to control my DAS panel settings from the app
     Examples: 
       | Mode | AS   | Event  | Event1 | Push Notification | UPush Notification | 
       | Home | door | Opened | Closed | DOOR OPENED       | DOOR CLOSED        | 
-#  |Home| door |Closed | Opened |DOOR CLOSED | DOOR OPENED|
- # |Night|door |Opened | Closed | DOOR OPENED | DOOR CLOSED|
- # |Night|door |Closed | Opened |DOOR CLOSED | DOOR OPENED|
- # |Away|door |Opened | Closed | DOOR OPENED | DOOR CLOSED|
-#  |Away|door |Closed | Opened |DOOR CLOSED | DOOR OPENED|
- # |Home| WINDOW | Opened | Closed | WINDOW OPENED | WINDOW CLOSED|
-#  |Home| WINDOW |Closed | Opened |WINDOW CLOSED | WINDOW OPENED|
-#  |Night|WINDOW |Opened | Closed | WINDOW OPENED | WINDOW CLOSED|
-#  |Night|WINDOW |Closed | Opened |WINDOW CLOSED | WINDOW OPENED|
-#  |Away|WINDOW |Opened | Closed | WINDOW OPENED | WINDOW CLOSED|
-#  |Away|WINDOW |Closed | Opened |WINDOW CLOSED | WINDOW OPENED|
+      |Home| door |Closed | Opened |DOOR CLOSED | DOOR OPENED|
+      |Night|door |Opened | Closed | DOOR OPENED | DOOR CLOSED|
+      |Night|door |Closed | Opened |DOOR CLOSED | DOOR OPENED|
+      |Away|door |Opened | Closed | DOOR OPENED | DOOR CLOSED|
+      |Away|door |Closed | Opened |DOOR CLOSED | DOOR OPENED|
+  |Home| WINDOW | Opened | Closed | WINDOW OPENED | WINDOW CLOSED|
+  |Home| WINDOW |Closed | Opened |WINDOW CLOSED | WINDOW OPENED|
+  |Night|WINDOW |Opened | Closed | WINDOW OPENED | WINDOW CLOSED|
+  |Night|WINDOW |Closed | Opened |WINDOW CLOSED | WINDOW OPENED|
+  |Away|WINDOW |Opened | Closed | WINDOW OPENED | WINDOW CLOSED|
+  |Away|WINDOW |Closed | Opened |WINDOW CLOSED | WINDOW OPENED|
   
   #Requirements: DAS panel configured newly, One access sensor
   @VerifyManageAlertsScreenEnableDisableDoorsAndWindowsModeChangeOff @Automated @--xrayid:ATER-54591

@@ -304,7 +304,7 @@ Scenario Outline: As a user I want to get offline sensors status
 And user is set to <Mode> mode through CHIL
 When user <Sensor> access sensor "tampered"
 Given user launches and logs in to the Lyric Application
-When user navigates to "Security Solution card" screen from the "Dashboard" screen
+#When user navigates to "Security Solution card" screen from the "Dashboard" screen
 Then user should be displayed with the <SensorStatusOnSolutionCard> description
 When user navigates to "SENSOR STATUS" screen from the "SECURITY SOLUTION CARD" screen
 Then user should be displayed with the "Cover Tampered" description

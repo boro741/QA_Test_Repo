@@ -586,7 +586,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 	public boolean isEntryExitDelaySettingsOptionVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EntryExitDelayOption", 3);
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EntryExitDelayOption", 5);
 	}
 
 	public boolean isDoorAndWindowsToggleVisible() {
@@ -713,6 +713,11 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorsOption", 3);
 	}
 
+
+	public boolean clickSensorsOption() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SensorsOption");
+	}
+
 	public boolean isSensorStatusOptionVisibleOnSensorSettingsScreen() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SensorStatusOption", 3);
 	}
@@ -748,16 +753,12 @@ public class BaseStationSettingsScreen extends MobileScreens {
 				Keyword.ReportStep_Pass(testCase, "Base Station Visible @ 1");
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "BaseStationConfigurationsOption");
 			} else {
-				Keyword.ReportStep_Pass(testCase, "Base Station Visible @ 2");
-				action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
+				System.out.println("Into IOS Loop");
+				action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
 				.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
-//				action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(500)))
-//				.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+				Thread.sleep(15000);
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "BaseStationConfigurationsOption");
-			}
-			if (this.isBaseStationConfigurationsOptionVisible()) {
-				Keyword.ReportStep_Pass(testCase, "Base Station Visible @ 3");
-				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "BaseStationConfigurationsOption");
+				Keyword.ReportStep_Pass(testCase, "Base Station Visible @ 2");
 			}
 			return flag;
 		}
@@ -779,12 +780,15 @@ public class BaseStationSettingsScreen extends MobileScreens {
 					 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
 					 * (dimension.getHeight() * .6)) .release().perform();
 					 */
+					System.out.println("Into IOS Loop");
 					action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
 					.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+					Thread.sleep(5000);
+					if (!this.isEntryExitDelaySettingsOptionVisible()){
+						action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
+						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+					}
 				}
-				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
-						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-								BaseStationSettingsScreen.ENTRYEXITDELAYSETTINGS);
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "EntryExitDelayOption");
 			}
 			return flag;
@@ -796,16 +800,30 @@ public class BaseStationSettingsScreen extends MobileScreens {
 				Keyword.ReportStep_Pass(testCase, "Key Fob Visible @ 1");
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "KeyFobOption");
 			} else {
-				Keyword.ReportStep_Pass(testCase, "Key Fob Visible @ 2");
-				flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
-						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-								BaseStationSettingsScreen.BASESTATIONCONFIGURATION);
-				if (this.isKeyFobOptionVisible()) {
-					flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "KeyFobOption");
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					int startx = (dimension.width * 20) / 100;
+					int starty = (dimension.height * 62) / 100;
+					int endx = (dimension.width * 22) / 100;
+					int endy = (dimension.height * 35) / 100;
+					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+				} else{
+					/*
+					 * action.press(10, (int) (dimension.getHeight() * .9)).moveTo(0, -(int)
+					 * (dimension.getHeight() * .6)) .release().perform();
+					 */
+//					flag = flag & LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+//							testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+//									BaseStationSettingsScreen.KEYFOB);
+					System.out.println("Into IOS Loop");
+					action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
+					.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+					Thread.sleep(10000);
+					if (!this.isKeyFobOptionVisible()){
+						action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
+						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+					}
 				}
-			}
-			if (this.isKeyFobOptionVisible()) {
-				Keyword.ReportStep_Pass(testCase, "Key Fob Visible @ 3");
 				flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "KeyFobOption");
 			}
 			return flag;
@@ -813,11 +831,28 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 		case BaseStationSettingsScreen.SENSORS: {
 			boolean flag = true;
-			flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
-					testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-					"Base Station Configuration");
-			SecuritySolutionCardScreen secScreen = new SecuritySolutionCardScreen(testCase);
-			flag = flag & secScreen.clickOnSensorButton();
+			if (this.isSensorsOptionVisible()){
+				flag = flag & this.clickSensorsOption();
+			} else {
+				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+					int startx = (dimension.width * 20) / 100;
+					int starty = (dimension.height * 62) / 100;
+					int endx = (dimension.width * 22) / 100;
+					int endy = (dimension.height * 35) / 100;
+					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+				} else {
+					System.out.println("Into IOS Loop");
+					action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
+					.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+					Thread.sleep(10000);
+					if(!this.clickSensorsOption()){
+						action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
+						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+					}
+				}
+				flag = flag & this.clickSensorsOption();
+			}
 			return flag;
 		}
 
@@ -996,6 +1031,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 
 	public boolean verifyBatteryOptionTextOnSensorSettingsScreen() {
 		if (this.isSensorBatteryOptionVisibleOnSensorSettingsScreen()) {
+			System.out.println(MobileUtils.getFieldValue(objectDefinition, testCase, "DASBatteryTitle"));
 			return (MobileUtils.getFieldValue(objectDefinition, testCase, "DASBatteryTitle")
 					.equalsIgnoreCase("Battery"));
 		} else {
@@ -1285,12 +1321,12 @@ public class BaseStationSettingsScreen extends MobileScreens {
 					flag = false;
 				}
 			} else 
-				{
+			{
 				return Boolean.logicalAnd(MobileUtils
-					.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getAttribute("value").equalsIgnoreCase(String.valueOf(1)),true);
-//				if(MobileUtils
-//					.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getAttribute("value").equalsIgnoreCase(String.valueOf(1))){
-				
+						.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getAttribute("value").equalsIgnoreCase(String.valueOf(1)),true);
+				//				if(MobileUtils
+				//					.getMobElement(objectDefinition, testCase, "CameraOnInHomeModeSwitch").getAttribute("value").equalsIgnoreCase(String.valueOf(1))){
+
 			}
 		}else {
 			flag = false;
@@ -1308,8 +1344,8 @@ public class BaseStationSettingsScreen extends MobileScreens {
 					return false;
 				}
 			} else {
-				return Boolean.parseBoolean(MobileUtils
-						.getMobElement(objectDefinition, testCase, "EnhancedDeterrenceSwitch").getAttribute("value"));
+				return Boolean.logicalAnd(MobileUtils
+						.getMobElement(objectDefinition, testCase, "EnhancedDeterrenceSwitch").getAttribute("value").equalsIgnoreCase(String.valueOf(1)),true);
 			}
 		} else {
 			return false;
@@ -1855,7 +1891,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "EntryExitDelayOption").isEnabled();
 		} else {
-			return MobileUtils.getFieldValue(objectDefinition, testCase, "EntryExitDelayOptionCell")
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "EntryExitDelayOption")
 					.equalsIgnoreCase("enabled");
 		}
 	}
@@ -1868,7 +1904,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "EntryExitDescriptionText").isEnabled();
 		} else {
-			return MobileUtils.getFieldValue(objectDefinition, testCase, "EntryExitDelayOptionCell")
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "EntryExitDelayOption")
 					.equalsIgnoreCase("enabled");
 		}
 	}
@@ -1882,7 +1918,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.getMobElement(objectDefinition, testCase, "AboutSecurityModes").isEnabled();
 		} else {
-			return MobileUtils.getFieldValue(objectDefinition, testCase, "AboutSecurityModesCell")
+			return MobileUtils.getFieldValue(objectDefinition, testCase, "AboutSecurityModes")
 					.equalsIgnoreCase("enabled");
 		}
 	}
@@ -2117,12 +2153,10 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BaseStationWiFiOption");
 	}
 
-	public boolean clickonAboutSecurityModesoption() {
-		boolean flag = true;
+	public boolean clickonAboutSecurityModesoption() throws InterruptedException {
+		boolean flag = false;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AboutSecurityModes", 30)) {
 			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "AboutSecurityModes");
-		} else {
-			flag = false;
 		}
 		return flag;
 	}
@@ -2132,7 +2166,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 	public boolean isSecurityModeHomeiConVisible() {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeHomeiCon");
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeHomeiCon");
 	}
 
 	public boolean isSecurityModeHomeModeVisible() {
@@ -2144,8 +2178,8 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	}
 
 	public boolean isSecurityModeAwayiConVisible() {
-			return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeAwayiCon");
-		
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "SecurityModeAwayiCon");
+
 	}
 
 	public boolean isSecurityModeAwayModeVisible() {
