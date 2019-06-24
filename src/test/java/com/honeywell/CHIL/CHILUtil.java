@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.collections.map.MultiValueMap;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -53,7 +54,6 @@ public class CHILUtil implements AutoCloseable {
 	private String bodyToken;
 	private String sessionID;
 	private TestCaseInputs inputs;
-	private int status;
 	public static String chapiDeviceId;
 	public static int coolSetPoints = 0;
 	public static int heatSetPoints = 0;
@@ -69,7 +69,6 @@ public class CHILUtil implements AutoCloseable {
 	public static int vacationHeatSetPoint = 0;
 	public static int vacationCoolSetPoint = 0;
 	public static JSONObject SensorList;
-
 	public CHILUtil(TestCaseInputs inputs) throws Exception {
 		String environment = inputs.getInputValue(TestCaseInputs.APP_ENVIRONMENT);
 		environment = environment.replaceAll("\\s", "");
@@ -91,6 +90,7 @@ public class CHILUtil implements AutoCloseable {
 		this.inputs = inputs;
 		this.isConnected = false;
 		locations = new HashMap<String, Long>();
+		new HashMap<String, String>();
 	}
 
 	public boolean isConnected() {
@@ -4198,11 +4198,57 @@ public class CHILUtil implements AutoCloseable {
 				JSONArray jArray = new JSONArray(html.toString());
 				locationDetails = jArray.getJSONObject(0);
 				defaultSelectedLocationName = locationDetails.getString("name");
-
 			} else {
 				throw new Exception("Unable to connect to CHIL");
 			}
 		}
 		return defaultSelectedLocationName;
+	}
+	
+	public MultiValueMap getDevicesListWithDeviceTypeForALocation(String locationName) throws Exception {
+		long locationID;
+		JSONObject devicesList = new JSONObject();
+		JSONArray devices = new JSONArray();
+		MultiValueMap multiValueMap = new MultiValueMap();
+		if (isConnected) {
+			locationID = this.getLocationID(locationName);
+			String url = chilURL + String.format("api/locations/%s", locationID);
+			HttpURLConnection connection = doGetRequest(url);
+			if (connection != null) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+				String inputLine;
+				StringBuffer html = new StringBuffer();
+				while (!in.ready()) {
+				}
+				while ((inputLine = in.readLine()) != null) {
+					html.append(inputLine);
+				}
+				in.close();
+				devicesList = new JSONObject(html.toString().trim());
+				devices = devicesList.getJSONArray("devices");
+				for (int i = 0; i < devices.length(); i++) {
+					JSONObject tempJSON = (JSONObject) devices.get(i);
+					if (tempJSON.has("deviceDetails")) {
+						JSONObject deviceModel = tempJSON.getJSONObject("deviceDetails");
+						if (deviceModel.has("configurations")) {
+							JSONObject deviceConfiguration = deviceModel.getJSONObject("configurations");
+							if ((deviceConfiguration.getString("model") != null)
+									&& (!deviceConfiguration.getString("model").isEmpty())
+									&& (deviceConfiguration.getString("model").equalsIgnoreCase("DAS"))) {
+								JSONArray onBoardDevicesList = deviceModel.getJSONArray("onboardDevices");
+								for (int j = 0; j < onBoardDevicesList.length(); j++) {
+									multiValueMap.put(onBoardDevicesList.getJSONObject(j).getString("deviceType"),
+											onBoardDevicesList.getJSONObject(j).getString("userDefinedDeviceName"));
+								}
+							}
+						}
+					}
+					multiValueMap.put(tempJSON.getString("deviceType"), tempJSON.getString("userDefinedDeviceName"));
+				}
+			} else {
+				throw new Exception("Not connected to CHIL");
+			}
+		}
+		return multiValueMap;
 	}
 }

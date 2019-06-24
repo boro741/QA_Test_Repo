@@ -468,7 +468,60 @@ Then user navigates to "Global Drawer" screen from the "Activity History" screen
 
 
 #Activity history with all solution 
-#Requirements : single location with jasperNA or JapserEMEA or WLD or C1 or C2 or DAS or all the solucations  and trigged all the events 
+#Requirements : single location with jasperNA or JapserEMEA
+@GeneralGlobalDrawerVerifyActivityHistoryMsgWithoutTitleForComfortSolution				@NotAutomatable			@--xrayid:ATER-
+Scenario Outline: As a user I want to view Activity history message without title  for Comfort solution
+Given user launches and logs in to the Lyric Application
+And user configured the <Solution>
+When user navigates to "Activity History" screen from the "Dashboard" screen 
+Then user should be displayed with All "triggered" event for all the <Solution>
+And user should be displayed with Activity history message title only
+When user selects the any Message which is truncated and displayed in Activity history
+Then user should be navigated to respective "Message" screen 
+And user navigates back to "Activity History" screen from "Message" screen
+
+Examples:
+|Solution|
+|JasperNA|
+|JasperEMEA|
+|HB|
+|BB|
+|DWH|
+
+
+@GeneralGlobalDrawerVerifyActivityHistoryMsgWithTitleForSecuritySolution				@NotAutomatable			@--xrayid:ATER-
+Scenario Outline: As a user I want to view Activity history message without title  for Security solution
+Given user launches and logs in to the Lyric Application
+And user configured the <Solution>
+When user navigates to "Activity History" screen from the "Dashboard" screen 
+Then user should be displayed with All "triggered" event for all the <Solution>
+And user should be displayed with Activity history message title and subtitle
+When user selects the any Message which is truncated and displayed in Activity history
+Then user should be navigated to respective "Message" screen 
+And user navigates back to "Activity History" screen from "Message" screen
+When user selects the "Video Message" of "C1 or C2 or DAS -ISMV or OSMV"
+Then user should be navigates to "Video Clip" screen 
+And user should be displayed with one "Video Clip"
+And user able to "Play the video clip"
+And user should display the "Video Play" option once video completed
+When user select the "Download" option 
+Then user should "Download" the "video Clip"
+And user should display with "Download success" pop up 
+When user "Deletes" the clip"
+Then user navigates to "Activity History" screen
+When user selects "older video message" more than 24 hours of "C1 or C2 or DAS -ISMV or OSMV"
+Then user should be navigates to "Video CLip" screen 
+And user should be displayed with "Error" pop up as "Clip has expired"
+
+Examples:
+|Solution|
+|C1|
+|C2|
+|DAS|
+|WLD|
+
+
+#Requirements : single location with jasperNA or JapserEMEA or WLD or C1 or C2 or DAS or all the solutions and trigged all the events 
 @GeneralGlobalDrawerWithSolutionActivityHistoryVerification				@NotAutomatable			@--xrayid:ATER-68228
 Scenario Outline: As a user i want to view the under global drawer scenarios  with jasperNA or JapserEMEA or C1 or C2 or DAS or all the solutions  
 Given user launches and logs in to the Lyric Application

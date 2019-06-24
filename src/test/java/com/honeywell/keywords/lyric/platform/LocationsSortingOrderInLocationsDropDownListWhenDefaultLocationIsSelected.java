@@ -42,7 +42,6 @@ public class LocationsSortingOrderInLocationsDropDownListWhenDefaultLocationIsSe
 	public boolean keywordSteps() throws KeywordException {
 		Dashboard d = new Dashboard(testCase);
 		if (testCase.isTestSuccessful() || VerifyIfDefaultLocationDisplayedInDashboardScreenAfterLogin.FLAG) {
-
 			for (int i = 0; i < data.getSize(); i++) {
 				correctSortingOrderForExpectedLocations.add(data.getData(i, "Locations"));
 				if (correctSortingOrderForExpectedLocations.contains("Locations")) {

@@ -18,6 +18,7 @@ import com.honeywell.commons.mobile.MobileUtils;
 import com.honeywell.commons.report.FailType;
 import com.honeywell.keywords.lyric.platform.VerifyIfDefaultLocationDisplayedInDashboardScreenAfterLogin;
 import com.honeywell.lyric.utils.CoachMarkUtils;
+import com.honeywell.lyric.utils.LyricUtils;
 
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
@@ -85,12 +86,11 @@ public class Dashboard extends MobileScreens {
 	public boolean isAddDeviceIconVisible(int timeOut) {
 		boolean flag = true;
 		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceIcon", timeOut)) {
-			flag = flag
-					& MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceIcon", timeOut, false);
+			flag &= MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceIcon", timeOut, false);
+		} else if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceNewIcon")) {
+			flag &= MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceNewIcon");
 		} else {
-			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceNewIcon")) {
-				flag = flag & MobileUtils.isMobElementExists(objectDefinition, testCase, "AddNewDeviceNewIcon");
-			}
+			flag = false;
 		}
 		return flag;
 	}
@@ -971,5 +971,41 @@ public class Dashboard extends MobileScreens {
 			}
 		}
 		return flag;
+	}
+	
+	public MobileElement getDeviceEleInDashboardScreen() {
+		return MobileUtils.getMobElement(objectDefinition, testCase, "DeviceEleInDashboard");
+	}
+	
+	public List<String> getDevicesListDisplayedInDashboardScreen() {
+		String deviceName = null;
+		List<WebElement> devicesListWebElements = new ArrayList<WebElement>();
+		List<String> deviceNames = new ArrayList<String>();
+		devicesListWebElements = MobileUtils.getMobElements(objectDefinition, testCase, "DevicesList");
+		for (int i = 0; i < devicesListWebElements.size(); i ++) {
+			deviceName = devicesListWebElements.get(i).getText();
+			if (!deviceNames.contains(deviceName) && deviceName != null) {
+				deviceNames.add(deviceName);
+			}
+		}
+		int counter = 0;
+		while (!this.isAddDeviceIconVisible(1) && counter < 4) {
+			// Scroll down to view the remaining list of devices
+			LyricUtils.scrollUpAList(testCase, this.getDeviceEleInDashboardScreen());
+			try {
+				Thread.sleep(3000);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			devicesListWebElements = MobileUtils.getMobElements(objectDefinition, testCase, "DevicesList");
+			for (int i = 0; i < devicesListWebElements.size(); i ++) {
+				deviceName = devicesListWebElements.get(i).getText();
+				if (!deviceNames.contains(deviceName) && deviceName != null) {
+					deviceNames.add(deviceName);
+				}
+			}
+			counter++;
+		}
+		return deviceNames;
 	}
 }
