@@ -692,7 +692,7 @@ Examples:
 
 
 #Requirements : single location with and with out any solution and user should be invited 
-@GeneralGlobalDrawerInviteUserWithLoggedInUserEmail				@Automatable			@--xrayid:ATER-67866	
+@GeneralGlobalDrawerInviteUserWithLoggedInUserEmail				@Automated			@--xrayid:ATER-67866	
 Scenario: As a user i want to Verify if error message displays when logged in users email address in Add Users
 Given user launches and logs in to the Lyric Application
 When user navigates to "Users" screen from the "Dashboard" screen
@@ -713,7 +713,7 @@ Then user should not be displayed with the following "Invited Users" options:
 
 
 #Requirements : single location with and with out any solution and user should be invited 
-@GeneralGlobalDrawerInviteUserWithAlreadyInvitiedUsersEmail			@Automatable		@--xrayid:ATER-67867
+@GeneralGlobalDrawerInviteUserWithAlreadyInvitiedUsersEmail			@Automated		@--xrayid:ATER-67867
 Scenario Outline: As a user i want to Verify if error message displays when already existing invited users email address is entered in Add Users 
 Given user launches and logs in to the Lyric Application
 When user navigates to "Users" screen from the "Dashboard" screen
@@ -977,7 +977,7 @@ And user should be displayed with "Location Address" in the "Address" Screen
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAddressUpdateWithSameCountry	            @Automatable			@--xrayid:ATER-		@LYR-37032
+@GeneralGlobalDrawerEditAddressUpdateWithSameCountry	            @Automated			@--xrayid:ATER-		@LYR-37032
 Scenario Outline: As a user i want to verify if address fields are empty when country is updated with same country
 Given user launches and logs in to the Lyric Application
 When user navigates to "Address" screen from the "Dashboard" screen
@@ -1463,7 +1463,7 @@ Then the following "Save Button" options should be disabled:
 
 
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountDisabledAndEnabledSaveButtonWhenFirstNameIsCleared    @Automatable		@--xrayid:ATER-69081
+@GeneralGlobalDrawerEditAccountDisabledAndEnabledSaveButtonWhenFirstNameIsCleared    @Automated		@--xrayid:ATER-69081
 Scenario: As a user i want to Verify if save button gets enabled when first name text field is cleared
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
@@ -1652,7 +1652,7 @@ And user should be displayed with the "Account Details" screen
 
 #Change Password in Edit Account Screen
 #Requirements : single location with and with out any solution
-@GeneralGlobalDrawerEditAccountUpdatePasswordWithSpecialCharacters    @Automatable	 @--xrayid:ATER-69084
+@GeneralGlobalDrawerEditAccountUpdatePasswordWithSpecialCharacters    @Automated	 @--xrayid:ATER-69084
 Scenario: As a user i want to Verify update password functionality in Edit Account screen
 Given user launches and logs in to the Lyric Application
 When user navigates to "Edit Account" screen from the "Dashboard" screen
