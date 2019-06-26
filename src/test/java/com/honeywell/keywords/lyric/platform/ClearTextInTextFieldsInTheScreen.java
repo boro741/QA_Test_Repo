@@ -109,7 +109,7 @@ public class ClearTextInTextFieldsInTheScreen extends Keyword {
 			}
 			break;
 		}
-		case "EDIT ACCOUNT": {
+		case "NAME ACCOUNT DETAILS": {
 			EditAccountScreen eas = new EditAccountScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
 				String parameter = data.getData(i, "TextFieldsInEditAccountScreen");

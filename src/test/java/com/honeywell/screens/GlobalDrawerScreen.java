@@ -43,8 +43,9 @@ public class GlobalDrawerScreen extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			flag &= MobileUtils.isMobElementExists("XPATH", "//android.widget.TextView[@text='Vacation']", testCase);
 		} else {
-			flag &= MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeStaticText[@name='vacation_subTitle']",
-					testCase);
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "VacationOption");
+			/*flag &= MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeStaticText[@name='vacation_subTitle']",
+					testCase);*/
 		}
 		return flag;
 	}
@@ -52,12 +53,21 @@ public class GlobalDrawerScreen extends MobileScreens {
 	public boolean clickOnVacationOption() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "VacationOption");
 	}
+	
+	public boolean isHolidayOptionVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "HolidayOption");
+	}
+	
+	public boolean clickOnHolidayOption() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "HolidayOption");
+	}
 
 	public boolean isHomeHeaderTitleVisible() {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return MobileUtils.isMobElementExists("XPATH",
+			/*return MobileUtils.isMobElementExists("XPATH",
 					"//*[@resource-id='com.honeywell.android.lyric:id/device_type_section_header' and (@text='Home' or @text='HOME')]",
-					testCase);
+					testCase);*/
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "HomeHeaderTitle");
 		} else {
 			return MobileUtils.isMobElementExists(objectDefinition, testCase, "HomeHeaderTitle");
 		}
@@ -67,8 +77,8 @@ public class GlobalDrawerScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ActivityHistoryOption");
 	}
 
-	public boolean isAddUsersOptionVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AddUsersOption");
+	public boolean isUsersOptionVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UsersOption");
 	}
 
 	public boolean isAddressOptionVisible() {
@@ -96,12 +106,12 @@ public class GlobalDrawerScreen extends MobileScreens {
 		return flag;
 	}
 
-	public boolean isEditAccountOptionVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EditAccountOption");
+	public boolean isAccountDetailsOptionVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "AccountDetailsOption");
 	}
 	
-	public boolean clickEditAccountOption() {
-		return MobileUtils.clickOnElement(objectDefinition, testCase, "EditAccountOption");
+	public boolean clickAccountDetailsOption() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "AccountDetailsOption");
 	}
 
 	public boolean isAboutTheAppOptionVisible() {
@@ -127,4 +137,5 @@ public class GlobalDrawerScreen extends MobileScreens {
 	public boolean clickOnBackButton() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "BackButton");
 	}
+
 }

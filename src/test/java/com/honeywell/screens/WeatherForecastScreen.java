@@ -99,12 +99,16 @@ public class WeatherForecastScreen extends MobileScreens {
 	public String getHumidity() {
 		String humidityValue = null;
 		String humidityPercentage = MobileUtils.getFieldValue(objectDefinition, testCase, "Humidity");
-		System.out.println("Humidity in app" + humidityPercentage);
+		System.out.println("Humidity in app: " + humidityPercentage);
 		String humidityPerc = humidityPercentage.split("%")[0];
 		if (humidityPerc.contains("HUMIDITY")) {
 			humidityValue = humidityPerc.split("HUMIDITY")[1].trim();
 			return humidityValue;
-		} else {
+		} else if (humidityPerc.contains("Humidity")) {
+			humidityValue = humidityPerc.split("Humidity")[1].trim();
+			return humidityValue;
+		}
+		else {
 			return humidityPerc;
 		}
 	}

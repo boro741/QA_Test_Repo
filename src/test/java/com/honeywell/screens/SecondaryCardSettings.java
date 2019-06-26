@@ -13,12 +13,12 @@ public class SecondaryCardSettings extends MobileScreens {
 	private static final String screenName = "SecondaryCardSettings";
 	public static final String GEOFENCE = "Geofence";
 	public static final String ALERTSANDNOTIFICATIONS = "Alerts and Notifications";
-	public static final String MANAGEUSERS = "Add Users";
+	public static final String USERS = "Users";
 	public static final String HOMEKITUSERS = "HomeKit Users";
 	public static final String ZWAVEDEVICES = "Z-Wave Devices";
 	public static final String ADDNEWDEVICE = "Add New Device";
 	public static final String ABOUTTHEAPP = "About the app";
-	public static final String EDITACCOUNT = "Edit Account";
+	public static final String ACCOUNTDETAILS = "Account Details";
 	public static final String MESSAGES = "Activity History";
 	public static final String FAQS = "FAQs";
 	public static final String LOGOUT = "Logout";
@@ -36,8 +36,8 @@ public class SecondaryCardSettings extends MobileScreens {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceOption");
 		case SecondaryCardSettings.ALERTSANDNOTIFICATIONS:
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "AlertsAndNotificationsOption");
-		case SecondaryCardSettings.MANAGEUSERS:
-			return MobileUtils.clickOnElement(objectDefinition, testCase, "ManageUsersOption");
+		case SecondaryCardSettings.USERS:
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "UsersOption");
 		case SecondaryCardSettings.ADDRESSDETAILS:
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "AddressOption");
 		case SecondaryCardSettings.HOMEKITUSERS:
@@ -48,8 +48,8 @@ public class SecondaryCardSettings extends MobileScreens {
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "AddNewDeviceOption");
 		case SecondaryCardSettings.ABOUTTHEAPP:
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "AboutTheAppOption");
-		case SecondaryCardSettings.EDITACCOUNT:
-			return MobileUtils.clickOnElement(objectDefinition, testCase, "EditAccountOption");
+		case SecondaryCardSettings.ACCOUNTDETAILS:
+			return MobileUtils.clickOnElement(objectDefinition, testCase, "AccountDetailsOption");
 		case SecondaryCardSettings.MESSAGES:
 			return MobileUtils.clickOnElement(objectDefinition, testCase, "MessagesOption");
 		case SecondaryCardSettings.FAQS:

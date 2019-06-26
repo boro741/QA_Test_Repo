@@ -79,8 +79,9 @@ public class EditAccountScreen extends MobileScreens {
 			testCase.getMobileDriver().findElement(By.id("fragment_current_user_first_edit_text")).clear();
 			MobileUtils.hideKeyboard(testCase.getMobileDriver());
 		} else {
-			flag &= MobileUtils.clearTextField(objectDefinition, testCase, "FirstNameValueInEditAccountScreen");
-			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "ReturnButtonIniOSKeyboard");
+			flag &= MobileUtils.clearTextField(objectDefinition, testCase, "FirstNameValueInNameScreen");
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "NextButtonIniOSKeyboard");
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonIniOSKeyboard");
 		}
 		return flag;
 	}
@@ -88,18 +89,19 @@ public class EditAccountScreen extends MobileScreens {
 	public boolean enterFirstNameValueInEditAccountScreen(TestCaseInputs inputs, String inputFirstNameText) {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "FirstNameValueInEditAccountScreen");
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "FirstNameValueInNameScreen");
 			testCase.getMobileDriver().findElement(By.id("fragment_current_user_first_edit_text")).clear();
-			flag &= MobileUtils.setValueToElement(objectDefinition, testCase, "FirstNameValueInEditAccountScreen",
+			flag &= MobileUtils.setValueToElement(objectDefinition, testCase, "FirstNameValueInNameScreen",
 					inputFirstNameText);
 			MobileUtils.hideKeyboard(testCase.getMobileDriver(),
 					"Hide Android Keyboard for Location Name Text Field in Edit Address Screen");
 		} else {
-			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "FirstNameValueInEditAccountScreen");
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "FirstNameValueInNameScreen");
 			testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypeTextField[@name='First Name']")).clear();
-			flag &= MobileUtils.setValueToElement(objectDefinition, testCase, "FirstNameValueInEditAccountScreen",
+			flag &= MobileUtils.setValueToElement(objectDefinition, testCase, "FirstNameValueInNameScreen",
 					inputFirstNameText);
-			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "ReturnButtonIniOSKeyboard");
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "NextButtonIniOSKeyboard");
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonIniOSKeyboard");
 		}
 		return flag;
 	}
@@ -110,8 +112,8 @@ public class EditAccountScreen extends MobileScreens {
 			testCase.getMobileDriver().findElement(By.id("fragment_current_user_last_edit_text")).clear();
 			MobileUtils.hideKeyboard(testCase.getMobileDriver());
 		} else {
-			flag &= MobileUtils.clearTextField(objectDefinition, testCase, "LastNameValueInEditAccountScreen");
-			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "ReturnButtonIniOSKeyboard");
+			flag &= MobileUtils.clearTextField(objectDefinition, testCase, "LastNameValueInNameScreen");
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonIniOSKeyboard");
 		}
 		return flag;
 	}
@@ -119,18 +121,18 @@ public class EditAccountScreen extends MobileScreens {
 	public boolean enterLastNameValueInEditAccountScreen(TestCaseInputs inputs, String inputLastNameText) {
 		boolean flag = true;
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "LastNameValueInEditAccountScreen");
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "LastNameValueInNameScreen");
 			testCase.getMobileDriver().findElement(By.id("fragment_current_user_last_edit_text")).clear();
-			flag &= MobileUtils.setValueToElement(objectDefinition, testCase, "LastNameValueInEditAccountScreen",
+			flag &= MobileUtils.setValueToElement(objectDefinition, testCase, "LastNameValueInNameScreen",
 					inputLastNameText);
 			MobileUtils.hideKeyboard(testCase.getMobileDriver(),
 					"Hide Android Keyboard for Location Name Text Field in Edit Address Screen");
 		} else {
-			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "LastNameValueInEditAccountScreen");
+			flag &= MobileUtils.clickOnElement(objectDefinition, testCase, "LastNameValueInNameScreen");
 			testCase.getMobileDriver().findElement(By.xpath("//XCUIElementTypeTextField[@name='Last Name']")).clear();
-			flag &= MobileUtils.setValueToElement(objectDefinition, testCase, "LastNameValueInEditAccountScreen",
+			flag &= MobileUtils.setValueToElement(objectDefinition, testCase, "LastNameValueInNameScreen",
 					inputLastNameText);
-			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "ReturnButtonIniOSKeyboard");
+			flag = flag & MobileUtils.clickOnElement(objectDefinition, testCase, "DoneButtonIniOSKeyboard");
 		}
 		return flag;
 	}
@@ -583,4 +585,5 @@ public class EditAccountScreen extends MobileScreens {
 	public boolean isDeleteUserPopupLabelVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeleteUserLabel");
 	}
+	
 }

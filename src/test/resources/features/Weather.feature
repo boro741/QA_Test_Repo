@@ -178,7 +178,7 @@ When user navigates to "Choose Location" screen from the "What To Expect" screen
 And user selects "Create New Location" from "Choose Location" screen
 Then user should be displayed with the "Create Location" screen
 When user inputs <first location name> in the "Create Location" screen
-Then user should be displayed with the "Confirm Your ZIP Code" screen
+Then user should be displayed with the "Confirm Your Address Postcode" screen
 When user inputs <valid first locations zip code>
 Then user should be displayed with the "Name Your Base Station" screen
 When user "cancels the set up" by clicking on "cancel" button
@@ -197,7 +197,7 @@ When user navigates to "Choose Location" screen from the "What To Expect" screen
 And user selects "Create New Location" from "Choose Location" screen
 Then user should be displayed with the "Create Location" screen
 When user inputs <second location name> in the "Create Location" screen
-Then user should be displayed with the "Confirm Your ZIP Code" screen
+Then user should be displayed with the "Confirm Your Address Postcode" screen
 When user inputs <valid second locations zip code>
 Then user should be displayed with the "Name Your Base Station" screen
 When user "cancels the set up" by clicking on "cancel" button

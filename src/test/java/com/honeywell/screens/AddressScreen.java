@@ -596,16 +596,16 @@ public class AddressScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "YesButtonInCancelLocationChangesPopup");
 	}
 
-	public boolean isInvalidZipCodePopupVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "InvalidZipCodePopup");
+	public boolean isInvalidZipCodePopupVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "InvalidZipCodePopup", timeOut);
 	}
 
 	public boolean isInvalidZipCodePopupMsgVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "InvalidZipCodePopupMsg");
 	}
 
-	public boolean isOKButtonInInvalidZipCodePopupVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInInvalidZipCodePopup");
+	public boolean isOKButtonInInvalidZipCodePopupVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "OKButtonInInvalidZipCodePopup", timeOut);
 	}
 
 	public boolean clickOnOKButtonInInvalidZipCodePopup() {

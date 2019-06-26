@@ -79,8 +79,8 @@ public class AboutTheAppScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "VersionOptionInAboutTheApp");
 	}
 
-	public boolean isPrivacyPolicyAndEULAScreenTitleVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PrivacyPolicyAndEULAScreenTitle");
+	public boolean isPrivacyPolicyAndEULAScreenTitleVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PrivacyPolicyAndEULAScreenTitle", timeOut);
 	}
 
 	public boolean isDoneButtonInPrivacyPolicyAndEULAScreenVisible() {

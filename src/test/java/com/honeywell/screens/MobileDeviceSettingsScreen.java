@@ -6,7 +6,7 @@ import com.honeywell.commons.mobile.MobileUtils;
 
 public class MobileDeviceSettingsScreen extends MobileScreens {
 
-	private static final String screenName = "MobileDeviceLocationSettings";
+	private static final String screenName = "MobileDeviceSettings";
 
 	public MobileDeviceSettingsScreen(TestCases testCase) {
 		super(testCase, screenName);

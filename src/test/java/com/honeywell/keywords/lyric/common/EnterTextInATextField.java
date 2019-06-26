@@ -114,12 +114,12 @@ public class EnterTextInATextField extends Keyword {
 				break;
 			}
 			}
-		} else if (inputName.get(2).equalsIgnoreCase("EDIT ACCOUNT")) {
+		} else if (inputName.get(2).equalsIgnoreCase("NAME ACCOUNT DETAILS")) {
 			switch (inputName.get(1).toUpperCase()) {
 			case "FIRST NAME TEXT FIELD": {
 				if (inputName.get(0).equalsIgnoreCase("PREVIOUS VALUE")) {
 					flag &= EditAccountUtils.enterFirstNameInEditAccountScreen(testCase, inputs,
-							inputs.getInputValue("FIRST_NAME_IN_EDIT_ACCOUNT"));
+							inputs.getInputValue("PREVIOUS_FIRST_NAME"));
 				} else if (inputName.get(0).equalsIgnoreCase("SPECIAL CHARACTERS")) {
 					Random rand = new Random();
 					int randomInt = rand.nextInt(100);
@@ -138,7 +138,7 @@ public class EnterTextInATextField extends Keyword {
 			case "LAST NAME TEXT FIELD": {
 				if (inputName.get(0).equalsIgnoreCase("PREVIOUS VALUE")) {
 					flag &= EditAccountUtils.enterLastNameInEditAccountScreen(testCase, inputs,
-							inputs.getInputValue("LAST_NAME_IN_EDIT_ACCOUNT"));
+							inputs.getInputValue("PREVIOUS_LAST_NAME"));
 				} else if (inputName.get(0).equalsIgnoreCase("SPECIAL CHARACTERS")) {
 					Random rand = new Random();
 					int randomInt = rand.nextInt(100);
@@ -340,6 +340,7 @@ public class EnterTextInATextField extends Keyword {
 			switch (inputName.get(1).toUpperCase()) {
 			case "FIRST NAME TEXT FIELD": {
 				if (inputName.get(0).equalsIgnoreCase("PREVIOUS VALUE")) {
+					inputs.setInputValue("FIRST_NAME_IN_NAME_EDIT_ACCOUNT", inputs.getInputValue("NAME_IN_EDIT_ACCOUNT").split(" ")[0]);
 					flag &= NameEditAccountUtils.enterFirstNameInNameEditAccountScreen(testCase, inputs,
 							inputs.getInputValue("FIRST_NAME_IN_NAME_EDIT_ACCOUNT"));
 				} else if(inputName.get(0).equalsIgnoreCase("MAX CHARACTERS")) {
@@ -362,6 +363,8 @@ public class EnterTextInATextField extends Keyword {
 			}
 			case "LAST NAME TEXT FIELD": {
 				if (inputName.get(0).equalsIgnoreCase("PREVIOUS VALUE")) {
+					System.out.println(inputs.getInputValue("NAME_IN_EDIT_ACCOUNT").split(" ")[1]);
+					inputs.setInputValue("LAST_NAME_IN_NAME_EDIT_ACCOUNT", inputs.getInputValue("NAME_IN_EDIT_ACCOUNT").split(" ")[1]);
 					flag &= NameEditAccountUtils.enterLastNameInNameEditAccountScreen(testCase, inputs,
 							inputs.getInputValue("LAST_NAME_IN_EDIT_ACCOUNT"));
 				} else if(inputName.get(0).equalsIgnoreCase("MAX CHARACTERS")) {

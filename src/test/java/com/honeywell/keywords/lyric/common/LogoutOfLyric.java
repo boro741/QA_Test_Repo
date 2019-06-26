@@ -133,7 +133,7 @@ public class LogoutOfLyric extends Keyword {
 
 							element = testCase.getMobileDriver().findElement(
 									MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
-											+ "new UiSelector().text(\"Logout\"));"));
+											+ "new UiSelector().text(\"Log Out\"));"));
 							if (element != null) {
 								element.click();
 								ReportStep_Pass(testCase, "Clicked on Logout option");

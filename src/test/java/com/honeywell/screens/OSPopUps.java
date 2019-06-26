@@ -167,7 +167,7 @@ public class OSPopUps extends MobileScreens {
 	}
 
 	public boolean isMobileDeviceLocationEnabled() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MobileDeviceLocationEnabled");
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "MobileDeviceLocationDisabled");
 	}
 
 	public boolean isMobileDeviceLocationDisabled() {

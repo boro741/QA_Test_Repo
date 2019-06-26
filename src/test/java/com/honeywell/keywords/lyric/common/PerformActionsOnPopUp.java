@@ -991,12 +991,12 @@ public class PerformActionsOnPopUp extends Keyword {
 			case "CLICKS ON OK IN": {
                 if (mus.isOKButtonInDeleteUserPopupVisible()) {
                         flag &= mus.clickOnOKButtonInDeleteUserPopup();
-                        if (mus.isManageUsersScreenHeaderVisible() && mus.isInviteNewUserButtonVisible()
+                        if (mus.isManageUsersScreenHeaderVisible(10) && mus.isInviteNewUserButtonVisible()
                                            && mus.isBackButtonVisible()) {
-                                 Keyword.ReportStep_Pass(testCase, "User is deleted and is in Manage Users screen");
+                                 Keyword.ReportStep_Pass(testCase, "User is deleted and is in Users screen");
                          } else {
                                        Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-                                                    "User is not in Manage Users screen");
+                                                    "User is not in Users screen");
                          }
                    } else {
                         flag = false;
@@ -1009,7 +1009,7 @@ public class PerformActionsOnPopUp extends Keyword {
 			case "CLICKS ON CANCEL IN" : {
 					if (mus.isCancelButtonInDeleteUserPopupVisible()) {
 							flag &= mus.clickOnCancelButtonInDeleteUserPopup();
-							if (mus.isManageUsersScreenHeaderVisible() && mus.isInviteNewUserButtonVisible()
+							if (mus.isManageUsersScreenHeaderVisible(10) && mus.isInviteNewUserButtonVisible()
 										&& mus.isBackButtonVisible()) {
 									Keyword.ReportStep_Pass(testCase, "User is in Manage Users screen");
 							} else {
@@ -1156,7 +1156,7 @@ public class PerformActionsOnPopUp extends Keyword {
 			AddressScreen ads = new AddressScreen(testCase);
 			switch (expectedPopUp.get(0).toUpperCase()) {
 			case "DISMISSES": {
-				if (ads.isOKButtonInInvalidZipCodePopupVisible()) {
+				if (ads.isOKButtonInInvalidZipCodePopupVisible(50)) {
 					Keyword.ReportStep_Pass(testCase, "OK button in Invalid ZIPCode Popup is displayed");
 					flag &= ads.clickOnOKButtonInInvalidZipCodePopup();
 					if (flag) {
@@ -1444,7 +1444,7 @@ public class PerformActionsOnPopUp extends Keyword {
 				if(ads.isDeleteButtonInDeleteLocationPopupLabelVisible()) {
 					flag &= ads.clickOnDeleteButtonInDeleteLocationPopup();
 					if(flag) {
-						Keyword.ReportStep_Pass(testCase, "Clicked on Ok button in Delete Location Popup");
+						Keyword.ReportStep_Pass(testCase, "Clicked on Delete button in Delete Location Popup");
 					}else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Failed to click on the Delete button in Delete Location Popup");
@@ -1452,6 +1452,21 @@ public class PerformActionsOnPopUp extends Keyword {
 				}else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Delete button in Delete Location popup is not displayed");
+				}
+				break;
+			}
+			case "CLICKS ON CANCEL IN" : {
+				if(ads.isCancelButtonInDeleteLocationPopupLabelVisible()) {
+					flag &= ads.clickOnCancelButtonInDeleteLocationPopup();
+					if(flag) {
+						Keyword.ReportStep_Pass(testCase, "Clicked on Cancel button in Delete Location Popup");
+					}else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on the Cancel button in Delete Location Popup");
+					}
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Cancel button in Delete Location popup is not displayed");
 				}
 				break;
 			}

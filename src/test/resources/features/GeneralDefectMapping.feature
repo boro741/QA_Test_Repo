@@ -119,7 +119,7 @@ Examples:
 | Cool | Away  				| UserDeparted		 | Home				  |	UserArrived	 |
 | Heat | Home               | UserArrived        | Away               | UserDeparted |
 | Cool	| Away  			| UserDeparted	 	 | Home				  |	UserArrived	 |
-| Cool | UserArrived       | Home               | Away               | UserDeparted |
+| Cool | UserArrived        | Home               | Away               | UserDeparted |
 
 
 #Invite User
@@ -196,19 +196,18 @@ Then user logs out of the app
 @GeneralGlobalDrawerInviteUserDeleteAccountMultiUser            @Automated
 Scenario Outline: As a user I want to verify Email notification for Invited user
 Given user launches and logs in to the Lyric Application
-When user navigates to "Manage Users" screen from the "Dashboard" screen
-Then user selects "Invite New User" from "Manage Users" screen
+When user navigates to "Users" screen from the "Dashboard" screen
+Then user selects "Invite New User" from "Users" screen
 Then user inputs <invite users email address> in "Email Text Field" in the "Invite New User" screen
 Then user should be displayed with the following "Invited Users" options:
 | InvitedUsersList		|
 | unit77@grr.la			|
 When user logs out and logs in to the Lyric Application with <invite users email address>
-When user navigates to "Manage Users" screen from the "Dashboard" screen
+When user navigates to "Users" screen from the "Dashboard" screen
 Then user should be displayed with the following "Invited Users" options:
 | InvitedUsersList						|
 | User who invited the logged in user	|
-And user selects "Delete Invited Email" from "Manage Users" screen
-#And user deletes the <invited users email address> from "Manage Users" screen
+And user selects "Delete Invited Email" from "Users" screen
 Then user should receive a "Delete User" popup
 And user "Clicks on OK in" the "Delete User" popup
 Then user should not be displayed with the following "Invited Users" options:
@@ -311,7 +310,7 @@ Then user should not receive a "Allow honeywell to access this devices location"
 
 #Cannot Automate in iOS
 @GeneralLocationPermissionAllowFunctionality          @AutomatedOnAndroid      @NotAutomatableOniOS   @NotAutomatable
-Scenario: As a user I want to verify Allow option in location permission pop up 
+Scenario: As a user I want to verify Allow option in location permission pop up
 Given user launches the Lyric application without closing the popup
 Then user turns off the mobile device location
 Then user should receive a "Turn On Location services" popup
