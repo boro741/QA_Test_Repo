@@ -76,4 +76,4 @@ NameValueArrow	ID	com.honeywell.android.lyric:id/fragment_current_user_name_text
 DeleteUserLabel	XPATH	//android.widget.TextView[@text='Delete User']	XPATH	//android.widget.TextView[@text='Delete User']	XPATH	//android.widget.TextView[@text='Delete User']	XPATH	//XCUIElementTypeStaticText[@name='Delete User']	XPATH	//XCUIElementTypeStaticText[@name='Delete User']	XPATH	//XCUIElementTypeStaticText[@name='Delete User']
 NextButtonIniOSKeyboard							NAME	Next	NAME	Next	NAME	Next
 DoneButtonIniOSKeyboard							NAME	Done	NAME	Done	NAME	Done
-CancelButtonInDeleteLocationPopup							NAME	Cancel	NAME	Cancel	NAME	Cancel
+CancelButtonInDeleteLocationPopup	ID	button1	ID	button1	ID	button1	NAME	Cancel	NAME	Cancel	NAME	Cancel

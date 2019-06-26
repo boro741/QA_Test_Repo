@@ -99,7 +99,6 @@ public class WeatherForecastScreen extends MobileScreens {
 	public String getHumidity() {
 		String humidityValue = null;
 		String humidityPercentage = MobileUtils.getFieldValue(objectDefinition, testCase, "Humidity");
-		System.out.println("Humidity in app: " + humidityPercentage);
 		String humidityPerc = humidityPercentage.split("%")[0];
 		if (humidityPerc.contains("HUMIDITY")) {
 			humidityValue = humidityPerc.split("HUMIDITY")[1].trim();
@@ -123,14 +122,12 @@ public class WeatherForecastScreen extends MobileScreens {
 
 	public String getWeatherMaxTemp() {
 		String maxWeather = MobileUtils.getFieldValue(objectDefinition, testCase, "WeatherMaxTemp");
-		System.out.println("Max temp in app: " + maxWeather);
 		return maxWeather.split("˚")[0];
 
 	}
 
 	public String getWeatherMinTemp() {
 		String minWeather = MobileUtils.getFieldValue(objectDefinition, testCase, "WeatherMinTemp");
-		System.out.println("Min temp in app: " + minWeather);
 		return minWeather.split("˚")[0];
 	}
 

@@ -434,11 +434,11 @@ public class ManageUsersScreen extends MobileScreens {
 	public boolean isDeleteUserPopupMsgVisible(String invitedUsersEmailAddress) {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.isMobElementExists("XPATH",
-				"//android.widget.TextView[@text='This will delete " + "unit77@grr.la" + " from this account.']",testCase);
+				"//android.widget.TextView[@text='This will delete " + invitedUsersEmailAddress + " from this account.']",testCase);
 	
 		} else {
 			return MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeStaticText[@name='This will delete "
-					+ "unit77@grr.la"
+					+ invitedUsersEmailAddress
 					+ " from this account']", testCase);
 		}
 	}

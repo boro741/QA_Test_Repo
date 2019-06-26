@@ -1075,7 +1075,7 @@ And the following "Edit Address" options should be disabled:
 | EditAddressOptions		|
 | Save						|
 When user inputs <State> in "State Text Field" in the "Edit Address" screen
-And the following "Edit Address" options should be enabled:
+And the following "Edit Address" options should be disabled:
 | EditAddressOptions		|
 | Save						|
 When user inputs <Postal Code> in "Postal Code Text Field" in the "Edit Address" screen
@@ -1849,7 +1849,6 @@ Examples:
 @GeneralGlobalDrawerEditAccountDeleteAccountWithSolution             @Automated			@--xrayid:ATER-69092
 Scenario: As a user i want to Verify the app behavior by deleting an account with solution
 Given user launches and logs in to the Lyric Application
-When user selects "FLYCATCHER" from "Dashboard" screen
 When user navigates to "Account Details" screen from the "Dashboard" screen
 Then user should be displayed with the "Account Details" screen
 When user selects "Delete Account" from "Account Details" screen
