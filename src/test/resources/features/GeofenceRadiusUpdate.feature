@@ -37,7 +37,7 @@ Then user should be displayed with the "Geofence Settings" screen
 When user changes the "Geofence this location toggle" to "off"
 Then the following "Geofence Settings" options should be disabled:
 | Options					|
-| Geofence this Location		|
+| Geofence this Location	|
 And user should not be displayed with the following "Geofence this location" options:
 | GeofenceThisLocation		|
 | Geofence Radius			|

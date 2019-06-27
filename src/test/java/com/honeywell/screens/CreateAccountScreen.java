@@ -220,9 +220,10 @@ public class CreateAccountScreen extends MobileScreens {
 		// return MobileUtils.isMobElementExists(objectDefinition, testCase,
 		// "EmailAddressAlreadyRegisteredPopup", timeOut);
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-			return testCase.getMobileDriver().findElement(By.xpath(
+			/*return testCase.getMobileDriver().findElement(By.xpath(
 					"//android.widget.TextView[@text='This email address is already registered. Do you want to log in?']"))
-					.isEnabled();
+					.isEnabled();*/
+			return MobileUtils.isMobElementExists(objectDefinition, testCase, "EmailAddressAlreadyRegisteredPopup");
 		} else {
 			// ios
 			return testCase.getMobileDriver()

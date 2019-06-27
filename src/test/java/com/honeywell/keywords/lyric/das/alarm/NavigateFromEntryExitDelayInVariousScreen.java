@@ -90,7 +90,7 @@ public class NavigateFromEntryExitDelayInVariousScreen extends Keyword {
 					Dashboard dScreen = new Dashboard(testCase);
 					if (dScreen.clickOnGlobalDrawerButton()) {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
-						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.MANAGEUSERS)) {
+						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.USERS)) {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Could not click on Add user menu from Global drawer");
 						}
@@ -118,9 +118,9 @@ public class NavigateFromEntryExitDelayInVariousScreen extends Keyword {
 					Dashboard dScreen = new Dashboard(testCase);
 					if (dScreen.clickOnGlobalDrawerButton()) {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
-						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.EDITACCOUNT)) {
+						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ACCOUNTDETAILS)) {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Could not click on EDIT ACCOUNT menu from Global drawer");
+									"Could not click on ACCOUNT DETAILS menu from Global drawer");
 						}
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

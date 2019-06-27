@@ -130,6 +130,7 @@ public class CHILUtil implements AutoCloseable {
 
 			os.write(input.getBytes());
 			os.flush();
+			//System.out.println(chilConnection.getResponseCode());
 
 			if (chilConnection.getResponseCode() == HttpURLConnection.HTTP_CREATED) {
 				BufferedReader in = new BufferedReader(new InputStreamReader(chilConnection.getInputStream()));

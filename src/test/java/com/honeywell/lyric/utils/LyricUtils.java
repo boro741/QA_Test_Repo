@@ -2350,8 +2350,10 @@ public class LyricUtils {
 		boolean flag = true;
 		OSPopUps ops= new OSPopUps(testCase);
 		flag = MobileUtils.launchApplication(inputs, testCase, true);
-		if(ops.isHoneywellWouldLikeToAccessYourHomeDataPopupVisible()) {
-			flag &= ops.clickOnOKButtonInHoneywellWouldLikeToAccessYourHomeDataPopup();
+		if(testCase.getPlatform().toUpperCase().contains("IOS")) {
+			if(ops.isHoneywellWouldLikeToAccessYourHomeDataPopupVisible()) {
+				flag &= ops.clickOnOKButtonInHoneywellWouldLikeToAccessYourHomeDataPopup();
+			}
 		}
 		flag = flag & LyricUtils.setAppEnvironment(testCase, inputs);
 		flag = flag & LyricUtils.loginToLyricApp(testCase, inputs);

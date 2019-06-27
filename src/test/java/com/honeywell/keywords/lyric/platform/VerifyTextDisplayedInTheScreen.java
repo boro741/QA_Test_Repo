@@ -249,9 +249,8 @@ public class VerifyTextDisplayedInTheScreen extends Keyword {
 		} else if (inputText.get(1).equalsIgnoreCase("POSTAL CODE TEXT FIELD IN EDIT ADDRESS")) {
 			System.out.println("###########addressText.get(0): " + inputText.get(0));
 			flag &= AddressUtils.verifyLocationPostalCodeValueDisplayedInEditAddressScreen(testCase, inputText.get(0));
-		} else if (inputText.get(1).equalsIgnoreCase("EDIT ACCOUNT")) {
-			switch (inputText.get(0).toUpperCase()) {
-			
+		} else if (inputText.get(1).equalsIgnoreCase("ACCOUNT DETAILS")) {
+			switch (inputText.get(0).toUpperCase()) {	
 			case "UPDATED FIRST AND LAST NAME": {
 				flag &= EditAccountUtils.verifyFirstAndLastNameDisplayedInEditAccountScreen(testCase,
 						inputs.getInputValue("UPDATED_FIRST_NAME_IN_EDIT_ACCOUNT"),

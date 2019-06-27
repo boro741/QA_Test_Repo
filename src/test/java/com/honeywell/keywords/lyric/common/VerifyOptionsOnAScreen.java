@@ -2032,8 +2032,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "ADD USERS": {
-					flag &= gd.isAddUsersOptionVisible();
+				case "USERS": {
+					flag &= gd.isUsersOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
@@ -2062,8 +2062,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "EDIT ACCOUNT": {
-					flag &= gd.isEditAccountOptionVisible();
+				case "ACCOUNT DETAILS": {
+					flag &= gd.isAccountDetailsOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
@@ -2177,8 +2177,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "ADD USERS": {
-					flag &= gd.isAddUsersOptionVisible();
+				case "USERS": {
+					flag &= gd.isUsersOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
@@ -2207,8 +2207,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "EDIT ACCOUNT": {
-					flag &= gd.isEditAccountOptionVisible();
+				case "ACCOUNT DETAILS": {
+					flag &= gd.isAccountDetailsOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
@@ -2320,8 +2320,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "ADD USERS": {
-					flag &= gd.isAddUsersOptionVisible();
+				case "USERS": {
+					flag &= gd.isUsersOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
@@ -2370,8 +2370,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "EDIT ACCOUNT": {
-					flag &= gd.isEditAccountOptionVisible();
+				case "ACCOUNT DETAILS": {
+					flag &= gd.isAccountDetailsOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
@@ -2484,8 +2484,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "ADD USERS": {
-					flag &= gd.isAddUsersOptionVisible();
+				case "USERS": {
+					flag &= gd.isUsersOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
@@ -2534,8 +2534,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "EDIT ACCOUNT": {
-					flag &= gd.isEditAccountOptionVisible();
+				case "ACCOUNT DETAILS": {
+					flag &= gd.isAccountDetailsOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
@@ -2637,6 +2637,18 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
+				
+				case "HOLIDAY": {
+					flag &= gd.isHolidayOptionVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Option " + parameter + " is not displayed");
+					}
+					break;
+				}
+				
 				case "HOME HEADER": {
 					flag &= gd.isHomeHeaderTitleVisible();
 					if (flag) {
@@ -2657,8 +2669,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "ADD USERS": {
-					flag &= gd.isAddUsersOptionVisible();
+				case "USERS": {
+					flag &= gd.isUsersOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
@@ -2687,8 +2699,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "EDIT ACCOUNT": {
-					flag &= gd.isEditAccountOptionVisible();
+				case "ACCOUNT DETAILS": {
+					flag &= gd.isAccountDetailsOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
@@ -2811,8 +2823,8 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "ADD USERS": {
-					flag &= gd.isAddUsersOptionVisible();
+				case "USERS": {
+					flag &= gd.isUsersOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
@@ -2841,7 +2853,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 					}
 					break;
 				}
-				case "EDIT ACCOUNT": {
+				case "ACCOUNT DETAILS": {
 					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
 					@SuppressWarnings("rawtypes")
 					TouchAction action = new TouchAction(testCase.getMobileDriver());
@@ -2860,7 +2872,7 @@ public class VerifyOptionsOnAScreen extends Keyword {
 								.waitAction(waitOptions(MobileUtils.getDuration(2000)))
 								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
-					flag &= gd.isEditAccountOptionVisible();
+					flag &= gd.isAccountDetailsOptionVisible();
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
 					} else {
@@ -4627,11 +4639,11 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
-		case "NAME EDIT ACCOUNT": {
+		case "NAME ACCOUNT DETAILS": {
 			boolean flag = true;
 			NameEditAccountScreen neas = new NameEditAccountScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
-				String parameter = data.getData(i, "NameEditAccountOptions");
+				String parameter = data.getData(i, "NameAccountDetailsOptions");
 				switch (parameter.toUpperCase()) {
 				case "FIRST NAME": {
 					flag &= neas.isFirstNameTitleDisplayed();
@@ -4666,7 +4678,67 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			  }
 			}
 			break;
+		} case "ACCOUNT DETAILS": {
+			boolean flag = true;
+			EditAccountScreen eas = new EditAccountScreen(testCase);
+			for (int i = 0; i < data.getSize(); i++) {
+				String parameter = data.getData(i, "AccountDetailsOptions");
+				switch (parameter.toUpperCase()) {
+				case "NAME": {
+					flag &= eas.isNameLabelInEditAccountScreenVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " is not displayed");
+					}
+					break;
+				}
+				case "EMAIL": {
+					flag &= eas.isEmailLabelInEditAccountScreenVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " is not displayed");
+					}
+					break;
+				}
+				case "CHANGE PASSWORD": {
+					flag &= eas.isChangePasswordInEditAccountScreenVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " is not displayed");
+					}
+					break;
+				}
+				case "DELETE ACCOUNT": {
+					flag &= eas.isDeleteAccountButtonInEditAccountScreenVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " is not displayed");
+					}
+					break;
+				}
+				case "USE PASSCODE": {
+					flag &= eas.isUsePasscodeLabelInEditAccountScreenVisible();
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								parameter + " is not displayed");
+					}
+					break;
+				}
+			  }
+			}
+			break;
 		}
+		
 		}
 		return flag;
 	}

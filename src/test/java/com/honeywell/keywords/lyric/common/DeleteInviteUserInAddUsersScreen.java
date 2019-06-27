@@ -33,7 +33,7 @@ public class DeleteInviteUserInAddUsersScreen extends Keyword {
 	@Override
 	@KeywordStep(gherkins = "^user deletes the \"(.+)\" from \"(.+)\" screen$")
 	public boolean keywordSteps() {
-		if (deleteInvite.get(1).equalsIgnoreCase("MANAGE USERS")) {
+		if (deleteInvite.get(1).equalsIgnoreCase("USERS")) {
 			flag &= DASManageUsersUtils.deleteInvitedUserInManageUsersScreen(testCase, inputs, deleteInvite.get(0));
 		}
 		return flag;

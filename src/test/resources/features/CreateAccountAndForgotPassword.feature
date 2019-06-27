@@ -227,10 +227,10 @@
      | First Name Max Characters		  		        | Last Name Max Characters				          |
      | This is to test max characters     		   		| This is to test max characters              	  |
      | This is to test max characters and its D			| This is to test max characters and its D        |
-     | This is to test max characters and its Digits   | This is to test max characters and its Digits   |
-     | This is to test max characters 1234567$!	   	| This is to test max characters 1234567$!	      |
-     | This is to test max characters 1234567$! 78 	| This is to test max characters 1234567$! 78     |
-     | !@#$%^&*()_+=-`~!@#$%^&*()_+-~!@#$%^&*()    	| !@#$%^&*()_+=-`~!@#$%^&*()_+-~!@#$%^&*()        |
+     | This is to test max characters and its Digits    | This is to test max characters and its Digits   |
+     | This is to test max characters 1234567$!	   	    | This is to test max characters 1234567$!	      |
+     | This is to test max characters 1234567$! 78  	| This is to test max characters 1234567$! 78     |
+     | !@#$%^&*()_+=-`~!@#$%^&*()_+-~!@#$%^&*()    	    | !@#$%^&*()_+=-`~!@#$%^&*()_+-~!@#$%^&*()        |
      
 	 
      @GeneralCreateAccountWithoutFillingsTheDetailsErrorValidation          @Automated

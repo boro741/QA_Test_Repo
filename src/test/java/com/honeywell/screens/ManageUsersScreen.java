@@ -33,8 +33,8 @@ public class ManageUsersScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ProgressBar", false);
 	}
 
-	public boolean isManageUsersScreenHeaderVisible() {
-		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ManageUsersScreenHeader");
+	public boolean isManageUsersScreenHeaderVisible(int timeOut) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "ManageUsersScreenHeader", timeOut);
 	}
 
 	public boolean isBackButtonVisible() {
@@ -434,10 +434,12 @@ public class ManageUsersScreen extends MobileScreens {
 	public boolean isDeleteUserPopupMsgVisible(String invitedUsersEmailAddress) {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			return MobileUtils.isMobElementExists("XPATH",
-				"//android.widget.TextView[contains(@text,'This will delete " + invitedUsersEmailAddress + " from this account')]",testCase);
+				"//android.widget.TextView[@text='This will delete " + invitedUsersEmailAddress + " from this account.']",testCase);
+	
 		} else {
 			return MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeStaticText[@name='This will delete "
-					+ invitedUsersEmailAddress + " from this account']", testCase);
+					+ invitedUsersEmailAddress
+					+ " from this account']", testCase);
 		}
 	}
 

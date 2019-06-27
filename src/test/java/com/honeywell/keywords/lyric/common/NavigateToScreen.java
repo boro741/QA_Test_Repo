@@ -1099,10 +1099,11 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
-				case "MANAGE USERS": {
+				case "USERS": {
 					Dashboard dScreen = new Dashboard(testCase);
 					OSPopUps os = new OSPopUps(testCase);
 					CoachMarks cm = new CoachMarks(testCase);
+					ManageUsersScreen mus = new ManageUsersScreen(testCase);
 					Thread.sleep(5000);
 					if (testCase.getPlatform().toUpperCase().contains("IOS")) {
 						if (os.isNotNowButtonVisible(1)) {
@@ -1120,9 +1121,10 @@ public class NavigateToScreen extends Keyword {
 							return false;
 						}
 					}
+					
 					if (dScreen.clickOnGlobalDrawerButton()) {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
-						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.MANAGEUSERS)) {
+						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.USERS)) {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Failed to navigate to Add Users screen from Global drawer");
 						}
@@ -1130,6 +1132,16 @@ public class NavigateToScreen extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Could not click on Global drawer menu from dashboard");
 					}
+					
+					/*if(mus.isManageUsersScreenHeaderVisible()) {
+						flag &= mus.clickOnBackButton();
+						if(flag) {
+							Keyword.ReportStep_Pass(testCase, "User is in Account Details screen");
+						}else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not click on Users option from Global Drawer screen");
+						}
+					}*/
 					break;
 				}
 				case "INVITE NEW USER": {
@@ -1151,7 +1163,7 @@ public class NavigateToScreen extends Keyword {
 					}
 					if (dScreen.clickOnGlobalDrawerButton()) {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
-						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.MANAGEUSERS)) {
+						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.USERS)) {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									"Failed to navigate to Add Users screen from Global drawer");
 						}
@@ -1248,7 +1260,7 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
-				case "EDIT ACCOUNT": {
+				case "ACCOUNT DETAILS": {
 					Dashboard dScreen = new Dashboard(testCase);
 					OSPopUps os = new OSPopUps(testCase);
 					CoachMarks cm = new CoachMarks(testCase);
@@ -1267,9 +1279,9 @@ public class NavigateToScreen extends Keyword {
 					}
 					if (dScreen.clickOnGlobalDrawerButton()) {
 						SecondaryCardSettings sc = new SecondaryCardSettings(testCase);
-						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.EDITACCOUNT)) {
+						if (!sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ACCOUNTDETAILS)) {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Failed to navigate to Edit Account from Global drawer");
+									"Failed to navigate to Account Details from Global drawer");
 						}
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1279,6 +1291,13 @@ public class NavigateToScreen extends Keyword {
 						inputs.setInputValue("NAME_IN_EDIT_ACCOUNT", eas.getNameValueInEditAccountScreen());
 						System.out.println(
 								"###########NAME_IN_EDIT_ACCOUNT: " + inputs.getInputValue("NAME_IN_EDIT_ACCOUNT"));
+						String[] name= inputs.getInputValue("NAME_IN_EDIT_ACCOUNT").split(" ");
+						String firstName= name[0];
+						String lastName= name[1];
+						System.out.println("First Name is: "+ firstName);
+						System.out.println("Last Name is: "+ lastName);
+						inputs.setInputValue("PREVIOUS_FIRST_NAME", firstName);
+						inputs.setInputValue("PREVIOUS_LAST_NAME", lastName);
 					}
 					break;
 				}
@@ -1720,11 +1739,11 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
-				case "EDIT ACCOUNT": {
+				case "ACCOUNT DETAILS": {
 					GlobalDrawerScreen gds = new GlobalDrawerScreen(testCase);
 					EditAccountScreen eas = new EditAccountScreen(testCase);
-					if (gds.isEditAccountOptionVisible()) {
-						flag &= gds.clickEditAccountOption();
+					if (gds.isAccountDetailsOptionVisible()) {
+						flag &= gds.clickAccountDetailsOption();
 						if (eas.isEditAccountScreenTitleInEditAccountVisible()) {
 							Keyword.ReportStep_Pass(testCase, "Successfully navigated to " + screen.get(0) + " screen");
 						} else {
@@ -3947,7 +3966,7 @@ public class NavigateToScreen extends Keyword {
 				case "MANAGE USERS": {
 					if (mus.isBackButtonVisible()) {
 						flag &= mus.clickOnBackButton();
-						if (mus.isManageUsersScreenHeaderVisible()) {
+						if (mus.isManageUsersScreenHeaderVisible(10)) {
 							Keyword.ReportStep_Pass(testCase, "Successfully naviagates to " + screen.get(0));
 						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -4007,14 +4026,14 @@ public class NavigateToScreen extends Keyword {
 					}
 					break;
 				}
-				case "EDIT ACCOUNT": {
+				case "ACCOUNT DETAILS": {
 					AddressScreen ads = new AddressScreen(testCase);
 					GlobalDrawerScreen gds = new GlobalDrawerScreen(testCase);
 					EditAccountScreen eas = new EditAccountScreen(testCase);
 					if (ads.isAddressScreenTitleVisible() && ads.isBackButtonVisible()) {
 						flag &= ads.clickOnBackButton();
-						if (gds.isEditAccountOptionVisible()) {
-							flag &= gds.clickEditAccountOption();
+						if (gds.isAccountDetailsOptionVisible()) {
+							flag &= gds.clickAccountDetailsOption();
 							if (eas.isEditAccountScreenTitleVisible()) {
 								Keyword.ReportStep_Pass(testCase, screen.get(1) + " displayed");
 							} else {
@@ -4023,7 +4042,7 @@ public class NavigateToScreen extends Keyword {
 							}
 						} else {
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-									"Failed to display Edit Account option in Global Drawer");
+									"Failed to display Account Details option in Global Drawer");
 						}
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -4057,7 +4076,7 @@ public class NavigateToScreen extends Keyword {
 				}
 			} else if (screen.get(1).equalsIgnoreCase("EDIT ADDRESS")) {
 				switch (screen.get(0).toUpperCase()) {
-				case "EDIT ACCOUNT": {
+				case "ACCOUNT DETAILS": {
 					AddressScreen ads = new AddressScreen(testCase);
 					GlobalDrawerScreen gds = new GlobalDrawerScreen(testCase);
 					EditAccountScreen eas = new EditAccountScreen(testCase);
@@ -4069,8 +4088,8 @@ public class NavigateToScreen extends Keyword {
 							flag &= ads.clickOnYesButtonInCancelLocationChangesPopup();
 							if (ads.isAddressScreenTitleVisible() && ads.isBackButtonVisible()) {
 								flag &= ads.clickOnBackButton();
-								if (gds.isEditAccountOptionVisible()) {
-									flag &= gds.clickEditAccountOption();
+								if (gds.isAccountDetailsOptionVisible()) {
+									flag &= gds.clickAccountDetailsOption();
 									if (eas.isEditAccountScreenTitleVisible()) {
 										Keyword.ReportStep_Pass(testCase, screen.get(1) + " displayed");
 									} else {
@@ -4187,6 +4206,23 @@ public class NavigateToScreen extends Keyword {
 								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 										"Failed to navigate to: " + screen.get(1));
 							}
+						}
+					}
+					break;
+				}
+				}
+			} else if (screen.get(1).equalsIgnoreCase("USERS")) {
+				switch (screen.get(0).toUpperCase()) {
+				case "ACCOUNT DETAILS": {
+					SecondaryCardSettings sc= new SecondaryCardSettings(testCase);
+					ManageUsersScreen mus = new ManageUsersScreen(testCase);
+					if(mus.isManageUsersScreenHeaderVisible(10)) {
+						flag &= mus.clickOnBackButton();
+						if (sc.selectOptionFromSecondarySettings(SecondaryCardSettings.ACCOUNTDETAILS)) {
+							Keyword.ReportStep_Pass(testCase, "User is in Account Details screen");
+						} else {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Failed to navigate to Account Details screen");
 						}
 					}
 					break;

@@ -597,8 +597,32 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "EntryExitDelayOption", timeOut);
 	}
 
-	public boolean isGeofencingSwitchEnabled(TestCases testCase) throws Exception {
-		if (MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofencingSwitch", 10)) {
+	public boolean isGeofencingSwitchEnabled(TestCases testCase) throws Exception  {
+		if(testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+			if (MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofencingSwitch", 10)) {
+				if (MobileUtils.getFieldValue(objectDefinition, testCase, "GeofencingSwitch").equalsIgnoreCase("1")
+						|| MobileUtils.getFieldValue(objectDefinition, testCase, "GeofencingSwitch")
+						.equalsIgnoreCase("ON")) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}else if(MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeSwitch[@name='geofence_this_location_toggle']", testCase)){
+			//iOS
+				if (MobileUtils.getFieldValue(testCase, "XPATH", "//XCUIElementTypeSwitch[@name='geofence_this_location_toggle']").equalsIgnoreCase("1")
+						|| MobileUtils.getFieldValue(testCase, "XPATH", "//XCUIElementTypeSwitch[@name='geofence_this_location_toggle']")
+						.equalsIgnoreCase("ON")) {
+					return true;
+				} else {
+					return false;
+				}
+		} else {
+			throw new Exception("Could not find Geofencing Status Switch");
+		}
+		return false;
+	}	
+		/*if (MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeSwitch[@name='geofence_this_location_toggle']", testCase)) {
 			if (MobileUtils.getFieldValue(objectDefinition, testCase, "GeofencingSwitch").equalsIgnoreCase("1")
 					|| MobileUtils.getFieldValue(objectDefinition, testCase, "GeofencingSwitch")
 					.equalsIgnoreCase("ON")) {
@@ -608,8 +632,7 @@ public class BaseStationSettingsScreen extends MobileScreens {
 			}
 		} else {
 			throw new Exception("Could not find Geofencing Status Switch");
-		}
-	}
+		}*/
 
 	public boolean isKeyfobDeletePopUpMessageVisible() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "KeyfobDeletePopUpMessage", 3);

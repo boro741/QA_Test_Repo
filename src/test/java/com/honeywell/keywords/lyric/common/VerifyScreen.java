@@ -348,7 +348,8 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-			case "CONFIRM YOUR ZIP CODE": {
+			case "CONFIRM YOUR ADDRESS POSTCODE": 
+			case "CONFIRM YOUR ZIP CODE" : {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				if (dasDIY.isConfirmYourAddressZipCodeTitleVisible()) {
 					Keyword.ReportStep_Pass(testCase,
@@ -1040,7 +1041,7 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-			case "EDIT ACCOUNT": {
+			case "ACCOUNT DETAILS": {
 				EditAccountScreen eas = new EditAccountScreen(testCase);
 				if (eas.isEditAccountScreenTitleVisible() && eas.isNameLabelInEditAccountScreenVisible()
 						&& eas.isEmailLabelInEditAccountScreenVisible() && eas.isEmailValueInEditAccountScreenVisible()
@@ -1057,7 +1058,7 @@ public class VerifyScreen extends Keyword {
 			}
 			case "GLOBAL DRAWER": {
 				GlobalDrawerScreen gds = new GlobalDrawerScreen(testCase);
-				if (gds.isAccountHeaderTitleVisible() && gds.isEditAccountOptionVisible()) {
+				if (gds.isAccountHeaderTitleVisible() && gds.isAccountDetailsOptionVisible()) {
 					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1096,7 +1097,7 @@ public class VerifyScreen extends Keyword {
 					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to navigate to " + expectedScreen.get(0));
+							"Failed to display the options in " + expectedScreen.get(0));
 				}
 				break;
 			}
@@ -1160,7 +1161,7 @@ public class VerifyScreen extends Keyword {
 			case "PRIVACY POLICY AND EULA": {
 				AboutTheAppScreen atas = new AboutTheAppScreen(testCase);
 				DIYRegistrationUtils.waitForProgressBarToComplete(testCase, "PRIVACY POLICY LOADING SPINNER", 4);
-				if (atas.isPrivacyPolicyAndEULAScreenTitleVisible()) {
+				if (atas.isPrivacyPolicyAndEULAScreenTitleVisible(10)) {
 					Keyword.ReportStep_Pass(testCase, "Navigated to " + expectedScreen.get(0));
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -1631,18 +1632,18 @@ public class VerifyScreen extends Keyword {
 				break;
 			}
 			
-			case "FIRST AND LAST NAME IN THE EDIT ACCOUNT" :{
+			case "FIRST AND LAST NAME IN THE ACCOUNT DETAILS" :{
 				EditAccountScreen eas= new EditAccountScreen(testCase);
-				if(eas.isFirstNameValueVisibleInNameScreen() && eas.isLastNameValueVisibleInNameScreen()) {
-					Keyword.ReportStep_Pass(testCase, "First Name is: "+ eas.getFirstNameValueInNameScreen() + " & Last Name is: " + eas.getLastNameValueInNameScreen() + " is displayed");
+				if(eas.isNameValueInEditAccountScreenVisible()) {
+					Keyword.ReportStep_Pass(testCase, "Name is displayed in Account Details screen");
 				}else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to navigate to " + expectedScreen.get(0));
+							"Failed to display the " + expectedScreen.get(0));
 				}
 				break;
 			}
 			
-			case "LOGGED IN EMAIL":{
+			case "LOGGED IN EMAIL IN THE ACCOUNT DETAILS":{
 				EditAccountScreen eas= new EditAccountScreen(testCase);
 				if(eas.isLoggedInUserEmailDisplayed()) {
 					String userEmailAddress= eas.getLoggedInUserEmail();
@@ -1654,7 +1655,7 @@ public class VerifyScreen extends Keyword {
 				break;
 			}
 			
-			case "NAME EDIT ACCOUNT" : {
+			case "NAME ACCOUNT DETAILS" : {
 				NameEditAccountScreen neas= new NameEditAccountScreen(testCase);
 				if(neas.isNameEditAccountScreenTitleVisible()) {
 					Keyword.ReportStep_Pass(testCase, "Name Edit Account title is displayed");

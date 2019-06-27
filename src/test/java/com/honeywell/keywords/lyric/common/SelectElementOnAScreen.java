@@ -2145,7 +2145,7 @@ public class SelectElementOnAScreen extends Keyword {
 							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
 				}
-			} else if (parameters.get(1).equalsIgnoreCase("EDIT ACCOUNT")) {
+			} else if (parameters.get(1).equalsIgnoreCase("ACCOUNT DETAILS")) {
 				EditAccountScreen eas = new EditAccountScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "SAVE BUTTON": {
@@ -2943,7 +2943,7 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				}
-			}else if(parameters.get(1).equalsIgnoreCase("MANAGE USERS")) {
+			}else if(parameters.get(1).equalsIgnoreCase("USERS")) {
 				ManageUsersScreen mus= new ManageUsersScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "INVITE NEW USER" : {
@@ -2972,7 +2972,7 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				}
 				
-			} else if(parameters.get(1).equalsIgnoreCase("NAME EDIT ACCOUNT")) {
+			} else if(parameters.get(1).equalsIgnoreCase("NAME ACCOUNT DETAILS")) {
 				NameEditAccountScreen neas = new NameEditAccountScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "SAVE BUTTON" : {
