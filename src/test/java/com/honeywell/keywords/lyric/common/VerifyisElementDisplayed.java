@@ -333,6 +333,109 @@ public class VerifyisElementDisplayed extends Keyword {
 				}
 				break;
 			}
+                case "coach marks on top of the dashboard screen" : {
+                    CoachMarks cm = new CoachMarks(testCase);
+                    if(cm.isNextButtonVisible(1)) {
+                        Keyword.ReportStep_Pass(testCase, "Coach Marks are displayed in Dashboard screen");
+                    }else {
+                        Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                "Coach Marks are not displayed in Dashboard screen");
+                    }
+                    break;
+                }
+                    
+                case "Add new device button" : {
+                    Dashboard d = new Dashboard(testCase);
+                    if(d.isAddDeviceIconVisible(1)) {
+                        Keyword.ReportStep_Pass(testCase, "Add new device button is displayed in Dashboard screen");
+                    }else {
+                        Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                "Add new device button is not displayed in Dashboard screen");
+                    }
+                    break;
+                }
+                    
+                case "Device" : {
+                    Dashboard d = new Dashboard(testCase);
+                    if(d.areDevicesVisibleOnDashboard(2)) {
+                        Keyword.ReportStep_Pass(testCase, "Device is displayed in Dashboard screen");
+                    }else {
+                        Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                "Device is not displayed in Dashboard screen");
+                    }
+                    break;
+                }
+                    
+                case "Add new device button below Device": {
+                    Dashboard d = new Dashboard(testCase);
+                    if (d.isAddDeviceIconVisible(2)) {
+                        Keyword.ReportStep_Pass(testCase, "Add new device button is displayed in Dashboard screen");
+                    } else {
+                        Keyword.ReportStep_Pass(testCase,
+                                                "Add new device button is not displayed in Dashboard screen. Scroll down the list.");
+                        int counter = 0;
+                        while (!d.isAddDeviceIconVisible(1) && counter < 4) {
+                            // Scroll down to view the remaining list of devices
+                            LyricUtils.scrollUpAList(testCase, d.getDeviceEleInDashboardScreen());
+                            try {
+                                Thread.sleep(3000);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            if (d.isAddDeviceIconVisible(2)) {
+                                Keyword.ReportStep_Pass(testCase, "Add new device button is displayed in Dashboard screen");
+                            }
+                        }
+                        break;
+                    }
+                }
+                    
+                case "Weather status in Dashboard status area" : {
+                    CoachMarks cm = new CoachMarks(testCase);
+                    Dashboard d = new Dashboard(testCase);
+                    if(cm.isNextButtonVisible(2)) {
+                        cm.clickOnNextButton();
+                        if(cm.isNextButtonVisible(2)) {
+                            cm.clickOnNextButton();
+                        }
+                    }
+                    if(cm.isDoneButtonVisible(2)) {
+                        cm.clickOnDoneButton();
+                    }
+                    if (d.isGlobalDrawerButtonVisible(20)
+                        && (d.isAddDeviceIconVisible(10) || d.isWeatherIconDisplayed())) {
+                        Keyword.ReportStep_Pass(testCase, "Weather status in Dashboard status area is displayed in Dashboard screen");
+                    }else{
+                        Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                "Weather status in Dashboard status area is not displayed in Dashboard screen");
+                    }
+                    break;
+                }
+                    
+                case "Geofence status in Dashboard status area" : {
+                    GeofenceSettings gs = new GeofenceSettings(testCase);
+                    if (gs.isGeofencingTitleDisplayed()) {
+                        Keyword.ReportStep_Pass(testCase, "Geofence status in Dashboard status area is displayed");
+                    }else{
+                        Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                "Geofence status in Dashboard status area is not displayed");
+                    }
+                    break;
+                }
+                    
+                case "screen header along with Global drawer button" : {
+                    Dashboard d = new Dashboard(testCase);
+                    if(!d.isTodaysForecastDisplayed()) {
+                        if (d.isGlobalDrawerButtonVisible(20)
+                            && d.isLocationNameDisplayedInDashboardScreen()) {
+                            Keyword.ReportStep_Pass(testCase, "screen header and Global drawer buttons are displayed in Dashboard screen");
+                        }
+                    }else{
+                        Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                "screen header and Global drawer buttons are not displayed in Dashboard screen");
+                    }
+                    break;
+                }
 			default: {
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 						parameters.get(0) + "Input does not match");

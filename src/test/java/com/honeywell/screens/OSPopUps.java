@@ -283,5 +283,13 @@ public class OSPopUps extends MobileScreens {
 	public boolean clickOnOKButtonInHoneywellWouldLikeToAccessYourHomeDataPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInHoneywellWouldLikeToAccessYourHomeDataPopup");
 	}
+    
+    public boolean isAgreeButtonInMobileDeviceSettingsPopupVisible(int timeOut) {
+        return MobileUtils.isMobElementExists(objectDefinition, testCase, "AgreeButtonInMobileDeviceSettingsPopup", timeOut);
+    }
+    
+    public boolean clickOnAgreeButtonInMobileDeviceSettingsPopup() {
+        return MobileUtils.clickOnElement(objectDefinition, testCase, "AgreeButtonInMobileDeviceSettingsPopup");
+    }
 	
 }

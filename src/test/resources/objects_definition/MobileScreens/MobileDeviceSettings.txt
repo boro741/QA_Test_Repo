@@ -1,7 +1,7 @@
 FieldName	Android-Medium-Selector-Type	Android-Medium-Selector-Value	Android-Large-Selector-Type	Android-Large-Selector-Value	Android-Extra-Large-Selector-Type	Android-Extra-Large-Selector-Value	IOS-Medium-Selector-Type	IOS-Medium-Selector-Value	IOS-Large-Selector-Type	IOS-Large-Selector-Value	IOS-Extra-Large-Selector-Type	IOS-Extra-Large-Selector-Value
 ProgressBar	XPATH	//android.widget.ProgressBar	XPATH	//android.widget.ProgressBar	XPATH	//android.widget.ProgressBar	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View
 LoadingSpinner	ID	progress_bar	ID	progress_bar	ID	progress_bar	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View
-MobileDeviceLocationHeader	ID	action_bar_title	ID	action_bar_title	ID	action_bar_title						
+MobileDeviceLocationHeader	XPATH	//android.widget.TextView[@text='Location']	XPATH	//android.widget.TextView[@text='Location']	XPATH	//android.widget.TextView[@text='Location']						
 DisableMobileDeviceLocation	XPATH	//android.widget.Switch[@text='OFF' and @checked='false']	XPATH	//android.widget.Switch[@text='OFF' and @checked='false']	XPATH	//android.widget.Switch[@text='OFF' and @checked='false']						
 EnableMobileDeviceLocation	XPATH	//android.widget.Switch[@text='ON' and @checked='true']	XPATH	//android.widget.Switch[@text='ON' and @checked='true']	XPATH	//android.widget.Switch[@text='ON' and @checked='true']						
 AgreeLocationAccuracy	XPATH	//android.widget.Button[@text='Agree']	XPATH	//android.widget.Button[@text='Agree']	XPATH	//android.widget.Button[@text='Agree']						
@@ -13,3 +13,5 @@ IOSLocationServicesOffStatus							XPATH	"//XCUIElementTypeStaticText[@name=""Of
 IOSDisabledLocationServices							XPATH	//XCUIElementTypeSwitch[@name='Location Services' and @value='0']	XPATH	//XCUIElementTypeSwitch[@name='Location Services' and @value='0']	XPATH	//XCUIElementTypeSwitch[@name='Location Services' and @value='0']
 IOSEnabledLocationServices							XPATH	//XCUIElementTypeSwitch[@name='Location Services' and @value='1']	XPATH	//XCUIElementTypeSwitch[@name='Location Services' and @value='1']	XPATH	//XCUIElementTypeSwitch[@name='Location Services' and @value='1']
 IOSTurnOffLocationServices							XPATH	"//XCUIElementTypeButton[@name=""Turn Off""]"	XPATH	"//XCUIElementTypeButton[@name=""Turn Off""]"	XPATH	"//XCUIElementTypeButton[@name=""Turn Off""]"
+DeviceSettingsLocationServices	XPATH	//android.widget.TextView[@text='Location']										
+												

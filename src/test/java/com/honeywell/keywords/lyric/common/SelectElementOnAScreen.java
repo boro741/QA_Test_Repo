@@ -2988,6 +2988,22 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 			  }
+			}else if(parameters.get(1).equalsIgnoreCase("GEOFENCE SETTINGS")) {
+				GeofenceSettings gs = new GeofenceSettings(testCase);
+				switch (parameters.get(0).toUpperCase()) {
+				case "BACK BUTTON" : {
+					if (gs.isBackButtonInGeofenceRadiusScreenVisible()) {
+						flag &= gs.clickOnBackButtonInGeofenceRadiusScreen();
+					}
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to click on " + parameters.get(0));
+					}
+					break;
+				}
+			  }
 			}
 
 		} catch (Exception e) {

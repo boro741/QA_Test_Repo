@@ -168,6 +168,42 @@ public class NavigateBackAndForthInAScreen extends Keyword {
 			}
 			break;
 		}
+            case "COACH MARKS IN DASHBOARD": {
+                CoachMarks cm = new CoachMarks(testCase);
+                if (cm.isNextButtonVisible(1)) {
+                    Keyword.ReportStep_Pass(testCase, "Next button is displayed in " + expectedOption.get(0));
+                    flag &= cm.clickOnNextButton();
+                    if (cm.isDoneButtonVisible(1) && cm.isCoachMarkBackButtonVisible(1)) {
+                        Keyword.ReportStep_Pass(testCase, "Done button and Back button are displayed in " + expectedOption.get(0));
+                        flag &= cm.clickOnCoachMarkBackButton();
+                        if (cm.isNextButtonVisible(1)) {
+                            Keyword.ReportStep_Pass(testCase, "Next button is displayed in " + expectedOption.get(0));
+                            flag &= cm.clickOnNextButton();
+                            if (cm.isDoneButtonVisible(1) && cm.isCoachMarkBackButtonVisible(1)) {
+                                Keyword.ReportStep_Pass(testCase, "Done button and Back button are displayed in " + expectedOption.get(0));
+                                flag &= cm.clickOnDoneButton();
+                            } else {
+                                flag = false;
+                                Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                        "Done button and Back button are not displayed in " + expectedOption.get(0));
+                            }
+                        } else {
+                            flag = false;
+                            Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                    "Next button is not displayed in " + expectedOption.get(0));
+                        }
+                    } else {
+                        flag = false;
+                        Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                "Done button and Back button are not displayed in " + expectedOption.get(0));
+                    }
+                } else {
+                    flag = false;
+                    Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                            "Next button is not displayed in " + expectedOption.get(0));
+                }
+                break;
+            }
 		default: {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid option: " + expectedOption.get(0));

@@ -713,6 +713,10 @@ public class Dashboard extends MobileScreens {
 	public boolean isWeatherIconDisplayed() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardWeatherForecast");
 	}
+    
+    public MobileElement getWeatherIconMobileElement() {
+        return MobileUtils.getMobElement(objectDefinition, testCase, "DashboardWeatherForecast");
+    }
 
 	public boolean isDashboardWeatherForecastDisplayed(int timeOut) {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DashboardWeatherForecast", timeOut);
@@ -720,9 +724,13 @@ public class Dashboard extends MobileScreens {
 
 	public String getWeatherTempValue() {
 		String weatherValue = MobileUtils.getFieldValue(objectDefinition, testCase, "DashboardWeatherForecastValue");
-		System.out.println(weatherValue);
 		return weatherValue.split("˚")[0];
 	}
+    
+    public String getWeatherDetail() {
+        String weatherValue = MobileUtils.getFieldValue(objectDefinition, testCase, "DashboardWeatherForecastValue");
+        return weatherValue.split("˚")[1];
+    }
 
 	public boolean clickOnWeatherTempValue() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "DashboardWeatherForecast");
@@ -756,13 +764,11 @@ public class Dashboard extends MobileScreens {
 		if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 			String weatherValue = MobileUtils.getFieldValue(objectDefinition, testCase,
 					"DashboardWeatherForecastValue");
-			System.out.println(weatherValue);
 			return weatherValue.split("˚")[1];
 		} else {
 			// ios
 			String weatherValue = MobileUtils.getMobElement(objectDefinition, testCase, "DashboardWeatherForecastValue")
 					.getAttribute("label");
-			System.out.println(weatherValue);
 			return weatherValue.split("˚")[1];
 		}
 	}
@@ -1008,4 +1014,35 @@ public class Dashboard extends MobileScreens {
 		}
 		return deviceNames;
 	}
+    
+    public String getDashboardMaxTemp() {
+        String maxWeather = MobileUtils.getFieldValue(objectDefinition, testCase, "WeatherMaxTemp");
+        return maxWeather.split("˚")[0];
+    }
+    
+    public String getDashboardMinTemp() {
+        String minWeather = MobileUtils.getFieldValue(objectDefinition, testCase, "WeatherMinTemp");
+        return minWeather.split("˚")[0];
+    }
+    
+    public boolean isWeatherMaxTempDisplayed() {
+        return MobileUtils.isMobElementExists(objectDefinition, testCase, "WeatherMaxTemp");
+    }
+    
+    public boolean isWeatherMinTempDisplayed() {
+        return MobileUtils.isMobElementExists(objectDefinition, testCase, "WeatherMinTemp");
+    }
+    
+    public boolean isTodaysForecastDisplayed() {
+        return MobileUtils.isMobElementExists(objectDefinition, testCase, "TodaysForecastLabel");
+    }
+    
+    public boolean isPageIndicatorDisplayed() {
+        return MobileUtils.isMobElementExists(objectDefinition, testCase, "PageIndicator");
+    }
+    
+    public WebElement getDashboardWeatherStatusArea() {
+        WebElement weatherStatusArea=MobileUtils.getMobElement(objectDefinition, testCase, "DashboardWeatherStatusArea");
+        return weatherStatusArea;
+    }
 }

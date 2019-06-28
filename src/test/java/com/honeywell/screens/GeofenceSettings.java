@@ -267,5 +267,55 @@ public class GeofenceSettings extends MobileScreens {
 	public boolean clickOnYESButtonInCancelGeofenceChangesPopup() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "YESButtonInCancelGeofenceChangesPopup");
 	}
+    
+    public boolean clickOnYESButtonInCancelGeofenceChangesPopup() {
+        return MobileUtils.clickOnElement(objectDefinition, testCase, "YESButtonInCancelGeofenceChangesPopup");
+    }
+    
+    public boolean isGeofencingTitleDisplayed() {
+        return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofencingLabel");
+    }
+    
+    public boolean isGeofencingIconDisplayed() {
+        return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofencingIcon");
+    }
+    
+    public boolean clickOnGeofencingIcon() {
+        return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofencingIcon");
+    }
+    
+    public boolean isGeofencingCurrentStateDisplayed() {
+        return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofencingCurrentState");
+    }
+    
+    public boolean isGeofenceHomeSettingsDisplayed() {
+        return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceHomeSettings");
+    }
+    
+    public String getGeofencingCurrentState() {
+        String CurrentState = MobileUtils.getFieldValue(objectDefinition, testCase, "GeofencingCurrentState");
+        return CurrentState;
+    }
+    
+    public String getGeofenceHomeSettings() {
+        String GeofenceSettings = MobileUtils.getFieldValue(objectDefinition, testCase, "GeofenceHomeSettings");
+        return GeofenceSettings;
+    }
+    
+    public boolean isLocationServiceDisabledOptionDisplayed() {
+        return MobileUtils.isMobElementExists(objectDefinition, testCase, "LocationServiceDisabled");
+    }
+    
+    public boolean ClickOnLocationServiceDisabledIcon() {
+        return MobileUtils.clickOnElement(objectDefinition, testCase, "GeofenceAlertIcon");
+    }
+    
+    public boolean isEnableOsSettingsOptionDisplayed() {
+        return MobileUtils.isMobElementExists(objectDefinition, testCase, "EnableOsSettings");
+    }
+    
+    public boolean isGeofenceAlertIconDisplayed() {
+        return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofenceAlertIcon");
+    }
 	
 }
