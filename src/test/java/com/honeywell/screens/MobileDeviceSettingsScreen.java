@@ -43,5 +43,9 @@ public class MobileDeviceSettingsScreen extends MobileScreens {
 	public boolean clickOnIOSMobileDeviceSettings() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "MobileDeviceSettings");
 	}
+    
+    public boolean isDeviceSettingsLocationServicesDisplayed(int timeOut) {
+        return MobileUtils.isMobElementExists(objectDefinition, testCase, "DeviceSettingsLocationServices", timeOut);
+    }
 
 }

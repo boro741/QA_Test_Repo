@@ -1152,6 +1152,61 @@ public class LyricUtils {
 		}
 		return MobileUtils.swipe(testCase, startx, starty, startx, endy);
 	}
+    
+    public static boolean scrollDownAList(TestCases testCase, WebElement devieListWebEle) {
+        Dimension d1;
+        Point p1;
+        int startx = 1;
+        int starty = 1;
+        int endy = 1;
+        if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+            d1 = devieListWebEle.getSize();
+            p1 = devieListWebEle.getLocation();
+            startx = p1.getX();
+            starty = (int) (d1.height * 0.30) + p1.getY();
+            endy = (int) (d1.height * 0.90) + p1.getY();
+        } else {
+            d1 = devieListWebEle.getSize();
+            p1 = devieListWebEle.getLocation();
+            startx = d1.width / 2;
+            starty = (int) -((d1.height * 0.30) + p1.getY());
+            endy = (int) (d1.height * 0.0);
+        }
+        return MobileUtils.swipe(testCase, startx, starty, startx, endy);
+        
+    }
+    
+    public static void swipeLeft(TestCases testCase, WebElement devieListWebEle) {
+        Dashboard d = new Dashboard(testCase);
+        if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+            Dimension size = testCase.getMobileDriver().manage().window().getSize();
+            new TouchAction(testCase.getMobileDriver()).press(point(startx,starty)).waitAction().moveTo(point(endx,starty)).release().perform();
+        }else {
+            Dimension size= MobileUtils.getMobElement(testCase, "XPATH", "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeImage[1]").getSize();
+            int starty = (int) (size.height);
+            int startx = (int) (size.width *0.80 );
+            int endx = (int) (size.width * 0.20);
+            MobileUtils.swipe(testCase, startx, starty, endx, starty);
+            
+        }
+    }
+    
+    public static void swipeRight(TestCases testCase, WebElement devieListWebEle) {
+        Dashboard d = new Dashboard(testCase);
+        if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+            Dimension size = testCase.getMobileDriver().manage().window().getSize();
+            int starty = (int) (size.height *0.30 );
+            int startx = (int) (size.width *0.20 );
+            int endx = (int) (size.width * 0.80);
+            new TouchAction(testCase.getMobileDriver()).press(point(startx,starty)).waitAction().moveTo(point(endx,starty)).release().perform();
+        }else {
+            Dimension size= MobileUtils.getMobElement(testCase, "XPATH", "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeImage[1]").getSize();
+            int starty = (int) (size.height);
+            int startx = (int) (size.width *0.20 );
+            int endx = (int) (size.width * 0.80);
+            MobileUtils.swipe(testCase, startx, starty, endx, starty);
+        }
+    }
 
 	/**
 	 * <h1>Scroll To Element Using Exact Attribute Value</h1>

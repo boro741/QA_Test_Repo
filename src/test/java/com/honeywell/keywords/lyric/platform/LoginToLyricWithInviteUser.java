@@ -166,12 +166,16 @@ public class LoginToLyricWithInviteUser extends Keyword {
 					"Logout of Lyric : Error occured - " + e.getMessage());
 			flag = false;
 		}
-		if (!inputName.get(0).equalsIgnoreCase("LOGGED IN USERS ACCOUNT")) {
-			flag &= LyricUtils.loginToApplicationWithInviteUsersAccount(testCase, inputs, inputName.get(0));
-		} else {
-			flag &= LyricUtils.loginToApplicationWithInviteUsersAccount(testCase, inputs,
-					inputs.getInputValue("USERID"));
-		}
+        if (inputName.get(0).equalsIgnoreCase("LOGGED IN USERS ACCOUNT WITHOUT COACH MARKS")) {
+            flag &= LyricUtils.loginToApplicationWithoutCoachMark(testCase, inputs,
+                                                                  inputs.getInputValue("USERID"));
+        } else if (!inputName.get(0).equalsIgnoreCase("LOGGED IN USERS ACCOUNT")) {
+            flag &= LyricUtils.loginToApplicationWithInviteUsersAccount(testCase, inputs, inputName.get(0));
+        }
+        else {
+            flag &= LyricUtils.loginToApplicationWithInviteUsersAccount(testCase, inputs,
+                                                                        inputs.getInputValue("USERID"));
+        }
 		return flag;
 	}
 

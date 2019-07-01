@@ -32,3 +32,4 @@ NotificationsMayIncludeAlertsDescription							XPATH	"//XCUIElementTypeStaticTex
 SkipButton	XPATH	//android.widget.Button[@text='Skip']	XPATH	//android.widget.Button[@text='Skip']	XPATH	//android.widget.Button[@text='Skip']						
 HoneywellLikeToAccessYourHomeDataPopup							XPATH	"//XCUIElementTypeStaticText[contains(@name,'Would Like to Access Your Home Data')]"	XPATH	"//XCUIElementTypeStaticText[contains(@name,'Would Like to Access Your Home Data')]"	XPATH	"//XCUIElementTypeStaticText[contains(@name,'Would Like to Access Your Home Data')]"
 OKButtonInHoneywellWouldLikeToAccessYourHomeDataPopup							NAME	OK	NAME	OK	NAME	OK
+AgreeButtonInMobileDeviceSettingsPopup	XPATH	//android.widget.Button[@text='Agree']										

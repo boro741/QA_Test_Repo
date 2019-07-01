@@ -550,20 +550,20 @@ public class VerifyScreen extends Keyword {
 				break;
 			}
 			case "DASHBOARD": {
-				Dashboard d = new Dashboard(testCase);
-				if (d.isIncreaseSecurityPopupVisible()) {
-					d.clickOnDontUseButtonInIncreaseSecurityPopup();
-				}
-				if (d.isGlobalDrawerButtonVisible(20)
-						&& (d.isAddDeviceIconVisible(10) || d.isAddDeviceIconBelowExistingDASDeviceVisible(10))) {
-					Keyword.ReportStep_Pass(testCase,
-							"Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
-				} else {
-					flag = false;
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-							"Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
-				}
-				break;
+                Dashboard d = new Dashboard(testCase);
+                if (d.isIncreaseSecurityPopupVisible()) {
+                    d.clickOnDontUseButtonInIncreaseSecurityPopup();
+                }
+                if (d.isGlobalDrawerButtonVisible(20)
+                    && (d.isAddDeviceIconVisible(10) || d.isWeatherIconDisplayed())) {
+                    Keyword.ReportStep_Pass(testCase,
+                                            "Successfully navigated to " + expectedScreen.get(0).toUpperCase() + " screen");
+                } else {
+                    flag = false;
+                    Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                            "Failed to navigate to expected screen " + expectedScreen.get(0).toUpperCase());
+                }
+                break;
 			}
 			case "CHECK LOCATION": {
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
@@ -1778,6 +1778,16 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+                case "DEVICE SETTINGS LOCATION SERVICES": {
+                    MobileDeviceSettingsScreen mds = new MobileDeviceSettingsScreen(testCase);
+                    if (mds.isDeviceSettingsLocationServicesDisplayed(20)) {
+                        Keyword.ReportStep_Pass(testCase, "Device Settings Location Services is displayed");
+                    } else {
+                        Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                "Device Settings Location Services is not displayed");
+                    }
+                    break;
+                }
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

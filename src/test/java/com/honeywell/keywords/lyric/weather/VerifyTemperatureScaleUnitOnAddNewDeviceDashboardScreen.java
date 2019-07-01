@@ -65,7 +65,32 @@ public class VerifyTemperatureScaleUnitOnAddNewDeviceDashboardScreen extends Key
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid input " + parameters.get(0));
 			}
 			}
-		}
+        }else if (parameters.get(1).equalsIgnoreCase("ADD NEW DEVICE DASHBOARD")) {
+            Dashboard d = new Dashboard(testCase);
+            switch (parameters.get(0).toUpperCase()) {
+                case "CELSIUS": {
+                    if (d.getWeatherTempValue().contains(".")) {
+                        Keyword.ReportStep_Pass(testCase, "Celsius value is displayed");
+                    } else {
+                        Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Celsius value is not displayed");
+                    }
+                    break;
+                }
+                case "FARENHEIT": {
+                    if (!d.getWeatherTempValue().contains(".")) {
+                        Keyword.ReportStep_Pass(testCase, "Farenheit value is displayed");
+                    } else {
+                        Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Farenheit value is not displayed");
+                    }
+                    break;
+                }
+                    
+                default: {
+                    flag = false;
+                    Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid input " + parameters.get(0));
+                }
+            }
+        }
 		return flag;
 	}
 

@@ -8,10 +8,10 @@ DoneButtonInWeatherForecast	ID	btn_positive_got_it	ID	btn_positive_got_it	ID	btn
 GotItButtonInWeatherForecast	XPATH	//*[@text='Got It']	XPATH	//*[@text='Got It']	XPATH	//*[@text='Got It']	NAME	Got It	NAME	Got It	NAME	Got It
 AddNewDeviceIcon	ID	dashboard_add_device	ID	dashboard_add_device	ID	dashboard_add_device	NAME	Add New Device	NAME	Add New Device	NAME	Add New Device
 AddNewDeviceIconBelowExistingDevice	ID	dashboard_add_device	ID	dashboard_add_device	ID	dashboard_add_device	NAME	Add New Device	NAME	Add New Device	NAME	Add New Device
-AddNewDeviceNewIcon							XPATH	(//XCUIElementTypeButton[@name='Add New Device'])[2]	XPATH	(//XCUIElementTypeButton[@name='Add New Device'])[2]	XPATH	(//XCUIElementTypeButton[@name='Add New Device'])[2]
+AddNewDeviceNewIcon	ID	dashboard_add_device					XPATH	(//XCUIElementTypeButton[@name='Add New Device'])[2]	XPATH	(//XCUIElementTypeButton[@name='Add New Device'])[2]	XPATH	(//XCUIElementTypeButton[@name='Add New Device'])[2]
 AddNewDeviceMenu							name	Add New Device	name	Add New Device	name	Add New Device
 ZwaveSwitchSelectedState							name	Selected_State	name	Selected_State	name	Selected_State
-WeatherIcon	id	action_weather	id	action_weather	id	action_weather	name	icon showers small	name	icon showers small	name	icon showers small
+WeatherIcon	id	fragment_weather_image_view	id	fragment_weather_image_view	id	fragment_weather_image_view	name	icon showers small	name	icon showers small	name	icon showers small
 BackButton	XPATH	//android.widget.ImageButton[@content-desc='Navigate Up']	XPATH	//android.widget.ImageButton[@content-desc='Navigate Up']	XPATH	//android.widget.ImageButton[@content-desc='Navigate Up']	name	Back	name	Back	name	Back
 SplashScreen	id	splash_screen_layout	id	splash_screen_layout	id	splash_screen_layout						
 ProgressBar	xpath	//android.widget.ProgressBar	xpath	//android.widget.ProgressBar	xpath	//android.widget.ProgressBar	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View	NAME	Activity_Indicator_View
@@ -54,5 +54,10 @@ LocationDropdown	XPATH	"//android.widget.Spinner[@resource-id='com.honeywell.and
 DashboardWeatherForecastValue	ID	current_temp_details	ID	current_temp_details	ID	current_temp_details	XPATH	(//XCUIElementTypeOther//XCUIElementTypeStaticText)[3]	XPATH	(//XCUIElementTypeOther//XCUIElementTypeStaticText)[3]	XPATH	(//XCUIElementTypeOther//XCUIElementTypeStaticText)[3]
 LocationListViewInDashboardScreenScrollableInAndroid	XPATH	//android.widget.ListView	XPATH	//android.widget.ListView	XPATH	//android.widget.ListView						
 LocationListWhenClickedOnLocationDropDownArrow	ID	toolbar_spinner_item_dropdown_title	ID	toolbar_spinner_item_dropdown_title	ID	toolbar_spinner_item_dropdown_title	XPATH	//XCUIElementTypeCell[@name='Navigation_Drop_Down_Title_cell']	XPATH	//XCUIElementTypeCell[@name='Navigation_Drop_Down_Title_cell']	XPATH	//XCUIElementTypeCell[@name='Navigation_Drop_Down_Title_cell']
-DevicesList	id	dashboard_device_name	id	dashboard_device_name	id	dashboard_device_name	XPATH	//XCUIElementTypeCell/XCUIElementTypeOther/following-sibling::XCUIElementTypeButton[@name='title']	XPATH	//XCUIElementTypeCell/XCUIElementTypeOther/following-sibling::XCUIElementTypeButton[@name='title']	XPATH	//XCUIElementTypeCell/XCUIElementTypeOther/following-sibling::XCUIElementTypeButton[@name='title']
-DeviceEleInDashboard	ID	device_view	ID	device_view	ID	device_view	XPATH	//XCUIElementTypeCell	XPATH	//XCUIElementTypeCell	XPATH	//XCUIElementTypeCell
+DevicesList	ID	dashboard_device_name					XPATH	//XCUIElementTypeCell/XCUIElementTypeOther/following-sibling::XCUIElementTypeButton[@name='title']	XPATH	//XCUIElementTypeCell/XCUIElementTypeOther/following-sibling::XCUIElementTypeButton[@name='title']	XPATH	//XCUIElementTypeCell/XCUIElementTypeOther/following-sibling::XCUIElementTypeButton[@name='title']
+DeviceEleInDashboard	ID	device_view					XPATH	//XCUIElementTypeCell	XPATH	//XCUIElementTypeCell	XPATH	//XCUIElementTypeCell
+TodaysForecastLabel	ID	weather_header_message					NAME	TODAY'S FORECAST				
+WeatherMaxTemp	ID	weather_max_temp	ID	weather_max_temp	ID	weather_max_temp	XPATH	//XCUIElementTypeImage[@name='weather_up_arrow']/following-sibling::XCUIElementTypeStaticText[1]	XPATH	//XCUIElementTypeImage[@name='weather_up_arrow']/following-sibling::XCUIElementTypeStaticText[1]	XPATH	//XCUIElementTypeImage[@name='weather_up_arrow']/following-sibling::XCUIElementTypeStaticText[1]
+WeatherMinTemp	ID	weather_min_temp	ID	weather_min_temp	ID	weather_min_temp	XPATH	//XCUIElementTypeImage[@name='weather_down_arrow']/following-sibling::XCUIElementTypeStaticText[1]	XPATH	//XCUIElementTypeImage[@name='weather_down_arrow']/following-sibling::XCUIElementTypeStaticText[1]	XPATH	//XCUIElementTypeImage[@name='weather_down_arrow']/following-sibling::XCUIElementTypeStaticText[1]
+PageIndicator	ID	layoutDots	ID	layoutDots	ID	layoutDots	XPATH	//XCUIElementTypeOther[1]/XCUIElementTypePageIndicator				
+DashboardWeatherStatusArea	XPATH	//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeImage[1]										

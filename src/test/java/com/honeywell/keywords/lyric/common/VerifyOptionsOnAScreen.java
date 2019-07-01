@@ -2966,6 +2966,118 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 			break;
 		}
+            case "GEOFENCE STATUS": {
+                boolean flag = true;
+                GeofenceSettings gs = new GeofenceSettings(testCase);
+                Dashboard d = new Dashboard(testCase);
+                for (int i = 0; i < data.getSize(); i++) {
+                    String parameter = data.getData(i, "GeofenceStatusOptions");
+                    switch (parameter.toUpperCase()) {
+                            
+                        case "GEOFENCING TITLE": {
+                            flag &= gs.isGeofencingTitleDisplayed();
+                            if (flag) {
+                                Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+                            } else {
+                                Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                        "Option " + parameter + " is not displayed");
+                            }
+                            break;
+                        }
+                        case "GEOFENCE ICON": {
+                            flag &= gs.isGeofencingIconDisplayed();
+                            if (flag) {
+                                Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+                            } else {
+                                Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                        "Option " + parameter + " is not displayed");
+                            }
+                            break;
+                        }
+                            
+                        case "CURRENT STATE OF GEOFENCING": {
+                            String CurrentState=null;
+                            flag &= gs.isGeofencingCurrentStateDisplayed();
+                            CurrentState=gs.getGeofencingCurrentState();
+                            if (flag) {
+                                Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+                            } else {
+                                Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                        "Option " + parameter + " is not displayed");
+                            }
+                            break;
+                        }
+                            
+                        case "WHAT SETTINGS ARE BEING USED": {
+                            String GeofenceSettings=null;
+                            flag &= gs.isGeofenceHomeSettingsDisplayed();
+                            GeofenceSettings=gs.getGeofenceHomeSettings();
+                            if (flag) {
+                                Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed");
+                            } else {
+                                Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                        "Option " + parameter + " is not displayed");
+                            }
+                            break;
+                        }
+                            
+                        case "PAGE INDICATOR": {
+                            flag &= d.isPageIndicatorDisplayed();
+                            if (flag) {
+                                Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed:");
+                            } else {
+                                Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                        "Option " + parameter + " is not displayed");
+                            }
+                            break;
+                        }
+                            
+                        case "ALERT ICON": {
+                            flag &= gs.isGeofenceAlertIconDisplayed();
+                            if (flag) {
+                                Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed:");
+                            } else {
+                                Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                        "Option " + parameter + " is not displayed");
+                            }
+                            break;
+                        }
+                            
+                        case "LOCATION SERVICES DISABLED LABEL": {
+                            flag &= gs.isLocationServiceDisabledOptionDisplayed();
+                            if (flag) {
+                                Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed:");
+                            } else {
+                                Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                        "Option " + parameter + " is not displayed");
+                            }
+                            break;
+                        }
+                            
+                        case "ENABLE IN OS SETTINGS LABEL": {
+                            if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+                                flag &= gs.isEnableOsSettingsOptionDisplayed();
+                            }else {
+                                flag &= gs.isEnableOsSettingsOptionDisplayed();
+                            }
+                            if (flag) {
+                                Keyword.ReportStep_Pass(testCase, "Option " + parameter + " is displayed:");
+                            } else {
+                                Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                        "Option " + parameter + " is not displayed");
+                            }
+                            break;
+                        }
+                        default: {
+                            flag = false;
+                            Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                    "Invalid Input: " + expectedScreen.get(0));
+                        }
+                    }
+                    flag = true;
+                }
+                break;
+            }
 		case "ACTIVITY HISTORY": {
 			ActivityHistoryScreen ah = new ActivityHistoryScreen(testCase);
 			for (int i = 0; i < data.getSize(); i++) {
@@ -4267,226 +4379,258 @@ public class VerifyOptionsOnAScreen extends Keyword {
 			}
 		}
 		case "WEATHER": {
-			boolean flag = true;
-			String locationValue1 = null;
-			Dashboard d = new Dashboard(testCase);
-			WeatherForecastScreen w = new WeatherForecastScreen(testCase);
-			for (int i = 0; i < data.getSize(); i++) {
-				String parameter = data.getData(i, "WeatherOptions");
-				switch (parameter.toUpperCase()) {
-				case "WEATHER ICON": {
-					flag &= d.isWeatherIconDisplayed();
-					if (flag) {
-						Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not displayed");
-					}
-					break;
-				}
-				case "WEATHER TEMP IN DASHBOARD SCREEN": {
-					try {
-						chUtil = new CHILUtil(inputs);
-						long locationID;
-						double weatherTemperatureFromCHIL, weatherTemperatureDisplayedInTheApp;
-						String defaultWeatherTempUnit = null;
-						if (chUtil.getConnection()) {
-							locationID = chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME"));
-							System.out.println("The CHIL location ID is: " + locationID);
-							weatherTemperatureFromCHIL = Double.parseDouble(chUtil.getWeather(locationID));
-							System.out.println("########weatherTemperatureFromCHIL: " + weatherTemperatureFromCHIL);
-							if (flag &= d.isDashboardWeatherForecastDisplayed(100)) {
-								Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
-								defaultWeatherTempUnit = d.getWeatherTempValue();
-								weatherTemperatureDisplayedInTheApp = Double.parseDouble(defaultWeatherTempUnit);
-								flag &= d.clickOnWeatherTempValue();
-								if (w.isWeatherScreenTitleDisplayed(10)) {
-									String tempUnitEnabled = w.whichWeatherTempUnitIsEnabled();
-									if (tempUnitEnabled.contains("C")) {
-										w.clickOnBackIcon();
-									} else {
-										w.clickOnCelsiusUnit();
-										w.clickOnBackIcon();
-									}
-									/*
-									 * if(tempUnitEnabled.contains("F")) { w.clickOnFarenheitUnit();
-									 * w.clickOnBackIcon(); }else { w.clickOnBackIcon(); }
-									 */
-								}
-								if ((Double.compare(weatherTemperatureFromCHIL,
-										weatherTemperatureDisplayedInTheApp) == 0)
-										|| (Double.compare(weatherTemperatureFromCHIL,
-												weatherTemperatureDisplayedInTheApp) >= 2)
-										|| (Double.compare(weatherTemperatureFromCHIL,
-												weatherTemperatureDisplayedInTheApp) <= 2)) {
-									Keyword.ReportStep_Pass(testCase, parameter
-											+ "Weather displayed in app is same as the Weather Temperature in CHIL");
-								} else {
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-											"Weather displayed in app: " + weatherTemperatureDisplayedInTheApp
-													+ "is not same as the weather displayed in CHIL"
-													+ weatherTemperatureFromCHIL);
-								}
-							} else {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-										parameter + " is not displayed");
-							}
-						}
-					} catch (Exception e) {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Error Occured : " + e.getMessage());
-					}
-					break;
-				}
-				case "WEATHER TEMP IN DASHBOARD SCREEN IS SAME AS WEATHER TEMP IN WEATHER SCREEN": {
-					try {
-						chUtil = new CHILUtil(inputs);
-						long locationID;
-						double weatherTemperatureFromCHIL, weatherTemperatureDisplayedInTheApp,
-								weatherTemperatureDisplayedInWeatherScreen;
-						String defaultWeatherTempUnit = null;
-						String weatherTempStatus = null;
-						if (chUtil.getConnection()) {
-							locationID = chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME"));
-							System.out.println("The CHIL location ID is: " + locationID);
-							weatherTemperatureFromCHIL = Double.parseDouble(chUtil.getWeather(locationID));
-							System.out.println("########weatherTemperatureFromCHIL: " + weatherTemperatureFromCHIL);
-							if (flag &= d.isDashboardWeatherForecastDisplayed(100)) {
-								Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
-								defaultWeatherTempUnit = d.getWeatherTempValue();
-								System.out.println(
-										"The temperature displayed in Dashboard screen is: " + defaultWeatherTempUnit);
-								weatherTemperatureDisplayedInTheApp = Double.parseDouble(defaultWeatherTempUnit);
-								weatherTempStatus = d.getWeatherTempStatus();
-								System.out
-										.println("The temperature status in Dashboard screen is: " + weatherTempStatus);
-
-								flag &= d.clickOnWeatherTempValue();
-								if (w.isWeatherScreenTitleDisplayed(10)) {
-									String weatherValueInWeatherScreen = w.getWeatherForecastValue();
-									System.out.println("The temperature displayed in Weatherscreen is: "
-											+ weatherValueInWeatherScreen);
-									weatherTemperatureDisplayedInWeatherScreen = Double
-											.parseDouble(weatherValueInWeatherScreen);
-									String weatherStatusInWeatherScreen = w.getWeatherForecastStatus();
-									System.out.println("The temperature displayed in Weatherscreen is: "
-											+ weatherStatusInWeatherScreen);
-									if ((Double.compare(weatherTemperatureFromCHIL,
-											weatherTemperatureDisplayedInTheApp) == 0)
-											&& (Double.compare(weatherTemperatureFromCHIL,
-													weatherTemperatureDisplayedInWeatherScreen) == 0)
-											|| (Double.compare(weatherTemperatureFromCHIL,
-													weatherTemperatureDisplayedInTheApp) >= 2)
-													&& (Double.compare(weatherTemperatureFromCHIL,
-															weatherTemperatureDisplayedInWeatherScreen) > 2)
-											|| (Double.compare(weatherTemperatureFromCHIL,
-													weatherTemperatureDisplayedInTheApp) <= 2)
-													&& (Double.compare(weatherTemperatureFromCHIL,
-															weatherTemperatureDisplayedInTheApp) <= 2)) {
-										Keyword.ReportStep_Pass(testCase,
-												parameter + "Weather value displayed in Dashboard "
-														+ defaultWeatherTempUnit
-														+ "is same as the weather value displayed in Weather screen"
-														+ weatherValueInWeatherScreen
-														+ "Weather status displayed in Dashboard " + weatherTempStatus
-														+ "is same as the weather status displayed in Weather screen "
-														+ weatherStatusInWeatherScreen);
-									} else {
-										Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-												"Weather value displayed in Dashboard " + defaultWeatherTempUnit
-														+ "is not same as the weather value displayed in Weather screen "
-														+ weatherValueInWeatherScreen
-														+ "Weather status displayed in Dashboard " + weatherTempStatus
-														+ "is not same as the weather status displayed in Weather screen "
-														+ weatherStatusInWeatherScreen);
-									}
-								} else {
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-											parameter + " is not displayed");
-								}
-							}
-						}
-					} catch (Exception e) {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Error Occured : " + e.getMessage());
-					}
-
-					break;
-				}
-				case "HUMIDITY": {
-					try {
-						chUtil = new CHILUtil(inputs);
-						w = new WeatherForecastScreen(testCase);
-						long locationID;
-						int humidityFromCHIL, humidityDisplayedInTheApp;
-						String getWeatherHumidity = null;
-						if (chUtil.getConnection()) {
-							locationID = chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME"));
-							System.out.println("The CHIL location ID is: " + locationID);
-							humidityFromCHIL = Integer.parseInt(chUtil.getHumidty(locationID));
-							System.out.println("########HumidityFromCHIL: " + humidityFromCHIL);
-							if (flag &= w.isHumidityDisplayed(100)) {
-								Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
-								getWeatherHumidity = w.getHumidity();
-								humidityDisplayedInTheApp = Integer.parseInt(getWeatherHumidity);
-								if ((Integer.compare(humidityFromCHIL, humidityDisplayedInTheApp) == 0)
-										|| (Integer.compare(humidityFromCHIL, humidityDisplayedInTheApp) < 15)) {
-									Keyword.ReportStep_Pass(testCase,
-											parameter + " displayed in app " + humidityDisplayedInTheApp
-													+ " is same as the Humidity in CHIL: " + humidityFromCHIL);
-								} else {
-									Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-											"Humidity displayed in app: " + humidityDisplayedInTheApp
-													+ "is not same as the weather displayed in CHIL: "
-													+ humidityFromCHIL);
-								}
-							} else {
-								Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-										parameter + " is not displayed");
-							}
-						}
-					} catch (Exception e) {
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Error Occured : " + e.getMessage());
-					}
-					break;
-				}
-
-				case "MAX WEATHER TEMPERATURE": {
-					String getMaxWeather = null;
-					if (w.isWeatherMaxTempDisplayed()) {
-						Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
-						getMaxWeather = w.getWeatherMaxTemp();
-						flag &= WeatherForecastUtils.compareMaxTempWithCHIL(testCase, inputs, getMaxWeather);
-					}
-					break;
-				}
-
-				case "MIN WEATHER TEMPERATURE": {
-					String getMinWeather = null;
-					if (w.isWeatherMinTempDisplayed()) {
-						Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
-						getMinWeather = w.getWeatherMinTemp();
-						flag &= WeatherForecastUtils.compareMinTempWithCHIL(testCase, inputs, getMinWeather);
-					}
-					break;
-				}
-
-				case "WEATHER TEMP IN FORECAST SCREEN": {
-					String getWeatherForecastTemp = null;
-					if (w.isWeatherForecastValueDisplayed()) {
-						Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
-						getWeatherForecastTemp = w.getWeatherForecastValue();
-						flag &= WeatherForecastUtils.compareWeatherForecastTempWithCHIL(testCase, inputs,
-								getWeatherForecastTemp);
-					}
-					break;
-				}
-				}
-			}
-		}
+            boolean flag = true;
+            String locationValue1 = null;
+            Dashboard d = new Dashboard(testCase);
+            WeatherForecastScreen w = new WeatherForecastScreen(testCase);
+            for (int i = 0; i < data.getSize(); i++) {
+                String parameter = data.getData(i, "WeatherOptions");
+                switch (parameter.toUpperCase()) {
+                    case "WEATHER ICON": {
+                        flag &= d.isWeatherIconDisplayed();
+                        if (flag) {
+                            Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+                        } else {
+                            Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not displayed");
+                        }
+                        break;
+                    }
+                    case "WEATHER TEMP IN DASHBOARD SCREEN": {
+                        try {
+                            chUtil = new CHILUtil(inputs);
+                            long locationID;
+                            double weatherTemperatureFromCHIL, weatherTemperatureDisplayedInTheApp;
+                            String defaultWeatherTempUnit = null;
+                            String defaultWeatherDetail=null;
+                            if (chUtil.getConnection()) {
+                                locationID = chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME"));
+                                weatherTemperatureFromCHIL = Double.parseDouble(chUtil.getWeather(locationID));
+                                if (flag &= d.isDashboardWeatherForecastDisplayed(100)) {
+                                    Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+                                    defaultWeatherTempUnit = d.getWeatherTempValue();
+                                    defaultWeatherDetail = d.getWeatherDetail();
+                                    weatherTemperatureDisplayedInTheApp = Double.parseDouble(defaultWeatherTempUnit);
+                                    
+                                    flag &= d.clickOnWeatherTempValue();
+                                    if (w.isWeatherScreenTitleDisplayed(10)) {
+                                        String tempUnitEnabled = w.whichWeatherTempUnitIsEnabled();
+                                        String weatherDetail = w.getWeatherForecastStatus();
+                                        
+                                        if (defaultWeatherDetail.trim().equalsIgnoreCase(weatherDetail) ) {
+                                            
+                                            Keyword.ReportStep_Pass(testCase,
+                                                                    parameter + "Weather detail displayed in app is: " +defaultWeatherDetail);
+                                        } else {
+                                            Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                                    "Weather detail is not displayed in app is: " +defaultWeatherDetail);
+                                        }
+                                        
+                                        
+                                        if (tempUnitEnabled.contains("C")) {
+                                            w.clickOnBackIcon();
+                                        } else {
+                                            w.clickOnCelsiusUnit();
+                                            w.clickOnBackIcon();
+                                        }
+                                        /*
+                                         * if(tempUnitEnabled.contains("F")) { w.clickOnFarenheitUnit();
+                                         * w.clickOnBackIcon(); }else { w.clickOnBackIcon(); }
+                                         */
+                                        
+                                    }
+                                    if ((Double.compare(weatherTemperatureFromCHIL,
+                                                        weatherTemperatureDisplayedInTheApp) == 0)
+                                        || (Double.compare(weatherTemperatureFromCHIL,
+                                                           weatherTemperatureDisplayedInTheApp) >= 2)
+                                        || (Double.compare(weatherTemperatureFromCHIL,
+                                                           weatherTemperatureDisplayedInTheApp) <= 2)) {
+                                        Keyword.ReportStep_Pass(testCase, parameter
+                                                                + "Weather displayed in app is same as the Weather Temperature in CHIL is: "+weatherTemperatureDisplayedInTheApp);
+                                    } else {
+                                        Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                                "Weather displayed in app: " + weatherTemperatureDisplayedInTheApp
+                                                                + "is not same as the weather displayed in CHIL"
+                                                                + weatherTemperatureFromCHIL);
+                                    }
+                                } else {
+                                    Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                            parameter + " is not displayed");
+                                }
+                            }
+                        } catch (Exception e) {
+                            flag = false;
+                            Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                    "Error Occured : " + e.getMessage());
+                        }
+                        break;
+                    }
+                    case "WEATHER TEMP IN DASHBOARD SCREEN IS SAME AS WEATHER TEMP IN WEATHER SCREEN": {
+                        try {
+                            chUtil = new CHILUtil(inputs);
+                            long locationID;
+                            double weatherTemperatureFromCHIL, weatherTemperatureDisplayedInTheApp,
+                            weatherTemperatureDisplayedInWeatherScreen;
+                            String defaultWeatherTempUnit = null;
+                            String weatherTempStatus = null;
+                            if (chUtil.getConnection()) {
+                                locationID = chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME"));
+                                weatherTemperatureFromCHIL = Double.parseDouble(chUtil.getWeather(locationID));
+                                if (flag &= d.isDashboardWeatherForecastDisplayed(100)) {
+                                    Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+                                    defaultWeatherTempUnit = d.getWeatherTempValue();
+                                    weatherTemperatureDisplayedInTheApp = Double.parseDouble(defaultWeatherTempUnit);
+                                    weatherTempStatus = d.getWeatherTempStatus();
+                                    flag &= d.clickOnWeatherTempValue();
+                                    if (w.isWeatherScreenTitleDisplayed(10)) {
+                                        String weatherValueInWeatherScreen = w.getWeatherForecastValue();
+                                        weatherTemperatureDisplayedInWeatherScreen = Double
+                                        .parseDouble(weatherValueInWeatherScreen);
+                                        String weatherStatusInWeatherScreen = w.getWeatherForecastStatus();
+                                        if ((Double.compare(weatherTemperatureFromCHIL,
+                                                            weatherTemperatureDisplayedInTheApp) == 0)
+                                            && (Double.compare(weatherTemperatureFromCHIL,
+                                                               weatherTemperatureDisplayedInWeatherScreen) == 0)
+                                            || (Double.compare(weatherTemperatureFromCHIL,
+                                                               weatherTemperatureDisplayedInTheApp) >= 2)
+                                            && (Double.compare(weatherTemperatureFromCHIL,
+                                                               weatherTemperatureDisplayedInWeatherScreen) > 2)
+                                            || (Double.compare(weatherTemperatureFromCHIL,
+                                                               weatherTemperatureDisplayedInTheApp) <= 2)
+                                            && (Double.compare(weatherTemperatureFromCHIL,
+                                                               weatherTemperatureDisplayedInTheApp) <= 2)) {
+                                            Keyword.ReportStep_Pass(testCase,
+                                                                    parameter + "Weather value displayed in Dashboard "
+                                                                    + defaultWeatherTempUnit
+                                                                    + "is same as the weather value displayed in Weather screen"
+                                                                    + weatherValueInWeatherScreen
+                                                                    + "Weather status displayed in Dashboard " + weatherTempStatus
+                                                                    + "is same as the weather status displayed in Weather screen "
+                                                                    + weatherStatusInWeatherScreen);
+                                        } else {
+                                            Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                                    "Weather value displayed in Dashboard " + defaultWeatherTempUnit
+                                                                    + "is not same as the weather value displayed in Weather screen "
+                                                                    + weatherValueInWeatherScreen
+                                                                    + "Weather status displayed in Dashboard " + weatherTempStatus
+                                                                    + "is not same as the weather status displayed in Weather screen "
+                                                                    + weatherStatusInWeatherScreen);
+                                        }
+                                    } else {
+                                        Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                                parameter + " is not displayed");
+                                    }
+                                }
+                            }
+                        } catch (Exception e) {
+                            flag = false;
+                            Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                    "Error Occured : " + e.getMessage());
+                        }
+                        
+                        break;
+                    }
+                    case "HUMIDITY": {
+                        try {
+                            chUtil = new CHILUtil(inputs);
+                            w = new WeatherForecastScreen(testCase);
+                            long locationID;
+                            int humidityFromCHIL, humidityDisplayedInTheApp;
+                            String getWeatherHumidity = null;
+                            if (chUtil.getConnection()) {
+                                locationID = chUtil.getLocationID(inputs.getInputValue("LOCATION1_NAME"));
+                                humidityFromCHIL = Integer.parseInt(chUtil.getHumidty(locationID));
+                                if (flag &= w.isHumidityDisplayed(100)) {
+                                    Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+                                    getWeatherHumidity = w.getHumidity();
+                                    humidityDisplayedInTheApp = Integer.parseInt(getWeatherHumidity);
+                                    if ((Integer.compare(humidityFromCHIL, humidityDisplayedInTheApp) == 0)
+                                        || (Integer.compare(humidityFromCHIL, humidityDisplayedInTheApp) < 15)) {
+                                        Keyword.ReportStep_Pass(testCase,
+                                                                parameter + " displayed in app " + humidityDisplayedInTheApp
+                                                                + " is same as the Humidity in CHIL: " + humidityFromCHIL);
+                                    } else {
+                                        Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                                "Humidity displayed in app: " + humidityDisplayedInTheApp
+                                                                + "is not same as the weather displayed in CHIL: "
+                                                                + humidityFromCHIL);
+                                    }
+                                } else {
+                                    Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                            parameter + " is not displayed");
+                                }
+                            }
+                        } catch (Exception e) {
+                            flag = false;
+                            Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+                                                    "Error Occured : " + e.getMessage());
+                        }
+                        break;
+                    }
+                        
+                    case "MAX WEATHER TEMPERATURE": {
+                        String getMaxWeather = null;
+                        if (w.isWeatherMaxTempDisplayed()) {
+                            Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+                            getMaxWeather = w.getWeatherMaxTemp();
+                            flag &= WeatherForecastUtils.compareMaxTempWithCHIL(testCase, inputs, getMaxWeather);
+                        }
+                        break;
+                    }
+                        
+                    case "MIN WEATHER TEMPERATURE": {
+                        String getMinWeather = null;
+                        if (w.isWeatherMinTempDisplayed()) {
+                            Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+                            getMinWeather = w.getWeatherMinTemp();
+                            flag &= WeatherForecastUtils.compareMinTempWithCHIL(testCase, inputs, getMinWeather);
+                        }
+                        break;
+                    }
+                        
+                    case "WEATHER TEMP IN FORECAST SCREEN": {
+                        String getWeatherForecastTemp = null;
+                        if (w.isWeatherForecastValueDisplayed()) {
+                            Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+                            getWeatherForecastTemp = w.getWeatherForecastValue();
+                            flag &= WeatherForecastUtils.compareWeatherForecastTempWithCHIL(testCase, inputs,
+                                                                                            getWeatherForecastTemp);
+                        }
+                        break;
+                    }
+                        
+                    case "TODAY'S HIGH AND LOW TEMPERATURE": {
+                        String getMaxWeather = null;
+                        String getMinWeather = null;
+                        if (d.isWeatherMaxTempDisplayed() && d.isWeatherMinTempDisplayed()) {
+                            Keyword.ReportStep_Pass(testCase, parameter + " are displayed");
+                            getMaxWeather=d.getDashboardMaxTemp();
+                            getMinWeather=d.getDashboardMinTemp();
+                            flag &= WeatherForecastUtils.compareMaxTempWithCHIL(testCase, inputs, getMaxWeather);
+                            flag &= WeatherForecastUtils.compareMinTempWithCHIL(testCase, inputs, getMinWeather);
+                        }
+                        break;
+                    }
+                        
+                    case "TODAY'S FORECAST HEADER": {
+                        if (d.isTodaysForecastDisplayed()) {
+                            Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+                        }else {
+                            Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not displayed");
+                        }
+                        break;
+                    }
+                        
+                    case "NO PAGE INDICATOR": {
+                        if (!d.isPageIndicatorDisplayed()) {
+                            Keyword.ReportStep_Pass(testCase, parameter + " is displayed");
+                        }else {
+                            Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, parameter + " is not displayed");
+                        }
+                        break;
+                    }
+                }
+            }
+        }
 		case "ALLOW HONEYWELL TO ACCESS YOUR LOCATION": {
 			boolean flag = true;
 			OSPopUps ops = new OSPopUps(testCase);
