@@ -18,6 +18,7 @@ import com.honeywell.commons.report.FailType;
 import com.honeywell.lyric.das.utils.FAQsUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraSettingsScreen;
+import com.honeywell.screens.CoachMarks;
 import com.honeywell.screens.FAQsScreen;
 import com.honeywell.screens.PrimaryCard;
 import com.honeywell.screens.VacationHoldScreen;

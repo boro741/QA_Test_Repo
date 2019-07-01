@@ -268,10 +268,6 @@ public class GeofenceSettings extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "YESButtonInCancelGeofenceChangesPopup");
 	}
     
-    public boolean clickOnYESButtonInCancelGeofenceChangesPopup() {
-        return MobileUtils.clickOnElement(objectDefinition, testCase, "YESButtonInCancelGeofenceChangesPopup");
-    }
-    
     public boolean isGeofencingTitleDisplayed() {
         return MobileUtils.isMobElementExists(objectDefinition, testCase, "GeofencingLabel");
     }
