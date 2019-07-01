@@ -13,6 +13,7 @@ import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
 import com.honeywell.commons.mobile.MobileObject;
 import com.honeywell.commons.report.FailType;
+import com.honeywell.screens.Dashboard;
 import com.honeywell.screens.WeatherForecastScreen;
 
 public class VerifyTemperatureScaleUnitOnAddNewDeviceDashboardScreen extends Keyword {

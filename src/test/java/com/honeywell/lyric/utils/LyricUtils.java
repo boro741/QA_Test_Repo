@@ -1180,6 +1180,9 @@ public class LyricUtils {
         Dashboard d = new Dashboard(testCase);
         if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
             Dimension size = testCase.getMobileDriver().manage().window().getSize();
+            int starty = (int) (size.height *0.30 );
+		    int startx = (int) (size.width *0.80 );
+		    int endx = (int) (size.width * 0.20);
             new TouchAction(testCase.getMobileDriver()).press(point(startx,starty)).waitAction().moveTo(point(endx,starty)).release().perform();
         }else {
             Dimension size= MobileUtils.getMobElement(testCase, "XPATH", "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeImage[1]").getSize();
@@ -2424,6 +2427,16 @@ public class LyricUtils {
 		} else {
 			flag = flag & LyricUtils.verifyLoginSuccessfulForUserWithoutAnyLocation(testCase, inputs);
 		}
+		return flag;
+	}
+	
+	public static boolean loginToApplicationWithoutCoachMark(TestCases testCase, TestCaseInputs inputs,
+			String loggedInUsersEmailAddress) {
+		boolean flag = true;
+		flag = flag & LyricUtils.loginToLyricAppWithInviteUsersAccount(testCase, inputs, loggedInUsersEmailAddress);
+	
+			flag = flag & LyricUtils.verifyLoginSuccessful(testCase, inputs);
+		
 		return flag;
 	}
 }
