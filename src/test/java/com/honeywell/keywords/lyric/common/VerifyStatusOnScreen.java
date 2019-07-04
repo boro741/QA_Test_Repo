@@ -20,6 +20,7 @@ import com.honeywell.lyric.das.utils.DASZwaveUtils;
 import com.honeywell.lyric.das.utils.DIYRegistrationUtils;
 import com.honeywell.lyric.das.utils.DashboardUtils;
 import com.honeywell.lyric.relayutils.ZWaveRelayUtils;
+import com.honeywell.lyric.utils.LyricUtils;
 import com.honeywell.screens.BaseStationSettingsScreen;
 import com.honeywell.screens.CameraScreen;
 import com.honeywell.screens.DASDIYRegistrationScreens;
@@ -178,7 +179,7 @@ public class VerifyStatusOnScreen extends Keyword {
 			}
 			case "WINDOW SENSOR":
 			case "WINDOW": {
-			switch (expectedScreen.get(1).toUpperCase()) {
+				switch (expectedScreen.get(1).toUpperCase()) {
 				case "OPEN": {
 					DASSensorUtils sensorUtils = new DASSensorUtils();
 					flag = sensorUtils.verifySensorState(testCase, inputs, expectedScreen.get(0),
@@ -439,7 +440,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
-											+ " instead found to be " + currentStatus);
+									+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
@@ -451,7 +452,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
-											+ " instead found to be " + currentStatus);
+									+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
@@ -463,7 +464,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
-											+ " instead found to be " + currentStatus);
+									+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
@@ -504,7 +505,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
-											+ " instead found to be " + currentStatus);
+									+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
@@ -516,7 +517,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
-											+ " instead found to be " + currentStatus);
+									+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
@@ -528,7 +529,7 @@ public class VerifyStatusOnScreen extends Keyword {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 									expectedScreen.get(0) + " status is not in " + expectedScreen.get(1)
-											+ " instead found to be " + currentStatus);
+									+ " instead found to be " + currentStatus);
 						}
 						break;
 					}
@@ -971,7 +972,8 @@ public class VerifyStatusOnScreen extends Keyword {
 		}
 		case "TEST MOTION SENSOR":
 		case "TEST MOTION VIEWER":
-		case "TEST ACCESS SENSOR": {
+		case "TEST ACCESS SENSOR": 
+		case "TEST DETECTOR SENSOR":{
 			SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "DOOR":
@@ -1095,6 +1097,53 @@ public class VerifyStatusOnScreen extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1") + " is not "
 										+ (expectedScreen.get(1)));
+					}
+					break;
+				}
+				}
+				break;
+			}
+			case "SMOKE SENSOR":{
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "WAITING FOR SMOKE SIGNAL": {
+					if(testCase.getPlatform().toUpperCase().contains("ANDROID")){
+						flag = flag & MobileUtils.isMobElementExists("xpath", "//*[@text='Waiting for Smoke Signal']", testCase,30);
+					} else{
+						flag = flag & MobileUtils.isMobElementExists("id", "Waiting For Smoke Signal", testCase,30);
+					}
+					break;
+				}
+				case "SMOKE SIGNAL CONFIRMED": {
+					if(testCase.getPlatform().toUpperCase().contains("ANDROID")){
+						flag = flag & MobileUtils.isMobElementExists("xpath","//*[@text='Smoke Signal Confirmed']", testCase,30);
+					} else{
+						flag = flag & MobileUtils.isMobElementExists("id", "Smoke Signal Confirmed", testCase,30);
+					}
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isNextButtonVisible()) {
+						flag = flag & dasDIY.clickOnNextButton();
+						Keyword.ReportStep_Pass(testCase, "Navigated to SMOKE SIGNAL CONFIRMED");
+					}
+					break;
+				}
+				}
+				break;
+			}
+			case "CO SENSOR":{
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "WAITING FOR CO SIGNAL": {
+					if(testCase.getPlatform().toUpperCase().contains("ANDROID")){
+					flag = flag & MobileUtils.isMobElementExists("xpath","//*[@text='Waiting for CO Signal']", testCase,45);
+					} else{
+						flag = flag & MobileUtils.isMobElementExists("id", "Waiting For CO Signal", testCase,30);
+					}
+					break;
+				}
+				case "CO SIGNAL CONFIRMED": {
+					if(testCase.getPlatform().toUpperCase().contains("ANDROID")){
+					flag = flag & MobileUtils.isMobElementExists("xpath","//*[@text='CO Signal Confirmed']", testCase,30);
+					} else{
+						flag = flag & MobileUtils.isMobElementExists("id", "CO Signal Confirmed", testCase,30);
 					}
 					break;
 				}
@@ -1347,6 +1396,24 @@ public class VerifyStatusOnScreen extends Keyword {
 				}
 				break;
 			}
+			case "COMBO SENSOR": {
+				SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
+				switch (expectedScreen.get(1).toUpperCase()) {
+				case "CONFIGURED": {
+					System.out.println(inputs.getInputValue("LOCATION1_DEVICE1_CO_DETECTOR"));
+					flag = flag & sensorSetting.isSensorConfigured(
+							inputs.getInputValue("LOCATION1_DEVICE1_CO_DETECTOR"), expectedScreen.get(1));
+					if (flag) {
+						Keyword.ReportStep_Pass(testCase, "Successfully Verified " + expectedScreen.get(1));
+					} else {
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Failed to verify " + expectedScreen.get(1));
+					}			
+					break;
+				}
+				}
+				break;
+			}
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 1 not handled");
@@ -1380,7 +1447,7 @@ public class VerifyStatusOnScreen extends Keyword {
 			flag = false;
 			Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "Input 3 not handled");
 		}
-			break;
+		break;
 		}
 		return flag;
 	}

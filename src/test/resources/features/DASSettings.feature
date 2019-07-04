@@ -878,3 +878,17 @@ As user I should be able to control my DAS panel settings from the app
       | Mode | 
       | Home | 
       | OFF  | 
+
+      
+ @DeleteKATANABaseStationAwayNightOffline  @--xrayid:ATER-97713
+  Scenario Outline: KATANA should not be deleted from app when user tries to delete the DAS panel which is in Away, Night or Offline status
+   Given user is set to <Mode> mode through CHIL
+     When user launches and logs in to the Lyric application
+     And user navigates to "Base Station Configuration" screen from the "Dashboard" screen
+     Then user selects "Delete" from "Security Settings" screen
+      And user should be displayed with "Delear Info Screen"
+    Examples: 
+      | Mode  | 
+      | Away  | 
+      #| Night | 
+  #|Offline|
