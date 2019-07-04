@@ -579,9 +579,9 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					break;
 				}
-			  }
+				}
 			}
-			
+
 			else if (parameters.get(1).equalsIgnoreCase("ADD NEW DEVICE")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "SMART HOME SECURITY": {
@@ -608,7 +608,7 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					break;
 				}
-			  }
+				}
 			} else if (parameters.get(1).equalsIgnoreCase("CHOOSE LOCATION")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "CREATE NEW LOCATION": {
@@ -681,7 +681,7 @@ public class SelectElementOnAScreen extends Keyword {
 			} else if (parameters.get(1).equalsIgnoreCase("NAME MOTION SENSOR")) {
 				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
 				inputs.setInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1", parameters.get(0));
-			} else if (parameters.get(1).toUpperCase().equals("NAME MOTION SENSOR CUSTOM NAME")) {
+			}else if (parameters.get(1).toUpperCase().equals("NAME MOTION SENSOR CUSTOM NAME")) {
 				switch (parameters.get(0).toUpperCase()) {
 				case "BACK": {
 					SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
@@ -701,7 +701,12 @@ public class SelectElementOnAScreen extends Keyword {
 			} else if (parameters.get(1).equalsIgnoreCase("PLACE VIEWER SELECT MOUNTING OPTION")) {
 				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
 				inputs.setInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWERMOUNTINGOPTION1", parameters.get(0));
-			} else if (parameters.get(1).equalsIgnoreCase("SELECT OSMV LOCATION")) {
+			}else if (parameters.get(1).equalsIgnoreCase("NAME DETECTOR")) {
+				inputs.setInputValue("LOCATION1_DEVICE1_CO_DETECTOR", parameters.get(0));
+				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
+			}else if (parameters.get(1).equalsIgnoreCase("PLACE DETECTOR")) {
+				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
+			}else if (parameters.get(1).equalsIgnoreCase("SELECT OSMV LOCATION")) {
 				flag = flag & DIYRegistrationUtils.selectAvailableSensorName(testCase, parameters.get(0));
 				inputs.setInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1", parameters.get(0));
 			} else if (parameters.get(1).toUpperCase().equals("DOOR")
@@ -800,7 +805,7 @@ public class SelectElementOnAScreen extends Keyword {
 						 * .6)).release().perform();
 						 */
 						action.press(point(10, (int) (dimensions.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(1000)))
-								.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+						.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 					}
 					flag = flag & settingScreen.clickOnFirmwareDetailsOption();
 					break;
@@ -830,9 +835,9 @@ public class SelectElementOnAScreen extends Keyword {
 						 * .6)).release().perform();
 						 */
 						action.press(point(10, (int) (dimensions.getHeight() * .9)))
-								.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+						.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 						action.press(point(10, (int) (dimensions.getHeight() * .9)))
-								.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+						.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 					}
 					flag = flag & bs.clickOnSignalStrengthandTestOption();
 					break;
@@ -924,6 +929,7 @@ public class SelectElementOnAScreen extends Keyword {
 				case "MOTION SENSOR SETUP BUTTON":
 				case "DOOR ACCESS SENSOR SETUP BUTTON":
 				case "WINDOW ACCESS SENSOR SETUP BUTTON":
+				case "COMBO SETUP":
 				case "KEYFOB SETUP BUTTON":
 				case "ISMV SENSOR SETUP BUTTON":
 				case "OSMV SENSOR SETUP BUTTON": {
@@ -960,6 +966,7 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("Sensor Overview")
 					|| parameters.get(1).equalsIgnoreCase("Keyfob Overview")
+					||parameters.get(1).equalsIgnoreCase("Detector Overview")
 					|| parameters.get(1).equalsIgnoreCase("Sensor Keyfob Overview")) {
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
@@ -1420,7 +1427,7 @@ public class SelectElementOnAScreen extends Keyword {
 						}
 					}
 				}
-					break;
+				break;
 				}
 			}
 			// Amresh wld
@@ -1559,7 +1566,7 @@ public class SelectElementOnAScreen extends Keyword {
 						 * (dimension.getHeight() * .6)).release().perform();
 						 */
 						action.press(point(10, (int) (dimension.getHeight() * .9)))
-								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					// flag &= !click.isOutdoorMotionViewerOnInHomeModeEnabled();
 					flag &= click.toggleOutdoorMotionViewersOnInHomeModeSwitch(testCase);
@@ -1578,8 +1585,8 @@ public class SelectElementOnAScreen extends Keyword {
 						 * (dimension.getHeight() * .6)).release().perform();
 						 */
 						action.press(point(10, (int) (dimension.getHeight() * .9)))
-								.waitAction(waitOptions(MobileUtils.getDuration(3000)))
-								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+						.waitAction(waitOptions(MobileUtils.getDuration(3000)))
+						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= !click.isEntryExitDelayEnabled();
 					flag &= click.clickonEntryExistDelayoption();
@@ -1606,13 +1613,13 @@ public class SelectElementOnAScreen extends Keyword {
 						 * (dimension.getHeight() * .6)).release().perform();
 						 */
 						action.press(point(10, (int) (dimension.getHeight() * .9)))
-								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						action.press(point(10, (int) (dimension.getHeight() * .9)))
-								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						action.press(point(10, (int) (dimension.getHeight() * .9)))
-								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						action.press(point(10, (int) (dimension.getHeight() * .9)))
-								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= !click.isBaseStationVolumeEnabled();
 					flag &= click.clickonbasestationvolumeoption();
@@ -1636,9 +1643,9 @@ public class SelectElementOnAScreen extends Keyword {
 						 * .6)).release().perform();
 						 */
 						action.press(point(10, (int) (dimension.getHeight() * .9)))
-								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						action.press(point(10, (int) (dimension.getHeight() * .9)))
-								.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+						.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 					}
 					flag &= !click.isBaseStationResetWifiEnabled();
 					flag &= click.clickonbasestationresetwifioption();
@@ -1697,12 +1704,12 @@ public class SelectElementOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
-					if (flag) {
-						Keyword.ReportStep_Pass(testCase, "Successfully click on " + parameters.get(0));
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Failed to click on " + parameters.get(0));
-					}
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Successfully click on " + parameters.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to click on " + parameters.get(0));
+				}
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("GEOFENCE THIS LOCATION")) {
 				GeofenceSettings gs = new GeofenceSettings(testCase);
@@ -1715,7 +1722,7 @@ public class SelectElementOnAScreen extends Keyword {
 								"Failed to click on " + parameters.get(0));
 					}
 				}
-					break;
+				break;
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("ENHANCED DETERRENCE")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
@@ -1737,13 +1744,13 @@ public class SelectElementOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
-					if (flag) {
-						Keyword.ReportStep_Pass(testCase, "Successfully selected on " + parameters.get(0));
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Failed to selected on " + parameters.get(0));
-					}
-					break;
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Successfully selected on " + parameters.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to selected on " + parameters.get(0));
+				}
+				break;
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("CAMERA SETTINGS")) {
 				CameraSettingsScreen cs = new CameraSettingsScreen(testCase);
@@ -1771,13 +1778,13 @@ public class SelectElementOnAScreen extends Keyword {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							parameters.get(0) + " - Input not handled in " + parameters.get(1));
 				}
-					if (flag) {
-						Keyword.ReportStep_Pass(testCase, "Successfully selected on " + parameters.get(0));
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Failed to selected on " + parameters.get(0));
-					}
-					break;
+				if (flag) {
+					Keyword.ReportStep_Pass(testCase, "Successfully selected on " + parameters.get(0));
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed to selected on " + parameters.get(0));
+				}
+				break;
 				}
 			} else if (parameters.get(1).equalsIgnoreCase("GLOBAL DRAWER")) {
 				GlobalDrawerScreen gd = new GlobalDrawerScreen(testCase);
@@ -1812,7 +1819,7 @@ public class SelectElementOnAScreen extends Keyword {
 							 * (dimension.getHeight() * .6)).release().perform();
 							 */
 							action.press(point(10, (int) (dimension.getHeight() * .9)))
-									.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+							.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 						}
 						if (gd.isLogoutOptionVisible()) {
 							gd.clickOnLogoutOption();
@@ -1882,7 +1889,7 @@ public class SelectElementOnAScreen extends Keyword {
 						flag &= ah.clickOnDeleteButton();
 					}
 					if(flag) {
-							Keyword.ReportStep_Pass(testCase, "Successfully selected the option: " + parameters.get(0));
+						Keyword.ReportStep_Pass(testCase, "Successfully selected the option: " + parameters.get(0));
 					}else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Failed to select the option: " + parameters.get(0));
@@ -2221,7 +2228,7 @@ public class SelectElementOnAScreen extends Keyword {
 									"Failed to click on " + parameters.get(0));
 						}
 					}
-					
+
 					break;
 				}
 				default: {
@@ -2330,7 +2337,7 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0)
-								+ " in Learn How To Delete A Device Screen.");
+						+ " in Learn How To Delete A Device Screen.");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Failed to click on " + parameters.get(0));
@@ -2354,7 +2361,7 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					if (flag) {
 						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0)
-								+ " in Learn How To Cancel A Membership Screen.");
+						+ " in Learn How To Cancel A Membership Screen.");
 					} else {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Failed to click on " + parameters.get(0));
@@ -2683,8 +2690,8 @@ public class SelectElementOnAScreen extends Keyword {
 							 * (dimensions.getHeight() * .6)).release().perform();
 							 */
 							action.press(point(10, (int) (dimensions.getHeight() * .9)))
-									.waitAction(waitOptions(MobileUtils.getDuration(2000)))
-									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+							.waitAction(waitOptions(MobileUtils.getDuration(2000)))
+							.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 						}
 						if (cas.isCreateAccountPrivacyStatementLinkDisplayed()) {
 							flag &= cas.isCreateAccountClickOnPrivacyStatementLink();
@@ -2723,7 +2730,7 @@ public class SelectElementOnAScreen extends Keyword {
 							 * (dimensions.getHeight() * .6)).release().perform();
 							 */
 							action.press(point(10, (int) (dimensions.getHeight() * .9)))
-									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+							.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 						}
 						if (cas.isCreateAccountEULALinkDisplayed()) {
 							flag &= cas.isCreateAccountClickOnEULALink();
@@ -2759,7 +2766,7 @@ public class SelectElementOnAScreen extends Keyword {
 							 * (dimensions.getHeight() * .6)).release().perform();
 							 */
 							action.press(point(10, (int) (dimensions.getHeight() * .9)))
-									.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
+							.moveTo(point(0, -(int) (dimensions.getHeight() * .6))).release().perform();
 						}
 						if (cas.isCreateAccountRegisterButtonDisplayed()) {
 							flag &= cas.clickOnCreateAccountRegisterButton();
@@ -2970,8 +2977,7 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					break;
 				}
-				}
-				
+				}				
 			} else if(parameters.get(1).equalsIgnoreCase("NAME ACCOUNT DETAILS")) {
 				NameEditAccountScreen neas = new NameEditAccountScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
@@ -3004,18 +3010,19 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 			  }
+
 			}
 
-		} catch (Exception e) {
-			flag = false;
-			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
-		}
-		return flag;
+	} catch (Exception e) {
+		flag = false;
+		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
 	}
+	return flag;
+}
 
-	@Override
-	@AfterKeyword
-	public boolean postCondition() throws KeywordException {
-		return flag;
-	}
+@Override
+@AfterKeyword
+public boolean postCondition() throws KeywordException {
+	return flag;
+}
 }

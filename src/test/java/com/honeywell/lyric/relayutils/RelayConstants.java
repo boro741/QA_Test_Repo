@@ -3,6 +3,7 @@ package com.honeywell.lyric.relayutils;
 public class RelayConstants {
 	public static final String RelayBoardCOMPort = "COM29";
 	public static final String RelayBoardTTYPort = "/dev/tty.usbmodem1421";
+
 	
 	public static String RSI_Contact_Sensor_1_SerialNO= "289407736";//window
 	public static String RSI_Contact_Sesor_1_Enroll_ON = "trigger-0";  // Window
@@ -49,4 +50,8 @@ public class RelayConstants {
 	
 	public static String RSI_AllSensor_Trip_OFF = "Setall-0";
 	public static String RSI_AllSensor_Trip_ON = "Setall-1";
+	public static String RFS_COMBO_SENSOR_1_SerialNO= "10001268816892126217";//Combo
+	public static String RFS_COMBO_Sensor_1_TRIGGER_SMOKE = "trigger-16";  //Smoke
+	public static String RFS_COMBO_Sensor_1_TRIGGER_CO = "trigger-17";  //CO
+
 }

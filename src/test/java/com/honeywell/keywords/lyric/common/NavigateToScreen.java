@@ -1830,6 +1830,12 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & dasDIY.selectDeviceToInstall(screen.get(0));
 					break;
 				}
+				case "SMART HOME SECURITY SENSOR ACCESSORIES": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					flag = flag & dasDIY.isAddNewDeviceScreenVisible(20);
+					flag = flag & dasDIY.selectDeviceToInstall(screen.get(0));
+					break;
+				}
 				case "C1 WI-FI SECURITY CAMERA": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					flag = flag & dasDIY.isAddNewDeviceScreenVisible(20);
@@ -2955,9 +2961,11 @@ public class NavigateToScreen extends Keyword {
 				}
 			} else if (screen.get(1).equalsIgnoreCase("Place Sensor")
 					|| screen.get(1).equalsIgnoreCase("Mount in a corner")
-					|| screen.get(1).equalsIgnoreCase("Mount on the wall")) {
+					|| screen.get(1).equalsIgnoreCase("Mount on the wall")
+					|| screen.get(1).equalsIgnoreCase("Place Base Plate")) {
 				switch (screen.get(0).toUpperCase()) {
-				case "PLACE SENSOR ON LOCATION": {
+				case "PLACE SENSOR ON LOCATION": 
+				case "PLACE SENSOR BODY":{
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					if (sensor.clickOnNextButton()) {
 						System.out.println("NAvigated to " + screen.get(0));
@@ -2979,15 +2987,16 @@ public class NavigateToScreen extends Keyword {
 							"Invalid Input : " + screen.get(0) + " for " + screen.get(1));
 				}
 				}
-			} else if (screen.get(1).equalsIgnoreCase("PLACE VIEWER CHECK PLACEMENT")) {
+			} else if (screen.get(1).equalsIgnoreCase("PLACE VIEWER CHECK PLACEMENT")
+					||(screen.get(1).equalsIgnoreCase("PLACE SENSOR BODY"))) {
 				switch (screen.get(0).toUpperCase()) {
 				case "PLACE VIEWER WALL": {
 					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 					if (dasDIY.isNextButtonVisible()) {
 						flag = flag & dasDIY.clickOnNextButton();
 						if (dasDIY.isPlaceViewerWallScreenTitleVisible(20)) {
-							System.out.println("NAvigated to " + screen.get(0));
-							Keyword.ReportStep_Pass(testCase, "NAvigated to " + screen.get(0));
+							System.out.println("Navigated to " + screen.get(0));
+							Keyword.ReportStep_Pass(testCase, "Navigated to " + screen.get(0));
 						} else {
 							flag = false;
 							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
@@ -2999,7 +3008,15 @@ public class NavigateToScreen extends Keyword {
 								"Next button not displayed in: " + screen.get(1));
 					}
 					break;
+				}case "TEST DETECTOR": {
+					DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
+					if (dasDIY.isNextButtonVisible()) {
+						flag = flag & dasDIY.clickOnNextButton();
+						Keyword.ReportStep_Pass(testCase, "Navigated to " + screen.get(0));
+					}
+					break;
 				}
+				
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
