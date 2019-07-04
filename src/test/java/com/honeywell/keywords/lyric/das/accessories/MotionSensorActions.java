@@ -45,9 +45,7 @@ public class MotionSensorActions extends Keyword {
 			} else if (states.get(0).equalsIgnoreCase("enrolled")) {
 				DASSensorUtils.enrollMotionSensor(testCase, inputs);
 			} else if (states.get(0).equalsIgnoreCase("Motion detected")) {
-				inputs.setInputValue("MOTION_DETECTED_TIME",
-						LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
-				System.out.println("Move the object in front of motion sensor");
+				DASSensorUtils.MotionSenseMotionSensor(testCase, inputs);
 			} else if (states.get(0).equalsIgnoreCase("Motion not detected")) {
 				System.out.println("Do not move any object in front of motion sensor");
 			} else {

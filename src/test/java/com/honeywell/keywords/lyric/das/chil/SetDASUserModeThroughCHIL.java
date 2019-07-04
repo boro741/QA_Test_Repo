@@ -239,6 +239,44 @@ public class SetDASUserModeThroughCHIL extends Keyword {
 						}
 						break;
 					}
+					case "SENSOR ENROLLMENT ENABLED":{
+						boolean isEnabled = true;
+						int result = chUtil.postSensorDiscovery(locInfo.getLocationID(), deviceInfo.getDeviceID(), isEnabled);
+						try {
+						if (result == 202) {
+							Keyword.ReportStep_Pass(testCase, "Sensor Discovery mode is Enabled");
+							}
+						else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not enable sensor discovery mode: " + result);
+						}
+					}
+						catch (Exception e) {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Error Occured: " + e.getMessage());
+						}
+						break;
+					}
+					case "SENSOR ENROLLMENT DISABLED":{
+						boolean isEnabled = false;
+						int result = chUtil.postSensorDiscovery(locInfo.getLocationID(), deviceInfo.getDeviceID(), isEnabled);
+						try {
+						if (result == 202) {
+							Keyword.ReportStep_Pass(testCase, "Sensor Discovery mode is Disabled");
+							}
+						else {
+							flag = false;
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Could not disable sensor discovery mode: " + result);
+						}
+					}
+						catch (Exception e) {
+							Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+									"Error Occured: " + e.getMessage());
+						}
+						break;
+					}
 					default: {
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,

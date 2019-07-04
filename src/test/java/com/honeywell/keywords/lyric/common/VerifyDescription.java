@@ -261,6 +261,14 @@ public class VerifyDescription extends Keyword {
 				Keyword.ReportStep_Pass(testCase, "Setup Cpmplete Description :  " + sol.getSetupCompleteDescriptionText() + " is present");
 			}
 		}
+		else if (expectedScreen.get(0).equalsIgnoreCase("UPDATE IN PROGRESS DASHBOARD")) {
+			Dashboard dash = new Dashboard(testCase);
+			flag = flag & dash.isDashboardUpdateInProgressVisible();
+		}
+		else if (expectedScreen.get(0).equalsIgnoreCase("UPDATE IN PROGRESS SOLUTION CARD")) {
+			SecuritySolutionCardScreen ssc = new SecuritySolutionCardScreen(testCase);
+			flag = flag & ssc.isUpdateInProgressVisible();
+		}
 		if (flag) {
 			Keyword.ReportStep_Pass(testCase, "Mode: " + expectedScreen.get(0) + " description is present");
 		} else {

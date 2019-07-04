@@ -27,8 +27,6 @@ public class RelayUtils {
 	public static void RSIContactSensorEnroll_Window() throws Exception {
 		SerialDriverArduino.initialize();
 		SerialDriverArduino.setrelay(RelayConstants.RSI_Contact_Sesor_1_Enroll_ON);
-		Thread.sleep(3000);
-		SerialDriverArduino.setrelay(RelayConstants.RSI_Contact_Sesor_1_Enroll_OFF);
 		SerialDriverArduino.closePort();
 	}
 	public static void RSIContactSensorOpen_Door() throws Exception {
@@ -41,8 +39,6 @@ public class RelayUtils {
 	public static void RSIContactSensorEnroll_Door() throws Exception {
 		SerialDriverArduino.initialize();
 		SerialDriverArduino.setrelay(RelayConstants.RSI_Contact_Sesor_2_Enroll_ON);
-		Thread.sleep(3000);
-		SerialDriverArduino.setrelay(RelayConstants.RSI_Contact_Sesor_2_Enroll_OFF);
 		SerialDriverArduino.closePort();
 	}
 	
@@ -71,8 +67,6 @@ public class RelayUtils {
 	public static void RSIMotionSensorEnroll() throws Exception {
 		SerialDriverArduino.initialize();
 		SerialDriverArduino.setrelay(RelayConstants.RSI_Motion_Sensor_1_Enroll_ON);
-		Thread.sleep(3000);
-		SerialDriverArduino.setrelay(RelayConstants.RSI_Motion_Sensor_1_Enroll_OFF);
 		SerialDriverArduino.closePort();
 	}
 	public static void RSIMotionSensorTampered() throws Exception {
@@ -84,6 +78,12 @@ public class RelayUtils {
 		SerialDriverArduino.initialize();
 		SerialDriverArduino.setrelay(RelayConstants.RSI_Motion_Sensor_1_Tamper_OFF);
 		SerialDriverArduino.closePort();
+	}
+	public static void RSIMotionSensorMotion() throws Exception {
+		SerialDriverArduino.setrelay(RelayConstants.RSI_Motion_Sensor_1_MotionSensed);
+	}
+	public static void RSIMotionSensorMotionClose() throws Exception {
+		SerialDriverArduino.setrelay(RelayConstants.RSI_Motion_Sensor_1_MotionSenseClose);
 	}
 
 	public static void RSIKeyfobEnroll() throws Exception {
@@ -98,25 +98,21 @@ public class RelayUtils {
 	public static void Keyfob_Home() throws Exception {
 		SerialDriverArduino.initialize();
 		SerialDriverArduino.setrelay(RelayConstants.RSI_KeyfobPress_1_HOME);
-		SerialDriverArduino.setrelay(RelayConstants.RSI_KeyfobRelease_1_HOME);
 		SerialDriverArduino.closePort();
 	}
 	public static void Keyfob_Away() throws Exception {
 		SerialDriverArduino.initialize();
 		SerialDriverArduino.setrelay(RelayConstants.RSI_KeyfobPress_1_AWAY);
-		SerialDriverArduino.setrelay(RelayConstants.RSI_KeyfobRelease_1_AWAY);
 		SerialDriverArduino.closePort();
 	}
 	public static void Keyfob_Night() throws Exception {
 		SerialDriverArduino.initialize();
 		SerialDriverArduino.setrelay(RelayConstants.RSI_KeyfobPress_1_NIGHT);
-		SerialDriverArduino.setrelay(RelayConstants.RSI_KeyfobRelease_1_NIGHT);
 		SerialDriverArduino.closePort();
 	}
 	public static void Keyfob_Off() throws Exception {
 		SerialDriverArduino.initialize();
 		SerialDriverArduino.setrelay(RelayConstants.RSI_KeyfobPress_1_OFF);
-		SerialDriverArduino.setrelay(RelayConstants.RSI_KeyfobRelease_1_OFF);
 		SerialDriverArduino.closePort();
 	}
 	

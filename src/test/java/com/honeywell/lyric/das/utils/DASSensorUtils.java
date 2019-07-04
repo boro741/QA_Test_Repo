@@ -209,6 +209,23 @@ public class DASSensorUtils {
 		}
 		return flag;
 	}
+	public static boolean MotionSenseMotionSensor(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue("MOTION_SENSOR_TAMPER_CLEARED_TIME",
+				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		try {
+			for (int i = 0; i <=2; i++) {
+				RelayUtils.RSIMotionSensorMotion();
+				Thread.sleep(5000);
+				RelayUtils.RSIMotionSensorMotionClose();
+				Thread.sleep(500);
+			}
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
 
 	public static boolean tamperISMV(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
@@ -401,7 +418,7 @@ public class DASSensorUtils {
 				sensorState = "Off";
 			}
 		} else if (states.equalsIgnoreCase("cover tampered")) {
-			sensorState = "Cover Tampered";
+			sensorState = "Cover tampered";
 		} else if (states.equalsIgnoreCase("standby")) {
 			sensorState = "Standby";
 		} else if (states.equalsIgnoreCase("good")) {

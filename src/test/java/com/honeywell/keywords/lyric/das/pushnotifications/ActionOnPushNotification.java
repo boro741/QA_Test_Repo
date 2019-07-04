@@ -192,7 +192,7 @@ public class ActionOnPushNotification extends Keyword {
 			LocationInformation locInfo = new LocationInformation(testCase, inputs);
 			if (inputs.getInputValue("LOCATION1_DEVICE1_NAME") != "Security") {
 				notification = locInfo.getUserFirstName() + " turned " + inputs.getInputValue("LOCATION1_DEVICE1_NAME")
-						+ " off";
+				+ " off";
 				/*
 				 * notification = inputs.getInputValue("LOCATION1_DEVICE1_NAME") +
 				 * " set to Away by " + locInfo.getUserFirstName();
