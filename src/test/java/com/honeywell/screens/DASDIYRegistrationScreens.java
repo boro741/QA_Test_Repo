@@ -1162,7 +1162,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 						& MobileUtils.isMobElementExists("xpath", "//*[@text='" + availableSensorName + "']", testCase);
 			}
 		} else {
-			flag = flag & MobileUtils.isMobElementExists("xpath", "//*[@name='" + availableSensorName + "']", testCase);
+			flag = flag & MobileUtils.isMobElementExists("id", availableSensorName, testCase);
 		}
 		return flag;
 	}
@@ -1192,7 +1192,7 @@ public class DASDIYRegistrationScreens extends MobileScreens {
 				flag = flag & MobileUtils.clickOnElement(testCase, "xpath", "//*[@text='" + availableSensorName + "']");
 			}
 		} else {
-			flag = flag & MobileUtils.clickOnElement(testCase, "xpath", "//*[@name='" + availableSensorName + "']");
+			flag = flag & MobileUtils.clickOnElement(testCase, "id", availableSensorName );
 		}
 		return flag;
 	}

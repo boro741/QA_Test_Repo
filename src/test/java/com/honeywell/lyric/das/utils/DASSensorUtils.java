@@ -380,6 +380,29 @@ public class DASSensorUtils {
 		}
 		return flag;
 	}
+	
+	public static boolean enrollSmoke(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue("SMOKE_ENROLLED_TIME",
+				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		try {
+			RelayUtils.RFSmokeTriger();;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+
+	public static boolean enrollCo(TestCases testCase, TestCaseInputs inputs) {
+		boolean flag = true;
+		inputs.setInputValue("COMBO_OPENED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+		try {
+			RelayUtils.RFCOTriger();;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
 
 	public static List<WebElement> getSensorList(TestCases testCase) {
 		SensorStatusScreen sensorStatusScreen = new SensorStatusScreen(testCase);
