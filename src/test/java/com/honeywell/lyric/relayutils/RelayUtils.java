@@ -129,5 +129,4 @@ public class RelayUtils {
 		Thread.sleep(10000);
 		SerialDriverArduino.closePort();
 	}
-	
 }
