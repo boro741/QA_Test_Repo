@@ -27,7 +27,7 @@ And user switches from <Mode> to <UMode>
 And user should be displayed with a switching to <UMode> text
 #And user should be displayed with a switching timer
 And timer ends on user device
-And user status should be set to "<UMode>"
+And user status should be set to <UMode>
 #Then user should be displayed with the correct time stamp
 #And user receives a <Push Notification> push notification
 And user selects the <Push Notification> push notification
@@ -256,7 +256,7 @@ Examples:
 #|45| Away | Night |
 #|45| OFF| Away |
 #|45| OFF| Night |
-|60| Home | Away | SET TO AWAY |
+#|60| Home | Away | SET TO AWAY |
 #|60| Night| Away | 
 #|60| Home | Night |
 #|60| Away | Night |
@@ -385,7 +385,7 @@ Scenario Outline: As a user I want to get open sensors status
 Given user is set to "Sensor Alert Enabled" mode through CHIL
 When user launches and logs in to the Lyric Application
 And user is set to <Mode> mode through CHIL
-And user minimizes the app
+And user clears all push notifications
 When user <Sensor> access sensor "opened"
 Then user selects the <SensorOpenNotification> push notification
 And user should be displayed with the <SensorStatusOnSolutionCard> description 
@@ -408,10 +408,8 @@ Scenario Outline: As a user i want to get open sensors status
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
 And user is set to <Mode> mode through CHIL
-When user is set to "Sensor Alert Enabled" mode through CHIL
-And user minimizes the app
 When user <Sensor> access sensor "opened"
-Then user selects the <SensorOpenNotification> push notification
+When user navigates to "Security Solution Card" screen from the "dashboard" screen
 Then user should be displayed with the <SensorStatusOnSolutionCard> description 
 When user <Sensor> access sensor "closed"
 Then user should be displayed with the "SensorsNoIssue" description
@@ -534,15 +532,16 @@ Examples:
 @BasestationSensorenrollment @P3  @NotAutomatable @--xrayid:ATER-54946
 Scenario Outline: I should be shown with update in progress when panel in sensor enrollment state
 Given user panel in "Sensor enrollment state" enabled (write a code)
+Given user is set to <Mode> mode through CHIL
+And user is set to "Sensor enrollment Enabled" mode through CHIL
 And user launches and logs in to the Lyric Application
-And user is set to <Mode> mode through CHIL
-Then user should be displayed with "Updating status" in "Dashboard" screen
+Then user should be displayed with the "Update In Progress Dashboard" description
 When user navigates to "Security Solution card" screen from the "Dashboard" screen
-Then user should be displayed with "Updating status" in "Security card" screen
-Given user panel in "Sensor enrollment state"  disabled (write a code)
-Then user should not be displayed with "Updating status" in "Dashboard" screen
-When user navigates to "Security card" screen from "Dashboard" screen
-Then user should not be displayed with "Updating status" in "Security card" screen
+Then user should be displayed with the "Update In Progress Solution Card" description
+When user is set to "Sensor enrollment Disabled" mode through CHIL
+And user navigates to "Dashboard" screen from the "Security Solution card" screen
+Then user should not be displayed with "Update In Progress Dashboard" option
+Then user should not be displayed with "Update In Progress Solution Card" option
 Examples: 
 |Mode|
 |Home|
@@ -563,16 +562,17 @@ And user press "away" key from keyfob
 When user navigates to "Security Solution card" screen from the "Dashboard" screen
 Then user should be displayed with the <Mode> screen
 When user is set to <Mode> mode through CHIL
-#When user <Sensor> access sensor "opened"
-#When user launches and logs in to the Lyric application
+When user <Sensor> access sensor "opened"
 And user press "night" key from keyfob
 Then user should be displayed with the <Mode> screen
 Examples: 
 |Mode|Sensor|
 |Home|Door|
-|Home|Window|
-|Off|Door|
-|Off|Window|
+#|Home|Window|
+#|Off|Door|
+#|Off|Window|#|Home|Window|
+#|Off|Door|
+#|Off|Window|
 
 @CommandControlfromkeyfobwhenContactsensortrouble    @UIAutomated @--xrayid:ATER-54950
 Scenario Outline: As a user I should not be allowed to switch to Away or Night mode through keyfob when sensor is trouble
@@ -589,33 +589,34 @@ And user press "night" key from keyfob
 When user navigates to "Security Solution card" screen from the "Dashboard" screen
 Then user should be displayed with the <Mode> screen
 Examples: 
-|Status|Sensor|
+|Mode|Sensor|
 |Home|Door Sensor|
-|OFF |Window Sensor|
-|Home|Motion Sensor|
-|Home|ISMV Sensor|
-|OFF |OSMV Sensor|
+#|OFF |Window Sensor|
+#|Home|Motion Sensor|
+#|Home|ISMV Sensor|
+#|OFF |OSMV Sensor|
 
 @CommandControlfromkeyfobwhenMotionsensortrouble   @UIAutomated @--xrayid:
 Scenario Outline: As a user I should not be allowed to switch to Away or Night mode through keyfob when sensor is trouble
 Given user sets the entry/exit timer to "60" seconds
-And user is set to <Mode> mode through CHIL
+And user is set to <Status> mode through CHIL
 When user <Sensor> access sensor "tampered"
 When user launches and logs in to the Lyric application
 And user press "away" key from keyfob
-Then user should be displayed with the "Away" screen
-When user is set to <Mode> mode through CHIL
+And user navigates to "Security Solution card" screen from the "Dashboard" screen
+Then user should be displayed with the <Status> screen
+When user is set to <Status> mode through CHIL
 When user <Sensor> access sensor "tampered"
 And user press "Night" key from keyfob
-Then user should be displayed with the "Night" screen
+Then user should be displayed with the <Status> screen
 Examples: 
-|Status|Sensor type|
+|Status|Sensor|
 |Home|Motion Sensor|
-|Home|ISMV Sensor|
-|Home|OSMV Sensor|
-|Off |Motion Sensor|
-|Off |ISMV Sensor|
-|Off |OSMV Sensor|
+#|Home|ISMV Sensor|
+##|Home|OSMV Sensor|
+#|Off |Motion Sensor|
+#|Off |ISMV Sensor|
+#|Off |OSMV Sensor|
 
 @CommandControlfromvoicecommandsAwaymode  @NotAutomatable @--xrayid:ATER-54951
 Scenario: As a user I should be able to switch to Away mode through voice commands
@@ -689,20 +690,15 @@ And user navigates to "Security Solution Card" screen from the "Dashboard" scree
 And user switches from "Home" to "Away"
 Then user "Accepts" the "Switch To Away" popup
 Then user should be displayed with a "Switching to Away" text
-And user <Sensor> detects "Motion"
-Then user should not be displayed with Alarm screen
+When timer ends on user device
+And user motion sensor "Motion detected"
+Then user should be displayed with the "Away" screen
 When user is set to "Home" mode through CHIL
 And user switches from "Home" to "Night"
 Then user should be displayed with a "Switching to Night" text
-And user <Sensor> detects "Motion"
-Then user should not be displayed with Alarm screen
-When user is set to "Home" mode through CHIL
-And user switches from "Home" to "Night"
-Then user should be displayed with a "Switching to Night" text
-When "Switching timer" ends on user device
+When timer ends on user device
+And user motion sensor "Motion detected"
 Then user should be displayed with the "Night" screen
-And user <Sensor> detects "Motion"
-Then user should not be displayed with Alarm screen
 Examples: 
 |Sensor       |
 |Motion Sensor|
@@ -718,14 +714,16 @@ And user navigates to "Security Solution Card" screen from the "Dashboard" scree
 And user switches from <Status> to "Away"
 Then user "Accepts" the "Switch To Away" popup
 Then user should be displayed with a "Switching to Away" text
-When user <Sensor> access sensor "opened"
-Then user should not be displayed with Alarm screen
+When timer ends on user device
+And user <Sensor> access sensor "opened"
+Then user should be displayed with the "Away" screen
 When user is set to <Status> mode through CHIL
 And user switches from <Status> to "Night"
 Then user "Accepts" the "Switch To Night" popup
 Then user should be displayed with a "Switching to Night" text
-When user <Sensor> access sensor "opened"
-Then user should not be displayed with Alarm screen
+When timer ends on user device
+And user <Sensor> access sensor "opened"
+Then user should be displayed with the "Night" screen
 Examples: 
 |Status|Sensor|
 |Home|Door|
@@ -734,41 +732,38 @@ Examples:
 #|Off|Window|
 
 @commandandcontrolmultiplesensorwithfault   @UIAutomated @--xrayid:ATER-54961
-Scenario: As a user I want to switch to different states in my DAS device when multiple sensors are in fault condition
+Scenario Outline: As a user I want to switch to different states in my DAS device when multiple sensors are in fault condition
 Given user sets the entry/exit timer to "45" seconds
-And user is set to <Mode> mode through CHIL
+And user is set to <Status> mode through CHIL
 When user launches and logs in to the Lyric application
-And user navigates to "security solution cards" screen from "Dashboard" screen
-When user <Sensor> access sensor "opened"
-And user "Sensor" detects "Motion"
-And user switches from <Mode> to "Away"
+And user navigates to "Security Solution Card" screen from the "Dashboard" screen
+When user <Sensors> access sensor "opened"
+And user motion sensor "Cover Tampered"
+And user switches from <Status> to "Away"
 Then user "Accepts" the "Switch To Away" popup
-Then user should be displayed with a "Switching to Away" popup
-When user "Accepts" the "Switch to Away with the sensor fault" popup
-When "Switching timer" ends on user device
+Then user should be displayed with a "Switching to Away" text
+When timer ends on user device
 Then user should be displayed with the "Away" screen
-When user navigates to "Sensor List" from the "security solution Card" screen
-Then user should see the <Sensors> status as <Sensor Status> on the "Sensor List"
-| Sensors       | Sensor Status |Mode|
-| Door Sensor   | OFF       |Home|
-| Window Sensor | OFF       |Home|
-#| Motion Sensor | OFF       |Home|
-#| OSMV Sensor   | Active    |Home|
-#| ISMV Sensor   | Active    |Home|
-When user is set to <Mode> mode through CHIL
-And user switches from <Mode> to "Night"
-Then user should be displayed with a "Switch to Night" popup
-When user user "Accepts" the "SWITCH TO NIGHT WITH MULTILPLE SENSOR FAULT" popup
-And "Switching timer" ends on user device
+When user navigates to "SENSOR STATUS" screen from the "SECURITY SOLUTION CARD" screen
+Then user should see the <Sensors> status as <Sensor State> on the "SENSOR STATUS"
+And user should see the <Sensor2> status as <Sensor State> on the "SENSOR STATUS"
+When user is set to <Status> mode through CHIL
+And  user navigates to "Security Solution Card" screen from the "Sensor Status" screen
+And user switches from <Status> to "Night"
+And user "Accepts" the "Switch To Night" popup
+Then user should be displayed with a "Switch to Night" text
+And timer ends on user device
 Then user should be displayed with the "Night" screen
-When user navigates to "Sensors List"  from "security solution cards" screen
-Then user should see the <Sensors> status as <Sensor Status> on the "Sensor List"
-| Sensors       | Sensor Status|Mode|
-| Door Sensor   | OFF       |Home|
-| Window Sensor | OFF       |Home|
-#| Motion Sensor | OFF       |Home|
-#| OSMV Sensor   | Active    |Home|
-#| ISMV Sensor   | Active    |Home|
+When user navigates to "SENSOR STATUS" screen from the "SECURITY SOLUTION CARD" screen
+Then user should see the <Sensors> status as <Sensor State> on the "SENSOR STATUS"
+And user should see the <Sensor2> status as <Sensor State> on the "SENSOR STATUS"
+
+Examples:
+| Sensors       | Sensor State|Status||Sensor2|
+| Door Sensor   | OFF       |Home||Motion Sensor|
+#| Window Sensor | OFF       |Home||Motion Sensor|
+#| OSMV Sensor   | Active    |Home||Motion Sensor|
+#| ISMV Sensor   | Active    |Home||Motion Sensor|
 
 #Backoptionwhileswitchingmodes
 @UserpressesbackbuttonWhileSwitchingModes             @UIAutomated @--xrayid:ATER-54962
@@ -818,14 +813,12 @@ When user switches from <Mode> to "Away"
 Then user should be displayed with a "Switching to Away" text
 And user navigates to "Dashboard" screen from the "Security Solution Card" screen
 Then user should be displayed with a "Switching to Away" text in the Dashboard screen
-#And user should be displayed with a switching timer
-#And user should be displayed with cancel icon
 When user taps on "Cancel"
-#Then user should be displayed with the <Mode> screen
+Then user should be displayed with the <DashboardMode> screen
 Examples: 
-|Mode|
-|Home|
-#|Off |
+|Mode||DashboardMode|
+|Home||Dashboard Home|
+#|Off ||Dashboard Off|
 
 @CancelSwitchingModeNight   @UIAutomated @--xrayid:ATER-54965
 Scenario Outline: As a user I should be able to cancel the switching away request
@@ -851,11 +844,11 @@ Then user should be displayed with a "Switching to Night" text in the Dashboard 
 #And user should be displayed with a switching timer
 #And user should be displayed with cancel icon
 When user taps on "Cancel"
-#Then user should be displayed with the <Mode> screen
+Then user should be displayed with the <DashboardMode> screen
 Examples: 
-|Mode|
-|Home|
-#|Off |
+|Mode||DashboardMode|
+|Home||Dashboard Home|
+#|Off ||Dashboard Off|
 
 @OutdoorMotionViewer_VideoClip   @NotAutomatable @--xrayid:ATER-54966
 Scenario: As a user when motion detected after exit delay irrespective of exit timer, I should have clips generated for 30sec (landscape, download)
@@ -920,18 +913,18 @@ Scenario: As a user i should get all the sensors status in security solution car
 #DAS with sensors Door Contact Window Contact ISMV OSMV Motion Sensor 
 Given user launches and logs in to the Lyric Application
 And user is set to "Home" mode through CHIL
-And user is "Enabled" Doors and Windows alert through CHIL 
-When user navigates to "Security card" screen from the "Dashboard" screen
+And user is set to "Sensor Alert Enabled" mode through CHIL
+When user navigates to "Security Solution Card" screen from the "Dashboard" screen
 Then user should be displayed with the "SensorsNoIssue" description
 And user "Door Sensor" access sensor "Opened"
-And user "Window Sensor" access sensor "Low battery"
-And user "Motion Sensor" access sensor "Cover Tamper"
-And user "ISMV Sensor" access sensor "Offline"
+#And user "Window Sensor" access sensor "Low battery"
+And user motion sensor "Cover Tampered"
+#And user "ISMV Sensor" access sensor "Offline"
 And user "opens" activity log
 Then user receives a "Door Sensor Opened at Home Mode" activity log
-Then user receives a "Window Sensor Low Battery at Home Mode" activity log
+#Then user receives a "Window Sensor Low Battery at Home Mode" activity log
 Then user receives a "Motion Sensor Cover Tamper at Home Mode" activity log
-Then user receives a "ISMV Sensor Opened at Home Mode" activity log
+#Then user receives a "ISMV Sensor Opened at Home Mode" activity log
 And user "closes" activity log
 
 @SwitchingSystemModeOffSensorstatus   @UIAutomated @--xrayid:ATER-54980
@@ -1130,4 +1123,13 @@ Examples:
 |Night|
 |Off|
 
+@DASPanel
+Scenario: AS a user I want to verify Dashboard & Security card coach-mark
+  Given user press "away" key from keyfob
+ Given user launches and logs in to the Lyric Application
+When user navigates to "Security Solution card" screen from the "Dashboard" screen
+  And user should be displayed with the "Away" screen
+ And user motion sensor "Motion detected"
+ And user is press "Home" key from keyfob
+ 
 
