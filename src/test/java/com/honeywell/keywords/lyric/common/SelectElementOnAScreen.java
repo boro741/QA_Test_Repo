@@ -2994,7 +2994,7 @@ public class SelectElementOnAScreen extends Keyword {
 					break;
 				}
 				}
-			}
+			  }
 
 	} catch (Exception e) {
 		flag = false;

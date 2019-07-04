@@ -50,7 +50,7 @@ public class RelayConstants {
 	
 	public static String RSI_AllSensor_Trip_OFF = "Setall-0";
 	public static String RSI_AllSensor_Trip_ON = "Setall-1";
-	
+
 	public static String RFS_COMBO_SENSOR_1_SerialNO= "10001268816892126217";//Combo
 	public static String RFS_COMBO_Sensor_1_TRIGGER_SMOKE = "trigger-16";  //Smoke
 	public static String RFS_COMBO_Sensor_1_TRIGGER_CO = "trigger-17";  //CO
