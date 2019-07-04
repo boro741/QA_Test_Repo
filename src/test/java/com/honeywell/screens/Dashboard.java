@@ -1045,4 +1045,52 @@ public class Dashboard extends MobileScreens {
         WebElement weatherStatusArea=MobileUtils.getMobElement(objectDefinition, testCase, "DashboardWeatherStatusArea");
         return weatherStatusArea;
     }
+    public boolean isDashboardUpdateInProgressVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UpdateInProgress");
+	}
+    public boolean verifystate(String stateToVerify) {
+		String currentPanelState = MobileUtils.getFieldValue(objectDefinition, testCase, "SecurityTitleInDashboardScreen");
+		switch (stateToVerify.toUpperCase()) {
+		case "HOME": {
+			if (currentPanelState.contains(stateToVerify)) {
+				Keyword.ReportStep_Pass(testCase, "Panel is in Expected state" + currentPanelState);
+				return true;
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Panel is not in expected state");
+			}
+		}
+		case "AWAY": {
+			if  (currentPanelState.contains(stateToVerify)) {
+				Keyword.ReportStep_Pass(testCase, "Panel is in Expected state" + currentPanelState);
+				return true;
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Panel is not in expected state");
+			}
+
+		}
+		case "NIGHT": {
+			if  (currentPanelState.contains(stateToVerify)) {
+				Keyword.ReportStep_Pass(testCase, "Panel is in Expected state" + currentPanelState);
+				return true;
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Panel is not in expected state");
+			}
+
+		}
+		case "OFF": {
+			if  (currentPanelState.contains(stateToVerify)) {
+				Keyword.ReportStep_Pass(testCase, "Panel is in Expected state" + currentPanelState);
+				return true;
+			} else {
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Panel is not in expected state");
+			}
+
+		}
+		default: {
+			Keyword.ReportStep_Fail(testCase, FailType.FALSE_POSITIVE, "input not handled");
+		}
+
+		}
+		return false;
+	}
 }

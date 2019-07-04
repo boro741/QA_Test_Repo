@@ -805,9 +805,9 @@ public class CHILUtil implements AutoCloseable {
 
 			// enable sensor
 			if (isEnabled)
-				headerData = String.format("{\"mode\":\"Sensor\",\"TimeOut\":30,\"Id\":null}");
+				headerData = String.format("{\"mode\":\"Sensor\",\"TimeOut\":900,\"Id\":null}");
 			else
-				headerData = String.format("{\"mode\":\"Disable\",\"TimeOut\":30,\"Id\":null}");
+				headerData = String.format("{\"mode\":\"Disable\",\"TimeOut\":900,\"Id\":null}");
 
 			url = chilURL + "api/v3/locations/" + locationID + "/devices/" + deviceID + "/Discovery?partitionid=1";
 			try {

@@ -61,3 +61,4 @@ WeatherMaxTemp	ID	weather_max_temp	ID	weather_max_temp	ID	weather_max_temp	XPATH
 WeatherMinTemp	ID	weather_min_temp	ID	weather_min_temp	ID	weather_min_temp	XPATH	//XCUIElementTypeImage[@name='weather_down_arrow']/following-sibling::XCUIElementTypeStaticText[1]	XPATH	//XCUIElementTypeImage[@name='weather_down_arrow']/following-sibling::XCUIElementTypeStaticText[1]	XPATH	//XCUIElementTypeImage[@name='weather_down_arrow']/following-sibling::XCUIElementTypeStaticText[1]
 PageIndicator	ID	layoutDots	ID	layoutDots	ID	layoutDots	XPATH	//XCUIElementTypeOther[1]/XCUIElementTypePageIndicator				
 DashboardWeatherStatusArea	XPATH	//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeImage[1]										
+UpdateInProgress							XPATH	//*[@value='UPDATE IN PROGRESS']	XPATH	//*[@value='UPDATE IN PROGRESS']	XPATH	//*[@value='UPDATE IN PROGRESS']

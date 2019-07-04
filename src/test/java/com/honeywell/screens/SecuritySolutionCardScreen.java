@@ -532,4 +532,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 	public boolean clickOnOKInSwitchToAwayPopUp() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "OKButtonInPopup");
 	}
+	public boolean isUpdateInProgressVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "UpdateInProgress", 10);
+	}
 }

@@ -1788,6 +1788,38 @@ public class VerifyScreen extends Keyword {
                     }
                     break;
                 }
+                case "DASHBOARD HOME": {
+    				Dashboard d = new Dashboard(testCase);
+    				flag = flag & d.verifystate("HOME");
+    				if (flag) {
+    					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
+    				}
+    				break;
+    			}
+    			case "DASHBOARD AWAY": {
+    				Dashboard d = new Dashboard(testCase);
+    				flag = flag & d.verifystate("AWAY");
+    				if (flag) {
+    					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
+    				}
+    				break;
+    			}
+    			case "DASHBOARD NIGHT": {
+    				Dashboard d = new Dashboard(testCase);
+    				flag = flag & d.verifystate("NIGHT");
+    				if (flag) {
+    					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
+    				}
+    				break;
+    			}
+    			case "DASHBOARD OFF": {
+    				Dashboard d = new Dashboard(testCase);
+    				flag = flag & d.verifystate("OFF");
+    				if (flag) {
+    					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + "screen is displayed");
+    				}
+    				break;
+    			}
 			default: {
 				flag = false;
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
