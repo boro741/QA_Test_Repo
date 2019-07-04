@@ -2979,6 +2979,7 @@ public class SelectElementOnAScreen extends Keyword {
 				}
 				}				
 			} else if(parameters.get(1).equalsIgnoreCase("NAME ACCOUNT DETAILS")) {
+
 				NameEditAccountScreen neas = new NameEditAccountScreen(testCase);
 				switch (parameters.get(0).toUpperCase()) {
 				case "SAVE BUTTON" : {
@@ -2993,36 +2994,19 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					break;
 				}
-			  }
-			}else if(parameters.get(1).equalsIgnoreCase("GEOFENCE SETTINGS")) {
-				GeofenceSettings gs = new GeofenceSettings(testCase);
-				switch (parameters.get(0).toUpperCase()) {
-				case "BACK BUTTON" : {
-					if (gs.isBackButtonInGeofenceRadiusScreenVisible()) {
-						flag &= gs.clickOnBackButtonInGeofenceRadiusScreen();
-					}
-					if (flag) {
-						Keyword.ReportStep_Pass(testCase, "Successfully clicked on " + parameters.get(0));
-					} else {
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Failed to click on " + parameters.get(0));
-					}
-					break;
+
 				}
-			  }
-
 			}
-
-	} catch (Exception e) {
-		flag = false;
-		Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		} catch (Exception e) {
+			flag = false;
+			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Error Occured: " + e.getMessage());
+		}
+		return flag;
 	}
-	return flag;
-}
 
-@Override
-@AfterKeyword
-public boolean postCondition() throws KeywordException {
-	return flag;
-}
+	@Override
+	@AfterKeyword
+	public boolean postCondition() throws KeywordException {
+		return flag;
+	}
 }

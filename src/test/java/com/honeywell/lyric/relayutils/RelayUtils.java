@@ -130,4 +130,18 @@ public class RelayUtils {
 		SerialDriverArduino.closePort();
 	}
 	
+	public static void RFSmokeTriger() throws Exception {
+		SerialDriverArduino.initialize();
+		SerialDriverArduino.setrelay(RelayConstants.RFS_COMBO_Sensor_1_TRIGGER_SMOKE);
+		Thread.sleep(10000);
+		SerialDriverArduino.closePort();
+	}
+	
+	public static void RFCOTriger() throws Exception {
+		SerialDriverArduino.initialize();
+		SerialDriverArduino.setrelay(RelayConstants.RFS_COMBO_Sensor_1_TRIGGER_CO);
+		Thread.sleep(10000);
+		SerialDriverArduino.closePort();
+	}
+	
 }
