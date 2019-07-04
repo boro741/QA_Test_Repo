@@ -639,7 +639,8 @@ public class VerifyScreen extends Keyword {
 				break;
 			}
 			case "TEST MOTION SENSOR":
-			case "TEST ACCESS SENSOR": {
+			case "TEST ACCESS SENSOR":
+			case "TEST DETECTOR":{
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				if (sensor.isTestSensorHeadingDisplayed()) {
 					Keyword.ReportStep_Pass(testCase, expectedScreen.get(0) + " is displayed");
@@ -727,7 +728,8 @@ public class VerifyScreen extends Keyword {
 				break;
 			}
 			case "PLACE SENSOR ON LOCATION":
-			case "PLACE SENSOR": {
+			case "PLACE SENSOR":
+			case "PLACE BASE PLATE":{
 				SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 				sensor.isPlaceSensorScreenDisplayed();
 				if (flag) {
@@ -743,11 +745,12 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
-			case "PLACE VIEWER SELECT MOUNTING OPTION": {
+			case "PLACE VIEWER SELECT MOUNTING OPTION":
+			case "CO MOUNTING OPTION":{
 				DASDIYRegistrationScreens dasDIY = new DASDIYRegistrationScreens(testCase);
 				flag = flag & dasDIY.isPlaceViewerSelectMountingOptionScreenTitileVisible(20);
 				if (flag) {
-					Keyword.ReportStep_Pass(testCase, "Place Viewer Select Mounting Option Screen is displayed");
+					Keyword.ReportStep_Pass(testCase, "Select Mounting Option Screen is displayed");
 				}
 				break;
 			}

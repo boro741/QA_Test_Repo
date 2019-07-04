@@ -34,7 +34,9 @@ public class AccessSensorActions extends Keyword {
 	@KeywordStep(gherkins = "^user \"(.+)\" access sensor \"(.+)\"$")
 	public boolean keywordSteps() {
 		try {
-			if (states.get(0).equalsIgnoreCase("door") || states.get(0).equalsIgnoreCase("door sensor")) {
+			switch (states.get(0).toUpperCase()) {
+			case "DOOR": 
+			case "DOOR SENSOR" :{
 				if (states.get(1).equalsIgnoreCase("opened") || states.get(1).equalsIgnoreCase("open")) {
 					DASSensorUtils.openDoor(testCase, inputs);
 				} else if (states.get(1).equalsIgnoreCase("closed")) {
@@ -62,7 +64,10 @@ public class AccessSensorActions extends Keyword {
 				else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Input not handled");
 				}
-			} else if (states.get(0).equalsIgnoreCase("window") || states.get(0).equalsIgnoreCase("window sensor")) {
+				break;
+			}
+			case "WINDOW":
+			case "WINDOW SENSOR": {
 				if (states.get(1).equalsIgnoreCase("opened") || states.get(1).equalsIgnoreCase("open")) {
 					DASSensorUtils.openWindow(testCase, inputs);
 				} else if (states.get(1).equalsIgnoreCase("closed")) {
@@ -87,8 +92,10 @@ public class AccessSensorActions extends Keyword {
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Input not handled");
 				}
-
-			}else if (states.get(0).equalsIgnoreCase("motion") || states.get(0).equalsIgnoreCase("motion sensor")) {
+				break;
+			}
+			case "MOTION":
+			case "MOTION SENSOR":{
 				if (states.get(1).equalsIgnoreCase("opened") || states.get(1).equalsIgnoreCase("open")) {
 					DASSensorUtils.openMotionSensor(testCase, inputs);
 				} else if (states.get(1).equalsIgnoreCase("closed")) {
@@ -99,9 +106,24 @@ public class AccessSensorActions extends Keyword {
 				} else if (states.get(1).equalsIgnoreCase("Tamper CLEARED")) {
 					DASSensorUtils.tamperClearMotionSensor(testCase, inputs);
 				}
+				break;
+			}case "COMBO":
+			case "COMBO SENSOR":{
+				if (states.get(1).equalsIgnoreCase("Triger")) {
+					DASSensorUtils.enrollSmoke(testCase, inputs);
+					Thread.sleep(10000);
+				} else if (states.get(1).equalsIgnoreCase("Smoke Test")) {
+					DASSensorUtils.enrollSmoke(testCase, inputs);
+					Thread.sleep(10000);
+				} else if (states.get(1).equalsIgnoreCase("Co Test")){
+					DASSensorUtils.enrollCo(testCase, inputs);
+					Thread.sleep(10000);
+				}
+				break;
 			}
-
-		} catch (Throwable e) {
+			}
+		}
+		catch (Throwable e) {
 			e.printStackTrace();
 		}
 		return flag;
