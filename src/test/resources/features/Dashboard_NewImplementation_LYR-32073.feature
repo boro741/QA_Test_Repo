@@ -731,7 +731,7 @@ And user should be displayed with "Device"
 And user should be displayed with "Add new device button below Device"
 
 
-@VerifyGeofenceStatusWhenGeofenceIsEnabledAndPhoneLocationServicesIsTurnedOff							@Automateds
+@VerifyGeofenceStatusWhenGeofenceIsEnabledAndPhoneLocationServicesIsTurnedOff							@Automated
 Scenario:   To verify Geofence status in Dashboard status area when geofence is enabled and phone location services is turned off
 Given user launches and logs in to the Lyric Application
 Then user should be displayed with "Weather status in Dashboard status area"
@@ -892,7 +892,7 @@ Then Dashboard status area should move in the direction of the swipe to a certai
 And user should be displayed with "Device"
 And user should be displayed with "Add new device button below Device"
 
-@DashboardStatusAreaWithWLDDevice
+@DashboardStatusAreaWithWLDDevice							@Automated
 Scenario:   To verify the dashboard screen when there is a WLD device registered for a location
 Given user launches and logs in to the Lyric application
 Then user should be displayed with "Weather status in Dashboard status area"
@@ -900,11 +900,11 @@ And user should be displayed with the following "Weather" options:
 | WeatherOptions				                        | 
 | Today's Forecast Header                               |
 | Weather icon                                          |
-| Weather temp in dashboard screen    |
+| Weather temp in dashboard screen    					|
 | Today's High and Low Temperature                      |
 And user should be displayed with "Device"
 And user should be displayed with "Add new device button below Device"
-When user swipes "Left" on "Dashboard Status Area"
+When user swipes to "Left" on "Dashboard Status Area"
 Then Dashboard status area should move in the direction of the swipe to a certain point, spring back and display "Weather status"
 And user should be displayed with "Device"
 And user should be displayed with "Add new device button below Device"
@@ -987,24 +987,25 @@ Examples:
 | 15    | Away  | Home   |
 
 
-@DashboardStatusAreaWithJASPERHBBDeviceWhenUserChangesSecurityCardModeFromHomeToSleep
-Scenario Outline:   To verify the dashboard screen when there is a Jasper/HB device registered for a location
+#JASPER and HBB device
+@DashboardStatusAreaWhenUserChangesSecurityCardModeFromHomeToSleep							@Automated(IOS_Pending)
+Scenario Outline:   To verify the dashboard screen when there is a Jasper and HBB device registered for a location
 Given user has <Mode> system mode
 And user thermostat is set to <scheduling> schedule
 And user thermostat set "Home" with <Geofence>
 And user thermostat set <Period> with <Geofence>
 When user launches and logs in to the Lyric application
-Then user should be displayed with "Weather status" in Dashboard status area
+Then user should be displayed with "Weather status in Dashboard status area"
 And user should be displayed with the following "Weather" options:
 | WeatherOptions				                        | 
 | Today's Forecast Header                               |
 | Weather icon                                          |
-| Weather temp in dashboard screen    |
+| Weather temp in dashboard screen   				    |
 | Today's High and Low Temperature                      |
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
-When user swipes "Left" on "Dashboard Status Area"
-Then user should be displayed with "Geofence status" in Dashboard status area
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
+When user swipes to "Left" on "Dashboard Status Area"
+Then user should be displayed with "Geofence status in Dashboard status area"
 And user should be displayed with the following "Geofence status" options:
 | GeofenceStatusOptions				    |
 | Geofencing Title                      |
@@ -1012,26 +1013,26 @@ And user should be displayed with the following "Geofence status" options:
 | Current state of geofencing           |
 | What settings are being used          |
 And user should be displayed with "Using Sleep Settings" in the "Geofence status in Dashboard" screen
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
-And verify the "Using SLEEP SETTINGS" on the "PRIMARY CARD" screen
+And verify the "USING SLEEP SETTINGS" on the "PRIMARY CARD" screen
 When user deletes the <Period> 
 Then verify the "USING HOME SETTINGS" on the "PRIMARY CARD" screen
 And verify respective <UPeriod> period setpoint values
 When user selects "Back button" from "Weather Forecast" screen
-Then user should be displayed with the "Dashboard" screen
-And user should be displayed with "Weather status" in Dashboard status area
+Then user should be displayed with "Geofence status in Dashboard status area"
+Then user swipes to "Right" on "Dashboard Status Area"
 And user should be displayed with the following "Weather" options:
 | WeatherOptions				                        | 
 | Today's Forecast Title                                |
 | Weather icon                                          |
-| Weather temp in dashboard screen    |
+| Weather temp in dashboard screen    					|
 | Today's High and Low Temperature                      |
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
-When user swipes "Left" on "Dashboard Status Area"
-Then user should be displayed with "Geofence status" in Dashboard status area
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
+When user swipes to "Left" on "Dashboard Status Area"
+Then user should be displayed with "Geofence status in Dashboard status area"
 And user should be displayed with the following "Geofence status" options:
 | GeofenceStatusOptions				    |
 | Geofencing Title                      |
@@ -1039,8 +1040,8 @@ And user should be displayed with the following "Geofence status" options:
 | Current state of geofencing           |
 | What settings are being used          |
 And user should be displayed with "Using Sleep Settings" in the "Geofence status in Dashboard" screen
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
 
 Examples:
  | Mode	| scheduling	 | Geofence     | Period |UPeriod |
@@ -1050,28 +1051,28 @@ Examples:
 
 
 # JASPER NA, EMEA, HBB, FlyCatcher, Camera and DAS
-@VerifyIfGeofenceStatusDisplayedWhenUserSkipsGeofenceWhileDoingDIY
+@VerifyIfGeofenceStatusDisplayedWhenUserSkipsGeofenceWhileDoingDIY							@NotAutomatable
 Scenario:  Verify if Geofence status displayed in Dashboard status area when user skips geofence while doing DIY
 Given user launches and logs in to the Lyric application
 When user registers a device by skipping geofence
 Then user should be displayed with the "Dashboard" screen
-Then user should be displayed with "Weather status" in Dashboard status area
+Then user should be displayed with "Weather status in Dashboard status area"
 And user should be displayed with the following "Weather" options:
 | WeatherOptions				                        | 
 | Today's Forecast Header                               |
 | Weather icon                                          |
-| Weather temp in dashboard screen    |
+| Weather temp in dashboard screen    					|
 | Today's High and Low Temperature                      |
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
-When user swipes "Left" on "Dashboard Status Area"
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
+When user swipes to "Left" on "Dashboard Status Area"
 Then Dashboard status area should move in the direction of the swipe to a certain point, spring back and display "Weather status"
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
 
 
 # JASPER NA, EMEA, HBB, FlyCatcher, Camera and DAS
-@VerifyIfGeofenceStatusDisplayedWhenUserSetsUpGeofenceRadiusWhileDoingDIY
+@VerifyIfGeofenceStatusDisplayedWhenUserSetsUpGeofenceRadiusWhileDoingDIY							@NotAutomatable
 Scenario:  Verify if Geofence status displayed in Dashboard status area when user sets up geofence radius while doing DIY
 Given user launches and logs in to the Lyric application
 When user registers a device by setting up geofence radius
@@ -1098,7 +1099,7 @@ And Add New Device button should be displayed below the device
 
 
 # JASPER NA, EMEA, HBB, FlyCatcher, Camera and DAS
-@VerifyDashboardStatusAreaWhenGeofenceIsEnabledForExistingDeviceAndUserSkipsGeofenceWhileDoingDIYForAnotherDevice
+@VerifyDashboardStatusAreaWhenGeofenceIsEnabledForExistingDeviceAndUserSkipsGeofenceWhileDoingDIYForAnotherDevice							@NotAutomatable
 Scenario:  Verify if Geofence status displayed in Dashboard status area when user skips geofence while doing DIY for another device
 Given user launches and logs in to the Lyric application
 Given user launches and logs in to the Lyric Application
@@ -1152,7 +1153,7 @@ And Add New Device button should be displayed below the device
 
 
 #JASPER NA, HBB, Fly Catcher
-@VerifyDashboardStatusAreaWhenScheduleIsChangedFromTimeBasedScheduleToNoSchedule
+@VerifyDashboardStatusAreaWhenScheduleIsChangedFromTimeBasedScheduleToNoSchedule						@Automated(IOS_Pending_Defect)
 Scenario Outline:  To verify if Geofence status is displayed in Dashboard status area when Time based Schedule is changed to No Schedule
 Given user has <Mode> system mode 
 Then user thermostat is set to "time based" schedule 
@@ -1161,14 +1162,14 @@ And user should be displayed with the following "Weather" options:
 | WeatherOptions				                        | 
 | Today's Forecast Header                               |
 | Weather icon                                          |
-| Weather temp in dashboard screen    |
+| Weather temp in dashboard screen    					|
 | Today's High and Low Temperature                      |
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
-When user swipes "Left" on "Dashboard Status Area"
-Then Dashboard status area should move in the direction of the swipe to a certain point, spring back and display "Weather status"
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
+When user swipes to "Left" on "Dashboard Status Area"
+Then user should be displayed with "Geofence status in Dashboard status area"
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
 Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
 When user has "PERMANENT" status
 Then verify the "PERMANENT" on the "PRIMARY CARD" screen
@@ -1180,19 +1181,20 @@ Then user navigates to "PRIMARY CARD" screen from the "Scheduling" screen
 When user changes system mode to <UMode>
 Then verify the "No Schedule" on the "PRIMARY CARD" screen
 When user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
-Then user should be displayed with "Weather status" in Dashboard status area
+Then user swipes to "Right" on "Dashboard Status Area"
+Then user should be displayed with "Weather status in Dashboard status area"
 And user should be displayed with the following "Weather" options:
 | WeatherOptions				                        | 
 | Today's Forecast Header                               |
 | Weather icon                                          |
-| Weather temp in dashboard screen    |
+| Weather temp in dashboard screen    					|
 | Today's High and Low Temperature                      |
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
-When user swipes "Left" on "Dashboard Status Area"
-Then Dashboard status area should move in the direction of the swipe to a certain point, spring back and display "Weather status"
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
+When user swipes to "Left" on "Dashboard Status Area"
+Then user should be displayed with "Geofence status in Dashboard status area"
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
 
 Examples:
  |Mode	|UMode	| 
@@ -1223,7 +1225,7 @@ Examples:
 
 
 #JASPER NA, HBB, Fly Catcher
-@VerifyDashboardStatusAreaWhenScheduleIsChangedFromGeofenceBasedScheduleToNoSchedule
+@VerifyDashboardStatusAreaWhenScheduleIsChangedFromGeofenceBasedScheduleToNoSchedule							@Automated(IOS_Pending_Defect)
 Scenario Outline:  To verify if Geofence status is displayed in Dashboard status area when Geofence based Schedule is changed to No Schedule
 Given user has <Mode> system mode
 And user thermostat is set to "time based" schedule
@@ -1232,14 +1234,14 @@ And user should be displayed with the following "Weather" options:
 | WeatherOptions				                        | 
 | Today's Forecast Header                               |
 | Weather icon                                          |
-| Weather temp in dashboard screen    |
+| Weather temp in dashboard screen    					|
 | Today's High and Low Temperature                      |
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
-When user swipes "Left" on "Dashboard Status Area"
-Then Dashboard status area should move in the direction of the swipe to a certain point, spring back and display "Weather status"
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
+When user swipes to "Left" on "Dashboard Status Area"
+Then user should be displayed with "Geofence status in Dashboard status area"
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
 When user navigates to "thermostat solution card" screen from the "thermostat Dashboard" screen
 Then verify the "FOLLOWING SCHEDULE" on the "PRIMARY CARD" screen
 When user navigates to "scheduling" screen from the "PRIMARY CARD" screen
@@ -1248,25 +1250,26 @@ And user creates "Geofence based" schedule following specific <Sleep period> tim
 And verify the <Schedule status> on the "PRIMARY CARD" screen
 And verify respective <Period> period setpoint values
 When user navigates to "THERMOSTAT DASHBOARD" screen from the "THERMOSTAT SOLUTION CARD" screen
-Then user should be displayed with "Weather status" in Dashboard status area
+Then user should be displayed with "Geofence status in Dashboard status area"
+Then user swipes to "Right" on "Dashboard Status Area"
 And user should be displayed with the following "Weather" options:
 | WeatherOptions				                        | 
 | Today's Forecast Header                               |
 | Weather icon                                          |
-| Weather temp in dashboard screen    |
+| Weather temp in dashboard screen   				    |
 | Today's High and Low Temperature                      |
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
-When user swipes "Left" on "Dashboard Status Area"
-Then user should be displayed with "Geofence status" in Dashboard status area
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
+When user swipes to "Left" on "Dashboard Status Area"
+Then user should be displayed with "Geofence status in Dashboard status area"
 And user should be displayed with the following "Geofence status" options:
 | GeofenceStatusOptions				    |
 | Geofencing Title                      |
 | Geofence icon                         |
 | Current state of geofencing           |
 | What settings are being used          |
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
 
 Examples:
  | Mode	| Period	| Geofence		    | Schedule status		| Sleep period | 
@@ -1291,34 +1294,41 @@ Examples:
 
 
 #JASPER NA, HBB, Fly Catcher
-@VerifyDashboardStatusAreaForGeofenceBasedSchedule
+@VerifyDashboardStatusAreaForGeofenceBasedSchedule							@Automated
 Scenario Outline:  To verify if Geofence status is displayed in Dashboard status area when Geofence based Schedule is enabled
 Given user has <Mode> system mode
-And user thermostat is set to "geofence based" schedule
+Then user thermostat is set to "geofence based" schedule
+And user thermostat is set to <scheduling> schedule 
 And user thermostat set <Period> with <Geofence>
 When user launches and logs in to the Lyric application
-Then user should be displayed with "Weather status" in Dashboard status area
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
-When user swipes "Left" on "Dashboard Status Area"
-Then user should be displayed with "Geofence status" in Dashboard status area
+Then user should be displayed with "Weather status in Dashboard status area"
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
+When user swipes to "Left" on "Dashboard Status Area"
+Then user should be displayed with "Geofence status in Dashboard status area"
 And user should be displayed with the following "Geofence status" options:
 | GeofenceStatusOptions				    |
 | Geofencing Title                      |
 | Geofence icon                         |
 | Current state of geofencing           |
 | What settings are being used          |
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
 
 Examples:
-| Mode  |
-| Heat  |
-| Cool  |
-| Auto  |
+| Mode  |Period | Geofence | scheduling |
+| Heat  | Home | UserArrived | Without sleep geofence based | 
+| Heat  | Sleep | UserArrived | geofence based | 
+| Heat  | Away | UserDeparted | Without sleep geofence based | 
+| Cool  | Home | UserArrived |Without sleep geofence based | 
+| Cool  | Sleep | UserArrived | geofence based |
+| Cool  | Away | UserDeparted | Without sleep geofence based | 
+| Auto  | Home | UserArrived |Without sleep geofence based | 
+| Auto  | Sleep | UserArrived | geofence based |
+| Auto  | Away | UserDeparted | Without sleep geofence based | 
 
 
-@DashboardStatusAreaWhenUserCrossesFenceAndReturnsBack
+@DashboardStatusAreaWhenUserCrossesFenceAndReturnsBack							@NotAutomatable
 Scenario:   To verify the dashboard status area in dashboard screen when Geofence is crossed and returned back when Multiple devices are registered
 Given user launches and logs in to the Lyric Application
 Then user should be displayed with "Weather status" in Dashboard status area
@@ -1385,7 +1395,7 @@ And Add New Device button should be displayed below the device
 When user swipes "Left" on "Dashboard Status Area"
 Then user should be displayed with "Geofence status" in Dashboard status area
 And user should be displayed with the following "Geofence status" options:
-| GeofenceStatusOptions                              |
+| GeofenceStatusOptions                 |
 | Geofencing Title                      |
 | Alert icon                            |
 | Location Services Disabled label      |
@@ -1401,7 +1411,7 @@ And Add New Device button should be displayed below the device
 When user swipes "Left" on "Dashboard Status Area"
 Then user should be displayed with "Geofence status" in Dashboard status area
 And user should be displayed with the following "Geofence status" options:
-| GeofenceStatusOptions                              |
+| GeofenceStatusOptions                 |
 | Geofencing Title                      |
 | Geofence icon                         |
 | Current state of geofencing           |
@@ -1411,117 +1421,132 @@ And Add New Device button should be displayed below the device
 
 
 #JASPER NA, EMEA, HBB, Fly Catcher
-@VerifyGeofenceStatusInDashboardWhenScheduleIsChangedFromGeofenceBasedToTimeBasedSchedule	@Automatable
+@VerifyGeofenceStatusInDashboardWhenScheduleIsChangedFromGeofenceBasedToTimeBasedSchedule							@Automated
 Scenario:  To verify Geofence status in Dashboard status area when Geofence based Schedule is changed to Time based Schedule
 Given user thermostat is set to "geofence based" schedule
 When user launches and logs in to the Lyric Application
-Then user should be displayed with "Weather status" in Dashboard status area
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
-When user swipes "Left" on "Dashboard Status Area"
-Then user should be displayed with "Geofence status" in Dashboard status area
+Then user should be displayed with "Weather status in Dashboard status area"
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
+When user swipes to "Left" on "Dashboard Status Area"
+Then user should be displayed with "Geofence status in Dashboard status area"
 And user should be displayed with the following "Geofence status" options:
 | GeofenceStatusOptions				    |
 | Geofencing Title                      |
 | Geofence icon                         |
 | Current state of geofencing           |
 | What settings are being used          |
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
 When user thermostat is set to "time based" schedule 
-Then user should be displayed with "Weather status" in Dashboard status area
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
-When user swipes "Left" on "Dashboard Status Area"
-Then user should be displayed with "Geofence status" in Dashboard status area
+Then user should be displayed with "Geofence status in Dashboard status area"
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
 And user should be displayed with the following "Geofence status" options:
 | GeofenceStatusOptions                             |
 | Geofencing Title                                  |
 | Geofence icon                                     |
-| Current state (Home or Away) of geofencing        |
+| Current state of geofencing        				|
 | What settings are being used                      |
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
-
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
 
 #JASPER NA, EMEA, HBB
-@VerifyGeofenceStatusInDashboardWhenThermostatIsEitherTempHoldOrPermHold	@Automatable
-Scenario: To Verify Geofence status in Dashboard status area when Thermostat is in Temporary hold or Permanent Hold status
-Given user launches and logs in to the Lyric Application
-Then user should be displayed with "Weather status" in Dashboard status area
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
-When user swipes "Left" on "Dashboard Status Area"
-Then user should be displayed with "Geofence status" in Dashboard status area
-When Thermostat is either in Temporary Hold or Permanent status
+@VerifyGeofenceStatusInDashboardWhenThermostatIsEitherTemporPermHold	@Automatable(defect)
+Scenario Outline: To Verify Geofence status in Dashboard status area when Thermostat is in Temporary hold or Permanent Hold status
+ Given user thermostat is set to "Time Based" schedule
+ Then user launches and logs in to the Lyric Application
+Then user should be displayed with "Weather status in Dashboard status area"
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
+When user swipes to "Left" on "Dashboard Status Area"
+Then user should be displayed with "Geofence status in Dashboard status area"
+Then user navigates to "THERMOSTAT SOLUTION CARD" screen from the "THERMOSTAT DASHBOARD" screen
+When user has <AdhocStatus> status
+Then verify the <AdhocStatus> on the "PRIMARY CARD" screen
+Then user navigates to "Dashboard" screen from the "PRIMARY CARD" screen
 Then user should be displayed with the following "Geofence status" options:
 | GeofenceStatusOptions                             |
 | Geofencing Title                                  |
 | Geofence icon                                     |
-| Current state (Home or Away) of geofencing        |
+| Current state of geofencing    				    |
 | What settings are being used                      |
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
-
+And user should be displayed with "Device"			
+And user should be displayed with "Add new device button below Device"
+Examples: 
+|AdhocStatus |
+| PERMANENT   | 
+| Temporary   | 
 
 #JASPER NA, EMEA, HBB
-@VerifyGeofenceStatusInDashboardWhenThermostatIsInTimeBasedScheduleAndFollowingAnyTimePeriod	@Automatable
+@VerifyGeofenceStatusInDashboardWhenThermostatIsInTimeBasedScheduleAndFollowingAnyTimePeriod	@Automated
 Scenario: To Verify Geofence status in Dashboard status area when Thermostat is in Time based schedule and following any period based on the user time
-Given user launches and logs in to the Lyric Application
-Then user should be displayed with "Weather status" in Dashboard status area
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
-When user swipes "Left" on "Dashboard Status Area"
-Then user should be displayed with "Geofence status" in Dashboard status area
-When Thermostat is in time based schedule and following any time period
+ Given user thermostat is set to "Time Based" schedule
+ Then user launches and logs in to the Lyric Application
+Then user should be displayed with "Weather status in Dashboard status area"
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
+When user swipes to "Left" on "Dashboard Status Area"
+Then user should be displayed with "Geofence status in Dashboard status area"
 Then user should be displayed with the following "Geofence status" options:
 | GeofenceStatusOptions                             |
 | Geofencing Title                                  |
 | Geofence icon                                     |
-| Current state (Home or Away) of geofencing        |
+| Current state of geofencing    				    |
 | What settings are being used                      |
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
 
 
-#JASPER NA, EMEA, HBB
-@VerifyGeofenceStatusInDashboardWhenThermostatIsInNoSchedule	@Automatable
-Scenario: To Verify Geofence status in Dashboard status area when Thermostat is in No Schedule
-Given user launches and logs in to the Lyric Application
-Then user should be displayed with "Weather status" in Dashboard status area
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
-When user swipes "Left" on "Dashboard Status Area"
-Then user should be displayed with "Geofence status" in Dashboard status area
-When Thermostat is not following any schedule
+#JASPER NA, HBB
+@VerifyGeofenceStatusInDashboardWhenThermostatIsInNoSchedule	@Automated
+Scenario Outline: To Verify Geofence status in Dashboard status area when Thermostat is in No Schedule
+Given user thermostat is set to "Time Based" schedule
+Then user launches and logs in to the Lyric Application
+Then user should be displayed with "Weather status in Dashboard status area"
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
+When user swipes to "Left" on "Dashboard Status Area"
+Then user should be displayed with "Geofence status in Dashboard status area""
+And user navigates to "Scheduling" screen from the "Dashboard" screen
+And user selects <Type> view
+When user edit Time schedule by deleting "All 4 periods" on confirming the period deletion
+Then verify "No Schedule" screen is shown in view schedule screen
 Then user should be displayed with the following "Geofence status" options:
 | GeofenceStatusOptions                             |
 | Geofencing Title                                  |
 | Geofence icon                                     |
-| Current state (Home or Away) of geofencing        |
+| Current state of geofencing       			    |
 | What settings are being used                      |
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
+   Examples:
+      | Type            | 
+      | Grouped days    | 
 
 
 #JASPER NA, EMEA, HBB
-@VerifyGeofenceStatusInDashboardWhenThermostatScheduleIsTurnedOFF	@Automatable
+@VerifyGeofenceStatusInDashboardWhenThermostatScheduleIsTurnedOFF	@Automated
 Scenario: To Verify Geofence status in Dashboard status area when Thermostat schedule is turned OFF
 Given user launches and logs in to the Lyric Application
-Then user should be displayed with "Weather status" in Dashboard status area
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
-When user swipes "Left" on "Dashboard Status Area"
-Then user should be displayed with "Geofence status" in Dashboard status area
-When Thermostat schedule is turned off
+Then user should be displayed with "Weather status in Dashboard status area"
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
+When user swipes to "Left" on "Dashboard Status Area"
+Then user should be displayed with "Geofence status in Dashboard status area"
+Then user navigates to "Scheduling" screen from the "Dashboard" screen
+When user selects "Option" from "Scheduling" screen
+Then user selects "schedule off" from "Option" screen
+And verify the "schedule off overlay" on the "Scheduling" screen
+When user navigates to "Dashboard" screen from the "SCHEDULING" screen
 Then user should be displayed with the following "Geofence status" options:
 | GeofenceStatusOptions                             |
 | Geofencing Title                                  |
 | Geofence icon                                     |
-| Current state (Home or Away) of geofencing        |
+| Current state of geofencing    				    |
 | What settings are being used                      |
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
 
 
 #JASPER NA, EMEA, HBB
@@ -1529,56 +1554,57 @@ And Add New Device button should be displayed below the device
 Scenario: To Verify Geofence status in Dashboard status area when multiple Thermostats available for single location
 Given user launches and logs in to the Lyric Application
 Then user should be displayed with "Weather status" in Dashboard status area
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
-When user swipes "Left" on "Dashboard Status Area"
-Then user should be displayed with "Geofence status" in Dashboard status area
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
+When user swipes to "Left" on "Dashboard Status Area"
+Then user should be displayed with "Geofence status in Dashboard status area"
 When multiple thermostats are available for single location
 Then user should be displayed with the following "Geofence status" options:
 | GeofenceStatusOptions                             |
 | Geofencing Title                                  |
 | Geofence icon                                     |
-| Current state (Home or Away) of geofencing        |
+| Current state of geofencing    				    |
 | What settings are being used                      |
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
 
 
 #JASPER NA, EMEA, HBB
-@VerifyGeofenceStatusInDashboardWhenUserHasTurnedONVacation	@Automatable
+@VerifyGeofenceStatusInDashboardWhenUserHasTurnedONVacation							@Automated
 Scenario: To Verify Geofence status in Dashboard status area when user has turned on vacation
 Given user launches and logs in to the Lyric Application
-Then user should be displayed with "Weather status" in Dashboard status area
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
-When user swipes "Left" on "Dashboard Status Area"
-Then user should be displayed with "Geofence status" in Dashboard status area
-When user has turned on vacation
+Then user should be displayed with "Weather status in Dashboard status area"
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
+When user swipes to "Left" on "Dashboard Status Area"
+Then user should be displayed with "Geofence status in Dashboard status area"
+When vacation mode is "active"
 Then user should be displayed with the following "Geofence status" options:
 | GeofenceStatusOptions                             |
 | Geofencing Title                                  |
 | Geofence icon                                     |
-| Current state (Home or Away) of geofencing        |
+| Current state of geofencing    				    |
 | What settings are being used                      |
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
-
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
 
 #JASPER NA, EMEA, HBB
 @VerifyGeofenceStatusInDashboardWhenUserHasOptedForDR	@Automatable
 Scenario: To Verify Geofence status in Dashboard status area when user has opted for DR
-Given user launches and logs in to the Lyric Application
-Then user should be displayed with "Weather status" in Dashboard status area
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
-When user swipes "Left" on "Dashboard Status Area"
-Then user should be displayed with "Geofence status" in Dashboard status area
-When user has opted for DR
-Then user should be displayed with the following "Geofence status" options:
+Given user thermostat is enrolled with DR
+And user has triggered DR event with "duty cycle" and "is" opt-out able
+And DR event has started on the user device
+When user launches and logs in to the Lyric Application
+Then user should be displayed with "Weather status in Dashboard status area"
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
+When user swipes to "Left" on "Dashboard Status Area"
+Then user should be displayed with "Geofence status in Dashboard status area"
+And user should be displayed with the following "Geofence status" options:
 | GeofenceStatusOptions                             |
 | Geofencing Title                                  |
 | Geofence icon                                     |
-| Current state (Home or Away) of geofencing        |
+| Current state of geofencing    				    |
 | What settings are being used                      |
-And Device should be displayed below Dashboard status area
-And Add New Device button should be displayed below the device
+And user should be displayed with "Device"
+And user should be displayed with "Add new device button below Device"
