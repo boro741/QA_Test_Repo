@@ -44,6 +44,7 @@ Scenario Outline: 2 As a user I should receive smoke alarm when smoke detect in 
 Given user sets the entry/exit timer to "15" seconds
 And user is set to <Mode> mode through CHIL
 And user launches and logs in to the Lyric application
+And user clears all push notifications
 And user navigates to "Security Solution card" screen from the "Dashboard" screen
 When user <Sensor Type> access sensor "Smoke Test"
 Then user should be displayed with the "Alarm" screen
@@ -62,6 +63,7 @@ Scenario Outline:3 As a user I should receive CO alarm when CO detect in any sec
 Given user sets the entry/exit timer to "15" seconds
 And user is set to <Mode> mode through CHIL
 And user launches and logs in to the Lyric application
+And user clears all push notifications
 And user navigates to "Security Solution card" screen from the "Dashboard" screen
 When user <Sensor Type> access sensor "CO Test"
 Then user should be displayed with the "Alarm" screen

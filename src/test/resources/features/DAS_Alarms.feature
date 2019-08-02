@@ -3,9 +3,9 @@ Feature: DAS Alarms
 As a user I want to be notified when my sensors and system are intruded
 
 Background:
- Given user sets the entry/exit timer to "60" seconds
-Given reset relay as precondition
-Given user is set to "Home" mode through CHIL
+Given user sets the entry/exit timer to "60" seconds
+And reset relay as precondition
+And user is set to "Home" mode through CHIL
 #Given "ENABLE MODE PUSH NOTIFICATION" as precondition
 #And user dismisses all alerts and notification through CHIL
 

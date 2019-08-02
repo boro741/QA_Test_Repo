@@ -20,8 +20,9 @@ import static io.appium.java_client.touch.offset.PointOption.point;
 public class SecuritySolutionCardScreen extends MobileScreens {
 
 	private static final String screenName = "SecuritySolutionCard";
-	public static final String NIGHTSECURITYSTATEINANDROID = "Sleep";
-	public static final String OFFSECURITYSTATEINANDROID = "OFF";
+	public static final String NIGHTSECURITYSTATEINANDROID = "Switch to sleep mode";
+	public static final String OFFSECURITYSTATEINANDROID = "Switch to off mode";
+	public static final String AWAYSECURITYSTATEINANDROID = "Switch to away mode";
 
 	public SecuritySolutionCardScreen(TestCases testCase) {
 		super(testCase, screenName);
@@ -90,11 +91,11 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 						"//android.widget.LinearLayout[@content-desc='" + OFFSECURITYSTATEINANDROID + "']", testCase);
 			} else {
 				return MobileUtils.isMobElementExists("XPATH",
-						"//android.widget.LinearLayout[@content-desc='" + securityState + "']", testCase);
+						"//android.widget.LinearLayout[@content-desc='" + AWAYSECURITYSTATEINANDROID +"']", testCase);
 			}
 		} else {
 			if (testCase.getMobileDriver()
-					.findElementsByXPath("//XCUIElementTypeCell[@value='" + securityState + "'])") != null) {
+					.findElementsByXPath("//XCUIElementTypeCell[@value='"+ securityState + "'])") != null) {
 				return testCase.getMobileDriver()
 						.findElementsByXPath("//XCUIElementTypeCell[@value='" + securityState + "'])") != null;
 			} else {
@@ -115,7 +116,7 @@ public class SecuritySolutionCardScreen extends MobileScreens {
 						"//android.widget.LinearLayout[@content-desc='" + OFFSECURITYSTATEINANDROID + "']");
 			} else {
 				return MobileUtils.clickOnElement(testCase, "XPATH",
-						"//android.widget.LinearLayout[@content-desc='" + securityState + "']");
+						"//android.widget.LinearLayout[@content-desc='" + AWAYSECURITYSTATEINANDROID + "']");
 			}
 		} else {
 			if (securityState == "Home") {

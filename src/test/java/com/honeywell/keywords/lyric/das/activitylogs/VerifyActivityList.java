@@ -175,8 +175,20 @@ public class VerifyActivityList extends Keyword {
 					deviceLocationTime = inputs.getInputValue("DOOR_OPENED_TIME");
 					break;
 				}
+				case "RF DOOR OPENED AT HOME MODE": {
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_RFDOORSENSOR1") + " opened";
+					expectedActivitySubHeader = "HOME MODE";
+					deviceLocationTime = inputs.getInputValue("DOOR_OPENED_TIME");
+					break;
+				}
 				case "DOOR OPENED AT AWAY MODE": {
 					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " opened";
+					expectedActivitySubHeader = "AWAY MODE";
+					deviceLocationTime = inputs.getInputValue("DOOR_OPENED_TIME");
+					break;
+				}
+				case "RF DOOR OPENED AT AWAY MODE":{
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_RFDOORSENSOR1") + " opened";
 					expectedActivitySubHeader = "AWAY MODE";
 					deviceLocationTime = inputs.getInputValue("DOOR_OPENED_TIME");
 					break;
@@ -189,6 +201,18 @@ public class VerifyActivityList extends Keyword {
 				}
 				case "DOOR OPENED AT OFF MODE": {
 					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " opened";
+					expectedActivitySubHeader = "OFF MODE";
+					deviceLocationTime = inputs.getInputValue("DOOR_OPENED_TIME");
+					break;
+				}
+				case "RF DOOR OPENED AT NIGHT MODE": {
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_RFDOORSENSOR1") + " opened";
+					expectedActivitySubHeader = "NIGHT MODE";
+					deviceLocationTime = inputs.getInputValue("DOOR_OPENED_TIME");
+					break;
+				}
+				case "RF DOOR OPENED AT OFF MODE": {
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_RFDOORSENSOR1") + " opened";
 					expectedActivitySubHeader = "OFF MODE";
 					deviceLocationTime = inputs.getInputValue("DOOR_OPENED_TIME");
 					break;
@@ -241,6 +265,30 @@ public class VerifyActivityList extends Keyword {
 				}
 				case "DOOR CLOSED AT OFF MODE": {
 					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " closed";
+					expectedActivitySubHeader = "OFF MODE";
+					deviceLocationTime = inputs.getInputValue("DOOR_CLOSED_TIME");
+					break;
+				}
+				case "RF DOOR CLOSED AT HOME MODE": {
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_RFDOORSENSOR1") + " closed";
+					expectedActivitySubHeader = "HOME MODE";
+					deviceLocationTime = inputs.getInputValue("DOOR_CLOSED_TIME");
+					break;
+				}
+				case "RF DOOR CLOSED AT AWAY MODE": {
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_RFDOORSENSOR1") + " closed";
+					expectedActivitySubHeader = "AWAY MODE";
+					deviceLocationTime = inputs.getInputValue("DOOR_CLOSED_TIME");
+					break;
+				}
+				case "RF DOOR CLOSED AT NIGHT MODE": {
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_RFDOORSENSOR1") + " closed";
+					expectedActivitySubHeader = "NIGHT MODE";
+					deviceLocationTime = inputs.getInputValue("DOOR_CLOSED_TIME");
+					break;
+				}
+				case "RF DOOR CLOSED AT OFF MODE": {
+					expectedActivityHeader = inputs.getInputValue("LOCATION1_DEVICE1_RFDOORSENSOR1") + " closed";
 					expectedActivitySubHeader = "OFF MODE";
 					deviceLocationTime = inputs.getInputValue("DOOR_CLOSED_TIME");
 					break;
@@ -388,6 +436,14 @@ public class VerifyActivityList extends Keyword {
 					break;
 				}
 				case "DOOR SENSOR ALARM AT AWAY MODE": {
+					// expectedActivityHeader =
+					// inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Alarm";
+					expectedActivityHeader = "Security Alarm";
+					expectedActivitySubHeader = "AWAY MODE";
+					deviceLocationTime = inputs.getInputValue("ALARM_TIME");
+					break;
+				}
+				case "RF DOOR SENSOR ALARM AT AWAY MODE": {
 					// expectedActivityHeader =
 					// inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1") + " Alarm";
 					expectedActivityHeader = "Security Alarm";

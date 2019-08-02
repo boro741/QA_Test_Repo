@@ -136,6 +136,7 @@ public class VerifyStatusOnScreen extends Keyword {
 			}
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "DOOR SENSOR":
+			case "RF DOOR SENSOR":
 			case "DOOR": {
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "OPEN": {
@@ -1273,7 +1274,8 @@ public class VerifyStatusOnScreen extends Keyword {
 		case "SET UP ACCESSORIES": {
 			switch (expectedScreen.get(0).toUpperCase()) {
 			case "DOOR SENSOR":
-			case "DOOR": {
+			case "DOOR":
+			case "RF DOOR SENSOR":{
 				SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
 				switch (expectedScreen.get(1).toUpperCase()) {
 				case "CONFIGURED": {
@@ -1291,6 +1293,7 @@ public class VerifyStatusOnScreen extends Keyword {
 				break;
 			}
 			case "WINDOW SENSOR":
+			case "RF WINDOW SENSOR":
 			case "WINDOW": {
 				SensorSettingScreen sensorSetting = new SensorSettingScreen(testCase);
 				switch (expectedScreen.get(1).toUpperCase()) {

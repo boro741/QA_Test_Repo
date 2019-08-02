@@ -150,7 +150,7 @@ public class NavigateFromEntryExitDelayInVariousScreen extends Keyword {
 				}
 
 				if (flag) {
-					flag = flag & DASSensorUtils.openDoor(testCase, inputs);
+					flag = flag & DASSensorUtils.openDoor(testCase, inputs,"DOOR");
 					flag = flag & DASAlarmUtils.verifyEntryDelayScreenDisplayed(testCase);
 					flag = flag & DASAlarmUtils.timeOutForNoSensorAction(testCase, inputs);
 					if (DASAlarmUtils.verifyAlarmScreenDisplayed(testCase)) {
@@ -191,7 +191,7 @@ public class NavigateFromEntryExitDelayInVariousScreen extends Keyword {
 						System.out.println("Waiting for dismiss alarm request to complete");
 						j++;
 					}
-					flag = flag & DASSensorUtils.closeWindow(testCase, inputs);
+					flag = flag & DASSensorUtils.closeWindow(testCase, inputs,"WINDOW");
 					if (chUtil.getConnection()) {
 						flag = flag & (chUtil.setBaseStationMode(locInfo.getLocationID(), deviceInfo.getDeviceID(),
 								"Away", testCase) == 202 ? true : false);

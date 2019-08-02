@@ -36,61 +36,92 @@ public class AccessSensorActions extends Keyword {
 		try {
 			switch (states.get(0).toUpperCase()) {
 			case "DOOR": 
-			case "DOOR SENSOR" :{
-				if (states.get(1).equalsIgnoreCase("opened") || states.get(1).equalsIgnoreCase("open")) {
-					DASSensorUtils.openDoor(testCase, inputs);
-				} else if (states.get(1).equalsIgnoreCase("closed")) {
-					DASSensorUtils.closeDoor(testCase, inputs);
-				} else if (states.get(1).equalsIgnoreCase("is not closed")) {
+			case "DOOR SENSOR" :
+			case "RF DOOR SENSOR" :{
+				switch (states.get(1)) {
+				case "opened":
+				case "open":{
+					DASSensorUtils.openDoor(testCase, inputs ,states.get(0));
+					break;
+				}case "closed":{
+					DASSensorUtils.closeDoor(testCase, inputs,states.get(0));
+					break;
+				} case "is not closed":{
 					System.out.println("No action on door sensor");
 					DASAlarmUtils.timeOutForNoSensorAction(testCase, inputs);
-				} else if (states.get(1).equalsIgnoreCase("Tampered")
-						|| states.get(1).equalsIgnoreCase("Cover Tampered")) {
-					DASSensorUtils.tamperDoor(testCase, inputs);
-				} else if (states.get(1).equalsIgnoreCase("Tamper Restored")) {
-					DASSensorUtils.tamperClearDoor(testCase, inputs);
+					break;
+				} 
+				case "Tampered":
+				case "Cover Tampered":{
+					DASSensorUtils.tamperDoor(testCase, inputs,states.get(0).toUpperCase());
+				} case "Tamper Restored" : {
+					DASSensorUtils.tamperClearDoor(testCase, inputs,states.get(0).toUpperCase());
 					// DASSensorUtils sensorUtils = new DASSensorUtils();
 					// sensorUtils.verifySensorState(testCase, inputs, "door", "tamper cleared");
-				} else if (states.get(1).equalsIgnoreCase("Tamper CLEARED")) {
-					DASSensorUtils.tamperClearDoor(testCase, inputs);
-				} else if (states.get(1).equalsIgnoreCase("enrolled")) {
-					DASSensorUtils.enrollDoor(testCase, inputs);
-				} else if (states.get(1).equalsIgnoreCase("offline")) {
+					break;
+				}case "Tamper CLEARED" : {
+					DASSensorUtils.tamperClearDoor(testCase, inputs,states.get(0).toUpperCase());
+					break;
+				} case "enrolled" : {
+					DASSensorUtils.enrollDoor(testCase, inputs,states.get(0));
+					break;
+				} case "offline" : {
 					System.out.println("Make door sensor offline");
-				} else if (states.get(1).equalsIgnoreCase("Low Battery")) {
+					break;
+				} case "Low Battery" : {
 					System.out.println("Make door sensor Low Battery");
-				}
-
-				else {
+				}default: {
+					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Input not handled");
+				}
 				}
 				break;
 			}
 			case "WINDOW":
+			case "RF WINDOW SENSOR" :
 			case "WINDOW SENSOR": {
-				if (states.get(1).equalsIgnoreCase("opened") || states.get(1).equalsIgnoreCase("open")) {
-					DASSensorUtils.openWindow(testCase, inputs);
-				} else if (states.get(1).equalsIgnoreCase("closed")) {
-					DASSensorUtils.closeWindow(testCase, inputs);
-				} else if (states.get(1).equalsIgnoreCase("does not close")) {
+				switch (states.get(1)) {
+				case "opened":
+				case "open":{
+					DASSensorUtils.openWindow(testCase, inputs ,states.get(0));
+					break;
+				}
+				case "closed":{
+					DASSensorUtils.closeWindow(testCase, inputs,states.get(0));
+					break;
+				}
+				case "does not close":{
 					DASAlarmUtils.timeOutForNoSensorAction(testCase, inputs);
-				} else if (states.get(1).equalsIgnoreCase("Tampered")
-						|| states.get(1).equalsIgnoreCase("Cover Tampered")) {
-					DASSensorUtils.tamperWindow(testCase, inputs);
-				} else if (states.get(1).equalsIgnoreCase("Tamper Restored")) {
-					DASSensorUtils.tamperClearWindow(testCase, inputs);
+					break;
+				}
+				case "Tampered":
+				case "Cover Tampered":{
+					DASSensorUtils.tamperWindow(testCase, inputs,states.get(0).toUpperCase());
+					break;
+				}
+				case "Tamper Restored":{
+					DASSensorUtils.tamperClearWindow(testCase, inputs,states.get(0).toUpperCase());
 					DASSensorUtils sensorUtils = new DASSensorUtils();
 					sensorUtils.verifySensorState(testCase, inputs, "window", "tamper cleared");
-				} else if (states.get(1).equalsIgnoreCase("Tamper CLEARED")) {
-					DASSensorUtils.tamperClearWindow(testCase, inputs);
-				} else if (states.get(1).equalsIgnoreCase("enrolled")) {
-					DASSensorUtils.enrollWindow(testCase, inputs);
-				} else if (states.get(1).equalsIgnoreCase("offline")) {
+					break;
+				}case "Tamper CLEARED":{
+					DASSensorUtils.tamperClearWindow(testCase, inputs,states.get(0).toUpperCase());
+					break;
+				} case "enrolled":{
+					DASSensorUtils.enrollWindow(testCase, inputs,states.get(0));
+					break;
+				} case "offline":{
 					System.out.println("Make window sensor offline");
-				} else if (states.get(1).equalsIgnoreCase("Low Battery")) {
+					break;
+				} case "Low Battery":{
 					System.out.println("Make window sensor Low Battery");
-				} else {
-					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Input not handled");
+					break;
+				}default: {
+					flag = false;
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Invalid Input : " + states.get(0) + " for " + states.get(1));
+					break;
+				}
 				}
 				break;
 			}

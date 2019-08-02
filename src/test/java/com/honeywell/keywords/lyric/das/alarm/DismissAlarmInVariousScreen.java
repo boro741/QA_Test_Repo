@@ -146,7 +146,7 @@ public class DismissAlarmInVariousScreen extends Keyword {
 				}
 				}
 			
-				flag = flag & DASSensorUtils.openWindow(testCase, inputs);
+				flag = flag & DASSensorUtils.openWindow(testCase, inputs,"DOOR");
 				if (DASAlarmUtils.verifyAlarmScreenDisplayed(testCase)){
 					Keyword.ReportStep_Pass(testCase,
 							"Successfully displayed with Alarm screen");
@@ -162,7 +162,7 @@ public class DismissAlarmInVariousScreen extends Keyword {
 					System.out.println("Waiting for dismiss alarm request to complete");
 					j++;
 				}
-				flag = flag & DASSensorUtils.closeWindow(testCase, inputs);
+				flag = flag & DASSensorUtils.closeWindow(testCase, inputs,"WINDOW");
 				if (chUtil.getConnection()) {
 				flag = flag & (chUtil.setBaseStationMode(locInfo.getLocationID(), deviceInfo.getDeviceID(),
 						"Away", testCase)==202 ? true:false);

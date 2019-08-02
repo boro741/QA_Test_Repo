@@ -471,7 +471,7 @@ public class NavigateToScreen extends Keyword {
 					flag = flag & security.clickOnSensorButton();
 					SensorSettingScreen sensor = new SensorSettingScreen(testCase);
 					flag = flag & sensor.clickOnAddSensorButton();
-					DASSensorUtils.enrollDoor(testCase, inputs);
+					DASSensorUtils.enrollDoor(testCase, inputs,"DOOR");
 					flag = flag & sensor.clickOnSetUpButton(inputs, "access sensor");
 					break;
 				}
@@ -3266,13 +3266,13 @@ public class NavigateToScreen extends Keyword {
 				switch (screen.get(0).toUpperCase()) {
 				case "SENSOR OVERVIEW": {
 					flag = flag & sensor.clickOnAddSensorButton();
-					DASSensorUtils.enrollDoor(testCase, inputs);
+					DASSensorUtils.enrollDoor(testCase, inputs,"DOOR");
 					flag = flag & sensor.clickOnSetUpButton(inputs, "access sensor");
 					break;
 				}
 				case "LOCATE SENSOR": {
 					flag = flag & sensor.clickOnAddSensorButton();
-					DASSensorUtils.enrollDoor(testCase, inputs);
+					DASSensorUtils.enrollDoor(testCase, inputs,"DOOR");
 					flag = flag & sensor.clickOnSetUpButton(inputs, "access sensor");
 					flag = flag & sensor.clickOnGetStartedFromSensorOverview();
 					break;
@@ -3285,7 +3285,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "NAME SENSOR LOCATION": {
 					flag = flag & sensor.clickOnAddSensorButton();
-					DASSensorUtils.enrollDoor(testCase, inputs);
+					DASSensorUtils.enrollDoor(testCase, inputs,"DOOR");
 					flag = flag & sensor.clickOnSetUpButton(inputs, "access sensor");
 					flag = flag & sensor.clickOnGetStartedFromSensorOverview();
 					flag = flag & sensor.clickOnNextButton();
@@ -3293,14 +3293,14 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "NAME MOTION SENSOR LOCATION": {
 					flag = flag & sensor.clickOnAddSensorButton();
-					DASSensorUtils.enrollDoor(testCase, inputs);
+					DASSensorUtils.enrollDoor(testCase, inputs ,"DOOR");
 					flag = flag & sensor.clickOnSetUpButton(inputs, "access sensor");
 					flag = flag & sensor.clickOnNextButton();
 					break;
 				}
 				case "NAME SENSOR DEFAULT NAME": {
 					flag = flag & sensor.clickOnAddSensorButton();
-					DASSensorUtils.enrollDoor(testCase, inputs);
+					DASSensorUtils.enrollDoor(testCase, inputs,"DOOR");
 					flag = flag & sensor.clickOnSetUpButton(inputs, "access sensor");
 					flag = flag & sensor.clickOnGetStartedFromSensorOverview();
 					flag = flag & sensor.clickOnNextButton();
@@ -3324,7 +3324,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "NAME SENSOR CUSTOM NAME": {
 					flag = flag & sensor.clickOnAddSensorButton();
-					DASSensorUtils.enrollDoor(testCase, inputs);
+					DASSensorUtils.enrollDoor(testCase, inputs,"DOOR");
 					flag = flag & sensor.clickOnSetUpButton(inputs, "access sensor");
 					flag = flag & sensor.clickOnGetStartedFromSensorOverview();
 					flag = flag & sensor.clickOnNextButton();
@@ -3359,7 +3359,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "PLACE SENSOR": {
 					flag = flag & sensor.clickOnAddSensorButton();
-					DASSensorUtils.enrollDoor(testCase, inputs);
+					DASSensorUtils.enrollDoor(testCase, inputs,"DOOR");
 					flag = flag & sensor.clickOnSetUpButton(inputs, "access sensor");
 					flag = flag & sensor.clickOnGetStartedFromSensorOverview();
 					flag = flag & sensor.clickOnNextButton();
@@ -3369,7 +3369,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "PLACE SENSOR ON LOCATION": {
 					flag = flag & sensor.clickOnAddSensorButton();
-					DASSensorUtils.enrollDoor(testCase, inputs);
+					DASSensorUtils.enrollDoor(testCase, inputs,"DOOR");
 					flag = flag & sensor.clickOnSetUpButton(inputs, "access sensor");
 					flag = flag & sensor.clickOnGetStartedFromSensorOverview();
 					flag = flag & sensor.clickOnNextButton();
@@ -3380,7 +3380,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "TEST ACCESS SENSOR": {
 					flag = flag & sensor.clickOnAddSensorButton();
-					DASSensorUtils.enrollDoor(testCase, inputs);
+					DASSensorUtils.enrollDoor(testCase, inputs,"DOOR");
 					flag = flag & sensor.clickOnSetUpButton(inputs, "access sensor");
 					flag = flag & sensor.clickOnGetStartedFromSensorOverview();
 					flag = flag & sensor.clickOnNextButton();
@@ -3422,7 +3422,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "SIGNAL STRENGTH": {
 					flag = flag & sensor.clickOnAddSensorButton();
-					flag = flag & DASSensorUtils.enrollDoor(testCase, inputs);
+					flag = flag & DASSensorUtils.enrollDoor(testCase, inputs,"DOOR");
 					flag = flag & sensor.clickOnSetUpButton(inputs, "access sensor");
 					flag = flag & sensor.isSensorOverviewScreenDisplayed();
 					flag = flag & sensor.clickOnGetStartedFromSensorOverview();
@@ -3458,7 +3458,7 @@ public class NavigateToScreen extends Keyword {
 				}
 				case "ACCESS SENSOR HELP": {
 					flag = flag & sensor.clickOnAddSensorButton();
-					DASSensorUtils.enrollDoor(testCase, inputs);
+					DASSensorUtils.enrollDoor(testCase, inputs,"DOOR");
 					flag = flag & sensor.clickOnSetUpButton(inputs, "access sensor");
 					flag = flag & sensor.isSensorOverviewScreenDisplayed();
 					flag = flag & sensor.clickOnGetStartedFromSensorOverview();
