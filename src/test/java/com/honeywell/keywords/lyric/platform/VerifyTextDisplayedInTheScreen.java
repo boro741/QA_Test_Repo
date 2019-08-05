@@ -16,6 +16,7 @@ import com.honeywell.lyric.das.utils.EditAccountUtils;
 import com.honeywell.lyric.das.utils.FAQsUtils;
 import com.honeywell.screens.AddressScreen;
 import com.honeywell.screens.EditAccountScreen;
+import com.honeywell.screens.GeofenceSettings;
 
 public class VerifyTextDisplayedInTheScreen extends Keyword {
 
@@ -322,6 +323,20 @@ public class VerifyTextDisplayedInTheScreen extends Keyword {
 				} else {
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 							"Updated Country is not displayed in Address Screen");
+				}
+				break;
+			}
+			}
+		}else if (inputText.get(1).equalsIgnoreCase("GEOFENCE STATUS IN DASHBOARD")) {
+			GeofenceSettings gs = new GeofenceSettings(testCase);
+			switch (inputText.get(0).toUpperCase()) {
+			case "USING SLEEP SETTINGS": {
+				if (gs.isGeofenceHomeSettingsDisplayed()) {
+					Keyword.ReportStep_Pass(testCase,
+							"USING SLEEP SETTINGS is displayed ");
+				} else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"USING SLEEP SETTINGS is not displayed in Address Screen");
 				}
 				break;
 			}

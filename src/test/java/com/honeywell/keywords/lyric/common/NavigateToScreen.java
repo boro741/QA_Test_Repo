@@ -3569,6 +3569,13 @@ public class NavigateToScreen extends Keyword {
 
 					break;
 				}
+				
+				case "DASHBOARD": {
+					SchedulingScreen scheduleScreen = new SchedulingScreen(testCase);
+					flag = flag & scheduleScreen.clickOnCloseButton();
+					flag = flag & scheduleScreen.clickOnBackButton();
+					break;
+				}
 				default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Invalid Input : " + screen.get(0));
@@ -3618,6 +3625,14 @@ public class NavigateToScreen extends Keyword {
 					PrimaryCard sensorScreen = new PrimaryCard(testCase);
 					if (sensorScreen.isCogIconVisible()) {
 						flag = flag & sensorScreen.clickOnCogIcon();
+					}
+					break;
+				}
+				
+				case "DASHBOARD": {
+					PrimaryCard sensorScreen = new PrimaryCard(testCase);
+					if (sensorScreen.isCogIconVisible()) {
+						flag = flag & sensorScreen.clickOnBackButton();
 					}
 					break;
 				}
