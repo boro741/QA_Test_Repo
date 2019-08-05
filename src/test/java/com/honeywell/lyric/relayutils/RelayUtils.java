@@ -129,4 +129,61 @@ public class RelayUtils {
 		Thread.sleep(10000);
 		SerialDriverArduino.closePort();
 	}
+	
+	
+	public static void RFSContactSensorOpen_Window() throws Exception {
+		SerialDriverArduino.initialize();
+		SerialDriverArduino.setrelay(RelayConstants.RFS_WINDOW_Sensor_1_Open);
+		SerialDriverArduino.closePort();
+
+	}
+	public static void RFSContactSensorClosed_Window() throws Exception {
+		SerialDriverArduino.initialize();
+		SerialDriverArduino.setrelay(RelayConstants.RFS_WINDOW_Sensor_1_Close);
+		SerialDriverArduino.closePort();
+	}
+	public static void RFSWindowContactSensorTamperON() throws Exception {
+		SerialDriverArduino.initialize();
+		SerialDriverArduino.setrelay(RelayConstants.RFS_WINDOW_Sensor_1_TAMPER_ON);
+		SerialDriverArduino.closePort();
+	}
+	public static void RFSWindowContactSensorTamperCleared() throws Exception {
+		SerialDriverArduino.initialize();
+		SerialDriverArduino.setrelay(RelayConstants.RFS_WINDOW_Sensor_1_TAMPER_OFF);
+		SerialDriverArduino.closePort();
+	}
+
+	public static void RFSContactSensorEnroll_Window() throws Exception {
+		SerialDriverArduino.initialize();
+		SerialDriverArduino.setrelay(RelayConstants.RFS_WINDOW_Sensor_1_Enroll_ON);
+		SerialDriverArduino.closePort();
+	}
+	
+	public static void RFSContactSensorEnroll_Door() throws Exception {
+		SerialDriverArduino.initialize();
+		SerialDriverArduino.setrelay(RelayConstants.RFS_DOOR_Sensor_1_Enroll_ON);
+		SerialDriverArduino.closePort();
+	}
+	
+	public static void RFSContactSensorOpen_Door() throws Exception {
+		SerialDriverArduino.initialize();
+		SerialDriverArduino.setrelay(RelayConstants.RFS_DOOR_Sensor_1_Open);
+		SerialDriverArduino.closePort();
+	}
+	
+	public static void RFSContactSensorClosed_Door() throws Exception {
+		SerialDriverArduino.initialize();
+		SerialDriverArduino.setrelay(RelayConstants.RFS_DOOR_Sensor_1_Close);
+		SerialDriverArduino.closePort();
+	}
+	public static void RFSDoorContactSensorTampered() throws Exception {
+		SerialDriverArduino.initialize();
+		SerialDriverArduino.setrelay(RelayConstants.RFS_DOOR_Sensor_1_TAMPER_ON);
+		SerialDriverArduino.closePort();
+	}
+	public static void RFSDoorContactSensorTamperCleared() throws Exception {
+		SerialDriverArduino.initialize();
+		SerialDriverArduino.setrelay(RelayConstants.RFS_DOOR_Sensor_1_TAMPER_OFF);
+		SerialDriverArduino.closePort();
+	}
 }

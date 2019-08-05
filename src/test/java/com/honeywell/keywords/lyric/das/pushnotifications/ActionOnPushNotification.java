@@ -108,13 +108,70 @@ public class ActionOnPushNotification extends Keyword {
 			}
 			return flag;
 		}
+		case "SWITCH TO HOME FROM RF DOOR OPEN": {
+			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_RFDOORSENSOR1");
+			notification = sensorName + " opened at " + inputs.getInputValue("LOCATION1_NAME");
+			String locatorValue = "";
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				locatorValue = "//*[@text='" + notification + "']";
+			} else {
+				locatorValue = "//XCUIElementTypeCell[contains(@label,'" + notification + "')]";
+			}
+			System.out.println(locatorValue);
+			AlarmScreen alarmScreen = new AlarmScreen(testCase);
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (alarmScreen.switchToHomeOnNotificationExists()) {
+					flag = alarmScreen.clickswitchToHomeOnNotification();
+				} else {
+					alarmScreen.swipe(locatorValue);
+					flag = alarmScreen.clickswitchToHomeOnNotification();
+				}
+			} else {
+				alarmScreen.swipe(locatorValue);
+				flag = alarmScreen.clickswitchToHomeOnNotification();
+			}
+			return flag;
+		}
+		case "SWITCH TO NIGHT FROM RF DOOR OPEN": {
+			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_RFDOORSENSOR1");
+			notification = sensorName + " opened at " + inputs.getInputValue("LOCATION1_NAME");
+			String locatorValue = "";
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				locatorValue = "//*[@text='" + notification + "']";
+			} else {
+				locatorValue = "//XCUIElementTypeCell[contains(@label,'" + notification + "')]";
+			}
+			AlarmScreen alarmScreen = new AlarmScreen(testCase);
+			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				if (alarmScreen.switchToNightOnNotificationExists()) {
+					flag = alarmScreen.clickswitchToNightOnNotification();
+				} else {
+					alarmScreen.swipe(locatorValue);
+					flag = alarmScreen.clickswitchToNightOnNotification();
+				}
+			} else {
+				alarmScreen.swipe(locatorValue);
+				flag = alarmScreen.clickswitchToNightOnNotification();
+			}
+			return flag;
+		}
 		case "DOOR OPENED": {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
 			notification = sensorName + " opened at " + inputs.getInputValue("LOCATION1_NAME");
 			break;
 		}
+		case "RF DOOR OPENED": {
+			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_RFDOORSENSOR1");
+			notification = sensorName + " opened at " + inputs.getInputValue("LOCATION1_NAME");
+			break;
+		}
 		case "DOOR CLOSED": {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
+			notification = sensorName + " closed at " + inputs.getInputValue("LOCATION1_NAME");
+			break;
+		}
+		case "RF DOOR CLOSED": {
+			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_RFDOORSENSOR1");
 			notification = sensorName + " closed at " + inputs.getInputValue("LOCATION1_NAME");
 			break;
 		}
@@ -125,6 +182,16 @@ public class ActionOnPushNotification extends Keyword {
 		}
 		case "WINDOW CLOSED": {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
+			notification = sensorName + " closed at " + inputs.getInputValue("LOCATION1_NAME");
+			break;
+		}
+		case "RF WINDOW OPENED": {
+			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_RFWINDOWSENSOR1");
+			notification = sensorName + " opened at " + inputs.getInputValue("LOCATION1_NAME");
+			break;
+		}
+		case "RF WINDOW CLOSED": {
+			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_RFWINDOWSENSOR1");
 			notification = sensorName + " closed at " + inputs.getInputValue("LOCATION1_NAME");
 			break;
 		}
@@ -237,7 +304,7 @@ public class ActionOnPushNotification extends Keyword {
 			int xAxix = ele.getLocation().getX();
 			int yAxix = ele.getLocation().getY();
 			MobileUtils.clickOnElement(testCase, "xpath", locatorValue);
-			testCase.getMobileDriver().swipe(xAxix, yAxix, 300, 0, 1);
+//			testCase.getMobileDriver().swipe(xAxix, yAxix, 300, 0, 1);
 			if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
 				if (MobileUtils.isMobElementExists("ID", "com.android.systemui:id/quick_settings_panel", testCase, 5)) {
 					Keyword.ReportStep_Pass(testCase, "Quick Settings Panel is displayed.");

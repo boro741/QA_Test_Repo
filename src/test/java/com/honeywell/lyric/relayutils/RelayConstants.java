@@ -2,7 +2,7 @@ package com.honeywell.lyric.relayutils;
 
 public class RelayConstants {
 	public static final String RelayBoardCOMPort = "COM29";
-	public static final String RelayBoardTTYPort = "/dev/tty.usbmodem1421";
+	public static final String RelayBoardTTYPort = "/dev/tty.usbmodem14501";
 
 	
 	public static String RSI_Contact_Sensor_1_SerialNO= "289407736";//window
@@ -54,5 +54,20 @@ public class RelayConstants {
 	public static String RFS_COMBO_SENSOR_1_SerialNO= "10001268816892126217";//Combo
 	public static String RFS_COMBO_Sensor_1_TRIGGER_SMOKE = "trigger-16";  //Smoke
 	public static String RFS_COMBO_Sensor_1_TRIGGER_CO = "trigger-17";  //CO
+	
+	public static String RFS_DOOR_SENSOR_1_SerialNO= "10001268816892243126";//RF_DOOR
+	public static String RFS_DOOR_Sensor_1_Enroll_ON = "trigger-19"; //RF_DOOR
+	public static String RFS_DOOR_Sensor_1_TAMPER_ON = "setpin-18:1";  //RF_DOOR
+	public static String RFS_DOOR_Sensor_1_TAMPER_OFF = "setpin-18:0";  //RF_DOOR
+	public static String RFS_DOOR_Sensor_1_Open = "setpin-19:1";    // RF_DOOR
+	public static String RFS_DOOR_Sensor_1_Close = "setpin-19:0"; // RF_DOOR
+	
+	
+	public static String RFS_WINDOW_SENSOR_1_SerialNO= "58597372673523410";//RFCT_WINDOW
+	public static String RFS_WINDOW_Sensor_1_Enroll_ON = "trigger-21"; //RFCT_WINDOW
+	public static String RFS_WINDOW_Sensor_1_TAMPER_ON = "setpin-20:1";  //RFCT_WINDOW
+	public static String RFS_WINDOW_Sensor_1_TAMPER_OFF = "setpin-20:0";  //RFCT_WINDOW
+	public static String RFS_WINDOW_Sensor_1_Open = "setpin-21:1";    // RFCT_WINDOW
+	public static String RFS_WINDOW_Sensor_1_Close = "setpin-21:0"; // RFCT_WINDOW
 
 }

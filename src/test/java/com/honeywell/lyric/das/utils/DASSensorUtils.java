@@ -27,97 +27,169 @@ import io.appium.java_client.MobileElement;
 public class DASSensorUtils {
 	private boolean flag = true;
 
-	public static boolean enrollDoor(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean enrollDoor(TestCases testCase, TestCaseInputs inputs, String SensoType) {
 		boolean flag = true;
 		inputs.setInputValue("DOOR_ENROLLED_TIME",
 				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
-			RelayUtils.RSIContactSensorEnroll_Door();
+			switch (SensoType.toUpperCase()){
+			case "DOOR" :
+			case "DOOR SENSOR" :{
+				RelayUtils.RSIContactSensorEnroll_Door();
+				break;
+			} case "RF DOOR SENSOR" :{
+				RelayUtils.RFSContactSensorEnroll_Door();
+				break;
+			}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return flag;
 	}
 
-	public static boolean openDoor(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean openDoor(TestCases testCase, TestCaseInputs inputs , String SensoType) {
 		boolean flag = true;
 		inputs.setInputValue("DOOR_OPENED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
-			RelayUtils.RSIContactSensorOpen_Door();
-		} catch (Exception e) {
+			switch (SensoType.toUpperCase()){
+			case "DOOR" :
+			case "DOOR SENSOR" :{
+				RelayUtils.RSIContactSensorOpen_Door();
+				break;
+			} case "RF DOOR SENSOR" :{
+				RelayUtils.RFSContactSensorOpen_Door();
+				break;
+			}
+			}
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return flag;
 	}
 
-	public static boolean closeDoor(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean closeDoor(TestCases testCase, TestCaseInputs inputs,String SensoType) {
 		boolean flag = true;
 		inputs.setInputValue("DOOR_CLOSED_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
-			RelayUtils.RSIContactSensorClosed_Door();
+			switch (SensoType.toUpperCase()){
+			case "DOOR" :
+			case "DOOR SENSOR" :{
+				RelayUtils.RSIContactSensorClosed_Door();
+				break;
+			} case "RF DOOR SENSOR" :{
+				RelayUtils.RFSContactSensorClosed_Door();;
+				break;
+			}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return flag;
 	}
 
-	public static boolean tamperDoor(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean tamperDoor(TestCases testCase, TestCaseInputs inputs, String SensorType) {
 		boolean flag = true;
 		inputs.setInputValue("ALARM_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		inputs.setInputValue("DOOR_TAMPERED_TIME",
 				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
-			RelayUtils.RSIDoorContactSensorTampered();
-		} catch (Exception e) {
+			switch (SensorType.toUpperCase()){
+			case "DOOR" :
+			case "DOOR SENSOR" :{
+				RelayUtils.RSIDoorContactSensorTampered();
+				break;
+			} case "RF DOOR SENSOR" :{
+				RelayUtils.RFSDoorContactSensorTampered();
+				break;
+			}
+			} 
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return flag;
 	}
 
-	public static boolean tamperClearDoor(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean tamperClearDoor(TestCases testCase, TestCaseInputs inputs, String SensorType ) {
 		boolean flag = true;
 		inputs.setInputValue("DOOR_TAMPER_CLEARED_TIME",
 				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
-			RelayUtils.RSIDoorContactSensorTamperCleared();
-		} catch (Exception e) {
+			switch (SensorType.toUpperCase()){
+			case "DOOR" :
+			case "DOOR SENSOR" :{
+				RelayUtils.RSIDoorContactSensorTamperCleared();
+				break;
+			} case "RF DOOR SENSOR" :{
+				RelayUtils.RFSDoorContactSensorTamperCleared();
+				break;
+			}
+			}
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return flag;
 	}
 
-	public static boolean enrollWindow(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean enrollWindow(TestCases testCase, TestCaseInputs inputs,String SensoType) {
 		boolean flag = true;
 		inputs.setInputValue("WINDOW_ENROLLED_TIME",
 				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
-			RelayUtils.RSIContactSensorEnroll_Window();
+			switch (SensoType.toUpperCase()){
+			case "WINDOW":
+			case "WINDOW SENSOR":{
+				RelayUtils.RSIContactSensorEnroll_Window();
+				break;
+			} case "RF WINDOW SENSOR" :{
+				RelayUtils.RFSContactSensorEnroll_Window();
+				break;
+			}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return flag;
 	}
 
-	public static boolean openWindow(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean openWindow(TestCases testCase, TestCaseInputs inputs,String SensoType) {
 		boolean flag = true;
 		inputs.setInputValue("WINDOW_OPENED_TIME",
 				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		System.out.println("Open Window");
 		try {
-			RelayUtils.RSIContactSensorOpen_Window();
+			switch (SensoType.toUpperCase()){
+			case "WINDOW":
+			case "WINDOW SENSOR":{
+				RelayUtils.RSIContactSensorOpen_Window();
+				break;
+			} case "RF WINDOW SENSOR" :{
+				RelayUtils.RFSContactSensorOpen_Window();
+				break;
+			}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return flag;
 	}
 
-	public static boolean closeWindow(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean closeWindow(TestCases testCase, TestCaseInputs inputs,String SensoType) {
 		boolean flag = true;
 		inputs.setInputValue("WINDOW_CLOSED_TIME",
 				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		System.out.println("Close Window");
 		try {
-			RelayUtils.RSIContactSensorClosed_Window();
+			switch (SensoType.toUpperCase()){
+			case "WINDOW":
+			case "WINDOW SENSOR":{
+				RelayUtils.RSIContactSensorClosed_Window();
+				break;
+			} case "RF WINDOW SENSOR" :{
+				RelayUtils.RFSContactSensorClosed_Window();;
+				break;
+			}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -136,25 +208,43 @@ public class DASSensorUtils {
 		return flag;
 	}
 
-	public static boolean tamperWindow(TestCases testCase, TestCaseInputs inputs) {
+	public static Boolean tamperWindow(TestCases testCase, TestCaseInputs inputs,String SensorType) {
 		boolean flag = true;
 		inputs.setInputValue("ALARM_TIME", LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		inputs.setInputValue("WINDOW_TAMPERED_TIME",
 				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
-			RelayUtils.RSIWindowContactSensorTamperON();
+			switch (SensorType.toUpperCase()){
+			case "WINDOW":
+			case "WINDOW SENSOR":{
+				RelayUtils.RSIWindowContactSensorTamperON();
+				break;
+			} case "RF WINDOW SENSOR" :{
+				RelayUtils.RFSWindowContactSensorTamperON();
+				break;
+			}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return flag;
 	}
 
-	public static boolean tamperClearWindow(TestCases testCase, TestCaseInputs inputs) {
+	public static boolean tamperClearWindow(TestCases testCase, TestCaseInputs inputs, String SensorType) {
 		boolean flag = true;
 		inputs.setInputValue("WINDOW_TAMPER_CLEARED_TIME",
 				LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
 		try {
-			RelayUtils.RSIWindowContactSensorTamperCleared();
+			switch (SensorType.toUpperCase()){
+			case "WINDOW":
+			case "WINDOW SENSOR":{
+				RelayUtils.RSIWindowContactSensorTamperCleared();
+				break;
+			} case "RF WINDOW SENSOR" :{
+				RelayUtils.RFSWindowContactSensorTamperCleared();
+				break;
+			}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -220,7 +310,7 @@ public class DASSensorUtils {
 				RelayUtils.RSIMotionSensorMotionClose();
 				Thread.sleep(500);
 			}
-		
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -380,7 +470,7 @@ public class DASSensorUtils {
 		}
 		return flag;
 	}
-	
+
 	public static boolean enrollSmoke(TestCases testCase, TestCaseInputs inputs) {
 		boolean flag = true;
 		inputs.setInputValue("SMOKE_ENROLLED_TIME",
@@ -413,22 +503,47 @@ public class DASSensorUtils {
 		// SensorStatusScreen sensorStatusScreen = new SensorStatusScreen(testCase);
 		String sensorName = "";
 		String sensorState = "";
-		if (sensor.equalsIgnoreCase("Door") || sensor.equalsIgnoreCase("Door Sensor")) {
+
+		switch(sensor.toUpperCase()){
+		case "DOOR" : 
+		case "DOOR SENSOR": {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_DOORSENSOR1");
-		} else if (sensor.equalsIgnoreCase("window") || sensor.equalsIgnoreCase("Window Sensor")) {
+			break;
+		} 
+		case "WINDOW":
+		case "WINDOW SENSOR":{
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_WINDOWSENSOR1");
-		} else if (sensor.equalsIgnoreCase("motion sensor") || sensor.equalsIgnoreCase("Motion")) {
+			break;
+		} 
+		case "MOTION":
+		case "MOTION SENSOR": {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_MOTIONSENSOR1");
-		} else if (sensor.equalsIgnoreCase("ISMV") || sensor.equalsIgnoreCase("ISMV SENSOR")) {
+		} 
+		case "ISMV":
+		case "ISMV SENSOR": {
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_INDOORMOTIONVIEWER1");
-		} else if (sensor.equalsIgnoreCase("OSMV") || sensor.equalsIgnoreCase("OSMV SENSOR")) {
+			break;
+		} 
+		case "OSMV":
+		case "OSMV SENSOR":{
 			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_OUTDOORMOTIONVIEWER1");
-		} else {
+			break;
+		}
+		case "RF DOOR SENSOR":{
+			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_RFDOORSENSOR1");
+			break;
+		}
+		case "RF WINDOW SENSOR":{
+			sensorName = inputs.getInputValue("LOCATION1_DEVICE1_RFWINDOWSENSOR1");
+			break;
+		}default : {
 			Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Sensor type not handled");
+			break;
+		}
 		}
 
 		if (states.equalsIgnoreCase("open")) {
-			sensorState = "Open";
+			sensorState = "Opened";
 		} else if (states.equalsIgnoreCase("closed")) {
 			sensorState = "Closed";
 		} else if (states.equalsIgnoreCase("tamper cleared")) {
@@ -473,7 +588,7 @@ public class DASSensorUtils {
 							// MobileUtils.isMobElementExists("xpath",
 							// "]", testCase, 10)
 							testCase.getMobileDriver()
-									.findElementByXPath("//*[contains(@name,'SensorStatus_" + i + "_Image')]").click();
+							.findElementByXPath("//*[contains(@name,'SensorStatus_" + i + "_Image')]").click();
 							// code to click on clear tamper
 							SensorSettingScreen settingScreen = new SensorSettingScreen(testCase);
 							flag = flag & settingScreen.clickOnClearCoverTamperOption();
@@ -594,9 +709,9 @@ public class DASSensorUtils {
 							Keyword.ReportStep_Pass(testCase,
 									"Current state "
 											+ testCase
-													.getMobileDriver().findElement(By.xpath("//*[@content-desc = '"
-															+ sensorName + "']//*[contains(@text, 'Cover Tampered')]"))
-													.getText());
+											.getMobileDriver().findElement(By.xpath("//*[@content-desc = '"
+													+ sensorName + "']//*[contains(@text, 'Cover Tampered')]"))
+											.getText());
 							MobileUtils.clickOnElement(testCase, "xpath", "//*[@content-desc = '" + sensorName + "']");
 						}
 						if (sensor.equalsIgnoreCase("Door")) {
@@ -650,9 +765,9 @@ public class DASSensorUtils {
 							Keyword.ReportStep_Pass(testCase,
 									"Current state "
 											+ testCase
-													.getMobileDriver().findElement(By.xpath("//*[@content-desc = '"
-															+ sensorName + "']//*[contains(@text, 'Cover Tampered')]"))
-													.getText());
+											.getMobileDriver().findElement(By.xpath("//*[@content-desc = '"
+													+ sensorName + "']//*[contains(@text, 'Cover Tampered')]"))
+											.getText());
 							MobileUtils.clickOnElement(testCase, "xpath", "//*[@content-desc = '" + sensorName + "']");
 
 						}
@@ -686,9 +801,9 @@ public class DASSensorUtils {
 			switch (SensorType) {
 			case "DOOR ACCESS SETTINGS": {
 				flag = flag & DASSettingsUtils.navigateFromDashboardScreenToSecuritySettingsScreen(testCase);
-//				flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
-//						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
-//						"Base Station Configuration");
+				//				flag = LyricUtils.scrollToElementUsingExactAttributeValue(testCase,
+				//						testCase.getPlatform().toUpperCase().contains("ANDROID") ? "text" : "value",
+				//						"Base Station Configuration");
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 				flag = flag & bs.selectOptionFromBaseStationSettings(BaseStationSettingsScreen.SENSORS);
 				inputs.setInputValue(DASInputVariables.ACCESSSENSORTYPE, DASInputVariables.ACCESSSENSOR);

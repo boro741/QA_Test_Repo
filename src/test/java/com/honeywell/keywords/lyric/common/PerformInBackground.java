@@ -49,41 +49,82 @@ public class PerformInBackground extends Keyword {
 			LocationInformation locInfo = new LocationInformation(testCase, inputs);
 			DeviceInformation deviceInfo = new DeviceInformation(testCase, inputs);
 			if (chUtil.getConnection()) {
-				if(states.get(0).equalsIgnoreCase("opens window with app")){
+				switch (states.get(0)){
+				case "opens window with app": {
 					try{
-						DASSensorUtils.openWindow(testCase, inputs);
+						DASSensorUtils.openWindow(testCase, inputs,"WINDOW");
+					}catch(Exception e){
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Exception"+e.getMessage());
+						break;
+					}
+				} case "opens RF window with app": {
+					try{
+						DASSensorUtils.openWindow(testCase, inputs,"RF WINDOW SENSOR");
+					}catch(Exception e){
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Exception"+e.getMessage());
+						break;
+					}
+				}case "opens door with app":{
+					try{
+						DASSensorUtils.openDoor(testCase, inputs,"DOOR");
 					}catch(Exception e){
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Exception"+e.getMessage());
 					}
-				}else if(states.get(0).equalsIgnoreCase("opens door with app")){
+					break;
+				} case "opens RF door with app":{
 					try{
-						DASSensorUtils.openDoor(testCase, inputs);
+						DASSensorUtils.openDoor(testCase, inputs,"RF DOOR SENSOR");
 					}catch(Exception e){
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Exception"+e.getMessage());
 					}
-				}else if(states.get(0).equalsIgnoreCase("door tampered with app")){
-					try{
-						DASSensorUtils.tamperDoor(testCase, inputs);
-					}catch(Exception e){
-						flag = false;
-						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
-								"Exception"+e.getMessage());
-					}
+					break;
 				}
-				else if(states.get(0).equalsIgnoreCase("window tampered with app")){
+				case "door tampered with app": {
 					try{
-						DASSensorUtils.tamperWindow(testCase, inputs);
+						DASSensorUtils.tamperDoor(testCase, inputs,"DOOR");
 					}catch(Exception e){
 						flag = false;
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Exception"+e.getMessage());
 					}
+					break;
+				} case "window tampered with app": {
+					try{
+						DASSensorUtils.tamperWindow(testCase, inputs,"WINDOW");
+					}catch(Exception e){
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Exception"+e.getMessage());
+					}
+					break;
 				}
-				else if(states.get(0).equalsIgnoreCase("put app")){
+				case "RF door tampered with app": {
+					try{
+						DASSensorUtils.tamperDoor(testCase, inputs,"RF DOOR SENSOR");
+					}catch(Exception e){
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Exception"+e.getMessage());
+					}
+					break;
+				} case "RF window tampered with app": {
+					try{
+						DASSensorUtils.tamperWindow(testCase, inputs,"RF WINDOW SENSOR");
+					}catch(Exception e){
+						flag = false;
+						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+								"Exception"+e.getMessage());
+					}
+					break;
+				}case "put app": {
 					try{
 						MobileUtils.minimizeApp(testCase, 20);
 					}catch(Exception e){
@@ -91,8 +132,8 @@ public class PerformInBackground extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Exception"+e.getMessage());
 					}
-				}
-				else if(states.get(0).equalsIgnoreCase("DISMISS ALARM")){
+					break;
+				} case "DISMISS ALARM": {
 					if(chUtil.clearAlarm(locInfo.getLocationID(), deviceInfo.getDeviceID(), testCase)==202){
 						Keyword.ReportStep_Pass(testCase, "dismissed alarm executed");
 					} else {
@@ -100,8 +141,8 @@ public class PerformInBackground extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Could not dismiss alarm " );
 					} 
-				}
-				else if(states.get(0).equalsIgnoreCase("invited user dismiss alarm")){
+					break;
+				} case "invited user dismiss alarm": {
 					String actualUser=inputs.getInputValue("USERID");
 					inputs.setInputValue("USERID",inputs.getInputValue("INVITEDUSER"));
 					String actualLocName=inputs.getInputValue("LOCATION1_NAME");
@@ -116,8 +157,8 @@ public class PerformInBackground extends Keyword {
 					} 
 					inputs.setInputValue("USERID",actualUser);
 					inputs.setInputValue("LOCATION1_NAME",actualLocName);
-				}
-				else if(states.get(0).equalsIgnoreCase("invited user changes mode to HOME")){
+					break;
+				} case "invited user changes mode to HOME": {
 					String actualUser=inputs.getInputValue("USERID");
 					inputs.setInputValue("USERID",inputs.getInputValue("INVITEDUSER"));
 					String actualLocName=inputs.getInputValue("LOCATION1_NAME");
@@ -135,8 +176,10 @@ public class PerformInBackground extends Keyword {
 					}
 					inputs.setInputValue("USERID",actualUser);
 					inputs.setInputValue("LOCATION1_NAME",actualLocName);
-				}
-				else if(states.get(0).equalsIgnoreCase("SWITCHED TO HOME")||states.get(0).equalsIgnoreCase("TRIGERS HOME MODE")){
+					break;
+				} 
+				case "SWITCHED TO HOME":
+				case "TRIGERS HOME MODE":{
 					int result = chUtil.setBaseStationMode(locInfo.getLocationID(), deviceInfo.getDeviceID(),"Home",testCase);
 					if (result == 202) {
 						Keyword.ReportStep_Pass(testCase, "Base station is set to home");
@@ -145,8 +188,8 @@ public class PerformInBackground extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Could not set base station in home : " + result);
 					}
-				}
-				else if(states.get(0).equalsIgnoreCase("TRIGERS AWAY MODE")){
+					break;
+				} case "TRIGERS AWAY MODE":{
 					int result = chUtil.setBaseStationMode(locInfo.getLocationID(), deviceInfo.getDeviceID(),"AWAY",testCase);
 					if (result == 202) {
 						Keyword.ReportStep_Pass(testCase, "Base station is set to AWAY MODE");
@@ -155,8 +198,10 @@ public class PerformInBackground extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Could not set base station in AWAY MODE : " + result);
 					}
-				}
-				else if(states.get(0).equalsIgnoreCase("TRIGERS NIGHT MODE")||states.get(0).equalsIgnoreCase("SWITCHED TO NIGHT")){
+					break;
+				} 
+				case "TRIGERS NIGHT MODE":
+				case "SWITCHED TO NIGHT":{
 					int result = chUtil.setBaseStationMode(locInfo.getLocationID(), deviceInfo.getDeviceID(),"NIGHT",testCase);
 					if (result == 202) {
 						Keyword.ReportStep_Pass(testCase, "Base station is set to NIGHT MODE");
@@ -165,8 +210,8 @@ public class PerformInBackground extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Could not set base station in NIGHT MODE : " + result);
 					}
-				}
-				else if(states.get(0).equalsIgnoreCase("TRIGERS OFF MODE")){
+					break;
+				} case "TRIGERS OFF MODE":{
 					int result = chUtil.setBaseStationMode(locInfo.getLocationID(), deviceInfo.getDeviceID(),"OFF", testCase);
 					if (result == 202) {
 						Keyword.ReportStep_Pass(testCase, "Base station is set to NIGHT MODE");
@@ -175,9 +220,10 @@ public class PerformInBackground extends Keyword {
 						Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
 								"Could not set base station in NIGHT MODE : " + result);
 					}
-				}
-				else{
+					break;
+				} default:{
 					Keyword.ReportStep_Fail(testCase,FailType.FUNCTIONAL_FAILURE,"Input not handled");
+					break;
 				}
 				/*while(t1.isAlive()){
 					Keyword.ReportStep_Pass(testCase, "App in backgrond");
@@ -187,6 +233,7 @@ public class PerformInBackground extends Keyword {
 						e.printStackTrace();
 					}
 				}*/
+				}
 			}
 		} catch (Exception e) {
 			flag = false;

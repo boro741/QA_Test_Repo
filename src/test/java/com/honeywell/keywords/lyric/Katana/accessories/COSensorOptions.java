@@ -23,7 +23,6 @@ public class COSensorOptions extends Keyword {
 		this.testCase = testCase;
 		this.states = states;
 	}
-
 	@Override
 	@BeforeKeyword
 	public boolean preCondition() {
@@ -36,38 +35,51 @@ public class COSensorOptions extends Keyword {
 		try {
 			SensorSettingScreen sensorstatus = new SensorSettingScreen(testCase);
 			flag = false;
-			 if (states.get(0).equalsIgnoreCase("Smoke detected")) {
-				 Thread.sleep(15000);
+			switch (states.get(0)){
+			case "Smoke detected":
+			case "SMOKE DETECTED":{
+				Thread.sleep(15000);
 				String status_Value = sensorstatus.GetComboSensorWalktestStatus();
 				System.out.println(status_Value);
 				if (status_Value.equalsIgnoreCase("Smoke Signal Confirmed")){
 					flag = true;
 					Keyword.ReportStep_Pass(testCase, states.get(0) + " is Displayed");
+					break;
 				}
-			} else if (states.get(0).equalsIgnoreCase("Smoke not detected")) {
+			}
+			case "Smoke not detected":
+			case "SMOKE NOT DETECTED":{
 				String status_Value = sensorstatus.GetComboSensorWalktestStatus();
 				System.out.println(status_Value);
 				if (status_Value.equalsIgnoreCase("Waiting For Smoke Signal")){
 					flag = true;
 					Keyword.ReportStep_Pass(testCase, states.get(0) + " is Displayed");
 				}
-			} else if (states.get(0).equalsIgnoreCase("CO detected")) {
-				 Thread.sleep(15000);
-				 String status_Value = sensorstatus.GetComboSensorWalktestStatus();
+				break;
+			} 
+			case "CO detected":
+			case "CO DETECTED":{
+				Thread.sleep(15000);
+				String status_Value = sensorstatus.GetComboSensorWalktestStatus();
 				System.out.println(status_Value);
 				if (status_Value.equalsIgnoreCase("CO Signal Confirmed")){
 					flag = true;
 					Keyword.ReportStep_Pass(testCase, states.get(0) + " is Displayed");
 				}
-			} else if (states.get(0).equalsIgnoreCase("CO not detected")) {
+				break;
+			} 
+			case "CO not detected" : 
+			case "CO NOT DETECTED":{
 				String status_Value = sensorstatus.GetComboSensorWalktestStatus();
 				System.out.println(status_Value);
 				if (status_Value.equalsIgnoreCase("Waiting For CO Signal")){
 					flag = true;
 					Keyword.ReportStep_Pass(testCase, states.get(0) + " is Displayed");
 				}
-			}else {
+				break;
+			} default :{
 				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Input not handled");
+			}
 			}
 		} catch (Throwable e) {
 			e.printStackTrace();
