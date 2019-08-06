@@ -35,43 +35,39 @@ public class COSensorOptions extends Keyword {
 		try {
 			SensorSettingScreen sensorstatus = new SensorSettingScreen(testCase);
 			flag = false;
-			switch (states.get(0)){
-			case "Smoke detected":
+			switch (states.get(0).toUpperCase()){
 			case "SMOKE DETECTED":{
 				Thread.sleep(15000);
 				String status_Value = sensorstatus.GetComboSensorWalktestStatus();
-				System.out.println(status_Value);
+				Keyword.ReportStep_Pass(testCase, "Senssor Status Value : " + status_Value);
 				if (status_Value.equalsIgnoreCase("Smoke Signal Confirmed")){
 					flag = true;
 					Keyword.ReportStep_Pass(testCase, states.get(0) + " is Displayed");
 					break;
 				}
 			}
-			case "Smoke not detected":
 			case "SMOKE NOT DETECTED":{
 				String status_Value = sensorstatus.GetComboSensorWalktestStatus();
-				System.out.println(status_Value);
+				Keyword.ReportStep_Pass(testCase, "Senssor Status Value : " + status_Value);
 				if (status_Value.equalsIgnoreCase("Waiting For Smoke Signal")){
 					flag = true;
 					Keyword.ReportStep_Pass(testCase, states.get(0) + " is Displayed");
 				}
 				break;
 			} 
-			case "CO detected":
 			case "CO DETECTED":{
 				Thread.sleep(15000);
 				String status_Value = sensorstatus.GetComboSensorWalktestStatus();
-				System.out.println(status_Value);
+				Keyword.ReportStep_Pass(testCase, "Senssor Status Value : " + status_Value);
 				if (status_Value.equalsIgnoreCase("CO Signal Confirmed")){
 					flag = true;
 					Keyword.ReportStep_Pass(testCase, states.get(0) + " is Displayed");
 				}
 				break;
 			} 
-			case "CO not detected" : 
 			case "CO NOT DETECTED":{
 				String status_Value = sensorstatus.GetComboSensorWalktestStatus();
-				System.out.println(status_Value);
+				Keyword.ReportStep_Pass(testCase, "Senssor Status Value : " + status_Value);
 				if (status_Value.equalsIgnoreCase("Waiting For CO Signal")){
 					flag = true;
 					Keyword.ReportStep_Pass(testCase, states.get(0) + " is Displayed");
