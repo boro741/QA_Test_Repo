@@ -54,10 +54,11 @@ public class AccessSensorActions extends Keyword {
 				case "Tampered":
 				case "Cover Tampered":{
 					DASSensorUtils.tamperDoor(testCase, inputs,states.get(0).toUpperCase());
+					break;
 				} case "Tamper Restored" : {
 					DASSensorUtils.tamperClearDoor(testCase, inputs,states.get(0).toUpperCase());
-					// DASSensorUtils sensorUtils = new DASSensorUtils();
-					// sensorUtils.verifySensorState(testCase, inputs, "door", "tamper cleared");
+					 DASSensorUtils sensorUtils = new DASSensorUtils();
+					 sensorUtils.verifySensorState(testCase, inputs, states.get(0).toUpperCase(),"tamper cleared");
 					break;
 				}case "Tamper CLEARED" : {
 					DASSensorUtils.tamperClearDoor(testCase, inputs,states.get(0).toUpperCase());
@@ -70,9 +71,11 @@ public class AccessSensorActions extends Keyword {
 					break;
 				} case "Low Battery" : {
 					System.out.println("Make door sensor Low Battery");
+					break;
 				}default: {
 					flag = false;
 					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE, "Input not handled");
+					break;
 				}
 				}
 				break;
@@ -102,7 +105,7 @@ public class AccessSensorActions extends Keyword {
 				case "Tamper Restored":{
 					DASSensorUtils.tamperClearWindow(testCase, inputs,states.get(0).toUpperCase());
 					DASSensorUtils sensorUtils = new DASSensorUtils();
-					sensorUtils.verifySensorState(testCase, inputs, "window", "tamper cleared");
+					sensorUtils.verifySensorState(testCase, inputs, states.get(0).toUpperCase(), "tamper cleared");
 					break;
 				}case "Tamper CLEARED":{
 					DASSensorUtils.tamperClearWindow(testCase, inputs,states.get(0).toUpperCase());
