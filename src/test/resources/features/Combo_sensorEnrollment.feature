@@ -3,7 +3,7 @@ Feature:  As a user,i should be able to Enroll an Combo Sensor To my Katana Pane
 
 
 @ComboSensorEnrollment @UIAutomated @--xrayid:ATER-97715
-Scenario Outline: 1 As a user I should be able to successfully enroll Combo Sensor with Default sensor name
+Scenario Outline: 01 As a user I should be able to successfully enroll Combo Sensor with Default sensor name
 Given user launches and logs in to the Lyric application
 And user is set to <Mode> mode through CHIL
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
@@ -40,7 +40,7 @@ Examples:
 
 
 @ComboSensorSmokeAlarms  @UIAutomated  @--xrayid:ATER-97914
-Scenario Outline: 2 As a user I should receive smoke alarm when smoke detect in any security mode
+Scenario Outline: 02 As a user I should receive smoke alarm when smoke detect in any security mode
 Given user sets the entry/exit timer to "15" seconds
 And user is set to <Mode> mode through CHIL
 And user launches and logs in to the Lyric application
@@ -59,7 +59,7 @@ Then user status should be set to "Home"
 
      
 @ComboSensorCOAlarms  @UIAutomated  @--xrayid:ATER-97915
-Scenario Outline:3 As a user I should receive CO alarm when CO detect in any security mode
+Scenario Outline: 03 As a user I should receive CO alarm when CO detect in any security mode
 Given user sets the entry/exit timer to "15" seconds
 And user is set to <Mode> mode through CHIL
 And user launches and logs in to the Lyric application
