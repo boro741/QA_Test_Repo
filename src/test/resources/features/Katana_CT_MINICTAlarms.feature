@@ -4,15 +4,14 @@ As a user I want to be notified when my sensors and system are intruded
 
 
 Background:
-Given user sets the entry/exit timer to "15" seconds
+Given user sets the entry/exit timer to "60" seconds
 And reset relay as precondition
 And user is set to "Home" mode through CHIL
 
 @RFDoorsensor_InAwayExitDelay_OpenDoor_NoAlarm 				@P2 				@KATANA_RF_DoorSensor 		@--xrayid:ATER-99027			@Automated
-  Scenario: 6 As a user when I open the RF door Sesnor during exit delay i should not get alarm  
+  Scenario: 06 As a user when I open the RF door Sesnor during exit delay i should not get alarm  
     Given user launches and logs in to the Lyric application
       #And user clears all push notifications
-      And user sets the entry/exit timer to "60" seconds
      When user navigates to "Security Solution card" screen from the "Dashboard" screen
       And user switches from "Home" to "Away"
       And user "RF door sensor" access sensor "opened" 
@@ -29,7 +28,7 @@ And user is set to "Home" mode through CHIL
      
      
      @RFDoorsensor_ArmedAway_OpenDoor_SwitchingToHomeFromPushNotification_DoorNotClosedInEntryDelay			 @P1		@--xrayid:ATER-99058		 @KATANA_RF_DoorSensor 			 @Automated
-    Scenario: 7 As a user when I open the door and left open in armed away state on my arrival to home I should be able to switch to home from push notification and should be shown with current door status
+    Scenario: 07 As a user when I open the door and left open in armed away state on my arrival to home I should be able to switch to home from push notification and should be shown with current door status
    #Given user is set to "Away" mode through CHIL
     Given user launches and logs in to the Lyric application
       And user clears all push notifications
@@ -53,7 +52,7 @@ And user is set to "Home" mode through CHIL
      
      
      @RFDoorsensor_ArmedAway_OpenDoor_SwitchingToHomeFromEntryDelay_DoorNotClosedInEntryDelay			@P3 	@--xrayid:ATER-99067		@Automated			#N  			@P1			 @KATANA_RF_DoorSensor 			
-    Scenario: 8 As a user when I open the RF door and left open in armed away state on my arrival to home I should be able to switch to home from entry delay screen and should be shown with current door status
+    Scenario: 08 As a user when I open the RF door and left open in armed away state on my arrival to home I should be able to switch to home from entry delay screen and should be shown with current door status
     Given user launches and logs in to the Lyric application
     And user is set to "Away" mode through CHIL
       #And user clears all push notifications
@@ -77,7 +76,7 @@ And user is set to "Home" mode through CHIL
      
      
      @RFDoorsensor_ArmedAway_OpenDoor_SwitchingToHomeFromPushNotification_DoorClosedInEntryDelay				@P3		@--xrayid:ATER-99069	@Automated		@KATANA_RF_DoorSensor 				   
-    Scenario:  9 As a user when I open the RF door in armed away on my arrival and I should be able to switch to home from pn 
+    Scenario:  09 As a user when I open the RF door in armed away on my arrival and I should be able to switch to home from pn 
     Given user is set to "Away" mode through CHIL
     Given user launches and logs in to the Lyric application
       And user clears all push notifications

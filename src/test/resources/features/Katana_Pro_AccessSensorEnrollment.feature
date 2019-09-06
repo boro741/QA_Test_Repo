@@ -2,7 +2,7 @@
 Feature: Verify Sensor Enrolment Functionally
 
 @KATANA_PRO_DoorAccessSensorEnrollment  @UIAutomated @--xrayid:ATER-97982
-Scenario Outline: 4 As a user I should be able to successfully enrol RF6 Access Sensor with custom sensor name and video should play for assistance in sensor enrolment
+Scenario Outline: 04 As a user I should be able to successfully enrol RF6 Access Sensor with custom sensor name and video should play for assistance in sensor enrolment
 Given reset relay as precondition
 And user launches and logs in to the Lyric application
 And user is set to <Mode> mode through CHIL
@@ -43,7 +43,7 @@ Examples:
 #|OFF | RF Door Sensor | Hall Room | open | Closed |Door Access Settings|
 
 @KATANA_PRO_WindowAccessSensorEnrollment  @UIAutomated @--xrayid:ATER-98142
-Scenario Outline: 5 As a user I should be able to successfully enrol RF6 MiniCT Access Sensor with custom sensor name and video should play for assistance in sensor enrolment
+Scenario Outline: 05 As a user I should be able to successfully enrol RF6 MiniCT Access Sensor with custom sensor name and video should play for assistance in sensor enrolment
 Given reset relay as precondition
 And user launches and logs in to the Lyric application
 And user is set to <Mode> mode through CHIL
