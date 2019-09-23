@@ -901,4 +901,33 @@ public class DeviceInformation {
 		}
 		return setPointLimit;
 	}
+
+	
+	public String getComboSensor() throws Exception{
+		String groupid = null  ;
+		for (int i = 0; i < deviceInformation.getJSONObject("deviceDetails").getJSONArray("sensors")
+				.length(); i++) {
+			if (deviceInformation.getJSONObject("deviceDetails").getJSONArray("sensors")
+					.getJSONObject(i).get("name").toString().equalsIgnoreCase(inputs.getInputValue("LOCATION1_DEVICE1_CO_DETECTOR"))) {
+				 groupid =  deviceInformation.getJSONObject("deviceDetails").getJSONArray("sensors")
+						.getJSONObject(i).get("groupId").toString();
+			}
+		}
+		return groupid;
+	}
+	
+	public String getAceessSensor(String sensorname){
+		String sensorid = null ;
+		for (int i = 0; i < deviceInformation.getJSONObject("deviceDetails").getJSONArray("sensors")
+				.length(); i++) {
+			if (deviceInformation.getJSONObject("deviceDetails").getJSONArray("sensors")
+					.getJSONObject(i).get("name").toString().equalsIgnoreCase(sensorname)) {
+				System.out.println(deviceInformation.getJSONObject("deviceDetails").getJSONArray("sensors")
+						.getJSONObject(i).get("id"));
+				sensorid =  deviceInformation.getJSONObject("deviceDetails").getJSONArray("sensors")
+						.getJSONObject(i).get("id").toString();
+			}
+		}		
+		return sensorid;
+	}
 }

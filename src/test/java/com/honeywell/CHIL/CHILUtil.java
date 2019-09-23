@@ -462,6 +462,33 @@ public class CHILUtil implements AutoCloseable {
 		}
 		return result;
 	}
+	
+	public int deletecomboSensor(long locationID, String deviceID, TestCases testCase) throws Exception {
+		int result = -1;
+		DeviceInformation sensorinfo = new DeviceInformation(testCase, inputs);
+		String grpid = sensorinfo.getComboSensor();
+		if (isConnected) {
+			String url = chilURL + String.format("api/v3/locations/%s/devices/%s/partitions/1/sensors/%s?isGroupable=true", locationID,
+					deviceID, grpid);
+			result = doDeleteRequest(url).getResponseCode();
+		} else {
+			throw new Exception("Not connected to CHIL");
+		}
+		return result;
+	}
+	
+	public int deleteAccessSensor(long locationID, String deviceID, TestCases testCase ,String SensorId) throws Exception {
+		int result = -1;
+		if (isConnected) {
+			String url = chilURL + String.format("api/v3/locations/%s/devices/%s/partitions/1/sensors/%s", locationID,
+					deviceID, SensorId);
+			System.out.println(url);
+			result = doDeleteRequest(url).getResponseCode();
+		} else {
+			throw new Exception("Not connected to CHIL");
+		}
+		return result;
+	}
 
 	public int createSchedule(TestCaseInputs inputs, String scheduleType, long locationID, String deviceID,
 			String jasperStatType) throws Exception {
