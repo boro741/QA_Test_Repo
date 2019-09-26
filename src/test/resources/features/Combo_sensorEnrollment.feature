@@ -3,9 +3,11 @@ Feature:  As a user,i should be able to Enroll an Combo Sensor To my Katana Pane
 
 
 @ComboSensorEnrollment @UIAutomated @--xrayid:ATER-97715
-Scenario Outline: 1 As a user I should be able to successfully enroll Combo Sensor with Default sensor name
-Given user launches and logs in to the Lyric application
+Scenario Outline: 01 As a user I should be able to successfully enroll Combo Sensor with Default sensor name
+Given reset relay as precondition
 And user is set to <Mode> mode through CHIL
+And Delete "Combo" Sensor from Device
+And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security Sensor Accessories" screen from the "Add New Device Dashboard" screen
 And user <Sensor Type> access sensor "Triger"
@@ -33,6 +35,7 @@ Then user should see the "CO sensor" status as "CO Signal Confirmed" on the "Tes
 When user selects "Done" from "Test Sensor" screen
 Then user should see the "Combo sensor" status as "configured" on the "Set Up Accessories"
 When user selects "Done" from "Set Up Accessories" screen
+And user is set to "SENSOR ENROLLMENT DISABLED" mode through CHIL
 
 Examples:
 |Mode |Custom name| Mount Sensor Name | Place Sensor |Sensor Type|
@@ -40,7 +43,7 @@ Examples:
 
 
 @ComboSensorSmokeAlarms  @UIAutomated  @--xrayid:ATER-97914
-Scenario Outline: 2 As a user I should receive smoke alarm when smoke detect in any security mode
+Scenario Outline: 02 As a user I should receive smoke alarm when smoke detect in any security mode
 Given user sets the entry/exit timer to "15" seconds
 And user is set to <Mode> mode through CHIL
 And user launches and logs in to the Lyric application
@@ -50,7 +53,7 @@ When user <Sensor Type> access sensor "Smoke Test"
 Then user should be displayed with the "Alarm" screen
 And user selects "dismiss alarm" from "alarm" screen
 Then user status should be set to "Home"
- Examples: 
+Examples: 
      | Mode | Sensor Type |
      | Away | Combo |
      | Night| Combo |
@@ -59,7 +62,7 @@ Then user status should be set to "Home"
 
      
 @ComboSensorCOAlarms  @UIAutomated  @--xrayid:ATER-97915
-Scenario Outline:3 As a user I should receive CO alarm when CO detect in any security mode
+Scenario Outline: 03 As a user I should receive CO alarm when CO detect in any security mode
 Given user sets the entry/exit timer to "15" seconds
 And user is set to <Mode> mode through CHIL
 And user launches and logs in to the Lyric application
