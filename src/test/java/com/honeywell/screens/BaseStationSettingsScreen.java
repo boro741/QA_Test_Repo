@@ -84,6 +84,19 @@ public class BaseStationSettingsScreen extends MobileScreens {
 	public boolean clickOn15SecondsEntryExitDelayOption() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "15SecondsOption");
 	}
+	public boolean isPeopleDetectiontabVisible(int timeout) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PeopleDetection_SettingsTab",timeout);
+	}
+	public boolean isPeopleDetectiontoggleVisible() {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "PeopleDetction_toggle");
+	}
+	public boolean clickOnPeopleDetectiontoggle() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "PeopleDetction_toggle");
+	}
+
+	public boolean clickOnPeopleDetectiontabOption() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "PeopleDetection_SettingsTab");
+	}
 
 	public boolean clickOn30SecondsEntryExitDelayOption() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "30SecondsOption");
@@ -608,10 +621,10 @@ public class BaseStationSettingsScreen extends MobileScreens {
 					return false;
 				}
 			}
-		}else if(MobileUtils.isMobElementExists("XPATH", "//XCUIElementTypeSwitch[@name='geofence_this_location_toggle']", testCase)){
+		}else if(MobileUtils.isMobElementExists("id", "apolloGeofence_toggle", testCase)){
 			//iOS
-				if (MobileUtils.getFieldValue(testCase, "XPATH", "//XCUIElementTypeSwitch[@name='geofence_this_location_toggle']").equalsIgnoreCase("1")
-						|| MobileUtils.getFieldValue(testCase, "XPATH", "//XCUIElementTypeSwitch[@name='geofence_this_location_toggle']")
+				if (MobileUtils.getFieldValue(testCase, "id", "apolloGeofence_toggle").equalsIgnoreCase("1")
+						|| MobileUtils.getFieldValue(testCase, "id", "apolloGeofence_toggle")
 						.equalsIgnoreCase("ON")) {
 					return true;
 				} else {
@@ -2305,5 +2318,14 @@ public class BaseStationSettingsScreen extends MobileScreens {
 		String totalSensorsIssuesCount = MobileUtils.getFieldValue(objectDefinition, testCase,
 				"SensorsIssuesLabelInSettingsScreen");
 		return totalSensorsIssuesCount;
+	}
+	
+	public String getPeopleDetectionToggleValue (){
+		String toggleValue = null;
+		if (this.isPeopleDetectiontoggleVisible()){
+			toggleValue = MobileUtils.getFieldValue(objectDefinition, testCase, "PeopleDetction_toggle");
+			System.out.println("toggle valu :" + toggleValue);
+		}
+		return toggleValue;
 	}
 }

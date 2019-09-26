@@ -86,7 +86,26 @@ public class ChangeBaseStationSettings extends Keyword {
 						flag = flag & bs.toggleGeofencingSwitch(testCase);
 					}
 				}
-			} else if (parameters.get(0).equalsIgnoreCase("Geofencing Option")) {
+			} else if (parameters.get(0).equalsIgnoreCase("People Detection")){
+				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
+				if (bs.isPeopleDetectiontabVisible(15)){
+					flag = flag && bs.clickOnPeopleDetectiontabOption();
+					if (parameters.get(0).equalsIgnoreCase("on")){
+						while(bs.getPeopleDetectionToggleValue().equalsIgnoreCase("0")){
+							flag = flag && bs.clickOnPeopleDetectiontoggle();
+						}
+					}else{
+						while(bs.getPeopleDetectionToggleValue().equalsIgnoreCase("1")){
+							flag = flag && bs.clickOnPeopleDetectiontoggle();
+						}
+					}
+				}else {
+					Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+							"Failed due to  " + parameters.get(0) + "Not visible in Settings");
+				}
+				bs.clickOnBackButton();
+			}
+			else if (parameters.get(0).equalsIgnoreCase("Geofencing Option")) {
 				BaseStationSettingsScreen bs = new BaseStationSettingsScreen(testCase);
 
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
@@ -190,7 +209,7 @@ public class ChangeBaseStationSettings extends Keyword {
 					}
 				}
 			} // Amresh Edit Ends
-				// Amresh wld edit starts
+			// Amresh wld edit starts
 			else if (parameters.get(0).equalsIgnoreCase("UPDATE FREQUENCY")) {
 				WLDLeakDetectorSettings set = new WLDLeakDetectorSettings(testCase);
 				WLDUpdateFrequency freq = new WLDUpdateFrequency(testCase);
@@ -439,7 +458,7 @@ public class ChangeBaseStationSettings extends Keyword {
 					 * (dimension.getHeight() * .6)) .release().perform();
 					 */
 					action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
-							.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+					.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 				}
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
 					if (cs.isCameraOnInNightModeSwitchEnabled(testCase)) {
@@ -710,9 +729,9 @@ public class ChangeBaseStationSettings extends Keyword {
 					 * .release().perform();
 					 */
 					action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
-							.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
-//					action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
-//							.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+					.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+					//					action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
+					//							.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
 				}
 				if (parameters.get(1).equalsIgnoreCase("OFF")) {
 					if (cs.isMotionSensitivityStatusSetToExpected(testCase, parameters.get(1))) {
@@ -1285,7 +1304,7 @@ public class ChangeBaseStationSettings extends Keyword {
 							if (ts.isThermostatHumidificationSwitchEnabled(testCase)) {
 								Keyword.ReportStep_Pass(testCase, "Humidification Switch is enabled");
 								HBNAEMEASettingsUtils
-										.verifyThermostatHumidificationValueInHumidificationScreen(testCase, inputs);
+								.verifyThermostatHumidificationValueInHumidificationScreen(testCase, inputs);
 							}
 						}
 					} else {
@@ -1310,7 +1329,7 @@ public class ChangeBaseStationSettings extends Keyword {
 							if (!ts.isThermostatHumidificationSwitchEnabled(testCase)) {
 								Keyword.ReportStep_Pass(testCase, "Humidification Switch is disabled");
 								HBNAEMEASettingsUtils
-										.verifyThermostatHumidificationValueInHumidificationScreen(testCase, inputs);
+								.verifyThermostatHumidificationValueInHumidificationScreen(testCase, inputs);
 							}
 						}
 					} else {
@@ -1347,7 +1366,7 @@ public class ChangeBaseStationSettings extends Keyword {
 						if (ts.isThermostatDehumidificationSwitchEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase, "Dehumidification Switch is turned ON");
 							HBNAEMEASettingsUtils
-									.verifyThermostatDehumidificationValueInDehumidificationScreen(testCase, inputs);
+							.verifyThermostatDehumidificationValueInDehumidificationScreen(testCase, inputs);
 						}
 					}
 				} else if (parameters.get(1).equalsIgnoreCase("OFF")) {
@@ -1372,7 +1391,7 @@ public class ChangeBaseStationSettings extends Keyword {
 						if (!ts.isThermostatDehumidificationSwitchEnabled(testCase)) {
 							Keyword.ReportStep_Pass(testCase, "Dehumidification Toggle is turned OFF");
 							HBNAEMEASettingsUtils
-									.verifyThermostatDehumidificationValueInDehumidificationScreen(testCase, inputs);
+							.verifyThermostatDehumidificationValueInDehumidificationScreen(testCase, inputs);
 						}
 					}
 				}
@@ -1809,20 +1828,20 @@ public class ChangeBaseStationSettings extends Keyword {
 					}
 				}
 			} else if (parameters.get(0).equalsIgnoreCase("OUTDOOR MOTION VIEWERS ON IN HOME MODE")) {
-//					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
-//				@SuppressWarnings("rawtypes")
-//				TouchAction action = new TouchAction(testCase.getMobileDriver());
-//				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
-//					int startx = (dimension.width * 20) / 100;
-//					int starty = (dimension.height * 62) / 100;
-//					int endx = (dimension.width * 22) / 100;
-//					int endy = (dimension.height * 35) / 100;
-//					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
-//				} else {
-//					
-//					 	action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
-//							.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
-//				}
+				//					Dimension dimension = testCase.getMobileDriver().manage().window().getSize();
+				//				@SuppressWarnings("rawtypes")
+				//				TouchAction action = new TouchAction(testCase.getMobileDriver());
+				//				if (testCase.getPlatform().toUpperCase().contains("ANDROID")) {
+				//					int startx = (dimension.width * 20) / 100;
+				//					int starty = (dimension.height * 62) / 100;
+				//					int endx = (dimension.width * 22) / 100;
+				//					int endy = (dimension.height * 35) / 100;
+				//					testCase.getMobileDriver().swipe(startx, starty, endx, endy, 1000);
+				//				} else {
+				//					
+				//					 	action.press(point(10, (int) (dimension.getHeight() * .9))).waitAction(waitOptions(MobileUtils.getDuration(2000)))
+				//							.moveTo(point(0, -(int) (dimension.getHeight() * .6))).release().perform();
+				//				}
 
 				BaseStationSettingsScreen mc = new BaseStationSettingsScreen(testCase);
 				if (parameters.get(1).equalsIgnoreCase("ON")) {
