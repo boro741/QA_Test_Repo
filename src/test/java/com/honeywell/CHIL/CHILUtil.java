@@ -660,8 +660,7 @@ public class CHILUtil implements AutoCloseable {
 		if (isConnected) {
 			String url = chilURL + String.format("api/v2/locations/%s", locationID);
 			String headerData = String.format(
-					"{\"country\":\"US\",\"geoFenceEnabled\":%s,\"radius\":0,\"originCoordinates\":{\"TAG\":\"CoordinatesType\","
-							+ "\"latitude\":0,\"longitude\":0}}",
+					"{\"country\":\"US\",\"locationID\":\"%s\",\"Geofenceenabled\":\"%s\",\"radius\":0,\"OriginCoordinates\":{\"Latitude\":0,\"Longitude\":0}}",locationID,
 					turnOn);
 			return doPutRequest(url, headerData).getResponseCode();
 		} else {

@@ -108,6 +108,7 @@ As user I should be able to configure camera settings from the app
   @DAS_CameraSettingsCameraModeGeofenceAway @P2 @Automated@--xrayid:ATER-54462
   Scenario: As a user I should be able to set to geofencing mode so that my camera turns on when i am away and off when i am in home automatically without manual intervention 
     Given  user is set to "Home" mode through CHIL
+    And user thermostat set "Home" with "userArrived"
      Then "location" geofencing is "enabled" on the user account through CHIL
       And user launches and logs in to the Lyric application
       And user thermostat set "Away" with "UserDeparted"
@@ -425,6 +426,7 @@ As user I should be able to configure camera settings from the app
       Then user navigates to "DAS Camera Solution Card" screen from the "Dashboard" screen
      And user camera is set to "ON"
      When user navigates to "Camera Settings" screen from the "Camera Solution Card" screen
+      And user changes the "People Detection" to "Off"
       And user changes the "Camera ON in Home Mode" to "Off"
      Then "Camera ON in Home Mode" value should be updated to "Off" on "Camera Settings" screen
      When user navigates to "Security Solution Card" screen from the "Camera Settings" screen
