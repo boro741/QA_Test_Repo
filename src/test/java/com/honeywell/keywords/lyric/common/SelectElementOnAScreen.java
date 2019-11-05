@@ -430,6 +430,23 @@ public class SelectElementOnAScreen extends Keyword {
 					}
 					break;
 				}
+				case "SILENCE ALARM": {
+					inputs.setInputValue("ALARM_DISMISSED_TIME",
+							LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+					inputs.setInputValue("HOME_TIME",
+							LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
+					flag = flag & DASAlarmUtils.clickOnSilenceAlarm(testCase, inputs);
+					AlarmScreen alarmScreen = new AlarmScreen(testCase);
+					int i = 0;
+
+					while (i < 3 && (DASAlarmUtils.verifyProgressDisplayed(testCase)
+							|| alarmScreen.isAlarmDismissButtonDisplayed()
+							|| DASSolutionCardUtils.waitForDismissProcessRequest(testCase))) {
+						System.out.println("Waiting for dismiss alarm request to complete");
+						i++;
+					}
+					break;
+				}
 				case "DISMISS ALARM OVERLAY WITH ZWAVE ACTION IN PROGRESS": {
 					inputs.setInputValue("ALARM_DISMISSED_TIME",
 							LyricUtils.getLocationTime(testCase, inputs, "TIMEINYYMMHHMMFORMAT"));
@@ -448,6 +465,24 @@ public class SelectElementOnAScreen extends Keyword {
 				case "CALL": {
 					AlarmScreen click = new AlarmScreen(testCase);
 					flag = flag & click.clickOnCall();
+					break;
+
+				}
+				case "FIRE": {
+					AlarmScreen click = new AlarmScreen(testCase);
+					flag = flag & click.clickOnFireButton();
+					break;
+
+				}
+				case "POLICE": {
+					AlarmScreen click = new AlarmScreen(testCase);
+					flag = flag & click.clickOnPoliceButton();
+					break;
+
+				}
+				case "MEDICAL": {
+					AlarmScreen click = new AlarmScreen(testCase);
+					flag = flag & click.clickOnMedicalButton();
 					break;
 
 				}

@@ -772,8 +772,8 @@ As user I should be able to control my DAS panel settings from the app
       When user selects the "Cancel" option
      Then user Should navigates to "Base Station WiFi" screen
   
+    #Requirements: Single Location Single DAS Device, No Sensors Required
   @ResetWiFiByAddingNetworkOpenNetwork  @NotAutomatable  @--xrayid:ATER-54656
-  #Requirements: Single Location Single DAS Device, No Sensors Required
   Scenario Outline: As a user I want to reset my DAS Panel WiFi with open network
     Given user launches and logs in to the Lyric application 
       And user navigates to "Base Station WiFi" screen from the "Dashboard" screen 
@@ -790,8 +790,8 @@ As user I should be able to control my DAS panel settings from the app
       | None Open network | 
       | Abcd              | 
   
+    #Requirements: Single Location Single DAS Device, No Sensors Required
   @ResetWiFiIncorrectPassword  @NotAutomatable @--xrayid:ATER-54657
-  #Requirements: Single Location Single DAS Device, No Sensors Required
   Scenario Outline: As a user I want to reset my DAS Panel WiFi 
     Given user launches and logs in to the Lyric application 
       And user navigates to "Base Station WiFi" screen from the "Dashboard" screen 

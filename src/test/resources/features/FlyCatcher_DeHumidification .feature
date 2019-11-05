@@ -3,7 +3,7 @@ Feature: As an user
 I want to set my humidity target
 So that i can set my room humidity as per my prefrence 
 
-@SetTargetDeHum
+@SetTargetDeHum  @--xrayid:ATER-100392
   Scenario Outline: To change stat humidity as per my prefrence
   As an user 
   I want to set my humidity 

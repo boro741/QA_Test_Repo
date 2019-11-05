@@ -41,6 +41,11 @@ public class AlarmScreen extends MobileScreens {
 				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "Alarm_Subtitle", timeout)
 				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "AlarmDismissButton", timeout);
 	}
+	
+	public boolean isSilenceAlarmScreenDisplayed(int timeout) {
+		return MobileUtils.isMobElementExists(objectDefinition, testCase, "Alarm_Title", timeout)
+				&& MobileUtils.isMobElementExists(objectDefinition, testCase, "SilenceAlarm_Button", timeout);
+	}
 
 	public boolean isPleaseWaitDisplayed() {
 		return MobileUtils.isMobElementExists(objectDefinition, testCase, "DismissRequestProcessing");
@@ -54,9 +59,30 @@ public class AlarmScreen extends MobileScreens {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "AlarmDismissButton")
 				&& MobileUtils.clickOnElement(objectDefinition, testCase, "DismissAlarmPopupOk");
 	}
+	
+	public boolean clickOnSilenceAlarm() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "SilenceAlarm_Button")
+				&& MobileUtils.clickOnElement(objectDefinition, testCase, "SilenceAlarmPopupOk");
+	}
 
 	public boolean clickOnCall() {
 		return MobileUtils.clickOnElement(objectDefinition, testCase, "CallButton");
+	}
+	
+	public boolean clickOnFireButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "FireButton");
+	}
+	
+	public boolean clickOnPoliceButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "PoliceButton");
+	}
+	
+	public boolean clickOnMedicalButton() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "MedicalButton");
+	}
+	
+	public boolean clickOnPanic() {
+		return MobileUtils.clickOnElement(objectDefinition, testCase, "PanicButton");
 	}
 
 	// Entry delay screen

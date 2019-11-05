@@ -2,11 +2,12 @@
 Feature:  As a user,i should be able to Enroll an Combo Sensor To my Katana Panel
 
 
+
 @ComboSensorEnrollment @UIAutomated @--xrayid:ATER-97715
 Scenario Outline: 01 As a user I should be able to successfully enroll Combo Sensor with Default sensor name
-Given reset relay as precondition
-And user is set to <Mode> mode through CHIL
+Given user is set to <Mode> mode through CHIL
 And Delete "Combo" Sensor from Device
+And reset relay as precondition
 And user launches and logs in to the Lyric application
 When user navigates to "Add New Device Dashboard" screen from the "Dashboard" screen
 Then user navigates to "Smart Home Security Sensor Accessories" screen from the "Add New Device Dashboard" screen
@@ -44,37 +45,37 @@ Examples:
 
 @ComboSensorSmokeAlarms  @UIAutomated  @--xrayid:ATER-97914
 Scenario Outline: 02 As a user I should receive smoke alarm when smoke detect in any security mode
-Given user sets the entry/exit timer to "15" seconds
+Given user sets the entry/exit timer to "30" seconds
 And user is set to <Mode> mode through CHIL
 And user launches and logs in to the Lyric application
-And user clears all push notifications
+#And user clears all push notifications
 And user navigates to "Security Solution card" screen from the "Dashboard" screen
 When user <Sensor Type> access sensor "Smoke Test"
-Then user should be displayed with the "Alarm" screen
-And user selects "dismiss alarm" from "alarm" screen
+Then user should be displayed with the "Silence Alarm" screen
+And user selects "Silence alarm" from "alarm" screen
 Then user status should be set to "Home"
 Examples: 
      | Mode | Sensor Type |
      | Away | Combo |
-     | Night| Combo |
-     | Home | Combo |
-     | OFF  | Combo |
+     #| Night| Combo |
+     #| Home | Combo |
+     #| OFF  | Combo |
 
      
 @ComboSensorCOAlarms  @UIAutomated  @--xrayid:ATER-97915
 Scenario Outline: 03 As a user I should receive CO alarm when CO detect in any security mode
-Given user sets the entry/exit timer to "15" seconds
+Given user sets the entry/exit timer to "30" seconds
 And user is set to <Mode> mode through CHIL
 And user launches and logs in to the Lyric application
-And user clears all push notifications
+#And user clears all push notifications
 And user navigates to "Security Solution card" screen from the "Dashboard" screen
 When user <Sensor Type> access sensor "CO Test"
-Then user should be displayed with the "Alarm" screen
-And user selects "dismiss alarm" from "alarm" screen
+Then user should be displayed with the "Silence Alarm" screen
+And user selects "Silence alarm" from "alarm" screen
 Then user status should be set to "Home"
  Examples: 
      | Mode | Sensor Type |
      | Away | Combo |
-     | Night| Combo |
-     | Home | Combo |
-     | OFF  | Combo |
+      #| Night| Combo |
+     #| Home | Combo |
+     #| OFF  | Combo |

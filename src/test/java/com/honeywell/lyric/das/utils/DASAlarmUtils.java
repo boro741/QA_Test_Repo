@@ -128,6 +128,12 @@ public class DASAlarmUtils {
 		return alarmScreen.isAlarmScreenDisplayed(60);
 
 	}
+	
+	public static boolean verifSilenceyAlarmScreenDisplayed(TestCases testCase) {
+		AlarmScreen alarmScreen = new AlarmScreen(testCase);
+		return alarmScreen.isSilenceAlarmScreenDisplayed(60);
+
+	}
 
 	public static boolean verifyProgressDisplayed(TestCases testCase) {
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);
@@ -138,6 +144,15 @@ public class DASAlarmUtils {
 	public static boolean clickOnDismissAlarm(TestCases testCase, TestCaseInputs inputs) {
 		AlarmScreen alarmScreen = new AlarmScreen(testCase);
 		return alarmScreen.clickOnDismissAlarm();
+	}
+	public static boolean clickOnPanicAlarm(TestCases testCase, TestCaseInputs inputs) {
+		AlarmScreen alarmScreen = new AlarmScreen(testCase);
+		return alarmScreen.clickOnPanic();
+	}
+	
+	public static boolean clickOnSilenceAlarm(TestCases testCase, TestCaseInputs inputs) {
+		AlarmScreen alarmScreen = new AlarmScreen(testCase);
+		return alarmScreen.clickOnSilenceAlarm();
 	}
 
 	public static boolean clickOnCall(TestCases testCase, TestCaseInputs inputs) {

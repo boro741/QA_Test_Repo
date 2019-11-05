@@ -47,6 +47,16 @@ public class TaponElement extends Keyword {
 			DASAlarmUtils.confirmDismissAlarm(testCase, inputs);
 			break;
 		}
+		case "PANIC": {
+			DASAlarmUtils.clickOnPanicAlarm(testCase, inputs);
+			break;
+		}
+		
+		case "ATTENTION": {
+			DASCameraUtils.clickOnAttention(testCase);
+			break;
+		}
+		
 		case "BELOW RANGE": {
 			ThermostatSettingsScreen ts = new ThermostatSettingsScreen(testCase);
 			ts.clickOnBelowAboveTempAlertRangeOption(expectedLocator.get(0));

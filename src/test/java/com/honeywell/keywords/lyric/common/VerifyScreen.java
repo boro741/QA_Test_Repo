@@ -197,6 +197,17 @@ public class VerifyScreen extends Keyword {
 				}
 				break;
 			}
+			case "SILENCE ALARM": {
+			if (DASAlarmUtils.verifSilenceyAlarmScreenDisplayed(testCase)) {
+				Keyword.ReportStep_Pass(testCase,
+						"Successfully displayed with " + expectedScreen.get(0).toUpperCase() + " screen");
+			} else {
+				flag = false;
+				Keyword.ReportStep_Fail(testCase, FailType.FUNCTIONAL_FAILURE,
+						"Not in expected screen " + expectedScreen.get(0).toUpperCase());
+			}
+			break;
+		}
 			case "CAMERA SOLUTION CARD": {
 				if (DASCameraUtils.isCameraLiveStreaming(testCase)) {
 					Keyword.ReportStep_Pass(testCase,
