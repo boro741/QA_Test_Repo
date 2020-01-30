@@ -1,10 +1,10 @@
-package com.honeywell.lyric.relayutils;
+package com.resideo.lumina.relayutils;
 
 import java.io.PrintWriter;
 import java.util.Scanner;
 
 import com.fazecast.jSerialComm.SerialPort;
-import com.honeywell.lyric.utils.Glv;
+import com.resideo.lumina.utils.Glv;
 
 public class SerialComm extends Glv {
 	public SerialComm() {
@@ -39,7 +39,17 @@ public class SerialComm extends Glv {
 
 					// }
 					// }
-				} else {
+				} 
+
+				else if ((dataRead.equalsIgnoreCase("sensorsV")) || (dataRead.equalsIgnoreCase("test"))) {
+					usePortDevice = ports[i];
+					System.out.println(ports[i].getDescriptivePortName() + "Port assigned ISMV");
+					dataRead = null;
+					delay(2000);
+
+					// }
+					// }
+				}else {
 					System.out.println("Unable to open the port.");
 					dataRead = null;
 				}
@@ -51,7 +61,7 @@ public class SerialComm extends Glv {
 		new SerialComm();
 		// int count = 0;
 		// enrollSensor("ISMV");
-		enrollSensor("OSMV");
+		//enrollSensor("OSMV");
 
 		// SerialComm.Trigger("OSMV");
 
@@ -88,9 +98,14 @@ public class SerialComm extends Glv {
 		System.out.println("Enrollment5 triggered");
 
 	}
+	
+	/**
+	 * 
+	 * @param WLD_open, for Open and WLD_close for Close
+	 */
 
 	public static void Trigger(String sensor) {
-		String data = sensor.toLowerCase() + "_trigger";
+		String data = sensor.toLowerCase();// + "_trigger";
 		if (data.equalsIgnoreCase("ismv_trigger")) {
 			sendData(usePortDevice, "ismv_trigger");
 			delay(20000);
@@ -123,6 +138,14 @@ public class SerialComm extends Glv {
 
 		else if (data.equalsIgnoreCase("Door_trip_restore_trigger")) {
 			sendData(usePortDevice, "Door_trigger_restore");
+		}
+		else if (data.equalsIgnoreCase("WLD_open")) {
+			sendData(usePortDevice, "2open");
+
+		}
+
+		else if (data.equalsIgnoreCase("WLD_close")) {
+			sendData(usePortDevice, "2close");
 		}
 	}
 

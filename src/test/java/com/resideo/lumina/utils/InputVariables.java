@@ -1,4 +1,4 @@
-package com.honeywell.lyric.utils;
+package com.resideo.lumina.utils;
 
 public class InputVariables {
 	public static String TYPE_OF_SCHEDULE = "TypeOfSchedule";

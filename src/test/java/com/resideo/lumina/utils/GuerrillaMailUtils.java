@@ -1,4 +1,4 @@
-package com.honeywell.lyric.utils;
+package com.resideo.lumina.utils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

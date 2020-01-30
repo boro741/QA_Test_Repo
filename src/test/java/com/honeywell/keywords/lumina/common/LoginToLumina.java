@@ -1,55 +1,56 @@
-package com.honeywell.keywords.lyric.common;
+package com.honeywell.keywords.lumina.common;
 
-import java.io.File;
-import java.io.PrintWriter;
 
 import com.honeywell.commons.coreframework.AfterKeyword;
 import com.honeywell.commons.coreframework.BeforeKeyword;
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.KeywordStep;
-import com.honeywell.commons.coreframework.SuiteConstants;
-import com.honeywell.commons.coreframework.SuiteConstants.SuiteConstantTypes;
 import com.honeywell.commons.coreframework.TestCaseInputs;
 import com.honeywell.commons.coreframework.TestCases;
-import com.honeywell.lyric.utils.LyricUtils;
+import com.honeywell.commons.report.FailType;
+import com.resideo.TITAN.AuthLoginWeb;
+import com.resideo.TITAN.TITANUtil;
+import com.resideo.lumina.utils.LuminaUtils;
+import com.resideo.lumina.utils.LyricUtils;
 
-public class LoginToLyric extends Keyword {
 
-	private TestCases testCase;
+public class LoginToLumina extends Keyword  {
+
 	private TestCaseInputs inputs;
+	private TestCases testCase;
+
 
 	public boolean flag = true;
 
-	public LoginToLyric(TestCases testCase, TestCaseInputs inputs) {
+
+
+	public LoginToLumina(TestCases testCase, TestCaseInputs inputs) {
 		this.inputs = inputs;
 		this.testCase = testCase;
+
 	}
 
 	@Override
 	@BeforeKeyword
 	public boolean preCondition() {
-		try {
-			if (inputs.isInputAvailable("COLLECT_LOGS")) {
-				if (inputs.getInputValue("COLLECT_LOGS").equalsIgnoreCase("true")) {
-					File appiumLogFile = new File(SuiteConstants.getConstantValue(SuiteConstantTypes.PROJECT_SPECIFIC,
-							"APPIUM_LOG_FILE_PATH"));
-					PrintWriter writer = new PrintWriter(appiumLogFile);
-					writer.print("");
-					writer.close();
-				}
-			}
-		} catch (Exception e) {
+		return flag;
+	}
+	@Override
+	@KeywordStep(gherkins = "^user launches and logs in to the Lumina application$")
+	public boolean keywordSteps() {
+		LuminaUtils lumina = new LuminaUtils(inputs, testCase);
+		flag = flag && lumina.loginToLuminaApp();
+		if (flag == true) {
+			
+			System.out.println("UserID "+inputs.getInputValue("USERID"));
+			
+			Keyword.ReportStep_Pass(testCase,
+					"Logged into the Account  : " + inputs.getInputValue("USERID"));
+		} else {
+			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE , "Could't login to the account : " + inputs.getInputValue("USERID"));
 		}
 		return flag;
 	}
-
-	@Override
-	@KeywordStep(gherkins = "^user launches and logs in to the Lyric application$")
-	public boolean keywordSteps() {
-		flag = flag & LyricUtils.launchAndLoginToApplication(testCase, inputs);
-		return flag;
-	}
-
 	@Override
 	@AfterKeyword
 	public boolean postCondition() {

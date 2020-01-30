@@ -1,4 +1,4 @@
-package com.honeywell.lyric.relayutils;
+package com.resideo.lumina.relayutils;
 
 import java.io.File;
 import java.util.Comparator;

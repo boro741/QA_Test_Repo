@@ -1,4 +1,4 @@
-package com.honeywell.lyric.utils;
+package com.resideo.lumina.utils;
 
 public class GlobalVariables {
     

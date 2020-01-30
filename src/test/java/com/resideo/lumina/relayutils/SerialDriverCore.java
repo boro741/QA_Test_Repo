@@ -1,4 +1,4 @@
-package com.honeywell.lyric.relayutils;
+package com.resideo.lumina.relayutils;
 import java.util.concurrent.TimeUnit;
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
