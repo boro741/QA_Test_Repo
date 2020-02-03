@@ -66,7 +66,7 @@ public class SelectElementOnAScreen extends Keyword {
 				break;
 			}
 			default: {
-//				lumina.scrollToelement(parameters.get(0));
+				//lumina.scrollToelement(parameters.get(0));
 				lumina.ClickOnButton(parameters.get(0));
 				lumina.ClickOnButton("password_textfield");
 				break;

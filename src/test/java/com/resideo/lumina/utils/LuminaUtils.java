@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.touch.TouchActions;
 
 import com.honeywell.commons.coreframework.Keyword;
 import com.honeywell.commons.coreframework.SuiteConstants;
@@ -660,11 +661,29 @@ public class LuminaUtils extends BaseDriver {
 		}
 		// DEVICE STATUS ---------------------
 		case "DEVICE STATUS":{
-			System.out.println("Device status: "+ele.byValueKey("device_status").getText());
+			//System.out.println("Device status: "+ele.byValueKey("device_status").getText());
 			
 			if (ele.byValueKey("device_status").getText() != null) {
 				Keyword.ReportStep_Pass(testCase,
-						"Succesfully navigated to " + screen.toUpperCase() + "and installed is : " + ele.byValueKey("status").getText());
+						"Succesfully navigated to " + screen.toUpperCase() + "and installed is : " + ele.byValueKey("device_status").getText());
+				flag = true;
+			}else {
+				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE , 
+						"Could't navigate to " +  screen.toUpperCase());
+				flag = false;
+			}
+			break;
+		}
+		case "BATTERY VALUE":{
+		
+			scrollToElementByKeyValue("battery_level");
+			
+			
+			System.out.println("Battery Value: "+ele.byValueKey("battery_level").getText());
+			
+			if (ele.byValueKey("battery_level").getText() != null) {
+				Keyword.ReportStep_Pass(testCase,
+						"Succesfully navigated to " + screen.toUpperCase() + "and installed is : " + ele.byValueKey("battery_level").getText());
 				flag = true;
 			}else {
 				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE , 
@@ -674,25 +693,38 @@ public class LuminaUtils extends BaseDriver {
 			break;
 		}
 		case "LAST UPDATED":{
-//			CompletableFuture<FlutterElement>.runAsync(await ele.byValueKey("last_update"));
-			System.out.println("Hello Last update");
-			System.out.println("L: "+ele.byValueKey("last_update"));
+			
+			scrollToElementByKeyValue("last_updated");
+			
+			//System.out.println("Last Update: "+ele.byValueKey("last_update").getText());
+			
+			if (ele.byValueKey("last_updated").getText() != null) {
+				Keyword.ReportStep_Pass(testCase,
+						"Succesfully navigated to " + screen.toUpperCase() + "and installed is : " + ele.byValueKey("last_updated").getText());
+				flag = true;
+			}else {
+				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE , 
+						"Could't navigate to " +  screen.toUpperCase());
+				flag = false;
+			}
 			break;
 		}
-//		case "NEXT UPDATED":{
-//			System.out.println("Device status: "+ele.byValueKey("next_update").getText());
-//			
-//			if (ele.byValueKey("next_update").getText() != null) {
-//				Keyword.ReportStep_Pass(testCase,
-//						"Succesfully navigated to " + screen.toUpperCase() + "and installed is : " + ele.byValueKey("next_update").getText());
-//				flag = true;
-//			}else {
-//				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE , 
-//						"Could't navigate to " +  screen.toUpperCase());
-//				flag = false;
-//			}
-//			break;
-//		}
+		case "NEXT UPDATED":{
+			scrollToElementByKeyValue("next_update");
+			
+			//System.out.println("Last Update: "+ele.byValueKey("last_update").getText());
+			
+			if (ele.byValueKey("last_update").isDisplayed()) {
+				Keyword.ReportStep_Pass(testCase,
+						"Succesfully navigated to " + screen.toUpperCase() + "and installed is : " + ele.byValueKey("next_update").getText());
+				flag = true;
+			}else {
+				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE , 
+						"Could't navigate to " +  screen.toUpperCase());
+				flag = false;
+			}
+			break;
+		}
 		default : {
 			Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE , 
 					screen.toUpperCase() + " Page not found" );
@@ -990,10 +1022,21 @@ public class LuminaUtils extends BaseDriver {
 		return flag;
 	}
 
+	
 	public void scrollToelement (String element){
 		FlutterFinder ele = new FlutterFinder(driver);
 		driver.executeScript("flutter:scrollUntilVisible", ele.byType("ListView"), new HashMap<String, Object>() {{
 			put("item", ele.text(element));
+			put("dxScroll", 90);
+			put("dyScroll", -400);
+		}});
+
+	}
+	
+	public void scrollToElementByKeyValue (String element){
+		FlutterFinder ele = new FlutterFinder(driver);
+		driver.executeScript("flutter:scrollUntilVisible", ele.byValueKey(element), new HashMap<String, Object>() {{
+			put("item", ele.byValueKey(element));
 			put("dxScroll", 90);
 			put("dyScroll", -400);
 		}});

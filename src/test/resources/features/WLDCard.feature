@@ -1212,20 +1212,36 @@ Feature: As user I should be able to View and perform desired actions in Water L
 
 
 
-
-
-@DeviceStatusTimeStamp
-Scenario: As a user I should be albe to see the Device status with timestamp
-	When user navigates to "Water Card" screen from the "Add New Device Dashboard" screen
-	Then user sees the WLD status and time stamp of status update
-	
-
-
 @StatusOfHome
 Scenario: As a user I should have a quick access to view the status of Home
-	When user navigates to "Water Leak Detector" screen from the "home" screen
-	Then user sees the following:
-	| Device Status | Temparature | Humidity | Connection Status | Battery Status |
+	When user navigates to "Water Card" screen from the "Add New Device Dashboard" screen
+	Then user should see a quick view the following:
+  	| Device Home   | 
+	| Device Status | 
+	| Temperature value |
+	| Humidity value| 
+	| Battery value |
+
+
+
+@HumidityTimeStamp
+Scenario: As a user I should be able to see the humidity reading and time stamp of the Humidity sync time
+	When user navigates to "Water Card" screen from the "Add New Device Dashboard" screen
+	Then user should see the following in WLD main screen:
+	| Device Home   | 
+	#| Humidity value| 
+	#| Last Updated | 
+	| Next Updated |
+	| Temperature value |
+
+@currentTemperature
+Scenario: As a user I should be albe to see the home temperature with the help of WLD
+	When user navigates to "Water Card" screen from the "Add New Device Dashboard" screen
+	Then user should see the following in WLD main screen:
+	| Device Home   | 
+	| Temperature value |
+
+
 
 @EnableManageAlert
 Scenario: As a User I should be able to enable manage alerts
@@ -1261,6 +1277,7 @@ Scenario: As a User I should be able to enable manage alerts
       | Time stamp with Detector name | 
       | Dismiss option                | 
       | Close option                  | 
+  
   
 @DeviceOfflineEvent
 Scenario: As a User I should get device offline event if device is not communicating for more than 24 hours

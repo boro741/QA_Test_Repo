@@ -14,7 +14,7 @@ import com.resideo.lumina.utils.LuminaUtils;
 
 import pro.truongsinh.appium_flutter.FlutterFinder;
 
-public class VerifyDashboard extends Keyword {
+public class HumidityTimeStamp extends Keyword {
 
 	private TestCases testCase;
 	private TestCaseInputs inputs;
@@ -23,9 +23,9 @@ public class VerifyDashboard extends Keyword {
 	public String[][] eventsList;
 	public ArrayList<String> screen;
 
-	
 
-	public VerifyDashboard(TestCases testCase, TestCaseInputs inputs, DataTable dataTable) {
+
+	public HumidityTimeStamp(TestCases testCase, TestCaseInputs inputs, DataTable dataTable) {
 		this.testCase = testCase;
 		this.screen = screen;
 		this.dataTable = dataTable;
@@ -39,44 +39,35 @@ public class VerifyDashboard extends Keyword {
 	}
 
 	@Override
-	@KeywordStep(gherkins = "^user should be displayed with the following Water Leak Detector details:$")
+	@KeywordStep(gherkins = "^user should see the following in WLD main screen:$")
 	public boolean keywordSteps() throws KeywordException {
+		System.out.println("Hello world");
 		LuminaUtils lumina = new LuminaUtils(inputs, testCase);
 		for (int i = 0; i < dataTable.getSize(); i++) {
-			switch (dataTable.getData(i, "Water Leak Detector").trim().toUpperCase()) {
-			case "DEVICE NAME":{
-				lumina.VerifyScreen(dataTable.getData(i, "Water Leak Detector"));
+			switch (dataTable.getData(i, "Device Home").trim().toUpperCase()) {
+			
+			case "HUMIDITY VALUE":{
+				System.out.println("HUMIDITY");
+				lumina.VerifyScreen(dataTable.getData(i, "Device Home").toUpperCase());
 				break;
 			}
-			case "SETTINGS OPTION":{
-				lumina.VerifyScreen(dataTable.getData(i, "Water Leak Detector").toUpperCase());
+			case "LAST UPDATED":{
+				System.out.println("Last Updated");
+				lumina.VerifyScreen(dataTable.getData(i, "Device Home").toUpperCase());
+				break;
+			}
+			case "NEXT UPDATED":{
+				System.out.println("Next Updated");
+				lumina.VerifyScreen(dataTable.getData(i, "Device Home").toUpperCase());
 				break;
 			}
 			case "TEMPERATURE VALUE":{
-				lumina.VerifyScreen(dataTable.getData(i, "Water Leak Detector").toUpperCase());
-				break;
-			}
-			case "HUMIDITY VALUE":{
-				lumina.VerifyScreen(dataTable.getData(i, "Water Leak Detector").toUpperCase());
-				break;
-			}
-			case "DEVICE STATUS":{
-				lumina.VerifyScreen(dataTable.getData(i, "Water Leak Detector").toUpperCase());
-				break;
-			}
-			case "Last Updated Time":{
-				lumina.VerifyScreen(dataTable.getData(i, "Water Leak Detector").toUpperCase());
-				break;
-			}
-			case "BATTERY PERCENTAGE":{
-				lumina.VerifyScreen(dataTable.getData(i, "Water Leak Detector").toUpperCase());
-				break;
-			}
-			case "Next Update Time":{
-				lumina.VerifyScreen(dataTable.getData(i, "Water Leak Detector").toUpperCase());
+				System.out.println("TEMPERATURE");
+				lumina.VerifyScreen(dataTable.getData(i, "Device Home").toUpperCase());
 				break;
 			}
 			default:{
+				flag = false;
 			}
 
 			}
