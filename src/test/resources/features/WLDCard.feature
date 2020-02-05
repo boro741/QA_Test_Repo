@@ -1230,9 +1230,9 @@ Scenario: As a user I should be able to see the humidity reading and time stamp 
 	Then user should see the following in WLD main screen:
 	| Device Home   | 
 	#| Humidity value| 
-	#| Last Updated | 
-	| Next Updated |
-	| Temperature value |
+	| Last Updated | 
+	#| Next Updated |
+	#| Temperature value |
 
 @currentTemperature
 Scenario: As a user I should be albe to see the home temperature with the help of WLD

@@ -37,13 +37,16 @@ public class LuminaUtils extends BaseDriver {
 	public ArrayList<String> screen;
 	private TestCases testCase;
 	private float temperatureVal; 
+	private String lastUpdated = null;
+	private String nextUpdated = null;
+	
 	public LuminaUtils(TestCases testCase, TestCaseInputs inputs) {
 		this.inputs = inputs;
 		this.testCase = testCase;
 	}
 
 	public static AppiumDriver<MobileElement> driver;
-
+	
 	FlutterElements find = new FlutterElements();
 
 	public LuminaUtils(TestCaseInputs inputs, TestCases testCase) {
@@ -694,17 +697,18 @@ public class LuminaUtils extends BaseDriver {
 		}
 		case "LAST UPDATED":{
 			
-			scrollToElementByKeyValue("last_updated");
+			scrollToElementByKeyValue("last_update");
+			getTimeStamp();
 			
-			//System.out.println("Last Update: "+ele.byValueKey("last_update").getText());
+			//System.out.println("LST: "+lastUpdated);
 			
-			if (ele.byValueKey("last_updated").getText() != null) {
+			if (!lastUpdated.isEmpty()) {
 				Keyword.ReportStep_Pass(testCase,
-						"Succesfully navigated to " + screen.toUpperCase() + "and installed is : " + ele.byValueKey("last_updated").getText());
+						"Succesfully fetched  last updated: " + lastUpdated);
 				flag = true;
 			}else {
-				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE , 
-						"Could't navigate to " +  screen.toUpperCase());
+				Keyword.ReportStep_Pass(testCase,
+						"Failed to fetched  last updated: " + lastUpdated);
 				flag = false;
 			}
 			break;
@@ -712,15 +716,15 @@ public class LuminaUtils extends BaseDriver {
 		case "NEXT UPDATED":{
 			scrollToElementByKeyValue("next_update");
 			
-			//System.out.println("Last Update: "+ele.byValueKey("last_update").getText());
+			getTimeStamp();
 			
-			if (ele.byValueKey("last_update").isDisplayed()) {
+			if (!nextUpdated.isEmpty()) {
 				Keyword.ReportStep_Pass(testCase,
-						"Succesfully navigated to " + screen.toUpperCase() + "and installed is : " + ele.byValueKey("next_update").getText());
+						"Succesfully fetched  last updated: " + nextUpdated);
 				flag = true;
 			}else {
-				Keyword.ReportStep_Fail_WithOut_ScreenShot(testCase, FailType.FUNCTIONAL_FAILURE , 
-						"Could't navigate to " +  screen.toUpperCase());
+				Keyword.ReportStep_Pass(testCase,
+						"Failed to fetched  next updated: " + nextUpdated);
 				flag = false;
 			}
 			break;
@@ -1327,5 +1331,22 @@ public class LuminaUtils extends BaseDriver {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	
+	public void getTimeStamp() {
+		driver.context("NATIVE_APP");
+		sleepTime(5000);
+		
+		String timeStamp = driver.findElementsByClassName("android.widget.ImageView").get(2).getAttribute("text").toString();
+		
+		Pattern pattern = Pattern.compile("(([Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec ]*)[ ]([0-9])*[ ][-][ ]([0-9])*[:]([0-9])*[ ]([AM,PM])*)",Pattern.CASE_INSENSITIVE);
+		Matcher matcher = pattern.matcher(timeStamp);
+		if (matcher.find())
+		{
+			lastUpdated = matcher.group(1);
+			nextUpdated = matcher.group(2);
+		}
+		driver.context("FLUTTER");
 	}
 }

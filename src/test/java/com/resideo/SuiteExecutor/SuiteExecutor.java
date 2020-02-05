@@ -27,8 +27,8 @@ public class SuiteExecutor {
 				//                         "Requirement_file_DAS_Sensors_iOS.txt",
 				"--appToInstall","IOS:Resideo_Build_1122,Android:Lumina_1169",
 				"--groups",
-//				"HumidityTimeStamp",
-				"currentTemperature",
+				"HumidityTimeStamp",
+//				"currentTemperature",
 //				"StatusOfHome"
 //			"FahrenheitToCelcius",
 //				"WLDDIYRegistrationToExistingLocation",
