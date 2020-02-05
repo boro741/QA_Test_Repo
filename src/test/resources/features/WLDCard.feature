@@ -1229,10 +1229,10 @@ Scenario: As a user I should be able to see the humidity reading and time stamp 
 	When user navigates to "Water Card" screen from the "Add New Device Dashboard" screen
 	Then user should see the following in WLD main screen:
 	| Device Home   | 
-	#| Humidity value| 
+	| Humidity value| 
 	| Last Updated | 
-	#| Next Updated |
-	#| Temperature value |
+	| Next Updated |
+	| Temperature value |
 
 @currentTemperature
 Scenario: As a user I should be albe to see the home temperature with the help of WLD
